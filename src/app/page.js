@@ -4,14 +4,14 @@ function Logo() {
   return (
     <div className="flex flex-col items-center leading-none select-none">
       <div className="flex items-center gap-0 ">
-        <span className="text-4xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
+        <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
         <span className="text-4xl font-thin text-amber-400">&#10097;</span>
         <span className="text-4xl font-thin text-white dark:text-white -ml-0.5">
           &#10096;
         </span>
-        <span className="text-4xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
+        <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           ODEV
         </span>
       </div>
@@ -57,7 +57,7 @@ export default function Home() {
         <Logo />
 
         {/* Heading */}
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-zinc-900 dark:text-white leading-tight uppercase tracking-widest">
+        <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white leading-tight uppercase tracking-widest">
           We <span className="text-[#CCFF00]">Build</span> Digital Products{' '}
           <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
             That Perform

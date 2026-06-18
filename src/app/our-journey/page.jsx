@@ -151,7 +151,7 @@ const numbers = [
 
 export default function JourneyPage() {
   return (
-    <main className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-br from-violet-100 to-cyan-100 dark:from-violet-950 dark:to-cyan-950 opacity-50 blur-3xl pointer-events-none" />
@@ -230,7 +230,7 @@ export default function JourneyPage() {
                       </span>
                     </div>
                     <div className="p-5 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-zinc-800 hover:border-violet-200 dark:hover:border-violet-800 transition-colors">
-                      <h3 className="font-black font-raleway text-zinc-900 dark:text-white mb-2">
+                      <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2">
                         {m.title}
                       </h3>
                       <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
@@ -288,7 +288,7 @@ export default function JourneyPage() {
                   {v.icon}
                 </div>
                 <div>
-                  <h3 className="font-black font-raleway text-zinc-900 dark:text-white mb-1.5">
+                  <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-1.5">
                     {v.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">

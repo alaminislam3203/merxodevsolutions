@@ -233,7 +233,7 @@ const whyUs = [
 
 export default function ServicesPage() {
   return (
-    <main className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-br from-violet-100 to-cyan-100 dark:from-violet-950 dark:to-cyan-950 opacity-50 blur-3xl pointer-events-none" />
@@ -278,7 +278,7 @@ export default function ServicesPage() {
 
               {/* Title & Desc */}
               <div>
-                <h2 className="font-black font-raleway text-zinc-900 dark:text-white mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                <h2 className="font-black font-raleway text-[#27003B] dark:text-white mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                   {service.title}
                 </h2>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">

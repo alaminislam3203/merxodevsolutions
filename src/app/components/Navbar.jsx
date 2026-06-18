@@ -82,14 +82,14 @@ function Logo() {
   return (
     <div className="flex flex-col items-center leading-none select-none">
       <div className="flex items-center">
-        <span className="text-xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
+        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
         <span className="text-xl font-thin text-amber-400">&#10097;</span>
-        <span className="text-xl font-thin text-zinc-900 dark:text-white -ml-0.5">
+        <span className="text-xl font-thin text-[#27003B] dark:text-white -ml-0.5">
           &#10096;
         </span>
-        <span className="text-xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
+        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           ODEV
         </span>
       </div>

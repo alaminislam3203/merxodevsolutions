@@ -103,7 +103,7 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <main className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
+    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         {/* Background accent */}
@@ -212,7 +212,7 @@ export default function AboutPage() {
                   {v.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold font-raleway mb-1 text-zinc-900 dark:text-white">
+                  <h3 className="font-bold font-raleway mb-1 text-[#27003B] dark:text-white">
                     {v.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -244,7 +244,7 @@ export default function AboutPage() {
                   {s.icon}
                 </span>
                 <div>
-                  <p className="font-bold text-sm font-raleway text-zinc-900 dark:text-white">
+                  <p className="font-bold text-sm font-raleway text-[#27003B] dark:text-white">
                     {s.label}
                   </p>
                   <p className="text-xs text-zinc-400 mt-0.5">{s.desc}</p>
@@ -278,7 +278,7 @@ export default function AboutPage() {
                   />
                 </div>
                 <div>
-                  <p className="font-bold font-raleway text-zinc-900 dark:text-white">
+                  <p className="font-bold font-raleway text-[#27003B] dark:text-white">
                     {member.name}
                   </p>
                   <p className="text-xs text-violet-500 font-medium mt-0.5">
