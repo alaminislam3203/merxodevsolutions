@@ -7,8 +7,10 @@ function Logo() {
         <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
-        <span className="text-4xl font-thin text-amber-400">&#10097;</span>
-        <span className="text-4xl font-thin text-white dark:text-white -ml-0.5">
+        <span className="text-2xl sm:text-3xl md:text-4xl font-thin text-amber-400">
+          &#10097;
+        </span>
+        <span className="text-2xl sm:text-3xl md:text-4xl font-thin text-white dark:text-white -ml-0.5">
           &#10096;
         </span>
         <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
