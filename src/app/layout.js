@@ -1,15 +1,24 @@
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Anton, DM_Sans, Raleway } from 'next/font/google';
 import './globals.css';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const anton = Anton({
+  weight: ['400'],
   subsets: ['latin'],
+  variable: '--font-anton',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const dmSans = DM_Sans({
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
+  variable: '--font-dm',
+});
+
+const raleway = Raleway({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  variable: '--font-raleway',
 });
 
 export const metadata = {
@@ -28,12 +37,12 @@ export const metadata = {
   ],
   authors: [{ name: 'MerxoDevSolutions' }],
   creator: 'MerxoDevSolutions',
-  metadataBase: new URL('https://merxodevsolutions.com'),
+  metadataBase: new URL('https://merxodevsolutions.vercel.app'),
   openGraph: {
     title: 'MerxoDevSolutions – Custom Web & App Development',
     description:
       'We build high-performance websites and digital products that grow your business.',
-    url: 'https://merxodevsolutions.com',
+    url: 'https://merxodevsolutions.vercel.app',
     siteName: 'MerxoDevSolutions',
     images: [
       {
@@ -65,21 +74,19 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-  },
+  icons: { icon: '/favicon.png', shortcut: '/favicon.png' },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${anton.variable} ${dmSans.variable} ${raleway.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col font-sans">
         <Navbar />
-        {children}
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -3,12 +3,12 @@ import Link from 'next/link';
 function Logo() {
   return (
     <div className="flex flex-col items-center leading-none select-none">
-      <div className="flex items-center gap-0">
+      <div className="flex items-center gap-0 ">
         <span className="text-4xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
           MER
         </span>
-        <span className="text-4xl font-black text-amber-400">&#10097;</span>
-        <span className="text-4xl font-black text-white dark:text-white ml-0">
+        <span className="text-4xl font-thin text-amber-400">&#10097;</span>
+        <span className="text-4xl font-thin text-white dark:text-white -ml-0.5">
           &#10096;
         </span>
         <span className="text-4xl font-black tracking-widest text-zinc-900 dark:text-white uppercase">
@@ -49,16 +49,16 @@ export default function Home() {
       <div className="relative z-10 flex flex-col items-center text-center gap-8 px-6 max-w-3xl">
         {/* Badge */}
         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
-          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
-          Available for new projects
+          <span className="font-display w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+          Available For New Projects
         </span>
 
         {/* Logo */}
         <Logo />
 
         {/* Heading */}
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
-          We Build Digital Products{' '}
+        <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-zinc-900 dark:text-white leading-tight uppercase tracking-widest">
+          We <span className="text-[#CCFF00]">Build</span> Digital Products{' '}
           <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
             That Perform
           </span>
