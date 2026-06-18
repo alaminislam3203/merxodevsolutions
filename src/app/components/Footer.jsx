@@ -113,26 +113,6 @@ export default function Footer() {
 
   return (
     <footer className="bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-800">
-      {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-violet-600 to-cyan-500">
-        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h2 className="text-2xl font-bold text-white font-raleway">
-              Ready to build something great?
-            </h2>
-            <p className="text-violet-100 text-sm mt-1">
-              Let's turn your ideas into reality — together.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="shrink-0 px-6 py-3 rounded-xl bg-white text-violet-600 text-sm font-bold font-raleway hover:bg-violet-50 transition-colors shadow-sm"
-          >
-            Start a Project
-          </Link>
-        </div>
-      </div>
-
       {/* Main Footer Body */}
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand Column */}
