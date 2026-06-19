@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -111,11 +111,30 @@ function Logo() {
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
 
   return (
     <>
       {/* ─── Desktop Navbar ─── */}
-      <nav className="hidden md:block fixed top-0 inset-x-0 z-50">
+      <nav
+        className={`hidden md:block fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${
+          scrolled
+            ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-sm'
+            : 'bg-transparent'
+        }`}
+        style={{
+          WebkitMaskImage:
+            'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+          maskImage:
+            'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+        }}
+      >
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/">
             <Logo />
