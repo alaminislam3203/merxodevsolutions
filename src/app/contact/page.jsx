@@ -25,26 +25,58 @@ export default function ContactPage() {
 
   const handleChange = e => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    // ── Clear error on change ──
     if (errors[e.target.name]) {
       setErrors(prev => ({ ...prev, [e.target.name]: '' }));
     }
   };
 
+  // ─────────────────────────────────────────
+  //  Client-side Validation
+  // ─────────────────────────────────────────
   const validate = () => {
     const newErrors = {};
-    if (!form.email) {
+
+    // Name
+    if (!form.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (form.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    // Email
+    if (!form.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = 'Enter a valid email address';
     }
+
+    // Phone (optional but validate if filled)
+    if (form.phone && !/^[+\d\s\-()]{7,15}$/.test(form.phone)) {
+      newErrors.phone = 'Enter a valid phone number';
+    }
+
+    // Message
+    if (!form.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (form.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    } else if (form.message.trim().length > 2000) {
+      newErrors.message = 'Message must be under 2000 characters';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // ─────────────────────────────────────────
+  //  Form Submit Handler
+  // ─────────────────────────────────────────
   const handleSubmit = async e => {
     e.preventDefault();
     if (!validate()) return;
     setStatus('loading');
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/contact`,
@@ -55,7 +87,8 @@ export default function ContactPage() {
         },
       );
       const data = await res.json();
-      if (data.success) {
+
+      if (res.ok && data.success) {
         setStatus('success');
         setForm({
           name: '',
@@ -65,6 +98,18 @@ export default function ContactPage() {
           budget: '',
           message: '',
         });
+        setErrors({});
+      } else if (res.status === 429) {
+        // Rate limit hit
+        setStatus('ratelimit');
+      } else if (data.errors) {
+        // Server-side validation errors
+        const serverErrors = {};
+        data.errors.forEach(err => {
+          serverErrors[err.path] = err.msg;
+        });
+        setErrors(serverErrors);
+        setStatus('idle');
       } else {
         setStatus('error');
       }
@@ -72,6 +117,7 @@ export default function ContactPage() {
       setStatus('error');
     }
   };
+
   return (
     <div className="relative min-h-screen bg-white dark:bg-zinc-950 pt-24 pb-32 px-6 overflow-hidden">
       <div
@@ -90,11 +136,11 @@ export default function ContactPage() {
       />
 
       <div className="relative z-10 max-w-2xl mx-auto">
-        {/* Header */}
+        {/* ── Header ── */}
         <div className="flex flex-col items-center text-center gap-4 mb-12">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
-            We respond within 24 hours
+            We respond within 02-12 hours
           </span>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-widest leading-tight">
             Let's{' '}
@@ -108,8 +154,12 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* ── Form ── */}
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          className="flex flex-col gap-4"
+        >
           {/* Name */}
           <div className="flex flex-col gap-1.5">
             <label className="text-[10px] font-bold tracking-widest text-amber-500 uppercase font-raleway">
@@ -118,15 +168,23 @@ export default function ContactPage() {
             <input
               type="text"
               name="name"
-              required
               value={form.name}
               onChange={handleChange}
               placeholder="Enter your name"
-              className="px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition"
+              className={`px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
+                errors.name
+                  ? 'border-rose-500 focus:ring-rose-500'
+                  : 'border-zinc-200 dark:border-zinc-800 focus:ring-violet-500'
+              }`}
             />
+            {errors.name && (
+              <p className="text-[11px] text-rose-500 font-medium font-raleway">
+                ⚠ {errors.name}
+              </p>
+            )}
           </div>
 
-          {/* Email — full width */}
+          {/* Email */}
           <div className="flex flex-col gap-1.5">
             <label className="text-[10px] font-bold tracking-widest text-amber-500 uppercase font-raleway">
               Email Address *
@@ -134,7 +192,6 @@ export default function ContactPage() {
             <input
               type="email"
               name="email"
-              required
               value={form.email}
               onChange={handleChange}
               placeholder="Enter your email"
@@ -162,8 +219,17 @@ export default function ContactPage() {
               value={form.phone}
               onChange={handleChange}
               placeholder="+880 1234 567890"
-              className="px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition"
+              className={`px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
+                errors.phone
+                  ? 'border-rose-500 focus:ring-rose-500'
+                  : 'border-zinc-200 dark:border-zinc-800 focus:ring-violet-500'
+              }`}
             />
+            {errors.phone && (
+              <p className="text-[11px] text-rose-500 font-medium font-raleway">
+                ⚠ {errors.phone}
+              </p>
+            )}
           </div>
 
           {/* Service & Budget */}
@@ -208,16 +274,36 @@ export default function ContactPage() {
             </label>
             <textarea
               name="message"
-              required
               rows={5}
               value={form.message}
               onChange={handleChange}
               placeholder="Tell us about your project..."
-              className="px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition resize-none"
+              className={`px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:outline-none focus:ring-2 transition resize-none ${
+                errors.message
+                  ? 'border-rose-500 focus:ring-rose-500'
+                  : 'border-zinc-200 dark:border-zinc-800 focus:ring-violet-500'
+              }`}
             />
+            <div className="flex justify-between items-center">
+              {errors.message ? (
+                <p className="text-[11px] text-rose-500 font-medium font-raleway">
+                  ⚠ {errors.message}
+                </p>
+              ) : (
+                <span />
+              )}
+              {/* Character counter */}
+              <span
+                className={`text-[11px] font-raleway ml-auto ${
+                  form.message.length > 1800 ? 'text-rose-400' : 'text-zinc-400'
+                }`}
+              >
+                {form.message.length}/2000
+              </span>
+            </div>
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={status === 'loading'}
@@ -226,13 +312,12 @@ export default function ContactPage() {
             {status === 'loading' ? 'Sending...' : 'Send Message →'}
           </button>
 
-          {/* Status Messages */}
+          {/* ── Status Messages ── */}
+
+          {/* Success */}
           {status === 'success' && (
             <div className="relative overflow-hidden flex items-start gap-4 px-5 py-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-teal-950/40 border border-emerald-200 dark:border-emerald-800">
-              {/* Decorative glow */}
               <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-emerald-200 dark:bg-emerald-800 opacity-30 blur-2xl pointer-events-none" />
-
-              {/* Animated check icon */}
               <div className="relative shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-md shadow-emerald-200 dark:shadow-emerald-900">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -248,20 +333,32 @@ export default function ContactPage() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-
               <div className="relative flex flex-col gap-1">
                 <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300 font-raleway">
                   Message sent successfully!
                 </p>
                 <p className="text-xs text-emerald-600/80 dark:text-emerald-400/80 font-raleway leading-relaxed">
-                  We'll get back to you within 24 hours. Check your email .
+                  We'll get back to you within 2–12 hours. Check your inbox for
+                  a confirmation email.
                 </p>
               </div>
             </div>
           )}
+
+          {/* Rate Limit */}
+          {status === 'ratelimit' && (
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800">
+              <span className="text-amber-500 text-lg">⏳</span>
+              <p className="text-sm font-medium text-amber-600 dark:text-amber-400 font-raleway">
+                Too many submissions. Please wait an hour before trying again.
+              </p>
+            </div>
+          )}
+
+          {/* Error */}
           {status === 'error' && (
             <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800">
-              <span className="w-2 h-2 rounded-full bg-rose-500" />
+              <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
               <p className="text-sm font-medium text-rose-600 dark:text-rose-400 font-raleway">
                 Something went wrong. Please try again or email us directly.
               </p>
@@ -269,7 +366,7 @@ export default function ContactPage() {
           )}
         </form>
 
-        {/* Direct Contact */}
+        {/* ── Direct Contact ── */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <a
             href="mailto:merxodevsolutions@gmail.com"
