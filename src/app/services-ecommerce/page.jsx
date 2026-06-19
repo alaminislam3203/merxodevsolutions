@@ -129,7 +129,7 @@ export default function EcommerceContent() {
   const related = arr(t, 'ecommerce.related.items');
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
+    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white ">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-br from-cyan-100 to-teal-100 dark:from-cyan-950 dark:to-teal-950 opacity-50 blur-3xl pointer-events-none" />
@@ -137,7 +137,7 @@ export default function EcommerceContent() {
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-[11px] text-zinc-400 font-raleway mb-5"
+            className="flex items-center justify-center gap-2 text-[11px] text-zinc-400 font-display mb-5"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
               {t('ecommerce.breadcrumb.home')}
@@ -158,7 +158,7 @@ export default function EcommerceContent() {
           <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-4">
             {t('ecommerce.badge')}
           </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-raleway mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black uppercase font-display mb-6 leading-tight">
             {t('ecommerce.heroTitleStart')}{' '}
             <span className="bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">
               {t('ecommerce.heroTitleHighlight')}
@@ -231,7 +231,7 @@ export default function EcommerceContent() {
                     {meta.icon}
                   </div>
                   <div>
-                    <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase">
                       {feature.title}
                     </h3>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -257,7 +257,7 @@ export default function EcommerceContent() {
             </span>
             <h2
               id="included-heading"
-              className="text-3xl font-black font-raleway"
+              className="text-3xl font-black font-raleway uppercase"
             >
               {t('ecommerce.included.heading')}
             </h2>
