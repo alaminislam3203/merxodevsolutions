@@ -123,35 +123,39 @@ export default function Navbar() {
     <>
       {/* ─── Desktop Navbar ─── */}
       <nav
-        className={`hidden md:block fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${
+        className={`hidden md:block fixed top-0 inset-x-0 z-50 overflow-visible transition-all duration-500 ease-in-out ${
           scrolled
-            ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-sm'
+            ? 'bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-zinc-950/80 backdrop-blur-xl shadow-sm'
             : 'bg-transparent'
         }`}
-        style={{
-          WebkitMaskImage:
-            'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-          maskImage:
-            'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-        }}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/">
-            <Logo />
-          </Link>
+        <div className="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* ── Masked layer: Logo + Links + ThemeToggle + CTA ── */}
+          <div
+            className="contents"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+              maskImage:
+                'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+            }}
+          >
+            <Link href="/">
+              <Logo />
+            </Link>
 
-          <div className="flex items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400 font-raleway font-semibold uppercase">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <div className="flex items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400 font-raleway font-semibold uppercase">
+              {navLinks.map(link => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
-
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <ThemeToggle iconOnly />
@@ -166,7 +170,13 @@ export default function Navbar() {
       </nav>
 
       {/* ─── Mobile Top Bar ─── */}
-      <nav className="md:hidden fixed top-0 inset-x-0 z-50 ">
+      <nav
+        className={`md:hidden fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${
+          scrolled
+            ? 'bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-zinc-950/80 backdrop-blur-xl'
+            : 'bg-transparent'
+        }`}
+      >
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/">
             <Logo />

@@ -97,7 +97,7 @@ export default function LanguageSwitcher() {
 
         {/* Dropdown Menu */}
         {open && (
-          <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-50">
+          <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-[9999]">
             {languages.map(({ code, label, full, activeColor }) => (
               <button
                 key={code}

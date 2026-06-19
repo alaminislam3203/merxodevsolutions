@@ -241,7 +241,7 @@ export default function ServicesPage() {
           <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-4">
             What We Offer
           </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-raleway mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-display tracking-wide mb-6 leading-tight uppercase">
             Services built for{' '}
             <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
               real results.
