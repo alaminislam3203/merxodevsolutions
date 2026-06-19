@@ -4,6 +4,179 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      stats: {
+        badge: 'Our Track Record',
+        headingStart: 'Numbers that',
+        headingEnd: 'speak for us',
+        subtext:
+          "We don't just promise results — here's what we've actually delivered for our clients.",
+        items: [
+          { value: 50, suffix: '+', label: 'Projects Completed' },
+          { value: 30, suffix: '+', label: 'Happy Clients' },
+          { value: 2, suffix: '+', label: 'Years Experience' },
+          { value: 100, suffix: '%', label: 'Client Satisfaction' },
+        ],
+      },
+      ecommerce: {
+        breadcrumb: {
+          home: 'Home',
+          services: 'Services',
+          current: 'E-commerce',
+        },
+        badge: 'E-commerce Development',
+        heroTitleStart: 'Online stores that',
+        heroTitleHighlight: 'actually sell.',
+        heroDesc:
+          'We build fast, secure, and beautiful e-commerce stores for Bangladeshi and global businesses — with the payment gateways and features your customers expect.',
+        ctaStartStore: 'Start Your Store',
+        ctaViewWork: 'View Past Work',
+        stats: [
+          { value: '30+', label: 'Stores Launched' },
+          { value: '4.9★', label: 'Average Rating' },
+          { value: '3×', label: 'Avg. Conversion Lift' },
+          { value: '< 2s', label: 'Page Load Time' },
+        ],
+        features: {
+          badge: 'What You Get',
+          heading: 'Everything your store needs',
+          items: [
+            {
+              title: 'Product Management',
+              desc: 'Unlimited products, variants (size, color), stock tracking, bulk upload via CSV — all from a clean admin panel.',
+            },
+            {
+              title: 'Payment Gateways',
+              desc: 'bKash, Nagad, Rocket, Stripe, SSLCommerz — we integrate the payment methods your customers already trust.',
+            },
+            {
+              title: 'Mobile-First Design',
+              desc: 'Over 80% of Bangladeshi shoppers use mobile. Every store we build is pixel-perfect on phones first.',
+            },
+            {
+              title: 'Secure Checkout',
+              desc: 'SSL encryption, secure sessions, fraud protection, and PCI-compliant payment flows — zero compromise on security.',
+            },
+            {
+              title: 'Smart Search & Filters',
+              desc: 'Instant search, category filters, price range, ratings — customers find what they want in seconds.',
+            },
+            {
+              title: 'Analytics & Reports',
+              desc: 'Sales dashboard, revenue trends, best-selling products, customer data — everything you need to grow.',
+            },
+            {
+              title: 'Order & Return Management',
+              desc: 'Full order lifecycle — placed, processing, shipped, delivered. Return requests handled cleanly in the dashboard.',
+            },
+            {
+              title: 'SEO Optimized',
+              desc: 'Schema markup, sitemap, meta tags, fast Core Web Vitals — built to rank on Google from day one.',
+            },
+            {
+              title: 'Inventory & Stock Control',
+              desc: 'Low-stock alerts, auto-disable out-of-stock products, multi-warehouse support for growing businesses.',
+            },
+          ],
+        },
+        included: {
+          badge: 'Full Package',
+          heading: "What's included in every store",
+          items: [
+            'Custom storefront design (Figma → code)',
+            'Product catalog with unlimited categories',
+            'Shopping cart & wishlist',
+            'Secure checkout with local & global payments',
+            'Admin dashboard (orders, products, customers)',
+            'Customer accounts & order history',
+            'Promo codes & discount system',
+            'Email notifications (order, shipping, invoice)',
+            'SEO meta tags, sitemap & schema',
+            'Google Analytics integration',
+            'Mobile-first responsive layout',
+            '3 months post-launch support',
+          ],
+        },
+        process: {
+          badge: 'How It Works',
+          heading: 'From idea to live store',
+          steps: [
+            {
+              title: 'Discovery Call',
+              desc: 'We understand your products, target audience, and business goals.',
+            },
+            {
+              title: 'Design in Figma',
+              desc: 'Full storefront mockup — homepage, product page, cart, and checkout.',
+            },
+            {
+              title: 'Development',
+              desc: 'We build your store with clean Next.js code, hooked up to your chosen payment gateway.',
+            },
+            {
+              title: 'Testing & QA',
+              desc: 'Cross-device testing, checkout flow verification, and speed optimization.',
+            },
+            {
+              title: 'Launch & Support',
+              desc: 'We deploy, monitor, and stay available for 3 months post-launch.',
+            },
+          ],
+        },
+        tech: {
+          badge: 'Tech Stack',
+          heading: 'Tools we build with',
+          categories: {
+            Frontend: 'Frontend',
+            Backend: 'Backend',
+            Database: 'Database',
+            Payments: 'Payments',
+            Storage: 'Storage',
+            Hosting: 'Hosting',
+          },
+        },
+        faq: {
+          badge: 'FAQ',
+          heading: 'Common questions',
+          items: [
+            {
+              q: 'Can you integrate bKash and Nagad?',
+              a: 'Yes — we integrate bKash, Nagad, Rocket, SSLCommerz, and Stripe. We handle the entire API setup and testing.',
+            },
+            {
+              q: 'How long does it take to build an e-commerce store?',
+              a: 'A standard store takes 3–6 weeks depending on complexity. Custom features or large catalogs may take longer.',
+            },
+            {
+              q: 'Will I be able to manage my store myself?',
+              a: 'Absolutely. We build an easy-to-use admin panel so you can add products, manage orders, and update content without touching code.',
+            },
+            {
+              q: 'Do you offer ongoing maintenance?',
+              a: 'Yes — all our stores come with 3 months of free support. After that, we offer flexible maintenance packages.',
+            },
+            {
+              q: 'Is the store mobile-friendly?',
+              a: 'Every store we build is mobile-first. We test on real devices across Android and iOS before launch.',
+            },
+          ],
+        },
+        related: {
+          badge: 'Related Services',
+          heading: 'Often paired with',
+          items: [
+            { label: 'Payment Gateway' },
+            { label: 'SEO Optimization' },
+            { label: 'Admin Dashboard' },
+          ],
+        },
+        cta: {
+          heading: 'Ready to launch your store?',
+          desc: "Tell us about your products and we'll build you a store that converts — no fluff, no templates, 100% custom.",
+          getQuote: 'Get a Free Quote',
+          allServices: 'All Services',
+        },
+      },
+
       // Navbar
       home: 'Home',
       services: 'Services',
@@ -155,6 +328,179 @@ const resources = {
 
   bn: {
     translation: {
+      stats: {
+        badge: 'আমাদের অর্জন',
+        headingStart: 'সংখ্যাগুলোই',
+        headingEnd: 'আমাদের পরিচয়',
+        subtext:
+          'আমরা শুধু প্রতিশ্রুতি দিই না — এই হলো আমাদের ক্লায়েন্টদের জন্য আমরা প্রকৃতপক্ষে যা ডেলিভার করেছি।',
+        items: [
+          { value: 50, suffix: '+', label: 'সম্পন্ন প্রজেক্ট' },
+          { value: 30, suffix: '+', label: 'সন্তুষ্ট ক্লায়েন্ট' },
+          { value: 2, suffix: '+', label: 'বছরের অভিজ্ঞতা' },
+          { value: 100, suffix: '%', label: 'ক্লায়েন্ট সন্তুষ্টি' },
+        ],
+      },
+      ecommerce: {
+        breadcrumb: {
+          home: 'হোম',
+          services: 'সার্ভিসেস',
+          current: 'ই-কমার্স',
+        },
+        badge: 'ই-কমার্স ডেভেলপমেন্ট',
+        heroTitleStart: 'এমন অনলাইন স্টোর যা',
+        heroTitleHighlight: 'সত্যিই বিক্রি হয়।',
+        heroDesc:
+          'আমরা বাংলাদেশি ও আন্তর্জাতিক ব্যবসার জন্য দ্রুত, নিরাপদ ও সুন্দর ই-কমার্স স্টোর তৈরি করি — যেসব পেমেন্ট গেটওয়ে ও ফিচার আপনার কাস্টমাররা চায়, সেগুলো নিয়েই।',
+        ctaStartStore: 'আপনার স্টোর শুরু করুন',
+        ctaViewWork: 'আগের কাজ দেখুন',
+        stats: [
+          { value: '৩০+', label: 'লঞ্চ করা স্টোর' },
+          { value: '৪.৯★', label: 'গড় রেটিং' },
+          { value: '৩×', label: 'গড় কনভার্শন বৃদ্ধি' },
+          { value: '< ২s', label: 'পেজ লোড টাইম' },
+        ],
+        features: {
+          badge: 'আপনি যা পাচ্ছেন',
+          heading: 'আপনার স্টোরের জন্য প্রয়োজনীয় সবকিছু',
+          items: [
+            {
+              title: 'প্রোডাক্ট ম্যানেজমেন্ট',
+              desc: 'আনলিমিটেড প্রোডাক্ট, ভ্যারিয়েন্ট (সাইজ, কালার), স্টক ট্র্যাকিং, CSV দিয়ে বাল্ক আপলোড — সবকিছু একটি ক্লিন অ্যাডমিন প্যানেল থেকে।',
+            },
+            {
+              title: 'পেমেন্ট গেটওয়ে',
+              desc: 'বিকাশ, নগদ, রকেট, Stripe, SSLCommerz — আপনার কাস্টমাররা যেসব পেমেন্ট মেথড বিশ্বাস করে, আমরা সেগুলোই ইন্টিগ্রেট করি।',
+            },
+            {
+              title: 'মোবাইল-ফার্স্ট ডিজাইন',
+              desc: '৮০%-এরও বেশি বাংলাদেশি ক্রেতা মোবাইল ব্যবহার করেন। আমরা যেকোনো স্টোর তৈরি করি প্রথমে মোবাইলের জন্য, পিক্সেল-পারফেক্ট করে।',
+            },
+            {
+              title: 'নিরাপদ চেকআউট',
+              desc: 'SSL এনক্রিপশন, সিকিউর সেশন, ফ্রড প্রোটেকশন এবং PCI-কমপ্লায়েন্ট পেমেন্ট ফ্লো — নিরাপত্তায় কোনো আপস নেই।',
+            },
+            {
+              title: 'স্মার্ট সার্চ ও ফিল্টার',
+              desc: 'ইনস্ট্যান্ট সার্চ, ক্যাটাগরি ফিল্টার, প্রাইস রেঞ্জ, রেটিং — কাস্টমাররা সেকেন্ডের মধ্যেই তাদের প্রয়োজনীয় জিনিস খুঁজে পায়।',
+            },
+            {
+              title: 'অ্যানালিটিক্স ও রিপোর্ট',
+              desc: 'সেলস ড্যাশবোর্ড, রেভিনিউ ট্রেন্ড, সবচেয়ে বেশি বিক্রি হওয়া প্রোডাক্ট, কাস্টমার ডেটা — বৃদ্ধির জন্য প্রয়োজনীয় সবকিছু।',
+            },
+            {
+              title: 'অর্ডার ও রিটার্ন ম্যানেজমেন্ট',
+              desc: 'সম্পূর্ণ অর্ডার লাইফসাইকেল — প্লেসড, প্রসেসিং, শিপড, ডেলিভারড। রিটার্ন রিকোয়েস্ট ড্যাশবোর্ড থেকেই সহজে হ্যান্ডেল করা যায়।',
+            },
+            {
+              title: 'SEO অপ্টিমাইজড',
+              desc: 'স্কিমা মার্কআপ, সাইটম্যাপ, মেটা ট্যাগ, দ্রুত Core Web Vitals — প্রথম দিন থেকেই গুগলে র‍্যাঙ্ক করার জন্য তৈরি।',
+            },
+            {
+              title: 'ইনভেন্টরি ও স্টক কন্ট্রোল',
+              desc: 'লো-স্টক অ্যালার্ট, স্টক শেষ হলে প্রোডাক্ট অটো-ডিজেবল, বাড়ন্ত ব্যবসার জন্য মাল্টি-ওয়্যারহাউজ সাপোর্ট।',
+            },
+          ],
+        },
+        included: {
+          badge: 'ফুল প্যাকেজ',
+          heading: 'প্রতিটি স্টোরে যা যা থাকছে',
+          items: [
+            'কাস্টম স্টোরফ্রন্ট ডিজাইন (Figma → কোড)',
+            'আনলিমিটেড ক্যাটাগরি সহ প্রোডাক্ট ক্যাটালগ',
+            'শপিং কার্ট ও উইশলিস্ট',
+            'লোকাল ও গ্লোবাল পেমেন্ট সহ নিরাপদ চেকআউট',
+            'অ্যাডমিন ড্যাশবোর্ড (অর্ডার, প্রোডাক্ট, কাস্টমার)',
+            'কাস্টমার অ্যাকাউন্ট ও অর্ডার হিস্টোরি',
+            'প্রোমো কোড ও ডিসকাউন্ট সিস্টেম',
+            'ইমেইল নোটিফিকেশন (অর্ডার, শিপিং, ইনভয়েস)',
+            'SEO মেটা ট্যাগ, সাইটম্যাপ ও স্কিমা',
+            'গুগল অ্যানালিটিক্স ইন্টিগ্রেশন',
+            'মোবাইল-ফার্স্ট রেসপনসিভ লেআউট',
+            '৩ মাসের পোস্ট-লঞ্চ সাপোর্ট',
+          ],
+        },
+        process: {
+          badge: 'কীভাবে কাজ করি',
+          heading: 'আইডিয়া থেকে লাইভ স্টোর পর্যন্ত',
+          steps: [
+            {
+              title: 'ডিসকভারি কল',
+              desc: 'আমরা আপনার প্রোডাক্ট, টার্গেট অডিয়েন্স এবং বিজনেস গোল বুঝি।',
+            },
+            {
+              title: 'Figma-তে ডিজাইন',
+              desc: 'সম্পূর্ণ স্টোরফ্রন্ট মকআপ — হোমপেজ, প্রোডাক্ট পেজ, কার্ট এবং চেকআউট।',
+            },
+            {
+              title: 'ডেভেলপমেন্ট',
+              desc: 'আমরা ক্লিন Next.js কোড দিয়ে আপনার স্টোর তৈরি করি, আপনার পছন্দের পেমেন্ট গেটওয়ের সাথে যুক্ত করে।',
+            },
+            {
+              title: 'টেস্টিং ও QA',
+              desc: 'ক্রস-ডিভাইস টেস্টিং, চেকআউট ফ্লো ভেরিফিকেশন এবং স্পিড অপ্টিমাইজেশন।',
+            },
+            {
+              title: 'লঞ্চ ও সাপোর্ট',
+              desc: 'আমরা ডিপ্লয় করি, মনিটর করি, এবং লঞ্চের পর ৩ মাস পাশে থাকি।',
+            },
+          ],
+        },
+        tech: {
+          badge: 'টেক স্ট্যাক',
+          heading: 'আমরা যেসব টুল দিয়ে তৈরি করি',
+          categories: {
+            Frontend: 'ফ্রন্টএন্ড',
+            Backend: 'ব্যাকএন্ড',
+            Database: 'ডেটাবেজ',
+            Payments: 'পেমেন্ট',
+            Storage: 'স্টোরেজ',
+            Hosting: 'হোস্টিং',
+          },
+        },
+        faq: {
+          badge: 'FAQ',
+          heading: 'সাধারণ প্রশ্ন',
+          items: [
+            {
+              q: 'আপনারা কি বিকাশ ও নগদ ইন্টিগ্রেট করতে পারেন?',
+              a: 'হ্যাঁ — আমরা বিকাশ, নগদ, রকেট, SSLCommerz এবং Stripe ইন্টিগ্রেট করি। সম্পূর্ণ API সেটআপ ও টেস্টিং আমরাই করি।',
+            },
+            {
+              q: 'একটি ই-কমার্স স্টোর তৈরি করতে কত সময় লাগে?',
+              a: 'একটি স্ট্যান্ডার্ড স্টোর তৈরি করতে কমপ্লেক্সিটি অনুযায়ী ৩–৬ সপ্তাহ লাগে। কাস্টম ফিচার বা বড় ক্যাটালগের ক্ষেত্রে বেশি সময় লাগতে পারে।',
+            },
+            {
+              q: 'আমি কি নিজেই আমার স্টোর ম্যানেজ করতে পারব?',
+              a: 'অবশ্যই। আমরা এমন একটি সহজ অ্যাডমিন প্যানেল তৈরি করি যাতে আপনি কোড না ছুঁয়েই প্রোডাক্ট যোগ করতে, অর্ডার ম্যানেজ করতে এবং কন্টেন্ট আপডেট করতে পারেন।',
+            },
+            {
+              q: 'আপনারা কি চলমান মেইনটেনেন্স অফার করেন?',
+              a: 'হ্যাঁ — আমাদের সব স্টোরে ৩ মাসের ফ্রি সাপোর্ট থাকে। এরপর আমরা ফ্লেক্সিবল মেইনটেনেন্স প্যাকেজ অফার করি।',
+            },
+            {
+              q: 'স্টোরটি কি মোবাইল-ফ্রেন্ডলি?',
+              a: 'আমরা যেকোনো স্টোর তৈরি করি মোবাইল-ফার্স্ট হিসেবে। লঞ্চের আগে Android ও iOS-এ রিয়েল ডিভাইসে আমরা টেস্ট করি।',
+            },
+          ],
+        },
+        related: {
+          badge: 'সম্পর্কিত সার্ভিস',
+          heading: 'প্রায়ই একসাথে নেওয়া হয়',
+          items: [
+            { label: 'পেমেন্ট গেটওয়ে' },
+            { label: 'SEO অপ্টিমাইজেশন' },
+            { label: 'অ্যাডমিন ড্যাশবোর্ড' },
+          ],
+        },
+        cta: {
+          heading: 'আপনার স্টোর লঞ্চ করার জন্য প্রস্তুত?',
+          desc: 'আপনার প্রোডাক্ট সম্পর্কে আমাদের জানান, আমরা এমন একটি স্টোর তৈরি করব যা কনভার্ট করে — কোনো ফ্লাফ নয়, কোনো টেমপ্লেট নয়, ১০০% কাস্টম।',
+          getQuote: 'ফ্রি কোট নিন',
+          allServices: 'সব সার্ভিস',
+        },
+      },
+
       // Navbar
       home: 'হোম',
       services: 'সেবা',
@@ -306,6 +652,178 @@ const resources = {
 
   ar: {
     translation: {
+      stats: {
+        badge: 'سجلّنا الحافل',
+        headingStart: 'أرقام',
+        headingEnd: 'تتحدث عنّا',
+        subtext: 'نحن لا نَعِد فقط — هذا ما قدّمناه فعليًا لعملائنا.',
+        items: [
+          { value: 50, suffix: '+', label: 'مشروع مكتمل' },
+          { value: 30, suffix: '+', label: 'عميل سعيد' },
+          { value: 2, suffix: '+', label: 'سنوات خبرة' },
+          { value: 100, suffix: '%', label: 'رضا العملاء' },
+        ],
+      },
+      ecommerce: {
+        breadcrumb: {
+          home: 'الرئيسية',
+          services: 'الخدمات',
+          current: 'التجارة الإلكترونية',
+        },
+        badge: 'تطوير التجارة الإلكترونية',
+        heroTitleStart: 'متاجر إلكترونية',
+        heroTitleHighlight: 'تبيع فعلًا.',
+        heroDesc:
+          'نبني متاجر إلكترونية سريعة وآمنة وجميلة للشركات في بنغلاديش والعالم — مزوّدة ببوابات الدفع والميزات التي يتوقعها عملاؤك.',
+        ctaStartStore: 'ابدأ متجرك',
+        ctaViewWork: 'شاهد أعمالنا السابقة',
+        stats: [
+          { value: '+30', label: 'متجر تم إطلاقه' },
+          { value: '4.9★', label: 'متوسط التقييم' },
+          { value: '×3', label: 'متوسط ارتفاع التحويل' },
+          { value: '< 2s', label: 'زمن تحميل الصفحة' },
+        ],
+        features: {
+          badge: 'ما الذي تحصل عليه',
+          heading: 'كل ما يحتاجه متجرك',
+          items: [
+            {
+              title: 'إدارة المنتجات',
+              desc: 'منتجات غير محدودة، خيارات متعددة (الحجم، اللون)، تتبع المخزون، رفع جماعي عبر CSV — كل ذلك من لوحة تحكم واضحة.',
+            },
+            {
+              title: 'بوابات الدفع',
+              desc: 'bKash وNagad وRocket وStripe وSSLCommerz — ندمج طرق الدفع التي يثق بها عملاؤك بالفعل.',
+            },
+            {
+              title: 'تصميم يراعي الجوال أولًا',
+              desc: 'أكثر من 80% من المتسوقين في بنغلاديش يستخدمون الجوال. كل متجر نبنيه مصمم ليكون مثاليًا على الهاتف أولًا.',
+            },
+            {
+              title: 'دفع آمن',
+              desc: 'تشفير SSL، جلسات آمنة، حماية من الاحتيال، وتدفقات دفع متوافقة مع PCI — لا تنازل عن الأمان.',
+            },
+            {
+              title: 'بحث وفلاتر ذكية',
+              desc: 'بحث فوري، فلاتر للفئات، نطاق الأسعار، التقييمات — يجد العملاء ما يريدون خلال ثوانٍ.',
+            },
+            {
+              title: 'تحليلات وتقارير',
+              desc: 'لوحة مبيعات، اتجاهات الإيرادات، أفضل المنتجات مبيعًا، بيانات العملاء — كل ما تحتاجه للنمو.',
+            },
+            {
+              title: 'إدارة الطلبات والإرجاع',
+              desc: 'دورة حياة كاملة للطلب — تم الطلب، قيد المعالجة، تم الشحن، تم التسليم. طلبات الإرجاع تُدار بسهولة من لوحة التحكم.',
+            },
+            {
+              title: 'محسّن لمحركات البحث',
+              desc: 'بيانات Schema، خريطة الموقع، الوسوم الوصفية، Core Web Vitals سريعة — مبني للترتيب في جوجل من اليوم الأول.',
+            },
+            {
+              title: 'التحكم في المخزون',
+              desc: 'تنبيهات انخفاض المخزون، تعطيل تلقائي للمنتجات غير المتوفرة، ودعم لمستودعات متعددة للأعمال المتنامية.',
+            },
+          ],
+        },
+        included: {
+          badge: 'باقة كاملة',
+          heading: 'ما يتضمنه كل متجر',
+          items: [
+            'تصميم واجهة متجر مخصصة (Figma → كود)',
+            'كتالوج منتجات بفئات غير محدودة',
+            'سلة تسوق وقائمة أمنيات',
+            'دفع آمن بطرق محلية وعالمية',
+            'لوحة تحكم إدارية (الطلبات، المنتجات، العملاء)',
+            'حسابات العملاء وسجل الطلبات',
+            'أكواد ترويجية ونظام خصومات',
+            'إشعارات بريد إلكتروني (الطلب، الشحن، الفاتورة)',
+            'وسوم SEO وخريطة الموقع وبيانات Schema',
+            'دمج مع Google Analytics',
+            'تصميم متجاوب يراعي الجوال أولًا',
+            'دعم فني لمدة 3 أشهر بعد الإطلاق',
+          ],
+        },
+        process: {
+          badge: 'كيف نعمل',
+          heading: 'من الفكرة إلى متجر حقيقي',
+          steps: [
+            {
+              title: 'مكالمة استكشافية',
+              desc: 'نتعرف على منتجاتك وجمهورك المستهدف وأهداف عملك.',
+            },
+            {
+              title: 'التصميم في Figma',
+              desc: 'نموذج كامل لواجهة المتجر — الصفحة الرئيسية، صفحة المنتج، السلة، والدفع.',
+            },
+            {
+              title: 'التطوير',
+              desc: 'نبني متجرك بكود Next.js نظيف، مرتبط ببوابة الدفع التي تختارها.',
+            },
+            {
+              title: 'الاختبار وضمان الجودة',
+              desc: 'اختبار عبر أجهزة متعددة، التحقق من تدفق الدفع، وتحسين السرعة.',
+            },
+            {
+              title: 'الإطلاق والدعم',
+              desc: 'ننشر، نراقب، ونبقى متاحين لمدة 3 أشهر بعد الإطلاق.',
+            },
+          ],
+        },
+        tech: {
+          badge: 'التقنيات المستخدمة',
+          heading: 'الأدوات التي نبني بها',
+          categories: {
+            Frontend: 'الواجهة الأمامية',
+            Backend: 'الخلفية',
+            Database: 'قاعدة البيانات',
+            Payments: 'الدفع',
+            Storage: 'التخزين',
+            Hosting: 'الاستضافة',
+          },
+        },
+        faq: {
+          badge: 'الأسئلة الشائعة',
+          heading: 'أسئلة متكررة',
+          items: [
+            {
+              q: 'هل يمكنكم دمج bKash وNagad؟',
+              a: 'نعم — ندمج bKash وNagad وRocket وSSLCommerz وStripe. نتولى إعداد واختبار واجهات البرمجة بالكامل.',
+            },
+            {
+              q: 'كم تستغرق عملية بناء متجر إلكتروني؟',
+              a: 'يستغرق المتجر القياسي من 3 إلى 6 أسابيع حسب التعقيد. قد تستغرق الميزات المخصصة أو الكتالوجات الكبيرة وقتًا أطول.',
+            },
+            {
+              q: 'هل سأتمكن من إدارة متجري بنفسي؟',
+              a: 'بالتأكيد. نبني لوحة تحكم سهلة الاستخدام تتيح لك إضافة المنتجات وإدارة الطلبات وتحديث المحتوى دون لمس الكود.',
+            },
+            {
+              q: 'هل تقدمون صيانة مستمرة؟',
+              a: 'نعم — تأتي جميع متاجرنا مع 3 أشهر من الدعم المجاني. بعد ذلك، نقدم باقات صيانة مرنة.',
+            },
+            {
+              q: 'هل المتجر متوافق مع الجوال؟',
+              a: 'كل متجر نبنيه مصمم ليراعي الجوال أولًا. نختبره على أجهزة حقيقية بأنظمة Android وiOS قبل الإطلاق.',
+            },
+          ],
+        },
+        related: {
+          badge: 'خدمات ذات صلة',
+          heading: 'غالبًا ما تُطلب معًا',
+          items: [
+            { label: 'بوابة الدفع' },
+            { label: 'تحسين محركات البحث' },
+            { label: 'لوحة التحكم الإدارية' },
+          ],
+        },
+        cta: {
+          heading: 'هل أنت جاهز لإطلاق متجرك؟',
+          desc: 'أخبرنا عن منتجاتك وسنبني لك متجرًا يحقق التحويلات — بلا حشو، بلا قوالب جاهزة، مخصص بنسبة 100%.',
+          getQuote: 'احصل على عرض سعر مجاني',
+          allServices: 'كل الخدمات',
+        },
+      },
+
       // Navbar
       home: 'الرئيسية',
       services: 'الخدمات',
@@ -452,6 +970,178 @@ const resources = {
 
   zh: {
     translation: {
+      stats: {
+        badge: '我们的成绩',
+        headingStart: '用数据',
+        headingEnd: '说话',
+        subtext: '我们不只是承诺——这是我们为客户实际交付的成果。',
+        items: [
+          { value: 50, suffix: '+', label: '已完成项目' },
+          { value: 30, suffix: '+', label: '满意客户' },
+          { value: 2, suffix: '+', label: '年经验' },
+          { value: 100, suffix: '%', label: '客户满意度' },
+        ],
+      },
+      ecommerce: {
+        breadcrumb: {
+          home: '首页',
+          services: '服务',
+          current: '电子商务',
+        },
+        badge: '电子商务开发',
+        heroTitleStart: '真正能卖货的',
+        heroTitleHighlight: '在线商店。',
+        heroDesc:
+          '我们为孟加拉国及全球企业打造快速、安全、美观的电商网站——配备客户期待的支付方式和功能。',
+        ctaStartStore: '开始建店',
+        ctaViewWork: '查看过往案例',
+        stats: [
+          { value: '30+', label: '已上线商店' },
+          { value: '4.9★', label: '平均评分' },
+          { value: '3×', label: '平均转化提升' },
+          { value: '< 2秒', label: '页面加载时间' },
+        ],
+        features: {
+          badge: '您将获得',
+          heading: '商店所需的一切',
+          items: [
+            {
+              title: '商品管理',
+              desc: '无限商品数量、款式选项（尺寸、颜色）、库存追踪、CSV批量上传——全部通过简洁的后台管理。',
+            },
+            {
+              title: '支付网关',
+              desc: 'bKash、Nagad、Rocket、Stripe、SSLCommerz——我们集成客户已经信任的支付方式。',
+            },
+            {
+              title: '移动优先设计',
+              desc: '超过80%的孟加拉国消费者使用手机购物。我们打造的每个商店都以手机端为优先，做到像素级精准。',
+            },
+            {
+              title: '安全结账',
+              desc: 'SSL加密、安全会话、防欺诈保护，以及符合PCI标准的支付流程——安全绝不妥协。',
+            },
+            {
+              title: '智能搜索与筛选',
+              desc: '即时搜索、分类筛选、价格区间、评分——顾客几秒钟内就能找到想要的商品。',
+            },
+            {
+              title: '数据分析与报表',
+              desc: '销售仪表盘、收入趋势、畅销商品、客户数据——业务增长所需的一切。',
+            },
+            {
+              title: '订单与退换管理',
+              desc: '完整订单生命周期——下单、处理中、已发货、已送达。退换货请求可在后台轻松处理。',
+            },
+            {
+              title: 'SEO优化',
+              desc: '结构化数据标记、站点地图、元标签、快速的Core Web Vitals——从第一天起就为谷歌排名而构建。',
+            },
+            {
+              title: '库存管理',
+              desc: '低库存提醒、缺货商品自动下架、支持多仓库，助力业务持续增长。',
+            },
+          ],
+        },
+        included: {
+          badge: '完整套餐',
+          heading: '每个商店都包含',
+          items: [
+            '定制店面设计（Figma → 代码）',
+            '不限分类的商品目录',
+            '购物车与收藏夹',
+            '支持本地与国际支付的安全结账',
+            '后台管理面板（订单、商品、客户）',
+            '客户账户与订单历史',
+            '优惠码与折扣系统',
+            '邮件通知（订单、发货、发票）',
+            'SEO元标签、站点地图与结构化数据',
+            'Google Analytics集成',
+            '移动优先的响应式布局',
+            '上线后3个月技术支持',
+          ],
+        },
+        process: {
+          badge: '我们的流程',
+          heading: '从创意到上线',
+          steps: [
+            {
+              title: '需求沟通',
+              desc: '了解您的产品、目标客户和业务目标。',
+            },
+            {
+              title: 'Figma设计',
+              desc: '完整的店面原型——首页、商品页、购物车与结账页面。',
+            },
+            {
+              title: '开发实现',
+              desc: '用简洁的Next.js代码搭建商店，并接入您选择的支付网关。',
+            },
+            {
+              title: '测试与质量保证',
+              desc: '跨设备测试、结账流程验证以及速度优化。',
+            },
+            {
+              title: '上线与支持',
+              desc: '我们负责部署、监控，并在上线后提供3个月的持续支持。',
+            },
+          ],
+        },
+        tech: {
+          badge: '技术栈',
+          heading: '我们使用的工具',
+          categories: {
+            Frontend: '前端',
+            Backend: '后端',
+            Database: '数据库',
+            Payments: '支付',
+            Storage: '存储',
+            Hosting: '托管',
+          },
+        },
+        faq: {
+          badge: '常见问题',
+          heading: '常见问题解答',
+          items: [
+            {
+              q: '你们能集成bKash和Nagad吗？',
+              a: '可以——我们集成bKash、Nagad、Rocket、SSLCommerz和Stripe，并负责全部API配置与测试。',
+            },
+            {
+              q: '搭建一个电商网站需要多长时间？',
+              a: '标准商店通常需要3至6周，具体取决于复杂程度。定制功能或大型商品目录可能需要更长时间。',
+            },
+            {
+              q: '我自己能管理商店吗？',
+              a: '当然可以。我们会搭建一个易用的后台管理面板，让您无需接触代码即可添加商品、管理订单和更新内容。',
+            },
+            {
+              q: '你们提供持续维护服务吗？',
+              a: '是的——所有商店都附带3个月的免费支持。之后我们提供灵活的维护套餐。',
+            },
+            {
+              q: '商店对移动端友好吗？',
+              a: '我们打造的每个商店都坚持移动优先。上线前会在真实的Android和iOS设备上进行测试。',
+            },
+          ],
+        },
+        related: {
+          badge: '相关服务',
+          heading: '常与此搭配',
+          items: [
+            { label: '支付网关' },
+            { label: 'SEO优化' },
+            { label: '后台管理面板' },
+          ],
+        },
+        cta: {
+          heading: '准备好上线您的商店了吗？',
+          desc: '告诉我们您的产品，我们将为您打造一个真正能带来转化的商店——拒绝套话，拒绝模板，100%定制。',
+          getQuote: '获取免费报价',
+          allServices: '查看全部服务',
+        },
+      },
+
       // Navbar
       home: '首页',
       services: '服务',
