@@ -46,11 +46,14 @@ export default function ContactPage() {
     if (!validate()) return;
     setStatus('loading');
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/contact`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        },
+      );
       const data = await res.json();
       if (data.success) {
         setStatus('success');
@@ -69,7 +72,6 @@ export default function ContactPage() {
       setStatus('error');
     }
   };
-
   return (
     <div className="relative min-h-screen bg-white dark:bg-zinc-950 pt-24 pb-32 px-6 overflow-hidden">
       <div
@@ -226,11 +228,35 @@ export default function ContactPage() {
 
           {/* Status Messages */}
           {status === 'success' && (
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 font-raleway">
-                Message sent! We'll get back to you within 24 hours.
-              </p>
+            <div className="relative overflow-hidden flex items-start gap-4 px-5 py-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-teal-950/40 border border-emerald-200 dark:border-emerald-800">
+              {/* Decorative glow */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-emerald-200 dark:bg-emerald-800 opacity-30 blur-2xl pointer-events-none" />
+
+              {/* Animated check icon */}
+              <div className="relative shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-md shadow-emerald-200 dark:shadow-emerald-900">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+
+              <div className="relative flex flex-col gap-1">
+                <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300 font-raleway">
+                  Message sent successfully!
+                </p>
+                <p className="text-xs text-emerald-600/80 dark:text-emerald-400/80 font-raleway leading-relaxed">
+                  We'll get back to you within 24 hours. Check your email .
+                </p>
+              </div>
             </div>
           )}
           {status === 'error' && (
@@ -245,42 +271,39 @@ export default function ContactPage() {
 
         {/* Direct Contact */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* <a
-            href="mailto:merxodevsolutions@gmail.com"
-            className="flex flex-col gap-1 px-4 py-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-violet-300 dark:hover:border-violet-700 transition-colors"
-          >
-            <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase font-raleway">
-              Email
-            </span>
-            <span className="text-sm font-semibold text-red-600 dark:text-red-400 font-raleway">
-              Mail with us →
-            </span>
-            <span className="text-sm font-semibold text-violet-600 font-raleway">
-              merxodevsolutions@gmail.com
-            </span>
-          </a> */}
-
           <a
             href="mailto:merxodevsolutions@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-4 py-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 hover:border-red-400 dark:hover:border-red-600 transition-colors"
           >
-            <div className="w-9 h-9 rounded-full bg-red-700 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full bg-white dark:bg-zinc-900 border border-red-200 dark:border-red-800 flex items-center justify-center shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
                 height="18"
                 viewBox="0 0 24 24"
-                fill="red"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="shrink-0 text-violet-500"
               >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
+                <path
+                  fill="#EA4335"
+                  d="M5.457 7.165l6.543 4.91 6.543-4.91v-1.95L12 10.13 5.457 5.215z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M2 6.524v10.952c0 .82.665 1.485 1.485 1.485h1.972V8.474L2 6.524z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M18.543 18.961h1.972c.82 0 1.485-.665 1.485-1.485V6.524l-3.457 1.95z"
+                />
+                <path
+                  fill="#C5221F"
+                  d="M5.457 5.215L2 6.524l3.457 1.95L12 12.872l6.543-4.398L22 6.524l-3.457-1.309L12 9.825z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M5.457 8.474v10.487h7.086V12.075L5.457 8.474z"
+                />
               </svg>
             </div>
             <div className="flex flex-col gap-0.5">
@@ -295,6 +318,7 @@ export default function ContactPage() {
               </span>
             </div>
           </a>
+
           <a
             href="https://wa.me/8801313334279"
             target="_blank"
