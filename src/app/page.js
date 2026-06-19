@@ -3,17 +3,17 @@ import Link from 'next/link';
 function Logo() {
   return (
     <div className="flex flex-col items-center leading-none select-none">
-      <div className="flex items-center gap-0 ">
-        <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+      <div className="flex items-center gap-0">
+        <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
         <span className="text-2xl sm:text-3xl md:text-4xl font-thin text-amber-400">
           &#10097;
         </span>
-        <span className="text-2xl sm:text-3xl md:text-4xl font-thin text-white dark:text-white -ml-0.5">
+        <span className="text-2xl sm:text-3xl md:text-4xl font-thin text-[#27003B] dark:text-white -ml-0.5">
           &#10096;
         </span>
-        <span className="text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+        <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           ODEV
         </span>
       </div>

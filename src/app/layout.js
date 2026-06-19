@@ -1,20 +1,19 @@
 import { Anton, DM_Sans, Raleway } from 'next/font/google';
 import './globals.css';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const anton = Anton({
   weight: ['400'],
   subsets: ['latin'],
   variable: '--font-anton',
 });
-
 const dmSans = DM_Sans({
   weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
   variable: '--font-dm',
 });
-
 const raleway = Raleway({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
@@ -82,11 +81,14 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${anton.variable} ${dmSans.variable} ${raleway.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

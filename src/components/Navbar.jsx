@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import ThemeToggle from './ThemeToggle';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -82,7 +84,7 @@ function Logo() {
   return (
     <div className="flex flex-col items-center leading-none select-none">
       <div className="flex items-center">
-        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
         <span className="text-base sm:text-lg md:text-xl font-thin text-amber-400">
@@ -91,16 +93,16 @@ function Logo() {
         <span className="text-base sm:text-lg md:text-xl font-thin text-[#27003B] dark:text-white -ml-0.5">
           &#10096;
         </span>
-        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           ODEV
         </span>
       </div>
-      <div className="flex items-center gap-2 mt-0.5">
-        <span className="block h-px w-5 bg-amber-400" />
-        <span className="text-[7px] font-bold tracking-[0.5em] text-amber-400 uppercase">
+      <div className="flex items-center gap-1 sm:gap-2 mt-0.5">
+        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
+        <span className="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] sm:tracking-[0.5em] text-amber-400 uppercase">
           Solutions
         </span>
-        <span className="block h-px w-5 bg-amber-400" />
+        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
       </div>
     </div>
   );
@@ -131,12 +133,16 @@ export default function Navbar() {
             ))}
           </div>
 
-          <Link
-            href="/contact"
-            className="px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
-          >
-            Get In Touch
-          </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <ThemeToggle iconOnly />
+            <Link
+              href="/contact"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
+            >
+              Get In Touch
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -308,7 +314,7 @@ export default function Navbar() {
         </div>
 
         {/* Sidebar Links */}
-        <div className="flex flex-col px-4 py-6 gap-1">
+        <div className="flex flex-col px-4 py-6 gap-1 uppercase">
           <p className="text-[10px] font-bold tracking-widest text-amber-400 uppercase font-raleway px-3 mb-2">
             Navigation
           </p>
@@ -332,6 +338,14 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {/* Theme Toggle */}
+          <div>
+            <ThemeToggle />
+          </div>
+          {/*   Language Switcher */}
+          <div className="mt-2">
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Sidebar CTA */}

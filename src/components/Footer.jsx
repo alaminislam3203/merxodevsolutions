@@ -86,25 +86,25 @@ function Logo() {
   return (
     <div className="flex flex-col items-start leading-none select-none">
       <div className="flex items-center">
-        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           MER
         </span>
         <span className="text-base sm:text-lg md:text-xl font-thin text-amber-400">
           &#10097;
         </span>
-        <span className="text-base sm:text-lg md:text-xl font-thin text-white dark:text-white -ml-0.5">
+        <span className="text-base sm:text-lg md:text-xl font-thin text-[#27003B] dark:text-white -ml-0.5">
           &#10096;
         </span>
-        <span className="text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
+        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
           ODEV
         </span>
       </div>
-      <div className="flex items-center gap-2 mt-0.5">
-        <span className="block h-px w-5 bg-amber-400" />
-        <span className="text-[7px] font-bold tracking-[0.5em] text-amber-400 uppercase">
+      <div className="flex items-center gap-1 sm:gap-2 mt-0.5">
+        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
+        <span className="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] sm:tracking-[0.5em] text-amber-400 uppercase">
           Solutions
         </span>
-        <span className="block h-px w-5 bg-amber-400" />
+        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
       </div>
     </div>
   );
