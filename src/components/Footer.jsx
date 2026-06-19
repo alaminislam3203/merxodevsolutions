@@ -1,23 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services' },
-  { label: 'Journey', href: '/our-journey' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Projects', href: '/our-projects' },
-];
-
-const services = [
-  { label: 'Web Development', href: '/services-web' },
-  { label: 'Mobile Apps', href: '/services-mobile' },
-  { label: 'UI/UX Design', href: '/services-design' },
-  { label: 'Cloud Solutions', href: '/services-cloud' },
-  { label: 'SEO & Marketing', href: '/services-seo' },
-];
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 
 const socials = [
   {
@@ -110,12 +95,21 @@ function Logo() {
   );
 }
 
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) ? val : [];
+}
+
 export default function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
+
+  const navLinks = arr(t, 'footer.navLinks');
+  const services = arr(t, 'footer.services.items');
 
   return (
     <footer className="bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-800">
-      {/* Main Footer Body */}
+      {/* ── Main Body ── */}
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand Column */}
         <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
@@ -123,10 +117,8 @@ export default function Footer() {
             <Logo />
           </Link>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs">
-            We craft modern digital solutions — from sleek web apps to scalable
-            cloud systems — built to last and designed to impress.
+            {t('footer.brand.desc')}
           </p>
-          {/* Social Icons */}
           <div className="flex items-center gap-3 mt-1">
             {socials.map(social => (
               <a
@@ -146,11 +138,11 @@ export default function Footer() {
         {/* Quick Links */}
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-400 uppercase font-raleway">
-            Quick Links
+            {t('footer.quickLinks.heading')}
           </h3>
           <ul className="flex flex-col gap-2.5">
-            {navLinks.map(link => (
-              <li key={link.href}>
+            {navLinks.map((link, i) => (
+              <li key={i}>
                 <Link
                   href={link.href}
                   className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
@@ -165,11 +157,11 @@ export default function Footer() {
         {/* Services */}
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-400 uppercase font-raleway">
-            Services
+            {t('footer.services.heading')}
           </h3>
           <ul className="flex flex-col gap-2.5">
-            {services.map(service => (
-              <li key={service.href}>
+            {services.map((service, i) => (
+              <li key={i}>
                 <Link
                   href={service.href}
                   className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
@@ -181,12 +173,13 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact Info */}
+        {/* Contact */}
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-400 uppercase font-raleway">
-            Contact Us
+            {t('footer.contact.heading')}
           </h3>
           <ul className="flex flex-col gap-3 text-sm text-zinc-500 dark:text-zinc-400">
+            {/* Address */}
             <li className="flex items-start gap-2.5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -203,8 +196,9 @@ export default function Footer() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span>Rangpur Sadar, Rangpur, Bangladesh</span>
+              <span>{t('footer.contact.address')}</span>
             </li>
+            {/* Phone */}
             <li className="flex items-center gap-2.5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -220,23 +214,23 @@ export default function Footer() {
               >
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.87a16 16 0 0 0 6.22 6.22l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <a
                   href="tel:+8801313334279"
                   className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors whitespace-nowrap"
                 >
-                  +880 131 3334279
+                  {t('footer.contact.phone1')}
                 </a>
                 <span className="text-zinc-300 dark:text-zinc-600">|</span>
-
                 <a
                   href="tel:+8809697634279"
                   className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors whitespace-nowrap"
                 >
-                  +880 969 7634279
+                  {t('footer.contact.phone2')}
                 </a>
               </div>
             </li>
+            {/* Email */}
             <li className="flex items-center gap-2.5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -257,29 +251,29 @@ export default function Footer() {
                 href="mailto:merxodevsolutions@gmail.com"
                 className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
               >
-                merxodevsolutions@gmail.com
+                {t('footer.contact.email')}
               </a>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* ── Bottom Bar ── */}
       <div className="border-t border-zinc-100 dark:border-zinc-800">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-600">
-          <span>© {currentYear} MERXODEV Solutions. All rights reserved.</span>
+          <span>{t('footer.bottom.copy', { year: currentYear })}</span>
           <div className="flex items-center gap-5">
             <Link
               href="/privacy"
               className="hover:text-violet-500 transition-colors"
             >
-              Privacy Policy
+              {t('footer.bottom.privacy')}
             </Link>
             <Link
               href="/terms"
               className="hover:text-violet-500 transition-colors"
             >
-              Terms of Service
+              {t('footer.bottom.terms')}
             </Link>
           </div>
         </div>

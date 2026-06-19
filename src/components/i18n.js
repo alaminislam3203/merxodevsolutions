@@ -4,6 +4,45 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      footer: {
+        brand: {
+          desc: 'We craft modern digital solutions — from sleek web apps to scalable cloud systems — built to last and designed to impress.',
+        },
+        quickLinks: {
+          heading: 'Quick Links',
+        },
+        navLinks: [
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Journey', href: '/our-journey' },
+          { label: 'About', href: '/about' },
+          { label: 'Contact', href: '/contact' },
+          { label: 'Projects', href: '/our-projects' },
+        ],
+        services: {
+          heading: 'Services',
+          items: [
+            { label: 'Web Development', href: '/services-web' },
+            { label: 'Web App', href: '/services-web-app' },
+            { label: 'E-commerce', href: '/services-ecommerce' },
+            { label: 'UI/UX Design', href: '/services-design' },
+            { label: 'SEO & Marketing', href: '/services-seo' },
+          ],
+        },
+        contact: {
+          heading: 'Contact Us',
+          address: 'Rangpur Sadar, Rangpur, Bangladesh',
+          phone1: '+880 131 3334279',
+          phone2: '+880 969 7634279',
+          email: 'merxodevsolutions@gmail.com',
+        },
+        bottom: {
+          copy: '© {{year}} MERXODEV Solutions. All rights reserved.',
+          privacy: 'Privacy Policy',
+          terms: 'Terms of Service',
+        },
+      },
+
       webApp: {
         breadcrumb: {
           home: 'Home',
@@ -697,6 +736,44 @@ const resources = {
 
   bn: {
     translation: {
+      footer: {
+        brand: {
+          desc: 'আমরা আধুনিক ডিজিটাল সমাধান তৈরি করি — সুন্দর ওয়েব অ্যাপ থেকে শুরু করে স্কেলযোগ্য ক্লাউড সিস্টেম পর্যন্ত — দীর্ঘস্থায়ী এবং চমৎকার ডিজাইনে।',
+        },
+        quickLinks: {
+          heading: 'দ্রুত লিংক',
+        },
+        navLinks: [
+          { label: 'হোম', href: '/' },
+          { label: 'সার্ভিস', href: '/services' },
+          { label: 'যাত্রা', href: '/our-journey' },
+          { label: 'আমাদের', href: '/about' },
+          { label: 'যোগাযোগ', href: '/contact' },
+          { label: 'প্রজেক্ট', href: '/our-projects' },
+        ],
+        services: {
+          heading: 'সার্ভিস',
+          items: [
+            { label: 'ওয়েব ডেভেলপমেন্ট', href: '/services-web' },
+            { label: 'ওয়েব অ্যাপ', href: '/services-web-app' },
+            { label: 'ই-কমার্স', href: '/services-ecommerce' },
+            { label: 'UI/UX ডিজাইন', href: '/services-design' },
+            { label: 'SEO ও মার্কেটিং', href: '/services-seo' },
+          ],
+        },
+        contact: {
+          heading: 'যোগাযোগ করুন',
+          address: 'রংপুর সদর, রংপুর, বাংলাদেশ',
+          phone1: '+৮৮০ ১৩১ ৩৩৩৪২৭৯',
+          phone2: '+৮৮০ ৯৬৯ ৭৬৩৪২৭৯',
+          email: 'merxodevsolutions@gmail.com',
+        },
+        bottom: {
+          copy: '© {{year}} MERXODEV Solutions. সর্বস্বত্ব সংরক্ষিত।',
+          privacy: 'গোপনীয়তা নীতি',
+          terms: 'সেবার শর্তাবলী',
+        },
+      },
       webApp: {
         breadcrumb: {
           home: 'হোম',
@@ -1399,6 +1476,44 @@ const resources = {
 
   ar: {
     translation: {
+      footer: {
+        brand: {
+          desc: 'نصنع حلولاً رقمية حديثة — من تطبيقات ويب أنيقة إلى أنظمة سحابية قابلة للتوسع — مبنية لتدوم ومصممة لتبهر.',
+        },
+        quickLinks: {
+          heading: 'روابط سريعة',
+        },
+        navLinks: [
+          { label: 'الرئيسية', href: '/' },
+          { label: 'الخدمات', href: '/services' },
+          { label: 'رحلتنا', href: '/our-journey' },
+          { label: 'من نحن', href: '/about' },
+          { label: 'اتصل بنا', href: '/contact' },
+          { label: 'المشاريع', href: '/our-projects' },
+        ],
+        services: {
+          heading: 'الخدمات',
+          items: [
+            { label: 'تطوير الويب', href: '/services-web' },
+            { label: 'تطبيقات الويب', href: '/services-web-app' },
+            { label: 'التجارة الإلكترونية', href: '/services-ecommerce' },
+            { label: 'تصميم UI/UX', href: '/services-design' },
+            { label: 'تحسين محركات البحث', href: '/services-seo' },
+          ],
+        },
+        contact: {
+          heading: 'تواصل معنا',
+          address: 'رانغبور سادار، رانغبور، بنغلاديش',
+          phone1: '+880 131 3334279',
+          phone2: '+880 969 7634279',
+          email: 'merxodevsolutions@gmail.com',
+        },
+        bottom: {
+          copy: '© {{year}} MERXODEV Solutions. جميع الحقوق محفوظة.',
+          privacy: 'سياسة الخصوصية',
+          terms: 'شروط الخدمة',
+        },
+      },
       webApp: {
         breadcrumb: {
           home: 'الرئيسية',
@@ -2074,6 +2189,44 @@ const resources = {
 
   zh: {
     translation: {
+      footer: {
+        brand: {
+          desc: '我们打造现代数字解决方案——从精美的 Web 应用到可扩展的云系统——经久耐用，设计出众。',
+        },
+        quickLinks: {
+          heading: '快速链接',
+        },
+        navLinks: [
+          { label: '首页', href: '/' },
+          { label: '服务', href: '/services' },
+          { label: '历程', href: '/our-journey' },
+          { label: '关于', href: '/about' },
+          { label: '联系', href: '/contact' },
+          { label: '项目', href: '/our-projects' },
+        ],
+        services: {
+          heading: '服务',
+          items: [
+            { label: '网站开发', href: '/services-web' },
+            { label: 'Web 应用', href: '/services-web-app' },
+            { label: '电商开发', href: '/services-ecommerce' },
+            { label: 'UI/UX 设计', href: '/services-design' },
+            { label: 'SEO 优化', href: '/services-seo' },
+          ],
+        },
+        contact: {
+          heading: '联系我们',
+          address: '孟加拉国朗普尔市',
+          phone1: '+880 131 3334279',
+          phone2: '+880 969 7634279',
+          email: 'merxodevsolutions@gmail.com',
+        },
+        bottom: {
+          copy: '© {{year}} MERXODEV Solutions. 保留所有权利。',
+          privacy: '隐私政策',
+          terms: '服务条款',
+        },
+      },
       webApp: {
         breadcrumb: {
           home: '首页',

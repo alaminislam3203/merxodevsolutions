@@ -1,84 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
-
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services' },
-  { label: 'Journey', href: '/our-journey' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Projects', href: '/our-projects' },
-];
-
-const bottomNavLinks = [
-  {
-    label: 'Home',
-    href: '/',
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
-        <path d="M9 21V12h6v9" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Projects',
-    href: '/our-projects',
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Journey',
-    href: '/our-journey',
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 8v4l3 3" />
-      </svg>
-    ),
-  },
-];
 
 function Logo() {
   return (
@@ -110,14 +38,90 @@ function Logo() {
 
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
+
+  // ── Dynamic nav links (translated) ──────────────────────────────────────────
+  const navLinks = [
+    { label: t('home'), href: '/' },
+    { label: t('services'), href: '/services' },
+    { label: t('journey'), href: '/our-journey' },
+    { label: t('about'), href: '/about' },
+    { label: t('contact'), href: '/contact' },
+    { label: t('projects'), href: '/our-projects' },
+  ];
+
+  const bottomNavLinks = [
+    {
+      label: t('home'),
+      href: '/',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+          <path d="M9 21V12h6v9" />
+        </svg>
+      ),
+    },
+    {
+      label: t('projects'),
+      href: '/our-projects',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+      ),
+    },
+    {
+      label: t('journey'),
+      href: '/our-journey',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v4l3 3" />
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -130,7 +134,7 @@ export default function Navbar() {
         }`}
       >
         <div className="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* ── Masked layer: Logo + Links + ThemeToggle + CTA ── */}
+          {/* Masked layer: Logo + Links */}
           <div
             className="contents"
             style={{
@@ -156,6 +160,8 @@ export default function Navbar() {
               ))}
             </div>
           </div>
+
+          {/* Unmasked: LanguageSwitcher + ThemeToggle + CTA */}
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <ThemeToggle iconOnly />
@@ -163,7 +169,7 @@ export default function Navbar() {
               href="/contact"
               className="px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
             >
-              Get In Touch
+              {t('getInTouch')}
             </Link>
           </div>
         </div>
@@ -182,8 +188,6 @@ export default function Navbar() {
             <Logo />
           </Link>
           <div className="flex items-center gap-2">
-            {/* Call icon */}
-
             <a
               href="tel:+8801313334279"
               className="flex flex-row items-center justify-center gap-1 px-3 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 hover:opacity-90 transition-opacity"
@@ -203,7 +207,7 @@ export default function Navbar() {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.87a16 16 0 0 0 6.22 6.22l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <span className="text-white text-xs font-bold font-raleway whitespace-nowrap uppercase">
-                Hire Us
+                {t('callUs')}
               </span>
             </a>
           </div>
@@ -254,7 +258,7 @@ export default function Navbar() {
               </svg>
             </Link>
             <span className="text-[10px] font-medium text-violet-600 dark:text-violet-400 mt-0.5 font-raleway">
-              Contact
+              {t('contact')}
             </span>
           </div>
 
@@ -277,7 +281,7 @@ export default function Navbar() {
             );
           })}
 
-          {/* Menu icon */}
+          {/* Menu button */}
           <button
             onClick={() => setSidebarOpen(true)}
             className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-500 hover:text-violet-500 transition-colors font-raleway"
@@ -298,7 +302,7 @@ export default function Navbar() {
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
-            <span>Menu</span>
+            <span>{t('menu')}</span>
           </button>
         </div>
       </nav>
@@ -313,7 +317,7 @@ export default function Navbar() {
 
       {/* ─── Mobile Sidebar Panel ─── */}
       <div
-        className={`md:hidden fixed top-0 left-0 h-full w-72 z-50 bg-white dark:bg-zinc-950 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+        className={`md:hidden fixed top-0 left-0 h-full w-72 z-[100] bg-white dark:bg-zinc-950 shadow-2xl transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -345,7 +349,7 @@ export default function Navbar() {
         {/* Sidebar Links */}
         <div className="flex flex-col px-4 py-6 gap-1 uppercase">
           <p className="text-[10px] font-bold tracking-widest text-amber-400 uppercase font-raleway px-3 mb-2">
-            Navigation
+            {t('navigation')}
           </p>
           {navLinks.map(link => {
             const isActive = pathname === link.href;
@@ -367,11 +371,13 @@ export default function Navbar() {
               </Link>
             );
           })}
+
           {/* Theme Toggle */}
-          <div>
+          <div className="mt-1">
             <ThemeToggle />
           </div>
-          {/*   Language Switcher */}
+
+          {/* Language Switcher */}
           <div className="mt-2">
             <LanguageSwitcher />
           </div>
@@ -384,7 +390,7 @@ export default function Navbar() {
             onClick={() => setSidebarOpen(false)}
             className="block text-center px-5 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
           >
-            Get In Touch
+            {t('getInTouch')}
           </Link>
         </div>
       </div>
