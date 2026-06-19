@@ -22,7 +22,7 @@ const services = [
 const socials = [
   {
     label: 'GitHub',
-    href: 'https://github.com',
+    href: 'https://github.com/MerxoDev-Solutions',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const socials = [
   },
   {
     label: 'LinkedIn',
-    href: 'https://linkedin.com',
+    href: 'https://www.linkedin.com/in/merxodevsolutions',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
