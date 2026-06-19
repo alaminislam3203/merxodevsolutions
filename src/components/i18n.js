@@ -4,6 +4,375 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      webApp: {
+        breadcrumb: {
+          home: 'Home',
+          services: 'Services',
+          current: 'Web App Development',
+        },
+        badge: 'WEB APPLICATION DEVELOPMENT',
+        heroTitleStart: 'Build Powerful',
+        heroTitleHighlight: 'Web Applications',
+        heroDesc:
+          'We design and develop fast, scalable, full-stack web applications tailored to your business — from MVPs to enterprise-grade platforms.',
+        ctaStartProject: 'Start Your Project',
+        ctaViewWork: 'View Our Work',
+        stats: [
+          { value: '120+', label: 'Web Apps Delivered' },
+          { value: '99%', label: 'Client Satisfaction' },
+          { value: '4×', label: 'Average Speed Improvement' },
+          { value: '24/7', label: 'Post-launch Support' },
+        ],
+        features: {
+          badge: 'WHAT WE BUILD',
+          heading: 'Everything Your Web App Needs',
+          items: [
+            {
+              title: 'Custom UI & UX Design',
+              desc: 'Pixel-perfect, accessible interfaces designed around your users — built with React and Tailwind CSS for blazing-fast rendering.',
+            },
+            {
+              title: 'Full-Stack Development',
+              desc: 'End-to-end development using Next.js, Node.js, and TypeScript so your front end and back end speak the same language.',
+            },
+            {
+              title: 'Cloud-Ready Architecture',
+              desc: 'Deployed on AWS, Vercel, or your preferred cloud — auto-scaling, zero-downtime deploys, and CDN-backed assets out of the box.',
+            },
+            {
+              title: 'Authentication & Security',
+              desc: 'Role-based access control, OAuth 2.0, JWT sessions, and industry-standard encryption keep your users and data safe.',
+            },
+            {
+              title: 'Performance Optimization',
+              desc: 'Lazy loading, server-side rendering, edge caching, and Core Web Vitals tuning so your app feels instant on any device.',
+            },
+            {
+              title: 'Multi-Tenant & Team Support',
+              desc: 'Built-in workspace management, invite flows, and granular permissions — perfect for SaaS products with multiple organizations.',
+            },
+            {
+              title: 'Real-Time Features',
+              desc: 'Live dashboards, notifications, collaborative editing, and chat — powered by WebSockets and server-sent events.',
+            },
+            {
+              title: 'Analytics & Monitoring',
+              desc: "Integrated error tracking, performance dashboards, and user analytics so you always know what's happening in production.",
+            },
+            {
+              title: 'API & Integrations',
+              desc: 'RESTful and GraphQL APIs, third-party service integrations, and webhook support to connect with any tool in your stack.',
+            },
+          ],
+        },
+        included: {
+          badge: 'EVERY PROJECT INCLUDES',
+          heading: 'No Hidden Extras',
+          items: [
+            'Responsive design (mobile, tablet, desktop)',
+            'Source code ownership & Git repository',
+            'Environment setup (dev, staging, production)',
+            'CI/CD pipeline configuration',
+            'Database design & schema documentation',
+            'API documentation (Swagger / Postman)',
+            'Unit & integration test coverage',
+            '30-day post-launch bug-fix support',
+            'Performance audit & Core Web Vitals report',
+            'Admin panel or CMS integration',
+            'SEO-ready HTML structure & metadata',
+            'Accessibility (WCAG 2.1 AA) compliance',
+          ],
+        },
+        process: {
+          badge: 'HOW WE WORK',
+          heading: 'From Brief to Launch',
+          steps: [
+            {
+              title: 'Discovery & Requirements',
+              desc: 'We map your goals, user flows, and technical constraints in a structured kickoff session — so everyone starts with the same blueprint.',
+            },
+            {
+              title: 'Architecture & Design',
+              desc: 'Our team proposes a tech stack, data model, and UI wireframes. You review and approve before a single line of code is written.',
+            },
+            {
+              title: 'Agile Development Sprints',
+              desc: 'Two-week sprints with working demos at each milestone. You stay in the loop and can adjust priorities as the product evolves.',
+            },
+            {
+              title: 'QA & Testing',
+              desc: 'Automated tests, cross-browser QA, load testing, and a security review before anything ships to production.',
+            },
+            {
+              title: 'Deployment & Launch',
+              desc: 'Zero-downtime deployment to your cloud environment with monitoring alerts and rollback procedures ready from day one.',
+            },
+            {
+              title: 'Support & Iteration',
+              desc: 'Ongoing maintenance plans, feature additions, and performance optimizations — we stay a long-term partner, not a one-time vendor.',
+            },
+          ],
+        },
+        tech: {
+          badge: 'OUR TECH STACK',
+          heading: 'Modern Tools, Proven Results',
+          categories: {
+            Frontend: 'Frontend',
+            Backend: 'Backend',
+            Database: 'Database',
+            Hosting: 'Hosting',
+            DevOps: 'DevOps',
+          },
+        },
+        faq: {
+          badge: 'FAQ',
+          heading: 'Frequently Asked Questions',
+          items: [
+            {
+              q: 'How long does it take to build a web application?',
+              a: 'A typical MVP takes 6–10 weeks depending on complexity. A full-featured SaaS platform may take 3–6 months. We give you a detailed timeline after the discovery phase.',
+            },
+            {
+              q: 'Do I own the source code after the project?',
+              a: 'Yes — 100%. On project completion you receive full ownership of the codebase, assets, and all related intellectual property with no ongoing licensing fees.',
+            },
+            {
+              q: 'Which tech stack do you recommend?',
+              a: 'We evaluate your use case, team, and scale targets before recommending a stack. Most projects use Next.js + Node.js + PostgreSQL or MongoDB, but we adapt to your needs.',
+            },
+            {
+              q: 'Can you work with our existing codebase?',
+              a: "Absolutely. We do code audits, refactors, and feature additions on existing apps. We'll review your current stack and suggest an integration path before we begin.",
+            },
+            {
+              q: 'What is included in post-launch support?',
+              a: 'Every project includes 30 days of free bug-fix support. After that we offer monthly maintenance plans covering updates, monitoring, and priority feature work.',
+            },
+            {
+              q: 'Will my web app be mobile-friendly?',
+              a: 'Yes. Every interface we build is fully responsive and tested across popular screen sizes, browsers, and devices before handoff.',
+            },
+          ],
+        },
+        related: {
+          badge: 'EXPLORE MORE',
+          heading: 'Related Services',
+          items: [
+            { label: 'E-Commerce Development' },
+            { label: 'SEO Optimization' },
+            { label: 'Dashboard & Analytics' },
+          ],
+        },
+        cta: {
+          heading: 'Ready to Build Something Great?',
+          desc: "Tell us about your project and we'll send a free proposal within 48 hours.",
+          getQuote: 'Get a Free Quote',
+          allServices: 'All Services',
+        },
+      },
+      webDev: {
+        breadcrumb: {
+          home: 'Home',
+          services: 'Services',
+          current: 'Web Development',
+        },
+        badge: 'Web Development',
+        heroTitleStart: 'Websites & apps built to',
+        heroTitleHighlight: 'grow your business.',
+        heroDesc:
+          'From landing pages to full-stack SaaS apps — we build fast, scalable, and beautiful web products using Next.js, React, and Node.js.',
+        ctaPrimary: 'Start Your Project',
+        ctaSecondary: 'View Our Work',
+        stats: [
+          { value: '50+', label: 'Websites Launched' },
+          { value: '4.9★', label: 'Average Rating' },
+          { value: '< 2s', label: 'Avg Load Time' },
+          { value: '100%', label: 'Client Satisfaction' },
+        ],
+        features: {
+          badge: 'What You Get',
+          heading: 'Everything your web project needs',
+          items: [
+            {
+              title: 'Blazing Fast Performance',
+              desc: 'Server-side rendering, static generation, image optimization — your site loads in under 2 seconds.',
+            },
+            {
+              title: 'Pixel-Perfect UI',
+              desc: 'Every design is crafted from scratch in Figma then coded with precision — no templates, no shortcuts.',
+            },
+            {
+              title: 'Mobile-First Responsive',
+              desc: 'Looks flawless on every device — phone, tablet, and desktop — built mobile-first from the ground up.',
+            },
+            {
+              title: 'Secure & Scalable',
+              desc: 'HTTPS, environment-secured APIs, rate limiting, and clean architecture that scales as you grow.',
+            },
+            {
+              title: 'SEO Optimized',
+              desc: 'Schema markup, Open Graph, sitemap, meta tags, Core Web Vitals — built to rank from day one.',
+            },
+            {
+              title: 'Clean Codebase',
+              desc: 'Well-structured, documented, and maintainable code your team can take over and build on confidently.',
+            },
+            {
+              title: 'CMS Integration',
+              desc: 'Contentful, Sanity, or custom admin panels — manage your content without touching code.',
+            },
+            {
+              title: 'Analytics & Tracking',
+              desc: 'Google Analytics, Meta Pixel, custom event tracking — know exactly how users interact with your site.',
+            },
+            {
+              title: 'API & Third-Party Integrations',
+              desc: 'Payment gateways, CRMs, email services, maps, social logins — we connect all the tools you need.',
+            },
+          ],
+        },
+        tech: {
+          badge: 'Tech Stack',
+          heading: 'Tools we build with',
+          categories: {
+            Frontend: 'Frontend',
+            Backend: 'Backend',
+            Database: 'Database',
+            Storage: 'Storage',
+            Hosting: 'Hosting',
+            DevOps: 'DevOps',
+          },
+        },
+        process: {
+          badge: 'How We Work',
+          heading: 'From idea to live website',
+          steps: [
+            {
+              title: 'Discovery & Planning',
+              desc: 'We understand your goals, audience, and technical requirements — then plan the architecture.',
+            },
+            {
+              title: 'Design in Figma',
+              desc: 'Full UI mockup — homepage, inner pages, mobile views — all approved before we write a line of code.',
+            },
+            {
+              title: 'Development',
+              desc: 'We build with Next.js & React, writing clean, scalable code connected to your backend and APIs.',
+            },
+            {
+              title: 'Testing & QA',
+              desc: 'Cross-browser, cross-device testing. Performance audits. Accessibility checks. Zero compromises.',
+            },
+            {
+              title: 'Launch & Support',
+              desc: 'We deploy to Vercel or your preferred host, then stay available for 3 months post-launch.',
+            },
+          ],
+        },
+        pricing: {
+          badge: 'Pricing',
+          heading: 'Simple, transparent pricing',
+          subtext:
+            'All plans include design, development, and 3 months of free support.',
+          plans: [
+            {
+              name: 'Starter',
+              price: '$299',
+              desc: 'Perfect for landing pages & small business sites',
+              cta: 'Get Started',
+              features: [
+                'Up to 5 pages',
+                'Mobile-responsive design',
+                'Contact form',
+                'Basic SEO setup',
+                'Google Analytics',
+                '1 revision round',
+                '2 weeks delivery',
+                '1 month support',
+              ],
+            },
+            {
+              name: 'Business',
+              price: '$799',
+              desc: 'For growing businesses that need more power',
+              cta: 'Get Started',
+              features: [
+                'Up to 15 pages',
+                'Custom Figma design',
+                'CMS integration',
+                'Full SEO optimization',
+                'API integrations',
+                'Admin dashboard',
+                '3 revision rounds',
+                '4 weeks delivery',
+                '3 months support',
+              ],
+            },
+            {
+              name: 'SaaS / Custom',
+              price: 'Custom',
+              desc: 'Full-stack apps, SaaS platforms, complex systems',
+              cta: "Let's Talk",
+              features: [
+                'Unlimited pages & features',
+                'Full-stack Next.js + Node.js',
+                'Auth system (JWT / OAuth)',
+                'Database design & API',
+                'Payment integration',
+                'Role-based access control',
+                'Unlimited revisions',
+                'Custom timeline',
+                '6 months support',
+              ],
+            },
+          ],
+        },
+        faq: {
+          badge: 'FAQ',
+          heading: 'Common questions',
+          items: [
+            {
+              q: 'What tech stack do you use?',
+              a: 'We primarily build with Next.js 14, React, Tailwind CSS, Node.js, and MongoDB or PostgreSQL. We choose the best stack for your specific project.',
+            },
+            {
+              q: 'How long does a website take?',
+              a: 'A landing page takes 1–2 weeks. A business website takes 3–4 weeks. Full-stack SaaS apps typically take 6–12 weeks depending on complexity.',
+            },
+            {
+              q: 'Do I get the source code?',
+              a: 'Yes — you own 100% of the code. We hand over the full codebase, deployment access, and documentation when the project is complete.',
+            },
+            {
+              q: 'Can you redesign my existing site?',
+              a: 'Absolutely. We can redesign and rebuild your existing site with modern tech, improved UX, and better performance.',
+            },
+            {
+              q: 'Do you provide hosting?',
+              a: 'We deploy to Vercel by default (free for most projects). We can also deploy to AWS, DigitalOcean, or your preferred host.',
+            },
+            {
+              q: 'What if I need changes after launch?',
+              a: 'All plans come with 1–6 months of free support. After that, we offer flexible monthly maintenance packages.',
+            },
+          ],
+        },
+        related: {
+          badge: 'Related Services',
+          heading: 'Often paired with',
+          items: [
+            { label: 'E-commerce Development' },
+            { label: 'Admin Dashboard' },
+            { label: 'SEO Optimization' },
+          ],
+        },
+        cta: {
+          heading: 'Ready to build your website?',
+          desc: "Tell us what you need and we'll build it — fast, clean, and exactly how you imagined it.",
+          getQuote: 'Get a Free Quote',
+          allServices: 'All Services',
+        },
+      },
       stats: {
         badge: 'Our Track Record',
         headingStart: 'Numbers that',
@@ -328,6 +697,384 @@ const resources = {
 
   bn: {
     translation: {
+      webApp: {
+        breadcrumb: {
+          home: 'হোম',
+          services: 'সার্ভিসেস',
+          current: 'ওয়েব অ্যাপ ডেভেলপমেন্ট',
+        },
+
+        badge: 'ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট',
+        heroTitleStart: 'শক্তিশালী',
+        heroTitleHighlight: 'ওয়েব অ্যাপ্লিকেশন',
+        heroDesc:
+          'আমরা দ্রুত, স্কেলযোগ্য এবং ফুল-স্ট্যাক ওয়েব অ্যাপ তৈরি করি — আপনার ব্যবসার জন্য কাস্টম সমাধান, MVP থেকে শুরু করে এন্টারপ্রাইজ লেভেল পর্যন্ত।',
+        ctaStartProject: 'প্রজেক্ট শুরু করুন',
+        ctaViewWork: 'আমাদের কাজ দেখুন',
+
+        stats: [
+          { value: '120+', label: 'সম্পন্ন ওয়েব অ্যাপ' },
+          { value: '99%', label: 'ক্লায়েন্ট সন্তুষ্টি' },
+          { value: '4×', label: 'গড় স্পিড উন্নতি' },
+          { value: '24/7', label: 'পোস্ট-লঞ্চ সাপোর্ট' },
+        ],
+
+        features: {
+          badge: 'আমরা যা তৈরি করি',
+          heading: 'আপনার ওয়েব অ্যাপের সবকিছু',
+          items: [
+            {
+              title: 'কাস্টম UI & UX ডিজাইন',
+              desc: 'ব্যবহারকারীর জন্য সহজ ও পারফেক্ট ডিজাইন, React এবং Tailwind CSS দিয়ে তৈরি।',
+            },
+            {
+              title: 'ফুল-স্ট্যাক ডেভেলপমেন্ট',
+              desc: 'Next.js, Node.js এবং TypeScript ব্যবহার করে এন্ড-টু-এন্ড ডেভেলপমেন্ট।',
+            },
+            {
+              title: 'ক্লাউড রেডি আর্কিটেকচার',
+              desc: 'AWS বা Vercel-এ অটো স্কেলিং, জিরো ডাউনটাইম ডিপ্লয়মেন্ট।',
+            },
+            {
+              title: 'অথেনটিকেশন ও সিকিউরিটি',
+              desc: 'OAuth 2.0, JWT, রোল-বেসড অ্যাক্সেস এবং নিরাপদ ডাটা এনক্রিপশন।',
+            },
+            {
+              title: 'পারফরম্যান্স অপটিমাইজেশন',
+              desc: 'SSR, ক্যাশিং, লেজি লোডিং এবং Core Web Vitals অপটিমাইজেশন।',
+            },
+            {
+              title: 'মাল্টি-টেন্যান্ট সাপোর্ট',
+              desc: 'SaaS অ্যাপের জন্য ওয়ার্কস্পেস এবং অর্গানাইজেশন ম্যানেজমেন্ট।',
+            },
+            {
+              title: 'রিয়েল-টাইম ফিচার',
+              desc: 'লাইভ ড্যাশবোর্ড, চ্যাট এবং নোটিফিকেশন WebSockets দিয়ে।',
+            },
+            {
+              title: 'অ্যানালিটিক্স ও মনিটরিং',
+              desc: 'এরর ট্র্যাকিং, পারফরম্যান্স ড্যাশবোর্ড এবং ইউজার ইনসাইট।',
+            },
+            {
+              title: 'API ও ইন্টিগ্রেশন',
+              desc: 'REST, GraphQL API এবং থার্ড-পার্টি সার্ভিস ইন্টিগ্রেশন।',
+            },
+          ],
+        },
+
+        included: {
+          badge: 'প্রতিটি প্রজেক্টে যা থাকে',
+          heading: 'কোনো লুকানো খরচ নেই',
+          items: [
+            'রেসপনসিভ ডিজাইন (মোবাইল, ট্যাবলেট, ডেস্কটপ)',
+            'সোর্স কোড ও গিট রিপোজিটরি মালিকানা',
+            'ডেভ, স্টেজিং ও প্রোডাকশন সেটআপ',
+            'CI/CD পাইপলাইন কনফিগারেশন',
+            'ডাটাবেস ডিজাইন ও ডকুমেন্টেশন',
+            'API ডকুমেন্টেশন (Swagger / Postman)',
+            'টেস্টিং কাভারেজ',
+            '৩০ দিনের বাগ ফিক্স সাপোর্ট',
+            'পারফরম্যান্স অডিট রিপোর্ট',
+            'অ্যাডমিন প্যানেল বা CMS ইন্টিগ্রেশন',
+            'SEO ফ্রেন্ডলি স্ট্রাকচার',
+            'অ্যাক্সেসিবিলিটি (WCAG 2.1 AA)',
+          ],
+        },
+
+        process: {
+          badge: 'আমাদের কাজের পদ্ধতি',
+          heading: 'আইডিয়া থেকে লঞ্চ পর্যন্ত',
+          steps: [
+            {
+              title: 'ডিসকভারি ও রিকোয়ারমেন্ট',
+              desc: 'আপনার লক্ষ্য ও প্রজেক্ট স্কোপ বোঝা হয়।',
+            },
+            {
+              title: 'আর্কিটেকচার ও ডিজাইন',
+              desc: 'UI এবং সিস্টেম স্ট্রাকচার ডিজাইন করা হয়।',
+            },
+            {
+              title: 'ডেভেলপমেন্ট',
+              desc: 'Agile sprint ভিত্তিক ডেভেলপমেন্ট।',
+            },
+            {
+              title: 'QA ও টেস্টিং',
+              desc: 'বাগ ফিক্স ও পারফরম্যান্স টেস্টিং।',
+            },
+            {
+              title: 'ডিপ্লয়মেন্ট',
+              desc: 'জিরো ডাউনটাইম প্রোডাকশন লঞ্চ।',
+            },
+            {
+              title: 'সাপোর্ট ও আপডেট',
+              desc: 'নিয়মিত মেইনটেনেন্স ও ফিচার আপগ্রেড।',
+            },
+          ],
+        },
+
+        tech: {
+          badge: 'আমাদের টেক স্ট্যাক',
+          heading: 'আধুনিক টুলস, প্রমাণিত ফলাফল',
+          categories: {
+            Frontend: 'ফ্রন্টএন্ড',
+            Backend: 'ব্যাকএন্ড',
+            Database: 'ডাটাবেস',
+            Hosting: 'হোস্টিং',
+            DevOps: 'ডেভঅপস',
+          },
+        },
+
+        faq: {
+          badge: 'প্রশ্নোত্তর',
+          heading: 'প্রায়শই জিজ্ঞাসিত প্রশ্ন',
+          items: [
+            {
+              q: 'একটি ওয়েব অ্যাপ বানাতে কত সময় লাগে?',
+              a: 'MVP সাধারণত ৬–১০ সপ্তাহ লাগে, ফুল SaaS ৩–৬ মাস।',
+            },
+            {
+              q: 'আমি কি সোর্স কোডের মালিক হবো?',
+              a: 'হ্যাঁ, প্রজেক্ট শেষ হলে সম্পূর্ণ মালিকানা আপনাকে দেওয়া হবে।',
+            },
+            {
+              q: 'আপনারা কোন টেক স্ট্যাক ব্যবহার করেন?',
+              a: 'Next.js, Node.js, PostgreSQL বা MongoDB সাধারণত ব্যবহার করি।',
+            },
+            {
+              q: 'পুরনো প্রজেক্টে কাজ করেন?',
+              a: 'হ্যাঁ, আমরা কোড অডিট, রিফ্যাক্টর ও ফিচার অ্যাড করি।',
+            },
+            {
+              q: 'সাপোর্ট কি দেন?',
+              a: 'হ্যাঁ, ৩০ দিনের ফ্রি সাপোর্ট থাকে।',
+            },
+            {
+              q: 'মোবাইল ফ্রেন্ডলি হবে?',
+              a: 'হ্যাঁ, সব ডিভাইসের জন্য রেসপনসিভ ডিজাইন।',
+            },
+          ],
+        },
+
+        related: {
+          badge: 'আরও দেখুন',
+          heading: 'সম্পর্কিত সার্ভিস',
+          items: [
+            { label: 'ই-কমার্স ডেভেলপমেন্ট' },
+            { label: 'SEO অপটিমাইজেশন' },
+            { label: 'ড্যাশবোর্ড ও অ্যানালিটিক্স' },
+          ],
+        },
+
+        cta: {
+          heading: 'দারুণ কিছু তৈরি করতে প্রস্তুত?',
+          desc: 'আপনার প্রজেক্ট সম্পর্কে জানান, আমরা ৪৮ ঘন্টার মধ্যে ফ্রি প্রপোজাল পাঠাবো।',
+          getQuote: 'ফ্রি কোটেশন নিন',
+          allServices: 'সব সার্ভিস দেখুন',
+        },
+      },
+      webDev: {
+        breadcrumb: {
+          home: 'হোম',
+          services: 'সার্ভিস',
+          current: 'ওয়েব ডেভেলপমেন্ট',
+        },
+        badge: 'ওয়েব ডেভেলপমেন্ট',
+        heroTitleStart: 'ওয়েবসাইট ও অ্যাপ যা',
+        heroTitleHighlight: 'আপনার ব্যবসা বাড়ায়।',
+        heroDesc:
+          'ল্যান্ডিং পেজ থেকে শুরু করে ফুল-স্ট্যাক SaaS অ্যাপ — Next.js, React ও Node.js দিয়ে দ্রুত, স্কেলযোগ্য ও সুন্দর ওয়েব পণ্য তৈরি করি।',
+        ctaPrimary: 'প্রজেক্ট শুরু করুন',
+        ctaSecondary: 'আমাদের কাজ দেখুন',
+        stats: [
+          { value: '৫০+', label: 'ওয়েবসাইট লঞ্চ' },
+          { value: '৪.৯★', label: 'গড় রেটিং' },
+          { value: '< ২s', label: 'গড় লোড টাইম' },
+          { value: '১০০%', label: 'ক্লায়েন্ট সন্তুষ্টি' },
+        ],
+        features: {
+          badge: 'আপনি যা পাচ্ছেন',
+          heading: 'আপনার ওয়েব প্রজেক্টের জন্য সবকিছু',
+          items: [
+            {
+              title: 'অত্যন্ত দ্রুত পারফরম্যান্স',
+              desc: 'সার্ভার-সাইড রেন্ডারিং, স্ট্যাটিক জেনারেশন, ইমেজ অপ্টিমাইজেশন — আপনার সাইট ২ সেকেন্ডের কম সময়ে লোড হয়।',
+            },
+            {
+              title: 'পিক্সেল-পারফেক্ট UI',
+              desc: 'প্রতিটি ডিজাইন Figma-তে স্ক্র্যাচ থেকে তৈরি এবং নির্ভুলভাবে কোড করা — কোনো টেমপ্লেট নেই, কোনো শর্টকাট নেই।',
+            },
+            {
+              title: 'মোবাইল-ফার্স্ট রেসপনসিভ',
+              desc: 'ফোন, ট্যাবলেট ও ডেস্কটপ — প্রতিটি ডিভাইসে নিখুঁত দেখায়।',
+            },
+            {
+              title: 'নিরাপদ ও স্কেলযোগ্য',
+              desc: 'HTTPS, এনভায়রনমেন্ট-সিকিউরড API, রেট লিমিটিং এবং ক্লিন আর্কিটেকচার।',
+            },
+            {
+              title: 'SEO অপ্টিমাইজড',
+              desc: 'স্কিমা মার্কআপ, Open Graph, সাইটম্যাপ, মেটা ট্যাগ — প্রথম দিন থেকেই র‍্যাঙ্ক করার জন্য।',
+            },
+            {
+              title: 'পরিষ্কার কোডবেস',
+              desc: 'সুগঠিত, ডকুমেন্টেড এবং রক্ষণযোগ্য কোড যা আপনার টিম আত্মবিশ্বাসের সাথে ব্যবহার করতে পারবে।',
+            },
+            {
+              title: 'CMS ইন্টিগ্রেশন',
+              desc: 'Contentful, Sanity বা কাস্টম অ্যাডমিন প্যানেল — কোড ছাড়াই কন্টেন্ট ম্যানেজ করুন।',
+            },
+            {
+              title: 'অ্যানালিটিক্স ও ট্র্যাকিং',
+              desc: 'Google Analytics, Meta Pixel, কাস্টম ইভেন্ট ট্র্যাকিং — ব্যবহারকারীরা কীভাবে আপনার সাইট ব্যবহার করছে জানুন।',
+            },
+            {
+              title: 'API ও থার্ড-পার্টি ইন্টিগ্রেশন',
+              desc: 'পেমেন্ট গেটওয়ে, CRM, ইমেইল সার্ভিস, ম্যাপ, সোশ্যাল লগইন — সব টুল কানেক্ট করি।',
+            },
+          ],
+        },
+        tech: {
+          badge: 'টেক স্ট্যাক',
+          heading: 'আমরা যেসব টুল দিয়ে তৈরি করি',
+          categories: {
+            Frontend: 'ফ্রন্টএন্ড',
+            Backend: 'ব্যাকএন্ড',
+            Database: 'ডেটাবেজ',
+            Storage: 'স্টোরেজ',
+            Hosting: 'হোস্টিং',
+            DevOps: 'ডেভঅপস',
+          },
+        },
+        process: {
+          badge: 'আমরা কীভাবে কাজ করি',
+          heading: 'আইডিয়া থেকে লাইভ ওয়েবসাইট',
+          steps: [
+            {
+              title: 'ডিসকভারি ও প্ল্যানিং',
+              desc: 'আপনার লক্ষ্য, অডিয়েন্স ও টেকনিক্যাল রিকোয়ারমেন্ট বুঝে আর্কিটেকচার প্ল্যান করি।',
+            },
+            {
+              title: 'Figma-তে ডিজাইন',
+              desc: 'হোমপেজ, ইনার পেজ, মোবাইল ভিউ — কোড লেখার আগেই সব অনুমোদন করা হয়।',
+            },
+            {
+              title: 'ডেভেলপমেন্ট',
+              desc: 'Next.js ও React দিয়ে ক্লিন, স্কেলযোগ্য কোড লিখি, ব্যাকএন্ড ও API-এর সাথে সংযুক্ত করি।',
+            },
+            {
+              title: 'টেস্টিং ও QA',
+              desc: 'ক্রস-ব্রাউজার, ক্রস-ডিভাইস টেস্টিং। পারফরম্যান্স অডিট। অ্যাক্সেসিবিলিটি চেক।',
+            },
+            {
+              title: 'লঞ্চ ও সাপোর্ট',
+              desc: 'Vercel বা পছন্দের হোস্টে ডিপ্লয় করি, তারপর ৩ মাস পাশে থাকি।',
+            },
+          ],
+        },
+        pricing: {
+          badge: 'মূল্য তালিকা',
+          heading: 'সহজ, স্বচ্ছ মূল্য নির্ধারণ',
+          subtext:
+            'সব প্ল্যানে ডিজাইন, ডেভেলপমেন্ট ও ৩ মাসের ফ্রি সাপোর্ট আছে।',
+          plans: [
+            {
+              name: 'স্টার্টার',
+              price: '$২৯৯',
+              desc: 'ল্যান্ডিং পেজ ও ছোট ব্যবসার সাইটের জন্য',
+              cta: 'শুরু করুন',
+              features: [
+                'সর্বোচ্চ ৫ পেজ',
+                'মোবাইল-রেসপনসিভ ডিজাইন',
+                'কন্টাক্ট ফর্ম',
+                'বেসিক SEO সেটআপ',
+                'Google Analytics',
+                '১ রাউন্ড রিভিশন',
+                '২ সপ্তাহে ডেলিভারি',
+                '১ মাসের সাপোর্ট',
+              ],
+            },
+            {
+              name: 'বিজনেস',
+              price: '$৭৯৯',
+              desc: 'বেড়ে ওঠা ব্যবসার জন্য যাদের বেশি পাওয়ার দরকার',
+              cta: 'শুরু করুন',
+              features: [
+                'সর্বোচ্চ ১৫ পেজ',
+                'কাস্টম Figma ডিজাইন',
+                'CMS ইন্টিগ্রেশন',
+                'ফুল SEO অপ্টিমাইজেশন',
+                'API ইন্টিগ্রেশন',
+                'অ্যাডমিন ড্যাশবোর্ড',
+                '৩ রাউন্ড রিভিশন',
+                '৪ সপ্তাহে ডেলিভারি',
+                '৩ মাসের সাপোর্ট',
+              ],
+            },
+            {
+              name: 'SaaS / কাস্টম',
+              price: 'কাস্টম',
+              desc: 'ফুল-স্ট্যাক অ্যাপ, SaaS প্ল্যাটফর্ম, জটিল সিস্টেম',
+              cta: 'কথা বলি',
+              features: [
+                'আনলিমিটেড পেজ ও ফিচার',
+                'ফুল-স্ট্যাক Next.js + Node.js',
+                'অথ সিস্টেম (JWT / OAuth)',
+                'ডেটাবেজ ডিজাইন ও API',
+                'পেমেন্ট ইন্টিগ্রেশন',
+                'রোল-বেসড অ্যাক্সেস কন্ট্রোল',
+                'আনলিমিটেড রিভিশন',
+                'কাস্টম টাইমলাইন',
+                '৬ মাসের সাপোর্ট',
+              ],
+            },
+          ],
+        },
+        faq: {
+          badge: 'FAQ',
+          heading: 'সাধারণ প্রশ্ন',
+          items: [
+            {
+              q: 'আপনারা কোন টেক স্ট্যাক ব্যবহার করেন?',
+              a: 'আমরা প্রধানত Next.js 14, React, Tailwind CSS, Node.js এবং MongoDB বা PostgreSQL দিয়ে কাজ করি।',
+            },
+            {
+              q: 'একটি ওয়েবসাইট তৈরি করতে কত সময় লাগে?',
+              a: 'ল্যান্ডিং পেজ ১–২ সপ্তাহ। বিজনেস ওয়েবসাইট ৩–৪ সপ্তাহ। ফুল-স্ট্যাক SaaS অ্যাপ ৬–১২ সপ্তাহ।',
+            },
+            {
+              q: 'আমি কি সোর্স কোড পাব?',
+              a: 'হ্যাঁ — আপনি ১০০% কোডের মালিক। প্রজেক্ট শেষে পুরো কোডবেস, ডিপ্লয়মেন্ট অ্যাক্সেস ও ডকুমেন্টেশন দেওয়া হয়।',
+            },
+            {
+              q: 'আপনারা কি বিদ্যমান সাইট রিডিজাইন করতে পারেন?',
+              a: 'অবশ্যই। আধুনিক টেক, উন্নত UX ও বেটার পারফরম্যান্স সহ আপনার সাইট রিডিজাইন ও রিবিল্ড করতে পারি।',
+            },
+            {
+              q: 'আপনারা কি হোস্টিং দেন?',
+              a: 'ডিফল্টভাবে Vercel-এ ডিপ্লয় করি (বেশিরভাগ প্রজেক্টে ফ্রি)। AWS, DigitalOcean বা পছন্দের হোস্টেও করতে পারি।',
+            },
+            {
+              q: 'লঞ্চের পরে পরিবর্তন দরকার হলে?',
+              a: 'সব প্ল্যানে ১–৬ মাসের ফ্রি সাপোর্ট আছে। এরপর ফ্লেক্সিবল মাসিক মেইনটেনেন্স প্যাকেজ আছে।',
+            },
+          ],
+        },
+        related: {
+          badge: 'সম্পর্কিত সার্ভিস',
+          heading: 'প্রায়ই একসাথে নেওয়া হয়',
+          items: [
+            { label: 'ই-কমার্স ডেভেলপমেন্ট' },
+            { label: 'অ্যাডমিন ড্যাশবোর্ড' },
+            { label: 'SEO অপ্টিমাইজেশন' },
+          ],
+        },
+        cta: {
+          heading: 'আপনার ওয়েবসাইট তৈরি করতে প্রস্তুত?',
+          desc: 'আপনার প্রয়োজন জানান — দ্রুত, পরিষ্কার ও ঠিক যেভাবে চান সেভাবে তৈরি করব।',
+          getQuote: 'ফ্রি কোট নিন',
+          allServices: 'সব সার্ভিস',
+        },
+      },
       stats: {
         badge: 'আমাদের অর্জন',
         headingStart: 'সংখ্যাগুলোই',
@@ -652,6 +1399,363 @@ const resources = {
 
   ar: {
     translation: {
+      webApp: {
+        breadcrumb: {
+          home: 'الرئيسية',
+          services: 'الخدمات',
+          current: 'تطوير تطبيقات الويب',
+        },
+
+        badge: 'تطوير تطبيقات الويب',
+        heroTitleStart: 'نبني',
+        heroTitleHighlight: 'تطبيقات ويب قوية',
+        heroDesc:
+          'نقوم بتصميم وتطوير تطبيقات ويب سريعة وقابلة للتوسع تناسب أعمالك من MVP إلى أنظمة متقدمة.',
+        ctaStartProject: 'ابدأ مشروعك',
+        ctaViewWork: 'عرض أعمالنا',
+
+        stats: [
+          { value: '120+', label: 'مشروع مكتمل' },
+          { value: '99%', label: 'رضا العملاء' },
+          { value: '4×', label: 'تحسين الأداء' },
+          { value: '24/7', label: 'دعم مستمر' },
+        ],
+
+        features: {
+          badge: 'ما نقدمه',
+          heading: 'كل ما يحتاجه تطبيقك',
+          items: [
+            {
+              title: 'تصميم واجهات مخصصة',
+              desc: 'تصميمات احترافية تركز على تجربة المستخدم.',
+            },
+            {
+              title: 'تطوير متكامل',
+              desc: 'باستخدام Next.js و Node.js و TypeScript.',
+            },
+            {
+              title: 'بنية سحابية',
+              desc: 'نشر قابل للتوسع على AWS أو Vercel.',
+            },
+            {
+              title: 'الأمان والمصادقة',
+              desc: 'OAuth 2.0 و JWT وحماية متقدمة.',
+            },
+            {
+              title: 'تحسين الأداء',
+              desc: 'SSR والتخزين المؤقت وتحسين السرعة.',
+            },
+            {
+              title: 'دعم متعدد المستأجرين',
+              desc: 'أنظمة SaaS متعددة الشركات.',
+            },
+            {
+              title: 'ميزات لحظية',
+              desc: 'الدردشة والإشعارات ولوحات مباشرة.',
+            },
+            {
+              title: 'التحليلات والمراقبة',
+              desc: 'تتبع الأداء وتحليل المستخدمين.',
+            },
+            {
+              title: 'واجهات API والتكامل',
+              desc: 'REST و GraphQL وربط الخدمات الخارجية.',
+            },
+          ],
+        },
+
+        included: {
+          badge: 'يشمل المشروع',
+          heading: 'بدون تكاليف مخفية',
+          items: [
+            'تصميم متجاوب',
+            'ملكية كاملة للكود',
+            'إعداد CI/CD',
+            'تصميم قاعدة البيانات',
+            'توثيق API',
+            'اختبارات شاملة',
+            'دعم 30 يوم',
+            'تقرير الأداء',
+            'تحسين SEO',
+            'توافق الوصول',
+          ],
+        },
+
+        process: {
+          badge: 'طريقة العمل',
+          heading: 'من الفكرة إلى الإطلاق',
+          steps: [
+            { title: 'تحليل المتطلبات', desc: 'فهم أهداف المشروع' },
+            { title: 'تصميم النظام', desc: 'بناء الهيكل المعماري' },
+            { title: 'التطوير', desc: 'تطوير مرن وسريع' },
+            { title: 'الاختبار', desc: 'اختبار الجودة والأداء' },
+            { title: 'النشر', desc: 'إطلاق بدون توقف' },
+            { title: 'الدعم', desc: 'صيانة وتحديث مستمر' },
+          ],
+        },
+
+        tech: {
+          badge: 'التقنيات',
+          heading: 'تقنيات حديثة ونتائج قوية',
+          categories: {
+            Frontend: 'الواجهة الأمامية',
+            Backend: 'الخلفية',
+            Database: 'قاعدة البيانات',
+            Hosting: 'الاستضافة',
+            DevOps: 'عمليات التطوير',
+          },
+        },
+
+        faq: {
+          badge: 'الأسئلة الشائعة',
+          heading: 'الأسئلة المتكررة',
+          items: [
+            {
+              q: 'كم يستغرق التطوير؟',
+              a: 'MVP من 6 إلى 10 أسابيع، والمشاريع الكبيرة 3–6 أشهر.',
+            },
+            {
+              q: 'هل أمتلك الكود؟',
+              a: 'نعم، تحصل على ملكية كاملة بعد الانتهاء.',
+            },
+            {
+              q: 'ما التقنية المستخدمة؟',
+              a: 'Next.js و Node.js و PostgreSQL أو MongoDB.',
+            },
+            {
+              q: 'هل تعملون على مشاريع قديمة؟',
+              a: 'نعم، نقوم بالمراجعة والتحسين.',
+            },
+            {
+              q: 'هل يوجد دعم؟',
+              a: 'نعم، دعم مجاني لمدة 30 يوم.',
+            },
+            {
+              q: 'هل التصميم متجاوب؟',
+              a: 'نعم، يعمل على جميع الأجهزة.',
+            },
+          ],
+        },
+
+        related: {
+          badge: 'استكشف المزيد',
+          heading: 'خدمات ذات صلة',
+          items: [
+            { label: 'تطوير المتاجر الإلكترونية' },
+            { label: 'تحسين محركات البحث' },
+            { label: 'لوحات التحكم والتحليلات' },
+          ],
+        },
+
+        cta: {
+          heading: 'هل أنت مستعد لبدء مشروعك؟',
+          desc: 'أخبرنا عن فكرتك وسنرسل لك عرضًا خلال 48 ساعة.',
+          getQuote: 'احصل على عرض سعر',
+          allServices: 'جميع الخدمات',
+        },
+      },
+      webDev: {
+        breadcrumb: {
+          home: 'الرئيسية',
+          services: 'الخدمات',
+          current: 'تطوير الويب',
+        },
+        badge: 'تطوير الويب',
+        heroTitleStart: 'مواقع وتطبيقات',
+        heroTitleHighlight: 'تنمّي أعمالك.',
+        heroDesc:
+          'من صفحات الهبوط إلى تطبيقات SaaS متكاملة — نبني منتجات ويب سريعة وقابلة للتوسع وجميلة باستخدام Next.js و React و Node.js.',
+        ctaPrimary: 'ابدأ المشروع',
+        ctaSecondary: 'شاهد أعمالنا',
+        stats: [
+          { value: '50+', label: 'مواقع تم إطلاقها' },
+          { value: '4.9★', label: 'متوسط التقييم' },
+          { value: '< 2ث', label: 'متوسط وقت التحميل' },
+          { value: '100%', label: 'رضا العملاء' },
+        ],
+        features: {
+          badge: 'ما الذي ستحصل عليه',
+          heading: 'كل ما تحتاجه لمشروعك',
+          items: [
+            {
+              title: 'أداء فائق السرعة',
+              desc: 'SSR و SSG وتحسين الصور — موقعك يعمل في أقل من ثانيتين.',
+            },
+            {
+              title: 'واجهة دقيقة التصميم',
+              desc: 'كل تصميم يُبنى من الصفر في Figma ويُحوَّل إلى كود بدقة عالية بدون قوالب.',
+            },
+            {
+              title: 'تصميم متجاوب أولاً للهواتف',
+              desc: 'تجربة مثالية على الهاتف والتابلت والكمبيوتر.',
+            },
+            {
+              title: 'آمن وقابل للتوسع',
+              desc: 'HTTPS وواجهات API آمنة وحدّ للطلبات وبنية نظيفة.',
+            },
+            {
+              title: 'محسّن لمحركات البحث',
+              desc: 'Schema و Open Graph و Sitemap — جاهز للترتيب من اليوم الأول.',
+            },
+            {
+              title: 'كود نظيف',
+              desc: 'كود منظم وقابل للصيانة مع توثيق واضح.',
+            },
+            {
+              title: 'تكامل CMS',
+              desc: 'Contentful أو Sanity أو لوحة تحكم مخصصة لإدارة المحتوى بسهولة.',
+            },
+            {
+              title: 'التحليلات والتتبع',
+              desc: 'Google Analytics و Meta Pixel وتتبع الأحداث المخصصة.',
+            },
+            {
+              title: 'تكامل API',
+              desc: 'بوابات الدفع و CRM والبريد الإلكتروني والخرائط وتسجيل الدخول الاجتماعي.',
+            },
+          ],
+        },
+        tech: {
+          badge: 'التقنيات',
+          heading: 'الأدوات التي نستخدمها',
+          categories: {
+            Frontend: 'الواجهة الأمامية',
+            Backend: 'الواجهة الخلفية',
+            Database: 'قاعدة البيانات',
+            Storage: 'التخزين',
+            Hosting: 'الاستضافة',
+            DevOps: 'عمليات التطوير',
+          },
+        },
+        process: {
+          badge: 'كيف نعمل',
+          heading: 'من الفكرة إلى موقع حي',
+          steps: [
+            {
+              title: 'تحليل وتخطيط',
+              desc: 'فهم الأهداف والجمهور والمتطلبات التقنية.',
+            },
+            {
+              title: 'تصميم في Figma',
+              desc: 'تصميم كامل UI/UX قبل بدء التطوير.',
+            },
+            {
+              title: 'التطوير',
+              desc: 'بناء المشروع باستخدام Next.js و React وواجهات API.',
+            },
+            {
+              title: 'الاختبار والجودة',
+              desc: 'اختبار الأداء والمتصفحات وإمكانية الوصول.',
+            },
+            {
+              title: 'الإطلاق والدعم',
+              desc: 'النشر على Vercel أو أي استضافة مع دعم مستمر.',
+            },
+          ],
+        },
+        pricing: {
+          badge: 'الأسعار',
+          heading: 'أسعار بسيطة وواضحة',
+          subtext: 'جميع الخطط تشمل التصميم والتطوير ودعم 3 أشهر.',
+          plans: [
+            {
+              name: 'الباقة الأساسية',
+              price: '$299',
+              desc: 'لصفحات الهبوط والمواقع الصغيرة',
+              cta: 'ابدأ الآن',
+              features: [
+                'حتى 5 صفحات',
+                'تصميم متجاوب',
+                'نموذج تواصل',
+                'إعداد SEO أساسي',
+                'Google Analytics',
+                'تعديل واحد',
+                'التسليم خلال أسبوعين',
+                'دعم شهر واحد',
+              ],
+            },
+            {
+              name: 'باقة الأعمال',
+              price: '$799',
+              desc: 'للشركات النامية',
+              cta: 'ابدأ الآن',
+              features: [
+                'حتى 15 صفحة',
+                'تصميم مخصص في Figma',
+                'تكامل CMS',
+                'تحسين SEO كامل',
+                'تكامل API',
+                'لوحة تحكم',
+                '3 تعديلات',
+                'التسليم خلال 4 أسابيع',
+                'دعم 3 أشهر',
+              ],
+            },
+            {
+              name: 'SaaS / مخصص',
+              price: 'حسب الطلب',
+              desc: 'تطبيقات كاملة ومنصات SaaS',
+              cta: 'تواصل معنا',
+              features: [
+                'عدد غير محدود من الصفحات',
+                'Next.js + Node.js كامل',
+                'نظام تسجيل الدخول (JWT / OAuth)',
+                'تصميم قاعدة بيانات و API',
+                'تكامل الدفع',
+                'صلاحيات المستخدمين',
+                'تعديلات غير محدودة',
+                'جدول زمني مخصص',
+                'دعم 6 أشهر',
+              ],
+            },
+          ],
+        },
+        faq: {
+          badge: 'الأسئلة الشائعة',
+          heading: 'أسئلة متكررة',
+          items: [
+            {
+              q: 'ما التقنيات التي تستخدمونها؟',
+              a: 'Next.js و React و Tailwind CSS و Node.js و MongoDB أو PostgreSQL.',
+            },
+            {
+              q: 'كم يستغرق إنشاء موقع؟',
+              a: 'صفحة هبوط: 1–2 أسبوع، موقع أعمال: 3–4 أسابيع، SaaS: 6–12 أسبوع.',
+            },
+            {
+              q: 'هل أحصل على الكود المصدري؟',
+              a: 'نعم، تحصل على ملكية كاملة للكود.',
+            },
+            {
+              q: 'هل تعيدون تصميم المواقع؟',
+              a: 'نعم، نقوم بتحسين التصميم والأداء وتجربة المستخدم.',
+            },
+            {
+              q: 'هل توفرون استضافة؟',
+              a: 'عادةً Vercel، ويمكن AWS أو DigitalOcean حسب الطلب.',
+            },
+            {
+              q: 'ماذا بعد الإطلاق؟',
+              a: 'دعم مجاني من 1 إلى 6 أشهر حسب الباقة.',
+            },
+          ],
+        },
+        related: {
+          badge: 'خدمات ذات صلة',
+          heading: 'يتم طلبها غالباً معاً',
+          items: [
+            { label: 'تطوير المتاجر الإلكترونية' },
+            { label: 'لوحة التحكم' },
+            { label: 'تحسين SEO' },
+          ],
+        },
+        cta: {
+          heading: 'هل أنت جاهز لبناء موقعك؟',
+          desc: 'أخبرنا باحتياجاتك وسنقوم بالبناء بسرعة واحترافية.',
+          getQuote: 'احصل على عرض مجاني',
+          allServices: 'جميع الخدمات',
+        },
+      },
       stats: {
         badge: 'سجلّنا الحافل',
         headingStart: 'أرقام',
@@ -970,6 +2074,324 @@ const resources = {
 
   zh: {
     translation: {
+      webApp: {
+        breadcrumb: {
+          home: '首页',
+          services: '服务',
+          current: 'Web 应用开发',
+        },
+
+        badge: 'Web 应用开发',
+        heroTitleStart: '构建强大的',
+        heroTitleHighlight: 'Web 应用',
+        heroDesc:
+          '我们为您的业务打造快速、可扩展的全栈 Web 应用，从 MVP 到企业级平台。',
+        ctaStartProject: '开始项目',
+        ctaViewWork: '查看作品',
+
+        stats: [
+          { value: '120+', label: '已交付项目' },
+          { value: '99%', label: '客户满意度' },
+          { value: '4×', label: '性能提升' },
+          { value: '24/7', label: '持续支持' },
+        ],
+
+        features: {
+          badge: '我们提供什么',
+          heading: '您的 Web 应用所需的一切',
+          items: [
+            {
+              title: '定制 UI/UX 设计',
+              desc: '以用户为中心的高质量界面设计。',
+            },
+            {
+              title: '全栈开发',
+              desc: '使用 Next.js、Node.js 和 TypeScript 构建完整系统。',
+            },
+            {
+              title: '云端架构',
+              desc: '支持 AWS、Vercel 的自动扩展部署。',
+            },
+            {
+              title: '安全认证',
+              desc: 'OAuth 2.0、JWT 和企业级安全控制。',
+            },
+            {
+              title: '性能优化',
+              desc: 'SSR、缓存和核心性能优化。',
+            },
+            {
+              title: '多租户支持',
+              desc: '适用于 SaaS 的多组织系统。',
+            },
+            {
+              title: '实时功能',
+              desc: '聊天、通知和实时仪表盘。',
+            },
+            {
+              title: '分析与监控',
+              desc: '性能监控和用户分析。',
+            },
+            {
+              title: 'API 与集成',
+              desc: 'REST / GraphQL 和第三方集成。',
+            },
+          ],
+        },
+
+        included: {
+          badge: '项目包含内容',
+          heading: '无隐藏费用',
+          items: [
+            '响应式设计',
+            '源码所有权',
+            'CI/CD 部署',
+            '数据库设计',
+            'API 文档',
+            '测试覆盖',
+            '30 天支持',
+            '性能审计',
+            'SEO 优化',
+            '无障碍支持',
+          ],
+        },
+
+        process: {
+          badge: '工作流程',
+          heading: '从需求到上线',
+          steps: [
+            { title: '需求分析', desc: '理解项目目标' },
+            { title: '架构设计', desc: '设计系统结构' },
+            { title: '开发阶段', desc: '敏捷开发流程' },
+            { title: '测试阶段', desc: '质量与性能测试' },
+            { title: '部署上线', desc: '零停机发布' },
+            { title: '持续支持', desc: '长期维护更新' },
+          ],
+        },
+
+        tech: {
+          badge: '技术栈',
+          heading: '现代技术，可靠结果',
+          categories: {
+            Frontend: '前端',
+            Backend: '后端',
+            Database: '数据库',
+            Hosting: '托管',
+            DevOps: '运维',
+          },
+        },
+
+        faq: {
+          badge: '常见问题',
+          heading: '常见问题解答',
+          items: [
+            {
+              q: '开发需要多久？',
+              a: 'MVP 6–10 周，完整 SaaS 3–6 个月。',
+            },
+            {
+              q: '我拥有代码吗？',
+              a: '是的，项目完成后完全归你所有。',
+            },
+            {
+              q: '使用什么技术栈？',
+              a: 'Next.js、Node.js、PostgreSQL 或 MongoDB。',
+            },
+            {
+              q: '支持旧项目吗？',
+              a: '是的，我们提供审计与重构服务。',
+            },
+            {
+              q: '是否提供支持？',
+              a: '提供 30 天免费支持。',
+            },
+            {
+              q: '是否支持移动端？',
+              a: '完全响应式设计。',
+            },
+          ],
+        },
+
+        related: {
+          badge: '更多服务',
+          heading: '相关服务',
+          items: [
+            { label: '电商开发' },
+            { label: 'SEO 优化' },
+            { label: '数据分析面板' },
+          ],
+        },
+
+        cta: {
+          heading: '准备开始项目？',
+          desc: '告诉我们你的需求，我们将在 48 小时内回复。',
+          getQuote: '获取报价',
+          allServices: '所有服务',
+        },
+      },
+      webDev: {
+        breadcrumb: { home: '首页', services: '服务', current: '网站开发' },
+        badge: '网站开发',
+        heroTitleStart: '打造能够',
+        heroTitleHighlight: '提升你业务的网站与应用',
+        heroDesc:
+          '从落地页到全栈 SaaS 应用 — 使用 Next.js、React 和 Node.js 构建快速、可扩展且精美的 Web 产品。',
+        ctaPrimary: '开始项目',
+        ctaSecondary: '查看作品',
+        stats: [
+          { value: '50+', label: '已上线网站' },
+          { value: '4.9★', label: '平均评分' },
+          { value: '< 2秒', label: '平均加载时间' },
+          { value: '100%', label: '客户满意度' },
+        ],
+        features: {
+          badge: '你将获得',
+          heading: '为你的项目提供的一切',
+          items: [
+            {
+              title: '超高性能',
+              desc: 'SSR、SSG、图片优化 — 网站加载时间低于 2 秒。',
+            },
+            { title: '像素级设计', desc: 'Figma 从零设计并精确实现，无模板。' },
+            { title: '移动优先响应式', desc: '手机、平板、桌面端完美适配。' },
+            { title: '安全可扩展', desc: 'HTTPS、安全 API、限流与清晰架构。' },
+            {
+              title: 'SEO 优化',
+              desc: 'Schema、OG 标签、站点地图，帮助快速排名。',
+            },
+            { title: '干净代码', desc: '结构清晰、可维护、文档完善。' },
+            {
+              title: 'CMS 集成',
+              desc: 'Contentful、Sanity 或自定义后台管理系统。',
+            },
+            {
+              title: '数据分析',
+              desc: 'Google Analytics、Meta Pixel、自定义事件追踪。',
+            },
+            {
+              title: 'API 与集成',
+              desc: '支付、CRM、邮件、地图、社交登录等集成。',
+            },
+          ],
+        },
+        tech: {
+          badge: '技术栈',
+          heading: '我们使用的工具',
+          categories: {
+            Frontend: '前端',
+            Backend: '后端',
+            Database: '数据库',
+            Storage: '存储',
+            Hosting: '托管',
+            DevOps: '运维',
+          },
+        },
+        process: {
+          badge: '工作流程',
+          heading: '从想法到上线网站',
+          steps: [
+            { title: '需求分析', desc: '理解目标、用户与技术需求。' },
+            { title: 'Figma 设计', desc: '开发前完成完整 UI/UX 设计。' },
+            { title: '开发实现', desc: '使用 Next.js 和 React 构建系统。' },
+            { title: '测试与质量保证', desc: '跨浏览器与性能测试。' },
+            { title: '上线与支持', desc: '部署上线并提供持续支持。' },
+          ],
+        },
+        pricing: {
+          badge: '价格',
+          heading: '简单透明的定价',
+          subtext: '所有套餐包含设计、开发与 3 个月支持。',
+          plans: [
+            {
+              name: '基础版',
+              price: '$299',
+              desc: '适用于落地页与小型网站',
+              cta: '开始',
+              features: [
+                '最多 5 页',
+                '移动端适配',
+                '联系表单',
+                '基础 SEO',
+                'Google Analytics',
+                '1 次修改',
+                '2 周交付',
+                '1 个月支持',
+              ],
+            },
+            {
+              name: '商业版',
+              price: '$799',
+              desc: '适用于成长型企业',
+              cta: '开始',
+              features: [
+                '最多 15 页',
+                '定制 Figma 设计',
+                'CMS 集成',
+                '完整 SEO 优化',
+                'API 集成',
+                '管理后台',
+                '3 次修改',
+                '4 周交付',
+                '3 个月支持',
+              ],
+            },
+            {
+              name: 'SaaS / 定制',
+              price: '定制',
+              desc: '全栈应用与 SaaS 平台',
+              cta: '联系咨询',
+              features: [
+                '无限页面',
+                'Next.js + Node.js 全栈',
+                '认证系统 (JWT / OAuth)',
+                '数据库与 API 设计',
+                '支付集成',
+                '角色权限管理',
+                '无限修改',
+                '定制时间线',
+                '6 个月支持',
+              ],
+            },
+          ],
+        },
+        faq: {
+          badge: '常见问题',
+          heading: '常见问题解答',
+          items: [
+            {
+              q: '你们使用什么技术栈？',
+              a: 'Next.js、React、Tailwind CSS、Node.js、MongoDB 或 PostgreSQL。',
+            },
+            {
+              q: '开发一个网站需要多久？',
+              a: '落地页 1–2 周，商业网站 3–4 周，SaaS 6–12 周。',
+            },
+            { q: '我可以拿到源码吗？', a: '可以，100% 源码所有权。' },
+            { q: '可以重做旧网站吗？', a: '可以，我们会优化 UI/UX 与性能。' },
+            {
+              q: '你们提供托管吗？',
+              a: '默认 Vercel，也支持 AWS、DO 或其他平台。',
+            },
+            { q: '上线后还能修改吗？', a: '根据套餐提供 1–6 个月免费支持。' },
+          ],
+        },
+        related: {
+          badge: '相关服务',
+          heading: '常一起使用',
+          items: [
+            { label: '电商开发' },
+            { label: '管理后台' },
+            { label: 'SEO 优化' },
+          ],
+        },
+        cta: {
+          heading: '准备好创建你的网站了吗？',
+          desc: '告诉我们你的需求，我们快速帮你实现。',
+          getQuote: '获取免费报价',
+          allServices: '全部服务',
+        },
+      },
+
       stats: {
         badge: '我们的成绩',
         headingStart: '用数据',
