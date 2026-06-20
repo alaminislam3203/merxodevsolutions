@@ -108,7 +108,7 @@ export default function Stats() {
       aria-labelledby="stats-heading"
       itemScope
       itemType="https://schema.org/ItemList"
-      className="relative py-24 bg-zinc-50 dark:bg-zinc-900 overflow-hidden"
+      className="relative py-24  overflow-hidden"
     >
       <script
         type="application/ld+json"
@@ -123,6 +123,22 @@ export default function Stats() {
               name: `${s.value}${s.suffix} ${s.label}`,
             })),
           }),
+        }}
+      />
+
+      {/* Background Glows */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
 

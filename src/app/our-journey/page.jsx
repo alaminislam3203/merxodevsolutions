@@ -193,7 +193,7 @@ export default function JourneyPage() {
       </section>
 
       {/* ── Timeline ── */}
-      <section className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900">
+      <section className="px-6 py-16 ">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-14">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
@@ -302,7 +302,7 @@ export default function JourneyPage() {
       </section>
 
       {/* ── What We Learned ── */}
-      <section className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900">
+      <section className="px-6 py-16 ">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">

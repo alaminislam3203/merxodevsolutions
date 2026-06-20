@@ -244,10 +244,7 @@ export default function WebAppContent() {
       </section>
 
       {/* ── What's Included ── */}
-      <section
-        className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900"
-        aria-labelledby="included-heading"
-      >
+      <section className="px-6 py-16 " aria-labelledby="included-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
@@ -314,10 +311,7 @@ export default function WebAppContent() {
       </section>
 
       {/* ── Tech Stack ── */}
-      <section
-        className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900"
-        aria-labelledby="tech-heading"
-      >
+      <section className="px-6 py-16" aria-labelledby="tech-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
@@ -373,10 +367,7 @@ export default function WebAppContent() {
       </section>
 
       {/* ── Related Services ── */}
-      <section
-        className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900"
-        aria-labelledby="related-heading"
-      >
+      <section className="px-6 py-16" aria-labelledby="related-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">

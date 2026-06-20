@@ -67,7 +67,7 @@ export default function Testimonials() {
       aria-labelledby="testimonials-heading"
       itemScope
       itemType="https://schema.org/ItemList"
-      className="relative py-24 bg-zinc-50 dark:bg-zinc-900 overflow-hidden"
+      className="relative py-24  overflow-hidden"
     >
       <script
         type="application/ld+json"
