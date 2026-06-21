@@ -1,5 +1,6 @@
 'use client';
 
+import FeaturedProjects from '@/components/FeaturedProjects';
 import Hero from '@/components/Hero';
 import Process from '@/components/Process';
 import Stats from '@/components/Stats';
@@ -14,6 +15,7 @@ export default function Home() {
       <Stats />
       <WhyUs />
       <Process />
+      <FeaturedProjects />
       <TechStack />
       <Testimonials />
     </main>
