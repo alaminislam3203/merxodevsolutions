@@ -5,7 +5,8 @@ import { projects } from '@/app/lib/projects';
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export async function generateMetadata({ params }) {
-  const project = projects.find(p => p.slug === params.slug);
+  const { slug } = await params;
+  const project = projects.find(p => p.slug === slug);
   if (!project) return {};
   return {
     title: `${project.title} — MerxoDev Solutions`,
@@ -80,9 +81,59 @@ const accentMap = {
   },
 };
 
+// ─── Mobile mockup card ─────────────────────────────────────────────────────
+// Renders a screenshot inside a phone-style frame (rounded bezel + notch).
+function MobileMockup({ src, alt }) {
+  if (!src) return null;
+  return (
+    <div className="relative w-28 sm:w-36 shrink-0">
+      <div className="relative aspect-[9/19] rounded-[1.75rem] bg-zinc-900 dark:bg-zinc-100 p-[2px] shadow-xl shadow-zinc-900/10 dark:shadow-black/40">
+        <div className="relative w-full h-full rounded-[1.55rem] overflow-hidden bg-zinc-950">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover"
+            sizes="160px"
+          />
+        </div>
+        {/* Notch */}
+        <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-10 h-2.5 rounded-b-lg bg-zinc-900 dark:bg-zinc-100 z-10" />
+      </div>
+    </div>
+  );
+}
+
+// ─── Desktop mockup card ────────────────────────────────────────────────────
+// Renders a screenshot inside a browser-style window card.
+function DesktopMockup({ src, alt, accent }) {
+  if (!src) return null;
+  return (
+    <div
+      className={`rounded-2xl border bg-zinc-50 dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 ${accent.border}`}
+    >
+      <div className="flex items-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
+        <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+      </div>
+      <div className="relative aspect-[16/10] bg-white dark:bg-zinc-950">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 100vw, 33vw"
+        />
+      </div>
+    </div>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
-export default function ProjectDetailPage({ params }) {
-  const project = projects.find(p => p.slug === params.slug);
+export default async function ProjectDetailPage({ params }) {
+  const { slug } = await params;
+  const project = projects.find(p => p.slug === slug);
   if (!project) notFound();
 
   const a = accentMap[project.accent];
@@ -108,25 +159,13 @@ export default function ProjectDetailPage({ params }) {
         }}
       />
 
-      <main className="min-h-screen bg-white dark:bg-zinc-950 pb-24">
-        {/* ── Hero Image ── */}
-        <div className="relative w-full h-64 sm:h-80 md:h-96 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-          <Image
-            src={project.image}
-            alt={`${project.title} project screenshot`}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-          {/* Back button */}
-          <div className="absolute top-5 left-5 z-10">
+      <main className="min-h-screen bg-white dark:bg-zinc-950 pb-24 mt-20">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col gap-10">
+          {/* ── Back button ── */}
+          <div>
             <Link
               href="/our-projects"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold font-raleway uppercase tracking-widest hover:bg-white/20 transition-all duration-200"
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold font-raleway uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 ${a.border} ${a.back}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -146,21 +185,63 @@ export default function ProjectDetailPage({ params }) {
             </Link>
           </div>
 
-          {/* Title on hero */}
-          <div className="absolute bottom-6 left-6 right-6 z-10">
+          {/* ── Tag + Title ── */}
+          <div className="flex flex-col gap-3">
             <span
-              className={`inline-block text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-raleway mb-2 ${a.tag}`}
+              className={`inline-block w-fit text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-raleway ${a.tag}`}
             >
               {project.tag}
             </span>
-            <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-wide leading-tight drop-shadow-lg">
+            <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
               {project.title}
             </h1>
           </div>
-        </div>
 
-        {/* ── Content ── */}
-        <div className="max-w-4xl mx-auto px-6 mt-10 flex flex-col gap-10">
+          {/* ── Showcase Gallery ── */}
+          <div className="mx-[5%] sm:mx-0 sm:relative sm:left-1/2 sm:-translate-x-1/2 sm:w-[90vw] flex flex-col gap-6">
+            {/* Row 1: 4 mobile mockups (2x2 grid) + 1 desktop mockup */}
+            <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start justify-center sm:justify-start">
+              <div className="flex flex-col items-center gap-3 shrink-0">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {project.images.mobile.slice(0, 4).map((src, i) => (
+                    <MobileMockup
+                      key={i}
+                      src={src}
+                      alt={`${project.title} mobile screenshot ${i + 1}`}
+                    />
+                  ))}
+                </div>
+                <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">
+                  Mobile View
+                </span>
+              </div>
+              <div className="w-full sm:flex-1">
+                <DesktopMockup
+                  src={project.images.desktop[0]}
+                  alt={`${project.title} desktop screenshot 1`}
+                  accent={a}
+                />
+              </div>
+            </div>
+
+            {/* Row 2: remaining 2 desktop mockups filling the full width */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <DesktopMockup
+                src={project.images.desktop[1]}
+                alt={`${project.title} desktop screenshot 2`}
+                accent={a}
+              />
+              <DesktopMockup
+                src={project.images.desktop[2]}
+                alt={`${project.title} desktop screenshot 3`}
+                accent={a}
+              />
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className={`h-px bg-gradient-to-r ${a.gradient} opacity-30`} />
+
           {/* Description + Live button */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
             <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway max-w-xl">

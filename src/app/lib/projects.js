@@ -3,7 +3,24 @@ export const projects = [
     slug: 'shopnest-bd',
     tag: 'E-Commerce',
     title: 'ShopNest BD',
-    image: '/projects/shopnest.jpg',
+    // Thumbnail used for cards / OG meta / related-project previews
+    image:
+      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+    // Screenshots shown on the details page — 4 mobile + 3 desktop.
+    // TODO: replace each URL below with the real screenshot for this project.
+    images: {
+      mobile: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782051078/Galaxy-S21-Ultra-shopnestbd.com_jxoesz.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782052932/Galaxy-S21-Ultra-shopnestbd.com_xzyici.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782053047/Galaxy-S21-Ultra-shopnestbd.com_vp7fdn.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782053180/82ca210a-d5be-49d1-81b9-0228b7c914a3.png',
+      ],
+      desktop: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782053356/d6c1b5d5-8f84-40ba-bd5e-d4d8f730a9e6.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782053774/Screenshot_2026-06-21_205523_dhmhl0.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782054345/Screenshot_2026-06-21_210526_tacjlp.png',
+      ],
+    },
     description:
       'A full-featured multi-vendor e-commerce platform with real-time inventory, mobile checkout, and admin dashboard.',
     liveUrl: 'https://shopnestbd.com',
@@ -24,7 +41,21 @@ export const projects = [
     slug: 'taskflow-pro',
     tag: 'SaaS',
     title: 'TaskFlow Pro',
-    image: '/projects/taskflow.jpg',
+    image:
+      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+    images: {
+      mobile: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+      desktop: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+    },
     description:
       'A project management SaaS with Kanban boards, team collaboration tools, and AI-powered task prioritization.',
     liveUrl: 'https://taskflowpro.io',
@@ -45,7 +76,21 @@ export const projects = [
     slug: 'artspace-gallery',
     tag: 'Portfolio',
     title: 'ArtSpace Gallery',
-    image: '/projects/artspace.jpg',
+    image:
+      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+    images: {
+      mobile: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+      desktop: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+    },
     description:
       'A stunning digital gallery platform for artists to showcase and sell their work globally with integrated payments.',
     liveUrl: 'https://artspacegallery.com',
@@ -66,7 +111,21 @@ export const projects = [
     slug: 'medtrack-bd',
     tag: 'Healthcare',
     title: 'MedTrack BD',
-    image: '/projects/medtrack.jpg',
+    image:
+      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+    images: {
+      mobile: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+      desktop: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+    },
     description:
       'A digital health record and appointment management system connecting patients with doctors across Bangladesh.',
     liveUrl: 'https://medtrackbd.com',
@@ -87,7 +146,21 @@ export const projects = [
     slug: 'learnbridge',
     tag: 'EdTech',
     title: 'LearnBridge',
-    image: '/projects/learnbridge.jpg',
+    image:
+      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+    images: {
+      mobile: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+      desktop: [
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      ],
+    },
     description:
       'An interactive e-learning platform with video courses, live quizzes, and progress tracking for Bangladeshi students.',
     liveUrl: 'https://learnbridge.edu.bd',
