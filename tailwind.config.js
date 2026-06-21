@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class', // 'media' → 'class'
+  darkMode: 'class',
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,6 +18,15 @@ module.exports = {
           violet: '#7c3aed',
           cyan: '#06b6d4',
           amber: '#f59e0b',
+        },
+      },
+      animation: {
+        marquee: 'marquee 28s linear infinite',
+      }, // ✅ এই closing bracket missing ছিল
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },
