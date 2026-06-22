@@ -3,6 +3,25 @@ import { initReactI18next } from 'react-i18next';
 
 const resources = {
   en: {
+    // Project Detail
+    projectDetail: {
+      back: 'Back',
+      mobileView: 'Mobile View',
+      macAirView: 'Mac-Air View',
+      desktopView: 'Desktop View',
+      viewLive: 'View Live',
+      client: 'Client',
+      duration: 'Duration',
+      category: 'Category',
+      stack: 'Stack',
+      technologies: 'technologies',
+      techStack: 'Tech Stack',
+      keyFeatures: 'Key Features',
+      otherProjects: 'Other Projects',
+      likeWhatYouSee: 'Like What You See?',
+      buildTogether: "Let's build something amazing together.",
+      startProject: 'Start a Project',
+    },
     translation: {
       footer: {
         brand: {
@@ -736,6 +755,24 @@ const resources = {
 
   bn: {
     translation: {
+      projectDetail: {
+        back: 'ফিরে যান',
+        mobileView: 'মোবাইল ভিউ',
+        macAirView: 'ম্যাক-এয়ার ভিউ',
+        desktopView: 'ডেস্কটপ ভিউ',
+        viewLive: 'লাইভ দেখুন',
+        client: 'ক্লায়েন্ট',
+        duration: 'সময়কাল',
+        category: 'বিভাগ',
+        stack: 'স্ট্যাক',
+        technologies: 'প্রযুক্তি',
+        techStack: 'টেক স্ট্যাক',
+        keyFeatures: 'মূল বৈশিষ্ট্য',
+        otherProjects: 'অন্যান্য প্রজেক্ট',
+        likeWhatYouSee: 'পছন্দ হয়েছে?',
+        buildTogether: 'চলুন একসাথে কিছু অসাধারণ তৈরি করি।',
+        startProject: 'প্রজেক্ট শুরু করুন',
+      },
       footer: {
         brand: {
           desc: 'আমরা আধুনিক ডিজিটাল সমাধান তৈরি করি — সুন্দর ওয়েব অ্যাপ থেকে শুরু করে স্কেলযোগ্য ক্লাউড সিস্টেম পর্যন্ত — দীর্ঘস্থায়ী এবং চমৎকার ডিজাইনে।',
@@ -1476,6 +1513,24 @@ const resources = {
 
   ar: {
     translation: {
+      projectDetail: {
+        back: 'رجوع',
+        mobileView: 'عرض الجوال',
+        macAirView: 'عرض ماك-إير',
+        desktopView: 'عرض سطح المكتب',
+        viewLive: 'عرض مباشر',
+        client: 'العميل',
+        duration: 'المدة',
+        category: 'الفئة',
+        stack: 'التقنيات',
+        technologies: 'تقنية',
+        techStack: 'مكدس التقنيات',
+        keyFeatures: 'الميزات الرئيسية',
+        otherProjects: 'مشاريع أخرى',
+        likeWhatYouSee: 'أعجبك ما تراه؟',
+        buildTogether: 'لنبني شيئاً رائعاً معاً.',
+        startProject: 'ابدأ مشروعاً',
+      },
       footer: {
         brand: {
           desc: 'نصنع حلولاً رقمية حديثة — من تطبيقات ويب أنيقة إلى أنظمة سحابية قابلة للتوسع — مبنية لتدوم ومصممة لتبهر.',
@@ -2189,6 +2244,24 @@ const resources = {
 
   zh: {
     translation: {
+      projectDetail: {
+        back: '返回',
+        mobileView: '移动端视图',
+        macAirView: 'Mac-Air 视图',
+        desktopView: '桌面端视图',
+        viewLive: '查看线上版本',
+        client: '客户',
+        duration: '周期',
+        category: '类别',
+        stack: '技术栈',
+        technologies: '项技术',
+        techStack: '技术栈',
+        keyFeatures: '核心功能',
+        otherProjects: '其他项目',
+        likeWhatYouSee: '感兴趣吗？',
+        buildTogether: '让我们一起创造精彩。',
+        startProject: '开始项目',
+      },
       footer: {
         brand: {
           desc: '我们打造现代数字解决方案——从精美的 Web 应用到可扩展的云系统——经久耐用，设计出众。',

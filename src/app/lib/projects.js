@@ -1,37 +1,38 @@
 export const projects = [
   {
-    slug: 'shopnest-bd',
+    slug: 'merxo-mart',
     tag: 'E-Commerce',
-    title: 'ShopNest BD',
-    // Thumbnail used for cards / OG meta / related-project previews
+    title: 'Merxo Mart',
+
     image:
-      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
-    // Screenshots shown on the details page — 4 mobile + 3 desktop.
-    // TODO: replace each URL below with the real screenshot for this project.
+      'https://res.cloudinary.com/doogtvaoh/image/upload/v1782106167/Merxo-Mart_-_Modern_E-Commerce_Platform_rybpi5.png',
+
     images: {
       mobile: [
-        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782051078/Galaxy-S21-Ultra-shopnestbd.com_jxoesz.png',
-        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782052932/Galaxy-S21-Ultra-shopnestbd.com_xzyici.png',
-        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782053047/Galaxy-S21-Ultra-shopnestbd.com_vp7fdn.png',
-        'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782053180/82ca210a-d5be-49d1-81b9-0228b7c914a3.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782106833/Merxo-Mart%20-%20Modern%20E-Commerce%20Platform%20Mobile%20Responsive.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782107369/Merxo-Mart%20-%20Modern%20E-Commerce%20Platform%20Mobile%20Responsive%20Cart.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782107369/Merxo-Mart%20-%20Modern%20E-Commerce%20Platform%20Mobile%20Responsive%20Order%20Progress.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782107369/Merxo-Mart%20-%20Modern%20E-Commerce%20Platform%20Order%20Recipt.png',
       ],
       desktop: [
-        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782053356/d6c1b5d5-8f84-40ba-bd5e-d4d8f730a9e6.png',
-        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782053774/Screenshot_2026-06-21_205523_dhmhl0.png',
-        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782054345/Screenshot_2026-06-21_210526_tacjlp.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782106506/Merxo-Mart_-_Modern_E-Commerce_Platform_Macbook-Air_Responsive_icwvq0.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782107739/Merxo-Mart%20-%20Modern%20E-Commerce%20Platform%20Admin%20Dashboard.png',
+        'https://res.cloudinary.com/doogtvaoh/image/upload/v1782110268/Merxo-Mart_-_Modern_E-Commerce_Platform_Desktop_Manage_Order_2_qkpxlj.png',
       ],
     },
     description:
-      'A full-featured multi-vendor e-commerce platform with real-time inventory, mobile checkout, and admin dashboard.',
-    liveUrl: 'https://shopnestbd.com',
+      'MerxoMart is a responsive and interactive e-commerce web application designed for online shoppers to explore, buy, and manage products efficiently. Users can browse products, add them to their cart, manage orders, and admins can manage products in a dashboard.',
+    liveUrl: 'https://merxomart.vercel.app',
     accent: 'violet',
     details: {
       client: 'Rafiq Ahmed',
       duration: '3 months',
-      tech: ['Next.js', 'Node.js', 'MongoDB', 'Stripe'],
+      tech: ['Next.js', 'Next Auth', 'Node.js', 'MongoDB', 'sslcommerz'],
       features: [
-        'Multi-vendor storefront with live inventory sync',
-        'One-tap mobile checkout with bKash & card support',
+        'There is a system for authenticating users.',
+        'One-tap mobile checkout with bKash,Nagad,Rocket & card support',
+        'Product Management',
+        'Cart & Orders',
         'Real-time admin dashboard with analytics',
         'SEO-optimized product pages with schema markup',
       ],
@@ -42,7 +43,7 @@ export const projects = [
     tag: 'SaaS',
     title: 'TaskFlow Pro',
     image:
-      'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',
+      'https://res.cloudinary.com/doogtvaoh/image/upload/v1782106167/Merxo-Mart_-_Modern_E-Commerce_Platform_rybpi5.png',
     images: {
       mobile: [
         'https://res.cloudinary.com/doogtvaoh/image/upload/q_auto/f_auto/v1782045671/png_dlbvfr.jpg',

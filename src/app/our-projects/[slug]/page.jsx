@@ -82,7 +82,7 @@ const accentMap = {
 };
 
 // ─── Mobile mockup card ─────────────────────────────────────────────────────
-// Renders a screenshot inside a phone-style frame (rounded bezel + notch).
+
 function MobileMockup({ src, alt }) {
   if (!src) return null;
   return (
@@ -105,7 +105,7 @@ function MobileMockup({ src, alt }) {
 }
 
 // ─── Desktop mockup card ────────────────────────────────────────────────────
-// Renders a screenshot inside a browser-style window card.
+
 function DesktopMockup({ src, alt, accent }) {
   if (!src) return null;
   return (
@@ -117,12 +117,12 @@ function DesktopMockup({ src, alt, accent }) {
         <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
       </div>
-      <div className="relative aspect-[16/10] bg-white dark:bg-zinc-950">
+      <div className="relative aspect-[16/8] bg-white dark:bg-zinc-950">
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-cover"
+          className="object-center"
           sizes="(max-width: 640px) 100vw, 33vw"
         />
       </div>
@@ -199,7 +199,6 @@ export default async function ProjectDetailPage({ params }) {
 
           {/* ── Showcase Gallery ── */}
           <div className="mx-[5%] sm:mx-0 sm:relative sm:left-1/2 sm:-translate-x-1/2 sm:w-[90vw] flex flex-col gap-6">
-            {/* Row 1: 4 mobile mockups (2x2 grid) + 1 desktop mockup */}
             <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start justify-center sm:justify-start">
               <div className="flex flex-col items-center gap-3 shrink-0">
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -211,7 +210,7 @@ export default async function ProjectDetailPage({ params }) {
                     />
                   ))}
                 </div>
-                <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">
+                <span className="hidden sm:block text-[20px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">
                   Mobile View
                 </span>
               </div>
@@ -221,22 +220,29 @@ export default async function ProjectDetailPage({ params }) {
                   alt={`${project.title} desktop screenshot 1`}
                   accent={a}
                 />
+                <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display mt-2 text-center">
+                  Mac-Air View
+                </span>
               </div>
             </div>
 
-            {/* Row 2: remaining 2 desktop mockups filling the full width */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <DesktopMockup
                 src={project.images.desktop[1]}
                 alt={`${project.title} desktop screenshot 2`}
                 accent={a}
+                compact
               />
               <DesktopMockup
                 src={project.images.desktop[2]}
                 alt={`${project.title} desktop screenshot 3`}
                 accent={a}
+                compact
               />
             </div>
+            <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display mt-2 text-center">
+              Desktop View
+            </span>
           </div>
 
           {/* Divider */}
