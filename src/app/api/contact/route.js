@@ -3,6 +3,81 @@ import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
 import autoReplyTemplate from '@/lib/templates/autoReplyTemplate';
 
+function createNodemailerTransporter() {
+  if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+  }
+  return null;
+}
+
+/**
+ * Robust email dispatcher:
+ * Tries Resend first, if Resend is unavailable or fails (e.g. unverified test domain),
+ * smoothly falls back to Gmail SMTP so client & admin always receive emails.
+ */
+async function dispatchEmail({ to, subject, html, text, replyTo }) {
+  let resendSuccess = false;
+
+  // 1. Attempt Resend
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const fromSender = process.env.RESEND_FROM_EMAIL || 'MerxoDev Solutions <onboarding@resend.dev>';
+      const res = await resend.emails.send({
+        from: fromSender,
+        to,
+        replyTo,
+        subject,
+        text,
+        html,
+      });
+
+      if (!res.error) {
+        resendSuccess = true;
+        return { success: true, provider: 'resend' };
+      } else {
+        console.warn('Resend send returned error, falling back to Gmail SMTP:', res.error);
+      }
+    } catch (resendErr) {
+      console.warn('Resend exception, falling back to Gmail SMTP:', resendErr.message);
+    }
+  }
+
+  // 2. Fallback to Gmail SMTP via Nodemailer
+  const transporter = createNodemailerTransporter();
+  if (transporter) {
+    try {
+      await transporter.sendMail({
+        from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
+        to,
+        replyTo: replyTo || process.env.GMAIL_USER,
+        subject,
+        text,
+        html,
+        headers: {
+          'X-Priority': '3',
+          'X-MSMail-Priority': 'Normal',
+          Importance: 'Normal',
+        },
+      });
+      return { success: true, provider: 'nodemailer' };
+    } catch (smtpErr) {
+      console.error('Nodemailer SMTP error:', smtpErr.message);
+      throw smtpErr;
+    }
+  }
+
+  if (!resendSuccess) {
+    throw new Error('No working email provider configured (both Resend and Gmail SMTP failed/missing)');
+  }
+}
+
 export async function POST(req) {
   try {
     const { name, email, phone, service, budget, message } = await req.json();
@@ -15,7 +90,7 @@ export async function POST(req) {
     }
 
     const now = new Date();
-    const adminEmail = process.env.ADMIN_INBOX_EMAIL || process.env.GMAIL_USER || 'merxodevsolutions@gmail.com';
+    const adminInbox = process.env.ADMIN_INBOX_EMAIL || process.env.GMAIL_USER || 'merxodevsolutions@gmail.com';
 
     // Plain text fallbacks
     const adminPlainText = `New Project Inquiry:
@@ -63,84 +138,43 @@ Email: merxodevsolutions@gmail.com`;
       message,
     });
 
-    // ── Method 1: Use Resend if RESEND_API_KEY is available ──
-    if (process.env.RESEND_API_KEY) {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const fromSender = process.env.RESEND_FROM_EMAIL || 'MerxoDev Solutions <onboarding@resend.dev>';
-
-      // 1. Send Admin Notification Email
-      await resend.emails.send({
-        from: fromSender,
-        to: adminEmail,
-        replyTo: email,
+    // Send both Admin Notification and Client Auto-Reply in parallel
+    const [adminResult, clientResult] = await Promise.allSettled([
+      // 1. Admin Email
+      dispatchEmail({
+        to: adminInbox,
         subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
-        text: adminPlainText,
         html: adminHtml,
-      });
-
-      // 2. Send Client Auto-Reply Email
-      await resend.emails.send({
-        from: fromSender,
-        to: email,
-        replyTo: adminEmail,
-        subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
-        text: clientPlainText,
-        html: clientHtml,
-      });
-
-      return Response.json({ success: true, provider: 'resend' });
-    }
-
-    // ── Method 2: Fallback to Gmail SMTP via Nodemailer ──
-    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_PASS,
-        },
-      });
-
-      // 1. Send Admin Notification Email
-      await transporter.sendMail({
-        from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
-        to: process.env.GMAIL_USER,
+        text: adminPlainText,
         replyTo: email,
-        subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
-        text: adminPlainText,
-        html: adminHtml,
-        headers: {
-          'X-Priority': '3',
-          'X-MSMail-Priority': 'Normal',
-          Importance: 'Normal',
-        },
-      });
+      }),
 
-      // 2. Send Client Auto-Reply Email
-      await transporter.sendMail({
-        from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
+      // 2. Client Auto-Reply Email
+      dispatchEmail({
         to: email,
         subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
-        text: clientPlainText,
         html: clientHtml,
-        headers: {
-          'X-Priority': '3',
-          'X-MSMail-Priority': 'Normal',
-          Importance: 'Normal',
-        },
-      });
+        text: clientPlainText,
+        replyTo: adminInbox,
+      }),
+    ]);
 
-      return Response.json({ success: true, provider: 'nodemailer' });
+    if (adminResult.status === 'rejected' && clientResult.status === 'rejected') {
+      return Response.json(
+        { error: 'Failed to dispatch emails' },
+        { status: 500 },
+      );
     }
 
-    return Response.json(
-      { error: 'Email service credentials not configured' },
-      { status: 500 },
-    );
+    return Response.json({
+      success: true,
+      adminStatus: adminResult.status,
+      clientStatus: clientResult.status,
+    });
   } catch (error) {
-    console.error('Contact email error:', error);
+    console.error('Contact route unhandled error:', error);
     return Response.json(
-      { error: 'Failed to send message' },
+      { error: 'Failed to process inquiry' },
       { status: 500 },
     );
   }
