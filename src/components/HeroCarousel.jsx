@@ -1,20 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import EmblaCarousel from "./EmblaCarousel";
+import prisma from "@/lib/prisma";
 
 async function getBanners() {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      process.env.NEXTAUTH_URL ||
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
-    const res = await fetch(`${baseUrl}/api/banners`, {
-      cache: "no-store", // always fresh — change to { next: { revalidate: 60 } } in production
+    const banners = await prisma.banner.findMany({
+      where: { isActive: true },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     });
-    if (!res.ok) return { left: [], right: [] };
-    return res.json();
-  } catch {
+
+    const left = banners.filter((b) => b.slot === "left" || !b.slot);
+    const right = banners.filter((b) => b.slot === "right");
+
+    return { left, right };
+  } catch (err) {
+    console.error("HeroCarousel getBanners error:", err);
     return { left: [], right: [] };
   }
 }
