@@ -5,33 +5,24 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import Image from 'next/image';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
+import SearchBar from './SearchBar';
 
-function Logo() {
+function Logo({ className = "h-5 sm:h-6 w-auto", mobile = false }) {
+  const src = mobile ? "/mobile-logo.png" : "/logo.png";
   return (
-    <div className="flex flex-col items-center leading-none select-none">
-      <div className="flex items-center">
-        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
-          MER
-        </span>
-        <span className="text-base sm:text-lg md:text-xl font-thin text-amber-400">
-          &#10097;
-        </span>
-        <span className="text-base sm:text-lg md:text-xl font-thin text-[#27003B] dark:text-white -ml-0.5">
-          &#10096;
-        </span>
-        <span className="text-base sm:text-lg md:text-xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
-          ODEV
-        </span>
-      </div>
-      <div className="flex items-center gap-1 sm:gap-2 mt-0.5">
-        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
-        <span className="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] sm:tracking-[0.5em] text-amber-400 uppercase">
-          Solutions
-        </span>
-        <span className="block h-px w-3 sm:w-4 md:w-5 bg-amber-400" />
-      </div>
+    <div className="flex items-center select-none" aria-label="MerxoDev Solutions">
+      <Image
+        src={src}
+        alt="MerxoDev Solutions"
+        width={mobile ? 40 : 120}
+        height={mobile ? 40 : 28}
+        className={`${className} object-contain`}
+        style={{ width: 'auto', height: 'auto' }}
+        priority
+      />
     </div>
   );
 }
@@ -50,7 +41,7 @@ export default function Navbar() {
 
   // ── Dynamic nav links (translated) ──────────────────────────────────────────
   const navLinks = [
-    { label: t('home'), href: '/' },
+    // { label: t('home'), href: '/' },
     { label: t('services'), href: '/services' },
     { label: t('journey'), href: '/our-journey' },
     { label: t('about'), href: '/about' },
@@ -127,33 +118,23 @@ export default function Navbar() {
     <>
       {/* ─── Desktop Navbar ─── */}
       <nav
-        className={`hidden md:block fixed top-0 inset-x-0 z-50 overflow-visible transition-all duration-500 ease-in-out ${
-          scrolled
-            ? 'bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-zinc-950/80 backdrop-blur-xl shadow-sm'
-            : 'bg-transparent'
-        }`}
+        className={`hidden md:block fixed top-0 inset-x-0 z-50 overflow-visible transition-all duration-300 ease-in-out ${scrolled
+          ? 'bg-violet-700/95 dark:bg-zinc-950/90 backdrop-blur-xl shadow-lg shadow-violet-900/10 border-b border-violet-600/50 dark:border-zinc-800'
+          : 'bg-violet-700 dark:bg-zinc-950/80 backdrop-blur-md border-b border-violet-600/30 dark:border-zinc-800/40'
+          }`}
       >
-        <div className="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Masked layer: Logo + Links */}
-          <div
-            className="contents"
-            style={{
-              WebkitMaskImage:
-                'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-              maskImage:
-                'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-            }}
-          >
+        <div className="relative max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-8 shrink-0">
             <Link href="/">
               <Logo />
             </Link>
 
-            <div className="flex items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400 font-raleway font-semibold uppercase">
+            <div className="flex items-center gap-6 text-sm font-semibold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300">
               {navLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                  className="hover:text-amber-300 dark:hover:text-violet-400 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -161,13 +142,16 @@ export default function Navbar() {
             </div>
           </div>
 
+          {/* Search Bar on Desktop */}
+          <SearchBar />
+
           {/* Unmasked: LanguageSwitcher + ThemeToggle + CTA */}
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-3 shrink-0">
+            {/* <LanguageSwitcher /> */}
             <ThemeToggle iconOnly />
             <Link
               href="/contact"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20"
             >
               {t('getInTouch')}
             </Link>
@@ -177,39 +161,27 @@ export default function Navbar() {
 
       {/* ─── Mobile Top Bar ─── */}
       <nav
-        className={`md:hidden fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-in-out ${
-          scrolled
-            ? 'bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-zinc-950/80 backdrop-blur-xl'
-            : 'bg-transparent'
-        }`}
+        className={`md:hidden fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out ${scrolled
+          ? 'bg-violet-700/95 dark:bg-zinc-950/90 backdrop-blur-xl shadow-md border-b border-violet-600/50 dark:border-zinc-800'
+          : 'bg-violet-700 dark:bg-zinc-950/80 backdrop-blur-md border-b border-violet-600/30 dark:border-zinc-800/40'
+          }`}
       >
-        <div className="flex items-center justify-between px-4 py-3">
-          <Link href="/">
-            <Logo />
+        <div className="flex items-center justify-between px-3 py-2.5 gap-2">
+          <Link href="/" className="shrink-0">
+            <Logo mobile className="h-7 sm:h-8 w-auto" />
           </Link>
-          <div className="flex items-center gap-2">
-            <a
-              href="tel:+8801313334279"
-              className="flex flex-row items-center justify-center gap-1 px-3 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 hover:opacity-90 transition-opacity"
-              aria-label="Hire us"
+
+          {/* Search Bar on Mobile between Logo and Hire Us */}
+          <SearchBar mobile />
+
+          <div className="flex items-center gap-2 shrink-0">
+            {/* <ThemeToggle iconOnly /> */}
+            <Link
+              href="/contact"
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-[11px] font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.87a16 16 0 0 0 6.22 6.22l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span className="text-white text-xs font-bold font-raleway whitespace-nowrap uppercase">
-                {t('callUs')}
-              </span>
-            </a>
+              {t('callUs')}
+            </Link>
           </div>
         </div>
       </nav>
@@ -224,11 +196,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${
-                  isActive
-                    ? 'text-violet-600 dark:text-violet-400'
-                    : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
-                }`}
+                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
+                  ? 'text-violet-600 dark:text-violet-400'
+                  : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
+                  }`}
               >
                 {link.icon}
                 <span>{link.label}</span>
@@ -269,11 +240,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${
-                  isActive
-                    ? 'text-violet-600 dark:text-violet-400'
-                    : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
-                }`}
+                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
+                  ? 'text-violet-600 dark:text-violet-400'
+                  : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
+                  }`}
               >
                 {link.icon}
                 <span>{link.label}</span>
@@ -310,87 +280,120 @@ export default function Navbar() {
       {/* ─── Mobile Sidebar Backdrop ─── */}
       {sidebarOpen && (
         <div
-          className="md:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+          className="md:hidden fixed inset-0 z-50 bg-violet-950/70 backdrop-blur-md transition-opacity duration-300"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* ─── Mobile Sidebar Panel ─── */}
       <div
-        className={`md:hidden fixed top-0 left-0 h-full w-72 z-[100] bg-white dark:bg-zinc-950 shadow-2xl transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`md:hidden fixed top-0 left-0 h-full w-80 max-w-[85vw] z-[100] bg-gradient-to-b from-violet-50 via-white to-violet-100/50 dark:from-violet-900 dark:via-violet-950 dark:to-zinc-950 text-zinc-900 dark:text-white shadow-2xl border-r border-violet-200/80 dark:border-violet-700/30 transform transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
-        {/* Sidebar Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-100 dark:border-zinc-800">
-          <Logo />
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
-            aria-label="Close menu"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        <div>
+          {/* Sidebar Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-violet-200/70 dark:border-violet-700/40 bg-violet-100/60 dark:bg-violet-950/40">
+            <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
+              <Logo mobile className="h-7 w-auto" />
+            </div>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 rounded-xl bg-violet-200/70 dark:bg-white/10 text-zinc-700 dark:text-white/80 hover:text-zinc-950 dark:hover:text-white hover:bg-violet-300/70 dark:hover:bg-white/20 transition-all border border-violet-300/60 dark:border-white/10"
+              aria-label="Close menu"
             >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Sidebar Links */}
-        <div className="flex flex-col px-4 py-6 gap-1 uppercase">
-          <p className="text-[10px] font-bold tracking-widest text-amber-400 uppercase font-raleway px-3 mb-2">
-            {t('navigation')}
-          </p>
-          {navLinks.map(link => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium font-raleway transition-colors ${
-                  isActive
-                    ? 'bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-violet-600 dark:hover:text-violet-400'
-                }`}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 shrink-0" />
-                )}
-                {link.label}
-              </Link>
-            );
-          })}
-
-          {/* Theme Toggle */}
-          <div className="mt-1">
-            <ThemeToggle />
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
           </div>
 
-          {/* Language Switcher */}
-          <div className="mt-2">
-            <LanguageSwitcher />
+          {/* Sidebar Links */}
+          <div className="flex flex-col px-4 py-6 gap-1.5 uppercase">
+            <div className="flex items-center gap-2 px-3 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-amber-400 animate-pulse" />
+              <p className="text-[10px] font-bold tracking-[0.2em] text-violet-700 dark:text-amber-400 uppercase font-raleway">
+                {t('navigation')}
+              </p>
+            </div>
+            {navLinks.map(link => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold font-raleway tracking-wider transition-all ${isActive
+                    ? 'bg-gradient-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 dark:shadow-violet-900/50 border border-violet-400/30'
+                    : 'text-zinc-900 dark:text-white/80 hover:text-violet-700 dark:hover:text-white hover:bg-violet-100/80 dark:hover:bg-white/10'
+                    }`}
+                >
+                  <span className="flex items-center gap-3">
+                    {isActive && (
+                      <span className="w-2 h-2 rounded-full bg-amber-300 shadow-sm shadow-amber-300" />
+                    )}
+                    {link.label}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`transition-transform duration-200 ${isActive ? 'text-amber-300 translate-x-1' : 'text-zinc-400 dark:text-white/40'}`}
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </Link>
+              );
+            })}
+
+            {/* Theme Toggle container */}
+            <div className="mt-4 pt-4 border-t border-violet-200/70 dark:border-violet-800/40 px-2 flex items-center justify-between">
+              <span className="text-xs font-bold font-raleway text-zinc-900 dark:text-white/70">
+                Theme
+              </span>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
 
-        {/* Sidebar CTA */}
-        <div className="absolute bottom-24 left-0 right-0 px-6">
+        {/* Sidebar CTA Footer */}
+        <div className="p-6 border-t border-violet-200/70 dark:border-violet-800/40 bg-violet-100/50 dark:bg-violet-950/60 mt-auto">
           <Link
             href="/contact"
             onClick={() => setSidebarOpen(false)}
-            className="block text-center px-5 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity font-raleway uppercase"
+            className="flex items-center justify-center gap-2 w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-raleway uppercase shadow-lg shadow-amber-500/25"
           >
-            {t('getInTouch')}
+            <span>{t('getInTouch')}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
         </div>
       </div>

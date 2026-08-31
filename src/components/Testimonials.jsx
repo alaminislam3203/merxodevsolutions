@@ -106,7 +106,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center gap-4 mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
             {t('testimonials.badge')}
@@ -133,10 +133,10 @@ export default function Testimonials() {
               itemProp="itemListElement"
               itemScope
               itemType="https://schema.org/Review"
-              className={`relative flex flex-col gap-5 p-6 rounded-2xl border cursor-pointer transition-all duration-300 ${
+              className={`relative flex flex-col gap-5 p-6 rounded-2xl border cursor-pointer card-hover-lift transition-all duration-300 ${
                 active === i
-                  ? 'border-violet-400/40 bg-violet-400/10 scale-[1.02]'
-                  : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:border-violet-300 dark:hover:border-violet-700'
+                  ? 'border-violet-400/40 bg-violet-400/10 shadow-lg shadow-violet-500/10'
+                  : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:border-violet-300 dark:hover:border-violet-700 hover:shadow-xl'
               }`}
             >
               <svg

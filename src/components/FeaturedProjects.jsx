@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { projects } from '@/app/lib/projects';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
 const accentMap = {
@@ -169,7 +168,7 @@ function ProjectCard({ project, index, visible }) {
 }
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
-export default function FeaturedProjects() {
+export default function FeaturedProjects({ projects = [] }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const intervalRef = useRef(null);
@@ -272,7 +271,7 @@ export default function FeaturedProjects() {
           }}
         />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           {/* ── Section Header ── */}
           <div
             className={`flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14 transition-all duration-700 ${

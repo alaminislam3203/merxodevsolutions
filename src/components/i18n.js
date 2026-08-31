@@ -622,8 +622,8 @@ const resources = {
         badge: 'Available For New Projects',
         headingStart: 'We',
         headingHighlight: 'Build',
-        headingMiddle: 'Digital Products',
-        headingEnd: 'That Perform',
+        headingMiddle: 'A Digital Products That',
+        headingEnd: 'Perform',
         subtext:
           'Custom websites, web apps & digital solutions — crafted with precision for startups and growing businesses.',
         ctaPrimary: 'Start a Project →',

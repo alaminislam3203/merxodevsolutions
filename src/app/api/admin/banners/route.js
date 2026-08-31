@@ -1,0 +1,45 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
+import prisma from "@/lib/prisma";
+
+// GET /api/admin/banners — list all banners (admin only)
+export async function GET() {
+  const session = await auth();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const banners = await prisma.banner.findMany({
+    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+  });
+  return NextResponse.json(banners);
+}
+
+// POST /api/admin/banners — create a new banner
+export async function POST(request) {
+  const session = await auth();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  try {
+    const body = await request.json();
+    const { imageUrl, title, subtitle, buttonText, buttonLink, isActive, order } = body;
+
+    if (!imageUrl) {
+      return NextResponse.json({ error: "imageUrl is required" }, { status: 400 });
+    }
+
+    const banner = await prisma.banner.create({
+      data: {
+        imageUrl,
+        title: title || null,
+        subtitle: subtitle || null,
+        buttonText: buttonText || null,
+        buttonLink: buttonLink || null,
+        isActive: isActive !== undefined ? Boolean(isActive) : true,
+        order: order !== undefined ? Number(order) : 0,
+      },
+    });
+
+    return NextResponse.json(banner, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

@@ -1,0 +1,70 @@
+// Prisma Schema - MerxoDevSolutions Admin
+// Prisma 7: connection URL moved to prisma.config.ts
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String   @default("Admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  tag         String
+  title       String
+  description String   @db.Text
+  image       String?
+  images      Json
+  liveUrl     String?
+  accent      String
+  details     Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  title     String
+  value     String   @db.Text
+  section   String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaFile {
+  id         String   @id @default(cuid())
+  url        String
+  publicId   String
+  altText    String   @default("")
+  caption    String   @default("")
+  fileSize   Int?
+  width      Int?
+  height     Int?
+  uploadedAt DateTime @default(now())
+}
+
+model Banner {
+  id         String   @id @default(cuid())
+  imageUrl   String
+  title      String?
+  subtitle   String?
+  buttonText String?
+  buttonLink String?
+  isActive   Boolean  @default(true)
+  slot       String   @default("left")
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

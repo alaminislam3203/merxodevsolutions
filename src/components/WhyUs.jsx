@@ -180,7 +180,7 @@ export default function WhyUs() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center gap-4 mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
@@ -213,7 +213,7 @@ export default function WhyUs() {
               itemProp="itemListElement"
               itemScope
               itemType="https://schema.org/ListItem"
-              className={`group relative flex flex-col gap-4 p-6 rounded-2xl border ${colors[i].border} ${colors[i].bg} hover:scale-[1.02] transition-transform duration-300`}
+              className={`group relative flex flex-col gap-4 p-6 rounded-2xl border ${colors[i].border} ${colors[i].bg} card-hover-lift hover:shadow-xl hover:border-violet-400 dark:hover:border-violet-500 transition-all duration-300`}
             >
               <meta itemProp="position" content={String(i + 1)} />
               <meta itemProp="name" content={reason.title} />

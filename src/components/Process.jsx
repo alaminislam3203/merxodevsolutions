@@ -160,7 +160,7 @@ export default function Process() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center gap-4 mb-20">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
             {t('process.badge')}
@@ -186,7 +186,7 @@ export default function Process() {
           {steps.map((step, i) => (
             <li
               key={i}
-              className="relative flex flex-col items-center text-center gap-4"
+              className="relative flex flex-col items-center text-center gap-4 group transition-transform duration-300 hover:-translate-y-1"
               itemProp="step"
               itemScope
               itemType="https://schema.org/HowToStep"
@@ -198,18 +198,18 @@ export default function Process() {
               {i < steps.length - 1 && (
                 <div
                   aria-hidden
-                  className={`hidden lg:block absolute top-9 left-[calc(50%+2.5rem)] w-[calc(100%-5rem)] h-px ${colors[i].line} opacity-30`}
+                  className={`hidden lg:block absolute top-9 left-[calc(50%+2.5rem)] w-[calc(100%-5rem)] h-px ${colors[i].line} opacity-30 group-hover:opacity-70 transition-opacity`}
                 />
               )}
 
               {/* Icon */}
               <div
-                className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${colors[i].bg} border ${colors[i].border} ${colors[i].text} shrink-0`}
+                className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${colors[i].bg} border ${colors[i].border} ${colors[i].text} shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm`}
               >
                 {icons[i]}
                 <span
                   aria-hidden
-                  className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black font-display text-white ${colors[i].line}`}
+                  className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black font-display text-white ${colors[i].line} shadow-sm`}
                 >
                   {i + 1}
                 </span>

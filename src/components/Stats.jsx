@@ -24,7 +24,7 @@ function StatCard({ value, suffix, label, color, index, animate }) {
   const count = useCountUp(value, 2000, animate);
   return (
     <div
-      className={`relative flex flex-col items-center justify-center gap-2 p-8 rounded-2xl border ${color.border} ${color.bg} text-center`}
+      className={`relative flex flex-col items-center justify-center gap-2 p-8 rounded-2xl border ${color.border} ${color.bg} text-center card-hover-lift hover:shadow-xl transition-all duration-300 group cursor-default`}
       itemProp="itemListElement"
       itemScope
       itemType="https://schema.org/ListItem"
@@ -150,7 +150,7 @@ export default function Stats() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center gap-4 mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
             {t('stats.badge')}

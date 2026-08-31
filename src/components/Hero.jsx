@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
@@ -7,36 +8,18 @@ import '@/components/i18n';
 function Logo() {
   return (
     <div
-      className="flex flex-col items-center leading-none select-none"
+      className="flex items-center justify-center select-none p-2.5 px-6 rounded-2xl bg-violet-900/95 dark:bg-transparent shadow-xl shadow-violet-950/25 border border-violet-700/40 dark:border-transparent transition-all"
       aria-label="MerxoDev Solutions"
     >
-      <div className="flex items-center gap-0">
-        <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
-          MER
-        </span>
-        <span
-          className="text-2xl sm:text-3xl md:text-4xl font-thin text-amber-400"
-          aria-hidden
-        >
-          &#10097;
-        </span>
-        <span
-          className="text-2xl sm:text-3xl md:text-4xl font-thin text-[#27003B] dark:text-white -ml-0.5"
-          aria-hidden
-        >
-          &#10096;
-        </span>
-        <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-widest text-[#27003B] dark:text-white uppercase">
-          ODEV
-        </span>
-      </div>
-      <div className="flex items-center gap-2 mt-1" aria-hidden>
-        <span className="block h-px w-8 bg-amber-400" />
-        <span className="text-[9px] font-bold tracking-[0.85em] text-amber-400 uppercase">
-          Solutions
-        </span>
-        <span className="block h-px w-8 bg-amber-400" />
-      </div>
+      <Image
+        src="/logo.png"
+        alt="MerxoDev Solutions"
+        width={160}
+        height={40}
+        className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform hover:scale-105 duration-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] dark:drop-shadow-none"
+        style={{ width: 'auto', height: 'auto' }}
+        priority
+      />
     </div>
   );
 }
@@ -80,26 +63,27 @@ export default function Hero() {
         }}
       />
 
-      {/* Background Glows */}
+      {/* Background Glows with pulse animation */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
+        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl animate-pulse-glow"
         style={{
           background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
           background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          animationDelay: '3s',
         }}
       />
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center text-center gap-8 px-6 max-w-3xl">
+      <div className="relative z-10 flex flex-col items-center text-center gap-8 px-6 max-w-7xl w-full">
         {/* Badge */}
-        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+        <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 mt-2 sm:mt-4 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest shadow-sm">
           <span
             className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"
             aria-hidden
@@ -108,43 +92,45 @@ export default function Hero() {
         </span>
 
         {/* Logo */}
-        <Logo />
+        <div className="animate-fade-in-up">
+          <Logo />
+        </div>
 
         {/* H1 Heading — Primary SEO keyword */}
-        <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white leading-tight uppercase tracking-widest">
+        <h1 className="animate-fade-in-up font-hind text-5xl sm:text-7xl lg:text-8xl font-semibold text-[#27003B] dark:text-white leading-tight uppercase tracking-widest">
           {t('hero.headingStart')}{' '}
-          <span className="text-[#CCFF00]">{t('hero.headingHighlight')}</span>{' '}
+          <span className="text-[#CCFF00] drop-shadow-sm">{t('hero.headingHighlight')}</span>{' '}
           {t('hero.headingMiddle')}{' '}
-          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
             {t('hero.headingEnd')}
           </span>
         </h1>
 
         {/* Subtext — Secondary SEO keywords */}
-        <p className="max-w-lg text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
+        <p className="animate-fade-in-up max-w-4xl text-xl sm:text-2xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
           {t('hero.subtext')}
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+        <div className="animate-fade-in-up flex flex-col sm:flex-row items-center gap-4 mt-2">
           <Link
             href="/contact"
             aria-label="Start a project with MerxoDev Solutions"
-            className="px-7 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-raleway uppercase tracking-widest"
+            className="px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-95 hover:scale-105 transition-all shadow-lg shadow-violet-500/25 font-raleway uppercase tracking-widest"
           >
             {t('hero.ctaPrimary')}
           </Link>
           <Link
             href="/our-projects"
             aria-label="View MerxoDev Solutions projects"
-            className="px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors font-raleway uppercase tracking-widest"
+            className="px-8 py-4 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:scale-105 transition-all font-raleway uppercase tracking-widest"
           >
             {t('hero.ctaSecondary')}
           </Link>
         </div>
 
         {/* Social Proof */}
-        <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-raleway">
+        <p className="animate-fade-in-up text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-raleway">
           {t('hero.socialProof')}
         </p>
       </div>

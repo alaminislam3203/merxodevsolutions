@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050811}
+
+.login-screen{
+  min-height:100vh;background:#050811;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;position:relative;overflow:hidden;
+}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 70%);top:-150px;left:-100px;animation:f1 8s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 70%);bottom:-100px;right:-80px;animation:f2 10s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(59,130,246,.15),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:f1 12s ease-in-out infinite reverse}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,20px)}}
+
+.login-card{
+  position:relative;z-index:10;
+  background:rgba(255,255,255,.04);backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.08);border-radius:24px;
+  padding:48px 44px;width:100%;max-width:420px;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+  animation:cardIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.logo-icon{
+  width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  color:white;box-shadow:0 8px 24px rgba(99,102,241,.4);
+}
+.logo-text{display:flex;flex-direction:column}
+.brand-name{font-size:18px;font-weight:700;color:#f1f5f9;letter-spacing:-.3px}
+.brand-sub{font-size:12px;color:#6366f1;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+
+.login-title{font-size:26px;font-weight:700;color:#f1f5f9;margin-bottom:6px;letter-spacing:-.5px}
+.login-subtitle{font-size:14px;color:#64748b;margin-bottom:32px}
+.login-form{display:flex;flex-direction:column;gap:20px}
+
+.field-group{display:flex;flex-direction:column;gap:8px}
+.field-label{font-size:13px;font-weight:500;color:#94a3b8;letter-spacing:.3px}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-icon{position:absolute;left:14px;color:#475569;pointer-events:none}
+.login-input{
+  width:100%;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);border-radius:12px;
+  padding:13px 14px 13px 44px;font-size:14px;color:#f1f5f9;
+  font-family:inherit;transition:all .2s;outline:none;
+}
+.login-input::placeholder{color:#334155}
+.login-input:focus{border-color:rgba(99,102,241,.5);background:rgba(99,102,241,.08);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+
+.toggle-btn{position:absolute;right:14px;background:none;border:none;cursor:pointer;color:#475569;padding:4px;display:flex;align-items:center;transition:color .2s}
+.toggle-btn:hover{color:#94a3b8}
+
+.error-box{display:flex;align-items:center;gap:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px 14px;font-size:13px;color:#fca5a5;animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.login-btn{
+  width:100%;background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;
+  color:white;cursor:pointer;font-family:inherit;transition:all .2s;
+  box-shadow:0 4px 20px rgba(99,102,241,.35);margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.login-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 28px rgba(99,102,241,.5)}
+.login-btn:disabled{opacity:.7;cursor:not-allowed}
+
+.spinner-sm{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite}
+.spinner-lg{width:40px;height:40px;border:3px solid rgba(99,102,241,.2);border-top-color:#6366f1;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.login-footer{text-align:center;font-size:12px;color:#1e293b;margin-top:28px}
+@media(max-width:480px){.login-card{padding:36px 28px;margin:16px}}

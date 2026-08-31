@@ -1,4 +1,4 @@
-import { Anton, DM_Sans, Raleway } from 'next/font/google';
+import { Anton, DM_Sans, Raleway, Hind_Siliguri } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
@@ -15,6 +15,13 @@ const dmSans = DM_Sans({
   weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
   variable: '--font-dm',
+  display: 'swap',
+});
+
+const hindSiliguri = Hind_Siliguri({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['bengali'],
+  variable: '--font-hind-siliguri',
   display: 'swap',
 });
 
@@ -47,23 +54,23 @@ export const metadata = {
     'UI UX design Bangladesh',
   ],
   authors: [
-    { name: 'MerxoDev Solutions', url: 'https://merxodevsolutions.vercel.app' },
+    { name: 'MerxoDev Solutions', url: 'https://merxodevsolutions.pro.bd' },
   ],
   creator: 'MerxoDev Solutions',
   publisher: 'MerxoDev Solutions',
-  metadataBase: new URL('https://merxodevsolutions.vercel.app'),
+  metadataBase: new URL('https://merxodevsolutions.pro.bd'),
   alternates: {
-    canonical: 'https://merxodevsolutions.vercel.app',
+    canonical: 'https://merxodevsolutions.pro.bd',
     languages: {
-      'en-US': 'https://merxodevsolutions.vercel.app',
-      'bn-BD': 'https://merxodevsolutions.vercel.app/bn',
+      'en-US': 'https://merxodevsolutions.pro.bd',
+      'bn-BD': 'https://merxodevsolutions.pro.bd/bn',
     },
   },
   openGraph: {
     title: 'MerxoDev Solutions – Custom Web & App Development Bangladesh',
     description:
       'We build high-performance websites, web apps and digital products that grow your business. Based in Bangladesh, serving clients worldwide.',
-    url: 'https://merxodevsolutions.vercel.app',
+    url: 'https://merxodevsolutions.pro.bd',
     siteName: 'MerxoDev Solutions',
     images: [
       {
@@ -135,10 +142,10 @@ export default function RootLayout({ children }) {
               '@type': 'Organization',
               name: 'MerxoDev Solutions',
               alternateName: 'MerxoDevSolutions',
-              url: 'https://merxodevsolutions.vercel.app',
+              url: 'https://merxodevsolutions.pro.bd',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://merxodevsolutions.vercel.app/logo.png',
+                url: 'https://merxodevsolutions.pro.bd/logo.png',
                 width: 200,
                 height: 200,
               },
@@ -226,13 +233,13 @@ export default function RootLayout({ children }) {
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'MerxoDev Solutions',
-              url: 'https://merxodevsolutions.vercel.app',
+              url: 'https://merxodevsolutions.pro.bd',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
                   urlTemplate:
-                    'https://merxodevsolutions.vercel.app/search?q={search_term_string}',
+                    'https://merxodevsolutions.pro.bd/search?q={search_term_string}',
                 },
                 'query-input': 'required name=search_term_string',
               },
@@ -243,11 +250,7 @@ export default function RootLayout({ children }) {
 
       <body className="min-h-full flex flex-col font-sans">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1" id="main-content">
-            {children}
-          </main>
-          <Footer />
+          {children}
         </ThemeProvider>
       </body>
     </html>
