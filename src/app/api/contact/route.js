@@ -23,12 +23,41 @@ export async function POST(req) {
 
     const now = new Date();
 
+    // Plain text fallbacks (Crucial for preventing Spam flags)
+    const adminPlainText = `New Project Inquiry:
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Service: ${service || 'General Inquiry'}
+Budget: ${budget || 'Not specified'}
+Message:
+${message}
+Received: ${now.toLocaleString()}`;
+
+    const clientPlainText = `Hi ${name},
+
+Thank you for reaching out to MerxoDev Solutions! We have successfully received your project inquiry.
+
+Summary of your inquiry:
+- Service: ${service || 'General Inquiry'}
+- Budget: ${budget || 'Not specified'}
+- Message: ${message}
+
+Our lead engineering team will review your requirements and get back to you within 2–12 hours.
+
+Best regards,
+The MerxoDev Solutions Team
+Website: https://merxodevsolutions.pro.bd
+Phone: +880 1313-334279
+Email: merxodevsolutions@gmail.com`;
+
     // 1. Send Notification Email to Admin
     await transporter.sendMail({
-      from: `"MerxoDevSolutions" <${process.env.GMAIL_USER}>`,
+      from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
       replyTo: email,
-      subject: `✦ New Inquiry: ${name} — ${service || 'General Inquiry'}`,
+      subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
+      text: adminPlainText,
       html: emailTemplate({
         name,
         email,
@@ -38,13 +67,19 @@ export async function POST(req) {
         message,
         createdAt: now,
       }),
+      headers: {
+        'X-Priority': '3',
+        'X-MSMail-Priority': 'Normal',
+        Importance: 'Normal',
+      },
     });
 
     // 2. Send Auto-Reply Email to Client
     await transporter.sendMail({
-      from: `"MerxoDevSolutions" <${process.env.GMAIL_USER}>`,
+      from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: `✦ We received your inquiry, ${name}!`,
+      subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
+      text: clientPlainText,
       html: autoReplyTemplate({
         name,
         email,
@@ -52,6 +87,11 @@ export async function POST(req) {
         budget,
         message,
       }),
+      headers: {
+        'X-Priority': '3',
+        'X-MSMail-Priority': 'Normal',
+        Importance: 'Normal',
+      },
     });
 
     return Response.json({ success: true });
