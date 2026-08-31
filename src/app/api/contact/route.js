@@ -1,14 +1,7 @@
+import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
 import autoReplyTemplate from '@/lib/templates/autoReplyTemplate';
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-  },
-});
 
 export async function POST(req) {
   try {
@@ -22,8 +15,9 @@ export async function POST(req) {
     }
 
     const now = new Date();
+    const adminEmail = process.env.ADMIN_INBOX_EMAIL || process.env.GMAIL_USER || 'merxodevsolutions@gmail.com';
 
-    // Plain text fallbacks (Crucial for preventing Spam flags)
+    // Plain text fallbacks
     const adminPlainText = `New Project Inquiry:
 Name: ${name}
 Email: ${email}
@@ -51,50 +45,98 @@ Website: https://merxodevsolutions.pro.bd
 Phone: +880 1313-334279
 Email: merxodevsolutions@gmail.com`;
 
-    // 1. Send Notification Email to Admin
-    await transporter.sendMail({
-      from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER,
-      replyTo: email,
-      subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
-      text: adminPlainText,
-      html: emailTemplate({
-        name,
-        email,
-        phone,
-        service,
-        budget,
-        message,
-        createdAt: now,
-      }),
-      headers: {
-        'X-Priority': '3',
-        'X-MSMail-Priority': 'Normal',
-        Importance: 'Normal',
-      },
+    const adminHtml = emailTemplate({
+      name,
+      email,
+      phone,
+      service,
+      budget,
+      message,
+      createdAt: now,
     });
 
-    // 2. Send Auto-Reply Email to Client
-    await transporter.sendMail({
-      from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
-      to: email,
-      subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
-      text: clientPlainText,
-      html: autoReplyTemplate({
-        name,
-        email,
-        service,
-        budget,
-        message,
-      }),
-      headers: {
-        'X-Priority': '3',
-        'X-MSMail-Priority': 'Normal',
-        Importance: 'Normal',
-      },
+    const clientHtml = autoReplyTemplate({
+      name,
+      email,
+      service,
+      budget,
+      message,
     });
 
-    return Response.json({ success: true });
+    // ── Method 1: Use Resend if RESEND_API_KEY is available ──
+    if (process.env.RESEND_API_KEY) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const fromSender = process.env.RESEND_FROM_EMAIL || 'MerxoDev Solutions <onboarding@resend.dev>';
+
+      // 1. Send Admin Notification Email
+      await resend.emails.send({
+        from: fromSender,
+        to: adminEmail,
+        replyTo: email,
+        subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
+        text: adminPlainText,
+        html: adminHtml,
+      });
+
+      // 2. Send Client Auto-Reply Email
+      await resend.emails.send({
+        from: fromSender,
+        to: email,
+        replyTo: adminEmail,
+        subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
+        text: clientPlainText,
+        html: clientHtml,
+      });
+
+      return Response.json({ success: true, provider: 'resend' });
+    }
+
+    // ── Method 2: Fallback to Gmail SMTP via Nodemailer ──
+    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS,
+        },
+      });
+
+      // 1. Send Admin Notification Email
+      await transporter.sendMail({
+        from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
+        to: process.env.GMAIL_USER,
+        replyTo: email,
+        subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
+        text: adminPlainText,
+        html: adminHtml,
+        headers: {
+          'X-Priority': '3',
+          'X-MSMail-Priority': 'Normal',
+          Importance: 'Normal',
+        },
+      });
+
+      // 2. Send Client Auto-Reply Email
+      await transporter.sendMail({
+        from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
+        to: email,
+        subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
+        text: clientPlainText,
+        html: clientHtml,
+        headers: {
+          'X-Priority': '3',
+          'X-MSMail-Priority': 'Normal',
+          Importance: 'Normal',
+        },
+      });
+
+      return Response.json({ success: true, provider: 'nodemailer' });
+    }
+
+    return Response.json(
+      { error: 'Email service credentials not configured' },
+      { status: 500 },
+    );
   } catch (error) {
     console.error('Contact email error:', error);
     return Response.json(
