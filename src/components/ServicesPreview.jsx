@@ -130,8 +130,8 @@ const serviceCategories = [
 export default function ServicesPreview() {
   return (
     <section
-      aria-labelledby="services-categories-heading"
-      className="relative py-20 px-4 sm:px-6 overflow-hidden bg-white dark:bg-zinc-950 border-y border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
+      aria-label="Services and Categories"
+      className="relative py-8 sm:py-12 px-4 sm:px-6 overflow-hidden bg-white dark:bg-zinc-950 border-y border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
     >
       {/* Background Soft Ambient Glows matching site theme */}
       <div
@@ -151,27 +151,7 @@ export default function ServicesPreview() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto text-center">
-        {/* Section Header matching site component theme */}
-        <div className="flex flex-col items-center text-center gap-3.5 mb-14">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-lime-500/10 dark:bg-lime-950/40 text-lime-600 dark:text-[#a3e635] border border-lime-500/30 font-raleway uppercase tracking-widest shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#84cc16] animate-pulse" />
-            Our Core Categories
-          </span>
 
-          <h2
-            id="services-categories-heading"
-            className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
-          >
-            Digital Services &{' '}
-            <span className="bg-gradient-to-r from-lime-500 via-[#84cc16] to-cyan-400 bg-clip-text text-transparent animated-gradient-text">
-              Solutions
-            </span>
-          </h2>
-
-          <p className="max-w-xl text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed font-raleway">
-            Select any category below to discover custom digital solutions engineered for your business growth.
-          </p>
-        </div>
 
         {/* ── App Icon Square Grid ── */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-7 sm:gap-x-6 sm:gap-y-9 justify-items-center">
