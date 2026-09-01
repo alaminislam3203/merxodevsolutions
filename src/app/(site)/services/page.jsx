@@ -102,7 +102,7 @@ const services = [
     lightBg: 'bg-pink-50 dark:bg-pink-950/80',
     iconColor: 'text-pink-600 dark:text-pink-400',
     glowColor: 'hover:shadow-pink-500/20 hover:border-pink-400 dark:hover:border-pink-500',
-    href: '/contact',
+    href: '/services-design',
   },
   {
     icon: <FiLink size={26} />,
@@ -198,7 +198,7 @@ const services = [
     lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
     iconColor: 'text-emerald-600 dark:text-emerald-400',
     glowColor: 'hover:shadow-emerald-500/20 hover:border-emerald-400 dark:hover:border-emerald-500',
-    href: '/contact',
+    href: '/services-seo',
   },
   {
     icon: <FiCpu size={26} />,
