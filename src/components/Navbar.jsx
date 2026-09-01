@@ -119,8 +119,8 @@ export default function Navbar() {
       {/* ─── Desktop Navbar ─── */}
       <nav
         className={`hidden md:block fixed top-0 inset-x-0 z-50 overflow-visible transition-all duration-300 ease-in-out ${scrolled
-          ? 'bg-violet-700/95 dark:bg-zinc-950/90 backdrop-blur-xl shadow-lg shadow-violet-900/10 border-b border-violet-600/50 dark:border-zinc-800'
-          : 'bg-violet-700 dark:bg-zinc-950/80 backdrop-blur-md border-b border-violet-600/30 dark:border-zinc-800/40'
+          ? 'bg-violet-700/95 dark:bg-[#060b19]/95 backdrop-blur-xl shadow-lg shadow-blue-950/20 border-b border-violet-600/50 dark:border-blue-900/40'
+          : 'bg-violet-700 dark:bg-[#060b19]/85 backdrop-blur-md border-b border-violet-600/30 dark:border-blue-900/30'
           }`}
       >
         <div className="relative max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
@@ -129,12 +129,12 @@ export default function Navbar() {
               <Logo />
             </Link>
 
-            <div className="flex items-center gap-6 text-sm font-semibold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300">
+            <div className="flex items-center gap-6 text-sm font-semibold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-200">
               {navLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="hover:text-amber-300 dark:hover:text-violet-400 transition-colors"
+                  className="hover:text-amber-300 dark:hover:text-cyan-400 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -162,8 +162,8 @@ export default function Navbar() {
       {/* ─── Mobile Top Bar ─── */}
       <nav
         className={`md:hidden fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out ${scrolled
-          ? 'bg-violet-700/95 dark:bg-zinc-950/90 backdrop-blur-xl shadow-md border-b border-violet-600/50 dark:border-zinc-800'
-          : 'bg-violet-700 dark:bg-zinc-950/80 backdrop-blur-md border-b border-violet-600/30 dark:border-zinc-800/40'
+          ? 'bg-violet-700/95 dark:bg-[#060b19]/95 backdrop-blur-xl shadow-md border-b border-violet-600/50 dark:border-blue-900/40'
+          : 'bg-violet-700 dark:bg-[#060b19]/85 backdrop-blur-md border-b border-violet-600/30 dark:border-blue-900/30'
           }`}
       >
         <div className="flex items-center justify-between px-3 py-2.5 gap-2">
@@ -187,7 +187,7 @@ export default function Navbar() {
       </nav>
 
       {/* ─── Mobile Bottom Nav ─── */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-800">
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white dark:bg-[#060b19]/95 backdrop-blur-xl border-t border-zinc-100 dark:border-blue-900/40">
         <div className="flex items-end justify-around px-2 h-16">
           {/* Left 2 icons */}
           {bottomNavLinks.slice(0, 2).map(link => {
@@ -197,8 +197,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
-                  ? 'text-violet-600 dark:text-violet-400'
-                  : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
+                  ? 'text-violet-600 dark:text-cyan-400'
+                  : 'text-zinc-400 dark:text-zinc-400 hover:text-violet-500'
                   }`}
               >
                 {link.icon}
@@ -211,7 +211,7 @@ export default function Navbar() {
           <div className="flex flex-col items-center -mt-6">
             <Link
               href="/contact"
-              className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-violet-900 hover:opacity-90 transition-opacity"
+              className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-blue-950 hover:opacity-90 transition-opacity"
               aria-label="Get In Touch"
             >
               <svg
@@ -228,7 +228,7 @@ export default function Navbar() {
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </Link>
-            <span className="text-[10px] font-medium text-violet-600 dark:text-violet-400 mt-0.5 font-raleway">
+            <span className="text-[10px] font-medium text-violet-600 dark:text-cyan-400 mt-0.5 font-raleway">
               {t('contact')}
             </span>
           </div>
@@ -241,8 +241,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
-                  ? 'text-violet-600 dark:text-violet-400'
-                  : 'text-zinc-400 dark:text-zinc-500 hover:text-violet-500'
+                  ? 'text-violet-600 dark:text-cyan-400'
+                  : 'text-zinc-400 dark:text-zinc-400 hover:text-violet-500'
                   }`}
               >
                 {link.icon}
@@ -254,7 +254,7 @@ export default function Navbar() {
           {/* Menu button */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-500 hover:text-violet-500 transition-colors font-raleway"
+            className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-400 hover:text-violet-500 transition-colors font-raleway"
             aria-label="Open menu"
           >
             <svg
@@ -280,19 +280,19 @@ export default function Navbar() {
       {/* ─── Mobile Sidebar Backdrop ─── */}
       {sidebarOpen && (
         <div
-          className="md:hidden fixed inset-0 z-50 bg-violet-950/70 backdrop-blur-md transition-opacity duration-300"
+          className="md:hidden fixed inset-0 z-50 bg-[#060b19]/80 backdrop-blur-md transition-opacity duration-300"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* ─── Mobile Sidebar Panel ─── */}
       <div
-        className={`md:hidden fixed top-0 left-0 h-full w-80 max-w-[85vw] z-[100] bg-gradient-to-b from-violet-50 via-white to-violet-100/50 dark:from-violet-900 dark:via-violet-950 dark:to-zinc-950 text-zinc-900 dark:text-white shadow-2xl border-r border-violet-200/80 dark:border-violet-700/30 transform transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`md:hidden fixed top-0 left-0 h-full w-80 max-w-[85vw] z-[100] bg-gradient-to-b from-violet-50 via-white to-violet-100/50 dark:from-[#060b19] dark:via-[#091124] dark:to-[#040812] text-zinc-900 dark:text-white shadow-2xl border-r border-violet-200/80 dark:border-blue-900/40 transform transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         <div>
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-violet-200/70 dark:border-violet-700/40 bg-violet-100/60 dark:bg-violet-950/40">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-violet-200/70 dark:border-blue-900/40 bg-violet-100/60 dark:bg-[#091124]">
             <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
               <Logo mobile className="h-7 w-auto" />
             </div>

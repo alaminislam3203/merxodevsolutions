@@ -110,9 +110,9 @@ export default function Footer() {
   const services = arr(t, 'footer.services.items');
 
   return (
-    <footer className="relative bg-white dark:bg-zinc-950 border-t border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden">
+    <footer className="relative border-t border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden">
       {/* Top Animated Accent Border */}
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 animated-gradient-text" />
+      <div className="absolute top-0 inset-x-0 h-[2px]  animated-gradient-text" />
 
       {/* Ambient Pulsing Glow */}
       <div
