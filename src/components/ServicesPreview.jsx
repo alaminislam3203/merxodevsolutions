@@ -131,7 +131,7 @@ export default function ServicesPreview() {
   return (
     <section
       aria-label="Services and Categories"
-      className="relative py-8 sm:py-12 px-4 sm:px-6 overflow-hidden bg-white dark:bg-zinc-950 border-y border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
+      className="w-full max-w-full relative py-6 sm:py-8 px-2 sm:px-3 overflow-hidden bg-white dark:bg-zinc-950 border-b border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
     >
       {/* Background Soft Ambient Glows matching site theme */}
       <div
@@ -150,21 +150,20 @@ export default function ServicesPreview() {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto text-center">
-
-
-        {/* ── App Icon Square Grid ── */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-7 sm:gap-x-6 sm:gap-y-9 justify-items-center">
+      {/* Exact 1400px container matching hero-dual-grid */}
+      <div className="relative z-10 max-w-[1400px] w-full mx-auto">
+        {/* ── App Icon Square Grid: Full-Width 12 Columns on Desktop, 6 on Tablet, 4 on Mobile ── */}
+        <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 gap-x-2 gap-y-4 sm:gap-x-3 sm:gap-y-6 lg:gap-x-2.5 justify-items-center">
           {serviceCategories.map((item, i) => (
             <Link
               key={i}
               href={item.href}
               title={item.fullTitle}
-              className="group flex flex-col items-center text-center cursor-pointer transition-all duration-300 w-full max-w-[100px] sm:max-w-[110px]"
+              className="group flex flex-col items-center text-center cursor-pointer transition-all duration-300 w-full"
             >
               {/* Rounded Square App Icon Box */}
               <div
-                className={`w-18 h-18 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-2xl sm:rounded-3xl ${item.bgColor} text-white flex items-center justify-center shadow-lg ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
+                className={`w-15 h-15 sm:w-18 sm:h-18 lg:w-19 lg:h-19 xl:w-20 xl:h-20 rounded-2xl sm:rounded-3xl ${item.bgColor} text-white flex items-center justify-center shadow-md ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-1.5 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
               >
                 {/* Glossy Top Glass Shimmer */}
                 <div
@@ -177,7 +176,7 @@ export default function ServicesPreview() {
               </div>
 
               {/* Title below square with Neon / Lime Green hover text */}
-              <span className="mt-2.5 text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-lime-600 dark:group-hover:text-[#a3e635] group-hover:font-bold transition-colors tracking-wide font-raleway truncate w-full px-1">
+              <span className="mt-2 text-[11px] sm:text-xs font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-lime-600 dark:group-hover:text-[#a3e635] group-hover:font-bold transition-colors tracking-wide font-raleway truncate w-full px-0.5">
                 {item.title}
               </span>
             </Link>
