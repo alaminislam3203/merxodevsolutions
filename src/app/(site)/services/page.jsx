@@ -118,7 +118,7 @@ const services = [
     lightBg: 'bg-amber-50 dark:bg-amber-950/80',
     iconColor: 'text-amber-600 dark:text-amber-400',
     glowColor: 'hover:shadow-amber-500/20 hover:border-amber-400 dark:hover:border-amber-500',
-    href: '/contact',
+    href: '/services-api-integration',
   },
   {
     icon: <FiShield size={26} />,
@@ -134,7 +134,7 @@ const services = [
     lightBg: 'bg-green-50 dark:bg-green-950/80',
     iconColor: 'text-green-600 dark:text-green-400',
     glowColor: 'hover:shadow-green-500/20 hover:border-green-400 dark:hover:border-green-500',
-    href: '/contact',
+    href: '/services-security',
   },
   {
     icon: <FiCreditCard size={26} />,
@@ -150,7 +150,7 @@ const services = [
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
     glowColor: 'hover:shadow-violet-500/20 hover:border-violet-400 dark:hover:border-violet-500',
-    href: '/contact',
+    href: '/services-payment-gateway',
   },
   {
     icon: <FiDatabase size={26} />,
@@ -166,7 +166,7 @@ const services = [
     lightBg: 'bg-blue-50 dark:bg-blue-950/80',
     iconColor: 'text-blue-600 dark:text-blue-400',
     glowColor: 'hover:shadow-blue-500/20 hover:border-blue-400 dark:hover:border-blue-500',
-    href: '/contact',
+    href: '/services-database',
   },
   {
     icon: <FiTool size={26} />,
@@ -182,7 +182,7 @@ const services = [
     lightBg: 'bg-slate-50 dark:bg-slate-900/80',
     iconColor: 'text-slate-600 dark:text-slate-400',
     glowColor: 'hover:shadow-slate-500/20 hover:border-slate-400 dark:hover:border-slate-500',
-    href: '/contact',
+    href: '/services-maintenance',
   },
   {
     icon: <FiTrendingUp size={26} />,
@@ -214,7 +214,7 @@ const services = [
     lightBg: 'bg-orange-50 dark:bg-orange-950/80',
     iconColor: 'text-orange-600 dark:text-orange-400',
     glowColor: 'hover:shadow-orange-500/20 hover:border-orange-400 dark:hover:border-orange-500',
-    href: '/contact',
+    href: '/services-automation',
   },
   {
     icon: <FiMonitor size={26} />,
