@@ -149,7 +149,7 @@ const techStack = [
 const defaultPlans = [
   {
     name: 'Starter Website',
-    price: '৳১৫,০০০',
+    price: 'BDT 1500',
     desc: 'Perfect for startups and local businesses looking for a fast, modern digital footprint.',
     features: [
       'Up to 5 Custom Pages',
@@ -164,7 +164,7 @@ const defaultPlans = [
   },
   {
     name: 'Growth Business Pro',
-    price: '৳৩৫,০০০',
+    price: 'BDT 3500',
     desc: 'Our most popular package for growing companies that demand high conversion and speed.',
     features: [
       'Up to 12 Premium Pages',
@@ -452,11 +452,10 @@ export default function WebDevContent() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
-                    ? 'border-2 border-violet-500 bg-gradient-to-b from-violet-50/80 via-white to-white dark:from-violet-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-violet-500/20 scale-105 z-10'
-                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
+                  ? 'border-2 border-violet-500 bg-gradient-to-b from-violet-50/80 via-white to-white dark:from-violet-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-violet-500/20 scale-105 z-10'
+                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -491,11 +490,10 @@ export default function WebDevContent() {
 
                 <Link
                   href={`/contact?service=Website%20Development&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-500 text-white hover:opacity-95 shadow-lg shadow-violet-500/25'
-                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-violet-500 hover:text-violet-600'
-                  }`}
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
+                    ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-500 text-white hover:opacity-95 shadow-lg shadow-violet-500/25'
+                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-violet-500 hover:text-violet-600'
+                    }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -538,9 +536,8 @@ export default function WebDevContent() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-violet-600 dark:text-violet-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-violet-600 dark:text-violet-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

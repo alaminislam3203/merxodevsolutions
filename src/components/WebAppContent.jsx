@@ -146,7 +146,7 @@ const techStack = [
 const defaultPlans = [
   {
     name: 'MVP / Startup App',
-    price: '৳৪৫,০০০',
+    price: 'BDT ৪৫,০০০',
     desc: 'Launch your Minimum Viable Product quickly to validate ideas and onboard early users.',
     features: [
       'Authentication & User Profiles',
@@ -161,7 +161,7 @@ const defaultPlans = [
   },
   {
     name: 'Full SaaS / Custom Portal',
-    price: '৳৮৫,০০০',
+    price: 'BDT ৮৫,০০০',
     desc: 'Complete production web application with multi-role permissions and automated workflows.',
     features: [
       'Multi-Role Permissions (RBAC)',
@@ -449,11 +449,10 @@ export default function WebAppContent() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
                     ? 'border-2 border-cyan-500 bg-gradient-to-b from-cyan-50/80 via-white to-white dark:from-cyan-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-cyan-500/20 scale-105 z-10'
                     : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -488,11 +487,10 @@ export default function WebAppContent() {
 
                 <Link
                   href={`/contact?service=Web%20Application%20Development&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${
-                    plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
                       ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white hover:opacity-95 shadow-lg shadow-cyan-500/25'
                       : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -535,9 +533,8 @@ export default function WebAppContent() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-cyan-600 dark:text-cyan-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-cyan-600 dark:text-cyan-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

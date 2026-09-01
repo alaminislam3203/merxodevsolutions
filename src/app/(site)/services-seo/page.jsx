@@ -120,7 +120,7 @@ export default function ServicesSeoPage() {
   const plans = [
     {
       name: 'Technical SEO Audit & Fix',
-      price: '৳১০,০০০',
+      price: 'BDT 2000',
       desc: 'Comprehensive technical audit and complete on-page code fixes for existing websites.',
       features: [
         'Full Technical Audit & Error Fixing',
@@ -135,7 +135,7 @@ export default function ServicesSeoPage() {
     },
     {
       name: 'Growth SEO & Organic Ranking',
-      price: '৳২৫,০০০',
+      price: 'BDT ২৫,০০০',
       desc: 'Our most popular monthly growth package for businesses wanting top Google rankings.',
       features: [
         'Targeted 15 High-Value Keyword Groups',
@@ -151,7 +151,7 @@ export default function ServicesSeoPage() {
     },
     {
       name: 'Market Dominance Enterprise',
-      price: '৳৫০,০০০',
+      price: 'BDT ৫০,০০০',
       desc: 'All-inclusive multi-channel SEO campaign for competitive industries and global reach.',
       features: [
         'Targeted 40+ National/Global Keywords',
@@ -392,11 +392,10 @@ export default function ServicesSeoPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
-                    ? 'border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/80 via-white to-white dark:from-emerald-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-emerald-500/20 scale-105 z-10'
-                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
+                  ? 'border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/80 via-white to-white dark:from-emerald-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-emerald-500/20 scale-105 z-10'
+                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -431,11 +430,10 @@ export default function ServicesSeoPage() {
 
                 <Link
                   href={`/contact?service=SEO%20Optimization&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white hover:opacity-95 shadow-lg shadow-emerald-500/25'
-                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600'
-                  }`}
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
+                    ? 'bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white hover:opacity-95 shadow-lg shadow-emerald-500/25'
+                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600'
+                    }`}
                 >
                   {plan.cta || 'Select SEO Tier'}
                 </Link>
@@ -478,9 +476,8 @@ export default function ServicesSeoPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-emerald-600 dark:text-emerald-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-emerald-600 dark:text-emerald-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (
