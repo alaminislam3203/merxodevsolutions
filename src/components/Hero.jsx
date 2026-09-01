@@ -15,7 +15,7 @@ import {
 function Logo() {
   return (
     <div
-      className="flex items-center justify-center select-none p-3 px-8   shadow-violet-950/10  hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
+      className="flex items-center justify-center select-none p-3 px-8 rounded-2xl sm:rounded-3xl bg-[#1e0538] dark:bg-zinc-900/95 backdrop-blur-xl shadow-2xl shadow-violet-950/30 dark:shadow-black/60 border border-violet-600/30 dark:border-zinc-750 hover:border-lime-500/60 dark:hover:border-lime-500/60 hover:scale-105 transition-all duration-300 group"
       aria-label="MerxoDev Solutions"
     >
       <Image
@@ -23,7 +23,7 @@ function Logo() {
         alt="MerxoDev Solutions"
         width={170}
         height={45}
-        className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-md dark:drop-shadow-none"
+        className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
         style={{ width: 'auto', height: 'auto' }}
         priority
       />
