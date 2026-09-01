@@ -67,9 +67,8 @@ function ProjectCard({ project, index, visible }) {
 
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
+      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
       style={{ transitionDelay: `${index * 120}ms` }}
     >
       {/* Top glow */}
@@ -79,7 +78,7 @@ function ProjectCard({ project, index, visible }) {
       />
 
       {/* Project Image */}
-      <div className="relative w-full h-44 overflow-hidden bg-zinc-100 dark:bg-zinc-800 shrink-0">
+      <div className="relative w-full h-44 overflow-hidden  dark:bg-zinc-800 shrink-0">
         <Image
           src={project.image}
           alt={`${project.title} screenshot`}
@@ -260,23 +259,22 @@ export default function FeaturedProjects({ projects = [] }) {
           aria-hidden
           className="pointer-events-none absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
           style={{
-            background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+            // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
           }}
         />
         <div
           aria-hidden
           className="pointer-events-none absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
           style={{
-            background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+            // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
           }}
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           {/* ── Section Header ── */}
           <div
-            className={`flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14 transition-all duration-700 ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            }`}
+            className={`flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
           >
             <div className="flex flex-col gap-3">
               <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
@@ -397,9 +395,8 @@ export default function FeaturedProjects({ projects = [] }) {
 
           {/* ── Dot Indicators ── */}
           <div
-            className={`flex items-center justify-center gap-2 mt-8 transition-all duration-700 delay-300 ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
+            className={`flex items-center justify-center gap-2 mt-8 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
             role="tablist"
             aria-label="Project slides"
           >
@@ -416,11 +413,10 @@ export default function FeaturedProjects({ projects = [] }) {
                     goTo(i);
                     setIsPaused(true);
                   }}
-                  className={`rounded-full transition-all duration-300 ${
-                    isActive
+                  className={`rounded-full transition-all duration-300 ${isActive
                       ? `w-6 h-2 ${a.indicator}`
                       : 'w-2 h-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500'
-                  }`}
+                    }`}
                 />
               );
             })}
@@ -443,9 +439,8 @@ export default function FeaturedProjects({ projects = [] }) {
 
           {/* ── All Projects mobile ── */}
           <div
-            className={`sm:hidden flex justify-center mt-10 transition-all duration-700 delay-500 ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            }`}
+            className={`sm:hidden flex justify-center mt-10 transition-all duration-700 delay-500 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
           >
             <Link
               href="/our-projects"

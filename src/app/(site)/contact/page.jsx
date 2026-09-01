@@ -156,21 +156,21 @@ export default function ContactPage() {
         aria-hidden
         className="pointer-events-none absolute -top-40 -left-40 w-[650px] h-[650px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-15 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-40 left-1/3 w-[600px] h-[600px] rounded-full opacity-15 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #f59e0b, transparent 70%)',
+          // background: 'radial-gradient(circle, #f59e0b, transparent 70%)',
         }}
       />
 
@@ -389,11 +389,10 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="e.g. John Doe"
-                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${
-                        errors.name
+                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.name
                           ? 'border-rose-500 focus:ring-rose-500/30'
                           : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
-                      }`}
+                        }`}
                     />
                     {errors.name && (
                       <p className="text-[11px] text-rose-500 font-semibold font-raleway">
@@ -413,11 +412,10 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="john@company.com"
-                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${
-                        errors.email
+                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.email
                           ? 'border-rose-500 focus:ring-rose-500/30'
                           : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
-                      }`}
+                        }`}
                     />
                     {errors.email && (
                       <p className="text-[11px] text-rose-500 font-semibold font-raleway">
@@ -441,11 +439,10 @@ export default function ContactPage() {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+1 234 567 8900"
-                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${
-                      errors.phone
+                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.phone
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
-                    }`}
+                      }`}
                   />
                   {errors.phone && (
                     <p className="text-[11px] text-rose-500 font-semibold font-raleway">
@@ -467,11 +464,10 @@ export default function ContactPage() {
                           key={s}
                           type="button"
                           onClick={() => setService(s)}
-                          className={`px-3.5 py-2 rounded-xl text-xs font-bold font-raleway transition-all ${
-                            isSelected
+                          className={`px-3.5 py-2 rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
                               ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
                               : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                          }`}
+                            }`}
                         >
                           {s}
                         </button>
@@ -493,11 +489,10 @@ export default function ContactPage() {
                           key={b}
                           type="button"
                           onClick={() => setBudget(b)}
-                          className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-raleway transition-all ${
-                            isSelected
+                          className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
                               ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
                               : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                          }`}
+                            }`}
                         >
                           {b}
                         </button>
@@ -517,11 +512,10 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about the project goals, features needed, timeline, or reference links..."
-                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-raleway ${
-                      errors.message
+                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-raleway ${errors.message
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
-                    }`}
+                      }`}
                   />
                   <div className="flex justify-between items-center mt-0.5">
                     {errors.message ? (
@@ -532,11 +526,10 @@ export default function ContactPage() {
                       <span />
                     )}
                     <span
-                      className={`text-[11px] font-raleway font-medium ml-auto ${
-                        form.message.length > 1800
+                      className={`text-[11px] font-raleway font-medium ml-auto ${form.message.length > 1800
                           ? 'text-rose-500'
                           : 'text-zinc-400'
-                      }`}
+                        }`}
                     >
                       {form.message.length}/2000
                     </span>
@@ -628,9 +621,8 @@ export default function ContactPage() {
                     <span>{faq.q}</span>
                     <FaChevronDown
                       size={14}
-                      className={`text-zinc-400 transition-transform duration-200 shrink-0 ${
-                        isOpen ? 'rotate-180 text-violet-600' : ''
-                      }`}
+                      className={`text-zinc-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 text-violet-600' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

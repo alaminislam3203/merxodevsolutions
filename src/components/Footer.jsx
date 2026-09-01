@@ -108,7 +108,7 @@ export default function Footer() {
         aria-hidden
         className="pointer-events-none absolute -bottom-32 left-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
 

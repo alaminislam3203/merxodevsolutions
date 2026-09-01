@@ -248,7 +248,7 @@ export default function WebDevContent() {
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, #7c3aed, #06b6d4, transparent 70%)',
+            // background: 'radial-gradient(circle, #7c3aed, #06b6d4, transparent 70%)',
           }}
         />
 

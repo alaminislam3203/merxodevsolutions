@@ -131,14 +131,14 @@ export default function Stats() {
         aria-hidden
         className="pointer-events-none absolute top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
 
@@ -146,7 +146,7 @@ export default function Stats() {
         aria-hidden
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] opacity-10 blur-3xl"
         style={{
-          background: 'radial-gradient(ellipse, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(ellipse, #7c3aed, transparent 70%)',
         }}
       />
 

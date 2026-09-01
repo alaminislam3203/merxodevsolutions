@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section
       aria-label="Hero"
-      className="relative py-16 sm:py-24 flex flex-col items-center justify-center overflow-hidden bg-transparent"
+      className="relative pt-4 sm:pt-6 pb-14 sm:pb-20 flex flex-col items-center justify-center overflow-hidden bg-transparent"
     >
       {/* SEO: Structured Data */}
       <script
@@ -75,14 +75,14 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute -top-24 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #84cc16, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #84cc16, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-24 right-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
           animationDelay: '3s',
         }}
       />

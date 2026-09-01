@@ -169,14 +169,14 @@ export default function WhyUs() {
         aria-hidden
         className="pointer-events-none absolute top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
 

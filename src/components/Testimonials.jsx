@@ -185,14 +185,14 @@ export default function Testimonials() {
         aria-hidden
         className="pointer-events-none absolute top-10 left-1/4 w-[600px] h-[500px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute bottom-10 right-10 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
           animationDelay: '3s',
         }}
       />
@@ -331,11 +331,10 @@ export default function Testimonials() {
                   type="button"
                   onClick={() => scrollTo(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    selectedIndex === dotIdx
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${selectedIndex === dotIdx
                       ? 'w-6 bg-gradient-to-r from-violet-600 to-cyan-500'
                       : 'w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-violet-400'
-                  }`}
+                    }`}
                 />
               ))}
             </div>

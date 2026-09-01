@@ -56,9 +56,8 @@ function ProjectCard({ project, index, visible }) {
 
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
+      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
       {/* Top glow */}
@@ -168,8 +167,14 @@ export default function ProjectsGrid({ projects }) {
   return (
     <main ref={sectionRef} className="min-h-screen bg-white dark:bg-zinc-950 pb-24 overflow-hidden">
       {/* Background glows */}
-      <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
-      <div aria-hidden className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl" style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }} />
+      <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+
+        style={{
+          //  background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
+        }} />
+      <div aria-hidden className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl" style={{
+        // background: 'radial-gradient(circle, #06b6d4, transparent 70%)'
+      }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Breadcrumb */}
@@ -214,11 +219,10 @@ export default function ProjectsGrid({ projects }) {
               role="tab"
               aria-selected={activeFilter === tag}
               onClick={() => handleFilter(tag)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-raleway transition-all duration-200 border ${
-                activeFilter === tag
-                  ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
-                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
-              }`}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-raleway transition-all duration-200 border ${activeFilter === tag
+                ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
+                : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
+                }`}
             >
               {tag}
               {tag !== 'All' && (

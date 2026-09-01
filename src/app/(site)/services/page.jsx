@@ -251,14 +251,14 @@ export default function ServicesPage() {
         aria-hidden
         className="pointer-events-none absolute top-0 left-1/4 w-[700px] h-[500px] rounded-full opacity-25 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/2 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
           animationDelay: '3s',
         }}
       />
@@ -305,7 +305,7 @@ export default function ServicesPage() {
             <Link
               key={service.title}
               href={service.href}
-              className={`group relative flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${service.glowColor} transition-all duration-300 overflow-hidden`}
+              className={`group relative flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80  dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${service.glowColor} transition-all duration-300 overflow-hidden`}
               style={{
                 animationDelay: `${(index % 3) * 150}ms`,
               }}

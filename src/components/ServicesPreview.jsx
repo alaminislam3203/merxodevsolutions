@@ -131,21 +131,21 @@ export default function ServicesPreview() {
   return (
     <section
       aria-label="Services and Categories"
-      className="w-full max-w-full relative py-6 sm:py-8 px-2 sm:px-3 overflow-hidden bg-transparent transition-colors duration-300"
+      className="w-full max-w-full relative pt-2 sm:pt-3 pb-2 sm:pb-3 px-2 sm:px-3 overflow-hidden bg-transparent transition-colors duration-300"
     >
       {/* Background Soft Ambient Glows matching site theme */}
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #84cc16, transparent 70%)',
+          // background: 'radial-gradient(circle, #84cc16, transparent 70%)',
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
           animationDelay: '2s',
         }}
       />
