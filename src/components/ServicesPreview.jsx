@@ -7,190 +7,182 @@ import {
   FiCode,
   FiLayout,
   FiTrendingUp,
+  FiLink,
+  FiShield,
+  FiCreditCard,
+  FiDatabase,
+  FiTool,
+  FiCpu,
   FiGrid,
-  FiArrowRight,
-  FiCheckCircle,
 } from 'react-icons/fi';
+import { FaFigma } from 'react-icons/fa';
 
-const featuredServices = [
+const serviceCategories = [
   {
-    icon: <FiGlobe size={26} />,
-    title: 'Website Development',
-    subtitle: 'Next.js & React High Performance',
-    desc: 'Blazing fast, responsive, and SEO-ready business websites built for maximum brand conversion.',
-    highlights: ['Next.js 16', 'Sub-second Speed', 'SEO Structured', '100% Mobile Ready'],
+    title: 'Web Dev',
+    fullTitle: 'Website Development',
+    icon: <FiGlobe size={34} />,
     href: '/services-web',
-    accent: 'from-violet-600 to-indigo-600',
-    lightBg: 'bg-violet-50 dark:bg-violet-950/80',
-    iconColor: 'text-violet-600 dark:text-violet-400',
-    glowColor: 'hover:border-violet-400 dark:hover:border-violet-500 hover:shadow-violet-500/15',
-    badge: 'Popular',
+    bgColor: 'bg-[#FF6B6B]',
+    shadowColor: 'shadow-[#FF6B6B]/30',
+    glowColor: 'group-hover:shadow-[#FF6B6B]/50',
   },
   {
-    icon: <FiShoppingCart size={26} />,
-    title: 'E-Commerce Solutions',
-    subtitle: 'High-Converting Online Stores',
-    desc: 'Complete e-commerce systems with bKash/Nagad/Stripe, product catalog, cart, and automated order tracking.',
-    highlights: ['Payment Gateways', 'Inventory Sync', 'One-Page Checkout', 'Sales Analytics'],
+    title: 'E-Commerce',
+    fullTitle: 'E-Commerce Solutions',
+    icon: <FiShoppingCart size={34} />,
     href: '/services-ecommerce',
-    accent: 'from-cyan-500 to-teal-500',
-    lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
-    iconColor: 'text-cyan-600 dark:text-cyan-400',
-    glowColor: 'hover:border-cyan-400 dark:hover:border-cyan-500 hover:shadow-cyan-500/15',
-    badge: 'High Demand',
+    bgColor: 'bg-[#FFA06A]',
+    shadowColor: 'shadow-[#FFA06A]/30',
+    glowColor: 'group-hover:shadow-[#FFA06A]/50',
   },
   {
-    icon: <FiCode size={26} />,
-    title: 'Web Application & SaaS',
-    subtitle: 'Custom Cloud Platforms',
-    desc: 'Scalable web apps, admin dashboards, multi-tenant portals, and bespoke business automation tools.',
-    highlights: ['Multi-Role RBAC', 'Real-Time Data', 'API & Cloud DB', 'Automated Jobs'],
+    title: 'Web App',
+    fullTitle: 'Custom Web Applications',
+    icon: <FiCode size={34} />,
     href: '/services-web-app',
-    accent: 'from-indigo-500 to-violet-600',
-    lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
-    iconColor: 'text-indigo-600 dark:text-indigo-400',
-    glowColor: 'hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-indigo-500/15',
-    badge: 'Enterprise',
+    bgColor: 'bg-[#5DE0E6]',
+    shadowColor: 'shadow-[#5DE0E6]/30',
+    glowColor: 'group-hover:shadow-[#5DE0E6]/50',
   },
   {
-    icon: <FiLayout size={26} />,
-    title: 'UI/UX & Figma Design',
-    subtitle: 'Human-Centered Interfaces',
-    desc: 'Pixel-perfect, clickable interactive prototypes and scalable design systems created in Figma.',
-    highlights: ['Interactive Prototypes', 'Design Systems', 'Micro-Animations', 'User Journeys'],
+    title: 'UI/UX',
+    fullTitle: 'UI/UX & Figma Design',
+    icon: <FiLayout size={34} />,
     href: '/services-design',
-    accent: 'from-pink-500 to-purple-600',
-    lightBg: 'bg-pink-50 dark:bg-pink-950/80',
-    iconColor: 'text-pink-600 dark:text-pink-400',
-    glowColor: 'hover:border-pink-400 dark:hover:border-pink-500 hover:shadow-pink-500/15',
-    badge: 'Creative',
+    bgColor: 'bg-[#70E000]',
+    shadowColor: 'shadow-[#70E000]/30',
+    glowColor: 'group-hover:shadow-[#70E000]/50',
   },
   {
-    icon: <FiTrendingUp size={26} />,
-    title: 'SEO & Growth Strategy',
-    subtitle: 'Rank #1 on Google',
-    desc: 'Technical SEO, Core Web Vitals optimization, Schema rich snippets, and high-authority link building.',
-    highlights: ['Page 1 Ranking', 'Core Web Vitals', 'Schema.org JSON-LD', 'Local Maps SEO'],
+    title: 'SEO',
+    fullTitle: 'SEO & Organic Growth',
+    icon: <FiTrendingUp size={34} />,
     href: '/services-seo',
-    accent: 'from-emerald-500 to-teal-500',
-    lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
-    iconColor: 'text-emerald-600 dark:text-emerald-400',
-    glowColor: 'hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-emerald-500/15',
-    badge: 'Organic ROI',
+    bgColor: 'bg-[#9D4EDD]',
+    shadowColor: 'shadow-[#9D4EDD]/30',
+    glowColor: 'group-hover:shadow-[#9D4EDD]/50',
   },
   {
-    icon: <FiGrid size={26} />,
-    title: 'All Digital Services',
-    subtitle: 'Explore 12+ Core Solutions',
-    desc: 'API integrations, database architecture, payment gateways, maintenance, and custom business automation.',
-    highlights: ['Payment APIs', 'Security & Auth', 'Database Tuning', '24/7 SLA Support'],
+    title: 'API Integration',
+    fullTitle: 'APIs & Webhooks',
+    icon: <FiLink size={34} />,
     href: '/services',
-    accent: 'from-amber-500 to-orange-500',
-    lightBg: 'bg-amber-50 dark:bg-amber-950/80',
-    iconColor: 'text-amber-600 dark:text-amber-400',
-    glowColor: 'hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-amber-500/15',
-    badge: 'Full Suite',
+    bgColor: 'bg-[#FFB703]',
+    shadowColor: 'shadow-[#FFB703]/30',
+    glowColor: 'group-hover:shadow-[#FFB703]/50',
+  },
+  {
+    title: 'Security',
+    fullTitle: 'Authentication & Security',
+    icon: <FiShield size={34} />,
+    href: '/services',
+    bgColor: 'bg-[#FB8500]',
+    shadowColor: 'shadow-[#FB8500]/30',
+    glowColor: 'group-hover:shadow-[#FB8500]/50',
+  },
+  {
+    title: 'Payment Gateway',
+    fullTitle: 'bKash, Nagad & Stripe',
+    icon: <FiCreditCard size={34} />,
+    href: '/services',
+    bgColor: 'bg-[#B5838D]',
+    shadowColor: 'shadow-[#B5838D]/30',
+    glowColor: 'group-hover:shadow-[#B5838D]/50',
+  },
+  {
+    title: 'Database',
+    fullTitle: 'Database & Cloud Storage',
+    icon: <FiDatabase size={34} />,
+    href: '/services',
+    bgColor: 'bg-[#7209B7]',
+    shadowColor: 'shadow-[#7209B7]/30',
+    glowColor: 'group-hover:shadow-[#7209B7]/50',
+  },
+  {
+    title: 'Maintenance',
+    fullTitle: 'Maintenance & 24/7 SLA',
+    icon: <FiTool size={34} />,
+    href: '/services',
+    bgColor: 'bg-[#4CC9F0]',
+    shadowColor: 'shadow-[#4CC9F0]/30',
+    glowColor: 'group-hover:shadow-[#4CC9F0]/50',
+  },
+  {
+    title: 'Automation',
+    fullTitle: 'Business Automation',
+    icon: <FiCpu size={34} />,
+    href: '/services',
+    bgColor: 'bg-[#F72585]',
+    shadowColor: 'shadow-[#F72585]/30',
+    glowColor: 'group-hover:shadow-[#F72585]/50',
+  },
+  {
+    title: 'All Services',
+    fullTitle: 'Explore All Solutions',
+    icon: <FiGrid size={34} />,
+    href: '/services',
+    bgColor: 'bg-gradient-to-br from-violet-600 to-cyan-500',
+    shadowColor: 'shadow-violet-600/30',
+    glowColor: 'group-hover:shadow-violet-600/50',
   },
 ];
 
 export default function ServicesPreview() {
   return (
     <section
-      aria-labelledby="services-preview-heading"
-      className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden bg-zinc-50/50 dark:bg-zinc-950/50 border-y border-zinc-200/60 dark:border-zinc-800/60"
+      aria-labelledby="services-categories-heading"
+      className="relative py-14 sm:py-16 px-4 sm:px-6 overflow-hidden bg-[#0a0614]/80 dark:bg-black/90 border-y border-white/10"
     >
-      {/* Background Ambient Glow */}
+      {/* Background Soft Laptop Glow effect like the image */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] opacity-25 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, #06b6d4, transparent 70%)',
+          background: 'radial-gradient(ellipse, #3b82f6 0%, #8b5cf6 40%, transparent 70%)',
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest mb-4 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-violet-500 animate-ping" />
-              Our Core Expertise
-            </span>
-            <h2
-              id="services-preview-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
-            >
-              Tailored Digital Solutions{' '}
-              <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
-                For Your Growth
-              </span>
-            </h2>
-          </div>
+      <div className="relative z-10 max-w-6xl mx-auto text-center">
+        {/* Title & Subtext matching image styling */}
+        <h2
+          id="services-categories-heading"
+          className="font-serif text-3xl sm:text-4xl text-white font-normal tracking-wide mb-2"
+          style={{ fontFamily: "'Playfair Display', serif, Georgia" }}
+        >
+          Services & Categories
+        </h2>
+        <p className="text-xs sm:text-sm text-zinc-300 dark:text-zinc-400 font-raleway tracking-wide mb-10 max-w-xl mx-auto">
+          Explore tailored digital solutions engineered for your business growth
+        </p>
 
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-sm font-bold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-raleway group self-start sm:self-auto shrink-0 pb-1"
-          >
-            <span>View All Services</span>
-            <FiArrowRight className="group-hover:translate-x-1.5 transition-transform" />
-          </Link>
-        </div>
-
-        {/* ── Services Grid (2 Columns on Mobile, 3 Columns on Tablet/Desktop) ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {featuredServices.map((service, i) => (
+        {/* ── App Icon Square Grid ── */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 justify-items-center">
+          {serviceCategories.map((item, i) => (
             <Link
               key={i}
-              href={service.href}
-              className={`group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl card-hover-lift hover:shadow-xl transition-all duration-300 ${service.glowColor}`}
+              href={item.href}
+              title={item.fullTitle}
+              className="group flex flex-col items-center text-center cursor-pointer transition-all duration-300 w-full max-w-[100px] sm:max-w-[110px]"
             >
-              <div>
-                {/* Top Row: Icon + Badge */}
-                <div className="flex items-center justify-between gap-3 mb-5">
-                  <div
-                    className={`w-13 h-13 sm:w-14 sm:h-14 rounded-2xl ${service.lightBg} border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center ${service.iconColor} shadow-md group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    {service.icon}
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700 font-raleway">
-                    {service.badge}
-                  </span>
-                </div>
-
-                {/* Title & Subtitle */}
-                <h3 className="font-display text-xl sm:text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-1 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 font-raleway mb-3">
-                  {service.subtitle}
-                </p>
-
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway mb-5 line-clamp-2 sm:line-clamp-3">
-                  {service.desc}
-                </p>
-
-                {/* Highlights Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {service.highlights.map((h, hIdx) => (
-                    <span
-                      key={hIdx}
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 font-raleway"
-                    >
-                      <FiCheckCircle size={10} className="text-emerald-500" />
-                      {h}
-                    </span>
-                  ))}
+              {/* Rounded Square App Icon Box */}
+              <div
+                className={`w-18 h-18 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-2xl sm:rounded-3xl ${item.bgColor} text-white flex items-center justify-center shadow-lg ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-1.5 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
+              >
+                {/* Glossy Top Glass Shimmer */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-white/30 to-transparent pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+                <div className="relative z-10 drop-shadow-md group-hover:scale-105 transition-transform duration-200">
+                  {item.icon}
                 </div>
               </div>
 
-              {/* Bottom Action Indicator */}
-              <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-xs font-bold text-violet-600 dark:text-violet-400 font-raleway">
-                <span className="group-hover:underline">Explore Details</span>
-                <span className="w-8 h-8 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center group-hover:bg-violet-600 group-hover:text-white transition-colors duration-200">
-                  <FiArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                </span>
-              </div>
+              {/* Title below square */}
+              <span className="mt-2.5 text-xs sm:text-sm font-medium text-zinc-200 dark:text-zinc-300 group-hover:text-white group-hover:font-bold transition-all tracking-wide font-raleway truncate w-full px-1">
+                {item.title}
+              </span>
             </Link>
           ))}
         </div>
