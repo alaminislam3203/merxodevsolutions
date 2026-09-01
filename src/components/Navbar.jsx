@@ -123,54 +123,42 @@ export default function Navbar() {
           : 'bg-violet-700 dark:bg-[#060b19]/85 backdrop-blur-md border-b border-violet-600/30 dark:border-blue-900/30'
           }`}
       >
-        {/* Tier 1: Navlinks Top Row (above Logo & Get In Touch) */}
-        <div className="border-b border-white/10 dark:border-blue-900/30 py-1.5 px-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-7 text-xs font-bold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300">
-              {navLinks.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-amber-300 dark:hover:text-cyan-400 transition-colors py-0.5"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-5 text-xs text-white/80 dark:text-zinc-400 font-raleway font-medium">
-              <span className="inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                24/7 Digital Services
-              </span>
-              <a href="mailto:support@merxodevsolutions.pro.bd" className="hover:text-white transition-colors">
-                support@merxodevsolutions.pro.bd
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Tier 2: Main Action Row (Logo | Expanded SearchBar | CTA) */}
-        <div className="relative max-w-7xl mx-auto px-6 py-2.5 flex items-center justify-between gap-6">
-          {/* Logo */}
-          <Link href="/" className="shrink-0">
-            <Logo />
-          </Link>
-
-          {/* Search Bar on Desktop (Wider / Expanded) */}
-          <div className="flex-1 flex items-center justify-center max-w-3xl">
-            <SearchBar />
+        <div className="relative max-w-7xl mx-auto px-6 pt-2 pb-2.5 flex flex-col gap-2">
+          {/* Centered Navlinks (above Logo, SearchBar & CTA) */}
+          <div className="flex items-center justify-center gap-8 text-xs sm:text-[13px] font-bold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300">
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-amber-300 dark:hover:text-cyan-400 transition-colors py-0.5"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          {/* Unmasked: ThemeToggle + CTA */}
-          <div className="flex items-center gap-3 shrink-0">
-            <ThemeToggle iconOnly />
-            <Link
-              href="/contact"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
-            >
-              {t('getInTouch')}
+          {/* Main Action Row (Logo | Expanded SearchBar | CTA) */}
+          <div className="flex items-center justify-between gap-6">
+            {/* Logo */}
+            <Link href="/" className="shrink-0">
+              <Logo />
             </Link>
+
+            {/* Search Bar on Desktop (Wider / Expanded) */}
+            <div className="flex-1 flex items-center justify-center max-w-3xl">
+              <SearchBar />
+            </div>
+
+            {/* Unmasked: ThemeToggle + CTA */}
+            <div className="flex items-center gap-3 shrink-0">
+              <ThemeToggle iconOnly />
+              <Link
+                href="/contact"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
+              >
+                {t('getInTouch')}
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
