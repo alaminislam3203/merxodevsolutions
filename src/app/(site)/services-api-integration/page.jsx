@@ -182,14 +182,14 @@ export default function ServicesApiIntegrationPage() {
   ];
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, #f59e0b, #7c3aed, transparent 70%)',
+            // background: 'radial-gradient(circle, #f59e0b, #7c3aed, transparent 70%)',
           }}
         />
 
@@ -386,11 +386,10 @@ export default function ServicesApiIntegrationPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
                     ? 'border-2 border-amber-500 bg-gradient-to-b from-amber-50/80 via-white to-white dark:from-amber-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-amber-500/20 scale-105 z-10'
                     : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-violet-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -425,11 +424,10 @@ export default function ServicesApiIntegrationPage() {
 
                 <Link
                   href={`/contact?service=API%20Development%20%26%20Integration&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${
-                    plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
                       ? 'bg-gradient-to-r from-amber-500 via-orange-600 to-violet-600 text-white hover:opacity-95 shadow-lg shadow-amber-500/25'
                       : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-amber-500 hover:text-amber-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -472,9 +470,8 @@ export default function ServicesApiIntegrationPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-amber-600 dark:text-amber-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-amber-600 dark:text-amber-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

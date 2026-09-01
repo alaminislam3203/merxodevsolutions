@@ -103,7 +103,7 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
+    <main className="text-[#27003B] dark:text-white">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         {/* Background accent */}
@@ -297,8 +297,8 @@ export default function AboutPage() {
       {/* ── CTA ── */}
       <section className="px-6 py-16">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 p-px">
-            <div className="rounded-2xl bg-white dark:bg-zinc-950 px-8 py-12">
+          <div className="p-px">
+            <div className="rounded-2xl px-8 py-12">
               <h2 className="text-2xl font-black font-raleway mb-3">
                 Let's build something together
               </h2>

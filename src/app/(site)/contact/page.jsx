@@ -150,7 +150,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-zinc-950 pt-28 sm:pt-32 pb-32 px-4 sm:px-6 overflow-hidden">
+    <div className="relative min-h-screen pt-28 sm:pt-32 pb-32 px-4 sm:px-6 overflow-hidden">
       {/* Background Ambient Glows */}
       <div
         aria-hidden
@@ -360,7 +360,7 @@ export default function ContactPage() {
 
           {/* Right Column: Premium Interactive Form (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="relative rounded-3xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl p-6 sm:p-10 border border-zinc-200 dark:border-zinc-800 shadow-2xl shadow-violet-950/10">
+            <div className="relative rounded-3xl backdrop-blur-2xl p-6 sm:p-10 border border-zinc-200 dark:border-zinc-800 shadow-2xl shadow-violet-950/10">
               <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-5 mb-6">
                 <div>
                   <h2 className="text-xl sm:text-2xl font-extrabold text-[#27003B] dark:text-white font-display uppercase tracking-wide">
@@ -389,9 +389,9 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="e.g. John Doe"
-                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.name
-                          ? 'border-rose-500 focus:ring-rose-500/30'
-                          : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
+                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.name
+                        ? 'border-rose-500 focus:ring-rose-500/30'
+                        : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                         }`}
                     />
                     {errors.name && (
@@ -412,9 +412,9 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="john@company.com"
-                      className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.email
-                          ? 'border-rose-500 focus:ring-rose-500/30'
-                          : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
+                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.email
+                        ? 'border-rose-500 focus:ring-rose-500/30'
+                        : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                         }`}
                     />
                     {errors.email && (
@@ -439,9 +439,9 @@ export default function ContactPage() {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+1 234 567 8900"
-                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.phone
-                        ? 'border-rose-500 focus:ring-rose-500/30'
-                        : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
+                    className={`w-full px-4 py-3 rounded-xl  border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.phone
+                      ? 'border-rose-500 focus:ring-rose-500/30'
+                      : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                       }`}
                   />
                   {errors.phone && (
@@ -465,8 +465,8 @@ export default function ContactPage() {
                           type="button"
                           onClick={() => setService(s)}
                           className={`px-3.5 py-2 rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
-                              ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
-                              : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                            ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
+                            : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
                         >
                           {s}
@@ -490,8 +490,8 @@ export default function ContactPage() {
                           type="button"
                           onClick={() => setBudget(b)}
                           className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
-                              ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
-                              : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                            ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
+                            : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
                         >
                           {b}
@@ -512,9 +512,9 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about the project goals, features needed, timeline, or reference links..."
-                    className={`w-full px-4 py-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-950/80 border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-raleway ${errors.message
-                        ? 'border-rose-500 focus:ring-rose-500/30'
-                        : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
+                    className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-raleway ${errors.message
+                      ? 'border-rose-500 focus:ring-rose-500/30'
+                      : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                       }`}
                   />
                   <div className="flex justify-between items-center mt-0.5">
@@ -527,8 +527,8 @@ export default function ContactPage() {
                     )}
                     <span
                       className={`text-[11px] font-raleway font-medium ml-auto ${form.message.length > 1800
-                          ? 'text-rose-500'
-                          : 'text-zinc-400'
+                        ? 'text-rose-500'
+                        : 'text-zinc-400'
                         }`}
                     >
                       {form.message.length}/2000
@@ -611,7 +611,7 @@ export default function ContactPage() {
               return (
                 <div
                   key={index}
-                  className="rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden transition-colors"
+                  className="rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden transition-colors"
                 >
                   <button
                     type="button"

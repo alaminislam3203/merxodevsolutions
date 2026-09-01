@@ -165,7 +165,7 @@ export default function ProjectsGrid({ projects }) {
   };
 
   return (
-    <main ref={sectionRef} className="min-h-screen bg-white dark:bg-zinc-950 pb-24 overflow-hidden">
+    <main ref={sectionRef} className="min-h-screen pb-24 overflow-hidden mt-2">
       {/* Background glows */}
       <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
 
@@ -251,7 +251,7 @@ export default function ProjectsGrid({ projects }) {
         )}
 
         {/* Bottom CTA */}
-        <div className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-col gap-2 text-center sm:text-left">
             <h2 className="font-display text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">Have a Project in Mind?</h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-raleway max-w-sm">We turn ideas into polished digital products. Let's talk about what we can build together.</p>

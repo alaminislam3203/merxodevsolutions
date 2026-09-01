@@ -245,7 +245,7 @@ const whyUs = [
 
 export default function ServicesPage() {
   return (
-    <main className="relative bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white overflow-hidden">
+    <main className="relative text-[#27003B] dark:text-white overflow-hidden">
       {/* Background Ambient Glows */}
       <div
         aria-hidden
@@ -355,10 +355,10 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Why Clients Choose Us ── */}
-      <section className="relative px-6 py-20 bg-zinc-50/70 dark:bg-zinc-900/40 border-y border-zinc-200/80 dark:border-zinc-800/80">
+      <section className="relative px-6 py-20 border-y border-zinc-200/80 dark:border-zinc-800/80">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 uppercase tracking-widest font-raleway mb-3">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-raleway mb-3">
               Why MerxoDev
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
@@ -392,8 +392,8 @@ export default function ServicesPage() {
       {/* ── Bottom CTA ── */}
       <section className="relative px-6 py-24">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="relative rounded-3xl bg-gradient-to-br from-violet-600 via-purple-600 to-cyan-500 p-1 shadow-2xl shadow-violet-500/20 card-hover-lift">
-            <div className="rounded-[22px] bg-white dark:bg-zinc-950 px-8 py-14 sm:px-12">
+          <div className="relative card-hover-lift">
+            <div className="px-8 py-14 sm:px-12">
               <span className="inline-block text-[11px] font-bold tracking-widest text-amber-500 uppercase font-raleway mb-3">
                 Let's Discuss
               </span>

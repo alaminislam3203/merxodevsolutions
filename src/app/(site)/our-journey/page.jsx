@@ -151,7 +151,7 @@ const numbers = [
 
 export default function JourneyPage() {
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white">
+    <main className="text-[#27003B] dark:text-white">
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full dark:from-violet-950 dark:to-cyan-950 opacity-50 blur-3xl pointer-events-none" />
@@ -179,7 +179,7 @@ export default function JourneyPage() {
           {numbers.map(n => (
             <div
               key={n.label}
-              className="flex flex-col items-center gap-1.5 py-7 px-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
+              className="flex flex-col items-center gap-1.5 py-7 px-4 rounded-2xl"
             >
               <span className="text-3xl font-black font-raleway bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
                 {n.value}
@@ -339,8 +339,8 @@ export default function JourneyPage() {
       {/* ── CTA ── */}
       <section className="px-6 py-16">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 p-px">
-            <div className="rounded-2xl bg-white dark:bg-zinc-950 px-8 py-12">
+          <div className="p-px">
+            <div className="rounded-2xl px-8 py-12">
               <h2 className="text-2xl font-black font-raleway mb-3">
                 Want to be part of our next chapter?
               </h2>

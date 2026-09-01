@@ -240,7 +240,7 @@ export default function WebDevContent() {
   const faqs = arr(t, 'webDev.faq.items') || defaultFaqs;
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* ── Hero Section ── */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
         {/* Glowing Background Auras */}
@@ -332,7 +332,7 @@ export default function WebDevContent() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="text-center p-6 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-violet-950/5 card-hover-lift"
+              className="text-center p-6 rounded-3xl border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-violet-950/5 card-hover-lift"
             >
               <p className="text-3xl sm:text-4xl font-display uppercase tracking-wide bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent mb-1">
                 {stat.value}
@@ -369,7 +369,7 @@ export default function WebDevContent() {
               return (
                 <div
                   key={i}
-                  className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${meta.borderGlow}`}
+                  className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${meta.borderGlow}`}
                 >
                   <div>
                     {/* Floating Icon */}
@@ -401,7 +401,7 @@ export default function WebDevContent() {
 
       {/* ── Modern Tech Stack Pills ── */}
       <section className="px-4 sm:px-6 pb-24" aria-label="Technology stack">
-        <div className="max-w-6xl mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-violet-50/50 via-white to-cyan-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
+        <div className="max-w-6xl mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase font-raleway mb-2 block">
               ✦ Modern Development Ecosystem
@@ -454,7 +454,7 @@ export default function WebDevContent() {
                 key={i}
                 className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
                   ? 'border-2 border-violet-500 bg-gradient-to-b from-violet-50/80 via-white to-white dark:from-violet-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-violet-500/20 scale-105 z-10'
-                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                  : 'border border-zinc-200/80 dark:border-zinc-800 shadow-lg'
                   }`}
               >
                 {plan.popular && (
@@ -524,7 +524,7 @@ export default function WebDevContent() {
               return (
                 <div
                   key={i}
-                  className="rounded-3xl border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 overflow-hidden shadow-sm transition-all duration-200"
+                  className="rounded-3xl border border-zinc-200/80 dark:border-zinc-800 overflow-hidden shadow-sm transition-all duration-200"
                 >
                   <button
                     type="button"

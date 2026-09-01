@@ -164,7 +164,7 @@ export default async function ProjectDetailPage({ params }) {
         }}
       />
 
-      <main className="min-h-screen bg-white dark:bg-zinc-950 pb-24 mt-20">
+      <main className="min-h-screen pb-24 mt-20">
         <div className="max-w-6xl mx-auto px-6 flex flex-col gap-10">
           {/* ── Back button ── */}
           <div>
@@ -338,7 +338,7 @@ export default async function ProjectDetailPage({ params }) {
               {(details.features || []).map((f, i) => (
                 <li
                   key={i}
-                  className={`flex items-start gap-3 p-4 rounded-xl border bg-zinc-50 dark:bg-zinc-900 ${a.border} font-raleway`}
+                  className={`flex items-start gap-3 p-4 rounded-xl border ${a.border} font-raleway`}
                 >
                   <span
                     className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${a.dot}`}
@@ -367,9 +367,9 @@ export default async function ProjectDetailPage({ params }) {
                   <Link
                     key={rp.slug}
                     href={`/our-projects/${rp.slug}`}
-                    className={`group flex items-center gap-4 p-4 rounded-xl border bg-zinc-50 dark:bg-zinc-900 hover:shadow-md transition-all duration-300 ${ra.border} hover:-translate-y-0.5`}
+                    className={`group flex items-center gap-4 p-4 rounded-xl border hover:shadow-md transition-all duration-300 ${ra.border} hover:-translate-y-0.5`}
                   >
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-zinc-200 dark:bg-zinc-800">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
                       <Image
                         src={rp.image}
                         alt={rp.title}
@@ -414,7 +414,7 @@ export default async function ProjectDetailPage({ params }) {
 
           {/* Bottom CTA */}
           <div
-            className={`rounded-2xl border ${a.border} bg-zinc-50 dark:bg-zinc-900 p-8 flex flex-col sm:flex-row items-center justify-between gap-5`}
+            className={`rounded-2xl border ${a.border} p-8 flex flex-col sm:flex-row items-center justify-between gap-5`}
           >
             <div className="flex flex-col gap-1 text-center sm:text-left">
               <h3 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
