@@ -131,7 +131,7 @@ export default function ServicesPreview() {
   return (
     <section
       aria-label="Services and Categories"
-      className="w-full max-w-full relative py-6 sm:py-8 px-2 sm:px-3 overflow-hidden bg-white dark:bg-zinc-950 border-b border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
+      className="w-full max-w-full relative py-6 sm:py-8 px-2 sm:px-3 overflow-hidden bg-transparent transition-colors duration-300"
     >
       {/* Background Soft Ambient Glows matching site theme */}
       <div
