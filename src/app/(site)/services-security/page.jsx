@@ -116,7 +116,7 @@ export default function ServicesSecurityPage() {
   const plans = [
     {
       name: 'Auth System & RBAC',
-      price: 'BDT 6000',
+      price: 'BDT 1400',
       desc: 'Complete modern authentication setup with OAuth providers and multi-role user dashboards.',
       features: [
         'NextAuth / JWT Login & Registration',
@@ -131,7 +131,7 @@ export default function ServicesSecurityPage() {
     },
     {
       name: 'Full Security Hardening & 2FA',
-      price: 'BDT 18000',
+      price: 'BDT 2700',
       desc: 'Our most recommended package for SaaS, e-commerce, and fintech platforms demanding ironclad safety.',
       features: [
         'Two-Factor Authentication (2FA/TOTP)',
@@ -147,7 +147,7 @@ export default function ServicesSecurityPage() {
     },
     {
       name: 'Enterprise Zero-Trust Defense',
-      price: 'BDT 40000',
+      price: 'BDT 3900',
       desc: 'End-to-end enterprise compliance, penetration testing, and multi-tenant security architecture.',
       features: [
         'Comprehensive Penetration Testing',

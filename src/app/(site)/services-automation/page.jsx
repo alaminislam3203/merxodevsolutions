@@ -116,7 +116,7 @@ export default function ServicesAutomationPage() {
   const plans = [
     {
       name: 'Single Workflow Automation',
-      price: 'BDT 5000',
+      price: 'BDT 1200',
       desc: 'Automate any single repetitive process (Auto-email triggers, Google Sheets sync, or Courier booking API).',
       features: [
         'End-to-End Workflow Trigger Setup',
@@ -131,7 +131,7 @@ export default function ServicesAutomationPage() {
     },
     {
       name: 'Business Automation Suite',
-      price: 'BDT 15000',
+      price: 'BDT 2600',
       desc: 'Our most popular package for e-commerce and scaling agencies wanting autonomous operations.',
       features: [
         'Up to 4 Interconnected Workflows',
@@ -146,7 +146,7 @@ export default function ServicesAutomationPage() {
     },
     {
       name: 'Enterprise Autonomous System',
-      price: 'BDT 35000',
+      price: 'BDT 3800',
       desc: 'Full-scale custom n8n / BullMQ queue architecture, competitive scraping, and end-to-end operational automation.',
       features: [
         'Self-Hosted n8n Workflow Server',

@@ -116,7 +116,7 @@ export default function ServicesDatabasePage() {
   const plans = [
     {
       name: 'Schema Design & Setup',
-      price: 'BDT 6000',
+      price: 'BDT 1300',
       desc: 'Professional database schema modeling, relational foreign keys, indexes, and Prisma models for new projects.',
       features: [
         'Complete Relational Schema Modeling',
@@ -131,7 +131,7 @@ export default function ServicesDatabasePage() {
     },
     {
       name: 'Query Optimization & Caching',
-      price: 'BDT 15000',
+      price: 'BDT 2600',
       desc: 'Our most sought-after package for fixing sluggish database responses, adding Redis caching, and optimizing queries.',
       features: [
         'Slow Query Profiling & EXPLAIN Tuning',
@@ -146,7 +146,7 @@ export default function ServicesDatabasePage() {
     },
     {
       name: 'Full Scale Database Architecture',
-      price: 'BDT 35000',
+      price: 'BDT 3800',
       desc: 'High-availability database cluster, zero-downtime ETL migration, replication, and enterprise disaster recovery.',
       features: [
         'Multi-Region Replica & Sharding Spec',

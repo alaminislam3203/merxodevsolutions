@@ -120,7 +120,7 @@ export default function ServicesSeoPage() {
   const plans = [
     {
       name: 'Technical SEO Audit & Fix',
-      price: 'BDT 2000',
+      price: 'BDT 1500',
       desc: 'Comprehensive technical audit and complete on-page code fixes for existing websites.',
       features: [
         'Full Technical Audit & Error Fixing',
@@ -135,7 +135,7 @@ export default function ServicesSeoPage() {
     },
     {
       name: 'Growth SEO & Organic Ranking',
-      price: 'BDT ২৫,০০০',
+      price: 'BDT 2700',
       desc: 'Our most popular monthly growth package for businesses wanting top Google rankings.',
       features: [
         'Targeted 15 High-Value Keyword Groups',
@@ -151,7 +151,7 @@ export default function ServicesSeoPage() {
     },
     {
       name: 'Market Dominance Enterprise',
-      price: 'BDT ৫০,০০০',
+      price: 'BDT 3900',
       desc: 'All-inclusive multi-channel SEO campaign for competitive industries and global reach.',
       features: [
         'Targeted 40+ National/Global Keywords',

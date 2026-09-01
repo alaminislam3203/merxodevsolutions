@@ -119,7 +119,7 @@ export default function ServicesApiIntegrationPage() {
   const plans = [
     {
       name: 'Single API Integration',
-      price: 'BDT 5000',
+      price: 'BDT 1200',
       desc: 'Connect any single third-party API (Payment, SMS, CRM, or Maps) into your existing application.',
       features: [
         'Complete Endpoint Integration',
@@ -134,7 +134,7 @@ export default function ServicesApiIntegrationPage() {
     },
     {
       name: 'Multi-API Suite & Webhooks',
-      price: 'BDT 15000',
+      price: 'BDT 2600',
       desc: 'Our most popular package for syncing multiple services, automated webhooks, and custom endpoints.',
       features: [
         'Up to 4 Complete API Integrations',
@@ -150,7 +150,7 @@ export default function ServicesApiIntegrationPage() {
     },
     {
       name: 'Custom Enterprise Gateway',
-      price: 'BDT 35000',
+      price: 'BDT 3800',
       desc: 'Full-scale microservices API gateway architecture with high concurrency and AI integrations.',
       features: [
         'Unlimited API Endpoints & Microservices',

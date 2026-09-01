@@ -116,7 +116,7 @@ export default function ServicesPaymentGatewayPage() {
   const plans = [
     {
       name: 'Single Gateway Integration',
-      price: 'BDT 5000',
+      price: 'BDT 1200',
       desc: 'Integration of any single payment method (bKash, Nagad, Stripe, or SSLCommerz) with live testing.',
       features: [
         'Complete Gateway Checkout Setup',
@@ -131,7 +131,7 @@ export default function ServicesPaymentGatewayPage() {
     },
     {
       name: 'Dual Gateway (Local + Global)',
-      price: 'BDT 12000',
+      price: 'BDT 2500',
       desc: 'Our most popular package offering Bangladeshi MFS (bKash/Nagad) plus international card processing (Stripe).',
       features: [
         'bKash + Nagad Direct Checkout',
@@ -146,7 +146,7 @@ export default function ServicesPaymentGatewayPage() {
     },
     {
       name: 'All-In-One Enterprise Gateway',
-      price: 'BDT 28000',
+      price: 'BDT 3800',
       desc: 'Multi-gateway dynamic switcher, recurring SaaS subscription billing, and accountant reconciliation tools.',
       features: [
         'All Bangladesh Gateways + Stripe/PayPal',

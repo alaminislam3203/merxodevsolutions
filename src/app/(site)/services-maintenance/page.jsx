@@ -116,7 +116,7 @@ export default function ServicesMaintenancePage() {
   const plans = [
     {
       name: 'Essential Maintenance',
-      price: 'BDT 4000',
+      price: 'BDT 1200',
       desc: 'Basic website upkeep, security patches, uptime monitoring, and weekly cloud backups.',
       features: [
         '24/7 Global Uptime Monitoring',
@@ -131,7 +131,7 @@ export default function ServicesMaintenancePage() {
     },
     {
       name: 'Business Growth SLA',
-      price: 'BDT 12000',
+      price: 'BDT 2500',
       desc: 'Our most popular monthly maintenance plan for active e-commerce and high-traffic portals.',
       features: [
         'Continuous Real-Time Error Tracking',
@@ -147,7 +147,7 @@ export default function ServicesMaintenancePage() {
     },
     {
       name: 'Enterprise Dedicated Support',
-      price: 'BDT 28000',
+      price: 'BDT 3900',
       desc: 'Complete DevOps, proactive security management, staging environments, and 24/7 on-call engineers.',
       features: [
         'Dedicated On-Call Senior Engineer',

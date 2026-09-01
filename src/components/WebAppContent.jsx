@@ -146,7 +146,7 @@ const techStack = [
 const defaultPlans = [
   {
     name: 'MVP / Startup App',
-    price: 'BDT ৪৫,০০০',
+    price: 'BDT 1800',
     desc: 'Launch your Minimum Viable Product quickly to validate ideas and onboard early users.',
     features: [
       'Authentication & User Profiles',
@@ -161,7 +161,7 @@ const defaultPlans = [
   },
   {
     name: 'Full SaaS / Custom Portal',
-    price: 'BDT ৮৫,০০০',
+    price: 'BDT 2900',
     desc: 'Complete production web application with multi-role permissions and automated workflows.',
     features: [
       'Multi-Role Permissions (RBAC)',
@@ -177,7 +177,7 @@ const defaultPlans = [
   },
   {
     name: 'Enterprise Platform',
-    price: 'Custom Quote',
+    price: 'BDT 4000',
     desc: 'High-concurrency systems, microservices, and dedicated engineering for enterprise operations.',
     features: [
       'Microservices / Cloud Architecture',

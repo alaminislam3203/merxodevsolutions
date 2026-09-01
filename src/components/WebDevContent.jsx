@@ -164,7 +164,7 @@ const defaultPlans = [
   },
   {
     name: 'Growth Business Pro',
-    price: 'BDT 3500',
+    price: 'BDT 2800',
     desc: 'Our most popular package for growing companies that demand high conversion and speed.',
     features: [
       'Up to 12 Premium Pages',
@@ -180,7 +180,7 @@ const defaultPlans = [
   },
   {
     name: 'Enterprise Custom',
-    price: 'Custom Quote',
+    price: 'BDT 3800',
     desc: 'Tailored enterprise architecture for heavy traffic, custom APIs, and advanced integrations.',
     features: [
       'Unlimited Pages & Custom Routes',
@@ -192,7 +192,7 @@ const defaultPlans = [
       '60 Days Dedicated Support & SLA',
     ],
     popular: false,
-    cta: 'Request Quote',
+    cta: 'Choose Enterprise',
   },
 ];
 

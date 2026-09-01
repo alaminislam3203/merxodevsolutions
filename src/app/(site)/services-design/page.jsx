@@ -135,7 +135,7 @@ export default function ServicesDesignPage() {
     },
     {
       name: 'Complete Website / App UX',
-      price: 'BDT ২৮,০০০',
+      price: 'BDT 2600',
       desc: 'Our most sought-after package for multi-page websites or full web application flows.',
       features: [
         'Up to 10 Custom Screens/Pages',
@@ -151,7 +151,7 @@ export default function ServicesDesignPage() {
     },
     {
       name: 'Enterprise Design System',
-      price: 'BDT ৬০,০০০',
+      price: 'BDT 3800',
       desc: 'Comprehensive multi-platform design architecture and tokens for scaling enterprises.',
       features: [
         'Complete Product UI Suite (20+ Screens)',
