@@ -180,13 +180,13 @@ export default function Process() {
         </div>
 
         <ol
-          className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
           aria-label="Our development process"
         >
           {steps.map((step, i) => (
             <li
               key={i}
-              className="relative flex flex-col items-center text-center gap-4 group transition-transform duration-300 hover:-translate-y-1"
+              className="relative flex flex-col items-center text-center gap-3 sm:gap-4 group transition-transform duration-300 hover:-translate-y-1 p-2 sm:p-0"
               itemProp="step"
               itemScope
               itemType="https://schema.org/HowToStep"
@@ -204,7 +204,7 @@ export default function Process() {
 
               {/* Icon */}
               <div
-                className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${colors[i].bg} border ${colors[i].border} ${colors[i].text} shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm`}
+                className={`relative w-13 h-13 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center ${colors[i].bg} border ${colors[i].border} ${colors[i].text} shrink-0 transition-transform duration-300 group-hover:scale-110 shadow-sm`}
               >
                 {icons[i]}
                 <span
@@ -215,14 +215,14 @@ export default function Process() {
                 </span>
               </div>
 
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1 sm:gap-1.5">
                 <h3
-                  className={`font-display text-lg uppercase tracking-wide ${colors[i].text}`}
+                  className={`font-display text-sm sm:text-lg uppercase tracking-wide ${colors[i].text}`}
                 >
                   {step.title}
                 </h3>
                 <p
-                  className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway"
+                  className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway"
                   itemProp="text"
                 >
                   {step.description}
