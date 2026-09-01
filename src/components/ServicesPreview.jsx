@@ -15,13 +15,12 @@ import {
   FiCpu,
   FiGrid,
 } from 'react-icons/fi';
-import { FaFigma } from 'react-icons/fa';
 
 const serviceCategories = [
   {
     title: 'Web Dev',
     fullTitle: 'Website Development',
-    icon: <FiGlobe size={34} />,
+    icon: <FiGlobe size={32} />,
     href: '/services-web',
     bgColor: 'bg-[#FF6B6B]',
     shadowColor: 'shadow-[#FF6B6B]/30',
@@ -30,7 +29,7 @@ const serviceCategories = [
   {
     title: 'E-Commerce',
     fullTitle: 'E-Commerce Solutions',
-    icon: <FiShoppingCart size={34} />,
+    icon: <FiShoppingCart size={32} />,
     href: '/services-ecommerce',
     bgColor: 'bg-[#FFA06A]',
     shadowColor: 'shadow-[#FFA06A]/30',
@@ -39,25 +38,25 @@ const serviceCategories = [
   {
     title: 'Web App',
     fullTitle: 'Custom Web Applications',
-    icon: <FiCode size={34} />,
+    icon: <FiCode size={32} />,
     href: '/services-web-app',
     bgColor: 'bg-[#5DE0E6]',
     shadowColor: 'shadow-[#5DE0E6]/30',
     glowColor: 'group-hover:shadow-[#5DE0E6]/50',
   },
   {
-    title: 'UI/UX',
+    title: 'UI/UX Design',
     fullTitle: 'UI/UX & Figma Design',
-    icon: <FiLayout size={34} />,
+    icon: <FiLayout size={32} />,
     href: '/services-design',
-    bgColor: 'bg-[#70E000]',
-    shadowColor: 'shadow-[#70E000]/30',
-    glowColor: 'group-hover:shadow-[#70E000]/50',
+    bgColor: 'bg-[#84cc16]',
+    shadowColor: 'shadow-[#84cc16]/30',
+    glowColor: 'group-hover:shadow-[#84cc16]/50',
   },
   {
-    title: 'SEO',
+    title: 'SEO Growth',
     fullTitle: 'SEO & Organic Growth',
-    icon: <FiTrendingUp size={34} />,
+    icon: <FiTrendingUp size={32} />,
     href: '/services-seo',
     bgColor: 'bg-[#9D4EDD]',
     shadowColor: 'shadow-[#9D4EDD]/30',
@@ -66,7 +65,7 @@ const serviceCategories = [
   {
     title: 'API Integration',
     fullTitle: 'APIs & Webhooks',
-    icon: <FiLink size={34} />,
+    icon: <FiLink size={32} />,
     href: '/services',
     bgColor: 'bg-[#FFB703]',
     shadowColor: 'shadow-[#FFB703]/30',
@@ -75,7 +74,7 @@ const serviceCategories = [
   {
     title: 'Security',
     fullTitle: 'Authentication & Security',
-    icon: <FiShield size={34} />,
+    icon: <FiShield size={32} />,
     href: '/services',
     bgColor: 'bg-[#FB8500]',
     shadowColor: 'shadow-[#FB8500]/30',
@@ -84,7 +83,7 @@ const serviceCategories = [
   {
     title: 'Payment Gateway',
     fullTitle: 'bKash, Nagad & Stripe',
-    icon: <FiCreditCard size={34} />,
+    icon: <FiCreditCard size={32} />,
     href: '/services',
     bgColor: 'bg-[#B5838D]',
     shadowColor: 'shadow-[#B5838D]/30',
@@ -93,7 +92,7 @@ const serviceCategories = [
   {
     title: 'Database',
     fullTitle: 'Database & Cloud Storage',
-    icon: <FiDatabase size={34} />,
+    icon: <FiDatabase size={32} />,
     href: '/services',
     bgColor: 'bg-[#7209B7]',
     shadowColor: 'shadow-[#7209B7]/30',
@@ -102,7 +101,7 @@ const serviceCategories = [
   {
     title: 'Maintenance',
     fullTitle: 'Maintenance & 24/7 SLA',
-    icon: <FiTool size={34} />,
+    icon: <FiTool size={32} />,
     href: '/services',
     bgColor: 'bg-[#4CC9F0]',
     shadowColor: 'shadow-[#4CC9F0]/30',
@@ -111,7 +110,7 @@ const serviceCategories = [
   {
     title: 'Automation',
     fullTitle: 'Business Automation',
-    icon: <FiCpu size={34} />,
+    icon: <FiCpu size={32} />,
     href: '/services',
     bgColor: 'bg-[#F72585]',
     shadowColor: 'shadow-[#F72585]/30',
@@ -120,11 +119,11 @@ const serviceCategories = [
   {
     title: 'All Services',
     fullTitle: 'Explore All Solutions',
-    icon: <FiGrid size={34} />,
+    icon: <FiGrid size={32} />,
     href: '/services',
-    bgColor: 'bg-gradient-to-br from-violet-600 to-cyan-500',
-    shadowColor: 'shadow-violet-600/30',
-    glowColor: 'group-hover:shadow-violet-600/50',
+    bgColor: 'bg-gradient-to-br from-lime-500 via-emerald-500 to-cyan-500',
+    shadowColor: 'shadow-lime-500/30',
+    glowColor: 'group-hover:shadow-lime-500/50',
   },
 ];
 
@@ -132,32 +131,50 @@ export default function ServicesPreview() {
   return (
     <section
       aria-labelledby="services-categories-heading"
-      className="relative py-14 sm:py-16 px-4 sm:px-6 overflow-hidden bg-[#0a0614]/80 dark:bg-black/90 border-y border-white/10"
+      className="relative py-20 px-4 sm:px-6 overflow-hidden bg-white dark:bg-zinc-950 border-y border-zinc-200/60 dark:border-zinc-800/60 transition-colors duration-300"
     >
-      {/* Background Soft Laptop Glow effect like the image */}
+      {/* Background Soft Ambient Glows matching site theme */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] opacity-25 blur-3xl"
+        className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(ellipse, #3b82f6 0%, #8b5cf6 40%, transparent 70%)',
+          background: 'radial-gradient(circle, #84cc16, transparent 70%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse-glow"
+        style={{
+          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          animationDelay: '2s',
         }}
       />
 
       <div className="relative z-10 max-w-6xl mx-auto text-center">
-        {/* Title & Subtext matching image styling */}
-        <h2
-          id="services-categories-heading"
-          className="font-serif text-3xl sm:text-4xl text-white font-normal tracking-wide mb-2"
-          style={{ fontFamily: "'Playfair Display', serif, Georgia" }}
-        >
-          Services & Categories
-        </h2>
-        <p className="text-xs sm:text-sm text-zinc-300 dark:text-zinc-400 font-raleway tracking-wide mb-10 max-w-xl mx-auto">
-          Explore tailored digital solutions engineered for your business growth
-        </p>
+        {/* Section Header matching site component theme */}
+        <div className="flex flex-col items-center text-center gap-3.5 mb-14">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-lime-500/10 dark:bg-lime-950/40 text-lime-600 dark:text-[#a3e635] border border-lime-500/30 font-raleway uppercase tracking-widest shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#84cc16] animate-pulse" />
+            Our Core Categories
+          </span>
+
+          <h2
+            id="services-categories-heading"
+            className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+          >
+            Digital Services &{' '}
+            <span className="bg-gradient-to-r from-lime-500 via-[#84cc16] to-cyan-400 bg-clip-text text-transparent animated-gradient-text">
+              Solutions
+            </span>
+          </h2>
+
+          <p className="max-w-xl text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed font-raleway">
+            Select any category below to discover custom digital solutions engineered for your business growth.
+          </p>
+        </div>
 
         {/* ── App Icon Square Grid ── */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 justify-items-center">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-7 sm:gap-x-6 sm:gap-y-9 justify-items-center">
           {serviceCategories.map((item, i) => (
             <Link
               key={i}
@@ -167,7 +184,7 @@ export default function ServicesPreview() {
             >
               {/* Rounded Square App Icon Box */}
               <div
-                className={`w-18 h-18 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-2xl sm:rounded-3xl ${item.bgColor} text-white flex items-center justify-center shadow-lg ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-1.5 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
+                className={`w-18 h-18 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-2xl sm:rounded-3xl ${item.bgColor} text-white flex items-center justify-center shadow-lg ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
               >
                 {/* Glossy Top Glass Shimmer */}
                 <div
@@ -179,8 +196,8 @@ export default function ServicesPreview() {
                 </div>
               </div>
 
-              {/* Title below square */}
-              <span className="mt-2.5 text-xs sm:text-sm font-medium text-zinc-200 dark:text-zinc-300 group-hover:text-white group-hover:font-bold transition-all tracking-wide font-raleway truncate w-full px-1">
+              {/* Title below square with Neon / Lime Green hover text */}
+              <span className="mt-2.5 text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-lime-600 dark:group-hover:text-[#a3e635] group-hover:font-bold transition-colors tracking-wide font-raleway truncate w-full px-1">
                 {item.title}
               </span>
             </Link>
