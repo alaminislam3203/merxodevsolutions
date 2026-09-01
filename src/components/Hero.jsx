@@ -4,19 +4,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import {
+  FiArrowRight,
+  FiZap,
+  FiShield,
+  FiStar,
+  FiCheckCircle,
+} from 'react-icons/fi';
 
 function Logo() {
   return (
     <div
-      className="flex items-center justify-center select-none p-2.5 px-6 rounded-2xl bg-violet-900/95 dark:bg-transparent shadow-xl shadow-violet-950/25 border border-violet-700/40 dark:border-transparent transition-all"
+      className="flex items-center justify-center select-none p-3 px-8 rounded-3xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl shadow-2xl shadow-violet-950/10 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
       aria-label="MerxoDev Solutions"
     >
       <Image
         src="/logo.png"
         alt="MerxoDev Solutions"
-        width={160}
-        height={40}
-        className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform hover:scale-105 duration-200 drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] dark:drop-shadow-none"
+        width={170}
+        height={45}
+        className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-md dark:drop-shadow-none"
         style={{ width: 'auto', height: 'auto' }}
         priority
       />
@@ -30,7 +37,7 @@ export default function Hero() {
   return (
     <section
       aria-label="Hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-zinc-950"
+      className="relative py-16 sm:py-24 flex flex-col items-center justify-center overflow-hidden bg-transparent"
     >
       {/* SEO: Structured Data */}
       <script
@@ -63,74 +70,95 @@ export default function Hero() {
         }}
       />
 
-      {/* Background Glows with pulse animation */}
+      {/* Ambient Pulsing Glow Orbs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl animate-pulse-glow"
+        className="pointer-events-none absolute -top-24 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          background: 'radial-gradient(circle, #84cc16, #7c3aed, transparent 70%)',
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
+        className="pointer-events-none absolute -bottom-24 right-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
           animationDelay: '3s',
         }}
       />
 
-      {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center text-center gap-8 px-6 max-w-7xl w-full">
-        {/* Badge */}
-        <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 mt-2 sm:mt-4 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest shadow-sm">
-          <span
-            className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"
-            aria-hidden
-          />
-          {t('hero.badge')}
-        </span>
+      {/* Hero Content Container */}
+      <div className="relative z-10 flex flex-col items-center text-center gap-7 px-4 sm:px-6 max-w-6xl w-full">
+        {/* Glowing Status Badge */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-lime-500/10 dark:bg-lime-950/40 text-lime-600 dark:text-[#a3e635] border border-lime-500/30 font-raleway uppercase tracking-widest shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#84cc16] animate-pulse" />
+          <span>{t('hero.badge')}</span>
+        </div>
 
-        {/* Logo */}
+        {/* Brand Logo Presentation */}
         <div className="animate-fade-in-up">
           <Logo />
         </div>
 
-        {/* H1 Heading — Primary SEO keyword */}
-        <h1 className="animate-fade-in-up font-hind text-5xl sm:text-7xl lg:text-8xl font-semibold text-[#27003B] dark:text-white leading-tight uppercase tracking-widest">
+        {/* Primary H1 Heading */}
+        <h1 className="font-hind text-4xl sm:text-6xl lg:text-7xl font-bold text-[#27003B] dark:text-white leading-[1.15] uppercase tracking-wide max-w-5xl">
           {t('hero.headingStart')}{' '}
-          <span className="text-[#CCFF00] drop-shadow-sm">{t('hero.headingHighlight')}</span>{' '}
+          <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_12px_rgba(132,204,22,0.4)]">
+            {t('hero.headingHighlight')}
+          </span>{' '}
           {t('hero.headingMiddle')}{' '}
-          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
+          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text">
             {t('hero.headingEnd')}
           </span>
         </h1>
 
-        {/* Subtext — Secondary SEO keywords */}
-        <p className="animate-fade-in-up max-w-4xl text-xl sm:text-2xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
+        {/* Secondary Subtitle */}
+        <p className="max-w-3xl text-base sm:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed font-raleway font-normal">
           {t('hero.subtext')}
         </p>
 
-        {/* CTA Buttons */}
-        <div className="animate-fade-in-up flex flex-col sm:flex-row items-center gap-4 mt-2">
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mt-2">
           <Link
             href="/contact"
             aria-label="Start a project with MerxoDev Solutions"
-            className="px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-95 hover:scale-105 transition-all shadow-lg shadow-violet-500/25 font-raleway uppercase tracking-widest"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-raleway hover:shadow-2xl hover:shadow-violet-500/30 hover:scale-105 transition-all duration-300"
           >
-            {t('hero.ctaPrimary')}
+            <span>{t('hero.ctaPrimary')}</span>
+            <FiArrowRight size={18} />
           </Link>
+
           <Link
             href="/our-projects"
             aria-label="View MerxoDev Solutions projects"
-            className="px-8 py-4 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:scale-105 transition-all font-raleway uppercase tracking-widest"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-9 py-4 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold text-zinc-800 dark:text-zinc-200 hover:border-lime-500 hover:text-lime-600 dark:hover:text-[#a3e635] hover:scale-105 transition-all duration-300 font-raleway uppercase tracking-wider shadow-sm"
           >
             {t('hero.ctaSecondary')}
           </Link>
         </div>
 
-        {/* Social Proof */}
-        <p className="animate-fade-in-up text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-raleway">
+        {/* Trust Highlights Strip */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-6 border-t border-zinc-200/50 dark:border-zinc-800/50 text-xs font-semibold text-zinc-500 dark:text-zinc-400 font-raleway">
+          <div className="flex items-center gap-1.5">
+            <FiZap className="text-amber-500" />
+            <span>Fast Sub-Second Delivery</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <FiShield className="text-emerald-500" />
+            <span>Clean Scalable Code</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <FiStar className="text-yellow-400 fill-yellow-400" />
+            <span>100% Client Satisfaction</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <FiCheckCircle className="text-cyan-500" />
+            <span>24/7 Dedicated SLA</span>
+          </div>
+        </div>
+
+        {/* Social Proof Text */}
+        <p className="text-xs text-zinc-400 dark:text-zinc-500 font-raleway mt-1">
           {t('hero.socialProof')}
         </p>
       </div>
