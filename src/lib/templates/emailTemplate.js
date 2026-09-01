@@ -300,7 +300,7 @@ export default function emailTemplate({
                     © ${new Date().getFullYear()} MerxoDevSolutions. All rights reserved.
                   </p>
                   <p style="margin:0;font-size:10px;color:rgba(255,255,255,0.15);">
-                    This email was triggered by a contact form submission on merxodevsolutions.com
+                    This email was triggered by a contact form submission on merxodevsolutions.pro.bd
                   </p>
                 </td>
               </tr>

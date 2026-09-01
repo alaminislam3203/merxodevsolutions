@@ -40,8 +40,8 @@ export default function Hero() {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'MerxoDev Solutions',
-            url: 'https://merxodevsolutions.com',
-            logo: 'https://merxodevsolutions.com/logo.png',
+            url: 'https://merxodevsolutions.pro.bd',
+            logo: 'https://merxodevsolutions.pro.bd/logo.png',
             description:
               'Custom websites, web apps & digital solutions crafted for startups and growing businesses.',
             address: {

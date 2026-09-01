@@ -35,7 +35,7 @@ export const metadata = {
     title: 'Our Services – MerxoDev Solutions',
     description:
       'Professional web, mobile, and cloud services from a trusted Bangladesh-based dev team.',
-    url: 'https://merxodevsolutions.com/services',
+    url: 'https://merxodevsolutions.pro.bd/services',
   },
 };
 
@@ -54,7 +54,7 @@ const services = [
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
     glowColor: 'hover:shadow-violet-500/20 hover:border-violet-400 dark:hover:border-violet-500',
-    href: '/contact',
+    href: '/services-web',
   },
   {
     icon: <FiShoppingCart size={26} />,
@@ -70,7 +70,7 @@ const services = [
     lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
     iconColor: 'text-cyan-600 dark:text-cyan-400',
     glowColor: 'hover:shadow-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-500',
-    href: '/contact',
+    href: '/services-ecommerce',
   },
   {
     icon: <FiCode size={26} />,
@@ -86,7 +86,7 @@ const services = [
     lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
     iconColor: 'text-indigo-600 dark:text-indigo-400',
     glowColor: 'hover:shadow-indigo-500/20 hover:border-indigo-400 dark:hover:border-indigo-500',
-    href: '/contact',
+    href: '/services-web-app',
   },
   {
     icon: <FiLayout size={26} />,

@@ -295,7 +295,7 @@ export default function autoReplyTemplate({
                     © ${new Date().getFullYear()} MerxoDevSolutions. All rights reserved.
                   </p>
                   <p style="margin:0;font-size:10px;color:rgba(255,255,255,0.15);">
-                    This is an automated reply to your contact form submission on merxodevsolutions.com
+                    This is an automated reply to your contact form submission on merxodevsolutions.pro.bd
                   </p>
                 </td>
               </tr>
