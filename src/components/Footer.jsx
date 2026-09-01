@@ -71,15 +71,26 @@ const socials = [
 function Logo() {
   return (
     <div
-      className="inline-flex items-center select-none p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-600 shadow-lg shadow-violet-600/20 border border-violet-500/30 transition-transform hover:scale-105 duration-200"
+      className="inline-flex items-center select-none transition-transform hover:scale-105 duration-200 group"
       aria-label="MerxoDev Solutions"
     >
+      {/* Light Mode Logo */}
+      <Image
+        src="/logo-light.png"
+        alt="MerxoDev Solutions"
+        width={135}
+        height={32}
+        className="block dark:hidden h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-sm"
+        style={{ width: 'auto', height: 'auto' }}
+      />
+
+      {/* Dark Mode Logo */}
       <Image
         src="/logo.png"
         alt="MerxoDev Solutions"
-        width={120}
-        height={28}
-        className="h-6 sm:h-7 w-auto object-contain drop-shadow-sm"
+        width={135}
+        height={32}
+        className="hidden dark:block h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
         style={{ width: 'auto', height: 'auto' }}
       />
     </div>
