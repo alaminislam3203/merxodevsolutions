@@ -15,15 +15,27 @@ import {
 function Logo() {
   return (
     <div
-      className="flex items-center justify-center select-none p-3 px-8   shadow-violet-950/10  hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
+      className="flex items-center justify-center select-none p-3 px-8 shadow-violet-950/10 hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
       aria-label="MerxoDev Solutions"
     >
+      {/* Light Mode Logo */}
       <Image
         src="/logo-light.png"
         alt="MerxoDev Solutions"
         width={170}
         height={45}
-        className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-md dark:drop-shadow-none"
+        className="block dark:hidden h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-md"
+        style={{ width: 'auto', height: 'auto' }}
+        priority
+      />
+
+      {/* Dark Mode Logo */}
+      <Image
+        src="/logo.png"
+        alt="MerxoDev Solutions"
+        width={170}
+        height={45}
+        className="hidden dark:block h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
         style={{ width: 'auto', height: 'auto' }}
         priority
       />
