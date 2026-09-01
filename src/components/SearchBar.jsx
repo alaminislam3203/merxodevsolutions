@@ -124,7 +124,7 @@ export default function SearchBar({ mobile = false }) {
       ref={wrapperRef}
       className={`relative ${mobile
         ? 'flex-1 mx-1.5 sm:mx-3 w-full min-w-0'
-        : 'flex-1 max-w-xs lg:max-w-sm mx-4'
+        : 'w-full max-w-2xl mx-auto'
         }`}
     >
       {/* Search Input Box */}
@@ -135,10 +135,10 @@ export default function SearchBar({ mobile = false }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.trim() && setIsOpen(true)}
-          placeholder={mobile ? "Search anything..." : "Search projects, services, body..."}
+          placeholder={mobile ? "Search anything..." : "Search projects, services, technologies, solutions..."}
           className={`w-full rounded-xl transition-all duration-200 outline-none font-raleway ${mobile
             ? 'py-2 pl-8 pr-7 text-xs font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/25 focus:ring-1 focus:ring-amber-400 shadow-inner'
-            : 'py-2 pl-9 pr-8 text-xs font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/20 focus:ring-1 focus:ring-amber-400'
+            : 'py-2.5 pl-10 pr-9 text-xs sm:text-sm font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/20 focus:ring-2 focus:ring-amber-400/40 shadow-inner'
             }`}
         />
 
