@@ -15,7 +15,7 @@ import {
 function Logo() {
   return (
     <div
-      className="flex items-center justify-center select-none p-3 px-8 rounded-3xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl shadow-2xl shadow-violet-950/10 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
+      className="flex items-center justify-center select-none p-3 px-8   shadow-violet-950/10  hover:border-lime-500/50 dark:hover:border-lime-500/50 hover:scale-105 transition-all duration-300 group"
       aria-label="MerxoDev Solutions"
     >
       <Image

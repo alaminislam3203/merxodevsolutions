@@ -277,7 +277,7 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950">
+      <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-transparent">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-raleway">
           <span>{t('footer.bottom.copy', { year: currentYear })}</span>
           <div className="flex items-center gap-5">
