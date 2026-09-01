@@ -149,7 +149,7 @@ export default function Testimonials() {
       aria-labelledby="testimonials-heading"
       itemScope
       itemType="https://schema.org/ItemList"
-      className="relative py-24 overflow-hidden"
+      className="relative py-10 sm:py-14 overflow-hidden"
     >
       <script
         type="application/ld+json"
@@ -199,7 +199,7 @@ export default function Testimonials() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header Section */}
-        <div className="flex flex-col items-center text-center gap-4 mb-14">
+        <div className="flex flex-col items-center text-center gap-3 mb-8 sm:mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest shadow-sm">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             Verified Client Feedback

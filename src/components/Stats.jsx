@@ -108,7 +108,7 @@ export default function Stats() {
       aria-labelledby="stats-heading"
       itemScope
       itemType="https://schema.org/ItemList"
-      className="relative py-24  overflow-hidden"
+      className="relative py-10 sm:py-14 overflow-hidden"
     >
       <script
         type="application/ld+json"
@@ -126,7 +126,7 @@ export default function Stats() {
         }}
       />
 
-      {/* Background Glows */}
+      {/* Ambient background glows */}
       <div
         aria-hidden
         className="pointer-events-none absolute top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
@@ -151,7 +151,7 @@ export default function Stats() {
       />
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col items-center text-center gap-4 mb-16">
+        <div className="flex flex-col items-center text-center gap-3 mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
             {t('stats.badge')}
           </span>

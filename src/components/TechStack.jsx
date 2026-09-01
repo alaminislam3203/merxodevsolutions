@@ -72,17 +72,17 @@ export default function TechStack() {
   const { t } = useTranslation();
 
   return (
-    <section id="tech-stack" className="relative py-16 overflow-hidden bg-white dark:bg-zinc-950">
+    <section id="tech-stack" className="relative py-8 sm:py-10 overflow-hidden bg-transparent">
       {/* Background radial glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full opacity-15 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
+      <div className="max-w-7xl mx-auto px-6 mb-6 text-center">
         <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-raleway">
           <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
           Cutting-Edge Technologies

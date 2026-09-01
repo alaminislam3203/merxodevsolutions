@@ -252,7 +252,7 @@ export default function FeaturedProjects({ projects = [] }) {
       <section
         ref={sectionRef}
         aria-labelledby="projects-heading"
-        className="relative py-24 overflow-hidden bg-white dark:bg-zinc-950"
+        className="relative py-10 sm:py-14 overflow-hidden bg-transparent"
       >
         {/* Background glows */}
         <div
@@ -273,7 +273,7 @@ export default function FeaturedProjects({ projects = [] }) {
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           {/* ── Section Header ── */}
           <div
-            className={`flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            className={`flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8 sm:mb-10 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
           >
             <div className="flex flex-col gap-3">
