@@ -5,6 +5,7 @@ import ServicesPreview from '@/components/ServicesPreview';
 import Process from '@/components/Process';
 import Stats from '@/components/Stats';
 import TechStack from '@/components/TechStack';
+import YouTubeShowcase from '@/components/YouTubeShowcase';
 import Testimonials from '@/components/Testimonials';
 import WhyUs from '@/components/WhyUs';
 import { getAllProjects } from '@/app/lib/projects';
@@ -21,6 +22,7 @@ export default async function Home() {
       <WhyUs />
       <Process />
       <FeaturedProjects projects={projects} />
+      <YouTubeShowcase />
       <TechStack />
       <Testimonials />
     </main>

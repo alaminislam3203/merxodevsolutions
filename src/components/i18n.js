@@ -23,6 +23,21 @@ const resources = {
       startProject: 'Start a Project',
     },
     translation: {
+      videoShowcase: {
+        badge: 'YOUTUBE SHOWCASE',
+        titlePrefix: 'Watch Our ',
+        titleHighlight: 'Latest Videos',
+        titleSuffix: ' & Project Demos',
+        subtitle:
+          'Explore live product demos, tech tutorials, and software architecture walkthroughs on our official YouTube channel.',
+        subscribeBtn: 'Subscribe Channel',
+        nowPlaying: 'Now Playing',
+        upNext: 'Up Next',
+        autoPlayInfo: 'Auto-plays next video',
+        video1Title: 'Custom Software & E-Commerce Architecture Walkthrough',
+        video2Title: 'Full-Stack Web App Development with Next.js & Cloud',
+        video3Title: 'Modern UI/UX Design & High Performance Engineering',
+      },
       footer: {
         brand: {
           desc: 'We craft modern digital solutions — from sleek web apps to scalable cloud systems — built to last and designed to impress.',
@@ -828,6 +843,21 @@ const resources = {
         likeWhatYouSee: 'পছন্দ হয়েছে?',
         buildTogether: 'চলুন একসাথে কিছু অসাধারণ তৈরি করি।',
         startProject: 'প্রজেক্ট শুরু করুন',
+      },
+      videoShowcase: {
+        badge: 'ইউটিউব শোকেস',
+        titlePrefix: 'আমাদের ',
+        titleHighlight: 'লেটেস্ট ভিডিও',
+        titleSuffix: ' ও প্রজেক্ট ডেমো দেখুন',
+        subtitle:
+          'আমাদের অফিশিয়াল ইউটিউব চ্যানেলে লাইভ প্রোডাক্ট ডেমো, টেক টিউটোরিয়াল এবং সফটওয়্যার আর্কিটেকচার ভিডিওগুলো উপভোগ করুন।',
+        subscribeBtn: 'চ্যানেল সাবস্ক্রাইব করুন',
+        nowPlaying: 'বর্তমানে চলছে',
+        upNext: 'পরবর্তী ভিডিও',
+        autoPlayInfo: 'পরপর ৩টি ভিডিও অটো-প্লে হবে',
+        video1Title: 'কাস্টম সফটওয়্যার ও ই-কমার্স আর্কিটেকচার ওয়াকথ্রু',
+        video2Title: 'নেক্সট জেএস ও ক্লাউড দিয়ে ফুল-স্ট্যাক ওয়েব অ্যাপ ডেভেলপমেন্ট',
+        video3Title: 'মডার্ন ইউআই/ইউএক্স ডিজাইন ও হাই-পারফরম্যান্স ইঞ্জিনিয়ারিং',
       },
       footer: {
         brand: {

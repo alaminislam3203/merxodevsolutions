@@ -3,30 +3,30 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  IoSend, 
-  IoClose, 
+import {
+  IoSend,
+  IoClose,
   IoChatbubbleEllipsesSharp,
   IoArrowBack
 } from 'react-icons/io5';
-import { 
-  FaWhatsapp, 
-  FaArrowRight 
+import {
+  FaWhatsapp,
+  FaArrowRight
 } from 'react-icons/fa6';
-import { 
-  BsStars, 
-  BsTrash3, 
+import {
+  BsStars,
+  BsTrash3,
   BsShieldCheck,
   BsClock
 } from 'react-icons/bs';
-import { 
-  RiRobot2Line, 
-  RiSendPlaneFill 
+import {
+  RiRobot2Line,
+  RiSendPlaneFill
 } from 'react-icons/ri';
-import { 
-  MdPhoneInTalk, 
-  MdAlternateEmail, 
-  MdLocationOn 
+import {
+  MdPhoneInTalk,
+  MdAlternateEmail,
+  MdLocationOn
 } from 'react-icons/md';
 
 const INITIAL_MESSAGES = [
