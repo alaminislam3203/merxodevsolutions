@@ -354,7 +354,9 @@ html.dark body {
 }
 
 .animate-marquee-row1:hover,
-.animate-marquee-row2:hover {
+.animate-marquee-row2:hover,
+.animate-marquee-row1:active,
+.animate-marquee-row2:active {
   animation-play-state: paused;
 }
 
