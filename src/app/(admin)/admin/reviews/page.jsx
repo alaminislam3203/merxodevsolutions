@@ -13,6 +13,7 @@ import {
   FaCrown,
   FaUserCheck,
   FaSearch,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
 function Toast({ msg, type = "success", onClose }) {
@@ -392,10 +393,15 @@ export default function AdminReviewsPage() {
                           </span>
                         )}
                       </div>
-                      <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0" }}>
-                        {rev.userRole || "Client"}
-                        {rev.company ? ` • ${rev.company}` : ""}
-                        {rev.location ? ` (${rev.location})` : ""}
+                      <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0", display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                        <span>{rev.userRole || "Client"}</span>
+                        {rev.company && <span>• {rev.company}</span>}
+                        {rev.location && (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: "#94a3b8" }}>
+                            <FaMapMarkerAlt size={10} style={{ color: "#06b6d4" }} />
+                            {rev.location}
+                          </span>
+                        )}
                       </p>
                     </div>
                   </div>

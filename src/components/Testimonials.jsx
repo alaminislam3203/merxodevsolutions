@@ -405,8 +405,9 @@ export default function Testimonials() {
                             {item.userRole || 'Client'} {item.company ? `• ${item.company}` : ''}
                           </p>
                           {item.location && (
-                            <p className="text-[10px] text-zinc-400 dark:text-zinc-500">
-                              📍 {item.location}
+                            <p className="text-[10px] text-zinc-400 dark:text-zinc-500 flex items-center gap-1 mt-0.5">
+                              <FaMapMarkerAlt className="w-2.5 h-2.5 shrink-0 text-violet-500 dark:text-cyan-400" />
+                              <span>{item.location}</span>
                             </p>
                           )}
                         </div>
