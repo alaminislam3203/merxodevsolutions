@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 // ── MerxoDev Solutions Multilingual Knowledge Engine ──────────────────────────
 const WHATSAPP_NUM = '8801313334279';
 const WHATSAPP_DISPLAY = '+880 1313-334279';
-const EMAIL = 'support@merxodevsolutions.pro.bd';
-const LOCATION = 'Rangpur, Bangladesh';
+const EMAIL = 'merxodevsolutions@gmail.com';
+const LOCATION = 'Nilphamari, Rangpur, Bangladesh';
 
 const KNOWLEDGE_BASE = [
   {
@@ -225,15 +225,15 @@ const KNOWLEDGE_BASE = [
       'kontakt', 'telefon', 'nummer', 'whatsapp', 'adresse', 'standort'
     ],
     response: {
-      en: `You can reach out to our core engineering team directly:\n\n📞 **Phone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **Email:** ${EMAIL}\n📍 **Location:** ${LOCATION}\n⏱️ **Availability:** 24/7 Client Consultation`,
-      bn: `আমাদের সাথে সরাসরি যোগাযোগ করার মাধ্যমসমূহ:\n\n📞 **ফোন / হোয়াটসঅ্যাপ:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **ইমেইল:** ${EMAIL}\n📍 **ঠিকানা:** ${LOCATION}\n⏱️ **সার্ভিস টাইম:** ২৪/৭ সার্বক্ষণিক সাপোর্ট`,
-      banglish: `Amader shathe direct jogajog korar maddhom:\n\n📞 **Phone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **Email:** ${EMAIL}\n📍 **Location:** ${LOCATION}\n⏱️ **Available:** 24/7 Shobshomoy amader sathe WhatsApp e kotha bolte paren!`,
-      ar: `يمكنك التواصل مع فريقنا الهندسي مباشرة عبر الوسائل التالية:\n\n📞 **الهاتف / واتساب:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **البريد الإلكتروني:** ${EMAIL}\n📍 **الموقع:** ${LOCATION}\n⏱️ **الاستجابة:** 24/7 على مدار الساعة`,
-      hi: `आप हमारी कोर इंजीनियरिंग टीम से सीधे संपर्क कर सकते हैं:\n\n📞 **फोन / व्हाट्सएप:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **ईमेल:** ${EMAIL}\n📍 **स्थान:** ${LOCATION}\n⏱️ **सपोर्ट:** 24/7 कभी भी संपर्क करें`,
-      zh: `您可以直接与我们的核心研发团队取得联系：\n\n📞 **电话 / WhatsApp：** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **电子邮箱：** ${EMAIL}\n📍 **公司地址：** ${LOCATION}\n⏱️ **咨询时间：** 全年 24/7 随时在线咨询`,
-      es: `Puedes comunicarte directamente con nuestro equipo de desarrollo:\n\n📞 **Teléfono / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **Correo:** ${EMAIL}\n📍 **Ubicación:** ${LOCATION}\n⏱️ **Disponibilidad:** 24/7 Consulta inmediata`,
-      fr: `Vous pouvez contacter directement notre équipe d'ingénierie:\n\n📞 **Téléphone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **Email:** ${EMAIL}\n📍 **Localisation:** ${LOCATION}\n⏱️ **Disponibilité:** 24h/24 et 7j/7`,
-      de: `Sie können unser Entwicklerteam direkt kontaktieren:\n\n📞 **Telefon / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n✉️ **E-Mail:** ${EMAIL}\n📍 **Standort:** ${LOCATION}\n⏱️ **Verfügbarkeit:** Rund um die Uhr (24/7)`
+      en: `You can reach out to our core engineering team directly:\n\n**Phone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**Email:** ${EMAIL}\n**Location:** ${LOCATION}\n**Availability:** 24/7 Client Consultation`,
+      bn: `আমাদের সাথে সরাসরি যোগাযোগ করার মাধ্যমসমূহ:\n\n**ফোন / হোয়াটসঅ্যাপ:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**ইমেইল:** ${EMAIL}\n**ঠিকানা:** ${LOCATION}\n**সার্ভিস টাইম:** ২৪/৭ সার্বক্ষণিক সাপোর্ট`,
+      banglish: `Amader shathe direct jogajog korar maddhom:\n\n**Phone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**Email:** ${EMAIL}\n**Location:** ${LOCATION}\n**Available:** 24/7 Shobshomoy amader sathe WhatsApp e kotha bolte paren!`,
+      ar: `يمكنك التواصل مع فريقنا الهندسي مباشرة عبر الوسائل التالية:\n\n**الهاتف / واتساب:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**البريد الإلكتروني:** ${EMAIL}\n**الموقع:** ${LOCATION}\n**الاستجابة:** 24/7 على مدار الساعة`,
+      hi: `आप हमारी कोर इंजीनियरिंग टीम से सीधे संपर्क कर सकते हैं:\n\n**फोन / व्हाट्सएप:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**ईमेल:** ${EMAIL}\n**स्थान:** ${LOCATION}\n**सपोर्ट:** 24/7 कभी भी संपर्क करें`,
+      zh: `您可以直接与我们的核心研发团队取得联系：\n\n**电话 / WhatsApp：** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**电子邮箱：** ${EMAIL}\n**公司地址：** ${LOCATION}\n**咨询时间：** 全年 24/7 随时在线咨询`,
+      es: `Puedes comunicarte directamente con nuestro equipo de desarrollo:\n\n**Teléfono / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**Correo:** ${EMAIL}\n**Ubicación:** ${LOCATION}\n**Disponibilidad:** 24/7 Consulta inmediata`,
+      fr: `Vous pouvez contacter directement notre équipe d'ingénierie:\n\n**Téléphone / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**Email:** ${EMAIL}\n**Localisation:** ${LOCATION}\n**Disponibilité:** 24h/24 et 7j/7`,
+      de: `Sie können unser Entwicklerteam direkt kontaktieren:\n\n**Telefon / WhatsApp:** [${WHATSAPP_DISPLAY}](https://wa.me/${WHATSAPP_NUM})\n**E-Mail:** ${EMAIL}\n**Standort:** ${LOCATION}\n**Verfügbarkeit:** Rund um die Uhr (24/7)`
     },
     actions: [
       { label: `Chat on WhatsApp (${WHATSAPP_DISPLAY})`, href: `https://wa.me/${WHATSAPP_NUM}`, type: 'external' },
