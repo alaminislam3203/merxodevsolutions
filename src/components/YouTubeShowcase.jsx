@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaYoutube, FaPlay, FaCheckCircle, FaExternalLinkAlt, FaListOl } from 'react-icons/fa';
+import { FaYoutube, FaPlay, FaCheckCircle, FaExternalLinkAlt, FaListOl, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { BsStars } from 'react-icons/bs';
 import { RiLiveFill } from 'react-icons/ri';
 import '@/components/i18n';
@@ -41,6 +41,7 @@ export default function YouTubeShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(true);
+  const [mobilePlaylistOpen, setMobilePlaylistOpen] = useState(false);
   const playerRef = useRef(null);
   const activeIndexRef = useRef(0);
   const hoverTimeoutRef = useRef(null);
@@ -237,17 +238,33 @@ export default function YouTubeShowcase() {
                   </div>
                 </div>
 
-                {/* Auto-sequence badge */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 font-medium shrink-0 border border-zinc-200 dark:border-zinc-700">
+                {/* Desktop: Auto-sequence badge */}
+                <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 font-medium shrink-0 border border-zinc-200 dark:border-zinc-700">
                   <BsStars className="text-amber-500" />
                   <span>{t('videoShowcase.autoPlayInfo') || 'Auto-plays next video'}</span>
                 </div>
+
+                {/* Mobile: Interactive Featured Playlist Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => setMobilePlaylistOpen((prev) => !prev)}
+                  aria-expanded={mobilePlaylistOpen}
+                  className="inline-flex sm:hidden items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold shadow-md shadow-red-500/20 active:scale-95 transition-all cursor-pointer"
+                >
+                  <FaListOl size={12} />
+                  <span>
+                    {mobilePlaylistOpen
+                      ? t('videoShowcase.hidePlaylistBtn') || 'Hide Playlist'
+                      : t('videoShowcase.featuredPlaylistBtn') || 'Featured Playlist (3)'}
+                  </span>
+                  {mobilePlaylistOpen ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Playlist Column (4 Columns) */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
+          {/* Playlist Column (4 Columns on Desktop, toggled on Mobile) */}
+          <div className={`lg:col-span-4 flex-col gap-3 ${mobilePlaylistOpen ? 'flex' : 'hidden lg:flex'}`}>
             <div className="flex items-center justify-between px-1 mb-1">
               <div className="flex items-center gap-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
                 <FaListOl className="text-violet-600 dark:text-cyan-400" />
@@ -333,8 +350,8 @@ export default function YouTubeShowcase() {
               })}
             </div>
 
-            {/* Subscribe Box in Sidebar */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-red-500/10 via-rose-500/5 to-violet-500/10 border border-red-200/60 dark:border-red-900/40 text-center space-y-2 mt-1">
+            {/* Subscribe Box in Sidebar (Desktop Only) */}
+            <div className="hidden lg:block p-4 rounded-2xl bg-gradient-to-br from-red-500/10 via-rose-500/5 to-violet-500/10 border border-red-200/60 dark:border-red-900/40 text-center space-y-2 mt-1">
               <p className="text-xs font-bold text-zinc-900 dark:text-white">
                 More Tutorials & Case Studies
               </p>
