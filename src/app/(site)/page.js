@@ -8,6 +8,10 @@ import TechStack from '@/components/TechStack';
 import YouTubeShowcase from '@/components/YouTubeShowcase';
 import Testimonials from '@/components/Testimonials';
 import WhyUs from '@/components/WhyUs';
+import TechCaseStudies from '@/components/TechCaseStudies';
+import CompanyDeck from '@/components/CompanyDeck';
+import HomepageFAQ from '@/components/HomepageFAQ';
+import DiscoveryCall from '@/components/DiscoveryCall';
 import { getAllProjects } from '@/app/lib/projects';
 
 export default async function Home() {
@@ -22,9 +26,14 @@ export default async function Home() {
       <WhyUs />
       <Process />
       <FeaturedProjects projects={projects} />
+      <TechCaseStudies />
       <YouTubeShowcase />
       <TechStack />
       <Testimonials />
+      <CompanyDeck />
+      <HomepageFAQ />
+      <DiscoveryCall />
     </main>
   );
 }
+
