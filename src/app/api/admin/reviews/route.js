@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { auth } from '@/auth';
+import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 
 // GET: Fetch all reviews for admin panel
 export async function GET(request) {
@@ -8,6 +9,14 @@ export async function GET(request) {
     const session = await auth();
     if (!session || session.user?.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Auto-seed default reviews if the table is empty so admin can manage them immediately
+    const totalCount = await prisma.review.count();
+    if (totalCount === 0) {
+      await prisma.review.createMany({
+        data: DEFAULT_REVIEWS,
+      });
     }
 
     const { searchParams } = new URL(request.url);
@@ -22,7 +31,7 @@ export async function GET(request) {
 
     const reviews = await prisma.review.findMany({
       where: whereClause,
-      orderBy: [{ createdAt: 'desc' }],
+      orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
     });
 
     const pendingCount = await prisma.review.count({
@@ -33,10 +42,12 @@ export async function GET(request) {
       where: { isApproved: true },
     });
 
+    const allCount = await prisma.review.count();
+
     return NextResponse.json({
       reviews,
       stats: {
-        total: reviews.length,
+        total: allCount,
         pending: pendingCount,
         approved: approvedCount,
       },
@@ -56,7 +67,7 @@ export async function POST(request) {
     }
 
     const body = await request.json();
-    const { userName, userRole, company, location, tag, rating, comment, isApproved, isFeatured } = body;
+    const { userName, userRole, userImage, company, location, tag, rating, comment, isApproved, isFeatured } = body;
 
     if (!userName || !comment) {
       return NextResponse.json(
@@ -69,8 +80,9 @@ export async function POST(request) {
       data: {
         userName: userName.trim(),
         userRole: userRole ? userRole.trim() : 'Client',
+        userImage: userImage && typeof userImage === 'string' ? userImage.trim() : null,
         company: company ? company.trim() : '',
-        location: location ? location.trim() : 'Bangladesh',
+        location: location ? location.trim() : 'Dhaka, Bangladesh',
         tag: tag ? tag.trim() : 'Verified Client',
         rating: Math.max(1, Math.min(5, parseInt(rating, 10) || 5)),
         comment: comment.trim(),

@@ -29,6 +29,7 @@ export async function PATCH(request, { params }) {
     if (body.company !== undefined) updateData.company = body.company.trim();
     if (body.location !== undefined) updateData.location = body.location.trim();
     if (body.tag !== undefined) updateData.tag = body.tag.trim();
+    if (body.userImage !== undefined) updateData.userImage = body.userImage && typeof body.userImage === 'string' ? body.userImage.trim() : null;
     if (body.rating !== undefined) updateData.rating = Math.max(1, Math.min(5, parseInt(body.rating, 10)));
     if (body.comment) updateData.comment = body.comment.trim();
 

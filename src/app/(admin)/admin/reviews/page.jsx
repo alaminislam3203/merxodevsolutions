@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   FaStar,
   FaCheck,
@@ -14,6 +14,8 @@ import {
   FaUserCheck,
   FaSearch,
   FaMapMarkerAlt,
+  FaUpload,
+  FaImage,
 } from "react-icons/fa";
 
 function Toast({ msg, type = "success", onClose }) {
@@ -33,6 +35,28 @@ function Toast({ msg, type = "success", onClose }) {
   );
 }
 
+async function uploadToCloudinary(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const res = await fetch("/api/admin/images", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ base64Image: reader.result }),
+        });
+        const data = await res.json();
+        if (!res.ok) reject(new Error(data.error || "Upload failed"));
+        else resolve(data.url);
+      } catch (err) {
+        reject(err);
+      }
+    };
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function AdminReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,12 +69,15 @@ export default function AdminReviewsPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [actionLoading, setActionLoading] = useState(null);
+  const fileInputRef = useRef(null);
 
   // Form State
   const [formData, setFormData] = useState({
     userName: "",
     userRole: "Client",
+    userImage: "",
     company: "",
     location: "Dhaka, Bangladesh",
     tag: "Verified Client",
@@ -90,6 +117,7 @@ export default function AdminReviewsPage() {
     setFormData({
       userName: "",
       userRole: "CEO & Founder",
+      userImage: "",
       company: "",
       location: "Dhaka, Bangladesh",
       tag: "E-Commerce Platform",
@@ -106,6 +134,7 @@ export default function AdminReviewsPage() {
     setFormData({
       userName: rev.userName,
       userRole: rev.userRole || "",
+      userImage: rev.userImage || "",
       company: rev.company || "",
       location: rev.location || "",
       tag: rev.tag || "Verified Client",
@@ -115,6 +144,23 @@ export default function AdminReviewsPage() {
       isFeatured: rev.isFeatured,
     });
     setShowModal(true);
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const url = await uploadToCloudinary(file);
+      setFormData((prev) => ({ ...prev, userImage: url }));
+      showToast("Photo uploaded successfully!");
+    } catch (err) {
+      console.error("Upload error:", err);
+      showToast("Photo upload failed.", "error");
+    } finally {
+      setUploadingImage(false);
+      e.target.value = "";
+    }
   };
 
   const handleSave = async (e) => {
@@ -356,24 +402,40 @@ export default function AdminReviewsPage() {
               <div>
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div
-                      style={{
-                        width: 42,
-                        height: 42,
-                        borderRadius: 12,
-                        background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                        color: "white",
-                        fontWeight: 700,
-                        fontSize: 16,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "0 4px 12px rgba(99, 102, 241, 0.3)",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {rev.userName ? rev.userName.charAt(0).toUpperCase() : "U"}
-                    </div>
+                    {rev.userImage ? (
+                      <img
+                        src={rev.userImage}
+                        alt={rev.userName}
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          objectFit: "cover",
+                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                          flexShrink: 0,
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                          color: "white",
+                          fontWeight: 700,
+                          fontSize: 16,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          boxShadow: "0 4px 12px rgba(99, 102, 241, 0.3)",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {rev.userName ? rev.userName.charAt(0).toUpperCase() : "U"}
+                      </div>
+                    )}
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
                         <h3 style={{ fontSize: 15, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>{rev.userName}</h3>
@@ -552,7 +614,7 @@ export default function AdminReviewsPage() {
       {/* Create / Edit Review Modal */}
       {showModal && (
         <div className="admin-modal-overlay">
-          <div className="admin-modal" style={{ maxWidth: 580 }}>
+          <div className="admin-modal" style={{ maxWidth: 620 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
               <h3 className="admin-modal-title" style={{ margin: 0 }}>
                 {editingReview ? "Edit Client Review" : "Add New Review"}
@@ -574,6 +636,7 @@ export default function AdminReviewsPage() {
             </div>
 
             <form onSubmit={handleSave}>
+              {/* Client Name & Role */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Client Name *</label>
@@ -596,6 +659,73 @@ export default function AdminReviewsPage() {
                 </div>
               </div>
 
+              {/* Profile Photo / Avatar with upload */}
+              <div className="admin-field-group">
+                <label className="admin-label">Client Profile Photo (URL or File Upload)</label>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  {formData.userImage ? (
+                    <img
+                      src={formData.userImage}
+                      alt="Avatar Preview"
+                      style={{
+                        width: 42,
+                        height: 42,
+                        borderRadius: 10,
+                        objectFit: "cover",
+                        border: "1px solid rgba(255, 255, 255, 0.15)",
+                        flexShrink: 0,
+                      }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 42,
+                        height: 42,
+                        borderRadius: 10,
+                        background: "rgba(255, 255, 255, 0.05)",
+                        border: "1px dashed rgba(255, 255, 255, 0.15)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#64748b",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <FaImage size={16} />
+                    </div>
+                  )}
+
+                  <input
+                    className="admin-input"
+                    style={{ flex: 1 }}
+                    placeholder="https://images.unsplash.com/... or upload"
+                    value={formData.userImage}
+                    onChange={(e) => setFormData({ ...formData, userImage: e.target.value })}
+                  />
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    style={{ display: "none" }}
+                  />
+
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn-secondary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    style={{ padding: "8px 12px", height: 42, flexShrink: 0 }}
+                    title="Upload photo"
+                  >
+                    {uploadingImage ? <div className="admin-spinner-btn" /> : <FaUpload size={13} />}
+                    <span style={{ fontSize: 13 }}>{uploadingImage ? "Uploading..." : "Upload"}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Company & Location */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Company</label>
@@ -617,6 +747,7 @@ export default function AdminReviewsPage() {
                 </div>
               </div>
 
+              {/* Tag & Rating */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Project Tag / Category</label>
@@ -643,6 +774,7 @@ export default function AdminReviewsPage() {
                 </div>
               </div>
 
+              {/* Comment Textarea */}
               <div className="admin-field-group">
                 <label className="admin-label">Review Comment *</label>
                 <textarea

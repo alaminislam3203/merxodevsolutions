@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password, image } = await request.json();
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -40,12 +40,14 @@ export async function POST(request) {
         name: name.trim(),
         email: emailTrimmed,
         password: hashedPassword,
+        image: image && typeof image === 'string' ? image.trim() : null,
         role: 'USER',
       },
       select: {
         id: true,
         name: true,
         email: true,
+        image: true,
         role: true,
         createdAt: true,
       },

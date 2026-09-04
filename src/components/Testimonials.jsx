@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { useSession, signIn } from 'next-auth/react';
@@ -18,79 +18,13 @@ import {
   FaEnvelope,
   FaBuilding,
   FaMapMarkerAlt,
-  FaTag
+  FaTag,
+  FaCamera,
+  FaUpload,
 } from 'react-icons/fa';
 import { BsStars, BsShieldCheck } from 'react-icons/bs';
+import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 import '@/components/i18n';
-
-const FALLBACK_REVIEWS = [
-  {
-    id: 'f1',
-    userName: 'Rakibul Islam',
-    userRole: 'CEO & Founder',
-    company: 'TechStart BD',
-    location: 'Dhaka, Bangladesh',
-    rating: 5,
-    tag: 'E-Commerce Platform',
-    comment:
-      'MerxoDev delivered our full-scale e-commerce platform 5 days ahead of schedule! The Next.js code quality was pristine, SEO was spot on, and the team was available 24/7. Highly recommended for any serious business.',
-  },
-  {
-    id: 'f2',
-    userName: 'Sarah Johnson',
-    userRole: 'Product Director',
-    company: 'GrowthLab Digital',
-    location: 'London, UK',
-    rating: 5,
-    tag: 'SaaS Web Application',
-    comment:
-      'Working with the MerxoDev Solutions engineering team was an absolute delight. They grasped our complex dashboard requirements effortlessly and executed pixel-perfect responsive designs.',
-  },
-  {
-    id: 'f3',
-    userName: 'Tanvir Ahmed',
-    userRole: 'CTO & Co-Founder',
-    company: 'ShopEasy Online',
-    location: 'Chittagong, BD',
-    rating: 5,
-    tag: 'Custom ERP & POS',
-    comment:
-      'Hands down the most talented developer team we have hired. Clean architecture, zero spaghetti code, high security, and prompt post-launch maintenance. We are already planning our next project with them!',
-  },
-  {
-    id: 'f4',
-    userName: 'David Miller',
-    userRole: 'Head of Engineering',
-    company: 'CloudCore Inc',
-    location: 'California, USA',
-    rating: 5,
-    tag: 'API & Cloud Systems',
-    comment:
-      'Superb communication and technical expertise. They integrated our microservices with PostgreSQL and Next.js seamlessly. The performance scores jumped to 98+ on Google Lighthouse!',
-  },
-  {
-    id: 'f5',
-    userName: 'Anisur Rahman',
-    userRole: 'Managing Director',
-    company: 'EduLearn Academy',
-    location: 'Rajshahi, BD',
-    rating: 5,
-    tag: 'EdTech Portal',
-    comment:
-      'From custom payment gateway (bKash/Nagad/SSLCommerz) to student video portals, everything was delivered with top-notch craftsmanship. Their pricing is transparent with zero hidden fees.',
-  },
-  {
-    id: 'f6',
-    userName: 'Elena Rostova',
-    userRole: 'Creative Director',
-    company: 'NovaBrand Studio',
-    location: 'Dubai, UAE',
-    rating: 5,
-    tag: 'UI/UX & Portfolio',
-    comment:
-      'The GSAP animations and sleek dark mode theme they crafted blew our international clients away. Truly state-of-the-art web design that converts visitors into enterprise contracts!',
-  },
-];
 
 const AVATAR_GRADIENTS = [
   'from-violet-600 to-indigo-600',
@@ -103,11 +37,33 @@ const AVATAR_GRADIENTS = [
   'from-indigo-600 to-cyan-500',
 ];
 
+async function uploadToCloudinary(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const res = await fetch('/api/admin/images', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ base64Image: reader.result }),
+        });
+        const data = await res.json();
+        if (!res.ok) reject(new Error(data.error || 'Upload failed'));
+        else resolve(data.url);
+      } catch (err) {
+        reject(err);
+      }
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function Testimonials() {
   const { t } = useTranslation();
   const { data: session } = useSession();
 
-  const [reviews, setReviews] = useState(FALLBACK_REVIEWS);
+  const [reviews, setReviews] = useState(DEFAULT_REVIEWS);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
@@ -121,6 +77,9 @@ export default function Testimonials() {
   const [authName, setAuthName] = useState('');
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
+  const [authImage, setAuthImage] = useState('');
+  const [regUploading, setRegUploading] = useState(false);
+  const regFileRef = useRef(null);
 
   // Review Form Inputs
   const [rating, setRating] = useState(5);
@@ -199,6 +158,22 @@ export default function Testimonials() {
     setShowModal(true);
   };
 
+  const handleRegFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setRegUploading(true);
+    try {
+      const url = await uploadToCloudinary(file);
+      setAuthImage(url);
+    } catch (err) {
+      console.error('Avatar upload error:', err);
+      setAuthError('Avatar upload failed. Please try again or provide an image link.');
+    } finally {
+      setRegUploading(false);
+      e.target.value = '';
+    }
+  };
+
   // User Login inside Review Modal
   const handleAuthLogin = async (e) => {
     e.preventDefault();
@@ -233,6 +208,7 @@ export default function Testimonials() {
           name: authName.trim(),
           email: authEmail.trim(),
           password: authPassword,
+          image: authImage.trim() || null,
         }),
       });
       const data = await res.json();
@@ -261,30 +237,37 @@ export default function Testimonials() {
 
     setSubmitting(true);
     setSubmitError('');
+
     try {
       const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           rating,
-          userRole,
-          company,
-          location,
+          userRole: userRole.trim() || 'Client',
+          company: company.trim(),
+          location: location.trim() || 'Dhaka, Bangladesh',
           tag,
-          comment,
+          comment: comment.trim(),
         }),
       });
+
       const data = await res.json();
       if (!res.ok) {
         setSubmitError(data.error || 'Failed to submit review.');
-      } else {
-        setSubmitSuccess(true);
-        setComment('');
-        setUserRole('');
-        setCompany('');
+        setSubmitting(false);
+        return;
       }
+
+      setSubmitSuccess(true);
+      setComment('');
+      setUserRole('');
+      setCompany('');
+      setLocation('');
+      setRating(5);
     } catch (err) {
-      setSubmitError('Failed to submit review. Please try again later.');
+      console.error('Error submitting review:', err);
+      setSubmitError('Network error. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -292,59 +275,90 @@ export default function Testimonials() {
 
   return (
     <section
-      aria-labelledby="testimonials-heading"
+      id="testimonials"
+      className="py-16 md:py-24 bg-white/50 dark:bg-zinc-950/40 relative overflow-hidden"
+      aria-label="Client testimonials"
       itemScope
-      itemType="https://schema.org/ItemList"
-      className="relative py-10 sm:py-14 overflow-hidden font-raleway"
+      itemType="https://schema.org/Product"
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Header Section */}
-        <div className="flex flex-col items-center text-center gap-3 mb-8 sm:mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest shadow-sm">
-            <BsStars className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-            Verified Client Feedback
-          </span>
+      <meta itemProp="name" content="MerxoDev Solutions Custom Software & Web Development" />
+      <div
+        itemProp="aggregateRating"
+        itemScope
+        itemType="https://schema.org/AggregateRating"
+        className="hidden"
+      >
+        <meta itemProp="ratingValue" content="5.0" />
+        <meta itemProp="reviewCount" content={String(reviews.length || 8)} />
+        <meta itemProp="bestRating" content="5" />
+        <meta itemProp="worstRating" content="1" />
+      </div>
 
-          <h2
-            id="testimonials-heading"
-            className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide text-[#27003B] dark:text-white"
-          >
-            What Clients Say{' '}
-            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
-              About Our Work
-            </span>
-          </h2>
+      {/* Background Ambience & Grid Patterns */}
+      <div className="absolute top-1/2 -left-48 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <p className="max-w-xl text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
-            Read authentic reviews from founders, startups, and companies that
-            scaled their digital presence with MerxoDev Solutions.
-          </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-xs font-semibold mb-4 tracking-wide">
+              <BsStars className="text-violet-600 dark:text-cyan-400" />
+              <span>{t('testimonials.badge') || 'Client Testimonials'}</span>
+            </div>
 
-          {/* Interactive "Write a Review" Action Button */}
-          <div className="mt-2">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight">
+              {t('testimonials.titlePrefix') || 'Trusted by '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500">
+                {t('testimonials.titleHighlight') || 'Innovative Brands'}
+              </span>
+              <br className="hidden sm:inline" />
+              {t('testimonials.titleSuffix') || ' Worldwide'}
+            </h2>
+
+            <p className="mt-4 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-light">
+              {t('testimonials.subtitle') ||
+                'Hear directly from founders, CTOs, and product leaders who scaled their digital presence with MerxoDev Solutions.'}
+            </p>
+          </div>
+
+          {/* Action Header: Rating Summary + Write Review Button */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
+            <div className="flex items-center gap-2 p-3 rounded-2xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 shadow-sm backdrop-blur-md">
+              <div className="flex gap-1 text-amber-400">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <FaStar key={i} size={15} />
+                ))}
+              </div>
+              <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+                5.0 / 5.0 (100% Satisfaction)
+              </span>
+            </div>
+
             <button
+              id="write-review-btn"
               onClick={handleOpenReviewModal}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
             >
-              <FaPenNib className="text-amber-300 text-xs" />
-              <span>Share Your Feedback & Review</span>
+              <FaPenNib size={13} />
+              <span>Write a Review</span>
             </button>
           </div>
         </div>
 
-        {/* ── Carousel Container (Embla Auto-Swipe) ── */}
+        {/* Embla Carousel Viewport */}
         <div className="relative">
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex -ml-4 sm:-ml-6 touch-pan-y">
-              {reviews.map((item, i) => {
-                const gradient = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
+          <div className="overflow-hidden cursor-grab active:cursor-grabbing pb-4" ref={emblaRef}>
+            <div className="flex -ml-4 sm:-ml-6">
+              {reviews.map((item, idx) => {
+                const gradient = AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length];
                 return (
                   <div
-                    key={item.id || i}
-                    className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4 sm:pl-6"
+                    key={item.id || idx}
+                    className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-4 sm:pl-6"
                   >
                     <article
-                      itemProp="itemListElement"
+                      itemProp="review"
                       itemScope
                       itemType="https://schema.org/Review"
                       className="h-full flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-2xl hover:shadow-violet-500/10 transition-all duration-300 relative group"
@@ -388,12 +402,20 @@ export default function Testimonials() {
                         itemScope
                         itemType="https://schema.org/Person"
                       >
-                        <div
-                          aria-hidden
-                          className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-display text-base font-black shadow-md shadow-violet-500/20 shrink-0 group-hover:scale-105 transition-transform`}
-                        >
-                          {(item.userName || 'C').charAt(0).toUpperCase()}
-                        </div>
+                        {item.userImage ? (
+                          <img
+                            src={item.userImage}
+                            alt={item.userName || 'Client'}
+                            className="w-11 h-11 rounded-2xl object-cover shadow-md shadow-violet-500/20 shrink-0 group-hover:scale-105 transition-transform border border-violet-200/40 dark:border-violet-800/40"
+                          />
+                        ) : (
+                          <div
+                            aria-hidden
+                            className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-display text-base font-black shadow-md shadow-violet-500/20 shrink-0 group-hover:scale-105 transition-transform`}
+                          >
+                            {(item.userName || 'C').charAt(0).toUpperCase()}
+                          </div>
+                        )}
                         <div className="flex flex-col min-w-0">
                           <p
                             className="text-sm font-bold text-zinc-900 dark:text-white truncate"
@@ -463,7 +485,7 @@ export default function Testimonials() {
       {/* ─── User Review Submission / Auth Modal ─── */}
       {showModal && (
         <div className="fixed inset-0 z-[999] bg-black/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="w-full max-w-md bg-white dark:bg-[#091124] rounded-3xl p-6 sm:p-7 border border-violet-200/80 dark:border-blue-900/60 shadow-2xl shadow-blue-950/40 space-y-4">
+          <div className="w-full max-w-lg bg-white dark:bg-[#091124] rounded-3xl p-6 sm:p-7 border border-violet-200/80 dark:border-blue-900/60 shadow-2xl shadow-blue-950/40 space-y-4">
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3.5">
               <div className="flex items-center gap-2">
@@ -472,7 +494,7 @@ export default function Testimonials() {
                 </div>
                 <div>
                   <h3 className="text-base font-extrabold text-zinc-900 dark:text-white">
-                    {session ? 'Write a Client Review' : 'Login to Leave Review'}
+                    {session ? 'Write a Client Review' : 'Login / Register to Leave Review'}
                   </h3>
                   <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                     {session ? 'Your feedback will be published after admin verification' : 'Please authenticate to submit your review'}
@@ -510,8 +532,16 @@ export default function Testimonials() {
               ) : (
                 <form onSubmit={handleSubmitReview} className="space-y-3.5 text-xs sm:text-sm">
                   {/* Logged in User Bar */}
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-900/50">
-                    <FaUserCircle className="text-violet-600 dark:text-cyan-400 text-lg shrink-0" />
+                  <div className="flex items-center gap-3 p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-900/50">
+                    {session.user?.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || 'User'}
+                        className="w-10 h-10 rounded-xl object-cover border border-violet-300 dark:border-violet-700 shrink-0"
+                      />
+                    ) : (
+                      <FaUserCircle className="text-violet-600 dark:text-cyan-400 text-2xl shrink-0" />
+                    )}
                     <div className="flex-1 min-w-0 text-xs">
                       <p className="font-bold text-zinc-900 dark:text-white truncate">
                         Posting as: {session.user?.name}
@@ -653,7 +683,7 @@ export default function Testimonials() {
                   <button
                     type="button"
                     onClick={() => { setAuthMode('login'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       authMode === 'login'
                         ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
@@ -664,7 +694,7 @@ export default function Testimonials() {
                   <button
                     type="button"
                     onClick={() => { setAuthMode('register'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       authMode === 'register'
                         ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
@@ -726,7 +756,7 @@ export default function Testimonials() {
                   <form onSubmit={handleAuthRegister} className="space-y-3">
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Your Full Name
+                        Your Full Name *
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaUserCircle className="text-zinc-400 text-xs" />
@@ -740,9 +770,54 @@ export default function Testimonials() {
                         />
                       </div>
                     </div>
+
+                    {/* Profile Photo Upload / URL */}
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Email Address
+                        Profile Photo (Optional)
+                      </label>
+                      <div className="flex items-center gap-2.5">
+                        {authImage ? (
+                          <img
+                            src={authImage}
+                            alt="Avatar Preview"
+                            className="w-10 h-10 rounded-xl object-cover border border-violet-500 shadow-sm shrink-0"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-400 shrink-0">
+                            <FaCamera size={14} />
+                          </div>
+                        )}
+                        <input
+                          type="text"
+                          value={authImage}
+                          onChange={(e) => setAuthImage(e.target.value)}
+                          placeholder="Image URL or upload a photo"
+                          className="flex-1 p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
+                        />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={regFileRef}
+                          onChange={handleRegFileUpload}
+                          className="hidden"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => regFileRef.current?.click()}
+                          disabled={regUploading}
+                          className="px-3 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 text-xs font-semibold shrink-0 cursor-pointer flex items-center gap-1.5"
+                          title="Upload avatar photo"
+                        >
+                          <FaUpload size={11} />
+                          <span>{regUploading ? '...' : 'Upload'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
+                        Email Address *
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaEnvelope className="text-zinc-400 text-xs" />
@@ -758,7 +833,7 @@ export default function Testimonials() {
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Create Password (min. 6 characters)
+                        Create Password (min. 6 characters) *
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaLock className="text-zinc-400 text-xs" />
