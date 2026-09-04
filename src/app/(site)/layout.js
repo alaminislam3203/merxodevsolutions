@@ -1,8 +1,9 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GsapTextProvider from '@/components/GsapTextProvider';
+import AIChatbot from '@/components/AIChatbot';
 
-// (site) group layout - WITH Navbar and Footer
+// (site) group layout - WITH Navbar, Footer, and AI Assistant
 // Wraps all public pages
 
 export default function SiteLayout({ children }) {
@@ -13,6 +14,7 @@ export default function SiteLayout({ children }) {
         {children}
       </main>
       <Footer />
+      <AIChatbot />
     </GsapTextProvider>
   );
 }
