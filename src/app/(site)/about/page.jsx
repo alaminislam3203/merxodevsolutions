@@ -38,8 +38,8 @@ const values = [
 ];
 
 const stats = [
-  { value: '50+', label: 'Projects Delivered', icon: <FiAward size={20} /> },
-  { value: '30+', label: 'Happy Clients', icon: <FiUsers size={20} /> },
+  { value: '56+', label: 'Projects Delivered', icon: <FiAward size={20} /> },
+  { value: '47+', label: 'Happy Clients', icon: <FiUsers size={20} /> },
   { value: '3+', label: 'Years Experience', icon: <FiGlobe size={20} /> },
   { value: '99%', label: 'Satisfaction Rate', icon: <FiHeart size={20} /> },
 ];

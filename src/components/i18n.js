@@ -259,7 +259,7 @@ const resources = {
         ctaPrimary: 'Start Your Project',
         ctaSecondary: 'View Our Work',
         stats: [
-          { value: '50+', label: 'Websites Launched' },
+          { value: '56+', label: 'Websites Launched' },
           { value: '4.9★', label: 'Average Rating' },
           { value: '< 2s', label: 'Avg Load Time' },
           { value: '100%', label: 'Client Satisfaction' },
@@ -455,9 +455,9 @@ const resources = {
         subtext:
           "We don't just promise results — here's what we've actually delivered for our clients.",
         items: [
-          { value: 50, suffix: '+', label: 'Projects Completed' },
-          { value: 30, suffix: '+', label: 'Happy Clients' },
-          { value: 2, suffix: '+', label: 'Years Experience' },
+          { value: 56, suffix: '+', label: 'Projects Completed' },
+          { value: 47, suffix: '+', label: 'Happy Clients' },
+          { value: 3, suffix: '+', label: 'Years Experience' },
           { value: 100, suffix: '%', label: 'Client Satisfaction' },
         ],
       },
@@ -698,9 +698,9 @@ const resources = {
         subtext:
           'Numbers that reflect our commitment to delivering quality and building lasting relationships.',
         items: [
-          { value: 50, suffix: '+', label: 'Projects Completed' },
-          { value: 30, suffix: '+', label: 'Happy Clients' },
-          { value: 2, suffix: '+', label: 'Years Experience' },
+          { value: 56, suffix: '+', label: 'Projects Completed' },
+          { value: 47, suffix: '+', label: 'Happy Clients' },
+          { value: 3, suffix: '+', label: 'Years Experience' },
           { value: 100, suffix: '%', label: 'Client Satisfaction' },
         ],
       },
@@ -1090,7 +1090,7 @@ const resources = {
         ctaPrimary: 'প্রজেক্ট শুরু করুন',
         ctaSecondary: 'আমাদের কাজ দেখুন',
         stats: [
-          { value: '৫০+', label: 'ওয়েবসাইট লঞ্চ' },
+          { value: '৫৬+', label: 'ওয়েবসাইট লঞ্চ' },
           { value: '৪.৯★', label: 'গড় রেটিং' },
           { value: '< ২s', label: 'গড় লোড টাইম' },
           { value: '১০০%', label: 'ক্লায়েন্ট সন্তুষ্টি' },
@@ -1286,9 +1286,9 @@ const resources = {
         subtext:
           'আমরা শুধু প্রতিশ্রুতি দিই না — এই হলো আমাদের ক্লায়েন্টদের জন্য আমরা প্রকৃতপক্ষে যা ডেলিভার করেছি।',
         items: [
-          { value: 50, suffix: '+', label: 'সম্পন্ন প্রজেক্ট' },
-          { value: 30, suffix: '+', label: 'সন্তুষ্ট ক্লায়েন্ট' },
-          { value: 2, suffix: '+', label: 'বছরের অভিজ্ঞতা' },
+          { value: 56, suffix: '+', label: 'সম্পন্ন প্রজেক্ট' },
+          { value: 47, suffix: '+', label: 'সন্তুষ্ট ক্লায়েন্ট' },
+          { value: 3, suffix: '+', label: 'বছরের অভিজ্ঞতা' },
           { value: 100, suffix: '%', label: 'ক্লায়েন্ট সন্তুষ্টি' },
         ],
       },
@@ -1884,7 +1884,7 @@ const resources = {
         ctaPrimary: 'ابدأ المشروع',
         ctaSecondary: 'شاهد أعمالنا',
         stats: [
-          { value: '50+', label: 'مواقع تم إطلاقها' },
+          { value: '56+', label: 'مواقع تم إطلاقها' },
           { value: '4.9★', label: 'متوسط التقييم' },
           { value: '< 2ث', label: 'متوسط وقت التحميل' },
           { value: '100%', label: 'رضا العملاء' },
@@ -2078,9 +2078,9 @@ const resources = {
         headingEnd: 'تتحدث عنّا',
         subtext: 'نحن لا نَعِد فقط — هذا ما قدّمناه فعليًا لعملائنا.',
         items: [
-          { value: 50, suffix: '+', label: 'مشروع مكتمل' },
-          { value: 30, suffix: '+', label: 'عميل سعيد' },
-          { value: 2, suffix: '+', label: 'سنوات خبرة' },
+          { value: 56, suffix: '+', label: 'مشروع مكتمل' },
+          { value: 47, suffix: '+', label: 'عميل سعيد' },
+          { value: 3, suffix: '+', label: 'سنوات خبرة' },
           { value: 100, suffix: '%', label: 'رضا العملاء' },
         ],
       },
@@ -2611,7 +2611,7 @@ const resources = {
         ctaPrimary: '开始项目',
         ctaSecondary: '查看作品',
         stats: [
-          { value: '50+', label: '已上线网站' },
+          { value: '56+', label: '已上线网站' },
           { value: '4.9★', label: '平均评分' },
           { value: '< 2秒', label: '平均加载时间' },
           { value: '100%', label: '客户满意度' },
@@ -2770,9 +2770,9 @@ const resources = {
         headingEnd: '说话',
         subtext: '我们不只是承诺——这是我们为客户实际交付的成果。',
         items: [
-          { value: 50, suffix: '+', label: '已完成项目' },
-          { value: 30, suffix: '+', label: '满意客户' },
-          { value: 2, suffix: '+', label: '年经验' },
+          { value: 56, suffix: '+', label: '已完成项目' },
+          { value: 47, suffix: '+', label: '满意客户' },
+          { value: 3, suffix: '+', label: '年经验' },
           { value: 100, suffix: '%', label: '客户满意度' },
         ],
       },

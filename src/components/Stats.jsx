@@ -77,8 +77,8 @@ const colors = [
 ];
 
 const fallbackStats = [
-  { value: 61, suffix: '+', label: 'Projects Completed' },
-  { value: 43, suffix: '+', label: 'Happy Clients' },
+  { value: 56, suffix: '+', label: 'Projects Completed' },
+  { value: 47, suffix: '+', label: 'Happy Clients' },
   { value: 3, suffix: '+', label: 'Years Experience' },
   { value: 100, suffix: '%', label: 'Client Satisfaction' },
 ];

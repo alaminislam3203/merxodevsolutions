@@ -17,7 +17,7 @@ import {
 export const metadata = {
   title: 'Our Journey – MerxoDev Solutions',
   description:
-    'From a small team in Rangpur to delivering 50+ digital projects — discover the story, milestones, and vision behind MerxoDev Solutions.',
+    'From a small team in Rangpur to delivering 56+ digital projects — discover the story, milestones, and vision behind MerxoDev Solutions.',
   keywords: [
     'MerxoDev Solutions story',
     'web development company Bangladesh',
@@ -104,9 +104,9 @@ const milestones = [
     year: '2024',
     quarter: 'Q2',
     icon: <FiAward size={20} />,
-    title: '50+ Projects, Zero Regrets',
-    desc: 'Delivered over 50 projects — websites, web apps, mobile apps, dashboards, and automation systems. Our team grew, our stack sharpened, and our process matured.',
-    tags: ['50+ Projects', 'Full Service'],
+    title: '56+ Projects, Zero Regrets',
+    desc: 'Delivered over 56 projects — websites, web apps, mobile apps, dashboards, and automation systems. Our team grew, our stack sharpened, and our process matured.',
+    tags: ['56+ Projects', 'Full Service'],
     color: 'from-violet-600 to-cyan-500',
     lightBg: 'bg-violet-50 dark:bg-violet-950',
     iconColor: 'text-violet-600 dark:text-violet-400',
@@ -143,9 +143,9 @@ const vision = [
 ];
 
 const numbers = [
-  { value: '4+', label: 'Years Active' },
-  { value: '50+', label: 'Projects Done' },
-  { value: '30+', label: 'Happy Clients' },
+  { value: '3+', label: 'Years Active' },
+  { value: '56+', label: 'Projects Done' },
+  { value: '47+', label: 'Happy Clients' },
   { value: '3', label: 'Countries Served' },
 ];
 
@@ -162,7 +162,7 @@ export default function JourneyPage() {
           <h1 className="text-4xl md:text-6xl font-black tracking-tight font-raleway mb-6 leading-tight">
             From one laptop{' '}
             <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
-              to 50+ projects.
+              to 56+ projects.
             </span>
           </h1>
           <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto">

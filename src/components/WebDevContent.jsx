@@ -231,7 +231,7 @@ export default function WebDevContent() {
   const stats = arr(t, 'webDev.stats') || [
     { value: '99.9%', label: 'Uptime Reliability' },
     { value: '<1s', label: 'Page Load Speed' },
-    { value: '50+', label: 'Delivered Projects' },
+    { value: '56+', label: 'Delivered Projects' },
     { value: '100%', label: 'Client Satisfaction' },
   ];
 
