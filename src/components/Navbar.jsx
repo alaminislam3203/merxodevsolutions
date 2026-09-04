@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import Image from 'next/image';
+import { FaPhoneVolume } from 'react-icons/fa6';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchBar from './SearchBar';
@@ -198,13 +199,16 @@ export default function Navbar() {
           <SearchBar mobile />
 
           <div className="flex items-center gap-2 shrink-0">
-            {/* <ThemeToggle iconOnly /> */}
-            <Link
-              href="/contact"
-              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-[11px] font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
+            <a
+              href="tel:+8801313334279"
+              aria-label="Call MerxoDev Solutions"
+              className="relative inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white text-[11px] font-bold tracking-wide shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/40 active:scale-95 transition-all duration-200 animate-call-glow overflow-hidden select-none"
             >
-              {t('callUs')}
-            </Link>
+              <span className="animate-phone-ring text-white">
+                <FaPhoneVolume size={11} />
+              </span>
+              <span className="font-raleway uppercase font-extrabold">{t('callUs') || 'Call'}</span>
+            </a>
           </div>
         </div>
       </nav>
