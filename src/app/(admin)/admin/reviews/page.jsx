@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   FaStar,
   FaCheck,
@@ -9,11 +9,28 @@ import {
   FaPlus,
   FaEdit,
   FaQuoteLeft,
-  FaUserCheck,
   FaClock,
-  FaSearch,
   FaCrown,
+  FaUserCheck,
+  FaSearch,
 } from "react-icons/fa";
+
+function Toast({ msg, type = "success", onClose }) {
+  useEffect(() => {
+    const t = setTimeout(onClose, 3500);
+    return () => clearTimeout(t);
+  }, [onClose]);
+  return (
+    <div className={`admin-toast admin-toast-${type}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      {type === "success" ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      )}
+      {msg}
+    </div>
+  );
+}
 
 export default function AdminReviewsPage() {
   const [reviews, setReviews] = useState([]);
@@ -21,11 +38,13 @@ export default function AdminReviewsPage() {
   const [filter, setFilter] = useState("all"); // 'all' | 'pending' | 'approved'
   const [search, setSearch] = useState("");
   const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0 });
+  const [toast, setToast] = useState(null);
 
   // Modal States
   const [showModal, setShowModal] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [actionLoading, setActionLoading] = useState(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -40,7 +59,9 @@ export default function AdminReviewsPage() {
     isFeatured: false,
   });
 
-  const fetchReviews = async () => {
+  const showToast = (msg, type = "success") => setToast({ msg, type });
+
+  const fetchReviews = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch(`/api/admin/reviews?filter=${filter}`);
@@ -48,17 +69,20 @@ export default function AdminReviewsPage() {
       if (data.reviews) {
         setReviews(data.reviews);
         setStats(data.stats || { total: data.reviews.length, pending: 0, approved: 0 });
+      } else {
+        showToast(data.error || "Failed to fetch reviews.", "error");
       }
     } catch (err) {
       console.error("Error fetching reviews:", err);
+      showToast("Error connecting to server.", "error");
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   useEffect(() => {
     fetchReviews();
-  }, [filter]);
+  }, [fetchReviews]);
 
   const handleOpenAdd = () => {
     setEditingReview(null);
@@ -105,7 +129,11 @@ export default function AdminReviewsPage() {
         });
         if (res.ok) {
           setShowModal(false);
+          showToast("Review updated successfully!");
           fetchReviews();
+        } else {
+          const err = await res.json();
+          showToast(err.error || "Failed to update review", "error");
         }
       } else {
         // Create new review
@@ -116,17 +144,23 @@ export default function AdminReviewsPage() {
         });
         if (res.ok) {
           setShowModal(false);
+          showToast("New review published successfully!");
           fetchReviews();
+        } else {
+          const err = await res.json();
+          showToast(err.error || "Failed to create review", "error");
         }
       }
     } catch (err) {
       console.error("Error saving review:", err);
+      showToast("Network error while saving review.", "error");
     } finally {
       setSaving(false);
     }
   };
 
   const handleToggleApprove = async (rev) => {
+    setActionLoading(`approve-${rev.id}`);
     try {
       const res = await fetch(`/api/admin/reviews/${rev.id}`, {
         method: "PATCH",
@@ -134,14 +168,21 @@ export default function AdminReviewsPage() {
         body: JSON.stringify({ isApproved: !rev.isApproved }),
       });
       if (res.ok) {
+        showToast(rev.isApproved ? "Review hidden from site." : "Review approved and live on site!");
         fetchReviews();
+      } else {
+        showToast("Action failed.", "error");
       }
     } catch (err) {
-      console.error("Error toggling review approval:", err);
+      console.error("Error toggling approval:", err);
+      showToast("Network error.", "error");
+    } finally {
+      setActionLoading(null);
     }
   };
 
   const handleToggleFeature = async (rev) => {
+    setActionLoading(`feature-${rev.id}`);
     try {
       const res = await fetch(`/api/admin/reviews/${rev.id}`, {
         method: "PATCH",
@@ -149,24 +190,37 @@ export default function AdminReviewsPage() {
         body: JSON.stringify({ isFeatured: !rev.isFeatured }),
       });
       if (res.ok) {
+        showToast(rev.isFeatured ? "Removed from featured." : "Pinned as featured testimonial!");
         fetchReviews();
+      } else {
+        showToast("Action failed.", "error");
       }
     } catch (err) {
       console.error("Error toggling featured:", err);
+      showToast("Network error.", "error");
+    } finally {
+      setActionLoading(null);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this review?")) return;
+    if (!confirm("Are you sure you want to permanently delete this review?")) return;
+    setActionLoading(`delete-${id}`);
     try {
       const res = await fetch(`/api/admin/reviews/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
+        showToast("Review deleted permanently.");
         fetchReviews();
+      } else {
+        showToast("Failed to delete review.", "error");
       }
     } catch (err) {
       console.error("Error deleting review:", err);
+      showToast("Network error.", "error");
+    } finally {
+      setActionLoading(null);
     }
   };
 
@@ -176,217 +230,311 @@ export default function AdminReviewsPage() {
     return (
       r.userName.toLowerCase().includes(q) ||
       r.comment.toLowerCase().includes(q) ||
-      (r.company && r.company.toLowerCase().includes(q))
+      (r.company && r.company.toLowerCase().includes(q)) ||
+      (r.userRole && r.userRole.toLowerCase().includes(q))
     );
   });
 
   return (
-    <div className="admin-page-container p-6 space-y-6 max-w-7xl mx-auto font-raleway">
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-5">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white flex items-center gap-2.5">
-            <FaQuoteLeft className="text-violet-600 dark:text-cyan-400" />
-            Client Reviews & Testimonials
-          </h1>
-          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-            Moderate user-submitted reviews and create featured testimonials for the website.
-          </p>
-        </div>
+    <div>
+      {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
 
-        <button
-          onClick={handleOpenAdd}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-md hover:opacity-95 transition-all cursor-pointer shrink-0"
-        >
-          <FaPlus size={12} />
-          <span>Add New Review</span>
+      {/* Header */}
+      <div className="admin-page-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+        <div>
+          <h1 className="admin-page-title">Client Reviews & Testimonials</h1>
+          <p className="admin-page-subtitle">Moderate user feedback and manage featured testimonials for the live website</p>
+        </div>
+        <button id="add-review-btn" className="admin-btn admin-btn-primary" onClick={handleOpenAdd}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Add Review
         </button>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Reviews</p>
-            <p className="text-2xl font-black text-zinc-900 dark:text-white mt-1">{stats.total}</p>
+      <div className="dash-stats-grid" style={{ marginBottom: 28 }}>
+        <div className="dash-stat-card" style={{ cursor: "default" }}>
+          <div className="dash-stat-icon" style={{ background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc" }}>
+            <FaQuoteLeft size={20} />
           </div>
-          <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-300 flex items-center justify-center">
-            <FaStar size={18} />
-          </div>
-        </div>
-
-        <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-amber-200/80 dark:border-amber-900/50 shadow-sm flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Pending Approval</p>
-            <p className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">{stats.pending}</p>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-            <FaClock size={18} />
+          <div className="dash-stat-info">
+            <span className="dash-stat-value" style={{ color: "#f1f5f9" }}>{stats.total}</span>
+            <span className="dash-stat-label">Total Reviews</span>
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-emerald-200/80 dark:border-emerald-900/50 shadow-sm flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Live / Approved</p>
-            <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{stats.approved}</p>
+        <div className="dash-stat-card" style={{ cursor: "default" }}>
+          <div className="dash-stat-icon" style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fbbf24" }}>
+            <FaClock size={20} />
           </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-            <FaUserCheck size={18} />
+          <div className="dash-stat-info">
+            <span className="dash-stat-value" style={{ color: "#fbbf24" }}>{stats.pending}</span>
+            <span className="dash-stat-label">Pending Approval</span>
+          </div>
+        </div>
+
+        <div className="dash-stat-card" style={{ cursor: "default" }}>
+          <div className="dash-stat-icon" style={{ background: "rgba(34, 197, 94, 0.15)", color: "#86efac" }}>
+            <FaUserCheck size={20} />
+          </div>
+          <div className="dash-stat-info">
+            <span className="dash-stat-value" style={{ color: "#86efac" }}>{stats.approved}</span>
+            <span className="dash-stat-label">Live on Website</span>
           </div>
         </div>
       </div>
 
       {/* Filter Tabs & Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-        <div className="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 24 }}>
+        <div className="content-filter-tabs" style={{ margin: 0 }}>
           <button
+            className={`content-filter-tab ${filter === "all" ? "content-filter-tab-active" : ""}`}
             onClick={() => setFilter("all")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              filter === "all"
-                ? "bg-violet-600 text-white shadow-sm"
-                : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
           >
             All Reviews ({stats.total})
           </button>
           <button
+            className={`content-filter-tab ${filter === "pending" ? "content-filter-tab-active" : ""}`}
             onClick={() => setFilter("pending")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              filter === "pending"
-                ? "bg-amber-500 text-white shadow-sm"
-                : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
           >
-            Pending Approval ({stats.pending})
+            Pending ({stats.pending})
           </button>
           <button
+            className={`content-filter-tab ${filter === "approved" ? "content-filter-tab-active" : ""}`}
             onClick={() => setFilter("approved")}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              filter === "approved"
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
           >
             Approved ({stats.approved})
           </button>
         </div>
 
-        <div className="relative w-full sm:w-64">
-          <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs" />
+        <div style={{ position: "relative", minWidth: 260, flex: "0 1 320px" }}>
           <input
-            type="text"
+            className="admin-input"
             placeholder="Search reviews..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border-0 outline-none focus:ring-2 focus:ring-violet-500"
+            style={{ paddingLeft: 38, fontSize: 13 }}
           />
+          <FaSearch style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#64748b", fontSize: 12, pointerEvents: "none" }} />
         </div>
       </div>
 
-      {/* Reviews List */}
+      {/* Reviews Grid */}
       {loading ? (
-        <div className="text-center py-12 text-sm text-zinc-400">Loading reviews...</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 16 }}>
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="project-skeleton" style={{ height: 200 }} />
+          ))}
+        </div>
       ) : filteredReviews.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-zinc-500 text-sm">
-          No reviews found under this filter.
+        <div className="admin-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <p>No reviews found matching your filter criteria.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))", gap: 16 }}>
           {filteredReviews.map((rev) => (
             <div
               key={rev.id}
-              className={`p-5 rounded-2xl bg-white dark:bg-zinc-900 border transition-all shadow-sm flex flex-col justify-between gap-4 ${
-                rev.isApproved
-                  ? "border-zinc-200 dark:border-zinc-800"
-                  : "border-amber-400/80 bg-amber-50/20 dark:bg-amber-950/20 shadow-amber-500/10"
-              }`}
+              className="admin-card"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                gap: 16,
+                borderColor: rev.isApproved ? "rgba(255, 255, 255, 0.06)" : "rgba(245, 158, 11, 0.35)",
+                background: rev.isApproved ? "rgba(255, 255, 255, 0.03)" : "rgba(245, 158, 11, 0.03)",
+                transition: "all 0.2s ease",
+              }}
             >
-              {/* Header Info */}
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white font-bold flex items-center justify-center text-sm shadow-sm">
-                    {rev.userName.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-bold text-zinc-900 dark:text-white">{rev.userName}</h4>
-                      {rev.isFeatured && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                          <FaCrown size={9} /> Featured
-                        </span>
-                      )}
+              {/* Header: User details & Stars */}
+              <div>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div
+                      style={{
+                        width: 42,
+                        height: 42,
+                        borderRadius: 12,
+                        background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                        color: "white",
+                        fontWeight: 700,
+                        fontSize: 16,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 4px 12px rgba(99, 102, 241, 0.3)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {rev.userName ? rev.userName.charAt(0).toUpperCase() : "U"}
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                      {rev.userRole} {rev.company ? `• ${rev.company}` : ""} {rev.location ? `(${rev.location})` : ""}
-                    </p>
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                        <h3 style={{ fontSize: 15, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>{rev.userName}</h3>
+                        {rev.isFeatured && (
+                          <span
+                            className="admin-badge"
+                            style={{
+                              background: "rgba(245, 158, 11, 0.15)",
+                              color: "#fbbf24",
+                              border: "1px solid rgba(245, 158, 11, 0.3)",
+                              fontSize: 10,
+                              padding: "1px 6px",
+                              gap: 4,
+                            }}
+                          >
+                            <FaCrown size={9} /> Featured
+                          </span>
+                        )}
+                      </div>
+                      <p style={{ fontSize: 12, color: "#64748b", margin: "2px 0 0" }}>
+                        {rev.userRole || "Client"}
+                        {rev.company ? ` • ${rev.company}` : ""}
+                        {rev.location ? ` (${rev.location})` : ""}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Rating Stars */}
+                  <div style={{ display: "flex", gap: 3, flexShrink: 0, paddingTop: 2 }}>
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <FaStar
+                        key={s}
+                        size={13}
+                        style={{ color: s < (rev.rating || 5) ? "#f59e0b" : "#334155" }}
+                      />
+                    ))}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 shrink-0">
-                  {Array.from({ length: rev.rating }).map((_, s) => (
-                    <FaStar key={s} size={12} className="text-amber-400" />
-                  ))}
-                </div>
+                {/* Review Tag / Badge */}
+                {rev.tag && (
+                  <div style={{ marginBottom: 10 }}>
+                    <span className="admin-badge admin-badge-purple" style={{ fontSize: 11 }}>
+                      {rev.tag}
+                    </span>
+                  </div>
+                )}
+
+                {/* Comment Body */}
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#cbd5e1",
+                    lineHeight: 1.6,
+                    margin: 0,
+                    padding: "12px 14px",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    border: "1px solid rgba(255, 255, 255, 0.05)",
+                    borderRadius: 10,
+                    fontStyle: "italic",
+                  }}
+                >
+                  "{rev.comment}"
+                </p>
               </div>
 
-              {/* Review Text */}
-              <p className="text-xs sm:text-[13px] text-zinc-700 dark:text-zinc-300 italic leading-relaxed bg-zinc-50 dark:bg-zinc-800/60 p-3 rounded-xl border border-zinc-100 dark:border-zinc-800">
-                "{rev.comment}"
-              </p>
-
-              {/* Footer Actions & Status */}
-              <div className="flex items-center justify-between gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800 text-xs">
+              {/* Card Footer: Approval status badge & Action buttons */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  paddingTop: 12,
+                  borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+                  flexWrap: "wrap",
+                  gap: 8,
+                }}
+              >
                 <div>
                   {rev.isApproved ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-300/50">
-                      <FaCheck size={9} /> Live on Site
+                    <span className="admin-badge admin-badge-green" style={{ gap: 5, fontSize: 11 }}>
+                      <FaCheck size={9} /> Approved
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border border-amber-300/50 animate-pulse">
+                    <span
+                      className="admin-badge"
+                      style={{
+                        background: "rgba(245, 158, 11, 0.12)",
+                        color: "#fbbf24",
+                        border: "1px solid rgba(245, 158, 11, 0.25)",
+                        gap: 5,
+                        fontSize: 11,
+                      }}
+                    >
                       <FaClock size={9} /> Pending Review
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5">
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  {/* Approve / Unapprove Button */}
                   <button
+                    className="admin-btn"
                     onClick={() => handleToggleApprove(rev)}
-                    title={rev.isApproved ? "Unapprove (Hide from site)" : "Approve (Publish on site)"}
-                    className={`p-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      rev.isApproved
-                        ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-amber-100 hover:text-amber-800"
-                        : "bg-emerald-600 text-white hover:bg-emerald-500 shadow-sm"
-                    }`}
+                    disabled={actionLoading === `approve-${rev.id}`}
+                    style={{
+                      padding: "6px 12px",
+                      fontSize: 12,
+                      background: rev.isApproved ? "rgba(255, 255, 255, 0.05)" : "rgba(34, 197, 94, 0.15)",
+                      color: rev.isApproved ? "#94a3b8" : "#86efac",
+                      border: rev.isApproved ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(34, 197, 94, 0.3)",
+                    }}
+                    title={rev.isApproved ? "Hide from public website" : "Approve and show on website"}
                   >
-                    {rev.isApproved ? "Unapprove" : "Approve"}
+                    {actionLoading === `approve-${rev.id}` ? (
+                      <div className="admin-spinner-btn" />
+                    ) : rev.isApproved ? (
+                      "Unapprove"
+                    ) : (
+                      "Approve"
+                    )}
                   </button>
 
+                  {/* Pin Featured Button */}
                   <button
+                    className="admin-btn admin-btn-secondary"
                     onClick={() => handleToggleFeature(rev)}
-                    title={rev.isFeatured ? "Unpin featured" : "Pin as featured"}
-                    className={`p-2 rounded-xl transition-all cursor-pointer ${
-                      rev.isFeatured
-                        ? "bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-300"
-                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-400 hover:text-amber-500"
-                    }`}
+                    disabled={actionLoading === `feature-${rev.id}`}
+                    style={{
+                      padding: "6px 10px",
+                      color: rev.isFeatured ? "#fbbf24" : "#64748b",
+                      background: rev.isFeatured ? "rgba(245, 158, 11, 0.12)" : "rgba(255, 255, 255, 0.05)",
+                      borderColor: rev.isFeatured ? "rgba(245, 158, 11, 0.3)" : "rgba(255, 255, 255, 0.08)",
+                    }}
+                    title={rev.isFeatured ? "Unpin featured" : "Pin as featured testimonial"}
                   >
-                    <FaCrown size={13} />
+                    <FaCrown size={12} />
                   </button>
 
+                  {/* Edit Button */}
                   <button
+                    className="admin-btn admin-btn-secondary"
                     onClick={() => handleOpenEdit(rev)}
-                    title="Edit review"
-                    className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 transition-all cursor-pointer"
+                    style={{ padding: "6px 10px" }}
+                    title="Edit review details"
                   >
-                    <FaEdit size={13} />
+                    <FaEdit size={12} />
                   </button>
 
+                  {/* Delete Button */}
                   <button
+                    className="admin-btn admin-btn-danger"
                     onClick={() => handleDelete(rev.id)}
-                    title="Delete review"
-                    className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 hover:text-red-500 transition-all cursor-pointer"
+                    disabled={actionLoading === `delete-${rev.id}`}
+                    style={{ padding: "6px 10px" }}
+                    title="Delete review permanently"
                   >
-                    <FaTrash size={12} />
+                    {actionLoading === `delete-${rev.id}` ? (
+                      <div className="admin-spinner-btn" />
+                    ) : (
+                      <FaTrash size={11} />
+                    )}
                   </button>
                 </div>
               </div>
@@ -397,86 +545,88 @@ export default function AdminReviewsPage() {
 
       {/* Create / Edit Review Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="w-full max-w-lg bg-white dark:bg-[#091124] rounded-3xl p-6 border border-zinc-200 dark:border-blue-900/60 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                <FaStar className="text-amber-400" />
-                {editingReview ? "Edit Review" : "Add Client Review"}
+        <div className="admin-modal-overlay">
+          <div className="admin-modal" style={{ maxWidth: 580 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+              <h3 className="admin-modal-title" style={{ margin: 0 }}>
+                {editingReview ? "Edit Client Review" : "Add New Review"}
               </h3>
               <button
+                type="button"
                 onClick={() => setShowModal(false)}
-                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-white p-1"
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#64748b",
+                  cursor: "pointer",
+                  padding: 4,
+                  display: "flex",
+                }}
               >
                 <FaTimes size={16} />
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="space-y-3.5 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Client Name *</label>
+            <form onSubmit={handleSave}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div className="admin-field-group">
+                  <label className="admin-label">Client Name *</label>
                   <input
-                    type="text"
+                    className="admin-input"
                     required
+                    placeholder="e.g. Sarah Johnson"
                     value={formData.userName}
                     onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                    placeholder="e.g. Sarah Johnson"
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Role / Position</label>
+                <div className="admin-field-group">
+                  <label className="admin-label">Role / Position</label>
                   <input
-                    type="text"
+                    className="admin-input"
+                    placeholder="e.g. CEO & Founder"
                     value={formData.userRole}
                     onChange={(e) => setFormData({ ...formData, userRole: e.target.value })}
-                    placeholder="e.g. CEO, Product Director"
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Company</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div className="admin-field-group">
+                  <label className="admin-label">Company</label>
                   <input
-                    type="text"
+                    className="admin-input"
+                    placeholder="e.g. TechCorp Solutions"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    placeholder="e.g. TechStart BD"
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Location</label>
+                <div className="admin-field-group">
+                  <label className="admin-label">Location</label>
                   <input
-                    type="text"
+                    className="admin-input"
+                    placeholder="e.g. Dhaka, Bangladesh"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    placeholder="e.g. Dhaka, Bangladesh"
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Tag / Project Category</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div className="admin-field-group">
+                  <label className="admin-label">Project Tag / Category</label>
                   <input
-                    type="text"
+                    className="admin-input"
+                    placeholder="e.g. E-Commerce Platform"
                     value={formData.tag}
                     onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
-                    placeholder="e.g. E-Commerce Platform"
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Rating (Stars)</label>
+                <div className="admin-field-group">
+                  <label className="admin-label">Rating</label>
                   <select
+                    className="admin-input"
                     value={formData.rating}
                     onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
-                    className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500"
                   >
                     <option value={5}>5 Stars ★★★★★</option>
                     <option value={4}>4 Stars ★★★★☆</option>
@@ -487,53 +637,63 @@ export default function AdminReviewsPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-zinc-700 dark:text-zinc-300 font-bold mb-1">Review Feedback *</label>
+              <div className="admin-field-group">
+                <label className="admin-label">Review Comment *</label>
                 <textarea
+                  className="admin-input admin-textarea"
                   required
                   rows={4}
+                  placeholder="Client feedback and testimonial content..."
                   value={formData.comment}
                   onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                  placeholder="Client feedback and review details..."
-                  className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white outline-none focus:ring-2 focus:ring-violet-500 resize-none"
                 />
               </div>
 
-              <div className="flex items-center gap-6 pt-1">
-                <label className="flex items-center gap-2 cursor-pointer select-none text-xs font-bold text-zinc-800 dark:text-zinc-200">
+              {/* Toggles */}
+              <div style={{ display: "flex", gap: 24, padding: "8px 0 16px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 13, color: "#cbd5e1" }}>
                   <input
                     type="checkbox"
                     checked={formData.isApproved}
                     onChange={(e) => setFormData({ ...formData, isApproved: e.target.checked })}
-                    className="w-4 h-4 rounded text-violet-600"
+                    style={{ accentColor: "#6366f1", width: 16, height: 16 }}
                   />
                   <span>Publish / Approved on Site</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer select-none text-xs font-bold text-zinc-800 dark:text-zinc-200">
+
+                <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 13, color: "#cbd5e1" }}>
                   <input
                     type="checkbox"
                     checked={formData.isFeatured}
                     onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
-                    className="w-4 h-4 rounded text-amber-500"
+                    style={{ accentColor: "#f59e0b", width: 16, height: 16 }}
                   />
-                  <span>Pin as Featured</span>
+                  <span>Pin as Featured Testimonial</span>
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+              <div className="admin-modal-actions">
                 <button
                   type="button"
+                  className="admin-btn admin-btn-secondary"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs hover:bg-zinc-200"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
+                  className="admin-btn admin-btn-primary"
                   disabled={saving}
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50"
                 >
-                  {saving ? "Saving..." : editingReview ? "Update Review" : "Create Review"}
+                  {saving ? (
+                    <>
+                      <div className="admin-spinner-btn" /> Saving...
+                    </>
+                  ) : editingReview ? (
+                    "Update Review"
+                  ) : (
+                    "Create Review"
+                  )}
                 </button>
               </div>
             </form>
