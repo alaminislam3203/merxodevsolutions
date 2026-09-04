@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
-import autoReplyTemplate from '@/lib/templates/autoReplyTemplate';
 
 function createNodemailerTransporter() {
   if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -19,7 +18,7 @@ function createNodemailerTransporter() {
 /**
  * Robust email dispatcher:
  * Tries Resend first, if Resend is unavailable or fails (e.g. unverified test domain),
- * smoothly falls back to Gmail SMTP so client & admin always receive emails.
+ * smoothly falls back to Gmail SMTP so admin always receives inquiry emails.
  */
 async function dispatchEmail({ to, subject, html, text, replyTo }) {
   let resendSuccess = false;
@@ -92,7 +91,7 @@ export async function POST(req) {
     const now = new Date();
     const adminInbox = process.env.ADMIN_INBOX_EMAIL || process.env.GMAIL_USER || 'merxodevsolutions@gmail.com';
 
-    // Plain text fallbacks
+    // Plain text fallback for admin
     const adminPlainText = `New Project Inquiry:
 Name: ${name}
 Email: ${email}
@@ -102,23 +101,6 @@ Budget: ${budget || 'Not specified'}
 Message:
 ${message}
 Received: ${now.toLocaleString()}`;
-
-    const clientPlainText = `Hi ${name},
-
-Thank you for reaching out to MerxoDev Solutions! We have successfully received your project inquiry.
-
-Summary of your inquiry:
-- Service: ${service || 'General Inquiry'}
-- Budget: ${budget || 'Not specified'}
-- Message: ${message}
-
-Our lead engineering team will review your requirements and get back to you within 2–12 hours.
-
-Best regards,
-The MerxoDev Solutions Team
-Website: https://merxodevsolutions.pro.bd
-Phone: +880 1313-334279
-Email: merxodevsolutions@gmail.com`;
 
     const adminHtml = emailTemplate({
       name,
@@ -130,46 +112,19 @@ Email: merxodevsolutions@gmail.com`;
       createdAt: now,
     });
 
-    const clientHtml = autoReplyTemplate({
-      name,
-      email,
-      service,
-      budget,
-      message,
+    // Send Admin Notification email only (no auto-reply sent to client)
+    const adminResult = await dispatchEmail({
+      to: adminInbox,
+      subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
+      html: adminHtml,
+      text: adminPlainText,
+      replyTo: email,
     });
-
-    // Send both Admin Notification and Client Auto-Reply in parallel
-    const [adminResult, clientResult] = await Promise.allSettled([
-      // 1. Admin Email
-      dispatchEmail({
-        to: adminInbox,
-        subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
-        html: adminHtml,
-        text: adminPlainText,
-        replyTo: email,
-      }),
-
-      // 2. Client Auto-Reply Email
-      dispatchEmail({
-        to: email,
-        subject: `We received your inquiry, ${name} | MerxoDev Solutions`,
-        html: clientHtml,
-        text: clientPlainText,
-        replyTo: adminInbox,
-      }),
-    ]);
-
-    if (adminResult.status === 'rejected' && clientResult.status === 'rejected') {
-      return Response.json(
-        { error: 'Failed to dispatch emails' },
-        { status: 500 },
-      );
-    }
 
     return Response.json({
       success: true,
-      adminStatus: adminResult.status,
-      clientStatus: clientResult.status,
+      message: 'Inquiry successfully delivered to admin',
+      provider: adminResult?.provider || 'default',
     });
   } catch (error) {
     console.error('Contact route unhandled error:', error);
