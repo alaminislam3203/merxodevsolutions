@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { useDotButton } from './EmblaCarouselDotButtons';
 import {
   FiGlobe,
   FiShoppingCart,
@@ -131,27 +129,21 @@ const serviceCategories = [
   },
 ];
 
-// Mobile groups: 8 items per slide (4 per line, 2 lines)
-const mobileSlides = [
-  // Slide 1 (Items 1 - 8)
-  serviceCategories.slice(0, 8),
-  // Slide 2 (Items 5 - 12)
-  serviceCategories.slice(4, 12),
-];
+// Split services into 2 rows for mobile (6 services per row)
+const mobileRow1 = serviceCategories.slice(0, 6);
+const mobileRow2 = serviceCategories.slice(6, 12);
 
 function ServiceCard({ item, mobile = false }) {
   return (
     <Link
       href={item.href}
       title={item.fullTitle}
-      className={`group flex flex-col items-center text-center cursor-pointer transition-all duration-300 ${
-        mobile ? 'w-full shrink-0 select-none' : 'w-full'
-      }`}
+      className="group flex flex-col items-center text-center cursor-pointer transition-all duration-300 w-full select-none"
     >
       {/* Rounded Square App Icon Box */}
       <div
         className={`${
-          mobile ? 'w-14 h-14 sm:w-16 sm:h-16 rounded-2xl' : 'w-15 h-15 sm:w-18 sm:h-18 lg:w-19 lg:h-19 xl:w-20 xl:h-20 rounded-2xl sm:rounded-3xl'
+          mobile ? 'w-14 h-14 rounded-2xl' : 'w-15 h-15 sm:w-18 sm:h-18 lg:w-19 lg:h-19 xl:w-20 xl:h-20 rounded-2xl sm:rounded-3xl'
         } ${item.bgColor} text-white flex items-center justify-center shadow-md ${item.shadowColor} group-hover:scale-110 group-hover:-translate-y-1.5 group-hover:shadow-2xl ${item.glowColor} transition-all duration-300 relative border border-white/20`}
       >
         {/* Glossy Top Glass Shimmer */}
@@ -175,12 +167,16 @@ function ServiceCard({ item, mobile = false }) {
 }
 
 export default function ServicesPreview() {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'start', skipSnaps: false },
-    [Autoplay({ delay: 3000, stopOnInteraction: false })]
+  // ── Mobile 3-Second Auto-Swipe Embla Carousels ──
+  const [row1Ref] = useEmblaCarousel(
+    { loop: true, align: 'start', slidesToScroll: 1 },
+    [Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  const [row2Ref] = useEmblaCarousel(
+    { loop: true, align: 'start', slidesToScroll: 1 },
+    [Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]
+  );
 
   return (
     <section
@@ -206,37 +202,28 @@ export default function ServicesPreview() {
           ))}
         </div>
 
-        {/* ── Mobile Only: 3-Second Step Swipe Carousel (4 per line, 2 lines = 8 items per view) ── */}
-        <div className="sm:hidden w-full overflow-hidden">
-          <div className="embla-viewport overflow-hidden w-full" ref={emblaRef}>
-            <div className="embla-container flex">
-              {mobileSlides.map((slideItems, slideIdx) => (
-                <div key={slideIdx} className="flex-[0_0_100%] min-w-0 px-1">
-                  <div className="grid grid-cols-4 gap-x-2 gap-y-3.5 justify-items-center">
-                    {slideItems.map((item, itemIdx) => (
-                      <ServiceCard key={`m-${slideIdx}-${itemIdx}`} item={item} mobile />
-                    ))}
-                  </div>
+        {/* ── Mobile Only: 2-Row Step Carousel (4 visible per row = 8 on screen, auto-swiping every 3s) ── */}
+        <div className="sm:hidden w-full flex flex-col gap-3.5 py-1">
+          {/* Row 1 (Auto-swipes every 3s) */}
+          <div className="overflow-hidden w-full" ref={row1Ref}>
+            <div className="flex -ml-1">
+              {mobileRow1.map((item, idx) => (
+                <div key={idx} className="pl-1 flex-[0_0_25%] min-w-0 flex justify-center">
+                  <ServiceCard item={item} mobile />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Minimal Dot Indicators */}
-          <div className="flex items-center justify-center gap-1.5 mt-3">
-            {scrollSnaps.map((_, dotIdx) => (
-              <button
-                key={dotIdx}
-                type="button"
-                onClick={() => onDotButtonClick(dotIdx)}
-                className={`transition-all duration-300 rounded-full ${
-                  selectedIndex === dotIdx
-                    ? 'w-5 h-1.5 bg-lime-500 dark:bg-[#a3e635]'
-                    : 'w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400'
-                }`}
-                aria-label={`Go to slide ${dotIdx + 1}`}
-              />
-            ))}
+          {/* Row 2 (Auto-swipes every 3s) */}
+          <div className="overflow-hidden w-full" ref={row2Ref}>
+            <div className="flex -ml-1">
+              {mobileRow2.map((item, idx) => (
+                <div key={idx} className="pl-1 flex-[0_0_25%] min-w-0 flex justify-center">
+                  <ServiceCard item={item} mobile />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
