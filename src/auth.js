@@ -16,24 +16,50 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const emailLower = credentials.email.toLowerCase().trim();
+
+        // 1. Try Admin Account
         const admin = await prisma.admin.findUnique({
-          where: { email: credentials.email },
+          where: { email: emailLower },
         });
 
-        if (!admin) return null;
+        if (admin) {
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password,
+            admin.password
+          );
+          if (isPasswordValid) {
+            return {
+              id: admin.id,
+              email: admin.email,
+              name: admin.name,
+              role: "ADMIN",
+            };
+          }
+        }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          admin.password
-        );
+        // 2. Try User Account
+        const user = await prisma.user.findUnique({
+          where: { email: emailLower },
+        });
 
-        if (!isPasswordValid) return null;
+        if (user) {
+          const isUserPasswordValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          if (isUserPasswordValid) {
+            return {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              image: user.image,
+              role: user.role || "USER",
+            };
+          }
+        }
 
-        return {
-          id: admin.id,
-          email: admin.email,
-          name: admin.name,
-        };
+        return null;
       },
     }),
   ],
@@ -43,13 +69,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.name = user.name;
+        token.role = user.role || "USER";
+        token.image = user.image || null;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token) {
+      if (token && session.user) {
         session.user.id = token.id;
         session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role || "USER";
+        session.user.image = token.image || null;
       }
       return session;
     },
