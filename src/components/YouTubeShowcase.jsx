@@ -249,7 +249,7 @@ export default function YouTubeShowcase() {
                   type="button"
                   onClick={() => setMobilePlaylistOpen((prev) => !prev)}
                   aria-expanded={mobilePlaylistOpen}
-                  className="inline-flex sm:hidden items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold shadow-md shadow-red-500/20 active:scale-95 transition-all cursor-pointer"
+                  className="inline-flex sm:hidden items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold shadow-md shadow-red-500/20 active:scale-95 transition-all duration-300 cursor-pointer"
                 >
                   <FaListOl size={12} />
                   <span>
@@ -257,116 +257,129 @@ export default function YouTubeShowcase() {
                       ? t('videoShowcase.hidePlaylistBtn') || 'Hide Playlist'
                       : t('videoShowcase.featuredPlaylistBtn') || 'Featured Playlist (3)'}
                   </span>
-                  {mobilePlaylistOpen ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
+                  <FaChevronDown
+                    size={11}
+                    className={`transition-transform duration-300 ease-out ${
+                      mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
+                    }`}
+                  />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Playlist Column (4 Columns on Desktop, toggled on Mobile) */}
-          <div className={`lg:col-span-4 flex-col gap-3 ${mobilePlaylistOpen ? 'flex' : 'hidden lg:flex'}`}>
-            <div className="flex items-center justify-between px-1 mb-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
-                <FaListOl className="text-violet-600 dark:text-cyan-400" />
-                <span>Featured Playlist (3 Videos)</span>
+          {/* Playlist Column (4 Columns on Desktop, Smooth Accordion Animation on Mobile) */}
+          <div
+            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${
+              mobilePlaylistOpen
+                ? 'grid-rows-[1fr] opacity-100 mt-2'
+                : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
+            } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
+          >
+            <div className="overflow-hidden flex flex-col gap-3 min-h-0">
+              <div className="flex items-center justify-between px-1 mb-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
+                  <FaListOl className="text-violet-600 dark:text-cyan-400" />
+                  <span>Featured Playlist (3 Videos)</span>
+                </div>
+                <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                  <FaCheckCircle size={11} /> Auto Sequence
+                </span>
               </div>
-              <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                <FaCheckCircle size={11} /> Auto Sequence
-              </span>
-            </div>
 
-            {/* Video Playlist Cards */}
-            <div className="flex flex-col gap-3">
-              {VIDEOS.map((video, idx) => {
-                const isActive = idx === activeIndex;
-                const thumbnailUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+              {/* Video Playlist Cards */}
+              <div className="flex flex-col gap-3">
+                {VIDEOS.map((video, idx) => {
+                  const isActive = idx === activeIndex;
+                  const thumbnailUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
 
-                return (
-                  <button
-                    key={video.id}
-                    type="button"
-                    onClick={() => handleSelectVideo(idx)}
-                    className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
-                        ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
-                        : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
-                      }`}
-                  >
-                    {/* Thumbnail with overlay icon */}
-                    <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
-                      <img
-                        src={thumbnailUrl}
-                        alt={video.defaultTitle}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      <div
-                        className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive
-                            ? 'bg-red-600/40'
-                            : 'bg-black/30 group-hover:bg-black/10'
-                          }`}
-                      >
+                  return (
+                    <button
+                      key={video.id}
+                      type="button"
+                      onClick={() => handleSelectVideo(idx)}
+                      className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
+                          ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
+                          : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
+                        }`}
+                    >
+                      {/* Thumbnail with overlay icon */}
+                      <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
+                        <img
+                          src={thumbnailUrl}
+                          alt={video.defaultTitle}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
                         <div
-                          className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
-                              ? 'bg-red-600 text-white animate-pulse'
-                              : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
+                          className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive
+                              ? 'bg-red-600/40'
+                              : 'bg-black/30 group-hover:bg-black/10'
                             }`}
                         >
-                          <FaPlay size={10} className="ml-0.5" />
+                          <div
+                            className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
+                                ? 'bg-red-600 text-white animate-pulse'
+                                : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
+                              }`}
+                          >
+                            <FaPlay size={10} className="ml-0.5" />
+                          </div>
                         </div>
+                        <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                          {video.badge}
+                        </span>
                       </div>
-                      <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
-                        {video.badge}
-                      </span>
-                    </div>
 
-                    {/* Video Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        {isActive ? (
-                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-red-600 dark:text-red-400 flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-                            {t('videoShowcase.nowPlaying') || 'Playing Now'}
-                          </span>
-                        ) : (
-                          <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400">
-                            {video.duration}
-                          </span>
-                        )}
+                      {/* Video Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          {isActive ? (
+                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-red-600 dark:text-red-400 flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+                              {t('videoShowcase.nowPlaying') || 'Playing Now'}
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400">
+                              {video.duration}
+                            </span>
+                          )}
+                        </div>
+                        <h4
+                          className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
+                            }`}
+                        >
+                          {t(video.titleKey) || video.defaultTitle}
+                        </h4>
+                        <p className="text-[10px] text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-1">
+                          <span>{video.channel}</span>
+                        </p>
                       </div>
-                      <h4
-                        className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
-                            ? 'text-red-600 dark:text-red-400'
-                            : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
-                          }`}
-                      >
-                        {t(video.titleKey) || video.defaultTitle}
-                      </h4>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-1">
-                        <span>{video.channel}</span>
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* Subscribe Box in Sidebar (Desktop Only) */}
-            <div className="hidden lg:block p-4 rounded-2xl bg-gradient-to-br from-red-500/10 via-rose-500/5 to-violet-500/10 border border-red-200/60 dark:border-red-900/40 text-center space-y-2 mt-1">
-              <p className="text-xs font-bold text-zinc-900 dark:text-white">
-                More Tutorials & Case Studies
-              </p>
-              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Subscribe to our YouTube channel for weekly tech insights, Next.js tips & project builds.
-              </p>
-              <a
-                href={CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
-              >
-                <FaYoutube size={14} />
-                <span>Visit Youtube</span>
-              </a>
+              {/* Subscribe Box in Sidebar (Desktop Only) */}
+              <div className="hidden lg:block p-4 rounded-2xl bg-gradient-to-br from-red-500/10 via-rose-500/5 to-violet-500/10 border border-red-200/60 dark:border-red-900/40 text-center space-y-2 mt-1">
+                <p className="text-xs font-bold text-zinc-900 dark:text-white">
+                  More Tutorials & Case Studies
+                </p>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  Subscribe to our YouTube channel for weekly tech insights, Next.js tips & project builds.
+                </p>
+                <a
+                  href={CHANNEL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+                >
+                  <FaYoutube size={14} />
+                  <span>Visit Youtube</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
