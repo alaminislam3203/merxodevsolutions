@@ -11,7 +11,7 @@ const INITIAL_MESSAGES = [
     text: "👋 **Hello! Welcome to MerxoDev Solutions.**\n\nI am your **AI Assistant**. How can I help you today? You can ask about our **web development packages, pricing (BDT 1,000 - 4,000), technologies, delivery timelines**, or book a direct consultation!",
     actions: [
       { label: 'View Services & Pricing', href: '/services', type: 'link' },
-      { label: 'Chat on WhatsApp', href: 'https://wa.me/8801868300958', type: 'external' },
+      { label: 'Chat on WhatsApp', href: 'https://wa.me/8801313334279', type: 'external' },
     ],
     timestamp: 'Just now'
   }
@@ -108,9 +108,9 @@ export default function AIChatbot() {
         {
           id: (Date.now() + 1).toString(),
           sender: 'bot',
-          text: "I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1868-300958)**.",
+          text: "I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1313-334279)**.",
           actions: [
-            { label: 'Direct WhatsApp', href: 'https://wa.me/8801868300958', type: 'external' }
+            { label: 'Direct WhatsApp', href: 'https://wa.me/8801313334279', type: 'external' }
           ],
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
@@ -165,8 +165,14 @@ export default function AIChatbot() {
           className="pointer-events-auto mb-3 max-w-xs cursor-pointer rounded-2xl bg-white dark:bg-[#091124] p-3.5 shadow-2xl border border-violet-200/80 dark:border-blue-900/60 transition-all duration-300 transform hover:scale-105 animate-bounce-short"
         >
           <div className="flex items-start gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-md">
-              AI
+            <div className="w-8 h-8 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-md p-1 flex items-center justify-center shrink-0 shadow-md border border-violet-200/50 dark:border-white/10">
+              <Image
+                src="/favicon.png"
+                alt="MerxoDev Logo"
+                width={24}
+                height={24}
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex-1">
               <p className="text-xs font-bold text-zinc-900 dark:text-white font-raleway flex items-center gap-1.5">
@@ -200,8 +206,14 @@ export default function AIChatbot() {
           <div className="px-5 py-4 bg-gradient-to-r from-violet-700 via-violet-800 to-cyan-700 dark:from-[#091124] dark:via-[#0c1630] dark:to-[#091124] text-white flex items-center justify-between border-b border-white/10 dark:border-blue-900/40 shrink-0">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 via-violet-500 to-cyan-400 flex items-center justify-center text-white text-sm font-black shadow-md">
-                  ⚡
+                <div className="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md p-1.5 flex items-center justify-center shadow-md border border-white/20">
+                  <Image
+                    src="/favicon.png"
+                    alt="MerxoDev Solutions Logo"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain drop-shadow-sm"
+                  />
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-violet-900 dark:border-[#091124] animate-pulse" />
               </div>
@@ -343,7 +355,7 @@ export default function AIChatbot() {
               </button>
             </div>
             <div className="flex items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500 px-1 mt-1.5 font-raleway">
-              <span>⚡ AI-Powered by MerxoDev</span>
+              <span>⚡ AI-Powered by Merxodevsolutions</span>
               <span>Available 24/7</span>
             </div>
           </div>
