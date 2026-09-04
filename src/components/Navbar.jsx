@@ -35,9 +35,18 @@ export default function Navbar() {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', fn);
+    window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
+
+  // Auto scroll to top on any route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  const scrollToTopSmooth = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
   // ── Dynamic nav links (translated) ──────────────────────────────────────────
   const navLinks = [
@@ -123,13 +132,22 @@ export default function Navbar() {
           : 'bg-violet-700 dark:bg-[#060b19]/85 backdrop-blur-md border-b border-violet-600/30 dark:border-blue-900/30'
           }`}
       >
-        <div className="relative max-w-7xl mx-auto px-6 pt-2 pb-2.5 flex flex-col gap-2">
-          {/* Centered Navlinks (above Logo, SearchBar & CTA) */}
-          <div className="flex items-center justify-center gap-8 text-xs sm:text-[13px] font-bold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300">
+        <div
+          className={`relative max-w-7xl mx-auto px-6 transition-all duration-300 ease-in-out flex flex-col ${scrolled ? 'py-2 gap-0' : 'pt-2 pb-2.5 gap-2'
+            }`}
+        >
+          {/* Centered Navlinks (Collapses/Hides on Scroll Down, Reveals on Scroll Top) */}
+          <div
+            className={`flex items-center justify-center gap-8 text-xs sm:text-[13px] font-bold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300 transition-all duration-300 ease-in-out overflow-hidden ${scrolled
+              ? 'max-h-0 opacity-0 -translate-y-2 pointer-events-none mb-0'
+              : 'max-h-12 opacity-100 translate-y-0 mb-0.5'
+              }`}
+          >
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={scrollToTopSmooth}
                 className="hover:text-amber-300 dark:hover:text-cyan-400 transition-colors py-0.5"
               >
                 {link.label}
@@ -140,7 +158,7 @@ export default function Navbar() {
           {/* Main Action Row (Logo | Expanded SearchBar | CTA) */}
           <div className="flex items-center justify-between gap-6">
             {/* Logo */}
-            <Link href="/" className="shrink-0">
+            <Link href="/" onClick={scrollToTopSmooth} className="shrink-0">
               <Logo />
             </Link>
 
@@ -154,6 +172,7 @@ export default function Navbar() {
               <ThemeToggle iconOnly />
               <Link
                 href="/contact"
+                onClick={scrollToTopSmooth}
                 className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
               >
                 {t('getInTouch')}

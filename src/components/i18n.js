@@ -335,7 +335,7 @@ const resources = {
           plans: [
             {
               name: 'Starter',
-              price: '$299',
+              price: 'BDT 3500',
               desc: 'Perfect for landing pages & small business sites',
               cta: 'Get Started',
               features: [
@@ -351,7 +351,7 @@ const resources = {
             },
             {
               name: 'Business',
-              price: '$799',
+              price: 'BDT 1500',
               desc: 'For growing businesses that need more power',
               cta: 'Get Started',
               features: [
@@ -1830,7 +1830,7 @@ const resources = {
           plans: [
             {
               name: 'الباقة الأساسية',
-              price: '$299',
+              price: 'BDT 3500',
               desc: 'لصفحات الهبوط والمواقع الصغيرة',
               cta: 'ابدأ الآن',
               features: [
@@ -1846,7 +1846,7 @@ const resources = {
             },
             {
               name: 'باقة الأعمال',
-              price: '$799',
+              price: 'BDT 1500',
               desc: 'للشركات النامية',
               cta: 'ابدأ الآن',
               features: [
@@ -1863,7 +1863,7 @@ const resources = {
             },
             {
               name: 'SaaS / مخصص',
-              price: 'حسب الطلب',
+              price: ' حسب الطلب',
               desc: 'تطبيقات كاملة ومنصات SaaS',
               cta: 'تواصل معنا',
               features: [
@@ -2530,7 +2530,7 @@ const resources = {
           plans: [
             {
               name: '基础版',
-              price: '$299',
+              price: 'BDT 3500',
               desc: '适用于落地页与小型网站',
               cta: '开始',
               features: [
@@ -2546,7 +2546,7 @@ const resources = {
             },
             {
               name: '商业版',
-              price: '$799',
+              price: 'BDT 1500',
               desc: '适用于成长型企业',
               cta: '开始',
               features: [

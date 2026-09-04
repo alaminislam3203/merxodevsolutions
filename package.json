@@ -33,9 +33,11 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "babel-plugin-react-compiler": "1.0.0",
+    "localtunnel": "^2.0.2",
     "prisma": "^7.10.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "untun": "^0.2.2"
   }
 }
