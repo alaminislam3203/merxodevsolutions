@@ -252,12 +252,12 @@ export default function AIChatbot() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none select-none font-raleway">
-      {/* ─── Welcoming Tooltip Bubble (Visible only when Navbar Navlinks are visible) ─── */}
+    <div className="fixed bottom-20 md:bottom-5 right-3.5 sm:right-5 z-50 flex flex-col items-end pointer-events-none select-none font-raleway">
+      {/* ─── Welcoming Tooltip Bubble (Desktop only, visible when Navbar Navlinks are visible) ─── */}
       {!isOpen && isNavVisible && !tooltipDismissed && (
         <div
           onClick={handleToggle}
-          className="pointer-events-auto mb-3 max-w-xs cursor-pointer rounded-2xl bg-white/95 dark:bg-[#091124]/95 backdrop-blur-xl p-3.5 shadow-2xl border border-violet-200/80 dark:border-blue-900/60 transition-all duration-300 transform hover:scale-105 animate-in fade-in slide-in-from-bottom-2"
+          className="hidden sm:block pointer-events-auto mb-3 max-w-xs cursor-pointer rounded-2xl bg-white/95 dark:bg-[#091124]/95 backdrop-blur-xl p-3.5 shadow-2xl border border-violet-200/80 dark:border-blue-900/60 transition-all duration-300 transform hover:scale-105 animate-in fade-in slide-in-from-bottom-2"
         >
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-500 p-0.5 flex items-center justify-center shrink-0 shadow-md">
@@ -299,7 +299,7 @@ export default function AIChatbot() {
       {/* ─── Main Chat Window ─── */}
       {isOpen && (
         <div
-          className="pointer-events-auto mb-4 w-[92vw] sm:w-[410px] h-[580px] max-h-[82vh] rounded-3xl bg-white/95 dark:bg-[#060b19]/95 backdrop-blur-2xl border border-violet-200/80 dark:border-blue-900/50 shadow-2xl shadow-blue-950/30 flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right animate-in fade-in zoom-in-95"
+          className="pointer-events-auto mb-3 sm:mb-4 w-[92vw] sm:w-[410px] h-[520px] sm:h-[580px] max-h-[72vh] sm:max-h-[82vh] rounded-3xl bg-white/95 dark:bg-[#060b19]/95 backdrop-blur-2xl border border-violet-200/80 dark:border-blue-900/50 shadow-2xl shadow-blue-950/30 flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right animate-in fade-in zoom-in-95"
         >
           {/* Header */}
           <div className="px-5 py-3.5 bg-gradient-to-r from-violet-700 via-indigo-800 to-cyan-700 dark:from-[#091124] dark:via-[#0c1630] dark:to-[#091124] text-white flex items-center justify-between border-b border-white/10 dark:border-blue-900/40 shrink-0">
