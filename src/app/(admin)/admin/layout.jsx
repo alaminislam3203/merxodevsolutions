@@ -74,15 +74,12 @@ function AdminSidebar() {
   return (
     <aside className={"admin-sidebar" + (collapsed ? " admin-sidebar-collapsed" : "")}>
       <div className="admin-sidebar-brand">
-        <div className="admin-sidebar-logo">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
+        <div className="admin-sidebar-logo" style={{ overflow: "hidden", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+          <img src="/favicon.png" alt="MerxoDev Favicon" style={{ width: 26, height: 26, objectFit: "contain" }} />
         </div>
         {!collapsed && (
-          <div className="admin-sidebar-brand-text">
-            <span className="admin-sidebar-brand-name">MerxoDevSolutions</span>
-            <span className="admin-sidebar-brand-sub">Admin</span>
+          <div className="admin-sidebar-brand-text" style={{ display: "flex", alignItems: "center" }}>
+            <img src="/logo.png" alt="MerxoDev Solutions" style={{ height: 26, maxWidth: 130, objectFit: "contain" }} />
           </div>
         )}
         <button className="admin-sidebar-collapse-btn" onClick={() => setCollapsed(!collapsed)}>

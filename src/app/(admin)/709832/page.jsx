@@ -33,14 +33,11 @@ export default function AdminLoginPage() {
 
       <div className="login-card">
         <div className="login-logo">
-          <div className="logo-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
+          <div className="logo-icon" style={{ overflow: "hidden", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+            <img src="/favicon.png" alt="MerxoDev Favicon" style={{ width: 28, height: 28, objectFit: "contain" }} />
           </div>
-          <div className="logo-text">
-            <span className="brand-name">MerxoDev</span>
-            <span className="brand-sub">Admin Portal</span>
+          <div className="logo-text" style={{ display: "flex", alignItems: "center" }}>
+            <img src="/logo.png" alt="MerxoDev Solutions" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
           </div>
         </div>
 

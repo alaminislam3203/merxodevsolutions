@@ -7,7 +7,7 @@ import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 export async function GET(request) {
   try {
     const session = await auth();
-    if (!session || session.user?.role !== 'ADMIN') {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -62,7 +62,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const session = await auth();
-    if (!session || session.user?.role !== 'ADMIN') {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
