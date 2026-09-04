@@ -48,7 +48,6 @@ const resources = {
           heading: 'Quick Links',
         },
         navLinks: [
-          { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: 'Journey', href: '/our-journey' },
           { label: 'About', href: '/about' },
@@ -871,7 +870,6 @@ const resources = {
           heading: 'দ্রুত লিংক',
         },
         navLinks: [
-          { label: 'হোম', href: '/' },
           { label: 'সার্ভিস', href: '/services' },
           { label: 'যাত্রা', href: '/our-journey' },
           { label: 'আমাদের', href: '/about' },
@@ -1685,7 +1683,6 @@ const resources = {
           heading: 'روابط سريعة',
         },
         navLinks: [
-          { label: 'الرئيسية', href: '/' },
           { label: 'الخدمات', href: '/services' },
           { label: 'رحلتنا', href: '/our-journey' },
           { label: 'من نحن', href: '/about' },
@@ -2416,7 +2413,6 @@ const resources = {
           heading: '快速链接',
         },
         navLinks: [
-          { label: '首页', href: '/' },
           { label: '服务', href: '/services' },
           { label: '历程', href: '/our-journey' },
           { label: '关于', href: '/about' },
