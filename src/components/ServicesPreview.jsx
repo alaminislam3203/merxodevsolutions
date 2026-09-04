@@ -168,13 +168,15 @@ function ServiceCard({ item, mobile = false }) {
 
 export default function ServicesPreview() {
   // ── Mobile 3-Second Auto-Swipe Embla Carousels ──
+  // Row 1: Slides to the LEFT (LTR)
   const [row1Ref] = useEmblaCarousel(
-    { loop: true, align: 'start', slidesToScroll: 1 },
+    { loop: true, align: 'start', slidesToScroll: 1, direction: 'ltr' },
     [Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
 
+  // Row 2: Slides to the RIGHT (RTL)
   const [row2Ref] = useEmblaCarousel(
-    { loop: true, align: 'start', slidesToScroll: 1 },
+    { loop: true, align: 'start', slidesToScroll: 1, direction: 'rtl' },
     [Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
 
@@ -202,10 +204,10 @@ export default function ServicesPreview() {
           ))}
         </div>
 
-        {/* ── Mobile Only: 2-Row Step Carousel (4 visible per row = 8 on screen, auto-swiping every 3s) ── */}
+        {/* ── Mobile Only: 2-Row Dual-Direction Auto-Swipe (Row 1 Left, Row 2 Right) ── */}
         <div className="sm:hidden w-full flex flex-col gap-3.5 py-1">
-          {/* Row 1 (Auto-swipes every 3s) */}
-          <div className="overflow-hidden w-full" ref={row1Ref}>
+          {/* Row 1: Slides to the LEFT */}
+          <div className="overflow-hidden w-full" ref={row1Ref} dir="ltr">
             <div className="flex -ml-1">
               {mobileRow1.map((item, idx) => (
                 <div key={idx} className="pl-1 flex-[0_0_25%] min-w-0 flex justify-center">
@@ -215,11 +217,11 @@ export default function ServicesPreview() {
             </div>
           </div>
 
-          {/* Row 2 (Auto-swipes every 3s) */}
-          <div className="overflow-hidden w-full" ref={row2Ref}>
-            <div className="flex -ml-1">
+          {/* Row 2: Slides to the RIGHT */}
+          <div className="overflow-hidden w-full" ref={row2Ref} dir="rtl">
+            <div className="flex -mr-1">
               {mobileRow2.map((item, idx) => (
-                <div key={idx} className="pl-1 flex-[0_0_25%] min-w-0 flex justify-center">
+                <div key={idx} className="pr-1 flex-[0_0_25%] min-w-0 flex justify-center" dir="ltr">
                   <ServiceCard item={item} mobile />
                 </div>
               ))}
