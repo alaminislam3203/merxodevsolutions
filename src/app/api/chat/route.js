@@ -47,14 +47,41 @@ const KNOWLEDGE_BASE = [
     suggestions: ['Web Development Package?', 'How to order a project?', 'WhatsApp Contact']
   },
   {
+    id: 'language_switch',
+    keywords: [
+      // Bangla / Banglish explicit language commands
+      'banglay bolo', 'banglay bolun', 'bangla te bolen', 'banglay kotha bolo', 'bangla bolo', 'amake banglay bolo',
+      'বাংলায় বলো', 'বাংলায় বলুন', 'বাংলা ভাষায় বলুন', 'বাংলাতে বলুন', 'বাংলায় উত্তর দাও',
+      'speak bangla', 'talk in bangla', 'speak in bangla',
+      // English explicit language commands
+      'english please', 'speak english', 'talk in english', 'english a bolo', 'english e bolun', 'tell me in english'
+    ],
+    response: {
+      bn: `হ্যাঁ, অবশ্যই! আমি বাংলায় কথা বলতে ও সাহায্য করতে প্রস্তুত।\n\n**MerxoDev Solutions**-এ আমাদের আধুনিক ওয়েবসাইট ডেভেলপমেন্ট, বাজেট প্যাকেজ (১,০০০ - ৪,০০০ টাকা), বা যেকোনো ডিজিটাল সেবা সম্পর্কে আপনি যা জানতে চান নির্দ্বিধায় বাংলায় প্রশ্ন করতে পারেন!`,
+      banglish: `Haa obosshoi! Ami Banglay/Banglish e help korte ready.\n\n**MerxoDev Solutions** er website development, budget package (BDT 1,000 - 4,000 Taka), ba onnano service somporke apni jante chaile bolun!`,
+      en: `Yes, absolutely! I am happy to assist you in English.\n\nFeel free to ask about **MerxoDev Solutions** digital engineering services, web development packages (BDT 1,000 – BDT 4,000), timelines, or WhatsApp consultation!`,
+      ar: `نعم، بالتأكيد! يمكنني مساعدتك والتحدث معك باللغة العربية.\n\nلا تتردد في السؤال عن خدماتنا وتطوير المواقع والأسعار (1,000 - 4,000 BDT).`,
+      hi: `जी बिल्कुल! मैं आपकी सहायता हिंदी में करने के लिए तैयार हूँ।\n\nआप वेबसाइट डेवलपमेंट, पैकेज व कीमतों (1,000 से 4,000 BDT) के बारे में कुछ भी पूछ सकते हैं!`,
+      zh: `是的，没问题！我可以使用中文为您提供解答与咨询。\n\n欢迎随时咨询我们的网站开发、定制系统与超值套餐（1,000 - 4,000 BDT）！`,
+      es: `¡Sí, por supuesto! Puedo ayudarte y responderte en español con total fluidez.`,
+      fr: `Oui, absolument ! Je peux vous aider et échanger avec vous en français.`,
+      de: `Ja, natürlich! Ich kann Ihnen gerne auf Deutsch behilflich sein.`
+    },
+    actions: [
+      { label: 'View Services & Pricing', href: '/services', type: 'link' },
+      { label: `WhatsApp: ${WHATSAPP_DISPLAY}`, href: `https://wa.me/${WHATSAPP_NUM}`, type: 'external' }
+    ],
+    suggestions: ['Website packages & pricing?', 'What services do you offer?', 'WhatsApp Lead Developer']
+  },
+  {
     id: 'services',
     keywords: [
       // English
-      'service', 'services', 'offer', 'solution', 'what do you do', 'features', 'provide',
+      'service', 'services', 'offer', 'solution', 'what do you do', 'features', 'provide', 'tell me about your services', 'about your service',
       // Bangla
-      'সার্ভিস', 'সেবা', 'কাজ', 'কি কি সেবা দেন', 'কী কাজ করেন', 'সার্ভিসসমূহ', 'কি কাজ করেন',
+      'সার্ভিস', 'সেবা', 'কাজ', 'কি কি সেবা দেন', 'কী কাজ করেন', 'সার্ভিসসমূহ', 'কি কাজ করেন', 'তোমাদের সার্ভিস সম্পর্কে বলো', 'সার্ভিস সম্পর্কে বলো', 'তোমাদের সার্ভিস', 'সার্ভিস সম্পর্কে বলুন', 'আপনার কাজ সম্পর্কে বলুন',
       // Banglish
-      'service ki', 'ki ki service', 'ki kaj koren', 'service gulo', 'kaj ki', 'ki offer koren', 'service dorkar', 'ki ki kaj',
+      'service ki', 'ki ki service', 'ki kaj koren', 'service gulo', 'kaj ki', 'ki offer koren', 'service dorkar', 'ki ki kaj', 'tomader service', 'tomader service somporke bolo', 'service somporke bolo', 'service somporke', 'apnader service somporke', 'apnader services',
       // Arabic
       'خدمات', 'خدمة', 'ماذا تقدمون', 'حلول', 'ما هي خدماتكم',
       // Hindi
@@ -333,19 +360,27 @@ function detectLanguage(text) {
 
   const lower = text.toLowerCase();
 
-  // 2. Spanish markers
+  // 2. Explicit Language Switch Commands
+  if (/\b(banglay|bangla te|bangla bhashay|bangla)\s*(bolo|bolen|bolun|kotha|bolte|shunte|chai)?\b/i.test(lower)) {
+    return 'bn';
+  }
+  if (/\b(speak in english|talk in english|in english|english please|english e|english a)\b/i.test(lower)) {
+    return 'en';
+  }
+
+  // 3. Spanish markers
   const spanishMarkers = ['¿', '¡', 'hola', 'gracias', 'cuanto', 'cuánto', 'precio', 'servicios', 'página', 'desarrollo', 'hacen', 'buenas'];
   if (spanishMarkers.some(w => lower.includes(w))) return 'es';
 
-  // 3. French markers
+  // 4. French markers
   const frenchMarkers = ['bonjour', 'merci', 'combien', 'coût', 'cout', 'développement', 'developpement', 'site web', 'svp'];
   if (frenchMarkers.some(w => lower.includes(w))) return 'fr';
 
-  // 4. German markers
+  // 5. German markers
   const germanMarkers = ['hallo', 'danke', 'wieviel', 'kosten', 'webseite', 'entwicklung', 'bitte', 'guten tag'];
   if (germanMarkers.some(w => lower.includes(w))) return 'de';
 
-  // 5. Banglish token analyzer (Tokens matching Bengali words in Latin script)
+  // 6. Banglish token analyzer (Tokens matching Bengali words in Latin script)
   const banglishTokens = new Set([
     'koto', 'taka', 'khoroch', 'dam', 'lagbe', 'hobe', 'apnader', 'apnara',
     'amader', 'amar', 'kemon', 'achen', 'bhalo', 'valo', 'kaj', 'koren', 'korben',
@@ -353,7 +388,8 @@ function detectLanguage(text) {
     'bujhte', 'parlam', 'bolen', 'dekhi', 'shuru', 'korbo', 'dhonnobad',
     'vai', 'bhai', 'apni', 'tumi', 'kintu', 'ekta', 'akta', 'kotodin', 'parben',
     'kisu', 'kichu', 'amake', 'bolte', 'parba', 'keno', 'khub', 'dite', 'pari',
-    'korte', 'apnake', 'tomake'
+    'korte', 'apnake', 'tomake', 'tomader', 'somporke', 'somporkey', 'bolo', 'bolun',
+    'kotha', 'janiye', 'dao', 'deo', 'shob', 'sob'
   ]);
 
   const cleanWords = lower.replace(/[^a-z0-9]/gi, ' ').split(/\s+/).filter(Boolean);
