@@ -331,7 +331,7 @@ export default function Testimonials() {
                 ))}
               </div>
               <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
-                5.0 / 5.0 (100% Satisfaction)
+                {t('testimonials.ratingSummary') || '5.0 / 5.0 (100% Satisfaction)'}
               </span>
             </div>
 
@@ -341,7 +341,7 @@ export default function Testimonials() {
               className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <FaPenNib size={13} />
-              <span>Write a Review</span>
+              <span>{t('testimonials.writeReview') || 'Write a Review'}</span>
             </button>
           </div>
         </div>
@@ -366,11 +366,11 @@ export default function Testimonials() {
                       {/* Top Row: Tag & Verified Badge */}
                       <div className="flex items-center justify-between gap-2 mb-4">
                         <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-violet-100/70 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border border-violet-200/60 dark:border-violet-800/60">
-                          {item.tag || 'Client Feedback'}
+                          {item.tag || t('testimonials.clientFeedback') || 'Client Feedback'}
                         </span>
                         <div className="flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
                           <FaCheckCircle size={12} />
-                          <span>Verified</span>
+                          <span>{t('testimonials.verified') || 'Verified'}</span>
                         </div>
                       </div>
 
@@ -494,10 +494,14 @@ export default function Testimonials() {
                 </div>
                 <div>
                   <h3 className="text-base font-extrabold text-zinc-900 dark:text-white">
-                    {session ? 'Write a Client Review' : 'Login / Register to Leave Review'}
+                    {session
+                      ? (t('testimonials.modalTitleLoggedIn') || 'Write a Client Review')
+                      : (t('testimonials.modalTitleLoggedOut') || 'Login / Register to Leave Review')}
                   </h3>
                   <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                    {session ? 'Your feedback will be published after admin verification' : 'Please authenticate to submit your review'}
+                    {session
+                      ? (t('testimonials.modalSubtitleLoggedIn') || 'Your feedback will be published after admin verification')
+                      : (t('testimonials.modalSubtitleLoggedOut') || 'Please authenticate to submit your review')}
                   </p>
                 </div>
               </div>
@@ -517,16 +521,16 @@ export default function Testimonials() {
                     <FaCheckCircle />
                   </div>
                   <h4 className="text-base font-bold text-zinc-900 dark:text-white">
-                    Thank You, {session.user?.name || 'Client'}!
+                    {t('testimonials.thankYou') || 'Thank You'}, {session.user?.name || 'Client'}!
                   </h4>
                   <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-xs mx-auto leading-relaxed">
-                    Your review has been submitted successfully! Our engineering admin team will verify and approve it shortly.
+                    {t('testimonials.successMsg') || 'Your review has been submitted successfully! Our engineering admin team will verify and approve it shortly.'}
                   </p>
                   <button
                     onClick={() => setShowModal(false)}
-                    className="mt-3 px-6 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold shadow-md hover:opacity-95"
+                    className="mt-3 px-6 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold shadow-md hover:opacity-95 cursor-pointer"
                   >
-                    Done
+                    {t('testimonials.doneBtn') || 'Done'}
                   </button>
                 </div>
               ) : (
@@ -544,7 +548,7 @@ export default function Testimonials() {
                     )}
                     <div className="flex-1 min-w-0 text-xs">
                       <p className="font-bold text-zinc-900 dark:text-white truncate">
-                        Posting as: {session.user?.name}
+                        {t('testimonials.postingAs') || 'Posting as:'} {session.user?.name}
                       </p>
                       <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">
                         {session.user?.email}
@@ -556,7 +560,7 @@ export default function Testimonials() {
                   {/* 5-Star Interactive Rating Picker */}
                   <div>
                     <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1.5">
-                      Your Rating (Stars) *
+                      {t('testimonials.yourRating') || 'Your Rating (Stars) *'}
                     </label>
                     <div className="flex items-center gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -579,7 +583,7 @@ export default function Testimonials() {
                         </button>
                       ))}
                       <span className="text-xs font-bold text-amber-500 ml-1">
-                        {rating} / 5 Stars
+                        {rating} / {t('testimonials.starsLabel') || '5 Stars'}
                       </span>
                     </div>
                   </div>
@@ -588,25 +592,25 @@ export default function Testimonials() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Your Role / Position
+                        {t('testimonials.yourRole') || 'Your Role / Position'}
                       </label>
                       <input
                         type="text"
                         value={userRole}
                         onChange={(e) => setUserRole(e.target.value)}
-                        placeholder="e.g. Founder, Manager"
+                        placeholder={t('testimonials.rolePlaceholder') || 'e.g. Founder, Manager'}
                         className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
                       />
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Company / Business
+                        {t('testimonials.company') || 'Company / Business'}
                       </label>
                       <input
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        placeholder="e.g. Tech BD Ltd"
+                        placeholder={t('testimonials.companyPlaceholder') || 'e.g. Tech BD Ltd'}
                         className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
                       />
                     </div>
@@ -616,30 +620,30 @@ export default function Testimonials() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Service Category
+                        {t('testimonials.serviceCategory') || 'Service Category'}
                       </label>
                       <select
                         value={tag}
                         onChange={(e) => setTag(e.target.value)}
                         className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
                       >
-                        <option value="Web Development">Web Development</option>
-                        <option value="E-Commerce Solutions">E-Commerce Solutions</option>
-                        <option value="SaaS Web Application">SaaS Web Application</option>
-                        <option value="UI/UX Design">UI/UX Design</option>
-                        <option value="Payment Gateway">Payment Gateway</option>
-                        <option value="SEO & Growth">SEO & Growth</option>
+                        <option value="Web Development">{t('testimonials.catWebDev') || 'Web Development'}</option>
+                        <option value="E-Commerce Solutions">{t('testimonials.catEcommerce') || 'E-Commerce Solutions'}</option>
+                        <option value="SaaS Web Application">{t('testimonials.catSaas') || 'SaaS Web Application'}</option>
+                        <option value="UI/UX Design">{t('testimonials.catUiux') || 'UI/UX Design'}</option>
+                        <option value="Payment Gateway">{t('testimonials.catPayment') || 'Payment Gateway'}</option>
+                        <option value="SEO & Growth">{t('testimonials.catSeo') || 'SEO & Growth'}</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Location / City
+                        {t('testimonials.location') || 'Location / City'}
                       </label>
                       <input
                         type="text"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        placeholder="e.g. Dhaka, Bangladesh"
+                        placeholder={t('testimonials.locationPlaceholder') || 'e.g. Dhaka, Bangladesh'}
                         className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
                       />
                     </div>
@@ -648,14 +652,14 @@ export default function Testimonials() {
                   {/* Comment Textarea */}
                   <div>
                     <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                      Your Feedback / Review *
+                      {t('testimonials.yourFeedback') || 'Your Feedback / Review *'}
                     </label>
                     <textarea
                       required
                       rows={3}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
-                      placeholder="Share your experience working with MerxoDev Solutions..."
+                      placeholder={t('testimonials.feedbackPlaceholder') || 'Share your experience working with MerxoDev Solutions...'}
                       className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500 resize-none"
                     />
                   </div>
@@ -671,7 +675,9 @@ export default function Testimonials() {
                       disabled={submitting || !comment.trim()}
                       className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
                     >
-                      {submitting ? 'Submitting Review...' : 'Submit Review For Approval'}
+                      {submitting
+                        ? (t('testimonials.submitting') || 'Submitting Review...')
+                        : (t('testimonials.submitBtn') || 'Submit Review For Approval')}
                     </button>
                   </div>
                 </form>
@@ -689,7 +695,7 @@ export default function Testimonials() {
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
                     }`}
                   >
-                    Sign In / Log In
+                    {t('testimonials.signInTab') || 'Sign In / Log In'}
                   </button>
                   <button
                     type="button"
@@ -700,7 +706,7 @@ export default function Testimonials() {
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
                     }`}
                   >
-                    Create Account
+                    {t('testimonials.createAccountTab') || 'Create Account'}
                   </button>
                 </div>
 
@@ -714,7 +720,7 @@ export default function Testimonials() {
                   <form onSubmit={handleAuthLogin} className="space-y-3">
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Email Address
+                        {t('testimonials.emailAddress') || 'Email Address *'}
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaEnvelope className="text-zinc-400 text-xs" />
@@ -723,14 +729,14 @@ export default function Testimonials() {
                           required
                           value={authEmail}
                           onChange={(e) => setAuthEmail(e.target.value)}
-                          placeholder="you@example.com"
+                          placeholder={t('testimonials.emailPlaceholder') || 'you@example.com'}
                           className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
                         />
                       </div>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Password
+                        {t('testimonials.password') || 'Password *'}
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaLock className="text-zinc-400 text-xs" />
@@ -749,14 +755,16 @@ export default function Testimonials() {
                       disabled={authLoading}
                       className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
                     >
-                      {authLoading ? 'Signing In...' : 'Log In & Continue to Review'}
+                      {authLoading
+                        ? (t('testimonials.signingIn') || 'Signing In...')
+                        : (t('testimonials.signInBtn') || 'Log In & Continue to Review')}
                     </button>
                   </form>
                 ) : (
                   <form onSubmit={handleAuthRegister} className="space-y-3">
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Your Full Name *
+                        {t('testimonials.fullName') || 'Your Full Name *'}
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaUserCircle className="text-zinc-400 text-xs" />
@@ -765,7 +773,7 @@ export default function Testimonials() {
                           required
                           value={authName}
                           onChange={(e) => setAuthName(e.target.value)}
-                          placeholder="e.g. Sarah Johnson"
+                          placeholder={t('testimonials.fullNamePlaceholder') || 'e.g. Sarah Johnson'}
                           className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
                         />
                       </div>
@@ -774,7 +782,7 @@ export default function Testimonials() {
                     {/* Profile Photo Upload / URL */}
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Profile Photo (Optional)
+                        {t('testimonials.profilePhoto') || 'Profile Photo (Optional)'}
                       </label>
                       <div className="flex items-center gap-2.5">
                         {authImage ? (
@@ -792,7 +800,7 @@ export default function Testimonials() {
                           type="text"
                           value={authImage}
                           onChange={(e) => setAuthImage(e.target.value)}
-                          placeholder="Image URL or upload a photo"
+                          placeholder={t('testimonials.photoPlaceholder') || 'Image URL or upload a photo'}
                           className="flex-1 p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
                         />
                         <input
@@ -810,14 +818,14 @@ export default function Testimonials() {
                           title="Upload avatar photo"
                         >
                           <FaUpload size={11} />
-                          <span>{regUploading ? '...' : 'Upload'}</span>
+                          <span>{regUploading ? '...' : (t('testimonials.uploadBtn') || 'Upload')}</span>
                         </button>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Email Address *
+                        {t('testimonials.emailAddress') || 'Email Address *'}
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaEnvelope className="text-zinc-400 text-xs" />
@@ -826,14 +834,14 @@ export default function Testimonials() {
                           required
                           value={authEmail}
                           onChange={(e) => setAuthEmail(e.target.value)}
-                          placeholder="you@example.com"
+                          placeholder={t('testimonials.emailPlaceholder') || 'you@example.com'}
                           className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
                         />
                       </div>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        Create Password (min. 6 characters) *
+                        {t('testimonials.createPassword') || 'Create Password (min. 6 characters) *'}
                       </label>
                       <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                         <FaLock className="text-zinc-400 text-xs" />
@@ -853,7 +861,9 @@ export default function Testimonials() {
                       disabled={authLoading}
                       className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
                     >
-                      {authLoading ? 'Creating Account...' : 'Register & Continue to Review'}
+                      {authLoading
+                        ? (t('testimonials.creatingAccount') || 'Creating Account...')
+                        : (t('testimonials.registerBtn') || 'Register & Continue to Review')}
                     </button>
                   </form>
                 )}
