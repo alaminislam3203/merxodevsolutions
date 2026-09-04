@@ -79,6 +79,12 @@ export default function YouTubeShowcase() {
               modestbranding: 1,
               playsinline: 1,
               enablejsapi: 1,
+              iv_load_policy: 3,
+              autohide: 1,
+              controls: 1,
+              fs: 1,
+              cc_load_policy: 0,
+              showinfo: 0,
             },
             events: {
               onStateChange: (event) => {
@@ -229,11 +235,10 @@ export default function YouTubeShowcase() {
                     key={video.id}
                     type="button"
                     onClick={() => handleSelectVideo(idx)}
-                    className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${
-                      isActive
+                    className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
                         ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
                         : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
-                    }`}
+                      }`}
                   >
                     {/* Thumbnail with overlay icon */}
                     <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
@@ -244,18 +249,16 @@ export default function YouTubeShowcase() {
                         loading="lazy"
                       />
                       <div
-                        className={`absolute inset-0 flex items-center justify-center transition-colors ${
-                          isActive
+                        className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive
                             ? 'bg-red-600/40'
                             : 'bg-black/30 group-hover:bg-black/10'
-                        }`}
+                          }`}
                       >
                         <div
-                          className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${
-                            isActive
+                          className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
                               ? 'bg-red-600 text-white animate-pulse'
                               : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
-                          }`}
+                            }`}
                         >
                           <FaPlay size={10} className="ml-0.5" />
                         </div>
@@ -280,11 +283,10 @@ export default function YouTubeShowcase() {
                         )}
                       </div>
                       <h4
-                        className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${
-                          isActive
+                        className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
                             ? 'text-red-600 dark:text-red-400'
                             : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
-                        }`}
+                          }`}
                       >
                         {t(video.titleKey) || video.defaultTitle}
                       </h4>
@@ -312,7 +314,7 @@ export default function YouTubeShowcase() {
                 className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
               >
                 <FaYoutube size={14} />
-                <span>Visit @merxodevsolutions</span>
+                <span>Visit Youtube</span>
               </a>
             </div>
           </div>
