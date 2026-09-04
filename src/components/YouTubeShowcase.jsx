@@ -40,13 +40,41 @@ export default function YouTubeShowcase() {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
   const playerRef = useRef(null);
   const activeIndexRef = useRef(0);
+  const hoverTimeoutRef = useRef(null);
 
   // Keep activeIndexRef synced so YouTube callback always reads latest index
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  const handleUserActivity = useCallback(() => {
+    setIsHovered(true);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    // Auto hide after 1 second (1000ms)
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 1000);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsHovered(false);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const loadNextVideo = useCallback(() => {
     const nextIndex = (activeIndexRef.current + 1) % VIDEOS.length;
@@ -179,13 +207,19 @@ export default function YouTubeShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Main Video Viewport (8 Columns) */}
           <div className="lg:col-span-8 flex flex-col gap-4">
-            <div className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-black shadow-2xl shadow-zinc-900/30 group">
+            <div
+              onMouseMove={handleUserActivity}
+              onMouseEnter={handleUserActivity}
+              onMouseLeave={handleMouseLeave}
+              onTouchStart={handleUserActivity}
+              className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-black shadow-2xl shadow-zinc-900/30 group"
+            >
               {/* Responsive 16:9 Video Aspect Ratio */}
               <div className="relative w-full aspect-video">
                 <div id="youtube-player-iframe" className="w-full h-full" />
               </div>
 
-              {/* Status Bar Below Video Frame */}
+              {/* Status Bar Below Video Frame with 1-second Auto-fade on hover */}
               <div className="p-4 sm:p-5 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md border-t border-zinc-200/80 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-start sm:items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0 shadow-sm">
