@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllProjects, getProjectBySlug } from '@/app/lib/projects';
-import MobileAutoScrollMockup from '@/components/MobileAutoScrollMockup';
 
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -84,6 +83,91 @@ const accentMap = {
   },
 };
 
+// ─── Premium Browser Auto-Scroll Mockup Card ─────────────────────────────────
+
+function BrowserScrollCard({ image, title, slug, liveUrl, accent }) {
+  if (!image) return null;
+
+  return (
+    <div
+      className={`relative w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border transition-all duration-500 shadow-2xl flex flex-col bg-zinc-900/60 dark:bg-black/60 backdrop-blur-xl ${accent.border}`}
+      style={{
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.1)",
+      }}
+    >
+      {/* Browser Window Header */}
+      <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-3.5 bg-zinc-100 dark:bg-zinc-900/90 border-b border-zinc-200/80 dark:border-zinc-800 relative z-20">
+        {/* Window controls */}
+        <div className="flex items-center space-x-1.5 sm:space-x-2">
+          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-red-500/80 shadow-sm" />
+          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-yellow-500/80 shadow-sm" />
+          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-emerald-500/80 shadow-sm" />
+        </div>
+
+        {/* Address / Search Bar */}
+        <div className="flex-1 mx-3 sm:mx-6 max-w-sm sm:max-w-md">
+          <div className="w-full h-6 sm:h-7 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/80 border border-zinc-300/60 dark:border-zinc-700/60 flex items-center justify-center overflow-hidden px-3">
+            <span className="text-[10px] sm:text-[11px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight lowercase truncate">
+              merxodevsolutions.pro.bd/our-projects/{slug}
+            </span>
+          </div>
+        </div>
+
+        {/* External Link */}
+        {liveUrl ? (
+          <a
+            href={liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-400 hover:text-violet-500 dark:hover:text-violet-400 transition-colors cursor-pointer p-1"
+            title="Open Live Preview"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        ) : (
+          <div className="w-3.5 h-3.5" />
+        )}
+      </div>
+
+      {/* Vertical Scrolling Image Container */}
+      <div className="relative h-[360px] sm:h-[480px] md:h-[580px] overflow-hidden group/img bg-zinc-950">
+        {/* Subtle Loading Shimmer Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-pulse pointer-events-none z-10" />
+
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-auto absolute top-0 left-0 transition-transform duration-[7000ms] ease-in-out group-hover/img:translate-y-[calc(-100%+360px)] sm:group-hover/img:translate-y-[calc(-100%+480px)] md:group-hover/img:translate-y-[calc(-100%+580px)] will-change-transform"
+          referrerPolicy="no-referrer"
+          loading="eager"
+          decoding="async"
+        />
+
+        {/* Bottom indicator hint */}
+        <div className="absolute bottom-3 right-4 z-20 pointer-events-none opacity-80 group-hover/img:opacity-0 transition-opacity duration-300">
+          <span className="px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-black/70 text-zinc-300 border border-white/10 backdrop-blur-md">
+            Hover to scroll
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function ProjectDetailPage({ params }) {
   const { slug } = await params;
@@ -154,37 +238,15 @@ export default async function ProjectDetailPage({ params }) {
             </h1>
           </div>
 
-          {/* ── Showcase Gallery: 4 Mobile Mockups in 1 Line (Motorola Edge 50 Fusion device with Auto Vertical Scroll) ── */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-display">
-                  Motorola Edge 50 Fusion Experience • Live Screen Previews
-                </span>
-              </div>
-              <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 font-raleway hidden sm:inline-block">
-                Auto-scrolls smoothly • Hover to pause
-              </span>
-            </div>
-
-            {/* 4 in 1 Line Responsive Grid / Overflow-X container */}
-            <div className="w-full overflow-x-auto pb-4 pt-2 no-scrollbar">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 justify-items-center min-w-[560px] md:min-w-0">
-                {((images.mobile && images.mobile.length > 0)
-                  ? images.mobile.slice(0, 4)
-                  : [project.image, project.image, project.image, project.image].filter(Boolean)
-                ).map((src, i) => (
-                  <MobileAutoScrollMockup
-                    key={i}
-                    src={src}
-                    alt={`${project.title} Motorola Edge 50 Fusion Screen ${i + 1}`}
-                    accent={a}
-                    index={i}
-                  />
-                ))}
-              </div>
-            </div>
+          {/* ── Single Full-Width Browser Auto-Scroll Showcase Card ── */}
+          <div className="w-full">
+            <BrowserScrollCard
+              image={project.image}
+              title={project.title}
+              slug={project.slug}
+              liveUrl={project.liveUrl}
+              accent={a}
+            />
           </div>
 
           {/* Divider */}
