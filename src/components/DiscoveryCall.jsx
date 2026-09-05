@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import {
   FiCalendar,
@@ -16,13 +17,50 @@ import {
 import { FaWhatsapp } from 'react-icons/fa';
 import '@/components/i18n';
 
-const CALENDLY_LINK = 'https://calendly.com/merxodevsolutions/15min';
+// Official multi-color Google Meet icon
+function GoogleMeetIcon({ size = 20, className = '' }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      width={size}
+      height={size}
+      className={className}
+      aria-label="Google Meet"
+    >
+      <path fill="#ea4335" d="M166 106v90H76" />
+      <path fill="#ffba00" d="M166 106v90h120v62l90-73v-49q0-30-30-30" />
+      <path fill="#00ac47" d="M346 406q30 0 30-30V327l-90-71v60H164v90m212-77 42 34c9 7 18 7 18-7V156c0-14-9-14-18-7l-42 34" />
+      <path fill="#0066da" d="M76 314v62q0 30 30 30h60v-92" />
+      <path fill="#2684fc" d="M76 196h90v120H76" />
+      <path fill="#00832d" d="M286 256l90-73v146" />
+    </svg>
+  );
+}
+
+const GOOGLE_MEET_LINK = process.env.NEXT_PUBLIC_GOOGLE_MEET_LINK || 'https://meet.google.com/new';
 const WHATSAPP_LINK = 'https://wa.me/8801313334279?text=Hello%20MerxoDev%20Team,%20I%20would%20like%20to%20schedule%20a%2015-minute%20discovery%20call%20for%20my%20project.';
 
 export default function DiscoveryCall() {
   const { t, i18n } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
+  const [meetLink, setMeetLink] = useState(GOOGLE_MEET_LINK);
   const isBn = i18n.language === 'bn';
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch('/api/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && data?.googleMeetLink) {
+          setMeetLink(data.googleMeetLink);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const benefits = isBn
     ? [
@@ -93,8 +131,8 @@ export default function DiscoveryCall() {
                   onClick={() => setModalOpen(true)}
                   className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-sm sm:text-base shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer w-full sm:w-auto"
                 >
-                  <FiCalendar size={18} />
-                  <span>{isBn ? '১৫ মিনিটের কল শিডিউল করুন' : 'Book 15-Min Discovery Call'}</span>
+                  <GoogleMeetIcon size={20} className="shrink-0" />
+                  <span>{isBn ? '১৫ মিনিটের গুগল মিট বুক করুন' : 'Book 15-Min Google Meet'}</span>
                   <FiArrowRight size={16} />
                 </button>
 
@@ -114,8 +152,14 @@ export default function DiscoveryCall() {
             <div className="lg:col-span-5 flex flex-col gap-4">
               <div className="p-6 sm:p-7 rounded-2xl bg-zinc-50/80 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-zinc-700/80 space-y-5">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-500/20">
-                    MD
+                  <div className="w-14 h-14 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/80 p-2 flex items-center justify-center shadow-lg shadow-violet-500/10 shrink-0">
+                    <Image
+                      src="/favicon.png"
+                      alt="MerxoDev Solutions"
+                      width={44}
+                      height={44}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -138,8 +182,8 @@ export default function DiscoveryCall() {
                     <span>{isBn ? 'সময়কাল: ১৫ মিনিট দ্রুত আলোচনা' : 'Duration: 15 Minutes Quick Discovery'}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <FiVideo className="text-violet-600 dark:text-cyan-400 shrink-0" size={16} />
-                    <span>{isBn ? 'প্ল্যাটফর্ম: Google Meet / Zoom' : 'Location: Google Meet / Zoom video call'}</span>
+                    <GoogleMeetIcon size={18} className="shrink-0" />
+                    <span>{isBn ? 'প্ল্যাটফর্ম: Google Meet ভিডিও কল' : 'Location: Google Meet live video call'}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <FiShield className="text-emerald-500 shrink-0" size={16} />
@@ -158,19 +202,19 @@ export default function DiscoveryCall() {
         </div>
       </div>
 
-      {/* Booking Modal (Calendly / Direct Scheduler) */}
+      {/* Booking Modal (Google Meet / WhatsApp Direct) */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
           <div className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-2xl flex flex-col">
             {/* Modal Header */}
             <div className="p-5 sm:p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold">
-                  <FiCalendar size={20} />
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700/80 flex items-center justify-center shadow-sm">
+                  <GoogleMeetIcon size={22} />
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
-                    {isBn ? '১৫ মিনিটের ডিসকভারি কল শিডিউল করুন' : 'Schedule 15-Min Discovery Call'}
+                    {isBn ? '১৫ মিনিটের গুগল মিট কল শিডিউল করুন' : '15-Min Google Meet Discovery Call'}
                   </h3>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     MerxoDev Solutions Engineering Consultation
@@ -199,28 +243,33 @@ export default function DiscoveryCall() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Option 1: Calendly Google Meet */}
+                {/* Option 1: Direct Google Meet */}
                 <a
-                  href={CALENDLY_LINK}
+                  href={meetLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-5 rounded-2xl border-2 border-violet-500/40 hover:border-violet-500 bg-violet-50/40 dark:bg-violet-950/20 hover:bg-violet-50 dark:hover:bg-violet-950/40 transition-all flex flex-col justify-between gap-4 group cursor-pointer"
+                  className="p-5 rounded-2xl border-2 border-emerald-500/40 hover:border-emerald-500 bg-emerald-50/30 dark:bg-emerald-950/20 hover:bg-emerald-50/70 dark:hover:bg-emerald-950/40 transition-all flex flex-col justify-between gap-4 group cursor-pointer"
                 >
                   <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center">
-                      <FiCalendar size={20} />
+                    <div className="w-11 h-11 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-sm">
+                      <GoogleMeetIcon size={24} />
                     </div>
-                    <h4 className="text-base font-bold text-zinc-900 dark:text-white">
-                      Calendly Calendar
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-base font-bold text-zinc-900 dark:text-white">
+                        Google Meet
+                      </h4>
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300">
+                        {isBn ? 'লাইভ মিটিং' : 'Live Call'}
+                      </span>
+                    </div>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400">
                       {isBn
-                        ? 'ক্যালেন্ডারে আপনার সুবিধাজনক তারিখ ও সময় বেছে নিন।'
-                        : 'Pick your exact preferred date and time slot from our live calendar.'}
+                        ? 'গুগল মিটে সরাসরি আমাদের লিড ইঞ্জিনিয়ারের সাথে লাইভ ভিডিও কলে যুক্ত হোন।'
+                        : 'Join an instant 1-on-1 Google Meet video call with our senior tech team.'}
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-600 dark:text-violet-400 group-hover:translate-x-1 transition-transform">
-                    {isBn ? 'ক্যালেন্ডার খুলুন' : 'Open Calendar'} →
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                    {isBn ? 'গুগল মিট শুরু করুন' : 'Join Google Meet'} →
                   </span>
                 </a>
 

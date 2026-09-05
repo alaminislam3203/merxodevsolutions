@@ -76,6 +76,28 @@ export default function ContentPage() {
     setDeleting(null);
   };
 
+  const handleSaveMeet = async () => {
+    setSaving("google_meet_link");
+    const val = editValues["google_meet_link"] || "https://meet.google.com/new";
+    const res = await fetch("/api/admin/content", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        key: "google_meet_link",
+        title: "Google Meet Link",
+        value: val,
+        section: "general",
+      }),
+    });
+    if (res.ok) {
+      showToast("Google Meet Link updated successfully!");
+      fetchContent();
+    } else {
+      showToast("Save failed.", "error");
+    }
+    setSaving(null);
+  };
+
   const filtered = filter === "all" ? blocks : blocks.filter(b => b.section === filter);
 
   return (
@@ -84,8 +106,8 @@ export default function ContentPage() {
 
       <div className="admin-page-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
         <div>
-          <h1 className="admin-page-title">Content</h1>
-          <p className="admin-page-subtitle">Edit website texts and content blocks</p>
+          <h1 className="admin-page-title">Content & Settings</h1>
+          <p className="admin-page-subtitle">Edit website texts, links, and content blocks</p>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={() => setShowAddModal(true)}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -93,6 +115,117 @@ export default function ContentPage() {
           </svg>
           Add Block
         </button>
+      </div>
+
+      {/* Dedicated Quick Manager: Google Meet Link */}
+      <div
+        style={{
+          marginBottom: 26,
+          padding: "20px 24px",
+          borderRadius: 18,
+          background: "linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)",
+          border: "1px solid rgba(16, 185, 129, 0.25)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+          boxShadow: "0 4px 20px -2px rgba(0,0,0,0.15)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 14,
+                background: "rgba(255, 255, 255, 0.95)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+                flexShrink: 0,
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+                <path fill="#ea4335" d="M166 106v90H76" />
+                <path fill="#ffba00" d="M166 106v90h120v62l90-73v-49q0-30-30-30" />
+                <path fill="#00ac47" d="M346 406q30 0 30-30V327l-90-71v60H164v90m212-77 42 34c9 7 18 7 18-7V156c0-14-9-14-18-7l-42 34" />
+                <path fill="#0066da" d="M76 314v62q0 30 30 30h60v-92" />
+                <path fill="#2684fc" d="M76 196h90v120H76" />
+                <path fill="#00832d" d="M286 256l90-73v146" />
+              </svg>
+            </div>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <h2 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: "#fff" }}>
+                  Google Meet Link (Discovery Call)
+                </h2>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "3px 10px",
+                    borderRadius: 20,
+                    background: "rgba(16, 185, 129, 0.2)",
+                    color: "#10b981",
+                    border: "1px solid rgba(16, 185, 129, 0.4)",
+                  }}
+                >
+                  Live on Website
+                </span>
+              </div>
+              <p style={{ margin: "4px 0 0", fontSize: 13, color: "#94a3b8" }}>
+                This link opens when visitors click &quot;Book 15-Min Google Meet&quot; on the website.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {editValues["google_meet_link"] && (
+              <a
+                href={editValues["google_meet_link"]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="admin-btn admin-btn-secondary"
+                style={{ padding: "8px 16px", fontSize: 13, textDecoration: "none" }}
+              >
+                Test Link ↗
+              </a>
+            )}
+            <button
+              className="admin-btn admin-btn-primary"
+              style={{
+                padding: "8px 18px",
+                fontSize: 13,
+                fontWeight: 600,
+                background: "linear-gradient(135deg, #10b981, #059669)",
+                borderColor: "#10b981",
+              }}
+              onClick={handleSaveMeet}
+              disabled={saving === "google_meet_link"}
+            >
+              {saving === "google_meet_link" ? (
+                <>
+                  <div className="admin-spinner-btn"></div> Saving...
+                </>
+              ) : (
+                "Save Meet Link"
+              )}
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <input
+            className="admin-input"
+            style={{ fontSize: 14, fontFamily: "monospace", padding: "10px 14px" }}
+            placeholder="https://meet.google.com/xxx-yyyy-zzz or https://meet.google.com/new"
+            value={editValues["google_meet_link"] ?? "https://meet.google.com/new"}
+            onChange={(e) =>
+              setEditValues((v) => ({ ...v, google_meet_link: e.target.value }))
+            }
+          />
+        </div>
       </div>
 
       {/* Section Filter */}

@@ -7,6 +7,24 @@ export async function GET() {
   const session = await auth();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  try {
+    const existingMeet = await prisma.contentBlock.findUnique({
+      where: { key: "google_meet_link" },
+    });
+    if (!existingMeet) {
+      await prisma.contentBlock.create({
+        data: {
+          key: "google_meet_link",
+          title: "Google Meet Link",
+          value: process.env.NEXT_PUBLIC_GOOGLE_MEET_LINK || "https://meet.google.com/new",
+          section: "general",
+        },
+      }).catch(() => {});
+    }
+  } catch (err) {
+    // Non-blocking if table is being read
+  }
+
   const content = await prisma.contentBlock.findMany({
     orderBy: [{ section: "asc" }, { key: "asc" }],
   });
