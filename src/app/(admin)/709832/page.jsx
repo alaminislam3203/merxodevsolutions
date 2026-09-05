@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
@@ -204,23 +205,93 @@ function LoginView() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-    if (result?.error) {
-      setError("Invalid email or password.");
+
+    if (!email.trim()) {
+      toast.error("Please enter your email address.", { id: "login-val-email" });
+      setError("Email address is required.");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Please enter your password.", { id: "login-val-pass" });
+      setError("Password is required.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const result = await signIn("credentials", {
+        email: email.trim(),
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        toast.error("Invalid email or password. Access denied.", {
+          id: "login-auth-error",
+          icon: "🔒",
+        });
+        setError("Invalid email or password. Please verify credentials.");
+        setLoading(false);
+      } else {
+        toast.success("Authentication verified! Redirecting...", {
+          id: "login-auth-success",
+        });
+        router.refresh();
+      }
+    } catch (err) {
+      toast.error("A network or server error occurred. Please try again.", {
+        id: "login-catch-error",
+      });
+      setError("Failed to connect to authentication server.");
       setLoading(false);
-    } else {
-      router.refresh();
     }
   };
 
   return (
     <div className="login-screen">
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#0f172a",
+            color: "#f8fafc",
+            border: "1px solid rgba(255, 255, 255, 0.12)",
+            borderRadius: "14px",
+            fontSize: "13px",
+            fontWeight: "500",
+            padding: "12px 18px",
+            boxShadow: "0 20px 30px -10px rgba(0,0,0,0.6), 0 0 15px rgba(99, 102, 241, 0.2)",
+          },
+          error: {
+            style: {
+              border: "1px solid rgba(239, 68, 68, 0.35)",
+              background: "linear-gradient(135deg, #1c111c 0%, #0f172a 100%)",
+              color: "#fca5a5",
+            },
+            iconTheme: {
+              primary: "#ef4444",
+              secondary: "#ffffff",
+            },
+          },
+          success: {
+            style: {
+              border: "1px solid rgba(16, 185, 129, 0.35)",
+              background: "linear-gradient(135deg, #0c2018 0%, #0f172a 100%)",
+              color: "#6ee7b7",
+            },
+            iconTheme: {
+              primary: "#10b981",
+              secondary: "#ffffff",
+            },
+          },
+        }}
+      />
+
       <div className="orb orb-1"></div>
       <div className="orb orb-2"></div>
       <div className="orb orb-3"></div>
@@ -303,10 +374,19 @@ function LoginView() {
             </div>
           </div>
 
-          {error && <div className="login-error">{error}</div>}
+          {error && (
+            <div className="error-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span>{error}</span>
+            </div>
+          )}
 
           <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? <div className="spinner"></div> : "Sign In"}
+            {loading ? <div className="spinner-sm"></div> : "Sign In"}
           </button>
         </form>
       </div>
