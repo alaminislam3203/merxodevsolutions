@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
@@ -63,11 +64,21 @@ const accentMap = {
 
 // ─── Project Card ──────────────────────────────────────────────────────────────
 function ProjectCard({ project, index, visible }) {
-  const a = accentMap[project.accent];
+  const router = useRouter();
+  const a = accentMap[project.accent] || accentMap.violet;
+
+  const handleCardClick = (e) => {
+    // If clicked on an explicit interactive link/button, let that event proceed
+    if (e.target.closest('a') || e.target.closest('button')) {
+      return;
+    }
+    router.push(`/our-projects/${project.slug}`);
+  };
 
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      onClick={handleCardClick}
+      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-700 cursor-pointer ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       style={{ transitionDelay: `${index * 120}ms` }}
     >
@@ -78,7 +89,10 @@ function ProjectCard({ project, index, visible }) {
       />
 
       {/* Project Image */}
-      <div className="relative w-full h-44 overflow-hidden  dark:bg-zinc-800 shrink-0">
+      <Link
+        href={`/our-projects/${project.slug}`}
+        className="block relative w-full h-44 overflow-hidden dark:bg-zinc-800 shrink-0 cursor-pointer"
+      >
         <Image
           src={project.image}
           alt={`${project.title} screenshot`}
@@ -95,13 +109,18 @@ function ProjectCard({ project, index, visible }) {
             {project.tag}
           </span>
         </div>
-      </div>
+      </Link>
 
       <div className="relative z-10 flex flex-col flex-1 p-5 gap-3">
         {/* Title */}
-        <h3 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
-          {project.title}
-        </h3>
+        <Link
+          href={`/our-projects/${project.slug}`}
+          className="cursor-pointer group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors"
+        >
+          <h3 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
+            {project.title}
+          </h3>
+        </Link>
 
         {/* Description */}
         <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway flex-1">
@@ -135,31 +154,34 @@ function ProjectCard({ project, index, visible }) {
           </Link>
 
           {/* View Live */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`View live project: ${project.title}`}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
-          >
-            View Live
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`View live project: ${project.title}`}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
-          </a>
+              View Live
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          )}
         </div>
       </div>
     </article>

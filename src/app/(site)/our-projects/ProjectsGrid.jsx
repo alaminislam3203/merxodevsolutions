@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
@@ -50,13 +51,23 @@ const accentMap = {
 
 // ─── Project Card ─────────────────────────────────────────────────────────────
 function ProjectCard({ project, index, visible }) {
+  const router = useRouter();
   const a = accentMap[project.accent] || accentMap.violet;
   const details = project.details || {};
   const tech = details.tech || [];
 
+  const handleCardClick = (e) => {
+    // If clicked on an interactive link/button inside, allow that to handle
+    if (e.target.closest('a') || e.target.closest('button')) {
+      return;
+    }
+    router.push(`/our-projects/${project.slug}`);
+  };
+
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 overflow-hidden transition-all duration-700 ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      onClick={handleCardClick}
+      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 overflow-hidden transition-all duration-700 cursor-pointer ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
@@ -64,7 +75,10 @@ function ProjectCard({ project, index, visible }) {
       <div className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${a.glow} pointer-events-none z-10`} aria-hidden />
 
       {/* Image */}
-      <div className="relative w-full h-44 overflow-hidden bg-zinc-100 dark:bg-zinc-800 shrink-0">
+      <Link
+        href={`/our-projects/${project.slug}`}
+        className="block relative w-full h-44 overflow-hidden bg-zinc-100 dark:bg-zinc-800 shrink-0 cursor-pointer"
+      >
         {project.image ? (
           <Image
             src={project.image}
@@ -86,12 +100,17 @@ function ProjectCard({ project, index, visible }) {
             {project.tag}
           </span>
         </div>
-      </div>
+      </Link>
 
       <div className="relative z-10 flex flex-col flex-1 p-5 gap-3">
-        <h2 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
-          {project.title}
-        </h2>
+        <Link
+          href={`/our-projects/${project.slug}`}
+          className="cursor-pointer group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors"
+        >
+          <h2 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
+            {project.title}
+          </h2>
+        </Link>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway flex-1 line-clamp-3">
           {project.description}
         </p>
@@ -124,6 +143,7 @@ function ProjectCard({ project, index, visible }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               aria-label={`View live project: ${project.title}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >

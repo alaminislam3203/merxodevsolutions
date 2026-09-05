@@ -164,13 +164,13 @@ export default async function ProjectDetailPage({ params }) {
         }}
       />
 
-      <main className="min-h-screen pb-24 mt-20">
+      <main className="min-h-screen pb-24 pt-28 sm:pt-36">
         <div className="max-w-6xl mx-auto px-6 flex flex-col gap-10">
           {/* ── Back button ── */}
-          <div>
+          <div className="pt-2 sm:pt-4">
             <Link
               href="/our-projects"
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold font-raleway uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 ${a.border} ${a.back}`}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold font-raleway uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow hover:-translate-x-0.5 ${a.border} ${a.back}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
