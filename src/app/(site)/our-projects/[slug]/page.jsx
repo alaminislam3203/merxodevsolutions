@@ -201,7 +201,7 @@ export default async function ProjectDetailPage({ params }) {
       />
 
       <main className="min-h-screen pb-24 pt-28 sm:pt-36">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-10">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-4">
           {/* ── Back button ── */}
           <div className="pt-2 sm:pt-4">
             <Link

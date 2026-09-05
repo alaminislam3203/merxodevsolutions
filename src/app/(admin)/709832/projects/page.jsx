@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers, FiPlus, FiTrash2, FiList, FiCheck } from "react-icons/fi";
+import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers, FiPlus, FiTrash2, FiList, FiCheck, FiEye, FiExternalLink } from "react-icons/fi";
 import { showToast } from "@/lib/toast";
 
 const DEFAULT_TAGS = ["E-Commerce", "SaaS", "Portfolio", "Healthcare", "EdTech", "Mobile App", "Web App", "Other"];
@@ -619,6 +619,17 @@ export default function ProjectsPage() {
                   )}
                 </div>
                 <div className="project-row-actions">
+                  <a
+                    href={`/our-projects/${p.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="admin-btn admin-btn-secondary"
+                    style={{ padding: "8px 12px", textDecoration: "none", color: "#a5b4fc", borderColor: "rgba(99, 102, 241, 0.25)" }}
+                    title="View project details page & auto-scroll mockup"
+                  >
+                    <FiEye size={14} />
+                    Preview
+                  </a>
                   {p.liveUrl && (
                     <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="admin-btn admin-btn-secondary" style={{padding:"8px 12px", textDecoration:"none"}}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -743,7 +754,7 @@ export default function ProjectsPage() {
               {/* Section: Images */}
               <div className="modal-section-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                  <FiLayers size={14} /> Images & Screenshots
+                  <FiLayers size={14} /> Images & Showcase Mockup
                 </span>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: "#818cf8" }}>
                   <FiInfo size={13} /> Recommended Size Guide
@@ -767,23 +778,23 @@ export default function ProjectsPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                     <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(99, 102, 241, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#818cf8" }}>
-                      <FiImage size={13} />
+                      <FiMonitor size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#818cf8" }}>Cover Image</span>
+                    <span style={{ fontWeight: 700, color: "#818cf8" }}>Showcase Mockup</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1200 × 675 px (16:9)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>কার্ড ও পোর্টফোলিও থাম্বনেইলের সেরা সাইজ</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1440px wide (Full Page)</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>ডিটেইলস পেজে হোভার করলে স্মুথলি অটো-স্ক্রল হবে</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                     <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(6, 182, 212, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#38bdf8" }}>
-                      <FiMonitor size={13} />
+                      <FiImage size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#38bdf8" }}>Desktop Shots</span>
+                    <span style={{ fontWeight: 700, color: "#38bdf8" }}>Grid Thumbnail</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1440 × 900 px (16:10)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 1920 × 1080 px (ল্যাপটপ স্ক্রিন ভিউ)</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1200 × 675 px (16:9)</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>হোমপেজ ও পোর্টফোলিও কার্ডের থাম্বনেইল</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -791,38 +802,44 @@ export default function ProjectsPage() {
                     <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(16, 185, 129, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#34d399" }}>
                       <FiSmartphone size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#34d399" }}>Mobile Shots</span>
+                    <span style={{ fontWeight: 700, color: "#34d399" }}>Extra Screenshots</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>390 × 844 px (Portrait)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 375 × 812 px (মোবাইল ফ্রেম ভিউ)</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>Desktop & Mobile</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>অতিরিক্ত গ্যালারি স্ক্রিনশট (যদি প্রয়োজন হয়)</span>
                 </div>
               </div>
 
               <ImageUploadField
-                label="Cover Image"
-                sizeNote="1200 × 675 px (16:9)"
-                hint="Used as the main thumbnail in portfolio grids & project banner"
+                label="Main Project Showcase & Cover Image (Auto-Scroll Preview) *"
+                sizeNote="1440px width (Full-page web screenshot for auto-scroll) or 1200 × 675 px"
+                hint="Used for the interactive auto-scrolling browser mockup on details page & main card thumbnail"
                 value={form.image}
                 onChange={val => setForm(f => ({ ...f, image: val }))}
-                placeholder="https://res.cloudinary.com/... (16:9 Aspect Ratio)"
+                placeholder="https://res.cloudinary.com/... (1440px width or 16:9)"
               />
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                <MultiImageUploadField
-                  label="Desktop Screenshots"
-                  sizeNote="1440 × 900 px"
-                  hint="Laptop browser mockups"
-                  value={form.desktopImages}
-                  onChange={val => setForm(f => ({ ...f, desktopImages: val }))}
-                  placeholder={"https://...\nhttps://..."}
-                />
-                <MultiImageUploadField
-                  label="Mobile Screenshots"
-                  sizeNote="390 × 844 px"
-                  hint="Mobile portrait mockups"
-                  value={form.mobileImages}
-                  onChange={val => setForm(f => ({ ...f, mobileImages: val }))}
-                  placeholder={"https://...\nhttps://..."}
-                />
+
+              <div style={{ marginTop: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+                  <span>Additional Screenshots (Optional Gallery)</span>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <MultiImageUploadField
+                    label="Desktop Screenshots"
+                    sizeNote="1440 × 900 px"
+                    hint="Extra laptop mockups (optional)"
+                    value={form.desktopImages}
+                    onChange={val => setForm(f => ({ ...f, desktopImages: val }))}
+                    placeholder={"https://...\nhttps://..."}
+                  />
+                  <MultiImageUploadField
+                    label="Mobile Screenshots"
+                    sizeNote="390 × 844 px"
+                    hint="Extra mobile mockups (optional)"
+                    value={form.mobileImages}
+                    onChange={val => setForm(f => ({ ...f, mobileImages: val }))}
+                    placeholder={"https://...\nhttps://..."}
+                  />
+                </div>
               </div>
 
               {/* Section: Links */}
