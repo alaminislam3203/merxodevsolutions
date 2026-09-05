@@ -123,11 +123,19 @@ const INITIAL_PROJECTS = [
   },
 ];
 
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
+
 // POST /api/admin/seed-projects
 export async function POST(request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateCheck = checkRateLimit(`seed-projects:${clientIp}`, { limit: 3, windowMs: 15 * 60 * 1000 });
+    if (!rateCheck.success) {
+      return NextResponse.json({ error: "Too many attempts. Locked for 15 minutes." }, { status: 429 });
+    }
+
     const { secretKey } = await request.json();
-    if (secretKey !== process.env.SEED_SECRET_KEY) {
+    if (!process.env.SEED_SECRET_KEY || secretKey !== process.env.SEED_SECRET_KEY) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

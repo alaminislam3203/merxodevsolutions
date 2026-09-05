@@ -31,9 +31,20 @@ export async function GET() {
   }
 }
 
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+
 // POST: User submits a review (Requires Login, Pending Approval)
 export async function POST(request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateCheck = checkRateLimit(`review:${clientIp}`, { limit: 5, windowMs: 10 * 60 * 1000 });
+    if (!rateCheck.success) {
+      return NextResponse.json(
+        { error: 'Too many review submissions. Please wait a few minutes before trying again.' },
+        { status: 429, headers: { 'Retry-After': String(rateCheck.retryAfter) } }
+      );
+    }
+
     const session = await auth();
 
     if (!session || !session.user) {
@@ -48,6 +59,13 @@ export async function POST(request) {
     if (!comment || typeof comment !== 'string' || comment.trim().length < 5) {
       return NextResponse.json(
         { error: 'Review comment must be at least 5 characters long.' },
+        { status: 400 }
+      );
+    }
+
+    if (comment.length > 1000) {
+      return NextResponse.json(
+        { error: 'Review comment must not exceed 1000 characters.' },
         { status: 400 }
       );
     }

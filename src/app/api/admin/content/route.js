@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 
 // GET /api/admin/content
 export async function GET() {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const existingMeet = await prisma.contentBlock.findUnique({
@@ -33,8 +33,8 @@ export async function GET() {
 
 // PUT /api/admin/content - Update a content block by key
 export async function PUT(request) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const { id, key, title, value, section } = await request.json();
@@ -53,8 +53,8 @@ export async function PUT(request) {
 
 // POST /api/admin/content - Create new content block
 export async function POST(request) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const { key, title, value, section } = await request.json();
@@ -70,8 +70,8 @@ export async function POST(request) {
 
 // DELETE /api/admin/content?key=xxx
 export async function DELETE(request) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const { searchParams } = new URL(request.url);

@@ -77,15 +77,47 @@ async function dispatchEmail({ to, subject, html, text, replyTo }) {
   }
 }
 
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+
 export async function POST(req) {
   try {
-    const { name, email, phone, service, budget, message } = await req.json();
+    // 1. IP Rate Limiting (Max 4 inquiries per minute per IP)
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`contact:${clientIp}`, { limit: 4, windowMs: 60 * 1000 });
+    if (!rateCheck.success) {
+      return Response.json(
+        { error: 'Too many inquiries. Please wait a minute before trying again.' },
+        { status: 429, headers: { 'Retry-After': String(rateCheck.retryAfter) } }
+      );
+    }
 
+    const body = await req.json();
+    const { name, email, phone, service, budget, message, honeypot } = body;
+
+    // 2. Honeypot bot protection (if filled, bot triggered)
+    if (honeypot) {
+      return Response.json({ success: true, message: 'Inquiry received' });
+    }
+
+    // 3. Strict Input Validation
     if (!name || !email || !message) {
       return Response.json(
         { error: 'Required fields missing' },
         { status: 400 },
       );
+    }
+
+    if (typeof name !== 'string' || name.trim().length > 100) {
+      return Response.json({ error: 'Name is too long or invalid' }, { status: 400 });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof email !== 'string' || email.length > 120 || !emailRegex.test(email)) {
+      return Response.json({ error: 'Invalid email address' }, { status: 400 });
+    }
+
+    if (typeof message !== 'string' || message.trim().length > 3000) {
+      return Response.json({ error: 'Message exceeds allowed character limit' }, { status: 400 });
     }
 
     const now = new Date();

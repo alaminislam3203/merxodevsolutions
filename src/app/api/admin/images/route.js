@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 import { uploadImage } from "@/lib/cloudinary";
 
 // GET /api/admin/images
 export async function GET() {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   const images = await prisma.mediaFile.findMany({
     orderBy: { uploadedAt: "desc" },
@@ -16,8 +16,8 @@ export async function GET() {
 
 // POST /api/admin/images - Upload image
 export async function POST(request) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const body = await request.json();

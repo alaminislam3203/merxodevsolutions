@@ -57,6 +57,7 @@ export default function ContactPage() {
     service: 'Website Development',
     budget: '$500 – $1,500',
     message: '',
+    honeypot: '',
   });
   const [status, setStatus] = useState('idle');
   const [errors, setErrors] = useState({});
@@ -376,6 +377,18 @@ export default function ContactPage() {
               </div>
 
               <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                {/* Honeypot Bot Trap (Invisible to humans, traps automated spam scripts) */}
+                <input
+                  type="text"
+                  name="honeypot"
+                  value={form.honeypot}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ display: 'none', position: 'absolute', left: '-9999px' }}
+                  aria-hidden="true"
+                />
+
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name */}

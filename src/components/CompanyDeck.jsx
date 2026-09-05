@@ -27,7 +27,7 @@ export default function CompanyDeck() {
   return (
     <section
       id="company-profile"
-      className="py-16 sm:py-24 relative overflow-hidden bg-zinc-50/60 dark:bg-zinc-950/40"
+      className="py-16 sm:py-24 relative overflow-hidden"
       aria-label="Company Profile and Portfolio Deck"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

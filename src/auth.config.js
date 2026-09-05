@@ -14,12 +14,13 @@ const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const isAdmin = auth?.user?.role === "ADMIN";
       const isSecretAdminArea = nextUrl.pathname.startsWith("/709832");
       const isLoginRoot = nextUrl.pathname === "/709832";
 
-      // If accessing secret admin subpaths without being logged in, require auth
+      // If accessing secret admin subpaths without being logged in as ADMIN, deny access
       if (isSecretAdminArea && !isLoginRoot) {
-        return isLoggedIn;
+        return isLoggedIn && isAdmin;
       }
       return true;
     },

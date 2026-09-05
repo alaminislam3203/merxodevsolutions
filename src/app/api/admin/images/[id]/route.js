@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 import { deleteImage } from "@/lib/cloudinary";
 
 // DELETE /api/admin/images/[id]
 export async function DELETE(request, { params }) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const { id } = await params;
@@ -26,8 +26,8 @@ export async function DELETE(request, { params }) {
 
 // PUT /api/admin/images/[id] - Update alt text / caption
 export async function PUT(request, { params }) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { authorized, response } = await requireAdmin();
+  if (!authorized) return response;
 
   try {
     const { id } = await params;

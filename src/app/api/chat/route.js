@@ -446,11 +446,27 @@ const FALLBACKS = {
   }
 };
 
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+
 export async function POST(request) {
   try {
+    // Rate Limiting (Max 30 requests per minute per IP)
+    const clientIp = getClientIp(request);
+    const rateCheck = checkRateLimit(`chat:${clientIp}`, { limit: 30, windowMs: 60 * 1000 });
+    if (!rateCheck.success) {
+      return NextResponse.json(
+        { error: 'Too many messages. Please wait a moment before sending another message.' },
+        { status: 429, headers: { 'Retry-After': String(rateCheck.retryAfter) } }
+      );
+    }
+
     const { message } = await request.json();
     if (!message || typeof message !== 'string') {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
+    }
+
+    if (message.length > 1000) {
+      return NextResponse.json({ error: 'Message is too long (maximum 1000 characters)' }, { status: 400 });
     }
 
     const trimmed = message.trim();

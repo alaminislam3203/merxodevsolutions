@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/auth';
+import { requireAdmin } from '@/lib/adminAuth';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 
 // GET: Fetch all reviews for admin panel
 export async function GET(request) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { authorized, response } = await requireAdmin();
+    if (!authorized) return response;
 
     // Auto-seed default reviews if the table is empty so admin can manage them immediately
     const totalCount = await prisma.review.count();
@@ -61,10 +59,8 @@ export async function GET(request) {
 // POST: Admin manually creates a review
 export async function POST(request) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { authorized, response } = await requireAdmin();
+    if (!authorized) return response;
 
     const body = await request.json();
     const { userName, userRole, userImage, company, location, tag, rating, comment, isApproved, isFeatured } = body;

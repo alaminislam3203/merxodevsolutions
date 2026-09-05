@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/auth';
+import { requireAdmin } from '@/lib/adminAuth';
 
 // PATCH: Approve, Reject, Feature, or Edit a review
 export async function PATCH(request, { params }) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { authorized, response } = await requireAdmin();
+    if (!authorized) return response;
 
     const { id } = await params;
     const body = await request.json();
@@ -51,10 +49,8 @@ export async function PATCH(request, { params }) {
 // DELETE: Delete a review by ID
 export async function DELETE(request, { params }) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { authorized, response } = await requireAdmin();
+    if (!authorized) return response;
 
     const { id } = await params;
 

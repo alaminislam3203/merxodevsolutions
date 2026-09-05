@@ -316,7 +316,7 @@ function LoginView() {
 
 // ─── Main Controller Page ─────────────────────────────────────────
 export default function AdminPage() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
   if (status === "loading") {
     return (
@@ -334,6 +334,15 @@ export default function AdminPage() {
   }
 
   if (status === "authenticated") {
+    if (session?.user?.role !== "ADMIN") {
+      return (
+        <div style={{ textAlign: "center", padding: "80px 20px" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "12px", color: "#ef4444" }}>Access Denied</h2>
+          <p style={{ color: "#9ca3af", marginBottom: "20px" }}>You do not have administrative privileges to access this area.</p>
+          <a href="/" style={{ padding: "10px 20px", background: "#6366f1", color: "#fff", borderRadius: "8px", textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>Return to Home</a>
+        </div>
+      );
+    }
     return <DashboardView />;
   }
 
