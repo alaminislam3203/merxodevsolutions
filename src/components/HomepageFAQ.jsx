@@ -79,7 +79,7 @@ export default function HomepageFAQ() {
   return (
     <section
       id="faq"
-      className="py-20 sm:py-28 relative overflow-hidden bg-white dark:bg-zinc-950"
+      className="py-20 sm:py-28 relative overflow-hidden"
       aria-labelledby="faq-heading"
       itemScope
       itemType="https://schema.org/FAQPage"
@@ -129,11 +129,10 @@ export default function HomepageFAQ() {
             return (
               <div
                 key={item.id}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                  isOpen
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen
                     ? 'border-violet-500/60 dark:border-violet-600/70 bg-violet-50/20 dark:bg-zinc-900 shadow-md shadow-violet-500/5'
                     : 'border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:border-zinc-300 dark:hover:border-zinc-700'
-                }`}
+                  }`}
                 itemScope
                 itemProp="mainEntity"
                 itemType="https://schema.org/Question"
@@ -146,20 +145,18 @@ export default function HomepageFAQ() {
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold transition-colors ${
-                        isOpen
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold transition-colors ${isOpen
                           ? 'bg-violet-600 text-white'
                           : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-400'
-                      }`}
+                        }`}
                     >
                       {String(idx + 1).padStart(2, '0')}
                     </div>
                     <h3
-                      className={`text-sm sm:text-base font-bold transition-colors ${
-                        isOpen
+                      className={`text-sm sm:text-base font-bold transition-colors ${isOpen
                           ? 'text-violet-700 dark:text-violet-400'
                           : 'text-zinc-900 dark:text-zinc-100'
-                      }`}
+                        }`}
                       itemProp="name"
                     >
                       {question}
@@ -167,11 +164,10 @@ export default function HomepageFAQ() {
                   </div>
 
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
-                      isOpen
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${isOpen
                         ? 'bg-violet-600 text-white border-violet-600 rotate-180'
                         : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 rotate-0'
-                    }`}
+                      }`}
                   >
                     <FiChevronDown size={17} />
                   </div>
@@ -179,9 +175,8 @@ export default function HomepageFAQ() {
 
                 {/* Animated Answer Body */}
                 <div
-                  className={`grid transition-all duration-300 ease-in-out ${
-                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                  }`}
+                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                    }`}
                   itemScope
                   itemProp="acceptedAnswer"
                   itemType="https://schema.org/Answer"

@@ -56,7 +56,7 @@ export default function DiscoveryCall() {
           setMeetLink(data.googleMeetLink);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
     return () => {
       isMounted = false;
     };
@@ -64,22 +64,22 @@ export default function DiscoveryCall() {
 
   const benefits = isBn
     ? [
-        '১০০% ফ্রি কনসালটেশন — কোনো লুকানো চার্জ বা সেলস প্রেসার নেই',
-        'আপনার ধারণার টেকনিক্যাল ফিজিবিলিটি ও আর্কিটেকচার বিশ্লেষণ',
-        'সঠিক বাজেট প্ল্যান ও দ্রুততম ডেলিভারি টাইমলাইন নির্ধারণ',
-        'সরাসরি লিড ইঞ্জিনিয়ার ও ইউআই/ইউএক্স এক্সপার্টের সাথে আলোচনা',
-      ]
+      '১০০% ফ্রি কনসালটেশন — কোনো লুকানো চার্জ বা সেলস প্রেসার নেই',
+      'আপনার ধারণার টেকনিক্যাল ফিজিবিলিটি ও আর্কিটেকচার বিশ্লেষণ',
+      'সঠিক বাজেট প্ল্যান ও দ্রুততম ডেলিভারি টাইমলাইন নির্ধারণ',
+      'সরাসরি লিড ইঞ্জিনিয়ার ও ইউআই/ইউএক্স এক্সপার্টের সাথে আলোচনা',
+    ]
     : [
-        '100% Free Consultation — zero sales pressure, pure technical insight',
-        'In-depth technical feasibility, stack recommendation & architecture plan',
-        'Transparent budget estimation & fastest delivery roadmap',
-        'Direct 1-on-1 talk with lead full-stack engineers & UI/UX designers',
-      ];
+      '100% Free Consultation — zero sales pressure, pure technical insight',
+      'In-depth technical feasibility, stack recommendation & architecture plan',
+      'Transparent budget estimation & fastest delivery roadmap',
+      'Direct 1-on-1 talk with lead full-stack engineers & UI/UX designers',
+    ];
 
   return (
     <section
       id="discovery-call"
-      className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-zinc-50 via-white to-zinc-50 dark:from-zinc-950 dark:via-zinc-900/60 dark:to-zinc-950"
+      className="relative py-20 sm:py-28 overflow-hidden"
       aria-label="Book a 15-Minute Discovery Call"
     >
       {/* Ambient background glowing orbs */}
@@ -87,7 +87,7 @@ export default function DiscoveryCall() {
       <div className="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-zinc-200/90 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl shadow-2xl shadow-violet-500/5">
+        <div className="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-zinc-200/90 dark:border-zinc-800 backdrop-blur-xl">
           {/* Subtle gradient pattern header bar */}
           <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500" />
 

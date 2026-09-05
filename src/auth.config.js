@@ -14,14 +14,12 @@ const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isAdminPage = nextUrl.pathname.startsWith("/admin");
-      const isLoginPage = nextUrl.pathname === "/709832";
+      const isSecretAdminArea = nextUrl.pathname.startsWith("/709832");
+      const isLoginRoot = nextUrl.pathname === "/709832";
 
-      if (isAdminPage) {
+      // If accessing secret admin subpaths without being logged in, require auth
+      if (isSecretAdminArea && !isLoginRoot) {
         return isLoggedIn;
-      }
-      if (isLoginPage && isLoggedIn) {
-        return Response.redirect(new URL("/admin", nextUrl));
       }
       return true;
     },
