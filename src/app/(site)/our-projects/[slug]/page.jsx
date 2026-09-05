@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllProjects, getProjectBySlug } from '@/app/lib/projects';
+import MobileAutoScrollMockup from '@/components/MobileAutoScrollMockup';
 
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -83,55 +84,6 @@ const accentMap = {
   },
 };
 
-// ─── Mobile mockup card ─────────────────────────────────────────────────────
-
-function MobileMockup({ src, alt }) {
-  if (!src) return null;
-  return (
-    <div className="relative w-28 sm:w-36 shrink-0">
-      <div className="relative aspect-[9/19] rounded-[1.75rem] bg-zinc-900 dark:bg-zinc-100 p-[2px] shadow-xl shadow-zinc-900/10 dark:shadow-black/40">
-        <div className="relative w-full h-full rounded-[1.55rem] overflow-hidden bg-zinc-950">
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            className="object-cover"
-            sizes="160px"
-          />
-        </div>
-        {/* Notch */}
-        <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-10 h-2.5 rounded-b-lg bg-zinc-900 dark:bg-zinc-100 z-10" />
-      </div>
-    </div>
-  );
-}
-
-// ─── Desktop mockup card ────────────────────────────────────────────────────
-
-function DesktopMockup({ src, alt, accent }) {
-  if (!src) return null;
-  return (
-    <div
-      className={`rounded-2xl border bg-zinc-50 dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 ${accent.border}`}
-    >
-      <div className="flex items-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
-        <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-      </div>
-      <div className="relative aspect-[16/8] bg-white dark:bg-zinc-950">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-center"
-          sizes="(max-width: 640px) 100vw, 33vw"
-        />
-      </div>
-    </div>
-  );
-}
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function ProjectDetailPage({ params }) {
   const { slug } = await params;
@@ -202,52 +154,37 @@ export default async function ProjectDetailPage({ params }) {
             </h1>
           </div>
 
-          {/* ── Showcase Gallery ── */}
+          {/* ── Showcase Gallery: 4 Mobile Mockups in 1 Line (Motorola Edge 50 Fusion device with Auto Vertical Scroll) ── */}
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start justify-center sm:justify-start">
-              <div className="flex flex-col items-center gap-3 shrink-0">
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  {(images.mobile || []).slice(0, 4).map((src, i) => (
-                    <MobileMockup
-                      key={i}
-                      src={src}
-                      alt={`${project.title} mobile screenshot ${i + 1}`}
-                    />
-                  ))}
-                </div>
-                <span className="hidden sm:block text-[20px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">
-                  Mobile View
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-display">
+                  Motorola Edge 50 Fusion Experience • Live Screen Previews
                 </span>
               </div>
-              <div className="w-full sm:flex-1">
-                <DesktopMockup
-                  src={images.desktop ? images.desktop[0] : null}
-                  alt={`${project.title} desktop screenshot 1`}
-                  accent={a}
-                />
-                <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display mt-2 text-center">
-                  Mac-Air View
-                </span>
-              </div>
+              <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 font-raleway hidden sm:inline-block">
+                Auto-scrolls smoothly • Hover to pause
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <DesktopMockup
-                src={images.desktop ? images.desktop[1] : null}
-                alt={`${project.title} desktop screenshot 2`}
-                accent={a}
-                compact
-              />
-              <DesktopMockup
-                src={images.desktop ? images.desktop[2] : null}
-                alt={`${project.title} desktop screenshot 3`}
-                accent={a}
-                compact
-              />
+            {/* 4 in 1 Line Responsive Grid / Overflow-X container */}
+            <div className="w-full overflow-x-auto pb-4 pt-2 no-scrollbar">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 justify-items-center min-w-[560px] md:min-w-0">
+                {((images.mobile && images.mobile.length > 0)
+                  ? images.mobile.slice(0, 4)
+                  : [project.image, project.image, project.image, project.image].filter(Boolean)
+                ).map((src, i) => (
+                  <MobileAutoScrollMockup
+                    key={i}
+                    src={src}
+                    alt={`${project.title} Motorola Edge 50 Fusion Screen ${i + 1}`}
+                    accent={a}
+                    index={i}
+                  />
+                ))}
+              </div>
             </div>
-            <span className="hidden sm:block text-[25px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display mt-2 text-center">
-              Desktop View
-            </span>
           </div>
 
           {/* Divider */}
