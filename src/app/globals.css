@@ -492,49 +492,49 @@ html.dark body {
    PHONE CALL BUTTON PERIODIC RING & GLOW ANIMATION
    ============================================================ */
 @keyframes phoneRing {
-  0%, 100% {
+  0%, 75%, 100% {
     transform: rotate(0deg) scale(1);
   }
-  2%, 6%, 10% {
-    transform: rotate(-18deg) scale(1.15);
+  77%, 81%, 85% {
+    transform: rotate(-14deg) scale(1.12);
   }
-  4%, 8%, 12% {
-    transform: rotate(18deg) scale(1.15);
+  79%, 83%, 87% {
+    transform: rotate(14deg) scale(1.12);
   }
-  14% {
+  89% {
     transform: rotate(0deg) scale(1);
   }
-  15%, 65% {
-    transform: rotate(0deg) scale(1);
+  91%, 95% {
+    transform: rotate(-10deg) scale(1.08);
   }
-  67%, 71%, 75% {
-    transform: rotate(-15deg) scale(1.12);
+  93%, 97% {
+    transform: rotate(10deg) scale(1.08);
   }
-  69%, 73%, 77% {
-    transform: rotate(15deg) scale(1.12);
-  }
-  80% {
+  99% {
     transform: rotate(0deg) scale(1);
   }
 }
 
 @keyframes callGlowPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6), 0 2px 8px rgba(16, 185, 129, 0.3);
+  0%, 75%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
-  50% {
-    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0), 0 4px 14px rgba(16, 185, 129, 0.45);
+  82% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.5), 0 4px 14px rgba(16, 185, 129, 0.45);
+  }
+  92% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
   }
 }
 
 .animate-phone-ring {
-  animation: phoneRing 3.5s ease-in-out infinite;
+  animation: phoneRing 6.5s ease-in-out infinite;
   transform-origin: center center;
   display: inline-block;
 }
 
 .animate-call-glow {
-  animation: callGlowPulse 2.2s infinite;
+  animation: callGlowPulse 6.5s infinite;
 }
 
 /* Smooth Image hover zoom with brightness */
