@@ -331,24 +331,71 @@ export default async function ProjectDetailPage({ params }) {
 
           {/* Key Features */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-display text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              Key Features
-            </h2>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {(details.features || []).map((f, i) => (
-                <li
-                  key={i}
-                  className={`flex items-start gap-3 p-4 rounded-xl border ${a.border} font-raleway`}
-                >
-                  <span
-                    className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${a.dot}`}
-                    aria-hidden
-                  />
-                  <span className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                    {f}
-                  </span>
-                </li>
-              ))}
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h2 className="font-display text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+                Key Features
+              </h2>
+              {details.features && details.features.length > 0 && (
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-raleway">
+                  {details.features.length} Highlights
+                </span>
+              )}
+            </div>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {(details.features || []).map((f, i) => {
+                // Support both new object structure { title, subtitle } and legacy string "title — subtitle" or plain string
+                let title = "";
+                let subtitle = "";
+                if (typeof f === "object" && f !== null) {
+                  title = f.title || "";
+                  subtitle = f.subtitle || "";
+                } else if (typeof f === "string") {
+                  const parts = f.split(" — ");
+                  if (parts.length > 1) {
+                    title = parts[0].trim();
+                    subtitle = parts.slice(1).join(" — ").trim();
+                  } else {
+                    title = f.trim();
+                  }
+                }
+
+                if (!title && !subtitle) return null;
+
+                const isNumberStyle = details.featureStyle === "number";
+
+                return (
+                  <li
+                    key={i}
+                    className={`group relative flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${a.border} bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm font-raleway`}
+                  >
+                    {/* Number badge or glowing dot */}
+                    {isNumberStyle ? (
+                      <span
+                        className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 font-dm shadow-sm ${a.badge} border ${a.border}`}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    ) : (
+                      <span
+                        className={`mt-2 w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${a.dot} ring-4 ring-current/10`}
+                        aria-hidden
+                      />
+                    )}
+
+                    {/* Content */}
+                    <div className="flex flex-col gap-1 min-w-0">
+                      <span className="text-sm font-bold text-zinc-800 dark:text-zinc-100 leading-snug">
+                        {title}
+                      </span>
+                      {subtitle && (
+                        <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                          {subtitle}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

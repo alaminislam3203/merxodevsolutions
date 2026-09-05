@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers } from "react-icons/fi";
+import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers, FiPlus, FiTrash2, FiList, FiCheck } from "react-icons/fi";
 import { showToast } from "@/lib/toast";
 
 const DEFAULT_TAGS = ["E-Commerce", "SaaS", "Portfolio", "Healthcare", "EdTech", "Mobile App", "Web App", "Other"];
@@ -19,7 +19,8 @@ const EMPTY_FORM = {
   client: "",
   duration: "",
   tech: "",
-  features: "",
+  features: [],
+  featureStyle: "dot",
 };
 
 function toSlug(str) {
@@ -206,6 +207,183 @@ function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeho
   );
 }
 
+// ─── Key Features Builder Component (Title, Subtitle, Bullet Style) ───────────
+function KeyFeaturesBuilder({ items, styleType, onChangeItems, onChangeStyle }) {
+  const addItem = () => {
+    onChangeItems([...items, { title: "", subtitle: "" }]);
+  };
+
+  const updateItem = (index, field, val) => {
+    const updated = items.map((item, idx) => (idx === index ? { ...item, [field]: val } : item));
+    onChangeItems(updated);
+  };
+
+  const removeItem = (index) => {
+    onChangeItems(items.filter((_, idx) => idx !== index));
+  };
+
+  return (
+    <div className="admin-field-group" style={{ background: "rgba(255,255,255,0.02)", padding: 14, borderRadius: 12, border: "1px solid rgba(255,255,255,0.06)" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 10 }}>
+        <div>
+          <label className="admin-label" style={{ margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
+            <FiList size={14} style={{ color: "#818cf8" }} />
+            <span>Key Features (Title &amp; Subtitle)</span>
+          </label>
+          <span style={{ fontSize: 11, color: "#94a3b8" }}>
+            Details page-এ প্রতিটি ফিচারের Title, সাবটাইটেল এবং নাম্বার বা ডট স্টাইল কাস্টমাইজ করুন
+          </span>
+        </div>
+
+        {/* Style Selector */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ fontSize: 11.5, color: "#cbd5e1", fontWeight: 500 }}>Display Style:</span>
+          <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 8, padding: 2, border: "1px solid rgba(255,255,255,0.1)" }}>
+            <button
+              type="button"
+              onClick={() => onChangeStyle("dot")}
+              style={{
+                padding: "4px 10px",
+                borderRadius: 6,
+                fontSize: 11.5,
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                background: styleType === "dot" ? "#6366f1" : "transparent",
+                color: styleType === "dot" ? "#fff" : "#94a3b8",
+              }}
+            >
+              • Dot
+            </button>
+            <button
+              type="button"
+              onClick={() => onChangeStyle("number")}
+              style={{
+                padding: "4px 10px",
+                borderRadius: 6,
+                fontSize: 11.5,
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                background: styleType === "number" ? "#6366f1" : "transparent",
+                color: styleType === "number" ? "#fff" : "#94a3b8",
+              }}
+            >
+              1. Number
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature list rows */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {items.length === 0 && (
+          <div style={{ textAlign: "center", padding: "16px 12px", background: "rgba(255,255,255,0.015)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 10 }}>
+            <p style={{ margin: 0, fontSize: 12.5, color: "#64748b" }}>
+              No key features added yet. Click <strong>Add Feature</strong> below to create one.
+            </p>
+          </div>
+        )}
+
+        {items.map((feat, idx) => (
+          <div
+            key={idx}
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 10,
+              background: "rgba(15, 23, 42, 0.6)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              padding: "10px 12px",
+              borderRadius: 10,
+            }}
+          >
+            {/* Badge Indicator: Number or Dot */}
+            <div
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: styleType === "number" ? 6 : "50%",
+                background: styleType === "number" ? "rgba(99, 102, 241, 0.15)" : "rgba(99, 102, 241, 0.2)",
+                color: "#818cf8",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: styleType === "number" ? 11 : 16,
+                fontWeight: 700,
+                flexShrink: 0,
+                marginTop: 6,
+                border: "1px solid rgba(99, 102, 241, 0.3)",
+              }}
+            >
+              {styleType === "number" ? idx + 1 : "•"}
+            </div>
+
+            {/* Inputs: Title & Subtitle */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+              <input
+                type="text"
+                className="admin-input"
+                style={{ height: 36, fontSize: 13, fontWeight: 600, padding: "6px 12px" }}
+                placeholder={`Feature ${idx + 1} Title (e.g. Real-Time Admin Dashboard)`}
+                value={feat.title || ""}
+                onChange={(e) => updateItem(idx, "title", e.target.value)}
+              />
+              <input
+                type="text"
+                className="admin-input"
+                style={{ height: 32, fontSize: 12, padding: "4px 12px", color: "#cbd5e1" }}
+                placeholder="Subtitle / Description (optional details about this feature)"
+                value={feat.subtitle || ""}
+                onChange={(e) => updateItem(idx, "subtitle", e.target.value)}
+              />
+            </div>
+
+            {/* Delete button */}
+            <button
+              type="button"
+              onClick={() => removeItem(idx)}
+              style={{
+                background: "rgba(239, 68, 68, 0.1)",
+                border: "1px solid rgba(239, 68, 68, 0.2)",
+                color: "#f87171",
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                flexShrink: 0,
+                marginTop: 4,
+                transition: "all 0.2s",
+              }}
+              title="Remove this feature"
+            >
+              <FiTrash2 size={13} />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Add Button */}
+      <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end" }}>
+        <button
+          type="button"
+          onClick={addItem}
+          className="admin-btn admin-btn-secondary"
+          style={{ height: 32, padding: "0 12px", fontSize: 12, gap: 5 }}
+        >
+          <FiPlus size={13} />
+          <span>Add Feature</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -253,6 +431,22 @@ export default function ProjectsPage() {
     setEditProject(p);
     const det = p.details || {};
     const imgs = p.images || {};
+
+    // Normalize raw features into [{ title, subtitle }] objects
+    let normalizedFeatures = [];
+    if (Array.isArray(det.features)) {
+      normalizedFeatures = det.features.map(f => {
+        if (typeof f === "string") {
+          const parts = f.split(" — ");
+          if (parts.length > 1) {
+            return { title: parts[0].trim(), subtitle: parts.slice(1).join(" — ").trim() };
+          }
+          return { title: f.trim(), subtitle: "" };
+        }
+        return { title: f?.title || "", subtitle: f?.subtitle || "" };
+      }).filter(f => f.title || f.subtitle);
+    }
+
     setForm({
       slug: p.slug || "",
       tag: p.tag || "SaaS",
@@ -266,7 +460,8 @@ export default function ProjectsPage() {
       client: det.client || "",
       duration: det.duration || "",
       tech: (det.tech || []).join(", "),
-      features: (det.features || []).join("\n"),
+      features: normalizedFeatures,
+      featureStyle: det.featureStyle || "dot",
     });
     setPreviewImage(p.image || "");
     // ensure existing tag appears in options
@@ -320,7 +515,10 @@ export default function ProjectsPage() {
       client: form.client.trim(),
       duration: form.duration.trim(),
       tech: form.tech.split(",").map(s => s.trim()).filter(Boolean),
-      features: form.features.split("\n").map(s => s.trim()).filter(Boolean),
+      features: (Array.isArray(form.features) ? form.features : [])
+        .map(f => ({ title: f.title?.trim() || "", subtitle: f.subtitle?.trim() || "" }))
+        .filter(f => f.title || f.subtitle),
+      featureStyle: form.featureStyle || "dot",
     },
   });
 
@@ -650,10 +848,13 @@ export default function ProjectsPage() {
                 <label className="admin-label">Tech Stack (comma separated)</label>
                 <input className="admin-input" placeholder="Next.js, Node.js, MongoDB, Tailwind" value={form.tech} onChange={e => setForm(f => ({...f, tech: e.target.value}))} />
               </div>
-              <div className="admin-field-group">
-                <label className="admin-label">Key Features (one per line)</label>
-                <textarea className="admin-input admin-textarea" placeholder={"User authentication system\nReal-time dashboard\nPayment integration"} value={form.features} onChange={e => setForm(f => ({...f, features: e.target.value}))} rows={4} />
-              </div>
+              {/* Key Features Builder (Title, Subtitle, Number/Dot style) */}
+              <KeyFeaturesBuilder
+                items={Array.isArray(form.features) ? form.features : []}
+                styleType={form.featureStyle || "dot"}
+                onChangeItems={(newItems) => setForm(f => ({ ...f, features: newItems }))}
+                onChangeStyle={(newStyle) => setForm(f => ({ ...f, featureStyle: newStyle }))}
+              />
 
               <div className="admin-modal-actions">
                 <button type="button" className="admin-btn admin-btn-secondary" onClick={closeModal}>Cancel</button>
