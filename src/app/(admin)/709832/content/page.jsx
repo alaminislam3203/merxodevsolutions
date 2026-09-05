@@ -1,10 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-
-function Toast({ msg, type, onClose }) {
-  useEffect(() => { const t = setTimeout(onClose, 3000); return () => clearTimeout(t); }, [onClose]);
-  return <div className={`admin-toast admin-toast-${type}`}>{msg}</div>;
-}
+import { showToast } from "@/lib/toast";
 
 const SECTIONS = ["all", "hero", "about", "services", "footer", "general"];
 const SECTION_COLORS = { hero: "#6366f1", about: "#8b5cf6", services: "#06b6d4", footer: "#f59e0b", general: "#64748b" };
@@ -13,15 +9,12 @@ export default function ContentPage() {
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(null);
-  const [toast, setToast] = useState(null);
   const [filter, setFilter] = useState("all");
   const [editValues, setEditValues] = useState({});
   const [showAddModal, setShowAddModal] = useState(false);
   const [newBlock, setNewBlock] = useState({ key: "", title: "", value: "", section: "general" });
   const [adding, setAdding] = useState(false);
   const [deleting, setDeleting] = useState(null);
-
-  const showToast = (msg, type = "success") => setToast({ msg, type });
 
   const fetchContent = useCallback(async () => {
     setLoading(true);
@@ -102,8 +95,6 @@ export default function ContentPage() {
 
   return (
     <div>
-      {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-
       <div className="admin-page-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
         <div>
           <h1 className="admin-page-title">Content & Settings</h1>

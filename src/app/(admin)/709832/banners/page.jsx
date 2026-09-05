@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { showToast } from "@/lib/toast";
 
 // ─── Helpers ─────────────────────────────────────────────────
 function toBase64(file) {
@@ -283,23 +284,45 @@ export default function AdminBannersPage() {
   const openAdd = () => { setEditBanner(null); setModalOpen(true); };
   const openEdit = (b) => { setEditBanner(b); setModalOpen(true); };
   const closeModal = () => { setModalOpen(false); setEditBanner(null); };
-  const onSaved = () => { closeModal(); fetchBanners(); };
+  const onSaved = () => {
+    closeModal();
+    showToast("Banner saved successfully!");
+    fetchBanners();
+  };
 
   const toggleActive = async (banner) => {
-    await fetch(`/api/admin/banners/${banner.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ isActive: !banner.isActive }),
-    });
-    fetchBanners();
+    try {
+      const res = await fetch(`/api/admin/banners/${banner.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: !banner.isActive }),
+      });
+      if (res.ok) {
+        showToast(banner.isActive ? "Banner set to Inactive." : "Banner activated!");
+        fetchBanners();
+      } else {
+        showToast("Failed to update banner status.", "error");
+      }
+    } catch {
+      showToast("Network error updating banner.", "error");
+    }
   };
 
   const deleteBanner = async (id) => {
     if (!confirm("Delete this banner? This cannot be undone.")) return;
     setDeletingId(id);
-    await fetch(`/api/admin/banners/${id}`, { method: "DELETE" });
+    try {
+      const res = await fetch(`/api/admin/banners/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        showToast("Banner deleted successfully!");
+        fetchBanners();
+      } else {
+        showToast("Failed to delete banner.", "error");
+      }
+    } catch {
+      showToast("Network error deleting banner.", "error");
+    }
     setDeletingId(null);
-    fetchBanners();
   };
 
   return (

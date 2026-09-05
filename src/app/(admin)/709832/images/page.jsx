@@ -1,25 +1,18 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-
-function Toast({ msg, type, onClose }) {
-  useEffect(() => { const t = setTimeout(onClose, 3000); return () => clearTimeout(t); }, [onClose]);
-  return <div className={"admin-toast admin-toast-" + type}>{msg}</div>;
-}
+import { showToast } from "@/lib/toast";
 
 export default function ImagesPage() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(null);
-  const [toast, setToast] = useState(null);
   const [preview, setPreview] = useState(null);
   const [altText, setAltText] = useState("");
   const [caption, setCaption] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef();
-
-  const showToast = (msg, type = "success") => setToast({ msg, type });
 
   const fetchImages = useCallback(async () => {
     setLoading(true);
@@ -68,8 +61,6 @@ export default function ImagesPage() {
 
   return (
     <div>
-      {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-
       <div className="admin-page-header">
         <h1 className="admin-page-title">Images</h1>
         <p className="admin-page-subtitle">Upload and manage your media library</p>

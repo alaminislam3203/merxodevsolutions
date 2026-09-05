@@ -159,7 +159,25 @@ function AdminLayoutShell({ children }) {
   if (status !== "authenticated" && isLoginRoot) {
     return (
       <>
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "rgba(15, 23, 42, 0.95)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              color: "#f8fafc",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: "14px",
+              fontSize: "13.5px",
+              fontWeight: "500",
+              padding: "12px 18px",
+              boxShadow: "0 20px 35px -8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(99, 102, 241, 0.15)",
+            },
+          }}
+        />
         {children}
       </>
     );
@@ -184,7 +202,25 @@ function AdminLayoutShell({ children }) {
 
   return (
     <div className="admin-layout">
-      <Toaster position="top-right" />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "rgba(15, 23, 42, 0.95)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            color: "#f8fafc",
+            border: "1px solid rgba(255, 255, 255, 0.12)",
+            borderRadius: "14px",
+            fontSize: "13.5px",
+            fontWeight: "500",
+            padding: "12px 18px",
+            boxShadow: "0 20px 35px -8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(99, 102, 241, 0.15)",
+          },
+        }}
+      />
       <AdminSidebar />
       <main className="admin-main">{children}</main>
     </div>

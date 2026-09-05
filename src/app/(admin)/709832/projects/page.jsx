@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers } from "react-icons/fi";
+import { showToast } from "@/lib/toast";
 
 const DEFAULT_TAGS = ["E-Commerce", "SaaS", "Portfolio", "Healthcare", "EdTech", "Mobile App", "Web App", "Other"];
 const ACCENT_OPTIONS = ["violet", "cyan", "amber", "emerald", "rose"];
@@ -20,23 +21,6 @@ const EMPTY_FORM = {
   tech: "",
   features: "",
 };
-
-function Toast({ msg, type, onClose }) {
-  useEffect(() => {
-    const t = setTimeout(onClose, 3500);
-    return () => clearTimeout(t);
-  }, [onClose]);
-  return (
-    <div className={`admin-toast admin-toast-${type}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-      {type === "success" ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-      )}
-      {msg}
-    </div>
-  );
-}
 
 function toSlug(str) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -231,15 +215,12 @@ export default function ProjectsPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(null);
-  const [toast, setToast] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
 
   // Dynamic tag management
   const [tagOptions, setTagOptions] = useState(DEFAULT_TAGS);
   const [showNewTag, setShowNewTag] = useState(false);
   const [newTagInput, setNewTagInput] = useState("");
-
-  const showToast = (msg, type = "success") => setToast({ msg, type });
 
   const fetchProjects = useCallback(async () => {
     setLoading(true);
@@ -385,8 +366,6 @@ export default function ProjectsPage() {
 
   return (
     <div>
-      {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-
       <div className="admin-page-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
         <div>
           <h1 className="admin-page-title">Projects</h1>

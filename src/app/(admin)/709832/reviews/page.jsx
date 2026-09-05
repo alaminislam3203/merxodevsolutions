@@ -17,23 +17,7 @@ import {
   FaUpload,
   FaImage,
 } from "react-icons/fa";
-
-function Toast({ msg, type = "success", onClose }) {
-  useEffect(() => {
-    const t = setTimeout(onClose, 3500);
-    return () => clearTimeout(t);
-  }, [onClose]);
-  return (
-    <div className={`admin-toast admin-toast-${type}`} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-      {type === "success" ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-      )}
-      {msg}
-    </div>
-  );
-}
+import { showToast } from "@/lib/toast";
 
 async function uploadToCloudinary(file) {
   return new Promise((resolve, reject) => {
@@ -63,7 +47,6 @@ export default function AdminReviewsPage() {
   const [filter, setFilter] = useState("all"); // 'all' | 'pending' | 'approved'
   const [search, setSearch] = useState("");
   const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0 });
-  const [toast, setToast] = useState(null);
 
   // Modal States
   const [showModal, setShowModal] = useState(false);
@@ -86,8 +69,6 @@ export default function AdminReviewsPage() {
     isApproved: true,
     isFeatured: false,
   });
-
-  const showToast = (msg, type = "success") => setToast({ msg, type });
 
   const fetchReviews = useCallback(async () => {
     setLoading(true);
@@ -284,8 +265,6 @@ export default function AdminReviewsPage() {
 
   return (
     <div>
-      {toast && <Toast msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-
       {/* Header */}
       <div className="admin-page-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
         <div>

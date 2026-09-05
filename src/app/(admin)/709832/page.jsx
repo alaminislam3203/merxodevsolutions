@@ -6,7 +6,7 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import LottiePlayer from "@/components/LottiePlayer";
 import { FaRobot, FaLaptopCode } from "react-icons/fa";
-import { FiShield } from "react-icons/fi";
+import { FiShield, FiCheckCircle, FiAlertCircle, FiLock } from "react-icons/fi";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
@@ -211,13 +211,19 @@ function LoginView() {
     setError("");
 
     if (!email.trim()) {
-      toast.error("Please enter your email address.", { id: "login-val-email" });
+      toast.error("Please enter your email address.", {
+        id: "login-val-email",
+        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+      });
       setError("Email address is required.");
       return;
     }
 
     if (!password) {
-      toast.error("Please enter your password.", { id: "login-val-pass" });
+      toast.error("Please enter your password.", {
+        id: "login-val-pass",
+        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+      });
       setError("Password is required.");
       return;
     }
@@ -234,19 +240,24 @@ function LoginView() {
       if (result?.error) {
         toast.error("Invalid email or password. Access denied.", {
           id: "login-auth-error",
-          icon: "🔒",
+          icon: <FiLock size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
         });
         setError("Invalid email or password. Please verify credentials.");
         setLoading(false);
       } else {
         toast.success("Authentication verified! Redirecting...", {
           id: "login-auth-success",
+          icon: <FiCheckCircle size={18} style={{ color: "#34d399", flexShrink: 0 }} />,
         });
-        router.refresh();
+        // Auto hard reload so session, cookies, and server state fresh-load cleanly
+        setTimeout(() => {
+          window.location.href = "/709832";
+        }, 500);
       }
     } catch (err) {
       toast.error("A network or server error occurred. Please try again.", {
         id: "login-catch-error",
+        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
       });
       setError("Failed to connect to authentication server.");
       setLoading(false);
