@@ -85,30 +85,30 @@ const accentMap = {
 
 // ─── Premium Browser Auto-Scroll Mockup Card ─────────────────────────────────
 
-function BrowserScrollCard({ image, title, slug, liveUrl, accent }) {
+function BrowserScrollCard({ image, title, slug, liveUrl, accent, label }) {
   if (!image) return null;
 
   return (
     <div
-      className={`relative w-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border transition-all duration-500 shadow-2xl flex flex-col bg-zinc-900/60 dark:bg-black/60 backdrop-blur-xl ${accent.border}`}
+      className={`relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border transition-all duration-500 shadow-xl flex flex-col bg-zinc-900/60 dark:bg-black/60 backdrop-blur-xl ${accent.border}`}
       style={{
-        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.1)",
+        boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(99, 102, 241, 0.08)",
       }}
     >
       {/* Browser Window Header */}
-      <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-3.5 bg-zinc-100 dark:bg-zinc-900/90 border-b border-zinc-200/80 dark:border-zinc-800 relative z-20">
+      <div className="flex items-center justify-between px-3.5 sm:px-4 py-2.5 sm:py-3 bg-zinc-100 dark:bg-zinc-900/90 border-b border-zinc-200/80 dark:border-zinc-800 relative z-20">
         {/* Window controls */}
-        <div className="flex items-center space-x-1.5 sm:space-x-2">
-          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-red-500/80 shadow-sm" />
-          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-yellow-500/80 shadow-sm" />
-          <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-emerald-500/80 shadow-sm" />
+        <div className="flex items-center space-x-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 shadow-sm" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 shadow-sm" />
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 shadow-sm" />
         </div>
 
         {/* Address / Search Bar */}
-        <div className="flex-1 mx-3 sm:mx-6 max-w-sm sm:max-w-md">
-          <div className="w-full h-6 sm:h-7 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/80 border border-zinc-300/60 dark:border-zinc-700/60 flex items-center justify-center overflow-hidden px-3">
-            <span className="text-[10px] sm:text-[11px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight lowercase truncate">
-              merxodevsolutions.pro.bd/our-projects/{slug}
+        <div className="flex-1 mx-2 sm:mx-3 max-w-[220px] sm:max-w-xs">
+          <div className="w-full h-6 rounded-md bg-zinc-200/70 dark:bg-zinc-800/80 border border-zinc-300/60 dark:border-zinc-700/60 flex items-center justify-center overflow-hidden px-2.5">
+            <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight lowercase truncate">
+              merxodevsolutions.pro.bd/{slug}{label ? ` · ${label}` : ""}
             </span>
           </div>
         </div>
@@ -124,8 +124,8 @@ function BrowserScrollCard({ image, title, slug, liveUrl, accent }) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="13"
+              height="13"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -144,22 +144,22 @@ function BrowserScrollCard({ image, title, slug, liveUrl, accent }) {
       </div>
 
       {/* Vertical Scrolling Image Container */}
-      <div className="relative h-[360px] sm:h-[480px] md:h-[580px] overflow-hidden group/img bg-zinc-950">
+      <div className="relative h-[280px] sm:h-[350px] md:h-[420px] overflow-hidden group/img bg-zinc-950">
         {/* Subtle Loading Shimmer Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-pulse pointer-events-none z-10" />
 
         <img
           src={image}
           alt={title}
-          className="w-full h-auto absolute top-0 left-0 transition-transform duration-[7000ms] ease-in-out group-hover/img:translate-y-[calc(-100%+360px)] sm:group-hover/img:translate-y-[calc(-100%+480px)] md:group-hover/img:translate-y-[calc(-100%+580px)] will-change-transform"
+          className="w-full h-auto absolute top-0 left-0 transition-transform duration-[6500ms] ease-in-out group-hover/img:translate-y-[calc(-100%+280px)] sm:group-hover/img:translate-y-[calc(-100%+350px)] md:group-hover/img:translate-y-[calc(-100%+420px)] will-change-transform"
           referrerPolicy="no-referrer"
           loading="eager"
           decoding="async"
         />
 
         {/* Bottom indicator hint */}
-        <div className="absolute bottom-3 right-4 z-20 pointer-events-none opacity-80 group-hover/img:opacity-0 transition-opacity duration-300">
-          <span className="px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-black/70 text-zinc-300 border border-white/10 backdrop-blur-md">
+        <div className="absolute bottom-2.5 right-3 z-20 pointer-events-none opacity-80 group-hover/img:opacity-0 transition-opacity duration-300">
+          <span className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider bg-black/70 text-zinc-300 border border-white/10 backdrop-blur-md">
             Hover to scroll
           </span>
         </div>
@@ -178,7 +178,13 @@ export default async function ProjectDetailPage({ params }) {
   const details = project.details || {};
   const images = project.images || { mobile: [], desktop: [] };
   const desktopList = Array.isArray(images.desktop) ? images.desktop.filter(Boolean) : [];
-  const showcaseImage = desktopList[0] || project.image;
+  const mobileList = Array.isArray(images.mobile) ? images.mobile.filter(Boolean) : [];
+
+  // 2 Side-by-side showcase images:
+  // Card 1: 1st desktop screenshot (or cover image)
+  const card1Image = desktopList[0] || project.image;
+  // Card 2: 2nd desktop screenshot, or cover image (if 1st was desktop image), or mobile screenshot, or fallback
+  const card2Image = desktopList[1] || (desktopList[0] && desktopList[0] !== project.image ? project.image : (mobileList[0] || desktopList[0] || project.image));
 
   // Related projects (other 2 excluding current)
   const allProjects = await getAllProjects();
@@ -240,14 +246,23 @@ export default async function ProjectDetailPage({ params }) {
             </h1>
           </div>
 
-          {/* ── Single Full-Width Browser Auto-Scroll Showcase Card (from Desktop Image) ── */}
-          <div className="w-full">
+          {/* ── 2 Browser Auto-Scroll Showcase Cards Side by Side ── */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
             <BrowserScrollCard
-              image={showcaseImage}
-              title={project.title}
+              image={card1Image}
+              title={`${project.title} Preview 1`}
               slug={project.slug}
               liveUrl={project.liveUrl}
               accent={a}
+              label="view-1"
+            />
+            <BrowserScrollCard
+              image={card2Image}
+              title={`${project.title} Preview 2`}
+              slug={project.slug}
+              liveUrl={project.liveUrl}
+              accent={a}
+              label="view-2"
             />
           </div>
 
