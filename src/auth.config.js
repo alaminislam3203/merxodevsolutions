@@ -10,6 +10,7 @@ const authConfig = {
     strategy: "jwt",
     maxAge: 24 * 60 * 60,
   },
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   providers: [],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
