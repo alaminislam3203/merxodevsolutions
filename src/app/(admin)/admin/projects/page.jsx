@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers } from "react-icons/fi";
 
 const DEFAULT_TAGS = ["E-Commerce", "SaaS", "Portfolio", "Healthcare", "EdTech", "Mobile App", "Web App", "Other"];
 const ACCENT_OPTIONS = ["violet", "cyan", "amber", "emerald", "rose"];
@@ -94,8 +95,8 @@ function ImageUploadField({ label, sizeNote, hint, value, onChange, placeholder 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap", gap: 6 }}>
         <label className="admin-label" style={{ margin: 0 }}>{label}</label>
         {sizeNote && (
-          <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 6, background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", border: "1px solid rgba(99, 102, 241, 0.25)", fontFamily: "monospace" }}>
-            📐 {sizeNote}
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, padding: "2px 8px", borderRadius: 6, background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", border: "1px solid rgba(99, 102, 241, 0.25)", fontFamily: "monospace" }}>
+            <FiCrop size={12} /> {sizeNote}
           </span>
         )}
       </div>
@@ -177,8 +178,8 @@ function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeho
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
           <label className="admin-label" style={{ margin: 0 }}>{label}</label>
           {sizeNote && (
-            <span style={{ fontSize: 10.5, padding: "1px 6px", borderRadius: 6, background: "rgba(255,255,255,0.06)", color: "#cbd5e1", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "monospace" }}>
-              📐 {sizeNote}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10.5, padding: "1px 6px", borderRadius: 6, background: "rgba(255,255,255,0.06)", color: "#cbd5e1", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "monospace" }}>
+              <FiCrop size={11} /> {sizeNote}
             </span>
           )}
         </div>
@@ -564,8 +565,12 @@ export default function ProjectsPage() {
 
               {/* Section: Images */}
               <div className="modal-section-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
-                <span>Images & Screenshots</span>
-                <span style={{ fontSize: 11, fontWeight: 600, color: "#818cf8" }}>📐 Recommended Size Guide</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                  <FiLayers size={14} /> Images & Screenshots
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: "#818cf8" }}>
+                  <FiInfo size={13} /> Recommended Size Guide
+                </span>
               </div>
 
               {/* Recommended Size Guide Note Box */}
@@ -582,18 +587,35 @@ export default function ProjectsPage() {
                   fontSize: 12,
                 }}
               >
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontWeight: 700, color: "#818cf8" }}>🖼️ Cover Image</span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(99, 102, 241, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#818cf8" }}>
+                      <FiImage size={13} />
+                    </div>
+                    <span style={{ fontWeight: 700, color: "#818cf8" }}>Cover Image</span>
+                  </div>
                   <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1200 × 675 px (16:9)</span>
                   <span style={{ color: "#94a3b8", fontSize: 11 }}>কার্ড ও পোর্টফোলিও থাম্বনেইলের সেরা সাইজ</span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontWeight: 700, color: "#38bdf8" }}>💻 Desktop Shots</span>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(6, 182, 212, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#38bdf8" }}>
+                      <FiMonitor size={13} />
+                    </div>
+                    <span style={{ fontWeight: 700, color: "#38bdf8" }}>Desktop Shots</span>
+                  </div>
                   <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1440 × 900 px (16:10)</span>
                   <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 1920 × 1080 px (ল্যাপটপ স্ক্রিন ভিউ)</span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontWeight: 700, color: "#34d399" }}>📱 Mobile Shots</span>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(16, 185, 129, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#34d399" }}>
+                      <FiSmartphone size={13} />
+                    </div>
+                    <span style={{ fontWeight: 700, color: "#34d399" }}>Mobile Shots</span>
+                  </div>
                   <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>390 × 844 px (Portrait)</span>
                   <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 375 × 812 px (মোবাইল ফ্রেম ভিউ)</span>
                 </div>
