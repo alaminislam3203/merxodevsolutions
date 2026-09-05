@@ -176,7 +176,7 @@ export default function Navbar() {
                 onClick={scrollToTopSmooth}
                 className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
               >
-                {t('getInTouch')}
+                <span className="inline-block animate-phone-ring">{t('getInTouch')}</span>
               </Link>
             </div>
           </div>
@@ -406,7 +406,7 @@ export default function Navbar() {
             onClick={() => setSidebarOpen(false)}
             className="flex items-center justify-center gap-2 w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-raleway uppercase shadow-lg shadow-amber-500/25"
           >
-            <span>{t('getInTouch')}</span>
+            <span className="inline-block animate-phone-ring">{t('getInTouch')}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
