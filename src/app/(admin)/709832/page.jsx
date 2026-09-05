@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import LottiePlayer from "@/components/LottiePlayer";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
@@ -250,6 +251,9 @@ function LoginView() {
     }
   };
 
+  const [animType, setAnimType] = useState("web-dev");
+  const animPath = animType === "web-dev" ? "/animations/web-dev.json" : "/animations/workspace.json";
+
   return (
     <div className="login-screen">
       <Toaster
@@ -296,99 +300,189 @@ function LoginView() {
       <div className="orb orb-2"></div>
       <div className="orb orb-3"></div>
 
-      <div className="login-card">
-        <div className="login-logo">
-          <div
-            className="logo-icon"
-            style={{
-              overflow: "hidden",
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-            }}
-          >
-            <img src="/favicon.png" alt="MerxoDev Favicon" style={{ width: 28, height: 28, objectFit: "contain" }} />
+      <div className="login-container">
+        {/* Left Column: Visual Lottie Animation Showcase */}
+        <div className="login-showcase">
+          <div className="showcase-badge">
+            <span className="badge-dot"></span>
+            <span>MerxoDev Secure Admin Access</span>
           </div>
-          <div className="logo-text" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/logo.png" alt="MerxoDev Solutions" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
+
+          <h2 className="showcase-title">
+            Build, Scale &amp; Manage With <span>Precision</span>
+          </h2>
+
+          <p className="showcase-subtitle">
+            Centralized control over projects, media gallery, dynamic website content blocks, and verified reviews.
+          </p>
+
+          <div className="lottie-card">
+            <div className="lottie-header-bar">
+              <div className="lottie-window-dots">
+                <span className="window-dot dot-red"></span>
+                <span className="window-dot dot-yellow"></span>
+                <span className="window-dot dot-green"></span>
+              </div>
+
+              <div className="animation-switch">
+                <button
+                  type="button"
+                  onClick={() => setAnimType("web-dev")}
+                  className={`anim-tab-btn ${animType === "web-dev" ? "anim-tab-btn-active" : ""}`}
+                >
+                  <span>💻</span> Dev Studio
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAnimType("workspace")}
+                  className={`anim-tab-btn ${animType === "workspace" ? "anim-tab-btn-active" : ""}`}
+                >
+                  <span>🤖</span> AI Workspace
+                </button>
+              </div>
+            </div>
+
+            <div className="lottie-view-area">
+              <LottiePlayer
+                key={animPath}
+                animationPath={animPath}
+                loop={true}
+                autoplay={true}
+              />
+            </div>
+          </div>
+
+          <div className="showcase-features">
+            <div className="feature-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <span>Next.js 16 Turbo</span>
+            </div>
+            <div className="feature-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Edge Security</span>
+            </div>
+            <div className="feature-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+              <span>Cloud Storage</span>
+            </div>
+            <div className="feature-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+              <span>Live Sync</span>
+            </div>
           </div>
         </div>
 
-        <h1 className="login-title">Welcome back</h1>
-        <p className="login-subtitle">Sign in to manage your workspace</p>
-
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="field-group">
-            <label className="field-label" htmlFor="login-email">
-              Email address
-            </label>
-            <div className="input-wrap">
-              <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              <input
-                id="login-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@example.com"
-                className="login-input"
-                required
-                autoComplete="email"
-              />
+        {/* Right Column: Glassmorphism Login Card */}
+        <div className="login-card">
+          <div className="login-logo">
+            <div
+              className="logo-icon"
+              style={{
+                overflow: "hidden",
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+              }}
+            >
+              <img src="/favicon.png" alt="MerxoDev Favicon" style={{ width: 28, height: 28, objectFit: "contain" }} />
+            </div>
+            <div className="logo-text" style={{ display: "flex", alignItems: "center" }}>
+              <img src="/logo.png" alt="MerxoDev Solutions" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
             </div>
           </div>
 
-          <div className="field-group">
-            <label className="field-label" htmlFor="login-password">
-              Password
-            </label>
-            <div className="input-wrap">
-              <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              <input
-                id="login-password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                className="login-input"
-                required
-                autoComplete="current-password"
-              />
-              <button type="button" className="toggle-btn" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? (
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                    <line x1="1" y1="1" x2="23" y2="23" />
-                  </svg>
-                ) : (
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
+          <h1 className="login-title">Admin Portal</h1>
+          <p className="login-subtitle">Sign in to manage your workspace and content</p>
 
-          {error && (
-            <div className="error-box">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              <span>{error}</span>
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="field-group">
+              <label className="field-label" htmlFor="login-email">
+                Email address
+              </label>
+              <div className="input-wrap">
+                <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <input
+                  id="login-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@example.com"
+                  className="login-input"
+                  required
+                  autoComplete="email"
+                />
+              </div>
             </div>
-          )}
 
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? <div className="spinner-sm"></div> : "Sign In"}
-          </button>
-        </form>
+            <div className="field-group">
+              <label className="field-label" htmlFor="login-password">
+                Password
+              </label>
+              <div className="input-wrap">
+                <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input
+                  id="login-password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="login-input"
+                  required
+                  autoComplete="current-password"
+                />
+                <button type="button" className="toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                  ) : (
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {error && (
+              <div className="error-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? <div className="spinner-sm"></div> : "Sign In to Admin"}
+            </button>
+          </form>
+
+          <Link href="/" className="login-back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Return to MerxoDev Solutions</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
