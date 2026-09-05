@@ -485,6 +485,15 @@ select.admin-input option {
     }
 }
 
+.admin-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(99, 102, 241, .2);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+
 .admin-spinner-sm {
     width: 16px;
     height: 16px;

@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 import "./admin.css";
 
 function AdminSidebar() {
@@ -144,14 +145,46 @@ function AdminSidebar() {
 function AdminLayoutShell({ children }) {
   const { status } = useSession();
   const pathname = usePathname();
+  const router = useRouter();
+
+  const isLoginRoot = pathname === "/709832";
+
+  useEffect(() => {
+    if (status === "unauthenticated" && !isLoginRoot) {
+      router.replace("/709832");
+    }
+  }, [status, isLoginRoot, router]);
 
   // If on the /709832 login page and not logged in, show full-screen login without sidebar
-  if (status !== "authenticated" && pathname === "/709832") {
-    return <>{children}</>;
+  if (status !== "authenticated" && isLoginRoot) {
+    return (
+      <>
+        <Toaster position="top-right" />
+        {children}
+      </>
+    );
+  }
+
+  // If loading session on a sub-route, show loading state
+  if (status === "loading" && !isLoginRoot) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#080c18", color: "#fff" }}>
+        <div style={{ textAlign: "center" }}>
+          <div className="admin-spinner" style={{ margin: "0 auto 16px" }}></div>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px" }}>Loading admin panel...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If unauthenticated on a subpage, don't render content while redirecting
+  if (status === "unauthenticated" && !isLoginRoot) {
+    return null;
   }
 
   return (
     <div className="admin-layout">
+      <Toaster position="top-right" />
       <AdminSidebar />
       <main className="admin-main">{children}</main>
     </div>

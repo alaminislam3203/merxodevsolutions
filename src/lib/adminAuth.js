@@ -7,11 +7,20 @@ import { NextResponse } from "next/server";
  */
 export async function requireAdmin() {
   const session = await auth();
-  if (!session || session.user?.role !== "ADMIN") {
+  if (!session || !session.user) {
     return {
       authorized: false,
       response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }),
     };
   }
+
+  // If role is explicitly set to non-admin, deny access
+  if (session.user.role && session.user.role !== "ADMIN") {
+    return {
+      authorized: false,
+      response: NextResponse.json({ error: "Forbidden" }, { status: 403 }),
+    };
+  }
+
   return { authorized: true, session };
 }

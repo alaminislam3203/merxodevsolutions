@@ -15,15 +15,34 @@ const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isAdmin = auth?.user?.role === "ADMIN";
       const isSecretAdminArea = nextUrl.pathname.startsWith("/709832");
       const isLoginRoot = nextUrl.pathname === "/709832";
 
-      // If accessing secret admin subpaths without being logged in as ADMIN, deny access
+      // If accessing secret admin subpaths without being logged in, deny access
       if (isSecretAdminArea && !isLoginRoot) {
-        return isLoggedIn && isAdmin;
+        return isLoggedIn;
       }
       return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.role = user.role || "ADMIN";
+        token.image = user.image || null;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session?.user) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role || "ADMIN";
+        session.user.image = token.image || null;
+      }
+      return session;
     },
   },
 };

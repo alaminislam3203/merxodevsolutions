@@ -642,7 +642,7 @@ const resources = {
         headingEnd: 'Perform',
         subtext:
           'Custom websites, web apps & digital solutions — crafted with precision for startups and growing businesses.',
-        ctaPrimary: 'Start a Project →',
+        ctaPrimary: 'Start a Project',
         ctaSecondary: 'View Our Work',
         socialProof: 'Trusted by clients across 🇧🇩 Bangladesh & beyond',
       },
