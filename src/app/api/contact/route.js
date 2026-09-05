@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 function createNodemailerTransporter() {
   if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -76,8 +77,6 @@ async function dispatchEmail({ to, subject, html, text, replyTo }) {
     throw new Error('No working email provider configured (both Resend and Gmail SMTP failed/missing)');
   }
 }
-
-import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(req) {
   try {

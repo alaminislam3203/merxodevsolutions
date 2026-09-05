@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { auth } from '@/auth';
-
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 // GET: Fetch all approved reviews
 export async function GET() {
@@ -30,8 +30,6 @@ export async function GET() {
     return NextResponse.json({ reviews: DEFAULT_REVIEWS });
   }
 }
-
-import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 // POST: User submits a review (Requires Login, Pending Approval)
 export async function POST(request) {

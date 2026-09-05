@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 const INITIAL_PROJECTS = [
   {
@@ -122,8 +123,6 @@ const INITIAL_PROJECTS = [
     },
   },
 ];
-
-import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 // POST /api/admin/seed-projects
 export async function POST(request) {

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 // ── MerxoDev Solutions Multilingual Knowledge Engine ──────────────────────────
 const WHATSAPP_NUM = '8801313334279';
@@ -445,8 +446,6 @@ const FALLBACKS = {
     suggestions: ['Webseiten-Preise & Pakete?', 'Welche Services bieten Sie an?', 'WhatsApp Kontakt']
   }
 };
-
-import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(request) {
   try {
