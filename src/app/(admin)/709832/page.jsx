@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import LottiePlayer from "@/components/LottiePlayer";
+import { FaRobot, FaLaptopCode } from "react-icons/fa";
+import { FiShield } from "react-icons/fi";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
@@ -305,6 +307,7 @@ function LoginView() {
         <div className="login-showcase">
           <div className="showcase-badge">
             <span className="badge-dot"></span>
+            <FiShield size={13} style={{ color: "#818cf8" }} />
             <span>MerxoDev Secure Admin Access</span>
           </div>
 
@@ -330,14 +333,16 @@ function LoginView() {
                   onClick={() => setAnimType("web-dev")}
                   className={`anim-tab-btn ${animType === "web-dev" ? "anim-tab-btn-active" : ""}`}
                 >
-                  <span>💻</span> Dev Studio
+                  <FaLaptopCode size={14} style={{ flexShrink: 0 }} />
+                  <span>Dev Studio</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setAnimType("workspace")}
                   className={`anim-tab-btn ${animType === "workspace" ? "anim-tab-btn-active" : ""}`}
                 >
-                  <span>🤖</span> AI Workspace
+                  <FaRobot size={14} style={{ flexShrink: 0 }} />
+                  <span>AI Workspace</span>
                 </button>
               </div>
             </div>

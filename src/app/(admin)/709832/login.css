@@ -534,38 +534,23 @@ body {
 /* Mobile & Responsive Breakpoints */
 @media (max-width: 960px) {
   .login-container {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    max-width: 520px;
-  }
-
-  .login-showcase {
-    text-align: center;
-    align-items: center;
-  }
-
-  .showcase-badge {
-    margin: 0 auto;
-  }
-
-  .showcase-title {
-    font-size: 28px;
-  }
-
-  .showcase-subtitle {
-    font-size: 14px;
-  }
-
-  .showcase-features {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 0;
   }
 
-  .lottie-view-area {
-    height: 230px;
+  /* Completely hide Lottie showcase on mobile devices */
+  .login-showcase {
+    display: none !important;
   }
 
   .login-card {
-    padding: 34px 26px;
+    padding: 38px 28px;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -574,20 +559,8 @@ body {
     padding: 20px 14px;
   }
 
-  .showcase-title {
-    font-size: 24px;
-  }
-
-  .lottie-view-area {
-    height: 190px;
-  }
-
   .login-card {
-    padding: 28px 20px;
+    padding: 30px 20px;
     border-radius: 20px;
-  }
-
-  .showcase-features {
-    display: none;
   }
 }
