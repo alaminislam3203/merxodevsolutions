@@ -64,42 +64,16 @@ async function uploadToCloudinary(file) {
   });
 }
 
-// ─── Screenshot helper ────────────────────────────────────────────────────────────
-async function captureScreenshot(url, type) {
-  const res = await fetch("/api/admin/screenshot", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url, type }),
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Screenshot capture failed");
-  return data.url;
-}
-
-// ─── Single image field (URL + upload + auto-screenshot) ─────────────────────
-function ImageUploadField({
-  label,
-  value,
-  onChange,
-  placeholder = "https://...",
-  defaultUrl = "",
-  screenshotType = "cover",
-}) {
+// ─── Single image field (URL + upload) ───────────────────────────────────────
+function ImageUploadField({ label, sizeNote, hint, value, onChange, placeholder = "https://..." }) {
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(value || "");
-  const [showShotInput, setShowShotInput] = useState(false);
-  const [shotUrl, setShotUrl] = useState(defaultUrl || "");
-  const [capturing, setCapturing] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setPreview(value), 500);
     return () => clearTimeout(t);
   }, [value]);
-
-  useEffect(() => {
-    if (defaultUrl && !shotUrl) setShotUrl(defaultUrl);
-  }, [defaultUrl]);
 
   const handleFile = async (e) => {
     const file = e.target.files?.[0];
@@ -115,61 +89,16 @@ function ImageUploadField({
     e.target.value = "";
   };
 
-  const handleCapture = async () => {
-    const target = shotUrl.trim() || defaultUrl.trim();
-    if (!target) {
-      alert("Please enter a website URL to capture screenshot.");
-      return;
-    }
-    setCapturing(true);
-    try {
-      const url = await captureScreenshot(target, screenshotType);
-      onChange(url);
-      setShowShotInput(false);
-    } catch (err) {
-      alert(err.message || "Failed to capture screenshot");
-    }
-    setCapturing(false);
-  };
-
   return (
     <div className="admin-field-group">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 6 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap", gap: 6 }}>
         <label className="admin-label" style={{ margin: 0 }}>{label}</label>
-        <div style={{ display: "flex", gap: 6 }}>
-          <button
-            type="button"
-            className="admin-btn admin-btn-secondary"
-            style={{ padding: "3px 10px", fontSize: 12, height: 28, gap: 5, color: "#10b981", borderColor: "rgba(16,185,129,0.3)" }}
-            onClick={() => setShowShotInput(!showShotInput)}
-            title="Capture screenshot directly from a website URL"
-          >
-            📸 {showShotInput ? "Close" : "Screenshot from Link"}
-          </button>
-        </div>
+        {sizeNote && (
+          <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 6, background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", border: "1px solid rgba(99, 102, 241, 0.25)", fontFamily: "monospace" }}>
+            📐 {sizeNote}
+          </span>
+        )}
       </div>
-
-      {showShotInput && (
-        <div style={{ display: "flex", gap: 8, marginBottom: 8, padding: 10, borderRadius: 10, background: "rgba(16,185,129,0.06)", border: "1px dashed rgba(16,185,129,0.3)" }}>
-          <input
-            className="admin-input"
-            style={{ flex: 1, fontSize: 13, padding: "7px 10px" }}
-            placeholder={`Website URL for Cover (1200x675)...`}
-            value={shotUrl}
-            onChange={e => setShotUrl(e.target.value)}
-          />
-          <button
-            type="button"
-            className="admin-btn admin-btn-primary"
-            style={{ padding: "0 14px", fontSize: 12, height: 36, background: "linear-gradient(135deg, #10b981, #059669)", flexShrink: 0 }}
-            onClick={handleCapture}
-            disabled={capturing}
-          >
-            {capturing ? <><div className="admin-spinner-btn" /> Capturing...</> : "Capture (1200px)"}
-          </button>
-        </div>
-      )}
-
       <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
         <input
           className="admin-input"
@@ -207,29 +136,16 @@ function ImageUploadField({
           {uploading ? "Uploading..." : "Upload"}
         </button>
       </div>
+      {hint && <span style={{ fontSize: 11, color: "#64748b", marginTop: 4 }}>{hint}</span>}
     </div>
   );
 }
 
-// ─── Multi image field (URL per line + batch upload + auto-screenshot) ───────
-function MultiImageUploadField({
-  label,
-  value,
-  onChange,
-  placeholder,
-  defaultUrl = "",
-  screenshotType = "desktop",
-}) {
+// ─── Multi image field (one URL per line + batch upload) ─────────────────────
+function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeholder }) {
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState({ done: 0, total: 0 });
-  const [showShotInput, setShowShotInput] = useState(false);
-  const [shotUrl, setShotUrl] = useState(defaultUrl || "");
-  const [capturing, setCapturing] = useState(false);
-
-  useEffect(() => {
-    if (defaultUrl && !shotUrl) setShotUrl(defaultUrl);
-  }, [defaultUrl]);
 
   const handleFiles = async (e) => {
     const files = Array.from(e.target.files || []);
@@ -255,46 +171,23 @@ function MultiImageUploadField({
     e.target.value = "";
   };
 
-  const handleCapture = async () => {
-    const target = shotUrl.trim() || defaultUrl.trim();
-    if (!target) {
-      alert("Please enter a website URL to capture screenshot.");
-      return;
-    }
-    setCapturing(true);
-    try {
-      const url = await captureScreenshot(target, screenshotType);
-      const existing = value.trim();
-      const newVal = existing ? existing + "\n" + url : url;
-      onChange(newVal);
-      setShowShotInput(false);
-    } catch (err) {
-      alert(err.message || "Failed to capture screenshot");
-    }
-    setCapturing(false);
-  };
-
-  const isMobile = screenshotType === "mobile";
-
   return (
     <div className="admin-field-group">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 4 }}>
-        <label className="admin-label" style={{ margin: 0 }}>{label}</label>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          <label className="admin-label" style={{ margin: 0 }}>{label}</label>
+          {sizeNote && (
+            <span style={{ fontSize: 10.5, padding: "1px 6px", borderRadius: 6, background: "rgba(255,255,255,0.06)", color: "#cbd5e1", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "monospace" }}>
+              📐 {sizeNote}
+            </span>
+          )}
+        </div>
         <div style={{ display: "flex", gap: 6 }}>
-          <button
-            type="button"
-            className="admin-btn admin-btn-secondary"
-            style={{ padding: "3px 9px", fontSize: 11, height: 28, gap: 4, color: "#10b981", borderColor: "rgba(16,185,129,0.3)" }}
-            onClick={() => setShowShotInput(!showShotInput)}
-            title={`Capture ${isMobile ? "mobile (390px)" : "desktop (1440px)"} screenshot from URL`}
-          >
-            📸 {showShotInput ? "Close" : "Screenshot Link"}
-          </button>
           <input ref={inputRef} type="file" accept="image/*" multiple style={{ display: "none" }} onChange={handleFiles} />
           <button
             type="button"
             className="admin-btn admin-btn-secondary"
-            style={{ padding: "3px 10px", fontSize: 11, height: 28, gap: 4 }}
+            style={{ padding: "4px 12px", fontSize: 12, height: 30, gap: 5 }}
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
           >
@@ -302,7 +195,7 @@ function MultiImageUploadField({
               <><div className="admin-spinner-btn" /> {progress.done}/{progress.total}</>
             ) : (
               <>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="17 8 12 3 7 8"/>
                   <line x1="12" y1="3" x2="12" y2="15"/>
@@ -313,28 +206,6 @@ function MultiImageUploadField({
           </button>
         </div>
       </div>
-
-      {showShotInput && (
-        <div style={{ display: "flex", gap: 8, marginBottom: 8, padding: 10, borderRadius: 10, background: "rgba(16,185,129,0.06)", border: "1px dashed rgba(16,185,129,0.3)" }}>
-          <input
-            className="admin-input"
-            style={{ flex: 1, fontSize: 13, padding: "7px 10px" }}
-            placeholder={`URL for ${isMobile ? "Mobile (390px)" : "Desktop (1440px)"}...`}
-            value={shotUrl}
-            onChange={e => setShotUrl(e.target.value)}
-          />
-          <button
-            type="button"
-            className="admin-btn admin-btn-primary"
-            style={{ padding: "0 14px", fontSize: 12, height: 36, background: "linear-gradient(135deg, #10b981, #059669)", flexShrink: 0 }}
-            onClick={handleCapture}
-            disabled={capturing}
-          >
-            {capturing ? <><div className="admin-spinner-btn" /> Capturing...</> : (isMobile ? "Capture (390px)" : "Capture (1440px)")}
-          </button>
-        </div>
-      )}
-
       <textarea
         className="admin-input admin-textarea"
         placeholder={placeholder}
@@ -342,9 +213,10 @@ function MultiImageUploadField({
         onChange={e => onChange(e.target.value)}
         rows={4}
       />
-      <span style={{ fontSize: 11, color: "#475569", marginTop: 4 }}>
-        {value.split("\n").filter(Boolean).length} image(s) — one URL per line, or use auto-screenshot / upload
-      </span>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#64748b", marginTop: 4 }}>
+        <span>{value.split("\n").filter(Boolean).length} image(s) — one URL per line</span>
+        {hint && <span style={{ color: "#94a3b8" }}>{hint}</span>}
+      </div>
     </div>
   );
 }
@@ -360,7 +232,6 @@ export default function ProjectsPage() {
   const [deleting, setDeleting] = useState(null);
   const [toast, setToast] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
-  const [capturingAll, setCapturingAll] = useState(false);
 
   // Dynamic tag management
   const [tagOptions, setTagOptions] = useState(DEFAULT_TAGS);
@@ -368,34 +239,6 @@ export default function ProjectsPage() {
   const [newTagInput, setNewTagInput] = useState("");
 
   const showToast = (msg, type = "success") => setToast({ msg, type });
-
-  const handleAutoCaptureAll = async () => {
-    const url = form.liveUrl?.trim();
-    if (!url) {
-      alert("Please enter a Live URL first.");
-      return;
-    }
-    setCapturingAll(true);
-    showToast("Capturing Cover, Desktop, and Mobile screenshots from Live URL...", "info");
-    try {
-      const [coverUrl, desktopUrl, mobileUrl] = await Promise.all([
-        captureScreenshot(url, "cover"),
-        captureScreenshot(url, "desktop"),
-        captureScreenshot(url, "mobile"),
-      ]);
-      setForm(f => ({
-        ...f,
-        image: coverUrl,
-        desktopImages: f.desktopImages ? f.desktopImages + "\n" + desktopUrl : desktopUrl,
-        mobileImages: f.mobileImages ? f.mobileImages + "\n" + mobileUrl : mobileUrl,
-      }));
-      setPreviewImage(coverUrl);
-      showToast("Successfully captured all 3 sizes and uploaded to Cloudinary!");
-    } catch (err) {
-      showToast(err.message || "Failed to capture screenshots", "error");
-    }
-    setCapturingAll(false);
-  };
 
   const fetchProjects = useCallback(async () => {
     setLoading(true);
@@ -719,78 +562,75 @@ export default function ProjectsPage() {
                 <textarea className="admin-input admin-textarea" placeholder="Brief project description..." value={form.description} onChange={e => setForm(f => ({...f, description: e.target.value}))} required rows={3} />
               </div>
 
-              {/* Section: Links */}
-              <div className="modal-section-label">Website Links</div>
-              <div className="admin-field-group">
-                <label className="admin-label">Live URL</label>
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <input
-                    className="admin-input"
-                    style={{ flex: 1 }}
-                    placeholder="https://yourproject.com"
-                    value={form.liveUrl}
-                    onChange={e => setForm(f => ({...f, liveUrl: e.target.value}))}
-                  />
-                  {form.liveUrl?.trim() && (
-                    <button
-                      type="button"
-                      className="admin-btn admin-btn-primary"
-                      style={{
-                        padding: "0 16px",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        background: "linear-gradient(135deg, #10b981, #059669)",
-                        borderColor: "#10b981",
-                        flexShrink: 0,
-                        height: 42,
-                        gap: 6,
-                      }}
-                      onClick={handleAutoCaptureAll}
-                      disabled={capturingAll}
-                      title="Auto-capture Cover (1200px), Desktop (1440px), and Mobile (390px) screenshots"
-                    >
-                      {capturingAll ? (
-                        <><div className="admin-spinner-btn" /> Capturing All 3...</>
-                      ) : (
-                        "⚡ Auto-Capture All 3 Sizes"
-                      )}
-                    </button>
-                  )}
-                </div>
-                <span style={{ fontSize: 11, color: "#64748b", marginTop: 4 }}>
-                  Tip: Enter the main live URL here. You can click &quot;⚡ Auto-Capture All 3 Sizes&quot;, or provide separate individual links for each screenshot below.
-                </span>
+              {/* Section: Images */}
+              <div className="modal-section-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
+                <span>Images & Screenshots</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "#818cf8" }}>📐 Recommended Size Guide</span>
               </div>
 
-              {/* Section: Images */}
-              <div className="modal-section-label" style={{ marginTop: 24 }}>
-                Images & Screenshots
+              {/* Recommended Size Guide Note Box */}
+              <div
+                style={{
+                  marginBottom: 16,
+                  padding: "12px 16px",
+                  borderRadius: 12,
+                  background: "linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)",
+                  border: "1px solid rgba(99, 102, 241, 0.22)",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gap: 12,
+                  fontSize: 12,
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontWeight: 700, color: "#818cf8" }}>🖼️ Cover Image</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1200 × 675 px (16:9)</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>কার্ড ও পোর্টফোলিও থাম্বনেইলের সেরা সাইজ</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontWeight: 700, color: "#38bdf8" }}>💻 Desktop Shots</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1440 × 900 px (16:10)</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 1920 × 1080 px (ল্যাপটপ স্ক্রিন ভিউ)</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontWeight: 700, color: "#34d399" }}>📱 Mobile Shots</span>
+                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>390 × 844 px (Portrait)</span>
+                  <span style={{ color: "#94a3b8", fontSize: 11 }}>বা 375 × 812 px (মোবাইল ফ্রেম ভিউ)</span>
+                </div>
               </div>
+
               <ImageUploadField
-                label="Cover Image (16:9 / 1200px)"
+                label="Cover Image"
+                sizeNote="1200 × 675 px (16:9)"
+                hint="Used as the main thumbnail in portfolio grids & project banner"
                 value={form.image}
                 onChange={val => setForm(f => ({ ...f, image: val }))}
-                placeholder="https://res.cloudinary.com/... or click 'Screenshot from Link'"
-                defaultUrl={form.liveUrl}
-                screenshotType="cover"
+                placeholder="https://res.cloudinary.com/... (16:9 Aspect Ratio)"
               />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <MultiImageUploadField
-                  label="Desktop Screenshots (1440px)"
+                  label="Desktop Screenshots"
+                  sizeNote="1440 × 900 px"
+                  hint="Laptop browser mockups"
                   value={form.desktopImages}
                   onChange={val => setForm(f => ({ ...f, desktopImages: val }))}
                   placeholder={"https://...\nhttps://..."}
-                  defaultUrl={form.liveUrl}
-                  screenshotType="desktop"
                 />
                 <MultiImageUploadField
-                  label="Mobile Screenshots (390px)"
+                  label="Mobile Screenshots"
+                  sizeNote="390 × 844 px"
+                  hint="Mobile portrait mockups"
                   value={form.mobileImages}
                   onChange={val => setForm(f => ({ ...f, mobileImages: val }))}
                   placeholder={"https://...\nhttps://..."}
-                  defaultUrl={form.liveUrl}
-                  screenshotType="mobile"
                 />
+              </div>
+
+              {/* Section: Links */}
+              <div className="modal-section-label">Links</div>
+              <div className="admin-field-group">
+                <label className="admin-label">Live URL</label>
+                <input className="admin-input" placeholder="https://yourproject.com" value={form.liveUrl} onChange={e => setForm(f => ({...f, liveUrl: e.target.value}))} />
               </div>
 
               {/* Section: Details */}
