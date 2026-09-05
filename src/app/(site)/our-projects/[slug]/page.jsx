@@ -177,6 +177,8 @@ export default async function ProjectDetailPage({ params }) {
   const a = accentMap[project.accent] || accentMap.violet;
   const details = project.details || {};
   const images = project.images || { mobile: [], desktop: [] };
+  const desktopList = Array.isArray(images.desktop) ? images.desktop.filter(Boolean) : [];
+  const showcaseImage = desktopList[0] || project.image;
 
   // Related projects (other 2 excluding current)
   const allProjects = await getAllProjects();
@@ -238,10 +240,10 @@ export default async function ProjectDetailPage({ params }) {
             </h1>
           </div>
 
-          {/* ── Single Full-Width Browser Auto-Scroll Showcase Card ── */}
+          {/* ── Single Full-Width Browser Auto-Scroll Showcase Card (from Desktop Image) ── */}
           <div className="w-full">
             <BrowserScrollCard
-              image={project.image}
+              image={showcaseImage}
               title={project.title}
               slug={project.slug}
               liveUrl={project.liveUrl}
