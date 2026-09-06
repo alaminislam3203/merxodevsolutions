@@ -366,25 +366,34 @@ export default async function ProjectDetailPage({ params }) {
             </div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {(details.features || []).map((f, i) => {
-                // Support both new object structure { title, subtitle } and legacy string "title — subtitle" or plain string
+                // Support multi-subtitles { title, style, subtitles: [{ text, style }] }, legacy { title, subtitle }, or string "title — subtitle"
                 let title = "";
-                let subtitle = "";
+                let fStyle = details.featureStyle || "dot";
+                let subtitles = [];
+
                 if (typeof f === "object" && f !== null) {
                   title = f.title || "";
-                  subtitle = f.subtitle || "";
+                  fStyle = f.style || details.featureStyle || "dot";
+                  if (Array.isArray(f.subtitles)) {
+                    subtitles = f.subtitles.map(s => {
+                      if (typeof s === "string") return { text: s, style: "dot" };
+                      return { text: s?.text || "", style: s?.style || "dot" };
+                    }).filter(s => s.text);
+                  } else if (f.subtitle) {
+                    subtitles = [{ text: f.subtitle, style: "dot" }];
+                  }
                 } else if (typeof f === "string") {
                   const parts = f.split(" — ");
+                  title = parts[0].trim();
+                  fStyle = details.featureStyle || "dot";
                   if (parts.length > 1) {
-                    title = parts[0].trim();
-                    subtitle = parts.slice(1).join(" — ").trim();
-                  } else {
-                    title = f.trim();
+                    subtitles = [{ text: parts.slice(1).join(" — ").trim(), style: "dot" }];
                   }
                 }
 
-                if (!title && !subtitle) return null;
+                if (!title && subtitles.length === 0) return null;
 
-                const isNumberStyle = details.featureStyle === "number";
+                const isNumberStyle = fStyle === "number";
 
                 return (
                   <li
@@ -406,14 +415,36 @@ export default async function ProjectDetailPage({ params }) {
                     )}
 
                     {/* Content */}
-                    <div className="flex flex-col gap-1 min-w-0">
-                      <span className="text-sm font-bold text-zinc-800 dark:text-zinc-100 leading-snug">
-                        {title}
-                      </span>
-                      {subtitle && (
-                        <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                          {subtitle}
-                        </p>
+                    <div className="flex flex-col gap-2 min-w-0 flex-1">
+                      {title && (
+                        <span className="text-sm font-bold text-zinc-800 dark:text-zinc-100 leading-snug">
+                          {title}
+                        </span>
+                      )}
+
+                      {/* Subtitles / Points */}
+                      {subtitles.length > 0 && (
+                        <div className="flex flex-col gap-1.5">
+                          {subtitles.map((sub, sIdx) => {
+                            const isSubNumber = sub.style === "number";
+                            return (
+                              <div key={sIdx} className="flex items-start gap-2">
+                                {isSubNumber ? (
+                                  <span className="text-[11px] font-bold font-mono text-zinc-400 dark:text-zinc-500 shrink-0 mt-0.5">
+                                    {sIdx + 1}.
+                                  </span>
+                                ) : (
+                                  <span className="text-[14px] leading-none text-zinc-400 dark:text-zinc-500 shrink-0 mt-0.5">
+                                    •
+                                  </span>
+                                )}
+                                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                                  {sub.text}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </div>
                       )}
                     </div>
                   </li>

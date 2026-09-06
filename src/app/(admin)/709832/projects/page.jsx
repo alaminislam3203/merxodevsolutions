@@ -208,19 +208,55 @@ function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeho
   );
 }
 
-// ─── Key Features Builder Component (Title, Subtitle, Bullet Style) ───────────
-function KeyFeaturesBuilder({ items, styleType, onChangeItems, onChangeStyle }) {
-  const addItem = () => {
-    onChangeItems([...items, { title: "", subtitle: "" }]);
+// ─── Key Features Builder Component (Multi-Subtitle & Individual Dot/Number Style) ───
+function KeyFeaturesBuilder({ items = [], onChangeItems }) {
+  const addFeature = () => {
+    onChangeItems([
+      ...items,
+      {
+        title: "",
+        style: "dot",
+        subtitles: [{ text: "", style: "dot" }],
+      },
+    ]);
   };
 
-  const updateItem = (index, field, val) => {
-    const updated = items.map((item, idx) => (idx === index ? { ...item, [field]: val } : item));
-    onChangeItems(updated);
+  const removeFeature = (fIdx) => {
+    onChangeItems(items.filter((_, idx) => idx !== fIdx));
   };
 
-  const removeItem = (index) => {
-    onChangeItems(items.filter((_, idx) => idx !== index));
+  const updateFeature = (fIdx, field, val) => {
+    const next = [...items];
+    next[fIdx] = { ...next[fIdx], [field]: val };
+    onChangeItems(next);
+  };
+
+  const addSubtitle = (fIdx) => {
+    const next = [...items];
+    const currSubs = Array.isArray(next[fIdx].subtitles) ? next[fIdx].subtitles : [];
+    next[fIdx] = {
+      ...next[fIdx],
+      subtitles: [...currSubs, { text: "", style: "dot" }],
+    };
+    onChangeItems(next);
+  };
+
+  const updateSubtitle = (fIdx, sIdx, field, val) => {
+    const next = [...items];
+    const currSubs = Array.isArray(next[fIdx].subtitles) ? [...next[fIdx].subtitles] : [];
+    currSubs[sIdx] = { ...currSubs[sIdx], [field]: val };
+    next[fIdx] = { ...next[fIdx], subtitles: currSubs };
+    onChangeItems(next);
+  };
+
+  const removeSubtitle = (fIdx, sIdx) => {
+    const next = [...items];
+    const currSubs = Array.isArray(next[fIdx].subtitles) ? next[fIdx].subtitles : [];
+    next[fIdx] = {
+      ...next[fIdx],
+      subtitles: currSubs.filter((_, idx) => idx !== sIdx),
+    };
+    onChangeItems(next);
   };
 
   return (
@@ -229,57 +265,16 @@ function KeyFeaturesBuilder({ items, styleType, onChangeItems, onChangeStyle }) 
         <div>
           <label className="admin-label" style={{ margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
             <FiList size={14} style={{ color: "#818cf8" }} />
-            <span>Key Features (Title &amp; Subtitle)</span>
+            <span>Key Features &amp; Multi-Subtitles</span>
           </label>
           <span style={{ fontSize: 11, color: "#94a3b8" }}>
-            Details page-এ প্রতিটি ফিচারের Title, সাবটাইটেল এবং নাম্বার বা ডট স্টাইল কাস্টমাইজ করুন
+            প্রতিটি ফিচারের টাইটেল ও সাবটাইটেল ইচ্ছেমতো যোগ করুন এবং টাইটেল ও সাবটাইটেলের ডট (•) বা নাম্বার (১.) আলাদা করে সেট করুন
           </span>
-        </div>
-
-        {/* Style Selector */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <span style={{ fontSize: 11.5, color: "#cbd5e1", fontWeight: 500 }}>Display Style:</span>
-          <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 8, padding: 2, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <button
-              type="button"
-              onClick={() => onChangeStyle("dot")}
-              style={{
-                padding: "4px 10px",
-                borderRadius: 6,
-                fontSize: 11.5,
-                fontWeight: 600,
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                background: styleType === "dot" ? "#6366f1" : "transparent",
-                color: styleType === "dot" ? "#fff" : "#94a3b8",
-              }}
-            >
-              • Dot
-            </button>
-            <button
-              type="button"
-              onClick={() => onChangeStyle("number")}
-              style={{
-                padding: "4px 10px",
-                borderRadius: 6,
-                fontSize: 11.5,
-                fontWeight: 600,
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                background: styleType === "number" ? "#6366f1" : "transparent",
-                color: styleType === "number" ? "#fff" : "#94a3b8",
-              }}
-            >
-              1. Number
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* Feature list rows */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {/* Feature list */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         {items.length === 0 && (
           <div style={{ textAlign: "center", padding: "16px 12px", background: "rgba(255,255,255,0.015)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 10 }}>
             <p style={{ margin: 0, fontSize: 12.5, color: "#64748b" }}>
@@ -288,92 +283,234 @@ function KeyFeaturesBuilder({ items, styleType, onChangeItems, onChangeStyle }) 
           </div>
         )}
 
-        {items.map((feat, idx) => (
-          <div
-            key={idx}
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 10,
-              background: "rgba(15, 23, 42, 0.6)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              padding: "10px 12px",
-              borderRadius: 10,
-            }}
-          >
-            {/* Badge Indicator: Number or Dot */}
+        {items.map((feat, fIdx) => {
+          const fStyle = feat.style || "dot";
+          const subs = Array.isArray(feat.subtitles)
+            ? feat.subtitles
+            : feat.subtitle
+            ? [{ text: feat.subtitle, style: "dot" }]
+            : [];
+
+          return (
             <div
+              key={fIdx}
               style={{
-                width: 26,
-                height: 26,
-                borderRadius: styleType === "number" ? 6 : "50%",
-                background: styleType === "number" ? "rgba(99, 102, 241, 0.15)" : "rgba(99, 102, 241, 0.2)",
-                color: "#818cf8",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: styleType === "number" ? 11 : 16,
-                fontWeight: 700,
-                flexShrink: 0,
-                marginTop: 6,
-                border: "1px solid rgba(99, 102, 241, 0.3)",
+                flexDirection: "column",
+                gap: 10,
+                background: "rgba(15, 23, 42, 0.7)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                padding: "12px 14px",
+                borderRadius: 12,
               }}
             >
-              {styleType === "number" ? idx + 1 : "•"}
-            </div>
+              {/* Feature Title Row */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                {/* Visual indicator */}
+                <div
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: fStyle === "number" ? 6 : "50%",
+                    background: fStyle === "number" ? "rgba(99, 102, 241, 0.15)" : "rgba(99, 102, 241, 0.2)",
+                    color: "#818cf8",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: fStyle === "number" ? 11 : 16,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                    border: "1px solid rgba(99, 102, 241, 0.3)",
+                  }}
+                >
+                  {fStyle === "number" ? fIdx + 1 : "•"}
+                </div>
 
-            {/* Inputs: Title & Subtitle */}
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
-              <input
-                type="text"
-                className="admin-input"
-                style={{ height: 36, fontSize: 13, fontWeight: 600, padding: "6px 12px" }}
-                placeholder={`Feature ${idx + 1} Title (e.g. Real-Time Admin Dashboard)`}
-                value={feat.title || ""}
-                onChange={(e) => updateItem(idx, "title", e.target.value)}
-              />
-              <input
-                type="text"
-                className="admin-input"
-                style={{ height: 32, fontSize: 12, padding: "4px 12px", color: "#cbd5e1" }}
-                placeholder="Subtitle / Description (optional details about this feature)"
-                value={feat.subtitle || ""}
-                onChange={(e) => updateItem(idx, "subtitle", e.target.value)}
-              />
-            </div>
+                {/* Title input */}
+                <input
+                  type="text"
+                  className="admin-input"
+                  style={{ flex: 1, height: 36, fontSize: 13, fontWeight: 600, padding: "6px 12px" }}
+                  placeholder={`Feature ${fIdx + 1} Title (e.g. Modern Architecture)`}
+                  value={feat.title || ""}
+                  onChange={(e) => updateFeature(fIdx, "title", e.target.value)}
+                />
 
-            {/* Delete button */}
-            <button
-              type="button"
-              onClick={() => removeItem(idx)}
-              style={{
-                background: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.2)",
-                color: "#f87171",
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                flexShrink: 0,
-                marginTop: 4,
-                transition: "all 0.2s",
-              }}
-              title="Remove this feature"
-            >
-              <FiTrash2 size={13} />
-            </button>
-          </div>
-        ))}
+                {/* Title style toggle */}
+                <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 6, padding: 2, border: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 }}>
+                  <button
+                    type="button"
+                    onClick={() => updateFeature(fIdx, "style", "dot")}
+                    title="Title badge: Dot"
+                    style={{
+                      padding: "3px 8px",
+                      borderRadius: 4,
+                      fontSize: 11,
+                      fontWeight: 600,
+                      border: "none",
+                      cursor: "pointer",
+                      background: fStyle === "dot" ? "#6366f1" : "transparent",
+                      color: fStyle === "dot" ? "#fff" : "#94a3b8",
+                    }}
+                  >
+                    • Dot
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateFeature(fIdx, "style", "number")}
+                    title="Title badge: Number"
+                    style={{
+                      padding: "3px 8px",
+                      borderRadius: 4,
+                      fontSize: 11,
+                      fontWeight: 600,
+                      border: "none",
+                      cursor: "pointer",
+                      background: fStyle === "number" ? "#6366f1" : "transparent",
+                      color: fStyle === "number" ? "#fff" : "#94a3b8",
+                    }}
+                  >
+                    1. Num
+                  </button>
+                </div>
+
+                {/* Delete feature button */}
+                <button
+                  type="button"
+                  onClick={() => removeFeature(fIdx)}
+                  style={{
+                    background: "rgba(239, 68, 68, 0.1)",
+                    border: "1px solid rgba(239, 68, 68, 0.2)",
+                    color: "#f87171",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    flexShrink: 0,
+                  }}
+                  title="Remove this feature"
+                >
+                  <FiTrash2 size={13} />
+                </button>
+              </div>
+
+              {/* Subtitles Area */}
+              <div style={{ marginLeft: 38, paddingLeft: 12, borderLeft: "2px solid rgba(99, 102, 241, 0.2)", display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    Subtitles / Bullet Points ({subs.length})
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => addSubtitle(fIdx)}
+                    style={{
+                      background: "rgba(99, 102, 241, 0.12)",
+                      border: "1px solid rgba(99, 102, 241, 0.25)",
+                      color: "#a5b4fc",
+                      borderRadius: 6,
+                      fontSize: 11,
+                      fontWeight: 600,
+                      padding: "2px 8px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    <FiPlus size={11} /> Add Subtitle
+                  </button>
+                </div>
+
+                {subs.map((sub, sIdx) => {
+                  const subStyle = sub.style || "dot";
+                  return (
+                    <div key={sIdx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      {/* Subtitle style toggle */}
+                      <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 5, padding: 1, border: "1px solid rgba(255,255,255,0.06)", flexShrink: 0 }}>
+                        <button
+                          type="button"
+                          onClick={() => updateSubtitle(fIdx, sIdx, "style", "dot")}
+                          style={{
+                            padding: "2px 6px",
+                            borderRadius: 4,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            border: "none",
+                            cursor: "pointer",
+                            background: subStyle === "dot" ? "#818cf8" : "transparent",
+                            color: subStyle === "dot" ? "#fff" : "#64748b",
+                          }}
+                          title="Dot bullet"
+                        >
+                          •
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => updateSubtitle(fIdx, sIdx, "style", "number")}
+                          style={{
+                            padding: "2px 6px",
+                            borderRadius: 4,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            border: "none",
+                            cursor: "pointer",
+                            background: subStyle === "number" ? "#818cf8" : "transparent",
+                            color: subStyle === "number" ? "#fff" : "#64748b",
+                          }}
+                          title="Number bullet"
+                        >
+                          1.
+                        </button>
+                      </div>
+
+                      {/* Subtitle text input */}
+                      <input
+                        type="text"
+                        className="admin-input"
+                        style={{ height: 30, fontSize: 12, padding: "2px 10px", color: "#e2e8f0" }}
+                        placeholder={`Subtitle point ${sIdx + 1}...`}
+                        value={sub.text || ""}
+                        onChange={(e) => updateSubtitle(fIdx, sIdx, "text", e.target.value)}
+                      />
+
+                      {/* Remove subtitle button */}
+                      <button
+                        type="button"
+                        onClick={() => removeSubtitle(fIdx, sIdx)}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          color: "#64748b",
+                          cursor: "pointer",
+                          padding: 4,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          transition: "color 0.15s",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#f87171")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
+                        title="Remove point"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Add Button */}
       <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end" }}>
         <button
           type="button"
-          onClick={addItem}
+          onClick={addFeature}
           className="admin-btn admin-btn-secondary"
           style={{ height: 32, padding: "0 12px", fontSize: 12, gap: 5 }}
         >
@@ -433,19 +570,40 @@ export default function ProjectsPage() {
     const det = p.details || {};
     const imgs = p.images || {};
 
-    // Normalize raw features into [{ title, subtitle }] objects
+    // Normalize raw features into [{ title, style, subtitles: [{ text, style }] }] objects
     let normalizedFeatures = [];
     if (Array.isArray(det.features)) {
       normalizedFeatures = det.features.map(f => {
         if (typeof f === "string") {
           const parts = f.split(" — ");
-          if (parts.length > 1) {
-            return { title: parts[0].trim(), subtitle: parts.slice(1).join(" — ").trim() };
-          }
-          return { title: f.trim(), subtitle: "" };
+          const t = parts[0].trim();
+          const sub = parts.slice(1).join(" — ").trim();
+          return {
+            title: t,
+            style: det.featureStyle || "dot",
+            subtitles: sub ? [{ text: sub, style: "dot" }] : [{ text: "", style: "dot" }],
+          };
         }
-        return { title: f?.title || "", subtitle: f?.subtitle || "" };
-      }).filter(f => f.title || f.subtitle);
+        if (typeof f === "object" && f !== null) {
+          const t = f.title || "";
+          const fStyle = f.style || det.featureStyle || "dot";
+          let subs = [];
+          if (Array.isArray(f.subtitles)) {
+            subs = f.subtitles.map(s => {
+              if (typeof s === "string") return { text: s.trim(), style: "dot" };
+              return { text: s?.text?.trim() || "", style: s?.style || "dot" };
+            }).filter(s => s.text);
+          } else if (f.subtitle) {
+            subs = [{ text: f.subtitle.trim(), style: "dot" }];
+          }
+          return {
+            title: t,
+            style: fStyle,
+            subtitles: subs.length > 0 ? subs : [{ text: "", style: "dot" }],
+          };
+        }
+        return null;
+      }).filter(Boolean);
     }
 
     setForm({
@@ -519,9 +677,20 @@ export default function ProjectsPage() {
       duration: form.duration.trim(),
       tech: form.tech.split(",").map(s => s.trim()).filter(Boolean),
       features: (Array.isArray(form.features) ? form.features : [])
-        .map(f => ({ title: f.title?.trim() || "", subtitle: f.subtitle?.trim() || "" }))
-        .filter(f => f.title || f.subtitle),
-      featureStyle: form.featureStyle || "dot",
+        .map(f => {
+          const subs = (Array.isArray(f.subtitles) ? f.subtitles : (f.subtitle ? [{ text: f.subtitle, style: "dot" }] : []))
+            .map(s => ({
+              text: typeof s === "object" ? s.text?.trim() || "" : String(s).trim(),
+              style: typeof s === "object" && s.style ? s.style : "dot",
+            }))
+            .filter(s => s.text);
+          return {
+            title: f.title?.trim() || "",
+            style: f.style || "dot",
+            subtitles: subs,
+          };
+        })
+        .filter(f => f.title || f.subtitles.length > 0),
     },
   });
 
@@ -877,12 +1046,10 @@ export default function ProjectsPage() {
                 <label className="admin-label">Tech Stack (comma separated)</label>
                 <input className="admin-input" placeholder="Next.js, Node.js, MongoDB, Tailwind" value={form.tech} onChange={e => setForm(f => ({...f, tech: e.target.value}))} />
               </div>
-              {/* Key Features Builder (Title, Subtitle, Number/Dot style) */}
+              {/* Key Features Builder (Multi-Subtitle & Individual Dot/Number Style) */}
               <KeyFeaturesBuilder
                 items={Array.isArray(form.features) ? form.features : []}
-                styleType={form.featureStyle || "dot"}
                 onChangeItems={(newItems) => setForm(f => ({ ...f, features: newItems }))}
-                onChangeStyle={(newStyle) => setForm(f => ({ ...f, featureStyle: newStyle }))}
               />
 
               <div className="admin-modal-actions">
