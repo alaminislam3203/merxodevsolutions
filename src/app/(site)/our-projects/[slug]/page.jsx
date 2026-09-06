@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllProjects, getProjectBySlug } from '@/app/lib/projects';
 import BrowserScrollCard from '@/components/BrowserScrollCard';
+import { truncateWords } from '@/lib/utils';
 
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -408,8 +409,8 @@ export default async function ProjectDetailPage({ params }) {
                       <span className="text-sm font-extrabold text-[#27003B] dark:text-white uppercase font-display truncate">
                         {rp.title}
                       </span>
-                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway line-clamp-1">
-                        {rp.description}
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway line-clamp-2">
+                        {truncateWords(rp.description, 20)}
                       </span>
                     </div>
                     <svg

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { truncateWords } from '@/lib/utils';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
 const accentMap = {
@@ -125,7 +126,7 @@ function ProjectCard({ project, index, visible }) {
 
         {/* Description */}
         <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway flex-1">
-          {project.description}
+          {truncateWords(project.description, 20)}
         </p>
 
         {/* Buttons row */}
