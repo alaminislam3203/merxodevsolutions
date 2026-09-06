@@ -65,7 +65,8 @@ const accentMap = {
 // ─── Project Card ──────────────────────────────────────────────────────────────
 function ProjectCard({ project, index, visible }) {
   const router = useRouter();
-  const a = accentMap[project.accent] || accentMap.violet;
+  if (!project) return null;
+  const a = accentMap[project?.accent] || accentMap.violet;
 
   const handleCardClick = (e) => {
     // If clicked on an explicit interactive link/button, let that event proceed
@@ -197,8 +198,9 @@ export default function FeaturedProjects({ projects = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const VISIBLE_CARDS = 3;
-  const TOTAL = projects.length;
+  const safeProjects = Array.isArray(projects) ? projects.filter(Boolean) : [];
+  const TOTAL = safeProjects.length;
+  const VISIBLE_CARDS = Math.min(3, TOTAL || 1);
   const SLIDE_INTERVAL = 3000;
 
   // Intersection observer for section entrance
@@ -215,10 +217,12 @@ export default function FeaturedProjects({ projects = [] }) {
 
   // Advance slide
   const next = useCallback(() => {
+    if (TOTAL === 0) return;
     setActiveIndex(prev => (prev + 1) % TOTAL);
   }, [TOTAL]);
 
   const prev = useCallback(() => {
+    if (TOTAL === 0) return;
     setActiveIndex(prev => (prev - 1 + TOTAL) % TOTAL);
   }, [TOTAL]);
 
@@ -226,10 +230,10 @@ export default function FeaturedProjects({ projects = [] }) {
 
   // Auto-swipe every 3 s
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || TOTAL === 0) return;
     intervalRef.current = setInterval(next, SLIDE_INTERVAL);
     return () => clearInterval(intervalRef.current);
-  }, [next, isPaused]);
+  }, [next, isPaused, TOTAL]);
 
   // Touch/drag support
   const dragStart = useRef(null);
@@ -245,10 +249,14 @@ export default function FeaturedProjects({ projects = [] }) {
   };
 
   // Visible indices (wrap-around)
-  const visibleIndices = Array.from(
-    { length: VISIBLE_CARDS },
-    (_, i) => (activeIndex + i) % TOTAL,
-  );
+  const visibleIndices = TOTAL > 0
+    ? Array.from(
+        { length: VISIBLE_CARDS },
+        (_, i) => (activeIndex + i) % TOTAL,
+      )
+    : [];
+
+  if (TOTAL === 0) return null;
 
   return (
     <>
@@ -260,7 +268,7 @@ export default function FeaturedProjects({ projects = [] }) {
             '@context': 'https://schema.org',
             '@type': 'ItemList',
             name: 'Featured Projects by MerxoDev Solutions',
-            itemListElement: projects.map((p, i) => ({
+            itemListElement: safeProjects.map((p, i) => ({
               '@type': 'ListItem',
               position: i + 1,
               name: p.title,
@@ -359,7 +367,7 @@ export default function FeaturedProjects({ projects = [] }) {
               {visibleIndices.map((projIdx, slotIdx) => (
                 <ProjectCard
                   key={`${projIdx}-${slotIdx}`}
-                  project={projects[projIdx]}
+                  project={safeProjects[projIdx]}
                   index={slotIdx}
                   visible={visible}
                 />
@@ -422,8 +430,8 @@ export default function FeaturedProjects({ projects = [] }) {
             role="tablist"
             aria-label="Project slides"
           >
-            {projects.map((p, i) => {
-              const a = accentMap[p.accent];
+            {safeProjects.map((p, i) => {
+              const a = accentMap[p?.accent] || accentMap.violet;
               const isActive = i === activeIndex;
               return (
                 <button

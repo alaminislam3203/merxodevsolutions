@@ -8,8 +8,18 @@ export async function GET(request, { params }) {
   if (!authorized) return response;
 
   try {
-    const { id } = await params;
-    const project = await prisma.project.findUnique({ where: { id } });
+    const resolvedParams = await params;
+    const id = resolvedParams?.id;
+    if (!id || id === "undefined") {
+      return NextResponse.json({ error: "Project ID or slug is required" }, { status: 400 });
+    }
+
+    const project = await prisma.project.findFirst({
+      where: {
+        OR: [{ id }, { slug: id }],
+      },
+    });
+
     if (!project) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(project);
   } catch (error) {
@@ -23,30 +33,78 @@ export async function PUT(request, { params }) {
   if (!authorized) return response;
 
   try {
-    const { id } = await params;
+    const resolvedParams = await params;
+    const id = resolvedParams?.id;
     const body = await request.json();
-    const { slug, tag, title, description, image, images, liveUrl, accent, details } = body;
 
+    // 1. Locate existing project by id, slug from params, or body.id / body.slug
+    let existing = null;
+    if (id && id !== "undefined" && id !== "null") {
+      existing = await prisma.project.findFirst({
+        where: {
+          OR: [{ id }, { slug: id }],
+        },
+      });
+    }
+
+    if (!existing && body.id) {
+      existing = await prisma.project.findUnique({
+        where: { id: body.id },
+      });
+    }
+
+    if (!existing && body.slug) {
+      existing = await prisma.project.findUnique({
+        where: { slug: body.slug },
+      });
+    }
+
+    if (!existing) {
+      return NextResponse.json({ error: "Project not found in database" }, { status: 404 });
+    }
+
+    // 2. If slug changed, verify no other project uses the new slug
+    const targetSlug = body.slug ? String(body.slug).trim() : existing.slug;
+    if (targetSlug && targetSlug !== existing.slug) {
+      const duplicateSlug = await prisma.project.findUnique({
+        where: { slug: targetSlug },
+      });
+      if (duplicateSlug && duplicateSlug.id !== existing.id) {
+        return NextResponse.json(
+          { error: "A project with this slug already exists" },
+          { status: 409 }
+        );
+      }
+    }
+
+    // 3. Prepare sanitized update data
+    const updateData = {
+      slug: targetSlug,
+      tag: body.tag ? String(body.tag).trim() : existing.tag,
+      title: body.title ? String(body.title).trim() : existing.title,
+      accent: body.accent ? String(body.accent).trim() : existing.accent,
+      description: body.description !== undefined ? body.description : existing.description,
+      image: body.image !== undefined ? (body.image || null) : existing.image,
+      images: body.images !== undefined ? body.images : existing.images,
+      liveUrl: body.liveUrl !== undefined ? (body.liveUrl || null) : existing.liveUrl,
+      details: body.details !== undefined ? body.details : existing.details,
+    };
+
+    // 4. Update the verified project by its primary key (existing.id)
     const project = await prisma.project.update({
-      where: { id },
-      data: {
-        slug,
-        tag,
-        title,
-        description: description || "",
-        image: image || null,
-        images: images || { mobile: [], desktop: [] },
-        liveUrl: liveUrl || null,
-        accent,
-        details: details || { client: "", duration: "", tech: [], features: [] },
-      },
+      where: { id: existing.id },
+      data: updateData,
     });
+
     return NextResponse.json(project);
   } catch (error) {
     if (error.code === "P2002") {
       return NextResponse.json({ error: "A project with this slug already exists" }, { status: 409 });
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error.code === "P2025") {
+      return NextResponse.json({ error: "Project record not found to update" }, { status: 404 });
+    }
+    return NextResponse.json({ error: error.message || "Failed to update project" }, { status: 500 });
   }
 }
 
@@ -56,8 +114,23 @@ export async function DELETE(request, { params }) {
   if (!authorized) return response;
 
   try {
-    const { id } = await params;
-    await prisma.project.delete({ where: { id } });
+    const resolvedParams = await params;
+    const id = resolvedParams?.id;
+    if (!id || id === "undefined") {
+      return NextResponse.json({ error: "Project ID or slug is required" }, { status: 400 });
+    }
+
+    const existing = await prisma.project.findFirst({
+      where: {
+        OR: [{ id }, { slug: id }],
+      },
+    });
+
+    if (!existing) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    await prisma.project.delete({ where: { id: existing.id } });
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

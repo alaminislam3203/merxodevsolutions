@@ -22,8 +22,12 @@ export async function generateMetadata({ params }) {
 
 // ─── Static Params ────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
-  const projects = await getAllProjects();
-  return projects.map(p => ({ slug: p.slug }));
+  try {
+    const projects = await getAllProjects();
+    return Array.isArray(projects) ? projects.map(p => ({ slug: p.slug })) : [];
+  } catch {
+    return [];
+  }
 }
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────

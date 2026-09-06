@@ -699,7 +699,11 @@ export default function ProjectsPage() {
     if (!form.slug) { showToast("Slug is required.", "error"); return; }
     setSaving(true);
     const payload = buildPayload();
-    const url = editProject ? `/api/admin/projects/${editProject.id}` : "/api/admin/projects";
+    if (editProject?.id) {
+      payload.id = editProject.id;
+    }
+    const targetId = editProject ? (editProject.id || editProject.slug) : null;
+    const url = editProject ? `/api/admin/projects/${targetId}` : "/api/admin/projects";
     const method = editProject ? "PUT" : "POST";
     try {
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
@@ -717,13 +721,20 @@ export default function ProjectsPage() {
     setSaving(false);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (proj) => {
+    const targetId = typeof proj === "object" && proj !== null ? (proj.id || proj.slug) : proj;
+    if (!targetId) return;
     if (!confirm("Delete this project? This cannot be undone.")) return;
-    setDeleting(id);
+    setDeleting(targetId);
     try {
-      const res = await fetch(`/api/admin/projects/${id}`, { method: "DELETE" });
-      if (res.ok) { showToast("Project deleted."); fetchProjects(); }
-      else showToast("Delete failed.", "error");
+      const res = await fetch(`/api/admin/projects/${targetId}`, { method: "DELETE" });
+      if (res.ok) {
+        showToast("Project deleted.");
+        fetchProjects();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        showToast(data.error || "Delete failed.", "error");
+      }
     } catch {
       showToast("Network error.", "error");
     }
@@ -817,8 +828,8 @@ export default function ProjectsPage() {
                     </svg>
                     Edit
                   </button>
-                  <button className="admin-btn admin-btn-danger" style={{padding:"8px 12px"}} onClick={() => handleDelete(p.id)} disabled={deleting === p.id}>
-                    {deleting === p.id ? <div className="admin-spinner-btn"></div> : (
+                  <button className="admin-btn admin-btn-danger" style={{padding:"8px 12px"}} onClick={() => handleDelete(p)} disabled={deleting === p.id || deleting === p.slug}>
+                    {(deleting === p.id || deleting === p.slug) ? <div className="admin-spinner-btn"></div> : (
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
                       </svg>
