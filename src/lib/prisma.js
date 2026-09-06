@@ -5,8 +5,20 @@ import { Pool } from "pg";
 const globalForPrisma = globalThis;
 
 function createPrismaClient() {
-  const connectionString = process.env.DATABASE_URL;
-  const pool = new Pool({ connectionString });
+  const rawUrl = process.env.DATABASE_URL || "";
+  // Strip channel_binding which causes node-postgres SCRAM SASL auth failures
+  const connectionString = rawUrl
+    .replace(/[?&]channel_binding=[^&]+/, "")
+    .replace(/\?$/, "");
+
+  const pool = new Pool({
+    connectionString,
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 15000,
+    idleTimeoutMillis: 30000,
+    max: 10,
+  });
+
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
 }
