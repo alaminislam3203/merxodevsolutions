@@ -186,6 +186,33 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            {/* Mobile-only Quick Links for Privacy & Terms */}
+            <li className="block md:hidden">
+              <Link
+                href="/privacy"
+                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+              >
+                <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
+                  ›
+                </span>
+                <span className="group-hover:translate-x-1 transition-transform duration-200">
+                  {t('footer.bottom.privacy')}
+                </span>
+              </Link>
+            </li>
+            <li className="block md:hidden">
+              <Link
+                href="/terms"
+                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+              >
+                <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
+                  ›
+                </span>
+                <span className="group-hover:translate-x-1 transition-transform duration-200">
+                  {t('footer.bottom.terms')}
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
 

@@ -422,6 +422,25 @@ export default function Navbar() {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
+
+          {/* Mobile Legal Quick Links */}
+          <div className="flex items-center justify-center gap-3 pt-3 text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+            <Link
+              href="/privacy"
+              onClick={() => setSidebarOpen(false)}
+              className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link
+              href="/terms"
+              onClick={() => setSidebarOpen(false)}
+              className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </>
