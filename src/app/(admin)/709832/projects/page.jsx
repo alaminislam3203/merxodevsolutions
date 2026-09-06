@@ -10,6 +10,7 @@ const EMPTY_FORM = {
   slug: "",
   tag: "SaaS",
   title: "",
+  descriptionTitle: "About The Project",
   description: "",
   image: "",
   accent: "violet",
@@ -451,6 +452,7 @@ export default function ProjectsPage() {
       slug: p.slug || "",
       tag: p.tag || "SaaS",
       title: p.title || "",
+      descriptionTitle: det.descriptionTitle || "",
       description: p.description || "",
       image: p.image || "",
       accent: p.accent || "violet",
@@ -512,6 +514,7 @@ export default function ProjectsPage() {
       desktop: form.desktopImages.split("\n").map(s => s.trim()).filter(Boolean),
     },
     details: {
+      descriptionTitle: form.descriptionTitle?.trim() || null,
       client: form.client.trim(),
       duration: form.duration.trim(),
       tech: form.tech.split(",").map(s => s.trim()).filter(Boolean),
@@ -747,8 +750,20 @@ export default function ProjectsPage() {
                 </div>
               </div>
               <div className="admin-field-group">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <label className="admin-label">Description Title</label>
+                  <span style={{ fontSize: 11, color: "#64748b" }}>Default: About The Project</span>
+                </div>
+                <input
+                  className="admin-input"
+                  placeholder="e.g. About The Project / Project Overview"
+                  value={form.descriptionTitle}
+                  onChange={e => setForm(f => ({ ...f, descriptionTitle: e.target.value }))}
+                />
+              </div>
+              <div className="admin-field-group">
                 <label className="admin-label">Description *</label>
-                <textarea className="admin-input admin-textarea" placeholder="Brief project description..." value={form.description} onChange={e => setForm(f => ({...f, description: e.target.value}))} required rows={3} />
+                <textarea className="admin-input admin-textarea" placeholder="Detailed project description..." value={form.description} onChange={e => setForm(f => ({...f, description: e.target.value}))} required rows={3} />
               </div>
 
               {/* Section: Images */}
