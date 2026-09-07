@@ -15,21 +15,57 @@ import {
 } from 'react-icons/fi';
 
 export const metadata = {
-  title: 'Our Journey – MerxoDev Solutions',
+  title: 'Our Journey & Story — MerxoDev Solutions Bangladesh',
   description:
-    'From a small team in Rangpur to delivering 56+ digital projects — discover the story, milestones, and vision behind MerxoDev Solutions.',
+    'From a single laptop in Rangpur to 56+ successful software products across Bangladesh and abroad. Explore the milestones and mission behind MerxoDev Solutions.',
   keywords: [
+    // English
     'MerxoDev Solutions story',
     'web development company Bangladesh',
     'Rangpur software company',
     'our journey MerxoDev',
-    'digital agency Bangladesh',
+    'digital agency Bangladesh milestones',
+    'successful tech startups Bangladesh',
+    'Bangladesh software engineering story',
+    // Bengali (বাংলা)
+    'আমাদের পথচলা',
+    'মারক্সোদেব সলিউশনস এর গল্প',
+    'সফটওয়্যার কোম্পানি বাংলাদেশ',
+    'রংপুরের আইটি কোম্পানি',
+    'সফল ওয়েব ডেভেলপমেন্ট প্রজেক্ট',
+    // Banglish (বাংলিশ)
+    'amader jatra merxodev',
+    'software company rangpur',
+    'merxodev solutions story bd',
+    'bangladesh it agency success story',
+    'kivabe suru hoyechilo',
   ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/our-journey',
+  },
   openGraph: {
-    title: 'Our Journey – MerxoDev Solutions',
+    title: 'Our Journey & Story — MerxoDev Solutions Bangladesh',
     description:
       'The story behind MerxoDev Solutions — where we started, what we built, and where we are going.',
     url: 'https://merxodevsolutions.pro.bd/our-journey',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+        width: 1200,
+        height: 630,
+        alt: 'Our Journey — MerxoDev Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Journey & Story — MerxoDev Solutions Bangladesh',
+    description:
+      'From a single laptop in Rangpur to 56+ digital products. The story behind MerxoDev Solutions.',
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
   },
 };
 
@@ -150,8 +186,30 @@ const numbers = [
 ];
 
 export default function JourneyPage() {
+  const journeySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Our Journey — MerxoDev Solutions',
+    url: 'https://merxodevsolutions.pro.bd/our-journey',
+    description:
+      'Story and key milestones of MerxoDev Solutions, a software agency founded in Rangpur, Bangladesh.',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'MerxoDev Solutions',
+      foundingDate: '2021',
+      foundingLocation: {
+        '@type': 'Place',
+        name: 'Rangpur, Bangladesh',
+      },
+    },
+  };
+
   return (
     <main className="text-[#27003B] dark:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(journeySchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full dark:from-violet-950 dark:to-cyan-950 opacity-50 blur-3xl pointer-events-none" />

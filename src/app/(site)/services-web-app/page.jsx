@@ -3,27 +3,53 @@ import WebAppContent from '@/components/WebAppContent';
 // ── 1. Static Metadata (Next.js App Router) ──────────────────────────────────
 export const metadata = {
   // Primary SEO
-  title: 'Web App Development Services | Custom Full-Stack Applications',
+  title: 'Custom Web Application & SaaS Development Bangladesh | MerxoDev Solutions',
   description:
-    'We build fast, scalable, full-stack web applications — from MVPs to enterprise SaaS platforms — using Next.js, React, Node.js, and cloud-native architecture.',
+    'We engineer high-performance full-stack web applications, SaaS platforms, MVPs, and enterprise cloud solutions using Next.js, React, Node.js, and PostgreSQL in Bangladesh.',
 
-  // Canonical URL (update to your domain)
+  // Canonical URL
   alternates: {
     canonical: 'https://merxodevsolutions.pro.bd/services-web-app',
   },
 
-  // Open Graph (Facebook, LinkedIn, WhatsApp previews)
+  // Keywords (Three-tier English, Bengali, Banglish)
+  keywords: [
+    // English
+    'web app development Bangladesh',
+    'custom web application development',
+    'SaaS application development Bangladesh',
+    'full-stack web development agency',
+    'Next.js web app developer',
+    'React Node.js full stack app',
+    'MVP development for startups Bangladesh',
+    'cloud native web application',
+    'custom CRM ERP dashboard development',
+    // Bengali (বাংলা)
+    'কাস্টম ওয়েব অ্যাপ্লিকেশন',
+    'সাস সফটওয়্যার ডেভেলপমেন্ট',
+    'ওয়েব অ্যাপ তৈরির কোম্পানি বাংলাদেশ',
+    'ব্যবসার জন্য সফটওয়্যার তৈরি',
+    'স্টার্টআপ এমভিপি ডেভেলপমেন্ট রংপুর ঢাকা',
+    // Banglish (বাংলিশ)
+    'web app banano bangladesh',
+    'saas software toiri kora',
+    'custom software banate koto taka lage',
+    'mvp bananor agency',
+    'startup web application bd',
+  ],
+
+  // Open Graph
   openGraph: {
-    title: 'Web App Development Services | Custom Full-Stack Applications',
+    title: 'Custom Web Application & SaaS Development Bangladesh | MerxoDev Solutions',
     description:
-      'Custom web application development: React, Next.js, Node.js, cloud hosting, API integrations, and 30-day post-launch support.',
+      'We build fast, scalable, full-stack web applications and SaaS platforms from MVP to enterprise scale.',
     url: 'https://merxodevsolutions.pro.bd/services-web-app',
-    siteName: 'Your Brand Name', // ← change this
+    siteName: 'MerxoDev Solutions',
     type: 'website',
     locale: 'en_US',
     images: [
       {
-        url: 'https://merxodevsolutions.pro.bd/og/services-web-app.png', // ← create 1200×630 image
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
         width: 1200,
         height: 630,
         alt: 'Web App Development Services',
@@ -34,62 +60,31 @@ export const metadata = {
   // Twitter / X card
   twitter: {
     card: 'summary_large_image',
-    title: 'Web App Development Services | Custom Full-Stack Applications',
+    title: 'Custom Web Application & SaaS Development | MerxoDev Solutions',
     description:
       'From MVP to enterprise — we build scalable web apps with React, Next.js, and Node.js.',
-    images: ['https://merxodevsolutions.pro.bd/og/services-web-app.png'],
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
   },
-
-  // Robots
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
-  // Keywords (informational signal — not a ranking factor but good practice)
-  keywords: [
-    'web app development',
-    'custom web application',
-    'full-stack development',
-    'Next.js development',
-    'React web app',
-    'Node.js backend',
-    'SaaS development',
-    'MVP development',
-    'cloud web application',
-    'enterprise web app',
-  ],
 };
 
 // ── 2. JSON-LD Structured Data ────────────────────────────────────────────────
-// Renders a <script type="application/ld+json"> tag in the page <head>.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Web App Development',
+  name: 'Web Application Development',
   description:
     'Custom full-stack web application development services including UI/UX design, cloud deployment, API integrations, and ongoing support.',
   provider: {
     '@type': 'Organization',
-    name: 'Merxo Dev Solutions', // ← change this
-    url: 'https://merxodevsolutions.pro.bd', // ← change this
+    name: 'MerxoDev Solutions',
+    url: 'https://merxodevsolutions.pro.bd',
   },
-  areaServed: 'Worldwide',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Bangladesh',
+  },
   serviceType: 'Web Application Development',
   url: 'https://merxodevsolutions.pro.bd/services-web-app',
-  offers: {
-    '@type': 'Offer',
-    priceCurrency: 'USD',
-    price: '0', // use "0" if price is on request
-    eligibleRegion: 'Worldwide',
-  },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Web App Services',

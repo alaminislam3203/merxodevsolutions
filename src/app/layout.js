@@ -72,10 +72,6 @@ export const metadata = {
   metadataBase: new URL('https://merxodevsolutions.pro.bd'),
   alternates: {
     canonical: 'https://merxodevsolutions.pro.bd',
-    languages: {
-      'en-US': 'https://merxodevsolutions.pro.bd',
-      'bn-BD': 'https://merxodevsolutions.pro.bd/bn',
-    },
   },
   openGraph: {
     title: 'MerxoDev Solutions – Custom Web & App Development Bangladesh',

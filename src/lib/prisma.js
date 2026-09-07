@@ -23,7 +23,11 @@ function createPrismaClient() {
   return new PrismaClient({ adapter });
 }
 
-const prisma = globalForPrisma.prisma ?? createPrismaClient();
+// In dev, if PrismaClient in memory was instantiated before newly generated models (e.g. teamMember), recreate it
+const prisma =
+  globalForPrisma.prisma && globalForPrisma.prisma.teamMember
+    ? globalForPrisma.prisma
+    : createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 

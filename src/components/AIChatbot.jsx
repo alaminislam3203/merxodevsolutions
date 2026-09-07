@@ -57,22 +57,8 @@ export default function AIChatbot() {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState(QUICK_SUGGESTIONS);
   const [hasUnread, setHasUnread] = useState(false);
-  const [isNavVisible, setIsNavVisible] = useState(true);
-  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
-
-  // Sync tooltip with Navbar navlinks visibility (at top of page scrollY <= 20)
-  useEffect(() => {
-    const handleScroll = () => {
-      const atTop = typeof window !== 'undefined' ? window.scrollY <= 20 : true;
-      setIsNavVisible(atTop);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Lock body scroll on mobile when full-screen chat is open
   useEffect(() => {
@@ -441,51 +427,8 @@ export default function AIChatbot() {
         </div>
       )}
 
-      {/* ─── Floating Launcher Trigger and Desktop Tooltip ─── */}
+      {/* ─── Floating Launcher Trigger ─── */}
       <div className="fixed bottom-20 md:bottom-5 right-3.5 sm:right-5 z-50 flex flex-col items-end pointer-events-none select-none font-raleway">
-        {/* Desktop Only Tooltip Bubble */}
-        {!isOpen && isNavVisible && !tooltipDismissed && (
-          <div
-            onClick={handleToggle}
-            className="hidden sm:block pointer-events-auto mb-3 max-w-xs cursor-pointer rounded-2xl bg-white/95 dark:bg-[#091124]/95 backdrop-blur-xl p-3.5 shadow-2xl border border-violet-200/80 dark:border-blue-900/60 transition-all duration-300 transform hover:scale-105 animate-in fade-in slide-in-from-bottom-2"
-          >
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-500 p-0.5 flex items-center justify-center shrink-0 shadow-md">
-                <div className="w-full h-full bg-white dark:bg-[#060b19] rounded-[10px] flex items-center justify-center p-1">
-                  <Image
-                    src="/favicon.png"
-                    alt="MerxoDev Logo"
-                    width={22}
-                    height={22}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-1.5">
-                  <p className="text-xs font-bold text-zinc-900 dark:text-white">
-                    MerxoDev Assistant
-                  </p>
-                  <BsStars className="w-3 h-3 text-amber-400 animate-pulse" />
-                </div>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-300 mt-0.5 flex items-center gap-1">
-                  Need a website or pricing quote? Let&apos;s chat!
-                </p>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setTooltipDismissed(true);
-                }}
-                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-white p-0.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
-                aria-label="Dismiss"
-              >
-                <IoClose className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Floating Launcher Trigger Button */}
         <button
           onClick={handleToggle}

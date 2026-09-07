@@ -10,14 +10,73 @@ import { truncateWords } from '@/lib/utils';
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
-  if (!project) return {};
+  if (!project) {
+    return {
+      title: 'Project Not Found — MerxoDev Solutions',
+      description: 'The requested project case study could not be found.',
+    };
+  }
+
+  const canonicalUrl = `https://merxodevsolutions.pro.bd/our-projects/${project.slug}`;
+  const keywords = [
+    // English
+    project.title,
+    `${project.title} case study`,
+    `${project.title} web app`,
+    project.tag || 'Web Development',
+    'custom web application Bangladesh',
+    'portfolio showcase MerxoDev',
+    'Next.js case study Bangladesh',
+    // Bengali (বাংলা)
+    `${project.title} প্রজেক্ট`,
+    'ক্লায়েন্ট প্রজেক্ট রিভিউ',
+    'ওয়েবসাইট কেস স্টাডি',
+    'মারক্সোদেব প্রজেক্ট পোর্টফোলিও',
+    // Banglish (বাংলিশ)
+    `${project.slug} live demo`,
+    'previous work case study',
+    'website kivabe banano hoyeche',
+  ];
+
   return {
-    title: `${project.title} — MerxoDev Solutions`,
-    description: project.description,
+    title: `${project.title} — Case Study & Project Showcase | MerxoDev Solutions`,
+    description:
+      project.description ||
+      `Explore the architecture, tech stack, and results of ${project.title} delivered by MerxoDev Solutions.`,
+    keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: project.title,
+      title: `${project.title} — Case Study | MerxoDev Solutions`,
       description: project.description,
-      images: project.image ? [{ url: project.image }] : [],
+      url: canonicalUrl,
+      siteName: 'MerxoDev Solutions',
+      locale: 'en_US',
+      type: 'article',
+      images: project.image
+        ? [
+            {
+              url: project.image,
+              width: 1200,
+              height: 630,
+              alt: `${project.title} Preview`,
+            },
+          ]
+        : [
+            {
+              url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+              width: 1200,
+              height: 630,
+              alt: 'MerxoDev Solutions',
+            },
+          ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} — Case Study | MerxoDev Solutions`,
+      description: project.description,
+      images: project.image ? [project.image] : ['https://merxodevsolutions.pro.bd/logo-light.png'],
     },
   };
 }

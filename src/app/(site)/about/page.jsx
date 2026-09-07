@@ -12,7 +12,11 @@ import {
   FiUsers,
   FiAward,
   FiGlobe,
+  FiLinkedin,
+  FiGithub,
+  FiTwitter,
 } from 'react-icons/fi';
+import { getTeamMembers } from '@/app/lib/team';
 
 const values = [
   {
@@ -77,33 +81,95 @@ const skills = [
   },
 ];
 
-const team = [
-  {
-    name: 'AL-AMIN ISLAM',
-    role: 'Founder & Lead Developer',
-    image: '/alamin-profile.jpeg',
-    color: 'from-violet-600 to-cyan-500',
-    bio: 'Full-stack engineer with a passion for clean architecture and pixel-perfect UIs.',
-  },
-  {
-    name: 'Nafisa Akter',
-    role: 'UI/UX Designer',
-    image: '/nafisa-profile.png',
-    color: 'from-amber-400 to-orange-500',
-    bio: 'Designs interfaces that feel intuitive — because good design should be invisible.',
-  },
-  {
-    name: 'SHAMS ALL LABIB',
-    role: 'Backend Engineer',
-    image: '/labib-profile.png',
-    color: 'from-cyan-500 to-violet-600',
-    bio: 'Builds APIs and systems that scale without drama.',
-  },
-];
 
-export default function AboutPage() {
+
+export const metadata = {
+  title: 'About Us — MerxoDev Solutions | Tech & Web Agency Bangladesh',
+  description:
+    'Discover MerxoDev Solutions: A passionate team of engineers and designers building modern web applications, e-commerce systems, and scalable software in Bangladesh.',
+  keywords: [
+    // English
+    'about MerxoDev Solutions',
+    'software development company Bangladesh',
+    'web development agency Rangpur',
+    'full stack development team',
+    'hire developers Bangladesh',
+    'tech startup Bangladesh',
+    'custom web development team',
+    // Bengali (বাংলা)
+    'মারক্সোদেব সলিউশনস সম্পর্কে',
+    'সফটওয়্যার কোম্পানি বাংলাদেশ',
+    'ওয়েব এজেন্সি রংপুর',
+    'আমাদের টিম ও পরিচিতি',
+    'আইটি কোম্পানি বাংলাদেশ',
+    // Banglish (বাংলিশ)
+    'merxodev solutions somporke',
+    'about merxodev bd',
+    'bangladesh software company profile',
+    'software firm rangpur',
+    'it company profile bd',
+    'amader somporke jante',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/about',
+  },
+  openGraph: {
+    title: 'About Us — MerxoDev Solutions | Tech & Web Agency Bangladesh',
+    description:
+      'We craft high-performance digital products that scale. Learn about our story, vision, and team in Bangladesh.',
+    url: 'https://merxodevsolutions.pro.bd/about',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+        width: 1200,
+        height: 630,
+        alt: 'About MerxoDev Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Us — MerxoDev Solutions | Tech & Web Agency Bangladesh',
+    description:
+      'Passionate engineers and designers building next-generation web apps in Bangladesh.',
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
+  },
+};
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function AboutPage() {
+  const team = await getTeamMembers();
+  const aboutSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About MerxoDev Solutions',
+    url: 'https://merxodevsolutions.pro.bd/about',
+    description:
+      'Passionate team of engineers and designers delivering high-performance web applications and digital products in Bangladesh.',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'MerxoDev Solutions',
+      url: 'https://merxodevsolutions.pro.bd',
+      foundingDate: '2023',
+      founder: {
+        '@type': 'Person',
+        name: 'AL-AMIN ISLAM',
+        jobTitle: 'Founder & Lead Developer',
+      },
+    },
+  };
+
   return (
     <main className="text-[#27003B] dark:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         {/* Background accent */}
@@ -257,36 +323,92 @@ export default function AboutPage() {
 
       {/* ── Team ── */}
       <section className="px-6 py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               The People
             </span>
             <h2 className="text-3xl font-black font-raleway">Meet the Team</h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {team.map(member => (
               <div
-                key={member.name}
-                className="flex flex-col items-center text-center gap-4 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800"
+                key={member.id || member.name}
+                className="group flex flex-col items-center text-center gap-4 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white/40 dark:bg-zinc-900/30 hover:border-violet-300 dark:hover:border-violet-700/50 hover:shadow-lg transition-all"
               >
-                <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border-2 border-zinc-200 dark:border-zinc-700 group-hover:border-violet-500 transition-colors">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl">
+                      {member.name?.slice(0, 2)?.toUpperCase()}
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="font-bold font-raleway text-[#27003B] dark:text-white">
+                <div className="w-full">
+                  <h3 className="font-bold font-raleway text-[#27003B] dark:text-white text-base">
                     {member.name}
-                  </p>
-                  <p className="text-xs text-violet-500 font-medium mt-0.5">
+                  </h3>
+                  <p className="text-xs text-violet-500 font-semibold mt-0.5">
                     {member.role}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                    {member.bio}
-                  </p>
+                  {member.bio && (
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 leading-relaxed">
+                      {member.bio}
+                    </p>
+                  )}
+                  {member.socialLinks && (
+                    <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+                      {member.socialLinks.linkedin && (
+                        <a
+                          href={member.socialLinks.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-400 hover:text-blue-500 transition-colors"
+                          aria-label={`${member.name} LinkedIn`}
+                        >
+                          <FiLinkedin size={15} />
+                        </a>
+                      )}
+                      {member.socialLinks.github && (
+                        <a
+                          href={member.socialLinks.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-400 hover:text-blue-500 transition-colors"
+                          aria-label={`${member.name} GitHub`}
+                        >
+                          <FiGithub size={15} />
+                        </a>
+                      )}
+                      {member.socialLinks.twitter && (
+                        <a
+                          href={member.socialLinks.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-400 hover:text-sky-400 transition-colors"
+                          aria-label={`${member.name} Twitter`}
+                        >
+                          <FiTwitter size={15} />
+                        </a>
+                      )}
+                      {member.socialLinks.website && (
+                        <a
+                          href={member.socialLinks.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-400 hover:text-emerald-400 transition-colors"
+                          aria-label={`${member.name} Website`}
+                        >
+                          <FiGlobe size={15} />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

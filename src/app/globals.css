@@ -118,37 +118,15 @@ html.dark body {
   transform: translateY(-50%);
   z-index: 10;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
 .embla-root:hover .embla-arrow {
   opacity: 1;
 }
 
-.embla-arrow-prev { left: 12px; }
-.embla-arrow-next { right: 12px; }
-
-.embla-prev-btn,
-.embla-next-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(99, 102, 241, 0.85);
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
-
-.embla-prev-btn:hover,
-.embla-next-btn:hover {
-  background: #6366f1;
-  transform: scale(1.08);
-}
+.embla-arrow-prev { left: 0; }
+.embla-arrow-next { right: 0; }
 
 /* Dot buttons */
 .embla-dots {

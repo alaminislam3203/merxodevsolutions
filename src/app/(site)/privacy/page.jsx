@@ -15,9 +15,27 @@ import {
 } from 'react-icons/fi';
 
 export const metadata = {
-  title: 'Privacy Policy — MerxoDev Solutions',
+  title: 'Privacy Policy — MerxoDev Solutions Bangladesh',
   description:
-    'Learn how MerxoDev Solutions collects, uses, and safeguards your personal data, client project assets, and proprietary code with enterprise-grade privacy practices.',
+    'Learn how MerxoDev Solutions collects, uses, and safeguards your personal data, client project assets, and proprietary source code with enterprise-grade security.',
+  keywords: [
+    // English
+    'privacy policy MerxoDev Solutions',
+    'client code ownership software development',
+    'intellectual property protection software agency',
+    'data privacy policy Bangladesh',
+    // Bengali (বাংলা)
+    'প্রাইভেসি পলিসি মারক্সোদেব সলিউশনস',
+    'তথ্য সুরক্ষা নীতি বাংলাদেশ',
+    'ক্লায়েন্ট কোড ও ডেটা নিরাপত্তা',
+    // Banglish (বাংলিশ)
+    'privacy policy merxodev bd',
+    'amader data privacy policy',
+    'client er code security',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/privacy',
+  },
   openGraph: {
     title: 'Privacy Policy — MerxoDev Solutions',
     description:
@@ -26,6 +44,20 @@ export const metadata = {
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+        width: 1200,
+        height: 630,
+        alt: 'Privacy Policy — MerxoDev Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy — MerxoDev Solutions',
+    description: 'Data security and client code protection policies.',
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
   },
 };
 
@@ -66,8 +98,26 @@ const sections = [
 ];
 
 export default function PrivacyPolicyPage() {
+  const privacySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy — MerxoDev Solutions',
+    url: 'https://merxodevsolutions.pro.bd/privacy',
+    description:
+      'Official privacy policy and client data protection guidelines of MerxoDev Solutions.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'MerxoDev Solutions',
+      url: 'https://merxodevsolutions.pro.bd',
+    },
+  };
+
   return (
     <main className="min-h-screen pt-28 pb-20 px-4 sm:px-6 bg-zinc-50/50 dark:bg-black text-[#27003B] dark:text-zinc-100 transition-colors">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacySchema) }}
+      />
       {/* Background ambient glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-violet-600/10 via-fuchsia-500/10 to-cyan-500/10 blur-[130px] opacity-70 dark:opacity-40" />

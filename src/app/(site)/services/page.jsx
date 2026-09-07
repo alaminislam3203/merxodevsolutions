@@ -17,25 +17,61 @@ import {
 } from 'react-icons/fi';
 
 export const metadata = {
-  title: 'Our Services – MerxoDev Solutions',
+  title: 'Full-Stack IT & Web Development Services — MerxoDev Solutions Bangladesh',
   description:
-    'MerxoDev Solutions offers professional web development, e-commerce, UI/UX design, API integration, payment gateway, SEO, and more. Custom digital solutions built for your business.',
+    'End-to-end software development services: Next.js websites, SaaS web apps, e-commerce stores, payment gateway integration, UI/UX design, and business automation in Bangladesh.',
   keywords: [
-    'web development Bangladesh',
-    'e-commerce development',
-    'custom web application',
-    'UI UX design',
-    'API integration',
-    'payment gateway integration',
+    // English
+    'web development services Bangladesh',
+    'custom web application services',
+    'ecommerce development Bangladesh',
+    'payment gateway integration bKash Nagad',
+    'UI UX design agency Rangpur',
+    'API integration services',
+    'database design PostgreSQL MongoDB',
     'SEO optimization Bangladesh',
-    'admin dashboard development',
-    'MerxoDev Solutions services',
+    'IT solutions provider Bangladesh',
+    // Bengali (বাংলা)
+    'আইটি সার্ভিসেস বাংলাদেশ',
+    'ওয়েবসাইট ডেভেলপমেন্ট সার্ভিস',
+    'ই-কমার্স ওয়েবসাইট তৈরি',
+    'পেমেন্ট গেটওয়ে সেটআপ বিকাশ নগদ',
+    'সফটওয়্যার সলিউশনস',
+    'ওয়েব ডিজাইন ও ডেভেলপমেন্ট রংপুর ঢাকা',
+    // Banglish (বাংলিশ)
+    'it service provider bd',
+    'website bananor sob dhoroner service',
+    'software toiri kora',
+    'ecommerce website bananor service',
+    'bkash nagad payment add kora',
+    'seo service provider bangladesh',
   ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/services',
+  },
   openGraph: {
-    title: 'Our Services – MerxoDev Solutions',
+    title: 'Full-Stack IT & Web Development Services — MerxoDev Solutions Bangladesh',
     description:
-      'Professional web, mobile, and cloud services from a trusted Bangladesh-based dev team.',
+      'Explore our full suite of digital engineering services: web apps, SaaS, e-commerce, and cloud integrations.',
     url: 'https://merxodevsolutions.pro.bd/services',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+        width: 1200,
+        height: 630,
+        alt: 'MerxoDev Solutions Services',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Full-Stack IT & Web Development Services — MerxoDev Solutions Bangladesh',
+    description:
+      'Web, mobile, e-commerce, and software development services tailored for growing businesses.',
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
   },
 };
 
@@ -244,8 +280,40 @@ const whyUs = [
 ];
 
 export default function ServicesPage() {
+  const servicesCatalogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Software & Web Development',
+    provider: {
+      '@type': 'Organization',
+      name: 'MerxoDev Solutions',
+      url: 'https://merxodevsolutions.pro.bd',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Bangladesh',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Digital & Software Development Services',
+      itemListElement: services.map((s, idx) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: s.title,
+          description: s.desc,
+          url: `https://merxodevsolutions.pro.bd${s.href}`,
+        },
+      })),
+    },
+  };
+
   return (
     <main className="relative text-[#27003B] dark:text-white overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesCatalogSchema) }}
+      />
       {/* Background Ambient Glows */}
       <div
         aria-hidden
