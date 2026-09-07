@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 // GET /api/admin/content
 export async function GET() {
@@ -45,6 +48,12 @@ export async function PUT(request) {
       create: { key, title, value, section: section || "general" },
     });
 
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json(block);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -62,6 +71,13 @@ export async function POST(request) {
     const block = await prisma.contentBlock.create({
       data: { key, title, value, section: section || "general" },
     });
+
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json(block, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -77,6 +93,13 @@ export async function DELETE(request) {
     const { searchParams } = new URL(request.url);
     const key = searchParams.get("key");
     await prisma.contentBlock.delete({ where: { key } });
+
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

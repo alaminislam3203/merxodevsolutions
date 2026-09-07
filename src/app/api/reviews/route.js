@@ -4,6 +4,9 @@ import { auth } from '@/auth';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // GET: Fetch all approved reviews
 export async function GET() {
   try {
@@ -23,7 +26,14 @@ export async function GET() {
       });
     }
 
-    return NextResponse.json({ reviews });
+    return NextResponse.json(
+      { reviews },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        },
+      }
+    );
   } catch (error) {
     console.error('Error fetching reviews:', error);
     // Fallback to static default reviews on DB error

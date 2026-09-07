@@ -22,15 +22,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// ─── Static Params ────────────────────────────────────────────────────────────
-export async function generateStaticParams() {
-  try {
-    const projects = await getAllProjects();
-    return Array.isArray(projects) ? projects.map(p => ({ slug: p.slug })) : [];
-  } catch {
-    return [];
-  }
-}
+// ─── Dynamic Config ──────────────────────────────────────────────────────────
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
 const accentMap = {

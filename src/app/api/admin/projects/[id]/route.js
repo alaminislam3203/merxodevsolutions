@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 // GET /api/admin/projects/[id]
 export async function GET(request, { params }) {
@@ -96,6 +99,18 @@ export async function PUT(request, { params }) {
       data: updateData,
     });
 
+    // Invalidate site cache so changes immediately show on Vercel
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/our-projects");
+      revalidatePath(`/our-projects/${project.slug}`);
+      if (existing.slug && existing.slug !== project.slug) {
+        revalidatePath(`/our-projects/${existing.slug}`);
+      }
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json(project);
   } catch (error) {
     if (error.code === "P2002") {
@@ -131,6 +146,18 @@ export async function DELETE(request, { params }) {
     }
 
     await prisma.project.delete({ where: { id: existing.id } });
+
+    // Invalidate site cache so changes immediately show on Vercel
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/our-projects");
+      if (existing.slug) {
+        revalidatePath(`/our-projects/${existing.slug}`);
+      }
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

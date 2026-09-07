@@ -14,6 +14,9 @@ import HomepageFAQ from '@/components/HomepageFAQ';
 import DiscoveryCall from '@/components/DiscoveryCall';
 import { getAllProjects } from '@/app/lib/projects';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Home() {
   const projects = await getAllProjects();
 

@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { requireAdmin } from '@/lib/adminAuth';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
+
+export const dynamic = 'force-dynamic';
 
 // GET: Fetch all reviews for admin panel
 export async function GET(request) {
@@ -86,6 +89,12 @@ export async function POST(request) {
         isFeatured: Boolean(isFeatured),
       },
     });
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (revalErr) {
+      console.error('Revalidation error:', revalErr);
+    }
 
     return NextResponse.json(
       { message: 'Review created successfully', review: newReview },

@@ -146,7 +146,7 @@ const techStack = [
 const defaultPlans = [
   {
     name: 'MVP / Startup App',
-    price: 'BDT 1800',
+    price: 'BDT 3500',
     desc: 'Launch your Minimum Viable Product quickly to validate ideas and onboard early users.',
     features: [
       'Authentication & User Profiles',
@@ -161,7 +161,7 @@ const defaultPlans = [
   },
   {
     name: 'Full SaaS / Custom Portal',
-    price: 'BDT 2900',
+    price: 'BDT 1500',
     desc: 'Complete production web application with multi-role permissions and automated workflows.',
     features: [
       'Multi-Role Permissions (RBAC)',
@@ -177,7 +177,7 @@ const defaultPlans = [
   },
   {
     name: 'Enterprise Platform',
-    price: 'BDT 4000',
+    price: 'Custom Quote',
     desc: 'High-concurrency systems, microservices, and dedicated engineering for enterprise operations.',
     features: [
       'Microservices / Cloud Architecture',
@@ -237,7 +237,7 @@ export default function WebAppContent() {
   const faqs = arr(t, 'webApp.faq.items') || defaultFaqs;
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* ── Hero Section ── */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
         {/* Glowing Background Auras */}
@@ -245,7 +245,7 @@ export default function WebAppContent() {
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, #06b6d4, #7c3aed, transparent 70%)',
+            // background: 'radial-gradient(circle, #06b6d4, #7c3aed, transparent 70%)',
           }}
         />
 
@@ -450,8 +450,8 @@ export default function WebAppContent() {
               <div
                 key={i}
                 className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
-                    ? 'border-2 border-cyan-500 bg-gradient-to-b from-cyan-50/80 via-white to-white dark:from-cyan-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-cyan-500/20 scale-105 z-10'
-                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                  ? 'border-2 border-cyan-500 bg-gradient-to-b from-cyan-50/80 via-white to-white dark:from-cyan-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-cyan-500/20 scale-105 z-10'
+                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
                   }`}
               >
                 {plan.popular && (
@@ -488,8 +488,8 @@ export default function WebAppContent() {
                 <Link
                   href={`/contact?service=Web%20Application%20Development&package=${encodeURIComponent(plan.name)}`}
                   className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
-                      ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white hover:opacity-95 shadow-lg shadow-cyan-500/25'
-                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600'
+                    ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white hover:opacity-95 shadow-lg shadow-cyan-500/25'
+                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600'
                     }`}
                 >
                   {plan.cta || 'Get Started Now'}

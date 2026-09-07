@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { requireAdmin } from '@/lib/adminAuth';
+
+export const dynamic = 'force-dynamic';
 
 // PATCH: Approve, Reject, Feature, or Edit a review
 export async function PATCH(request, { params }) {
@@ -36,6 +39,12 @@ export async function PATCH(request, { params }) {
       data: updateData,
     });
 
+    try {
+      revalidatePath('/', 'layout');
+    } catch (revalErr) {
+      console.error('Revalidation error:', revalErr);
+    }
+
     return NextResponse.json({
       message: 'Review updated successfully',
       review: updated,
@@ -57,6 +66,12 @@ export async function DELETE(request, { params }) {
     await prisma.review.delete({
       where: { id },
     });
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (revalErr) {
+      console.error('Revalidation error:', revalErr);
+    }
 
     return NextResponse.json({ message: 'Review deleted successfully' });
   } catch (error) {

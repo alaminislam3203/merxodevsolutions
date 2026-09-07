@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 // GET /api/admin/projects
 export async function GET() {
@@ -39,6 +42,16 @@ export async function POST(request) {
         details: details || { client: "", duration: "", tech: [], features: [] },
       },
     });
+
+    // Invalidate site cache so changes immediately show on Vercel
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/our-projects");
+      revalidatePath(`/our-projects/${slug}`);
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json(project, { status: 201 });
   } catch (error) {
     if (error.code === "P2002") {

@@ -179,14 +179,14 @@ export default function ServicesMaintenancePage() {
   ];
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
+            // background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
           }}
         />
 

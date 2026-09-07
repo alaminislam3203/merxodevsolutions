@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
+
+export const dynamic = "force-dynamic";
 
 const INITIAL_PROJECTS = [
   {
@@ -146,6 +149,14 @@ export async function POST(request) {
         create: project,
       });
       results.push({ slug: upserted.slug, title: upserted.title });
+    }
+
+    // Invalidate site cache so changes immediately show on Vercel
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/our-projects");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
     }
 
     return NextResponse.json({ success: true, seeded: results });

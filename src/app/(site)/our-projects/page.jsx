@@ -9,6 +9,9 @@ export const metadata = {
     'Explore the full portfolio of web and mobile projects delivered by MerxoDev Solutions — from SaaS platforms to e-commerce storefronts.',
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function OurProjectsPage() {
   const projects = await getAllProjects();
   return <ProjectsGrid projects={projects} />;

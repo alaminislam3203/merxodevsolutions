@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 // GET /api/admin/banners — list all banners (admin only)
 export async function GET() {
@@ -38,6 +41,12 @@ export async function POST(request) {
         order: order !== undefined ? Number(order) : 0,
       },
     });
+
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
 
     return NextResponse.json(banner, { status: 201 });
   } catch (error) {

@@ -135,7 +135,7 @@ export default function ServicesDesignPage() {
     },
     {
       name: 'Complete Website / App UX',
-      price: 'BDT 2600',
+      price: 'BDT 20000',
       desc: 'Our most sought-after package for multi-page websites or full web application flows.',
       features: [
         'Up to 10 Custom Screens/Pages',
@@ -151,7 +151,7 @@ export default function ServicesDesignPage() {
     },
     {
       name: 'Enterprise Design System',
-      price: 'BDT 3800',
+      price: 'BDT 1200',
       desc: 'Comprehensive multi-platform design architecture and tokens for scaling enterprises.',
       features: [
         'Complete Product UI Suite (20+ Screens)',
@@ -187,14 +187,14 @@ export default function ServicesDesignPage() {
   ];
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* ── Hero Section ── */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
           style={{
-            background: 'radial-gradient(circle, #a855f7, #ec4899, transparent 70%)',
+            // background: 'radial-gradient(circle, #a855f7, #ec4899, transparent 70%)',
           }}
         />
 

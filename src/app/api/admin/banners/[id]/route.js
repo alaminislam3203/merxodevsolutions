@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 // PUT /api/admin/banners/[id] — update a banner
 export async function PUT(request, { params }) {
@@ -26,6 +29,12 @@ export async function PUT(request, { params }) {
       },
     });
 
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json(banner);
   } catch (error) {
     if (error.code === "P2025") {
@@ -43,6 +52,13 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
     await prisma.banner.delete({ where: { id } });
+
+    try {
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidation error:", revalErr);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error.code === "P2025") {
