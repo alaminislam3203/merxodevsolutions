@@ -105,7 +105,7 @@ export const metadata = {
     'আইটি কোম্পানি বাংলাদেশ',
     // Banglish (বাংলিশ)
     'merxodev solutions somporke',
-    'about merxodev bd',
+    'about merxodev solutions',
     'bangladesh software company profile',
     'software firm rangpur',
     'it company profile bd',

@@ -29,7 +29,7 @@ export const metadata = {
     'তথ্য সুরক্ষা নীতি বাংলাদেশ',
     'ক্লায়েন্ট কোড ও ডেটা নিরাপত্তা',
     // Banglish (বাংলিশ)
-    'privacy policy merxodev bd',
+    'privacy policy merxodev solutions',
     'amader data privacy policy',
     'client er code security',
   ],

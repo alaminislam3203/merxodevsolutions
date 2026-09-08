@@ -22,7 +22,7 @@ export const metadata = {
   keywords: [
     // English
     'MerxoDev Solutions team',
-    'our team MerxoDev',
+    'our team MerxoDev Solutions',
     'software engineers Bangladesh',
     'web developers Rangpur',
     'full stack developers Bangladesh',
@@ -297,7 +297,7 @@ export default async function OurTeamPage() {
                   </div>
 
                   <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 font-raleway group-hover:text-violet-500 transition-colors">
-                    MerxoDev BD
+                    MerxoDev Solutions
                   </span>
                 </div>
               </div>
