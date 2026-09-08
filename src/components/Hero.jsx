@@ -33,7 +33,7 @@ import { FaAws } from 'react-icons/fa';
 function Logo() {
   return (
     <div
-      className="flex items-center justify-center select-none py-2 px-6 rounded-2xl bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-800/60 shadow-sm hover:border-violet-500/40 dark:hover:border-cyan-500/40 hover:scale-105 transition-all duration-300 group"
+      className="flex items-center justify-center select-none py-2 px-6 rounded-2xl hover:border-violet-500/40 dark:hover:border-cyan-500/40 hover:scale-105 transition-all duration-300 group"
       aria-label="MerxoDev Solutions"
     >
       {/* Light Mode Logo */}
@@ -140,27 +140,7 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Multi-Layer Ambient Lighting & Background Orbs ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] sm:w-[1100px] h-[550px] sm:h-[650px] rounded-full opacity-35 dark:opacity-25 blur-[120px] bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-cyan-500 animate-pulse-glow -z-10"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/3 -left-36 w-[450px] h-[450px] rounded-full opacity-20 dark:opacity-15 blur-[100px] bg-lime-500 animate-pulse-glow -z-10"
-        style={{ animationDelay: '2.5s' }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 -right-36 w-[450px] h-[450px] rounded-full opacity-20 dark:opacity-15 blur-[100px] bg-cyan-500 animate-pulse-glow -z-10"
-        style={{ animationDelay: '4s' }}
-      />
 
-      {/* Decorative Grid Overlay with Soft Radial Fade */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(124,58,237,0.12),transparent_75%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(6,182,212,0.14),transparent_75%)] -z-10"
-      />
 
       {/* Hero Content Container */}
       <div className="relative z-10 flex flex-col items-center text-center gap-6 sm:gap-8 px-4 sm:px-6 max-w-6xl w-full">
@@ -283,11 +263,10 @@ export default function Hero() {
                   key={cap.id}
                   type="button"
                   onClick={() => setActiveTab(cap.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all ${
-                    activeTab === cap.id
-                      ? 'bg-white dark:bg-zinc-900 text-violet-600 dark:text-cyan-400 shadow-sm font-bold'
-                      : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all ${activeTab === cap.id
+                    ? 'bg-white dark:bg-zinc-900 text-violet-600 dark:text-cyan-400 shadow-sm font-bold'
+                    : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
                 >
                   {cap.icon}
                   <span className="hidden md:inline">{cap.label}</span>
