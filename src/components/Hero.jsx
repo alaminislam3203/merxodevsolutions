@@ -8,7 +8,6 @@ import {
   ArrowRight,
   Play,
   CheckCircle,
-  Smartphone,
   Globe,
   Code,
   Zap,
@@ -232,25 +231,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* ── Floating Element 1 - Mobile Mockup (Top Right) ── */}
-              <div className="animate-float-slow absolute -top-8 -right-6 sm:-right-8 w-40 sm:w-44 h-64 sm:h-72 rounded-[2rem] p-4 shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl z-30 flex flex-col justify-between">
-                <div className="w-10 h-1 bg-zinc-300 dark:bg-white/20 rounded-full mx-auto" />
-                <div className="space-y-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
-                    <Smartphone size={18} />
-                  </div>
-                  <p className="text-xs font-bold text-[#27003B] dark:text-white font-raleway">
-                    Mobile First UX
-                  </p>
-                  <div className="h-1.5 w-full bg-zinc-200 dark:bg-white/10 rounded" />
-                  <div className="h-1.5 w-3/4 bg-zinc-200 dark:bg-white/10 rounded" />
-                </div>
-                <div className="h-8 w-full bg-gradient-to-r from-violet-600 to-cyan-500 rounded-xl flex items-center justify-center text-white text-[10px] font-bold font-raleway shadow-md">
-                  <span>100% Responsive</span>
-                </div>
-              </div>
-
-              {/* ── Floating Element 2 - Speed Indicator (Bottom Left) ── */}
+              {/* ── Floating Element 1 - Speed Indicator (Bottom Left) ── */}
               <div className="animate-float-reverse absolute -bottom-6 -left-6 sm:-left-10 p-4 sm:p-5 rounded-2xl shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl flex items-center space-x-3 sm:space-x-4 pr-6 sm:pr-8 z-30 font-raleway">
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 dark:bg-amber-400/15 flex items-center justify-center text-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.25)] shrink-0">
                   <Zap size={22} fill="currentColor" />
