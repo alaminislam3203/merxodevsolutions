@@ -15,6 +15,7 @@ import {
   FiLinkedin,
   FiGithub,
   FiTwitter,
+  FiArrowRight,
 } from 'react-icons/fi';
 import { getTeamMembers } from '@/app/lib/team';
 
@@ -144,6 +145,7 @@ export const revalidate = 0;
 
 export default async function AboutPage() {
   const team = await getTeamMembers();
+  const displayedTeam = team.slice(0, 3);
   const aboutSchema = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
@@ -331,7 +333,7 @@ export default async function AboutPage() {
             <h2 className="text-3xl font-black font-raleway">Meet the Team</h2>
           </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {team.map(member => (
+            {displayedTeam.map(member => (
               <div
                 key={member.id || member.name}
                 className="group flex flex-col items-center text-center gap-4 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white/40 dark:bg-zinc-900/30 hover:border-violet-300 dark:hover:border-violet-700/50 hover:shadow-lg transition-all"
@@ -412,6 +414,22 @@ export default async function AboutPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Link to Full Team Page */}
+          <div className="mt-12 text-center">
+            <Link
+              href="/our-team"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600/10 via-indigo-600/10 to-cyan-500/10 hover:from-violet-600/20 hover:via-indigo-600/20 hover:to-cyan-500/20 border border-violet-500/30 hover:border-violet-500/60 text-[#27003B] dark:text-white font-bold text-sm font-raleway transition-all duration-300 shadow-sm hover:shadow-violet-500/10 hover:shadow-lg group"
+            >
+              <span>View All Team Members</span>
+              {team.length > 3 && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-violet-500/20 text-violet-600 dark:text-violet-300">
+                  {team.length}
+                </span>
+              )}
+              <FiArrowRight className="text-violet-500 group-hover:translate-x-1 transition-transform duration-200" />
+            </Link>
           </div>
         </div>
       </section>

@@ -27,7 +27,7 @@ export const metadata = {
     'সফটওয়্যার ডেভেলপমেন্ট চুক্তির শর্তাবলী',
     'ওয়ারেন্টি ও কোড মালিকানা নীতি',
     // Banglish (বাংলিশ)
-    'terms and conditions merxodev bd',
+    'terms and conditions merxodev solutions',
     'software bananor chukti o niyom',
     'project warranty terms bd',
   ],

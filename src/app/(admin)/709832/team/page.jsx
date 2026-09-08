@@ -327,12 +327,23 @@ export default function AdminTeamPage() {
         <div>
           <h1 className="admin-page-title">Team Members</h1>
           <p className="admin-page-subtitle">
-            Manage your agency leaders, engineers, designers, and public profiles displayed on the website
+            Manage your agency leaders, engineers, designers, and public profiles displayed on the website (/our-team & /about)
           </p>
         </div>
-        <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
-          <FaPlus size={12} /> Add Team Member
-        </button>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <a
+            href="/our-team"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+            style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}
+          >
+            <FaGlobe size={12} /> View /our-team
+          </a>
+          <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
+            <FaPlus size={12} /> Add Team Member
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards Row */}

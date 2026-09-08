@@ -55,6 +55,7 @@ export default function Navbar() {
     { label: t('services'), href: '/services' },
     { label: t('journey'), href: '/our-journey' },
     { label: t('about'), href: '/about' },
+    { label: t('team'), href: '/our-team' },
     { label: t('contact'), href: '/contact' },
     { label: t('projects'), href: '/our-projects' },
   ];
