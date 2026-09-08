@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import LottiePlayer from '@/components/LottiePlayer';
 import {
   ArrowRight,
   Play,
@@ -169,84 +170,65 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right Visual Composition (Glassmorphic Showcase Frame) ── */}
+          {/* ── Right Visual Composition (Glassmorphic Lottie Showcase Frame) ── */}
           <div className="relative h-full flex items-center justify-center">
             {/* Outer Glass Card */}
-            <div className="relative p-5 sm:p-6 rounded-[2.5rem] border border-zinc-200/80 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shadow-2xl shadow-violet-950/10 dark:shadow-black/60 h-[500px] sm:h-[560px] w-full max-w-[480px] lg:ml-auto">
+            <div className="relative p-5 sm:p-6 rounded-[2.5rem] border border-zinc-200/80 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shadow-2xl shadow-violet-950/10 dark:shadow-black/60 h-[520px] sm:h-[580px] w-full max-w-[490px] lg:ml-auto flex flex-col justify-between">
               {/* Inner Mock UI Preview */}
-              <div className="absolute inset-4 rounded-[2rem] overflow-hidden border border-zinc-200/70 dark:border-white/10 bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-[#090d16] shadow-inner flex flex-col justify-between">
+              <div className="relative h-full rounded-[2rem] overflow-hidden border border-zinc-200/70 dark:border-white/10 bg-gradient-to-b from-white/90 via-zinc-50/80 to-zinc-100/90 dark:from-zinc-950/90 dark:via-[#090d16]/90 dark:to-[#060b19]/95 shadow-inner flex flex-col justify-between">
                 {/* Browser-style Top Bar */}
-                <div className="flex items-center justify-between px-4 py-3 bg-white/70 dark:bg-white/10 border-b border-zinc-200/60 dark:border-white/10 backdrop-blur-md relative z-20">
+                <div className="flex items-center justify-between px-4 py-3 bg-white/80 dark:bg-white/10 border-b border-zinc-200/60 dark:border-white/10 backdrop-blur-md relative z-20">
                   <div className="flex space-x-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
                     <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
                   </div>
-                  <div className="px-3 py-0.5 rounded-full bg-zinc-200/60 dark:bg-white/5 border border-zinc-300/60 dark:border-white/10 text-[10px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight">
-                    merxodevsolutions.pro.bd/live
+                  <div className="px-3 py-0.5 rounded-full bg-zinc-200/60 dark:bg-white/5 border border-zinc-300/60 dark:border-white/10 text-[10px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight flex items-center gap-1.5">
+                    <Code size={11} className="text-violet-500" />
+                    <span>merxodev-web-development.live</span>
                   </div>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 </div>
 
-                {/* Main Showcase Dashboard Interior */}
-                <div className="p-5 flex flex-col gap-4 relative z-10">
-                  {/* Metric Chips Row */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                        Growth Impact
-                      </span>
-                      <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 mt-0.5">
-                        +148%
-                      </p>
-                      <span className="text-[9px] text-zinc-400">Conversion Rate</span>
-                    </div>
-
-                    <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                        Edge Latency
-                      </span>
-                      <p className="text-xl font-black text-violet-600 dark:text-cyan-400 mt-0.5">
-                        38ms
-                      </p>
-                      <span className="text-[9px] text-zinc-400">Sub-second Load</span>
-                    </div>
-                  </div>
-
-                  {/* Architecture Diagram Pill */}
-                  <div className="p-4 rounded-2xl bg-white/90 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex flex-col gap-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#27003B] dark:text-white flex items-center gap-1.5 font-raleway">
-                        <Code size={14} className="text-violet-500" /> Full-Stack Architecture
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400">
-                        Next.js 15
-                      </span>
-                    </div>
-
-                    <div className="space-y-1.5 font-mono text-[10px] text-zinc-500 dark:text-zinc-400">
-                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
-                        <span>Database</span>
-                        <span className="text-emerald-500 font-bold">Neon PostgreSQL</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
-                        <span>ORM Layer</span>
-                        <span className="text-cyan-500 font-bold">Prisma ORM</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
-                        <span>Security</span>
-                        <span className="text-amber-500 font-bold">NextAuth & SSL</span>
-                      </div>
-                    </div>
-                  </div>
+                {/* Center: Lottie Animation Container */}
+                <div className="relative flex-1 w-full flex items-center justify-center p-2 sm:p-4 overflow-hidden">
+                  {/* Subtle radial glow behind animation */}
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.12)_0%,transparent_70%)] pointer-events-none" />
+                  <LottiePlayer
+                    animationPath="/animations/web-dev.json"
+                    loop={true}
+                    autoplay={true}
+                    className="w-full h-full max-h-[290px] sm:max-h-[330px] object-contain relative z-10"
+                  />
                 </div>
 
-                {/* Gradient bottom glow */}
-                <div className="p-4 bg-gradient-to-t from-violet-600/10 to-transparent border-t border-zinc-200/50 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
-                  <span>Production Ready</span>
-                  <span className="flex items-center gap-1 text-emerald-500 font-bold">
-                    <CheckCircle size={13} /> 100% Core Vitals
-                  </span>
+                {/* Bottom Card Footer: Live Features & Status */}
+                <div className="p-4 sm:p-5 bg-gradient-to-t from-violet-600/10 via-white/60 dark:via-zinc-950/40 to-transparent border-t border-zinc-200/60 dark:border-white/10 relative z-20">
+                  <div className="grid grid-cols-2 gap-2.5 mb-3">
+                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <div className="text-left">
+                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Performance</p>
+                        <p className="text-xs font-black text-emerald-600 dark:text-emerald-400">99+ Core Vitals</p>
+                      </div>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                      <div className="text-left">
+                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Scalability</p>
+                        <p className="text-xs font-black text-cyan-600 dark:text-cyan-400">Next.js 15 Edge</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+                    <span className="flex items-center gap-1.5 font-semibold">
+                      <Sparkles size={13} className="text-amber-500" /> Web & Digital Engineering
+                    </span>
+                    <span className="flex items-center gap-1 text-emerald-500 font-bold">
+                      <CheckCircle size={13} /> Production Ready
+                    </span>
+                  </div>
                 </div>
               </div>
 
