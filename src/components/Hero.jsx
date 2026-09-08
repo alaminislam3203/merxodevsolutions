@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
@@ -35,7 +34,7 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Hero"
-      className="relative min-h-[88vh] lg:min-h-[92vh] flex items-center pt-24 pb-16 lg:pt-28 lg:pb-24 overflow-hidden"
+      className="relative flex items-center pt-2 sm:pt-4 pb-14 sm:pb-20 lg:pt-4 lg:pb-24 overflow-hidden"
     >
       {/* SEO: Structured Data */}
       <script
@@ -89,36 +88,12 @@ export default function Hero() {
           {/* ── Left Content Column ── */}
           <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
             {/* Top Innovation / Status Pill */}
-            <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 dark:border-cyan-500/30 bg-violet-500/10 dark:bg-cyan-500/10 text-violet-700 dark:text-cyan-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 backdrop-blur-md shadow-sm font-raleway">
+            <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 dark:border-cyan-500/30 bg-violet-500/10 dark:bg-cyan-500/10 text-violet-700 dark:text-cyan-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-5 md:mb-6 backdrop-blur-md shadow-sm font-raleway">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500" />
               </span>
               <span>{t('hero.badge') || 'Web & App Innovation Lab'}</span>
-            </div>
-
-            {/* Brand Logo Display */}
-            <div className="mb-4 inline-block">
-              <div className="flex items-center justify-center lg:justify-start select-none">
-                <Image
-                  src="/logo-light.png"
-                  alt="MerxoDev Solutions"
-                  width={160}
-                  height={42}
-                  className="block dark:hidden h-8 sm:h-9 w-auto object-contain drop-shadow-sm"
-                  style={{ width: 'auto', height: 'auto' }}
-                  priority
-                />
-                <Image
-                  src="/logo.png"
-                  alt="MerxoDev Solutions"
-                  width={160}
-                  height={42}
-                  className="hidden dark:block h-8 sm:h-9 w-auto object-contain"
-                  style={{ width: 'auto', height: 'auto' }}
-                  priority
-                />
-              </div>
             </div>
 
             {/* Main Headline */}
