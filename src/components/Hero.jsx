@@ -1,24 +1,22 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import {
-  FiArrowRight,
-  FiZap,
-  FiShield,
-  FiStar,
-  FiCheckCircle,
-  FiCode,
-  FiCpu,
-  FiLayers,
-  FiTerminal,
-  FiActivity,
-  FiTrendingUp,
-  FiClock,
-} from 'react-icons/fi';
+  ArrowRight,
+  Play,
+  CheckCircle,
+  Smartphone,
+  Globe,
+  Code,
+  Zap,
+  Sparkles,
+  ShieldCheck,
+  Activity,
+  Layers,
+} from 'lucide-react';
 import {
   SiNextdotjs,
   SiReact,
@@ -30,84 +28,14 @@ import {
 } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
 
-function Logo() {
-  return (
-    <div
-      className="flex items-center justify-center select-none py-2 px-6 rounded-2xl hover:border-violet-500/40 dark:hover:border-cyan-500/40 hover:scale-105 transition-all duration-300 group"
-      aria-label="MerxoDev Solutions"
-    >
-      {/* Light Mode Logo */}
-      <Image
-        src="/logo-light.png"
-        alt="MerxoDev Solutions"
-        width={160}
-        height={42}
-        className="block dark:hidden h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-sm"
-        style={{ width: 'auto', height: 'auto' }}
-        priority
-      />
-
-      {/* Dark Mode Logo */}
-      <Image
-        src="/logo.png"
-        alt="MerxoDev Solutions"
-        width={160}
-        height={42}
-        className="hidden dark:block h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
-        style={{ width: 'auto', height: 'auto' }}
-        priority
-      />
-    </div>
-  );
-}
-
 export default function Hero() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState('performance');
-
-  const capabilities = [
-    {
-      id: 'performance',
-      label: 'Ultra-Fast Performance',
-      icon: <FiZap className="w-4 h-4 text-amber-400" />,
-      metric: '< 0.45s',
-      metricLabel: 'Page Load Speed',
-      title: 'Built with Next.js 15 & Cloud Native Edge',
-      description:
-        'We engineer blazing fast web platforms with sub-second page loads, automated edge caching, and 99+ Google Core Web Vitals scores to maximize your conversions.',
-      techTag: 'Edge SSR • Turbo Cache',
-    },
-    {
-      id: 'scalability',
-      label: 'Enterprise Scalability',
-      icon: <FiCpu className="w-4 h-4 text-cyan-400" />,
-      metric: '99.9%',
-      metricLabel: 'Guaranteed SLA Uptime',
-      title: 'Neon Postgres, Prisma & Distributed Cloud',
-      description:
-        'Resilient architecture designed to scale seamlessly from your first 1,000 users to millions of transactions without downtime or performance degradation.',
-      techTag: 'Serverless DB • Microservices',
-    },
-    {
-      id: 'uiux',
-      label: 'High-Converting UI/UX',
-      icon: <FiLayers className="w-4 h-4 text-violet-400" />,
-      metric: '4.8×',
-      metricLabel: 'Higher User Engagement',
-      title: 'Pixel-Perfect Modern Interfaces',
-      description:
-        'Custom glassmorphism aesthetics, responsive micro-animations, and intuitive user journeys tailored to transform everyday visitors into loyal paying customers.',
-      techTag: 'Modern CSS • Dynamic Motion',
-    },
-  ];
-
-  const currentCap =
-    capabilities.find((c) => c.id === activeTab) || capabilities[0];
 
   return (
     <section
+      id="hero"
       aria-label="Hero"
-      className="relative pt-6 sm:pt-10 pb-16 sm:pb-24 flex flex-col items-center justify-center overflow-hidden bg-transparent"
+      className="relative min-h-[88vh] lg:min-h-[92vh] flex items-center pt-24 pb-16 lg:pt-28 lg:pb-24 overflow-hidden"
     >
       {/* SEO: Structured Data */}
       <script
@@ -140,252 +68,304 @@ export default function Hero() {
         }}
       />
 
+      {/* ── Background Ambience Matching User Theme ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 right-0 w-[320px] md:w-[620px] h-[320px] md:h-[620px] bg-gradient-to-br from-violet-600/20 via-indigo-600/15 to-transparent rounded-full blur-[100px] md:blur-[140px] opacity-60 pointer-events-none -z-10"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-20 -left-20 w-[280px] md:w-[520px] h-[280px] md:h-[520px] bg-gradient-to-tr from-cyan-500/20 via-lime-500/15 to-transparent rounded-full blur-[80px] md:blur-[120px] opacity-50 pointer-events-none -z-10"
+      />
 
+      {/* Structural Background Pattern */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.12)_0%,transparent_75%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14)_0%,transparent_75%)] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_80%)] -z-10"
+      />
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 flex flex-col items-center text-center gap-6 sm:gap-8 px-4 sm:px-6 max-w-6xl w-full">
-        {/* Top Badges Row */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {/* Glowing Status Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-lime-500/10 dark:bg-lime-950/40 text-lime-600 dark:text-[#a3e635] border border-lime-500/30 font-raleway uppercase tracking-widest shadow-sm hover:border-lime-500/60 transition-colors">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-lime-500" />
-            </span>
-            <span>{t('hero.badge')}</span>
-          </div>
-
-          {/* Quick SLA Pill */}
-          <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-500/10 dark:bg-violet-950/40 text-violet-600 dark:text-violet-300 border border-violet-500/20 font-raleway">
-            <FiZap className="w-3.5 h-3.5 text-amber-500" />
-            <span>Next-Gen Full-Stack Agency</span>
-          </div>
-        </div>
-
-        {/* Brand Logo Presentation with Glow Accent */}
-        <div className="animate-fade-in-up">
-          <Logo />
-        </div>
-
-        {/* Primary H1 Heading */}
-        <h1 className="font-hind text-4xl sm:text-6xl lg:text-7xl font-bold text-[#27003B] dark:text-white leading-[1.12] sm:leading-[1.14] uppercase tracking-wide max-w-5xl">
-          {t('hero.headingStart')}{' '}
-          <span className="relative inline-block text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.45)]">
-            {t('hero.headingHighlight')}
-          </span>{' '}
-          {t('hero.headingMiddle')}{' '}
-          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
-            {t('hero.headingEnd')}
-          </span>
-        </h1>
-
-        {/* Secondary Subtitle */}
-        <p className="max-w-3xl text-base sm:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed font-raleway font-normal">
-          {t('hero.subtext')}
-        </p>
-
-        {/* Action Buttons with High-Impact Hover States */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mt-2">
-          <Link
-            href="/contact"
-            aria-label="Start a project with MerxoDev Solutions"
-            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-raleway shadow-lg shadow-violet-500/25 hover:shadow-2xl hover:shadow-violet-500/45 hover:scale-[1.03] transition-all duration-300 overflow-hidden"
-          >
-            {/* Shimmer sweep effect */}
-            <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
-            <span className="relative z-10">{t('hero.ctaPrimary')}</span>
-            <FiArrowRight
-              size={18}
-              className="relative z-10 group-hover:translate-x-1.5 transition-transform duration-200"
-            />
-          </Link>
-
-          <Link
-            href="/our-projects"
-            aria-label="View MerxoDev Solutions projects"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl border border-zinc-200/90 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl text-sm font-bold text-zinc-800 dark:text-zinc-100 hover:border-lime-500/80 hover:text-lime-600 dark:hover:text-[#a3e635] hover:shadow-md hover:scale-[1.03] transition-all duration-300 font-raleway uppercase tracking-wider shadow-sm"
-          >
-            <span>{t('hero.ctaSecondary')}</span>
-          </Link>
-        </div>
-
-        {/* Social Proof Avatar & Rating Strip */}
-        <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2 font-raleway">
-          {/* Overlapping client avatars mockup */}
-          <div className="flex items-center -space-x-2">
-            <span className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-900 bg-gradient-to-tr from-violet-500 to-indigo-600 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
-              MD
-            </span>
-            <span className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-900 bg-gradient-to-tr from-cyan-500 to-teal-500 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
-              BD
-            </span>
-            <span className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-900 bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
-              GL
-            </span>
-            <span className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-900 bg-zinc-800 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
-              +47
-            </span>
-          </div>
-
-          {/* Rating & Trust Text */}
-          <div className="flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-300 font-semibold">
-            <div className="flex items-center text-amber-400">
-              <FiStar className="w-3.5 h-3.5 fill-amber-400" />
-              <FiStar className="w-3.5 h-3.5 fill-amber-400" />
-              <FiStar className="w-3.5 h-3.5 fill-amber-400" />
-              <FiStar className="w-3.5 h-3.5 fill-amber-400" />
-              <FiStar className="w-3.5 h-3.5 fill-amber-400" />
-            </div>
-            <span className="font-bold text-[#27003B] dark:text-white">4.9/5</span>
-            <span className="text-zinc-400 dark:text-zinc-500">•</span>
-            <span>{t('hero.socialProof')}</span>
-          </div>
-        </div>
-
-        {/* ── Interactive Tech Console & Product Showcase Card ── */}
-        <div className="w-full mt-4 max-w-5xl rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl shadow-2xl shadow-violet-950/10 dark:shadow-blue-950/20 overflow-hidden text-left transition-all duration-300">
-          {/* Top Console Window Bar */}
-          <div className="px-5 py-3.5 border-b border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-100/70 dark:bg-zinc-950/50 flex flex-wrap items-center justify-between gap-3">
-            {/* macOS traffic light dots */}
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-red-400/80" />
-              <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-              <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-              <span className="ml-3 text-xs font-mono font-medium text-zinc-500 dark:text-zinc-400 hidden sm:inline">
-                merxodev-core-v2.6.prod.ts
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* ── Left Content Column ── */}
+          <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+            {/* Top Innovation / Status Pill */}
+            <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 dark:border-cyan-500/30 bg-violet-500/10 dark:bg-cyan-500/10 text-violet-700 dark:text-cyan-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 backdrop-blur-md shadow-sm font-raleway">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500" />
               </span>
+              <span>{t('hero.badge') || 'Web & App Innovation Lab'}</span>
             </div>
 
-            {/* Interactive Capability Switcher Tabs */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-200/60 dark:bg-zinc-800/60 text-xs font-semibold font-raleway">
-              {capabilities.map((cap) => (
-                <button
-                  key={cap.id}
-                  type="button"
-                  onClick={() => setActiveTab(cap.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all ${activeTab === cap.id
-                    ? 'bg-white dark:bg-zinc-900 text-violet-600 dark:text-cyan-400 shadow-sm font-bold'
-                    : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
-                >
-                  {cap.icon}
-                  <span className="hidden md:inline">{cap.label}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Live Status Pill */}
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-950/30 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>LIVE • READY</span>
-            </div>
-          </div>
-
-          {/* Console Body: Details & Live Metrics Grid */}
-          <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            {/* Left: Capability Highlight */}
-            <div className="lg:col-span-7 flex flex-col gap-3">
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-violet-600 dark:text-cyan-400 uppercase tracking-wider">
-                <FiTerminal className="w-4 h-4" />
-                <span>{currentCap.techTag}</span>
+            {/* Brand Logo Display */}
+            <div className="mb-4 inline-block">
+              <div className="flex items-center justify-center lg:justify-start select-none">
+                <Image
+                  src="/logo-light.png"
+                  alt="MerxoDev Solutions"
+                  width={160}
+                  height={42}
+                  className="block dark:hidden h-8 sm:h-9 w-auto object-contain drop-shadow-sm"
+                  style={{ width: 'auto', height: 'auto' }}
+                  priority
+                />
+                <Image
+                  src="/logo.png"
+                  alt="MerxoDev Solutions"
+                  width={160}
+                  height={42}
+                  className="hidden dark:block h-8 sm:h-9 w-auto object-contain"
+                  style={{ width: 'auto', height: 'auto' }}
+                  priority
+                />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-raleway text-[#27003B] dark:text-white tracking-tight">
-                {currentCap.title}
-              </h2>
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway">
-                {currentCap.description}
-              </p>
             </div>
 
-            {/* Right: Key Performance Metric Card */}
-            <div className="lg:col-span-5 p-5 rounded-2xl bg-gradient-to-br from-violet-600/10 via-cyan-500/10 to-transparent border border-violet-500/20 flex flex-col justify-between gap-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-raleway">
-                  Live Benchmark
-                </span>
-                <span className="p-1.5 rounded-lg bg-white/60 dark:bg-zinc-800/60 text-violet-500">
-                  <FiActivity className="w-4 h-4" />
-                </span>
-              </div>
+            {/* Main Headline */}
+            <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-raleway">
+              {t('hero.headingStart') || 'NEXT GEN'}{' '}
+              <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
+                {t('hero.headingHighlight') || 'DIGITAL'}
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
+                {t('hero.headingEnd') || 'SOLUTIONS'}
+              </span>
+            </h1>
 
+            {/* Subtitle Description */}
+            <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal font-raleway">
+              {t('hero.subtext') ||
+                'We craft high-performance web apps and software ecosystems that do not just look good — they dominate competition and scale infinitely.'}
+            </p>
+
+            {/* Dual CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center lg:justify-start">
+              <Link
+                href="/contact"
+                aria-label="Start Your Project"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 hover:scale-[1.03] active:scale-95 transition-all group overflow-hidden relative text-sm sm:text-base font-raleway"
+              >
+                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                <span className="relative z-10">{t('hero.ctaPrimary') || 'Start Your Project'}</span>
+                <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform relative z-10" />
+              </Link>
+
+              <Link
+                href="/our-projects"
+                aria-label="View Projects"
+                className="inline-flex items-center space-x-3 text-zinc-800 dark:text-white font-semibold hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group px-5 py-2 font-raleway"
+              >
+                <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-zinc-300 dark:border-white/20 bg-white/50 dark:bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-violet-500 dark:group-hover:border-cyan-400 group-hover:scale-105 transition-all shadow-sm">
+                  <Play size={14} className="ml-0.5 text-violet-600 dark:text-cyan-400" fill="currentColor" />
+                </span>
+                <span className="text-xs md:text-sm font-bold uppercase tracking-wider">
+                  {t('hero.ctaSecondary') || 'View Projects'}
+                </span>
+              </Link>
+            </div>
+
+            {/* Bottom Key Stats */}
+            <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-zinc-200/70 dark:border-white/10 grid grid-cols-3 gap-4 md:gap-8 justify-items-center lg:justify-items-start font-raleway">
               <div>
-                <span className="text-4xl sm:text-5xl font-black font-raleway bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                  {currentCap.metric}
-                </span>
-                <p className="text-xs sm:text-sm font-semibold text-zinc-600 dark:text-zinc-300 mt-1 font-raleway">
-                  {currentCap.metricLabel}
+                <p className="text-xl md:text-2xl font-black text-[#27003B] dark:text-white tracking-tighter">
+                  99.9%
+                </p>
+                <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
+                  Reliability
                 </p>
               </div>
-
-              <div className="pt-3 border-t border-zinc-200/50 dark:border-zinc-800/50 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 font-raleway">
-                <span>Verified in Production</span>
-                <span className="flex items-center gap-1 text-emerald-500 font-bold">
-                  <FiCheckCircle size={13} /> 100% Passed
-                </span>
+              <div>
+                <p className="text-xl md:text-2xl font-black text-[#27003B] dark:text-white tracking-tighter flex items-center gap-1">
+                  5.0 <span className="text-amber-400 text-sm">★</span>
+                </p>
+                <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
+                  Client Rating
+                </p>
+              </div>
+              <div>
+                <p className="text-xl md:text-2xl font-black bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent tracking-tighter">
+                  56+
+                </p>
+                <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
+                  Projects Shipped
+                </p>
               </div>
             </div>
           </div>
+
+          {/* ── Right Visual Composition (Glassmorphic Showcase Frame) ── */}
+          <div className="relative h-full flex items-center justify-center">
+            {/* Outer Glass Card */}
+            <div className="relative p-5 sm:p-6 rounded-[2.5rem] border border-zinc-200/80 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-xl shadow-2xl shadow-violet-950/10 dark:shadow-black/60 h-[500px] sm:h-[560px] w-full max-w-[480px] lg:ml-auto">
+              {/* Inner Mock UI Preview */}
+              <div className="absolute inset-4 rounded-[2rem] overflow-hidden border border-zinc-200/70 dark:border-white/10 bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-[#090d16] shadow-inner flex flex-col justify-between">
+                {/* Browser-style Top Bar */}
+                <div className="flex items-center justify-between px-4 py-3 bg-white/70 dark:bg-white/10 border-b border-zinc-200/60 dark:border-white/10 backdrop-blur-md relative z-20">
+                  <div className="flex space-x-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+                  </div>
+                  <div className="px-3 py-0.5 rounded-full bg-zinc-200/60 dark:bg-white/5 border border-zinc-300/60 dark:border-white/10 text-[10px] text-zinc-600 dark:text-zinc-400 font-mono tracking-tight">
+                    merxodevsolutions.pro.bd/live
+                  </div>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                </div>
+
+                {/* Main Showcase Dashboard Interior */}
+                <div className="p-5 flex flex-col gap-4 relative z-10">
+                  {/* Metric Chips Row */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                        Growth Impact
+                      </span>
+                      <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        +148%
+                      </p>
+                      <span className="text-[9px] text-zinc-400">Conversion Rate</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                        Edge Latency
+                      </span>
+                      <p className="text-xl font-black text-violet-600 dark:text-cyan-400 mt-0.5">
+                        38ms
+                      </p>
+                      <span className="text-[9px] text-zinc-400">Sub-second Load</span>
+                    </div>
+                  </div>
+
+                  {/* Architecture Diagram Pill */}
+                  <div className="p-4 rounded-2xl bg-white/90 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex flex-col gap-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#27003B] dark:text-white flex items-center gap-1.5 font-raleway">
+                        <Code size={14} className="text-violet-500" /> Full-Stack Architecture
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400">
+                        Next.js 15
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5 font-mono text-[10px] text-zinc-500 dark:text-zinc-400">
+                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
+                        <span>Database</span>
+                        <span className="text-emerald-500 font-bold">Neon PostgreSQL</span>
+                      </div>
+                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
+                        <span>ORM Layer</span>
+                        <span className="text-cyan-500 font-bold">Prisma ORM</span>
+                      </div>
+                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-zinc-100 dark:bg-white/5">
+                        <span>Security</span>
+                        <span className="text-amber-500 font-bold">NextAuth & SSL</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gradient bottom glow */}
+                <div className="p-4 bg-gradient-to-t from-violet-600/10 to-transparent border-t border-zinc-200/50 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+                  <span>Production Ready</span>
+                  <span className="flex items-center gap-1 text-emerald-500 font-bold">
+                    <CheckCircle size={13} /> 100% Core Vitals
+                  </span>
+                </div>
+              </div>
+
+              {/* ── Floating Element 1 - Mobile Mockup (Top Right) ── */}
+              <div className="animate-float-slow absolute -top-8 -right-6 sm:-right-8 w-40 sm:w-44 h-64 sm:h-72 rounded-[2rem] p-4 shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl z-30 flex flex-col justify-between">
+                <div className="w-10 h-1 bg-zinc-300 dark:bg-white/20 rounded-full mx-auto" />
+                <div className="space-y-3">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
+                    <Smartphone size={18} />
+                  </div>
+                  <p className="text-xs font-bold text-[#27003B] dark:text-white font-raleway">
+                    Mobile First UX
+                  </p>
+                  <div className="h-1.5 w-full bg-zinc-200 dark:bg-white/10 rounded" />
+                  <div className="h-1.5 w-3/4 bg-zinc-200 dark:bg-white/10 rounded" />
+                </div>
+                <div className="h-8 w-full bg-gradient-to-r from-violet-600 to-cyan-500 rounded-xl flex items-center justify-center text-white text-[10px] font-bold font-raleway shadow-md">
+                  <span>100% Responsive</span>
+                </div>
+              </div>
+
+              {/* ── Floating Element 2 - Speed Indicator (Bottom Left) ── */}
+              <div className="animate-float-reverse absolute -bottom-6 -left-6 sm:-left-10 p-4 sm:p-5 rounded-2xl shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl flex items-center space-x-3 sm:space-x-4 pr-6 sm:pr-8 z-30 font-raleway">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 dark:bg-amber-400/15 flex items-center justify-center text-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.25)] shrink-0">
+                  <Zap size={22} fill="currentColor" />
+                </div>
+                <div>
+                  <p className="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase font-black tracking-widest">
+                    Speed Score
+                  </p>
+                  <p className="text-lg sm:text-xl font-black text-[#27003B] dark:text-white tracking-tighter">
+                    100 / 100
+                  </p>
+                </div>
+              </div>
+
+              {/* ── Floating Element 3 - Global Scale (Center Right) ── */}
+              <div className="animate-float-side absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 px-4 sm:px-5 py-3 rounded-full shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 flex items-center space-x-2.5 whitespace-nowrap backdrop-blur-xl z-40 font-raleway">
+                <div className="w-7 h-7 rounded-full bg-cyan-500/15 flex items-center justify-center text-cyan-500">
+                  <Globe size={14} />
+                </div>
+                <span className="text-[10px] sm:text-[11px] font-bold text-[#27003B] dark:text-white uppercase tracking-wider">
+                  Enterprise Scale
+                </span>
+              </div>
+            </div>
+
+            {/* Decorative background orbital dashed circle */}
+            <div
+              aria-hidden="true"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] h-[115%] border border-dashed border-violet-500/20 dark:border-white/10 rounded-full pointer-events-none -z-10 animate-[spin_60s_linear_infinite]"
+            />
+          </div>
         </div>
 
-        {/* ── Modern Tech Stack Badges Strip ── */}
-        <div className="w-full pt-4 flex flex-col items-center gap-3">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 font-raleway">
+        {/* ── Bottom Modern Tech Stack Strip ── */}
+        <div className="mt-14 sm:mt-20 pt-8 border-t border-zinc-200/70 dark:border-white/10 flex flex-col items-center gap-4">
+          <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 font-raleway">
             Engineered With State-Of-The-Art Technologies
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs font-semibold font-raleway text-zinc-600 dark:text-zinc-400">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-violet-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-violet-500/50 transition-colors">
               <SiNextdotjs className="text-zinc-900 dark:text-white" />
               <span>Next.js 15</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-cyan-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-cyan-500/50 transition-colors">
               <SiReact className="text-cyan-500" />
               <span>React 19</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-blue-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-blue-500/50 transition-colors">
               <SiTypescript className="text-blue-500" />
               <span>TypeScript</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-emerald-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-emerald-500/50 transition-colors">
               <SiNodedotjs className="text-emerald-500" />
               <span>Node.js</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-sky-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-sky-500/50 transition-colors">
               <SiPostgresql className="text-sky-500" />
               <span>PostgreSQL</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-teal-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-teal-500/50 transition-colors">
               <SiTailwindcss className="text-teal-400" />
               <span>Tailwind CSS</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-amber-500/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-amber-500/50 transition-colors">
               <FaAws className="text-amber-500" />
               <span>AWS Cloud</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-900/40 hover:border-blue-400/50 transition-colors">
+            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-blue-400/50 transition-colors">
               <SiDocker className="text-blue-400" />
               <span>Docker</span>
             </div>
-          </div>
-        </div>
-
-        {/* ── Trust Highlights Strip ── */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-raleway">
-          <div className="flex items-center gap-1.5">
-            <FiZap className="text-amber-500" />
-            <span>Fast Sub-Second Delivery</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <FiShield className="text-emerald-500" />
-            <span>Clean Scalable Code</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <FiStar className="text-yellow-400 fill-yellow-400" />
-            <span>100% Client Satisfaction</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <FiCheckCircle className="text-cyan-500" />
-            <span>24/7 Dedicated SLA</span>
           </div>
         </div>
       </div>

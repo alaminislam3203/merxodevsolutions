@@ -103,7 +103,7 @@ export default function TechCaseStudies() {
   return (
     <section
       id="case-studies"
-      className="py-20 sm:py-28 relative overflow-hidden bg-zinc-50/50 dark:bg-zinc-950/70"
+      className="py-20 sm:py-28 relative overflow-hidden"
       aria-labelledby="case-studies-heading"
     >
       {/* Background ambient lighting */}
@@ -179,11 +179,10 @@ export default function TechCaseStudies() {
                     {study.metrics.map((metric, i) => (
                       <div key={i} className="min-w-0">
                         <span
-                          className={`block text-xs sm:text-sm font-black truncate ${
-                            metric.highlight
+                          className={`block text-xs sm:text-sm font-black truncate ${metric.highlight
                               ? 'text-violet-600 dark:text-cyan-400'
                               : 'text-zinc-900 dark:text-zinc-200'
-                          }`}
+                            }`}
                         >
                           {metric.value}
                         </span>

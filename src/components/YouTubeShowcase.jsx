@@ -158,7 +158,7 @@ export default function YouTubeShowcase() {
   return (
     <section
       id="youtube-showcase"
-      className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-950/40 relative overflow-hidden"
+      className="py-16 md:py-24 relative overflow-hidden"
       aria-label="YouTube Video Showcase"
     >
       {/* Background ambient lighting */}
@@ -259,9 +259,8 @@ export default function YouTubeShowcase() {
                   </span>
                   <FaChevronDown
                     size={11}
-                    className={`transition-transform duration-300 ease-out ${
-                      mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
-                    }`}
+                    className={`transition-transform duration-300 ease-out ${mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
+                      }`}
                   />
                 </button>
               </div>
@@ -270,11 +269,10 @@ export default function YouTubeShowcase() {
 
           {/* Playlist Column (4 Columns on Desktop, Smooth Accordion Animation on Mobile) */}
           <div
-            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${
-              mobilePlaylistOpen
+            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${mobilePlaylistOpen
                 ? 'grid-rows-[1fr] opacity-100 mt-2'
                 : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
-            } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
+              } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
           >
             <div className="overflow-hidden flex flex-col gap-3 min-h-0">
               <div className="flex items-center justify-between px-1 mb-1">
@@ -299,8 +297,8 @@ export default function YouTubeShowcase() {
                       type="button"
                       onClick={() => handleSelectVideo(idx)}
                       className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
-                          ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
-                          : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
+                        ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
+                        : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
                         }`}
                     >
                       {/* Thumbnail with overlay icon */}
@@ -313,14 +311,14 @@ export default function YouTubeShowcase() {
                         />
                         <div
                           className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive
-                              ? 'bg-red-600/40'
-                              : 'bg-black/30 group-hover:bg-black/10'
+                            ? 'bg-red-600/40'
+                            : 'bg-black/30 group-hover:bg-black/10'
                             }`}
                         >
                           <div
                             className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
-                                ? 'bg-red-600 text-white animate-pulse'
-                                : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
+                              ? 'bg-red-600 text-white animate-pulse'
+                              : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
                               }`}
                           >
                             <FaPlay size={10} className="ml-0.5" />
@@ -347,8 +345,8 @@ export default function YouTubeShowcase() {
                         </div>
                         <h4
                           className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
-                              ? 'text-red-600 dark:text-red-400'
-                              : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
+                            ? 'text-red-600 dark:text-red-400'
+                            : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
                             }`}
                         >
                           {t(video.titleKey) || video.defaultTitle}

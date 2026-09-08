@@ -5,12 +5,12 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { useSession, signIn } from 'next-auth/react';
-import { 
-  FaStar, 
-  FaQuoteLeft, 
-  FaCheckCircle, 
-  FaArrowLeft, 
-  FaArrowRight, 
+import {
+  FaStar,
+  FaQuoteLeft,
+  FaCheckCircle,
+  FaArrowLeft,
+  FaArrowRight,
   FaPenNib,
   FaTimes,
   FaUserCircle,
@@ -276,7 +276,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-16 md:py-24 bg-white/50 dark:bg-zinc-950/40 relative overflow-hidden"
+      className="py-16 md:py-24 relative overflow-hidden"
       aria-label="Client testimonials"
       itemScope
       itemType="https://schema.org/Product"
@@ -470,11 +470,10 @@ export default function Testimonials() {
                   type="button"
                   onClick={() => scrollTo(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    selectedIndex === dotIdx
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${selectedIndex === dotIdx
                       ? 'w-6 bg-gradient-to-r from-violet-600 to-cyan-500'
                       : 'w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-violet-400'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -574,11 +573,10 @@ export default function Testimonials() {
                         >
                           <FaStar
                             size={22}
-                            className={`${
-                              star <= (hoverRating || rating)
+                            className={`${star <= (hoverRating || rating)
                                 ? 'text-amber-400 drop-shadow-md'
                                 : 'text-zinc-300 dark:text-zinc-700'
-                            } transition-colors`}
+                              } transition-colors`}
                           />
                         </button>
                       ))}
@@ -689,22 +687,20 @@ export default function Testimonials() {
                   <button
                     type="button"
                     onClick={() => { setAuthMode('login'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                      authMode === 'login'
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'login'
                         ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
-                    }`}
+                      }`}
                   >
                     {t('testimonials.signInTab') || 'Sign In / Log In'}
                   </button>
                   <button
                     type="button"
                     onClick={() => { setAuthMode('register'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                      authMode === 'register'
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'register'
                         ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
                         : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
-                    }`}
+                      }`}
                   >
                     {t('testimonials.createAccountTab') || 'Create Account'}
                   </button>

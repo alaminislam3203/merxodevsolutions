@@ -35,28 +35,24 @@ html:not(.dark) body {
   background-image: 
     linear-gradient(to right, rgba(99, 102, 241, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(99, 102, 241, 0.045) 1px, transparent 1px),
-    radial-gradient(ellipse 85% 50% at 50% -5%, rgba(124, 58, 237, 0.12), rgba(192, 38, 211, 0.06) 45%, transparent 70%),
-    radial-gradient(ellipse 65% 45% at 95% 35%, rgba(6, 182, 212, 0.09), transparent 65%),
-    radial-gradient(ellipse 55% 45% at 5% 45%, rgba(132, 204, 22, 0.07), transparent 65%),
-    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(99, 102, 241, 0.08), transparent 65%),
-    radial-gradient(ellipse 85% 50% at 50% 100%, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05) 50%, transparent 75%);
-  background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(124, 58, 237, 0.09), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 95% 35%, rgba(6, 182, 212, 0.07), transparent 65%),
+    radial-gradient(ellipse 60% 40% at 5% 70%, rgba(99, 102, 241, 0.06), transparent 65%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(59, 130, 246, 0.06), transparent 75%);
+  background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
 }
 
-/* ── Ultra-Premium Hero-Themed Deep Aurora Grid Background for Dark Mode ── */
+/* ── Dark Blue Gradient Grid Background for Dark Mode ── */
 .dark body,
 html.dark body {
   background-color: #060b19;
   background-image: 
-    linear-gradient(to right, rgba(59, 130, 246, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(59, 130, 246, 0.055) 1px, transparent 1px),
-    radial-gradient(ellipse 85% 55% at 50% -5%, rgba(124, 58, 237, 0.25), rgba(192, 38, 211, 0.14) 45%, transparent 75%),
-    radial-gradient(ellipse 65% 50% at 100% 40%, rgba(6, 182, 212, 0.18), transparent 70%),
-    radial-gradient(ellipse 55% 45% at 0% 35%, rgba(132, 204, 22, 0.10), transparent 65%),
-    radial-gradient(ellipse 60% 50% at 10% 75%, rgba(99, 102, 241, 0.16), transparent 70%),
-    radial-gradient(ellipse 85% 55% at 50% 100%, rgba(30, 58, 138, 0.24), rgba(6, 182, 212, 0.12) 50%, transparent 75%);
-  background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    linear-gradient(to right, rgba(59, 130, 246, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.07) 1px, transparent 1px),
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(29, 78, 216, 0.22), transparent 75%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(30, 58, 138, 0.18), transparent 75%);
+  background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%;
   background-attachment: fixed;
 }
 
@@ -536,6 +532,46 @@ html.dark body {
 
 .card-hover-lift:hover {
   transform: translateY(-5px);
+}
+
+/* Floating Elements Keyframes for Hero Showcase */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(10px) translateX(-6px);
+  }
+}
+
+@keyframes floatSide {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px);
+  }
+  50% {
+    transform: translateX(8px) translateY(-5px);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+
+.animate-float-side {
+  animation: floatSide 5.5s ease-in-out infinite;
 }
 
 
