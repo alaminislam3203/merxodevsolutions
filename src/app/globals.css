@@ -181,13 +181,7 @@ html.dark body {
   box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-  .hero-dual-section {
-    padding: 76px 8px 0;
-  }
-}
-
-/* Two-column grid */
+/* Two-column grid for Desktop */
 .hero-dual-grid {
   display: grid;
   grid-template-columns: 4fr 2fr;
@@ -198,22 +192,9 @@ html.dark body {
   margin: 0 auto;
 }
 
-@media (max-width: 640px) {
-  .hero-dual-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .hero-dual-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    height: auto;
-  }
-  .hero-dual-right-item {
-    aspect-ratio: 16 / 9;
-    height: auto;
-    flex: unset;
-  }
+/* Single column when only right slot exists */
+.hero-dual-grid-right-only {
+  grid-template-columns: 1fr;
 }
 
 /* Full-width fallback (only one slot has banners) */
@@ -252,14 +233,7 @@ html.dark body {
   border-radius: 12px;
 }
 
-/* Mobile — slightly tighter border-radius */
-@media (max-width: 640px) {
-  .dual-slide-inner {
-    border-radius: 8px;
-  }
-}
-
-/* RIGHT panel — contains 2 stacked banners (top and bottom) matching left panel height */
+/* RIGHT panel on desktop — contains 2 stacked banners (top and bottom) matching left panel height */
 .hero-dual-right {
   display: flex;
   flex-direction: column;
@@ -323,8 +297,6 @@ html.dark body {
   font-size: 0.72rem;
 }
 
-
-
 .dual-slide-img {
   object-fit: cover;
   object-position: center;
@@ -381,6 +353,132 @@ html.dark body {
 .dual-slide-btn:hover {
   background: #4f46e5;
   transform: translateY(-1px);
+}
+
+/* ============================================================
+   MOBILE & TABLET RESPONSIVE (max-width: 768px)
+   - Left banner displays full width on top
+   - Under the left banner, the 2 right banners display side by side
+     (one on the left, one on the right)
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-dual-section {
+    padding: 76px 8px 0;
+  }
+
+  /* Single column grid on mobile so left banner is on top, right banner container is underneath */
+  .hero-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .hero-dual-left {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .hero-dual-left .dual-slide-inner {
+    aspect-ratio: 16 / 7;
+    border-radius: 10px;
+  }
+
+  .hero-dual-left .dual-slide-overlay {
+    padding: 0.85rem 1rem;
+  }
+
+  .hero-dual-left .dual-slide-title {
+    font-size: clamp(0.9rem, 3.8vw, 1.3rem);
+    margin-bottom: 0.2rem;
+  }
+
+  .hero-dual-left .dual-slide-subtitle {
+    font-size: clamp(0.65rem, 2.4vw, 0.82rem);
+    margin-bottom: 0.45rem;
+  }
+
+  .hero-dual-left .dual-slide-btn {
+    padding: 0.28rem 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  /* Under left banner: 2 banners side by side (one left, one right) */
+  .hero-dual-right {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .hero-dual-right-item {
+    flex: unset !important;
+    display: block !important;
+    height: auto !important;
+    width: 100% !important;
+    border-radius: 8px;
+  }
+
+  .hero-dual-right-item .embla-root,
+  .hero-dual-right-item .embla-viewport,
+  .hero-dual-right-item .embla-container,
+  .hero-dual-right-item .dual-slide,
+  .hero-dual-right-item .dual-slide-link {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Aspect ratio on mobile right banners so Image fill has fixed proportions and never collapses */
+  .hero-dual-right-item .dual-slide-inner {
+    aspect-ratio: 16 / 10 !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Compact styling for mobile 2-column banners */
+  .hero-dual-right-item .dual-slide-overlay {
+    padding: 0.4rem 0.55rem;
+    justify-content: flex-end;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 65%, transparent 100%);
+  }
+
+  .hero-dual-right-item .dual-slide-title {
+    font-size: clamp(0.62rem, 2.5vw, 0.82rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 0.15rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-dual-right-item .dual-slide-subtitle {
+    font-size: clamp(0.52rem, 2vw, 0.68rem);
+    line-height: 1.15;
+    margin: 0 0 0.25rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-dual-right-item .dual-slide-btn {
+    padding: 0.18rem 0.45rem;
+    font-size: 0.58rem;
+    border-radius: 4px;
+  }
+
+  /* If only 1 right banner exists, make it span both columns */
+  .hero-dual-right-item:only-child {
+    grid-column: 1 / -1;
+  }
+
+  .hero-dual-right-item:only-child .dual-slide-inner {
+    aspect-ratio: 16 / 6.5 !important;
+  }
 }
 
 /* ============================================================
