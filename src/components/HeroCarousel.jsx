@@ -43,7 +43,7 @@ function BannerSlide({ banner }) {
         src={banner.imageUrl}
         alt={banner.title || "Banner"}
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="dual-slide-img"
         priority
       />
@@ -141,10 +141,10 @@ export default async function HeroCarousel() {
   return (
     <section className="hero-dual-section" aria-label="Hero Banner">
       <div className="hero-dual-grid">
-        <div className="hero-dual-left">
+        <div className="hero-dual-left h-auto md:h-full">
           <CarouselPanel banners={left} dotButtons arrowButtons autoplay />
         </div>
-        <div className="hero-dual-right">
+        <div className="hero-dual-right hidden md:flex">
           {hasRightTop && (
             <div className="hero-dual-right-item hero-dual-right-top">
               <CarouselPanel banners={rightTop} autoplay />

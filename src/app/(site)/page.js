@@ -132,8 +132,8 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <HeroCarousel />
-      <ServicesPreview />
       <Hero />
+      <ServicesPreview />
       <Stats />
       <WhyUs />
       <Process />
