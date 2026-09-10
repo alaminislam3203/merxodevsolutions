@@ -201,10 +201,18 @@ html.dark body {
 @media (max-width: 640px) {
   .hero-dual-grid {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 12px;
   }
   .hero-dual-right {
-    display: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    height: auto;
+  }
+  .hero-dual-right-item {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    flex: unset;
   }
 }
 
@@ -214,8 +222,7 @@ html.dark body {
 }
 
 /* Individual panel wrappers */
-.hero-dual-left,
-.hero-dual-right {
+.hero-dual-left {
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -252,40 +259,68 @@ html.dark body {
   }
 }
 
-/* RIGHT panel — stretch to fill the same row height as left panel */
+/* RIGHT panel — contains 2 stacked banners (top and bottom) matching left panel height */
 .hero-dual-right {
   display: flex;
   flex-direction: column;
-}
-
-.hero-dual-right .embla-root {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  gap: 12px;
   height: 100%;
+  min-height: 0;
+  position: relative;
 }
 
-.hero-dual-right .embla-viewport {
-  flex: 1;
+.hero-dual-right-item {
+  flex: 1 1 0;
+  min-height: 0;
   height: 100%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.hero-dual-right .embla-container {
+.hero-dual-right-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.hero-dual-right-item .embla-root,
+.hero-dual-right-item .embla-viewport,
+.hero-dual-right-item .embla-container,
+.hero-dual-right-item .dual-slide,
+.hero-dual-right-item .dual-slide-link {
   height: 100%;
+  width: 100%;
 }
 
-.hero-dual-right .dual-slide {
-  height: 100%;
-}
-
-.hero-dual-right .dual-slide-link {
-  height: 100%;
-}
-
-.hero-dual-right .dual-slide-inner {
+.hero-dual-right-item .dual-slide-inner {
   aspect-ratio: unset;
   height: 100%;
-  border-radius: 0;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.hero-dual-right-item .dual-slide-overlay {
+  padding: 0.75rem 1rem;
+}
+
+.hero-dual-right-item .dual-slide-title {
+  font-size: clamp(0.75rem, 1.25vw, 1.15rem);
+  margin: 0 0 0.2rem;
+  max-width: 280px;
+}
+
+.hero-dual-right-item .dual-slide-subtitle {
+  font-size: clamp(0.65rem, 0.85vw, 0.82rem);
+  margin: 0 0 0.45rem;
+  max-width: 220px;
+}
+
+.hero-dual-right-item .dual-slide-btn {
+  padding: 0.28rem 0.8rem;
+  font-size: 0.72rem;
 }
 
 

@@ -12,11 +12,20 @@ export async function GET() {
       orderBy: { order: "asc" },
     });
 
-    const left = banners.filter((b) => b.slot === "left");
-    const right = banners.filter((b) => b.slot === "right");
+    const left = banners.filter((b) => b.slot === "left" || !b.slot);
+    let rightTop = banners.filter((b) => b.slot === "right_top" || b.slot === "top_right");
+    let rightBottom = banners.filter((b) => b.slot === "right_bottom" || b.slot === "bottom_right");
+    const legacyRight = banners.filter((b) => b.slot === "right");
+
+    if (rightTop.length === 0 && legacyRight.length > 0) {
+      rightTop = [legacyRight[0]];
+    }
+    if (rightBottom.length === 0 && legacyRight.length > 1) {
+      rightBottom = legacyRight.slice(1);
+    }
 
     return NextResponse.json(
-      { left, right },
+      { left, rightTop, rightBottom, right: legacyRight },
       {
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",

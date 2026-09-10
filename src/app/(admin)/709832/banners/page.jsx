@@ -194,32 +194,49 @@ function BannerFormModal({ banner, onClose, onSaved }) {
             </div>
           </div>
 
-          <div className="banner-form-row banner-form-row-3">
-            <div className="banner-form-group">
-              <label className="banner-form-label">Panel / Slot</label>
-              <div className="banner-slot-btns">
-                <button
-                  type="button"
-                  className={"banner-slot-btn" + (form.slot === "left" ? " banner-slot-btn-active" : "")}
-                  onClick={() => setForm((f) => ({ ...f, slot: "left" }))}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="18" rx="1" opacity=".3"/>
-                  </svg>
-                  Left
-                </button>
-                <button
-                  type="button"
-                  className={"banner-slot-btn" + (form.slot === "right" ? " banner-slot-btn-active" : "")}
-                  onClick={() => setForm((f) => ({ ...f, slot: "right" }))}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="8" height="18" rx="1" opacity=".3"/><rect x="13" y="3" width="8" height="18" rx="1"/>
-                  </svg>
-                  Right
-                </button>
-              </div>
+          <div className="banner-form-group">
+            <label className="banner-form-label">Panel / Slot Position</label>
+            <div className="banner-slot-btns">
+              <button
+                type="button"
+                className={"banner-slot-btn" + (form.slot === "left" ? " banner-slot-btn-active" : "")}
+                onClick={() => setForm((f) => ({ ...f, slot: "left" }))}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="10" height="18" rx="2" fill="currentColor" fillOpacity=".25"/>
+                  <rect x="14" y="3" width="8" height="8" rx="1.5" strokeOpacity=".35"/>
+                  <rect x="14" y="13" width="8" height="8" rx="1.5" strokeOpacity=".35"/>
+                </svg>
+                Left (Main)
+              </button>
+              <button
+                type="button"
+                className={"banner-slot-btn" + (form.slot === "right_top" || form.slot === "top_right" ? " banner-slot-btn-active" : "")}
+                onClick={() => setForm((f) => ({ ...f, slot: "right_top" }))}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="10" height="18" rx="2" strokeOpacity=".35"/>
+                  <rect x="14" y="3" width="8" height="8" rx="1.5" fill="currentColor" fillOpacity=".25"/>
+                  <rect x="14" y="13" width="8" height="8" rx="1.5" strokeOpacity=".35"/>
+                </svg>
+                Right (Top)
+              </button>
+              <button
+                type="button"
+                className={"banner-slot-btn" + (form.slot === "right_bottom" || form.slot === "bottom_right" ? " banner-slot-btn-active" : "")}
+                onClick={() => setForm((f) => ({ ...f, slot: "right_bottom" }))}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="10" height="18" rx="2" strokeOpacity=".35"/>
+                  <rect x="14" y="3" width="8" height="8" rx="1.5" strokeOpacity=".35"/>
+                  <rect x="14" y="13" width="8" height="8" rx="1.5" fill="currentColor" fillOpacity=".25"/>
+                </svg>
+                Right (Bottom)
+              </button>
             </div>
+          </div>
+
+          <div className="banner-form-row">
             <div className="banner-form-group">
               <label className="banner-form-label">Order</label>
               <input
@@ -266,6 +283,7 @@ export default function AdminBannersPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editBanner, setEditBanner] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [slotFilter, setSlotFilter] = useState("all");
 
   const fetchBanners = async () => {
     setLoading(true);
@@ -325,12 +343,26 @@ export default function AdminBannersPage() {
     setDeletingId(null);
   };
 
+  const leftCount = banners.filter((b) => b.slot === "left" || !b.slot).length;
+  const rightTopCount = banners.filter((b) => b.slot === "right_top" || b.slot === "top_right").length;
+  const rightBottomCount = banners.filter((b) => b.slot === "right_bottom" || b.slot === "bottom_right").length;
+  const legacyRightCount = banners.filter((b) => b.slot === "right").length;
+
+  const filteredBanners = banners.filter((b) => {
+    if (slotFilter === "all") return true;
+    if (slotFilter === "left") return b.slot === "left" || !b.slot;
+    if (slotFilter === "right_top") return b.slot === "right_top" || b.slot === "top_right";
+    if (slotFilter === "right_bottom") return b.slot === "right_bottom" || b.slot === "bottom_right";
+    if (slotFilter === "right") return b.slot === "right";
+    return true;
+  });
+
   return (
     <div>
       <div className="admin-page-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h1 className="admin-page-title">Hero Banners</h1>
-          <p className="admin-page-subtitle">Manage carousel slides shown on the homepage.</p>
+          <p className="admin-page-subtitle">Manage 3-banner layout: Left (Main), Right Top, and Right Bottom.</p>
         </div>
         <button className="banner-btn-add" onClick={openAdd}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -340,16 +372,57 @@ export default function AdminBannersPage() {
         </button>
       </div>
 
+      {/* Filter Tabs */}
+      <div className="banner-filter-tabs">
+        <button
+          type="button"
+          className={"banner-filter-tab" + (slotFilter === "all" ? " banner-filter-tab-active" : "")}
+          onClick={() => setSlotFilter("all")}
+        >
+          All ({banners.length})
+        </button>
+        <button
+          type="button"
+          className={"banner-filter-tab" + (slotFilter === "left" ? " banner-filter-tab-active" : "")}
+          onClick={() => setSlotFilter("left")}
+        >
+          Left / Main ({leftCount})
+        </button>
+        <button
+          type="button"
+          className={"banner-filter-tab" + (slotFilter === "right_top" ? " banner-filter-tab-active" : "")}
+          onClick={() => setSlotFilter("right_top")}
+        >
+          Right Top ({rightTopCount})
+        </button>
+        <button
+          type="button"
+          className={"banner-filter-tab" + (slotFilter === "right_bottom" ? " banner-filter-tab-active" : "")}
+          onClick={() => setSlotFilter("right_bottom")}
+        >
+          Right Bottom ({rightBottomCount})
+        </button>
+        {legacyRightCount > 0 && (
+          <button
+            type="button"
+            className={"banner-filter-tab" + (slotFilter === "right" ? " banner-filter-tab-active" : "")}
+            onClick={() => setSlotFilter("right")}
+          >
+            Legacy Right ({legacyRightCount})
+          </button>
+        )}
+      </div>
+
       {loading ? (
         <div className="banner-loading">
           {[1, 2, 3].map((n) => <div key={n} className="banner-skeleton" />)}
         </div>
-      ) : banners.length === 0 ? (
+      ) : filteredBanners.length === 0 ? (
         <div className="banner-empty">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#334155", marginBottom: "12px" }}>
             <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" />
           </svg>
-          <p>No banners yet. Click <strong>Add Banner</strong> to create your first slide.</p>
+          <p>No banners found for this slot. Click <strong>Add Banner</strong> to create one.</p>
         </div>
       ) : (
         <div className="banner-table-wrap">
@@ -366,7 +439,7 @@ export default function AdminBannersPage() {
               </tr>
             </thead>
             <tbody>
-              {banners.map((banner) => (
+              {filteredBanners.map((banner) => (
                 <tr key={banner.id}>
                   <td>
                     <div className="banner-thumb-wrap">
@@ -385,7 +458,13 @@ export default function AdminBannersPage() {
                   </td>
                   <td style={{ textAlign: "center" }}>
                     <span className={"banner-slot-chip banner-slot-chip-" + (banner.slot || "left")}>
-                      {banner.slot === "right" ? "Right" : "Left"}
+                      {banner.slot === "right_top" || banner.slot === "top_right"
+                        ? "Right Top"
+                        : banner.slot === "right_bottom" || banner.slot === "bottom_right"
+                        ? "Right Bottom"
+                        : banner.slot === "right"
+                        ? "Right (Legacy)"
+                        : "Left (Main)"}
                     </span>
                   </td>
                   <td style={{ textAlign: "center" }}>
@@ -463,14 +542,35 @@ export default function AdminBannersPage() {
           text-transform: uppercase; letter-spacing: .5px;
         }
         .banner-slot-chip-left { background: rgba(99,102,241,.15); color: #818cf8; }
-        .banner-slot-chip-right { background: rgba(6,182,212,.15); color: #22d3ee; }
+        .banner-slot-chip-right_top,
+        .banner-slot-chip-top_right { background: rgba(6,182,212,.15); color: #22d3ee; }
+        .banner-slot-chip-right_bottom,
+        .banner-slot-chip-bottom_right { background: rgba(16,185,129,.15); color: #34d399; }
+        .banner-slot-chip-right { background: rgba(245,158,11,.15); color: #fbbf24; }
+
+        /* Filter Tabs */
+        .banner-filter-tabs {
+          display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px;
+        }
+        .banner-filter-tab {
+          padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 500;
+          border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03);
+          color: #94a3b8; cursor: pointer; transition: all .15s;
+        }
+        .banner-filter-tab:hover {
+          background: rgba(255,255,255,.08); color: #f1f5f9;
+        }
+        .banner-filter-tab-active {
+          background: rgba(99,102,241,.18); border-color: #6366f1; color: #818cf8;
+          box-shadow: 0 2px 8px rgba(99,102,241,.2);
+        }
 
         /* Slot selector buttons in form */
-        .banner-slot-btns { display: flex; gap: 6px; }
+        .banner-slot-btns { display: flex; gap: 8px; flex-wrap: wrap; }
         .banner-slot-btn {
-          flex: 1; display: inline-flex; align-items: center; justify-content: center;
-          gap: 6px; padding: 8px 10px;
-          border: 1px solid rgba(255,255,255,.1); border-radius: 8px;
+          flex: 1; min-width: 110px; display: inline-flex; align-items: center; justify-content: center;
+          gap: 7px; padding: 10px 12px;
+          border: 1px solid rgba(255,255,255,.1); border-radius: 9px;
           background: rgba(255,255,255,.04); color: #64748b;
           font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
         }
