@@ -531,10 +531,10 @@ function ServiceCard({ item }) {
     <Link
       href={item.href}
       title={item.fullTitle}
-      className="group flex flex-col h-full bg-white dark:bg-[#0c1224] border border-zinc-200/90 dark:border-white/[0.08] rounded-2xl p-2 sm:p-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-xl hover:shadow-violet-500/10 dark:hover:shadow-cyan-500/10 hover:border-violet-400 dark:hover:border-cyan-400/60 hover:-translate-y-1.5 transition-all duration-300 select-none cursor-pointer"
+      className="group flex flex-col h-full bg-white dark:bg-[#0c1224] border border-zinc-200/90 dark:border-white/[0.08] rounded-2xl p-1.5 sm:p-2 lg:p-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-xl hover:shadow-violet-500/10 dark:hover:shadow-cyan-500/10 hover:border-violet-400 dark:hover:border-cyan-400/60 hover:-translate-y-1.5 transition-all duration-300 select-none cursor-pointer"
     >
       {/* Top Image / Illustration Box */}
-      <div className="w-full aspect-[4/3] rounded-xl bg-gradient-to-b from-zinc-50 via-zinc-100/50 to-zinc-100/90 dark:from-white/[0.06] dark:via-white/[0.03] dark:to-white/[0.015] border border-zinc-200/60 dark:border-white/[0.05] relative overflow-hidden flex items-center justify-center p-2 sm:p-2.5 group-hover:scale-[1.03] transition-transform duration-300">
+      <div className="w-full aspect-[4/3] rounded-xl bg-gradient-to-b from-zinc-50 via-zinc-100/50 to-zinc-100/90 dark:from-white/[0.06] dark:via-white/[0.03] dark:to-white/[0.015] border border-zinc-200/60 dark:border-white/[0.05] relative overflow-hidden flex items-center justify-center p-1 sm:p-1.5 lg:p-2 group-hover:scale-[1.03] transition-transform duration-300">
         {/* Subtle Ambient Radial Glow inside box */}
         <div
           className={`absolute inset-0 opacity-15 group-hover:opacity-35 transition-opacity duration-300 ${item.glowBg} blur-xl`}
@@ -546,8 +546,8 @@ function ServiceCard({ item }) {
       </div>
 
       {/* Bottom Title Text */}
-      <div className="mt-2 sm:mt-2.5 px-0.5 text-center flex items-center justify-center min-h-[28px] sm:min-h-[32px]">
-        <span className="text-[11px] sm:text-xs md:text-[13px] font-bold tracking-tight text-zinc-800 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors font-raleway truncate w-full">
+      <div className="mt-1.5 sm:mt-2 px-0.5 text-center flex items-center justify-center min-h-[22px] sm:min-h-[28px]">
+        <span className="text-[10px] sm:text-xs md:text-[13px] font-bold tracking-tight text-zinc-800 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors font-raleway truncate w-full">
           {item.title}
         </span>
       </div>
@@ -568,20 +568,25 @@ export default function ServicesPreview() {
     [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((index) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
+    setScrollSnaps(emblaApi.scrollSnapList());
     onSelect();
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
@@ -590,7 +595,7 @@ export default function ServicesPreview() {
   return (
     <section
       aria-label="Core Services"
-      className="w-full max-w-full relative py-4 sm:py-6 px-3 sm:px-6 lg:px-8 overflow-hidden bg-transparent transition-colors duration-300"
+      className="w-full max-w-full relative py-3 sm:py-5 lg:py-6 px-3 sm:px-6 lg:px-8 overflow-hidden bg-transparent transition-colors duration-300"
     >
       {/* Ambient background soft glow */}
       <div
@@ -602,16 +607,16 @@ export default function ServicesPreview() {
         className="pointer-events-none absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-15 blur-3xl bg-cyan-500"
       />
 
-      <div className="relative z-10 max-w-[1400px] w-full mx-auto">
+      <div className="relative z-10 max-w-[1440px] w-full mx-auto">
         {/* Carousel Container */}
         <div className="relative group/carousel">
           {/* Embla Viewport */}
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex -ml-2.5 sm:-ml-3.5">
+            <div className="flex -ml-2 sm:-ml-2.5 lg:-ml-3">
               {serviceCategories.map((item, idx) => (
                 <div
                   key={idx}
-                  className="pl-2.5 sm:pl-3.5 flex-[0_0_42%] sm:flex-[0_0_28%] md:flex-[0_0_22%] lg:flex-[0_0_16.666%] min-w-0"
+                  className="pl-2 sm:pl-2.5 lg:pl-3 flex-[0_0_33.333333%] sm:flex-[0_0_25%] md:flex-[0_0_16.666667%] lg:flex-[0_0_12.5%] min-w-0"
                 >
                   <ServiceCard item={item} />
                 </div>
@@ -619,23 +624,39 @@ export default function ServicesPreview() {
             </div>
           </div>
 
-          {/* Left Navigation Arrow */}
+          {/* Left Navigation Arrow — Hidden on Mobile, Shown on Desktop/Tablet */}
           <button
             onClick={scrollPrev}
             aria-label="Previous Services"
-            className="absolute -left-2 sm:-left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-80 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            className="absolute -left-2 sm:-left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg hidden md:flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 cursor-pointer"
           >
             <FiChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          {/* Right Navigation Arrow */}
+          {/* Right Navigation Arrow — Hidden on Mobile, Shown on Desktop/Tablet */}
           <button
             onClick={scrollNext}
             aria-label="Next Services"
-            className="absolute -right-2 sm:-right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-80 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            className="absolute -right-2 sm:-right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg hidden md:flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 cursor-pointer"
           >
             <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
+        </div>
+
+        {/* Mobile Dot Indicators — Only visible on mobile devices (< 768px) */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 mt-3 pt-1">
+          {scrollSnaps.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollTo(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === selectedIndex
+                  ? 'w-5 bg-gradient-to-r from-violet-600 to-cyan-400'
+                  : 'w-1.5 bg-zinc-300 dark:bg-zinc-700/80 hover:bg-zinc-400 dark:hover:bg-zinc-600'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
