@@ -141,10 +141,10 @@ export default async function HeroCarousel() {
   return (
     <section className="hero-dual-section" aria-label="Hero Banner">
       <div className="hero-dual-grid">
-        <div className="hero-dual-left h-auto md:h-full">
+        <div className="hero-dual-left">
           <CarouselPanel banners={left} dotButtons arrowButtons autoplay />
         </div>
-        <div className="hero-dual-right hidden md:flex">
+        <div className="hero-dual-right">
           {hasRightTop && (
             <div className="hero-dual-right-item hero-dual-right-top">
               <CarouselPanel banners={rightTop} autoplay />

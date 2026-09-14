@@ -55,28 +55,28 @@ export default function EmblaCarousel({
 
       {arrowButtons && (
         <>
-          <div className="embla-arrow embla-arrow-prev">
+          <div className="embla-arrow embla-arrow-prev hidden md:block">
             <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           </div>
-          <div className="embla-arrow embla-arrow-next">
+          <div className="embla-arrow embla-arrow-next hidden md:block">
             <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
           </div>
         </>
       )}
 
-      {/* {dotButtons && scrollSnaps.length > 1 && (
-        <div className="embla-dots">
+      {dotButtons && scrollSnaps.length > 1 && (
+        <div className="embla-pill-indicator">
           {scrollSnaps.map((_, index) => (
-            <DotButton
+            <button
               key={index}
+              type="button"
               onClick={() => onDotButtonClick(index)}
-              className={`embla-dot${index === selectedIndex ? " embla-dot-active" : ""}`}
-            >
-              <div className="embla-dot-inner" />
-            </DotButton>
+              aria-label={`Go to slide ${index + 1}`}
+              className={`embla-pill-dot ${index === selectedIndex ? "embla-pill-dot-active" : ""}`}
+            />
           ))}
         </div>
-      )} */}
+      )}
     </div>
   );
 }

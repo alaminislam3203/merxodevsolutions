@@ -128,44 +128,75 @@ html.dark body {
 .embla-arrow-prev { left: 0; }
 .embla-arrow-next { right: 0; }
 
-/* Dot buttons */
-.embla-dots {
+@media (max-width: 768px) {
+  .embla-arrow {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   GLASSMORPHISM CAPSULE PILL INDICATOR
+   ============================================================ */
+.embla-pill-indicator {
   position: absolute;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 8px;
-  z-index: 10;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  z-index: 15;
+  transition: all 0.3s ease;
 }
 
-.embla-dot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px;
-  border: 2px solid transparent;
+html.dark .embla-pill-indicator {
+  background: rgba(10, 15, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.5);
+}
+
+.embla-pill-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.embla-dot-active {
-  border-color: #fff;
+html.dark .embla-pill-dot {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
 }
 
-.embla-dot-inner {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.8);
-  transition: background 0.2s ease;
+.embla-pill-dot:hover {
+  transform: scale(1.2);
 }
 
-.embla-dot-active .embla-dot-inner {
-  background: #fff;
+.embla-pill-dot-active {
+  width: 24px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #84cc16; /* Theme green/lime matching reference image and Hero */
+  border-color: #bef264;
+  box-shadow: 0 0 10px rgba(132, 204, 22, 0.75);
+}
+
+html.dark .embla-pill-dot-active {
+  background: #CCFF00;
+  border-color: #e4ff66;
+  box-shadow: 0 0 12px rgba(204, 255, 0, 0.85);
 }
 
 /* ============================================================
@@ -177,42 +208,87 @@ html.dark body {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 94px 12px 0;
+  padding: 94px 14px 0;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .hero-dual-section {
-    padding: 76px 8px 0;
+    padding: 76px 10px 0;
   }
 }
 
-/* Two-column grid */
+/* Two-column grid for Desktop */
 .hero-dual-grid {
   display: grid;
-  grid-template-columns: 4fr 2fr;
+  grid-template-columns: 1.85fr 1fr;
   grid-template-rows: auto;
-  gap: 16px;
+  gap: 14px;
   align-items: stretch;
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
+/* Single column fallback when only right slot exists */
+.hero-dual-grid-right-only {
+  grid-template-columns: 1fr;
+}
+
+/* Mobile Layout: Top main banner (full-width) + Bottom 2 side-by-side banners (grid-cols-2) */
 @media (max-width: 768px) {
   .hero-dual-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
+
   .hero-dual-left {
+    width: 100%;
     height: auto;
-    min-height: auto;
+    border-radius: 14px;
   }
+
+  .hero-dual-left .dual-slide-inner {
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+  }
+
+  /* Two smaller banners side-by-side in 2 equal columns on mobile */
   .hero-dual-right {
-    display: none !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: auto !important;
   }
-  .hero-dual-grid-right-only .hero-dual-right {
-    display: flex !important;
-    height: auto;
+
+  .hero-dual-right-item {
+    flex: unset !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 12px;
+  }
+
+  .hero-dual-right-item .embla-root,
+  .hero-dual-right-item .embla-viewport,
+  .hero-dual-right-item .embla-container,
+  .hero-dual-right-item .dual-slide,
+  .hero-dual-right-item .dual-slide-link {
+    height: 100%;
+    width: 100%;
+  }
+
+  .hero-dual-right-item .dual-slide-inner {
+    aspect-ratio: 16 / 10 !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 12px;
+  }
+
+  /* If only 1 right banner exists, span full width */
+  .hero-dual-right-item:only-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -223,11 +299,13 @@ html.dark body {
 
 /* Individual panel wrappers */
 .hero-dual-left {
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
   min-height: 0;
   height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Slide — full width of its panel */
@@ -247,23 +325,16 @@ html.dark body {
 .dual-slide-inner {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 5.5;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
-/* Mobile — slightly tighter border-radius */
-@media (max-width: 768px) {
-  .dual-slide-inner {
-    border-radius: 8px;
-  }
-}
-
-/* RIGHT panel — contains 2 stacked banners (top and bottom) matching left panel height */
+/* RIGHT panel on desktop — contains 2 stacked banners matching left panel height */
 .hero-dual-right {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   height: 100%;
   min-height: 0;
   position: relative;
@@ -274,7 +345,7 @@ html.dark body {
   min-height: 0;
   height: 100%;
   position: relative;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -299,7 +370,7 @@ html.dark body {
   aspect-ratio: unset;
   height: 100%;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
 .hero-dual-right-item .dual-slide-overlay {
