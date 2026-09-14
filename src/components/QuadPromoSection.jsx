@@ -76,6 +76,7 @@ function ImageCard({ imageUrl, alt, link, priority = false, sizes = "(max-width:
         sizes={sizes}
         className="object-cover object-center"
         priority={priority}
+        unoptimized
       />
     </div>
   );
