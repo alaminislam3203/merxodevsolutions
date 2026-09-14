@@ -66,6 +66,18 @@ function AdminSidebar() {
       ),
     },
     {
+      href: "/709832/showcase",
+      label: "Promo Grid",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="11" height="8" rx="1.5" />
+          <rect x="2" y="13" width="5" height="8" rx="1" />
+          <rect x="8" y="13" width="5" height="8" rx="1" />
+          <rect x="15" y="3" width="7" height="18" rx="1.5" />
+        </svg>
+      ),
+    },
+    {
       href: "/709832/reviews",
       label: "Reviews",
       icon: (
