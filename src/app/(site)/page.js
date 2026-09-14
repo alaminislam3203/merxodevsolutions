@@ -2,6 +2,7 @@ import FeaturedProjects from '@/components/FeaturedProjects';
 import Hero from '@/components/Hero';
 import HeroCarousel from '@/components/HeroCarousel';
 import ServicesPreview from '@/components/ServicesPreview';
+import QuadPromoSection from '@/components/QuadPromoSection';
 import Process from '@/components/Process';
 import Stats from '@/components/Stats';
 import TechStack from '@/components/TechStack';
@@ -133,6 +134,7 @@ export default async function Home() {
       />
       <HeroCarousel />
       <ServicesPreview />
+      <QuadPromoSection />
       <Hero />
       <Stats />
       <WhyUs />

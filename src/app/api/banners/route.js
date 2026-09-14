@@ -24,8 +24,24 @@ export async function GET() {
       rightBottom = legacyRight.slice(1);
     }
 
+    const quadTopLeft = banners.filter((b) => b.slot === "quad_top_left" || b.slot === "promo_top_left");
+    const quadBottomLeft1 = banners.filter((b) => b.slot === "quad_bottom_left_1" || b.slot === "promo_bottom_left_1");
+    const quadBottomLeft2 = banners.filter((b) => b.slot === "quad_bottom_left_2" || b.slot === "promo_bottom_left_2");
+    const quadRight = banners.filter((b) => b.slot === "quad_right" || b.slot === "promo_right");
+
     return NextResponse.json(
-      { left, rightTop, rightBottom, right: legacyRight },
+      {
+        left,
+        rightTop,
+        rightBottom,
+        right: legacyRight,
+        quad: {
+          topLeft: quadTopLeft,
+          bottomLeft1: quadBottomLeft1,
+          bottomLeft2: quadBottomLeft2,
+          right: quadRight,
+        },
+      },
       {
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
