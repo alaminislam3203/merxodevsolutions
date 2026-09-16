@@ -1,12 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import { useSession, signOut } from 'next-auth/react';
 import '@/components/i18n';
 import Image from 'next/image';
 import { FaPhoneVolume } from 'react-icons/fa6';
+import {
+  FiUser,
+  FiLogOut,
+  FiLogIn,
+  FiUserPlus,
+  FiShield,
+  FiFolder,
+  FiStar,
+  FiChevronDown,
+} from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchBar from './SearchBar';
@@ -31,8 +42,11 @@ function Logo({ className = "h-5 sm:h-6 w-auto", mobile = false }) {
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
   const pathname = usePathname();
   const { t } = useTranslation();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -40,9 +54,21 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handlePointerDown = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, []);
+
   // Auto scroll to top on any route change
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    setUserMenuOpen(false);
   }, [pathname]);
 
   const scrollToTopSmooth = () => {
@@ -123,6 +149,26 @@ export default function Navbar() {
         </svg>
       ),
     },
+    {
+      label: 'Account',
+      href: '/account',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -169,9 +215,129 @@ export default function Navbar() {
               <SearchBar />
             </div>
 
-            {/* Unmasked: ThemeToggle + CTA */}
-            <div className="flex items-center gap-3 shrink-0">
+            {/* Unmasked: ThemeToggle + Account Menu + CTA */}
+            <div className="flex items-center gap-2.5 shrink-0">
               <ThemeToggle iconOnly />
+
+              {/* Account Button / Dropdown (Matching organic structure with MerxoDev theme) */}
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setUserMenuOpen((prev) => !prev)}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-white/25 dark:border-zinc-800 bg-white/10 dark:bg-zinc-900/80 text-white hover:bg-white/20 dark:hover:bg-zinc-800 transition-all font-raleway text-xs sm:text-sm font-bold shadow-sm select-none cursor-pointer backdrop-blur-md"
+                  aria-label="Account Menu"
+                >
+                  {session?.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || 'User'}
+                      className="w-5 h-5 rounded-full object-cover border border-white/50"
+                    />
+                  ) : (
+                    <FiUser size={16} className="text-amber-300 dark:text-cyan-400" />
+                  )}
+                  <span>
+                    {session?.user?.name ? session.user.name.split(' ')[0] : 'Account'}
+                  </span>
+                  {session?.user && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  )}
+                  <FiChevronDown
+                    size={13}
+                    className={`transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
+                    {session?.user ? (
+                      <>
+                        <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
+                          <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
+                            {session.user.name || 'Valued Client'}
+                          </p>
+                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate">
+                            {session.user.email}
+                          </p>
+                        </div>
+
+                        <Link
+                          href="/account"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                        >
+                          <FiUser size={14} className="text-violet-500" />
+                          <span>My Profile</span>
+                        </Link>
+
+                        <Link
+                          href="/account?tab=inquiries"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                        >
+                          <FiFolder size={14} className="text-cyan-500" />
+                          <span>Project Inquiries</span>
+                        </Link>
+
+                        <Link
+                          href="/account?tab=reviews"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                        >
+                          <FiStar size={14} className="text-amber-400" />
+                          <span>My Reviews</span>
+                        </Link>
+
+                        {session.user.role === 'ADMIN' && (
+                          <Link
+                            href="/709832"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-300 hover:bg-violet-100/70 dark:hover:bg-violet-900/40 transition-colors"
+                          >
+                            <FiShield size={14} className="text-violet-500" />
+                            <span>Admin Panel</span>
+                          </Link>
+                        )}
+
+                        <div className="border-t border-zinc-100 dark:border-zinc-800/80 my-1 pt-1">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserMenuOpen(false);
+                              signOut({ callbackUrl: '/' });
+                            }}
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 w-full transition-colors cursor-pointer"
+                          >
+                            <FiLogOut size={14} />
+                            <span>Sign Out</span>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          href="/account/login"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-zinc-900 dark:text-white hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                        >
+                          <FiLogIn size={15} className="text-violet-500" />
+                          <span>Log In</span>
+                        </Link>
+                        <Link
+                          href="/account/register"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                        >
+                          <FiUserPlus size={15} className="text-cyan-500" />
+                          <span>Create Account</span>
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/contact"
                 onClick={scrollToTopSmooth}
@@ -390,8 +556,25 @@ export default function Navbar() {
               );
             })}
 
+            {/* Account portal in mobile drawer */}
+            <div className="mt-4 pt-4 border-t border-violet-200/70 dark:border-violet-800/40 px-2 flex flex-col gap-2">
+              <Link
+                href="/account"
+                onClick={() => setSidebarOpen(false)}
+                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-violet-100/70 dark:bg-zinc-800/80 text-violet-800 dark:text-cyan-300 text-xs font-bold uppercase tracking-wider font-raleway transition-colors"
+              >
+                <div className="flex items-center gap-2.5">
+                  <FiUser size={15} />
+                  <span>{session?.user ? session.user.name?.split(' ')[0] || 'My Account' : 'Client Account'}</span>
+                </div>
+                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-zinc-700 text-violet-900 dark:text-zinc-200 font-extrabold">
+                  {session?.user ? 'Portal' : 'Sign In'}
+                </span>
+              </Link>
+            </div>
+
             {/* Theme Toggle container */}
-            <div className="mt-4 pt-4 border-t border-violet-200/70 dark:border-violet-800/40 px-2 flex items-center justify-between">
+            <div className="mt-2 pt-2 px-2 flex items-center justify-between">
               <span className="text-xs font-bold font-raleway text-zinc-900 dark:text-white/70">
                 Theme
               </span>
