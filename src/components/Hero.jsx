@@ -98,13 +98,13 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-raleway">
-              {t('hero.headingStart') || 'MERXO DEV'}{' '}
+              {t('hero.headingStart') || 'We'}{' '}
               <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
-                {t('hero.headingHighlight') || 'FOR YOUR BUSINESS'}
+                {t('hero.headingHighlight') || 'Build'}
               </span>
               <br />
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
-                {t('hero.headingEnd') || 'SOLUTIONS'}
+                {t('hero.headingEnd') || 'Your Dream Project'}
               </span>
             </h1>
 
