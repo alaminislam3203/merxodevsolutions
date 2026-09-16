@@ -83,7 +83,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.12)_0%,transparent_75%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14)_0%,transparent_75%)] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_80%)] -z-10"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── Left Content Column ── */}
           <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">

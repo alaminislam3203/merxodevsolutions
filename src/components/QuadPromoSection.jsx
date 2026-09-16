@@ -68,7 +68,7 @@ async function getQuadBanners() {
 
 function ImageCard({ imageUrl, alt, link, priority = false, sizes = "(max-width: 1024px) 100vw, 50vw", className = "" }) {
   const content = (
-    <div className={`relative w-full h-full rounded-xl overflow-hidden border border-white/10 bg-slate-900/60 shadow-lg ${className}`}>
+    <div className={`relative w-full h-full rounded-sm overflow-hidden border border-white/10 bg-slate-900/60 shadow-lg ${className}`}>
       <Image
         src={imageUrl}
         alt={alt || "Showcase Image"}

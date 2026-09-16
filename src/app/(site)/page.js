@@ -134,12 +134,12 @@ export default async function Home() {
       />
       <HeroCarousel />
       <ServicesPreview />
-      <QuadPromoSection />
       <Hero />
       <Stats />
       <WhyUs />
       <Process />
       <FeaturedProjects projects={projects} />
+      <QuadPromoSection />
       <TechCaseStudies />
       <YouTubeShowcase />
       <TechStack />

@@ -30,7 +30,7 @@ export default function CompanyDeck() {
       className="py-16 sm:py-24 relative overflow-hidden"
       aria-label="Company Profile and Portfolio Deck"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative rounded-3xl p-8 sm:p-12 border border-zinc-200/90 dark:border-zinc-800 bg-gradient-to-br from-white via-zinc-50 to-violet-50/20 dark:from-zinc-900 dark:via-zinc-900/90 dark:to-violet-950/20 shadow-xl overflow-hidden">
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 dark:bg-violet-600/5 rounded-full blur-3xl pointer-events-none" />

@@ -86,7 +86,7 @@ export default function DiscoveryCall() {
       <div className="absolute top-1/2 -left-40 w-96 h-96 bg-violet-600/15 dark:bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-zinc-200/90 dark:border-zinc-800 backdrop-blur-xl">
           {/* Subtle gradient pattern header bar */}
           <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500" />
