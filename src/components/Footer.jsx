@@ -139,7 +139,7 @@ export default function Footer() {
       />
 
       {/* ── Main Body ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand Column */}
         <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
           <Link href="/" className="inline-block transition-transform hover:scale-105 duration-200">
@@ -331,7 +331,7 @@ export default function Footer() {
 
       {/* ── Bottom Bar ── */}
       <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-transparent">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-raleway">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-raleway">
           <span>{t('footer.bottom.copy', { year: currentYear })}</span>
           <div className="flex items-center gap-5">
             <Link

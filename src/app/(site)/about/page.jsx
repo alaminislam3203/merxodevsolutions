@@ -197,7 +197,7 @@ export default async function AboutPage() {
 
       {/* ── Stats ── */}
       <section className="px-6 pb-16">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map(stat => (
             <div
               key={stat.label}
@@ -217,7 +217,7 @@ export default async function AboutPage() {
 
       {/* ── Story ── */}
       <section className="px-6 py-16">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               Our Story
@@ -263,7 +263,7 @@ export default async function AboutPage() {
 
       {/* ── Values ── */}
       <section className="px-6 py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               What We Stand For
@@ -295,7 +295,7 @@ export default async function AboutPage() {
 
       {/* ── Skills ── */}
       <section className="px-6 py-16 ">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               What We Do
@@ -325,7 +325,7 @@ export default async function AboutPage() {
 
       {/* ── Team ── */}
       <section className="px-6 py-16">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               The People

@@ -233,7 +233,7 @@ export default function JourneyPage() {
 
       {/* ── Numbers ── */}
       <section className="px-6 pb-16">
-        <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {numbers.map(n => (
             <div
               key={n.label}
@@ -252,7 +252,7 @@ export default function JourneyPage() {
 
       {/* ── Timeline ── */}
       <section className="px-6 py-16 ">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-14">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               Timeline
@@ -325,7 +325,7 @@ export default function JourneyPage() {
 
       {/* ── Vision / Mission ── */}
       <section className="px-6 py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               Looking Ahead
@@ -359,7 +359,7 @@ export default function JourneyPage() {
 
       {/* ── What We Learned ── */}
       <section className="px-6 py-16 ">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               Lessons

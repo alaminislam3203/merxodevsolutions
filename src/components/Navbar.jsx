@@ -135,7 +135,7 @@ export default function Navbar() {
           }`}
       >
         <div
-          className={`relative max-w-7xl mx-auto px-6 transition-all duration-300 ease-in-out flex flex-col ${scrolled ? 'py-2 gap-0' : 'pt-2 pb-2.5 gap-2'
+          className={`relative max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ease-in-out flex flex-col ${scrolled ? 'py-2 gap-0' : 'pt-2 pb-2.5 gap-2'
             }`}
         >
           {/* Centered Navlinks (Collapses/Hides on Scroll Down, Reveals on Scroll Top) */}

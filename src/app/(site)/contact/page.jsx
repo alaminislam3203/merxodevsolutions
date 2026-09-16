@@ -175,7 +175,7 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Page Header ── */}
         <div className="flex flex-col items-center text-center gap-4 mb-16 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-raleway uppercase tracking-widest shadow-sm">

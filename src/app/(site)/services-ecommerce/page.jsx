@@ -186,7 +186,7 @@ export default function EcommerceContent() {
 
       {/* ── Stats Bar ── */}
       <section className="px-6 pb-16" aria-label="E-commerce results">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
           {stats.map((stat, i) => (
             <div
               key={i}
@@ -205,7 +205,7 @@ export default function EcommerceContent() {
 
       {/* ── Core Features ── */}
       <section className="px-6 pb-20" aria-labelledby="features-heading">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               {t('ecommerce.features.badge')}
@@ -250,7 +250,7 @@ export default function EcommerceContent() {
         className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900"
         aria-labelledby="included-heading"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               {t('ecommerce.included.badge')}
@@ -280,7 +280,7 @@ export default function EcommerceContent() {
 
       {/* ── Process ── */}
       <section className="px-6 py-20" aria-labelledby="process-heading">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               {t('ecommerce.process.badge')}
@@ -379,7 +379,7 @@ export default function EcommerceContent() {
         className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900"
         aria-labelledby="related-heading"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
               {t('ecommerce.related.badge')}

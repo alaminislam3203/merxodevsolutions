@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-violet-600/10 via-fuchsia-500/10 to-cyan-500/10 blur-[130px] opacity-70 dark:opacity-40" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Breadcrumbs & Switcher ── */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs font-semibold uppercase tracking-wider font-raleway text-zinc-500 dark:text-zinc-400">
           <div className="flex items-center gap-2">

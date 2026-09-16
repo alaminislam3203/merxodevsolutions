@@ -197,7 +197,7 @@ export default function ProjectsGrid({ projects }) {
         // background: 'radial-gradient(circle, #06b6d4, transparent 70%)'
       }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className={`pt-8 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Home</Link>

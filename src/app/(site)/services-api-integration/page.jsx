@@ -285,7 +285,7 @@ export default function ServicesApiIntegrationPage() {
 
       {/* Capabilities */}
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="features-heading">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-raleway mb-3">
               ✦ Engineered for Seamless Data Flow
@@ -335,7 +335,7 @@ export default function ServicesApiIntegrationPage() {
 
       {/* Tech Pills */}
       <section className="px-4 sm:px-6 pb-24" aria-label="API stack">
-        <div className="max-w-6xl mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-amber-50/50 via-white to-violet-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
+        <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-amber-50/50 via-white to-violet-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-raleway mb-2 block">
               ✦ Production API Protocols
@@ -366,7 +366,7 @@ export default function ServicesApiIntegrationPage() {
 
       {/* Pricing */}
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="pricing-heading">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-raleway mb-3">
               ✦ Transparent API Packages
@@ -488,7 +488,7 @@ export default function ServicesApiIntegrationPage() {
 
       {/* CTA */}
       <section className="px-4 sm:px-6 pb-24">
-        <div className="relative max-w-6xl mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#2a1702] via-[#1a0833] to-[#041a2e] border border-amber-500/30 text-white text-center shadow-2xl">
+        <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#2a1702] via-[#1a0833] to-[#041a2e] border border-amber-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-raleway mb-4">
               ✦ Seamless Connectivity For Your Software

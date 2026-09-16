@@ -368,7 +368,7 @@ export default function ServicesPage() {
 
       {/* ── Services Grid ── */}
       <section className="relative px-4 sm:px-6 pb-24 z-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Link
               key={service.title}
@@ -424,7 +424,7 @@ export default function ServicesPage() {
 
       {/* ── Why Clients Choose Us ── */}
       <section className="relative px-6 py-20 border-y border-zinc-200/80 dark:border-zinc-800/80">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-14">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-raleway mb-3">
               Why MerxoDev

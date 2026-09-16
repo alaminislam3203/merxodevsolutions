@@ -176,7 +176,7 @@ export default async function OurTeamPage() {
       </section>
 
       {/* ── Team Grid Section ── */}
-      <section className="px-6 py-12 max-w-7xl mx-auto">
+      <section className="px-6 py-12 max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {team.map((member, index) => {
             const gradColor = member.color || 'from-violet-600 to-cyan-500';
@@ -307,7 +307,7 @@ export default async function OurTeamPage() {
       </section>
 
       {/* ── Culture & Values Section ── */}
-      <section className="px-6 py-20 max-w-6xl mx-auto">
+      <section className="px-6 py-20 max-w-[1440px] mx-auto">
         <div className="text-center mb-14">
           <span className="inline-block text-[11px] font-bold tracking-[0.35em] text-amber-500 uppercase font-raleway mb-3">
             How We Work
