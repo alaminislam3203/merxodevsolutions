@@ -123,14 +123,14 @@ export default function Hero() {
                       return (
                         <span
                           key={idx}
-                          className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm"
+                          className="bg-gradient-to-r from-orange-500 via-black to-[#84cc16] bg-clip-text text-transparent animated-gradient-text drop-shadow-sm"
                         >
                           {part}
                         </span>
                       );
                     })
                   ) : (
-                    <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
+                    <span className="bg-gradient-to-r from-orange-500 via-black to-[#84cc16] bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
                       {headingEnd}
                     </span>
                   )}
