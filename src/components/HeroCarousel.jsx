@@ -38,13 +38,13 @@ function BannerSlide({ banner }) {
     Boolean(banner.buttonText);
 
   const inner = (
-    <div className="dual-slide-inner rounded-sm">
+    <div className="dual-slide-inner rounded-xl">
       <Image
         src={banner.imageUrl}
         alt={banner.title || "Banner"}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="dual-slide-img rounded-sm"
+        className="dual-slide-img rounded-xl"
         priority
       />
       {hasContent && (
@@ -64,9 +64,9 @@ function BannerSlide({ banner }) {
   );
 
   return (
-    <div className="dual-slide rounded-sm">
+    <div className="dual-slide rounded-xl">
       {banner.buttonLink ? (
-        <Link href={banner.buttonLink} className="dual-slide-link rounded-sm">
+        <Link href={banner.buttonLink} className="dual-slide-link rounded-xl">
           {inner}
         </Link>
       ) : (
@@ -108,7 +108,7 @@ export default async function HeroCarousel() {
   if (hasLeft && !hasRight) {
     return (
       <section className="hero-dual-section" aria-label="Hero Banner">
-        <div className="hero-dual-full rounded-sm">
+        <div className="hero-dual-full rounded-xl">
           <CarouselPanel banners={left} dotButtons arrowButtons autoplay />
         </div>
       </section>
@@ -122,12 +122,12 @@ export default async function HeroCarousel() {
         <div className="hero-dual-grid hero-dual-grid-right-only">
           <div className="hero-dual-right" style={{ width: "100%", maxWidth: "800px", margin: "0 auto" }}>
             {hasRightTop && (
-              <div className="hero-dual-right-item hero-dual-right-top rounded-sm">
+              <div className="hero-dual-right-item hero-dual-right-top rounded-xl">
                 <CarouselPanel banners={rightTop} autoplay />
               </div>
             )}
             {hasRightBottom && (
-              <div className="hero-dual-right-item hero-dual-right-bottom rounded-sm">
+              <div className="hero-dual-right-item hero-dual-right-bottom rounded-xl">
                 <CarouselPanel banners={rightBottom} autoplay />
               </div>
             )}
@@ -141,17 +141,17 @@ export default async function HeroCarousel() {
   return (
     <section className="hero-dual-section" aria-label="Hero Banner">
       <div className="hero-dual-grid">
-        <div className="hero-dual-left rounded-sm">
+        <div className="hero-dual-left rounded-xl">
           <CarouselPanel banners={left} dotButtons arrowButtons autoplay />
         </div>
         <div className="hero-dual-right">
           {hasRightTop && (
-            <div className="hero-dual-right-item hero-dual-right-top rounded-sm">
+            <div className="hero-dual-right-item hero-dual-right-top rounded-xl">
               <CarouselPanel banners={rightTop} autoplay />
             </div>
           )}
           {hasRightBottom && (
-            <div className="hero-dual-right-item hero-dual-right-bottom rounded-sm">
+            <div className="hero-dual-right-item hero-dual-right-bottom rounded-xl">
               <CarouselPanel banners={rightBottom} autoplay />
             </div>
           )}
