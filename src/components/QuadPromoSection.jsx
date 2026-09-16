@@ -68,7 +68,7 @@ async function getQuadBanners() {
 
 function ImageCard({ imageUrl, alt, link, priority = false, sizes = "(max-width: 1024px) 100vw, 50vw", className = "" }) {
   const content = (
-    <div className={`relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-slate-900/60 shadow-lg ${className}`}>
+    <div className={`relative w-full h-full rounded-sm overflow-hidden border border-white/10 bg-slate-900/60 shadow-lg ${className}`}>
       <Image
         src={imageUrl}
         alt={alt || "Showcase Image"}
@@ -112,10 +112,10 @@ export default async function QuadPromoSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 4-Image Mosaic Grid: Pure Images, No Text, No Animations */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
-          
+
           {/* Left Column (Top Wide + Bottom 2 Square) */}
           <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-6">
-            
+
             {/* Top-Left: Wide Landscape Image */}
             <div className="w-full aspect-[16/8.5] sm:aspect-[16/8]">
               <ImageCard

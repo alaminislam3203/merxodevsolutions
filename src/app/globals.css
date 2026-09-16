@@ -32,7 +32,7 @@ body {
 body,
 html:not(.dark) body {
   background-color: #f8fafd;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(99, 102, 241, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(99, 102, 241, 0.045) 1px, transparent 1px),
     radial-gradient(ellipse 80% 50% at 50% -5%, rgba(124, 58, 237, 0.09), transparent 70%),
@@ -47,7 +47,7 @@ html:not(.dark) body {
 .dark body,
 html.dark body {
   background-color: #060b19;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(59, 130, 246, 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(59, 130, 246, 0.07) 1px, transparent 1px),
     radial-gradient(ellipse 90% 60% at 50% 0%, rgba(29, 78, 216, 0.22), transparent 75%),
@@ -125,8 +125,13 @@ html.dark body {
   opacity: 1;
 }
 
-.embla-arrow-prev { left: 0; }
-.embla-arrow-next { right: 0; }
+.embla-arrow-prev {
+  left: 0;
+}
+
+.embla-arrow-next {
+  right: 0;
+}
 
 @media (max-width: 768px) {
   .embla-arrow {
@@ -188,7 +193,8 @@ html.dark .embla-pill-dot {
   width: 24px;
   height: 7px;
   border-radius: 9999px;
-  background: #84cc16; /* Theme green/lime matching reference image and Hero */
+  background: #84cc16;
+  /* Theme green/lime matching reference image and Hero */
   border-color: #bef264;
   box-shadow: 0 0 10px rgba(132, 204, 22, 0.75);
 }
@@ -245,12 +251,12 @@ html.dark .embla-pill-dot-active {
   .hero-dual-left {
     width: 100%;
     height: auto;
-    border-radius: 14px;
+    border-radius: 0.125rem;
   }
 
   .hero-dual-left .dual-slide-inner {
     aspect-ratio: 16 / 9;
-    border-radius: 14px;
+    border-radius: 0.125rem;
   }
 
   /* Two smaller banners side-by-side in 2 equal columns on mobile */
@@ -267,7 +273,7 @@ html.dark .embla-pill-dot-active {
     display: block !important;
     width: 100% !important;
     height: auto !important;
-    border-radius: 12px;
+    border-radius: 0.125rem;
   }
 
   .hero-dual-right-item .embla-root,
@@ -283,7 +289,7 @@ html.dark .embla-pill-dot-active {
     aspect-ratio: 16 / 10 !important;
     width: 100% !important;
     height: auto !important;
-    border-radius: 12px;
+    border-radius: 0.125rem;
   }
 
   /* If only 1 right banner exists, span full width */
@@ -295,11 +301,13 @@ html.dark .embla-pill-dot-active {
 /* Full-width fallback (only one slot has banners) */
 .hero-dual-full {
   width: 100%;
+  border-radius: 0.125rem;
+  overflow: hidden;
 }
 
 /* Individual panel wrappers */
 .hero-dual-left {
-  border-radius: 16px;
+  border-radius: 0.125rem;
   overflow: hidden;
   position: relative;
   min-height: 0;
@@ -313,12 +321,14 @@ html.dark .embla-pill-dot-active {
   flex: 0 0 100%;
   min-width: 0;
   position: relative;
+  border-radius: 0.125rem;
 }
 
 .dual-slide-link {
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 0.125rem;
 }
 
 /* LEFT panel slide inner — aspect-ratio sets the natural grid row height */
@@ -327,7 +337,7 @@ html.dark .embla-pill-dot-active {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 0.125rem;
 }
 
 /* RIGHT panel on desktop — contains 2 stacked banners matching left panel height */
@@ -345,7 +355,7 @@ html.dark .embla-pill-dot-active {
   min-height: 0;
   height: 100%;
   position: relative;
-  border-radius: 16px;
+  border-radius: 0.125rem;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -370,7 +380,7 @@ html.dark .embla-pill-dot-active {
   aspect-ratio: unset;
   height: 100%;
   width: 100%;
-  border-radius: 16px;
+  border-radius: 0.125rem;
 }
 
 .hero-dual-right-item .dual-slide-overlay {
@@ -410,7 +420,7 @@ html.dark .embla-pill-dot-active {
   align-items: flex-start;
   justify-content: center;
   padding: 1rem 1.25rem;
-  background: linear-gradient(to right, rgba(0,0,0,0.40), transparent 80%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.40), transparent 80%);
 }
 
 @media (min-width: 768px) {
@@ -426,12 +436,12 @@ html.dark .embla-pill-dot-active {
   margin: 0 0 0.35rem;
   max-width: 360px;
   line-height: 1.25;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
 
 .dual-slide-subtitle {
   font-size: clamp(0.75rem, 1.2vw, 0.95rem);
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
   margin: 0 0 0.85rem;
   max-width: 280px;
   line-height: 1.4;
@@ -461,6 +471,7 @@ html.dark .embla-pill-dot-active {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -470,6 +481,7 @@ html.dark .embla-pill-dot-active {
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -502,6 +514,7 @@ html.dark .embla-pill-dot-active {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -513,6 +526,7 @@ html.dark .embla-pill-dot-active {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -520,19 +534,25 @@ html.dark .embla-pill-dot-active {
 }
 
 @keyframes floatSlow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.25;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.45;
     transform: scale(1.08);
@@ -543,9 +563,11 @@ html.dark .embla-pill-dot-active {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -576,36 +598,56 @@ html.dark .embla-pill-dot-active {
    PHONE CALL BUTTON PERIODIC RING & GLOW ANIMATION
    ============================================================ */
 @keyframes phoneRing {
-  0%, 75%, 100% {
+
+  0%,
+  75%,
+  100% {
     transform: rotate(0deg) scale(1);
   }
-  77%, 81%, 85% {
+
+  77%,
+  81%,
+  85% {
     transform: rotate(-14deg) scale(1.12);
   }
-  79%, 83%, 87% {
+
+  79%,
+  83%,
+  87% {
     transform: rotate(14deg) scale(1.12);
   }
+
   89% {
     transform: rotate(0deg) scale(1);
   }
-  91%, 95% {
+
+  91%,
+  95% {
     transform: rotate(-10deg) scale(1.08);
   }
-  93%, 97% {
+
+  93%,
+  97% {
     transform: rotate(10deg) scale(1.08);
   }
+
   99% {
     transform: rotate(0deg) scale(1);
   }
 }
 
 @keyframes callGlowPulse {
-  0%, 75%, 100% {
+
+  0%,
+  75%,
+  100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
+
   82% {
     box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.5), 0 4px 14px rgba(16, 185, 129, 0.45);
   }
+
   92% {
     box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
   }
@@ -642,27 +684,36 @@ html.dark .embla-pill-dot-active {
 
 /* Floating Elements Keyframes for Hero Showcase */
 @keyframes floatSlow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
 }
 
 @keyframes floatReverse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) translateX(0px);
   }
+
   50% {
     transform: translateY(10px) translateX(-6px);
   }
 }
 
 @keyframes floatSide {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px);
   }
+
   50% {
     transform: translateX(8px) translateY(-5px);
   }
@@ -679,6 +730,3 @@ html.dark .embla-pill-dot-active {
 .animate-float-side {
   animation: floatSide 5.5s ease-in-out infinite;
 }
-
-
-
