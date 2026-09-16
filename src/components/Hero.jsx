@@ -97,16 +97,46 @@ export default function Hero() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-raleway">
-              {t('hero.headingStart') || 'We'}{' '}
-              <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
-                {t('hero.headingHighlight') || 'Build'}
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
-                {t('hero.headingEnd') || 'Your Dream Project'}
-              </span>
-            </h1>
+            {(() => {
+              const headingEnd = t('hero.headingEnd') || 'DREAM Project';
+              const parts = headingEnd.split(/(dream)/i);
+
+              return (
+                <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-raleway">
+                  {t('hero.headingStart') || 'We'}{' '}
+                  <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
+                    {t('hero.headingHighlight') || 'Build Your'}
+                  </span>
+                  <br />
+                  {parts.length > 1 ? (
+                    parts.map((part, idx) => {
+                      if (part.toLowerCase() === 'dream') {
+                        return (
+                          <span
+                            key={idx}
+                            className="text-orange-500 dark:text-orange-400 drop-shadow-[0_0_22px_rgba(249,115,22,0.55)]"
+                          >
+                            {part}
+                          </span>
+                        );
+                      }
+                      return (
+                        <span
+                          key={idx}
+                          className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm"
+                        >
+                          {part}
+                        </span>
+                      );
+                    })
+                  ) : (
+                    <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-400 bg-clip-text text-transparent animated-gradient-text drop-shadow-sm">
+                      {headingEnd}
+                    </span>
+                  )}
+                </h1>
+              );
+            })()}
 
             {/* Subtitle Description */}
             <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal font-raleway">

@@ -639,8 +639,8 @@ const resources = {
       hero: {
         badge: 'Available For New Projects',
         headingStart: 'We',
-        headingHighlight: 'Build',
-        headingEnd: 'Your Dream Project',
+        headingHighlight: 'Build Your',
+        headingEnd: 'DREAM project',
         subtext:
           'Custom websites, web apps & digital solutions — crafted with precision for startups and growing businesses.',
         ctaPrimary: 'Start a Project',
