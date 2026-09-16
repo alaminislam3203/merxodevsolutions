@@ -213,7 +213,7 @@ export default function YouTubeShowcase() {
               onMouseEnter={handleUserActivity}
               onMouseLeave={handleMouseLeave}
               onTouchStart={handleUserActivity}
-              className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-black shadow-2xl shadow-zinc-900/30 group"
+              className="relative rounded-sm overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-black shadow-2xl shadow-zinc-900/30 group"
             >
               {/* Responsive 16:9 Video Aspect Ratio */}
               <div className="relative w-full aspect-video">
@@ -270,8 +270,8 @@ export default function YouTubeShowcase() {
           {/* Playlist Column (4 Columns on Desktop, Smooth Accordion Animation on Mobile) */}
           <div
             className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${mobilePlaylistOpen
-                ? 'grid-rows-[1fr] opacity-100 mt-2'
-                : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
+              ? 'grid-rows-[1fr] opacity-100 mt-2'
+              : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
               } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
           >
             <div className="overflow-hidden flex flex-col gap-3 min-h-0">

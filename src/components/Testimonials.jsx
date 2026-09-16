@@ -295,8 +295,8 @@ export default function Testimonials() {
       </div>
 
       {/* Background Ambience & Grid Patterns */}
-      <div className="absolute top-1/2 -left-48 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-48 w-96 h-96 bg-violet-600/10 rounded-xl blur-3xl pointer-events-none -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-xl blur-3xl pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -361,7 +361,7 @@ export default function Testimonials() {
                       itemProp="review"
                       itemScope
                       itemType="https://schema.org/Review"
-                      className="h-full flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-2xl hover:shadow-violet-500/10 transition-all duration-300 relative group"
+                      className="h-full flex flex-col justify-between p-7 rounded-lg border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-2xl hover:shadow-violet-500/10 transition-all duration-300 relative group"
                     >
                       {/* Top Row: Tag & Verified Badge */}
                       <div className="flex items-center justify-between gap-2 mb-4">
@@ -441,42 +441,21 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Navigation Arrows (Desktop & Mobile) */}
-          <div className="flex items-center justify-between sm:justify-end gap-3 mt-8">
-            <div className="flex items-center gap-2">
+          {/* Centered Pagination Dots (No arrow buttons) */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {scrollSnaps.map((_, dotIdx) => (
               <button
+                key={dotIdx}
                 type="button"
-                onClick={scrollPrev}
-                aria-label="Previous review"
-                className="w-11 h-11 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-white hover:bg-violet-600 hover:border-violet-600 flex items-center justify-center transition-all duration-200 shadow-sm active:scale-95 cursor-pointer"
-              >
-                <FaArrowLeft size={14} />
-              </button>
-              <button
-                type="button"
-                onClick={scrollNext}
-                aria-label="Next review"
-                className="w-11 h-11 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-white hover:bg-violet-600 hover:border-violet-600 flex items-center justify-center transition-all duration-200 shadow-sm active:scale-95 cursor-pointer"
-              >
-                <FaArrowRight size={14} />
-              </button>
-            </div>
-
-            {/* Pagination Dots */}
-            <div className="flex items-center gap-1.5">
-              {scrollSnaps.map((_, dotIdx) => (
-                <button
-                  key={dotIdx}
-                  type="button"
-                  onClick={() => scrollTo(dotIdx)}
-                  aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${selectedIndex === dotIdx
-                      ? 'w-6 bg-gradient-to-r from-violet-600 to-cyan-500'
-                      : 'w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-violet-400'
-                    }`}
-                />
-              ))}
-            </div>
+                onClick={() => scrollTo(dotIdx)}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  selectedIndex === dotIdx
+                    ? 'w-7 bg-gradient-to-r from-violet-600 to-cyan-500 shadow-sm shadow-violet-500/25'
+                    : 'w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-violet-400'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -574,8 +553,8 @@ export default function Testimonials() {
                           <FaStar
                             size={22}
                             className={`${star <= (hoverRating || rating)
-                                ? 'text-amber-400 drop-shadow-md'
-                                : 'text-zinc-300 dark:text-zinc-700'
+                              ? 'text-amber-400 drop-shadow-md'
+                              : 'text-zinc-300 dark:text-zinc-700'
                               } transition-colors`}
                           />
                         </button>
@@ -688,8 +667,8 @@ export default function Testimonials() {
                     type="button"
                     onClick={() => { setAuthMode('login'); setAuthError(''); }}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'login'
-                        ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
-                        : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
+                      ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
                       }`}
                   >
                     {t('testimonials.signInTab') || 'Sign In / Log In'}
@@ -698,8 +677,8 @@ export default function Testimonials() {
                     type="button"
                     onClick={() => { setAuthMode('register'); setAuthError(''); }}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'register'
-                        ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
-                        : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
+                      ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
                       }`}
                   >
                     {t('testimonials.createAccountTab') || 'Create Account'}
