@@ -224,27 +224,28 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen((prev) => !prev)}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-white dark:text-white font-bold"
+                  className="inline-flex items-center gap-1.5 p-1 sm:px-2 sm:py-1 rounded-xl hover:bg-white/10 dark:hover:bg-white/5 transition-all text-white cursor-pointer group"
                   aria-label="Account Menu"
                 >
-                  {session?.user?.image ? (
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || 'User'}
-                      className="w-5 h-5 rounded-full object-cover border border-white/50"
-                    />
-                  ) : (
-                    <FiUser size={16} className="text-white dark:text-white" />
-                  )}
-                  <span>
-                    {session?.user?.name ? session.user.name.split(' ')[0] : 'Account'}
-                  </span>
-                  {session?.user && (
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  )}
+                  <div className="relative shrink-0">
+                    {session?.user?.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || 'User'}
+                        className="w-8 h-8 rounded-full object-cover border-2 border-white/40 group-hover:border-cyan-400 transition-colors shadow-sm"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-white/15 dark:bg-white/10 group-hover:bg-white/20 border border-white/25 flex items-center justify-center text-white transition-colors">
+                        <FiUser size={16} />
+                      </div>
+                    )}
+                    {session?.user && (
+                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-zinc-900" />
+                    )}
+                  </div>
                   <FiChevronDown
                     size={13}
-                    className={`transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`}
+                    className={`text-white/80 group-hover:text-white transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
 
