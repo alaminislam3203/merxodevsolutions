@@ -62,12 +62,13 @@ export default function Testimonials() {
   const fetchReviews = async () => {
     try {
       const res = await fetch('/api/reviews');
+      if (!res.ok) return;
       const data = await res.json();
-      if (data.reviews && data.reviews.length > 0) {
+      if (data?.reviews && Array.isArray(data.reviews) && data.reviews.length > 0) {
         setReviews(data.reviews);
       }
-    } catch (err) {
-      console.error('Error fetching testimonials:', err);
+    } catch {
+      // Gracefully fall back to DEFAULT_REVIEWS without triggering runtime error overlays
     }
   };
 

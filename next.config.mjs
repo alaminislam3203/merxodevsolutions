@@ -2,6 +2,15 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  serverExternalPackages: [
+    'pg',
+    '@prisma/adapter-pg',
+    '@prisma/client',
+    'bcryptjs',
+    'cloudinary',
+    'nodemailer',
+    'resend',
+  ],
 
   images: {
     remotePatterns: [
