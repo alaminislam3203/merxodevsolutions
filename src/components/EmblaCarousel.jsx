@@ -55,10 +55,10 @@ export default function EmblaCarousel({
 
       {arrowButtons && (
         <>
-          <div className="embla-arrow embla-arrow-prev hidden md:block">
+          <div className="embla-arrow embla-arrow-prev">
             <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           </div>
-          <div className="embla-arrow embla-arrow-next hidden md:block">
+          <div className="embla-arrow embla-arrow-next">
             <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
           </div>
         </>

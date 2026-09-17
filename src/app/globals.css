@@ -135,7 +135,8 @@ html.dark body {
 
 @media (max-width: 768px) {
   .embla-arrow {
-    display: none !important;
+    display: block !important;
+    opacity: 0.9 !important;
   }
 }
 
