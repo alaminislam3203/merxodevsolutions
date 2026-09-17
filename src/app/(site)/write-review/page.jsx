@@ -68,6 +68,11 @@ function WriteReviewContent() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,7 +117,7 @@ function WriteReviewContent() {
   const activeStarCount = hoverRating || rating;
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-zinc-50 dark:bg-[#060b19] relative overflow-hidden font-sans">
+    <div className="no-gsap min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
       {/* Background Ambience & Lighting */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-violet-600/15 via-indigo-600/10 to-cyan-500/15 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute -bottom-20 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -135,7 +140,10 @@ function WriteReviewContent() {
 
         {/* Page Heading */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight">
+          <h1
+            suppressHydrationWarning
+            className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight"
+          >
             Share Your Experience with{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500">
               MerxoDev Solutions
@@ -147,14 +155,22 @@ function WriteReviewContent() {
         </div>
 
         {/* ─── SCENARIO A: Review Submitted Successfully ─── */}
-        {isSuccess ? (
+        {!mounted ? (
+          <div className="p-12 rounded-3xl bg-white/90 dark:bg-[#0c1328]/90 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl text-center space-y-4">
+            <div className="w-8 h-8 mx-auto border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Loading review workspace...</p>
+          </div>
+        ) : isSuccess ? (
           <div className="p-8 sm:p-12 rounded-3xl bg-white/90 dark:bg-[#0c1328]/90 backdrop-blur-2xl border border-emerald-500/30 shadow-2xl text-center space-y-6 animate-fade-in">
             <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-500 flex items-center justify-center text-4xl shadow-inner">
               <FiCheckCircle />
             </div>
 
             <div className="space-y-2 max-w-md mx-auto">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">
+              <h2
+                suppressHydrationWarning
+                className="text-2xl font-bold text-zinc-900 dark:text-white"
+              >
                 Thank You for Your Feedback!
               </h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -185,7 +201,10 @@ function WriteReviewContent() {
             </div>
 
             <div className="space-y-2 max-w-md mx-auto">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">
+              <h2
+                suppressHydrationWarning
+                className="text-2xl font-bold text-zinc-900 dark:text-white"
+              >
                 Sign In to Leave a Client Review
               </h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -217,7 +236,7 @@ function WriteReviewContent() {
           </div>
         ) : (
           /* ─── SCENARIO C: User is Logged In -> Full Review Form ─── */
-          <div className="p-6 sm:p-10 rounded-3xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl">
+          <div className="p-6 sm:p-10">
             {/* Authenticated Client Card Banner */}
             <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-gradient-to-r from-violet-500/10 via-indigo-500/10 to-cyan-500/10 border border-violet-500/20 mb-8">
               {session.user.image ? (
@@ -272,11 +291,10 @@ function WriteReviewContent() {
                         aria-label={`${star} Stars`}
                       >
                         <FaStar
-                          className={`${
-                            star <= activeStarCount
-                              ? 'text-amber-400 drop-shadow-md'
-                              : 'text-zinc-300 dark:text-zinc-700'
-                          } transition-colors`}
+                          className={`${star <= activeStarCount
+                            ? 'text-amber-400 drop-shadow-md'
+                            : 'text-zinc-300 dark:text-zinc-700'
+                            } transition-colors`}
                         />
                       </button>
                     ))}

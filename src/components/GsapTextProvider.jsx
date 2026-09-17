@@ -15,12 +15,13 @@ export default function GsapTextProvider({ children }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Do NOT run global GSAP DOM mutations on account, auth, or admin pages to prevent hydration mismatches
+    // Do NOT run global GSAP DOM mutations on account, auth, admin, or review pages to prevent hydration mismatches
     if (
       !pathname ||
       pathname.startsWith('/account') ||
       pathname.startsWith('/admin') ||
-      pathname.startsWith('/709832')
+      pathname.startsWith('/709832') ||
+      pathname.startsWith('/write-review')
     ) {
       return;
     }
