@@ -41,14 +41,31 @@ export async function POST(request) {
     const codeTrimmed = code.trim();
 
     // Verify reset code in DB
-    const validToken = await prisma.passwordResetToken.findFirst({
-      where: {
-        email: emailTrimmed,
-        code: codeTrimmed,
-        expiresAt: { gt: new Date() },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+    let validToken = null;
+    try {
+      if (prisma?.passwordResetToken?.findFirst) {
+        validToken = await prisma.passwordResetToken.findFirst({
+          where: {
+            email: emailTrimmed,
+            code: codeTrimmed,
+            expiresAt: { gt: new Date() },
+          },
+          orderBy: { createdAt: 'desc' },
+        });
+      }
+    } catch {}
+
+    if (!validToken) {
+      const rows = await prisma.$queryRaw`
+        SELECT * FROM "PasswordResetToken"
+        WHERE LOWER("email") = LOWER(${emailTrimmed})
+          AND "code" = ${codeTrimmed}
+          AND "expiresAt" > NOW()
+        ORDER BY "createdAt" DESC
+        LIMIT 1
+      `.catch(() => []);
+      validToken = rows?.[0] || null;
+    }
 
     if (!validToken) {
       return NextResponse.json(
@@ -56,6 +73,21 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    // Helper for cleanup
+    const cleanupTokens = async () => {
+      try {
+        if (prisma?.passwordResetToken?.deleteMany) {
+          await prisma.passwordResetToken.deleteMany({
+            where: { email: emailTrimmed },
+          });
+        } else {
+          await prisma.$executeRaw`DELETE FROM "PasswordResetToken" WHERE LOWER("email") = LOWER(${emailTrimmed})`;
+        }
+      } catch {
+        await prisma.$executeRaw`DELETE FROM "PasswordResetToken" WHERE LOWER("email") = LOWER(${emailTrimmed})`.catch(() => {});
+      }
+    };
 
     // 1. Check if user exists in User table
     const user = await prisma.user.findUnique({
@@ -70,9 +102,7 @@ export async function POST(request) {
       });
 
       // Cleanup used reset tokens
-      await prisma.passwordResetToken.deleteMany({
-        where: { email: emailTrimmed },
-      });
+      await cleanupTokens();
 
       return NextResponse.json({
         message: 'Password reset successfully! You can now sign in with your new password.',
@@ -92,9 +122,7 @@ export async function POST(request) {
       });
 
       // Cleanup used reset tokens
-      await prisma.passwordResetToken.deleteMany({
-        where: { email: emailTrimmed },
-      });
+      await cleanupTokens();
 
       return NextResponse.json({
         message: 'Admin password reset successfully! You can now sign in with your new password.',

@@ -65,18 +65,42 @@ export async function POST(request) {
     const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes expiry
 
     // Remove any previous unused reset tokens for this email
-    await prisma.passwordResetToken.deleteMany({
-      where: { email: emailTrimmed },
-    });
+    try {
+      if (prisma?.passwordResetToken?.deleteMany) {
+        await prisma.passwordResetToken.deleteMany({
+          where: { email: emailTrimmed },
+        });
+      } else {
+        await prisma.$executeRaw`DELETE FROM "PasswordResetToken" WHERE LOWER("email") = LOWER(${emailTrimmed})`;
+      }
+    } catch {
+      await prisma.$executeRaw`DELETE FROM "PasswordResetToken" WHERE LOWER("email") = LOWER(${emailTrimmed})`.catch(() => {});
+    }
 
     // Save token in DB
-    await prisma.passwordResetToken.create({
-      data: {
-        email: emailTrimmed,
-        code,
-        expiresAt,
-      },
-    });
+    try {
+      if (prisma?.passwordResetToken?.create) {
+        await prisma.passwordResetToken.create({
+          data: {
+            email: emailTrimmed,
+            code,
+            expiresAt,
+          },
+        });
+      } else {
+        const id = 'rst_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        await prisma.$executeRaw`
+          INSERT INTO "PasswordResetToken" ("id", "email", "code", "expiresAt", "createdAt")
+          VALUES (${id}, ${emailTrimmed}, ${code}, ${expiresAt}, NOW())
+        `;
+      }
+    } catch (saveErr) {
+      const id = 'rst_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      await prisma.$executeRaw`
+        INSERT INTO "PasswordResetToken" ("id", "email", "code", "expiresAt", "createdAt")
+        VALUES (${id}, ${emailTrimmed}, ${code}, ${expiresAt}, NOW())
+      `;
+    }
 
     // Dispatch email
     const transporter = createTransporter();

@@ -33,14 +33,31 @@ export async function POST(request) {
     const codeTrimmed = code.trim();
 
     // Verify reset code in DB
-    const validToken = await prisma.passwordResetToken.findFirst({
-      where: {
-        email: emailTrimmed,
-        code: codeTrimmed,
-        expiresAt: { gt: new Date() },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+    let validToken = null;
+    try {
+      if (prisma?.passwordResetToken?.findFirst) {
+        validToken = await prisma.passwordResetToken.findFirst({
+          where: {
+            email: emailTrimmed,
+            code: codeTrimmed,
+            expiresAt: { gt: new Date() },
+          },
+          orderBy: { createdAt: 'desc' },
+        });
+      }
+    } catch {}
+
+    if (!validToken) {
+      const rows = await prisma.$queryRaw`
+        SELECT * FROM "PasswordResetToken"
+        WHERE LOWER("email") = LOWER(${emailTrimmed})
+          AND "code" = ${codeTrimmed}
+          AND "expiresAt" > NOW()
+        ORDER BY "createdAt" DESC
+        LIMIT 1
+      `.catch(() => []);
+      validToken = rows?.[0] || null;
+    }
 
     if (!validToken) {
       return NextResponse.json(
