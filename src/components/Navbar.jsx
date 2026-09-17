@@ -16,7 +16,6 @@ import {
   FiShield,
   FiFolder,
   FiStar,
-  FiChevronDown,
 } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -219,39 +218,36 @@ export default function Navbar() {
             <div className="flex items-center gap-2.5 shrink-0">
               <ThemeToggle iconOnly />
 
-              {/* Account Button / Dropdown (Matching organic structure with MerxoDev theme) */}
+              {/* User menu (Matching organic-e-commerce logic with MerxoDev theme) */}
               <div className="relative" ref={userMenuRef}>
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen((prev) => !prev)}
-                  className="inline-flex items-center gap-1.5 p-1 sm:px-2 sm:py-1 rounded-xl hover:bg-white/10 dark:hover:bg-white/5 transition-all text-white cursor-pointer group"
-                  aria-label="Account Menu"
+                  className="p-2 rounded-xl text-white hover:text-cyan-300 hover:bg-white/10 dark:hover:bg-white/5 transition-all relative flex items-center justify-center cursor-pointer"
+                  aria-label="Account"
                 >
-                  <div className="relative shrink-0">
-                    {session?.user?.image ? (
-                      <img
-                        src={session.user.image}
-                        alt={session.user.name || 'User'}
-                        className="w-8 h-8 rounded-full object-cover border-2 border-white/40 group-hover:border-cyan-400 transition-colors shadow-sm"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-white/15 dark:bg-white/10 group-hover:bg-white/20 border border-white/25 flex items-center justify-center text-white transition-colors">
-                        <FiUser size={16} />
-                      </div>
-                    )}
-                    {session?.user && (
-                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-zinc-900" />
-                    )}
-                  </div>
-                  <FiChevronDown
-                    size={13}
-                    className={`text-white/80 group-hover:text-white transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`}
-                  />
+                  {session?.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || 'User'}
+                      className="w-6 h-6 rounded-full object-cover border border-white/40 shadow-xs"
+                    />
+                  ) : (
+                    <FiUser size={20} strokeWidth={1.8} />
+                  )}
+                  {session?.user && (
+                    <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-zinc-900 shadow-xs animate-pulse" />
+                  )}
                 </button>
 
                 {/* Dropdown Menu */}
                 {userMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setUserMenuOpen(false)}
+                    />
+                    <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
                     {session?.user ? (
                       <>
                         <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
@@ -336,7 +332,8 @@ export default function Navbar() {
                       </>
                     )}
                   </div>
-                )}
+                </>
+              )}
               </div>
 
               <Link
