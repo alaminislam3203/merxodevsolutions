@@ -1,5 +1,6 @@
 import { Anton, DM_Sans, Raleway, Hind_Siliguri } from 'next/font/google';
 import './globals.css';
+import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -256,9 +257,11 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="min-h-full flex flex-col font-sans">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <SessionProviderWrapper>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </SessionProviderWrapper>
       </body>
     </html>
   );

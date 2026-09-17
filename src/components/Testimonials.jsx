@@ -1,11 +1,11 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { useSession } from 'next-auth/react';
+import { SessionContext } from 'next-auth/react';
 import {
   FaStar,
   FaQuoteLeft,
@@ -37,7 +37,8 @@ const AVATAR_GRADIENTS = [
 
 export default function Testimonials() {
   const { t } = useTranslation();
-  const { data: session } = useSession();
+  const sessionContext = useContext(SessionContext);
+  const session = sessionContext?.data;
 
   const [reviews, setReviews] = useState(DEFAULT_REVIEWS);
   const [selectedIndex, setSelectedIndex] = useState(0);
