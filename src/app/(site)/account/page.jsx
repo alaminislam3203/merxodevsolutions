@@ -363,7 +363,7 @@ function AccountContent() {
   ];
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-zinc-50/60 dark:bg-[#060b19]">
+    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-zinc-50/60 dark:bg-[#060b19] no-gsap">
       <div className="max-w-[1440px] mx-auto">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-raleway text-zinc-400 dark:text-zinc-500 mb-8">
@@ -401,7 +401,10 @@ function AccountContent() {
 
               <div>
                 <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
-                  <h1 className="font-display text-2xl sm:text-3xl uppercase tracking-wide text-zinc-900 dark:text-white">
+                  <h1
+                    suppressHydrationWarning
+                    className="font-display text-2xl sm:text-3xl uppercase tracking-wide text-zinc-900 dark:text-white"
+                  >
                     {currentUser?.name || 'Valued Client'}
                   </h1>
                   {isAdmin ? (

@@ -96,7 +96,7 @@ function RegisterForm() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19]">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] no-gsap">
       {/* ── Left Showcase Panel (Desktop) ── */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
         {/* Ambient Glows */}
@@ -105,9 +105,9 @@ function RegisterForm() {
 
         {/* Top Branding */}
         <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="inline-block transition-transform hover:scale-105">
+          {/* <Link href="/" className="inline-block transition-transform hover:scale-105">
             <Logo />
-          </Link>
+          </Link> */}
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-raleway text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
@@ -124,7 +124,10 @@ function RegisterForm() {
             <span>MerxoDev Client Network</span>
           </div>
 
-          <h1 className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5">
+          <h1
+            suppressHydrationWarning
+            className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
+          >
             Start Your{' '}
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
               Digital Journey
@@ -192,7 +195,10 @@ function RegisterForm() {
           </div>
 
           <div className="mb-8">
-            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
+            <h2
+              suppressHydrationWarning
+              className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2"
+            >
               Create Account
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
@@ -219,7 +225,7 @@ function RegisterForm() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Tanvir Ahmed"
+                  placeholder="Enter Your Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-raleway"
@@ -237,7 +243,7 @@ function RegisterForm() {
                 <input
                   type="email"
                   required
-                  placeholder="name@company.com"
+                  placeholder="Enter Your Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-raleway"

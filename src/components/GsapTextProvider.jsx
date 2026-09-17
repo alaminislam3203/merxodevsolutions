@@ -15,10 +15,22 @@ export default function GsapTextProvider({ children }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Do NOT run global GSAP DOM mutations on account, auth, or admin pages to prevent hydration mismatches
+    if (
+      !pathname ||
+      pathname.startsWith('/account') ||
+      pathname.startsWith('/admin') ||
+      pathname.startsWith('/709832')
+    ) {
+      return;
+    }
+
     // Refresh ScrollTrigger on route change
     const ctx = gsap.context(() => {
       // 1. Animate Hero/Page Main Headings on Page Load
-      const mainHeadings = document.querySelectorAll('h1');
+      const mainHeadings = Array.from(document.querySelectorAll('h1')).filter(
+        (el) => !el.closest('.no-gsap') && !el.closest('form') && !el.closest('nav')
+      );
       if (mainHeadings.length > 0) {
         gsap.fromTo(
           mainHeadings,
@@ -34,7 +46,7 @@ export default function GsapTextProvider({ children }) {
             duration: 1.1,
             ease: 'power3.out',
             stagger: 0.1,
-            clearProps: 'transform,scale',
+            clearProps: 'transform,scale,translate,rotate',
           }
         );
       }
@@ -42,8 +54,14 @@ export default function GsapTextProvider({ children }) {
       // 2. Animate Section Headings (h2, h3) with ScrollTrigger
       const sectionHeadings = document.querySelectorAll('h2, h3');
       sectionHeadings.forEach((heading) => {
-        // Avoid re-animating if already processed
-        if (heading.closest('.no-gsap')) return;
+        // Avoid re-animating if already processed or inside excluded containers
+        if (
+          heading.closest('.no-gsap') ||
+          heading.closest('form') ||
+          heading.closest('nav')
+        ) {
+          return;
+        }
 
         gsap.fromTo(
           heading,
@@ -56,6 +74,7 @@ export default function GsapTextProvider({ children }) {
             y: 0,
             duration: 0.9,
             ease: 'power3.out',
+            clearProps: 'transform,scale,translate,rotate',
             scrollTrigger: {
               trigger: heading,
               start: 'top 88%',
@@ -70,7 +89,14 @@ export default function GsapTextProvider({ children }) {
         'span.inline-flex, span.inline-block, section p'
       );
       badgesAndSubtexts.forEach((el) => {
-        if (el.closest('nav') || el.closest('.no-gsap') || el.closest('footer')) return;
+        if (
+          el.closest('nav') ||
+          el.closest('.no-gsap') ||
+          el.closest('footer') ||
+          el.closest('form')
+        ) {
+          return;
+        }
 
         gsap.fromTo(
           el,
@@ -83,6 +109,7 @@ export default function GsapTextProvider({ children }) {
             y: 0,
             duration: 0.8,
             ease: 'power2.out',
+            clearProps: 'transform,scale,translate,rotate',
             scrollTrigger: {
               trigger: el,
               start: 'top 92%',
@@ -97,6 +124,8 @@ export default function GsapTextProvider({ children }) {
         '.group h2, .group h3, a h2, a h3, h2.font-display'
       );
       interactiveTitles.forEach((title) => {
+        if (title.closest('.no-gsap') || title.closest('form')) return;
+
         const handleMouseEnter = () => {
           gsap.to(title, {
             letterSpacing: '0.03em',
