@@ -70,7 +70,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] mt-12 sm:mt-6">
+    <div className="min-h-screen flex flex-col lg:flex-row mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) ── */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
         {/* Ambient Glows */}

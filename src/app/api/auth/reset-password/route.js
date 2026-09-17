@@ -6,7 +6,7 @@ import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 export async function POST(request) {
   try {
     const clientIp = getClientIp(request);
-    const rateCheck = checkRateLimit(`reset-pw:${clientIp}`, { limit: 5, windowMs: 15 * 60 * 1000 });
+    const rateCheck = checkRateLimit(`reset-pw:${clientIp}`, { limit: 10, windowMs: 15 * 60 * 1000 });
     if (!rateCheck.success) {
       return NextResponse.json(
         { error: 'Too many password reset attempts. Please wait a few minutes before trying again.' },
@@ -14,11 +14,18 @@ export async function POST(request) {
       );
     }
 
-    const { email, newPassword } = await request.json();
+    const { email, code, newPassword } = await request.json();
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json(
         { error: 'Valid email address is required.' },
+        { status: 400 }
+      );
+    }
+
+    if (!code || typeof code !== 'string' || code.trim().length < 4) {
+      return NextResponse.json(
+        { error: 'Please provide the 6-digit verification code sent to your email.' },
         { status: 400 }
       );
     }
@@ -31,6 +38,24 @@ export async function POST(request) {
     }
 
     const emailTrimmed = email.toLowerCase().trim();
+    const codeTrimmed = code.trim();
+
+    // Verify reset code in DB
+    const validToken = await prisma.passwordResetToken.findFirst({
+      where: {
+        email: emailTrimmed,
+        code: codeTrimmed,
+        expiresAt: { gt: new Date() },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!validToken) {
+      return NextResponse.json(
+        { error: 'Invalid or expired verification code. Please check the code in your email or request a new one.' },
+        { status: 400 }
+      );
+    }
 
     // 1. Check if user exists in User table
     const user = await prisma.user.findUnique({
@@ -42,6 +67,11 @@ export async function POST(request) {
       await prisma.user.update({
         where: { id: user.id },
         data: { password: hashedPassword },
+      });
+
+      // Cleanup used reset tokens
+      await prisma.passwordResetToken.deleteMany({
+        where: { email: emailTrimmed },
       });
 
       return NextResponse.json({
@@ -61,6 +91,11 @@ export async function POST(request) {
         data: { password: hashedPassword },
       });
 
+      // Cleanup used reset tokens
+      await prisma.passwordResetToken.deleteMany({
+        where: { email: emailTrimmed },
+      });
+
       return NextResponse.json({
         message: 'Admin password reset successfully! You can now sign in with your new password.',
       });
@@ -68,7 +103,7 @@ export async function POST(request) {
 
     // Neither found
     return NextResponse.json(
-      { error: 'No registered account found with this email address. Please check and try again.' },
+      { error: 'No registered account found with this email address.' },
       { status: 404 }
     );
   } catch (error) {
