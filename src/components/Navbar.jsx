@@ -248,92 +248,92 @@ export default function Navbar() {
                       onClick={() => setUserMenuOpen(false)}
                     />
                     <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
-                    {session?.user ? (
-                      <>
-                        <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
-                          <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
-                            {session.user.name || 'Valued Client'}
-                          </p>
-                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate">
-                            {session.user.email}
-                          </p>
-                        </div>
+                      {session?.user ? (
+                        <>
+                          <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
+                            <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
+                              {session.user.name || 'Valued Client'}
+                            </p>
+                            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate">
+                              {session.user.email}
+                            </p>
+                          </div>
 
-                        <Link
-                          href="/account"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
-                        >
-                          <FiUser size={14} className="text-violet-500" />
-                          <span>My Profile</span>
-                        </Link>
-
-                        <Link
-                          href="/account?tab=inquiries"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
-                        >
-                          <FiFolder size={14} className="text-cyan-500" />
-                          <span>Project Inquiries</span>
-                        </Link>
-
-                        <Link
-                          href="/account?tab=reviews"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
-                        >
-                          <FiStar size={14} className="text-amber-400" />
-                          <span>My Reviews</span>
-                        </Link>
-
-                        {session.user.role === 'ADMIN' && (
                           <Link
-                            href="/709832"
+                            href="/account"
                             onClick={() => setUserMenuOpen(false)}
-                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-300 hover:bg-violet-100/70 dark:hover:bg-violet-900/40 transition-colors"
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
-                            <FiShield size={14} className="text-violet-500" />
-                            <span>Admin Panel</span>
+                            <FiUser size={14} className="text-violet-500" />
+                            <span>My Profile</span>
                           </Link>
-                        )}
 
-                        <div className="border-t border-zinc-100 dark:border-zinc-800/80 my-1 pt-1">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setUserMenuOpen(false);
-                              signOut({ callbackUrl: '/' });
-                            }}
-                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 w-full transition-colors cursor-pointer"
+                          <Link
+                            href="/account?tab=inquiries"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
-                            <FiLogOut size={14} />
-                            <span>Sign Out</span>
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          href="/account/login"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-zinc-900 dark:text-white hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
-                        >
-                          <FiLogIn size={15} className="text-violet-500" />
-                          <span>Log In</span>
-                        </Link>
-                        <Link
-                          href="/account/register"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white transition-colors"
-                        >
-                          <FiUserPlus size={15} className="text-cyan-500" />
-                          <span>Create Account</span>
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                </>
-              )}
+                            <FiFolder size={14} className="text-cyan-500" />
+                            <span>Project Inquiries</span>
+                          </Link>
+
+                          <Link
+                            href="/account?tab=reviews"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                          >
+                            <FiStar size={14} className="text-amber-400" />
+                            <span>My Reviews</span>
+                          </Link>
+
+                          {session.user.role === 'ADMIN' && (
+                            <Link
+                              href="/709832"
+                              onClick={() => setUserMenuOpen(false)}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-300 hover:bg-violet-100/70 dark:hover:bg-violet-900/40 transition-colors"
+                            >
+                              <FiShield size={14} className="text-violet-500" />
+                              <span>Admin Panel</span>
+                            </Link>
+                          )}
+
+                          <div className="border-t border-zinc-100 dark:border-zinc-800/80 my-1 pt-1">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setUserMenuOpen(false);
+                                signOut({ callbackUrl: '/' });
+                              }}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 w-full transition-colors cursor-pointer"
+                            >
+                              <FiLogOut size={14} />
+                              <span>Sign Out</span>
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Link
+                            href="/account/login"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-zinc-900 dark:text-white hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                          >
+                            <FiLogIn size={15} className="text-violet-500" />
+                            <span>Log In</span>
+                          </Link>
+                          <Link
+                            href="/account/register"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                          >
+                            <FiUserPlus size={15} className="text-cyan-500" />
+                            <span>Create Account</span>
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
 
               <Link

@@ -253,7 +253,7 @@ function AdminLayoutShell({ children }) {
 
 export default function AdminLayout({ children }) {
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false}>
       <AdminLayoutShell>{children}</AdminLayoutShell>
     </SessionProvider>
   );

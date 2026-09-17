@@ -26,7 +26,7 @@ export function ThemeProvider({ children }) {
   };
 
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         {children}
       </ThemeContext.Provider>
