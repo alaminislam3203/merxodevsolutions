@@ -16,7 +16,10 @@ import {
   FiShield,
   FiFolder,
   FiStar,
+  FiCopy,
+  FiCheck,
 } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchBar from './SearchBar';
@@ -46,6 +49,44 @@ export default function Navbar() {
   const pathname = usePathname();
   const { t } = useTranslation();
   const { data: session } = useSession();
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  const handleCopyEmail = (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    if (!session?.user?.email) return;
+    const email = session.user.email;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(email).then(() => {
+        setEmailCopied(true);
+        toast.success('Email copied!', { id: 'email-copy', duration: 2000 });
+        setTimeout(() => setEmailCopied(false), 2500);
+      }).catch(() => {
+        fallbackCopy(email);
+      });
+    } else {
+      fallbackCopy(email);
+    }
+  };
+
+  const fallbackCopy = (text) => {
+    try {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      setEmailCopied(true);
+      toast.success('Email copied!', { id: 'email-copy', duration: 2000 });
+      setTimeout(() => setEmailCopied(false), 2500);
+    } catch {
+      toast.error('Failed to copy');
+    }
+  };
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -151,7 +192,13 @@ export default function Navbar() {
     {
       label: 'Account',
       href: '/account',
-      icon: (
+      icon: session?.user?.image ? (
+        <img
+          src={session.user.image}
+          alt={session.user.name || 'Account'}
+          className="w-5 h-5 rounded-full object-cover border border-violet-400/50 shadow-xs"
+        />
+      ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -223,18 +270,27 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen((prev) => !prev)}
-                  className="p-2 rounded-xl text-white hover:text-cyan-300 hover:bg-white/10 dark:hover:bg-white/5 transition-all relative flex items-center justify-center cursor-pointer"
+                  className="p-1.5 sm:p-2 rounded-xl text-white hover:text-cyan-300 hover:bg-white/10 dark:hover:bg-white/5 transition-all relative flex items-center justify-center cursor-pointer"
                   aria-label="Account"
                 >
                   {session?.user?.image ? (
                     <img
                       src={session.user.image}
                       alt={session.user.name || 'User'}
-                      className="w-6 h-6 rounded-full object-cover border border-white/40 shadow-xs"
+                      className="w-7 h-7 rounded-full object-cover border border-white/60 shadow-xs"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.nextElementSibling;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
                     />
-                  ) : (
+                  ) : null}
+                  <span
+                    style={{ display: session?.user?.image ? 'none' : 'flex' }}
+                    className="items-center justify-center"
+                  >
                     <FiUser size={20} strokeWidth={1.8} />
-                  )}
+                  </span>
                   {session?.user && (
                     <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-zinc-900 shadow-xs animate-pulse" />
                   )}
@@ -247,16 +303,46 @@ export default function Navbar() {
                       className="fixed inset-0 z-40"
                       onClick={() => setUserMenuOpen(false)}
                     />
-                    <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
+                    <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
                       {session?.user ? (
                         <>
-                          <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
-                            <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
-                              {session.user.name || 'Valued Client'}
-                            </p>
-                            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate">
-                              {session.user.email}
-                            </p>
+                          <div className="flex items-center gap-3 px-3 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
+                            {session.user.image ? (
+                              <img
+                                src={session.user.image}
+                                alt={session.user.name || 'User'}
+                                className="w-9 h-9 rounded-full object-cover border border-violet-300 dark:border-violet-700/60 shadow-xs shrink-0"
+                              />
+                            ) : (
+                              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xs shadow-xs shrink-0">
+                                {session.user.name ? session.user.name.charAt(0).toUpperCase() : <FiUser size={15} />}
+                              </div>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
+                                {session.user.name || 'Valued Client'}
+                              </p>
+                              {session.user.email && (
+                                <button
+                                  type="button"
+                                  onClick={handleCopyEmail}
+                                  className="mt-0.5 inline-flex items-center gap-1.5 max-w-full text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group cursor-pointer text-left"
+                                  title="Click to copy email"
+                                >
+                                  <span className="truncate max-w-[125px] font-mono select-all">
+                                    {session.user.email}
+                                  </span>
+                                  {emailCopied ? (
+                                    <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-500 font-bold shrink-0">
+                                      <FiCheck size={11} />
+                                      <span>Copied</span>
+                                    </span>
+                                  ) : (
+                                    <FiCopy size={11} className="text-zinc-400 group-hover:text-violet-500 dark:group-hover:text-cyan-400 shrink-0" />
+                                  )}
+                                </button>
+                              )}
+                            </div>
                           </div>
 
                           <Link
@@ -484,13 +570,80 @@ export default function Navbar() {
       >
         <div>
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-violet-200/70 dark:border-blue-900/40 bg-violet-100/60 dark:bg-[#091124]">
-            <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
-              <Logo mobile className="h-7 w-auto" />
-            </div>
+          <div className="flex items-center justify-between px-5 py-4 border-b border-violet-200/70 dark:border-blue-900/40 bg-violet-100/60 dark:bg-[#091124]">
+            {session?.user ? (
+              <div className="flex items-center gap-3 min-w-0 flex-1 mr-2">
+                <Link
+                  href="/account"
+                  onClick={() => setSidebarOpen(false)}
+                  className="relative shrink-0 group"
+                  aria-label="View Profile"
+                >
+                  {session.user.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || 'User'}
+                      className="w-11 h-11 rounded-full object-cover border-2 border-violet-500/70 dark:border-cyan-400/70 shadow-md group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.nextElementSibling;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    style={{ display: session.user.image ? 'none' : 'flex' }}
+                    className="w-11 h-11 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 items-center justify-center text-white font-bold text-base shadow-md border-2 border-violet-400/60 group-hover:scale-105 transition-transform"
+                  >
+                    {session.user.name ? session.user.name.charAt(0).toUpperCase() : <FiUser size={18} />}
+                  </div>
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-[#091124] shadow-xs" />
+                </Link>
+
+                <div className="min-w-0 flex-1">
+                  <Link
+                    href="/account"
+                    onClick={() => setSidebarOpen(false)}
+                    className="block group"
+                  >
+                    <h4 className="text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors">
+                      {session.user.name || 'Valued Client'}
+                    </h4>
+                  </Link>
+
+                  {session.user.email && (
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="mt-0.5 inline-flex items-center gap-1.5 max-w-full text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-300 transition-colors group cursor-pointer text-left"
+                      title="Click to copy email"
+                    >
+                      <span className="truncate max-w-[130px] font-mono select-all">
+                        {session.user.email}
+                      </span>
+                      {emailCopied ? (
+                        <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-500 font-bold shrink-0">
+                          <FiCheck size={11} />
+                          <span>Copied!</span>
+                        </span>
+                      ) : (
+                        <FiCopy
+                          size={11}
+                          className="shrink-0 text-zinc-400 group-hover:text-violet-500 dark:group-hover:text-cyan-400 transition-colors"
+                        />
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
+                <Logo mobile className="h-7 w-auto" />
+              </div>
+            )}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-xl bg-violet-200/70 dark:bg-white/10 text-zinc-700 dark:text-white/80 hover:text-zinc-950 dark:hover:text-white hover:bg-violet-300/70 dark:hover:bg-white/20 transition-all border border-violet-300/60 dark:border-white/10"
+              className="p-2 rounded-xl bg-violet-200/70 dark:bg-white/10 text-zinc-700 dark:text-white/80 hover:text-zinc-950 dark:hover:text-white hover:bg-violet-300/70 dark:hover:bg-white/20 transition-all border border-violet-300/60 dark:border-white/10 shrink-0"
               aria-label="Close menu"
             >
               <svg
