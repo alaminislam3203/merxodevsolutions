@@ -618,8 +618,8 @@ export default function UsersManagementPage() {
                                 background: isMainAdmin
                                   ? "linear-gradient(135deg, #f59e0b, #b45309)"
                                   : isAdmin
-                                  ? "linear-gradient(135deg, #f59e0b, #d97706)"
-                                  : "linear-gradient(135deg, #6366f1, #06b6d4)",
+                                    ? "linear-gradient(135deg, #f59e0b, #d97706)"
+                                    : "linear-gradient(135deg, #6366f1, #06b6d4)",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -696,7 +696,7 @@ export default function UsersManagementPage() {
                               boxShadow: "0 0 12px rgba(245, 158, 11, 0.25)",
                             }}
                           >
-                            👑 Main Admin
+                            Main Admin
                           </span>
                         ) : (
                           <span
@@ -754,8 +754,8 @@ export default function UsersManagementPage() {
                             background: isMainAdmin
                               ? "rgba(16, 185, 129, 0.2)"
                               : isActive
-                              ? "rgba(34, 197, 94, 0.12)"
-                              : "rgba(239, 68, 68, 0.15)",
+                                ? "rgba(34, 197, 94, 0.12)"
+                                : "rgba(239, 68, 68, 0.15)",
                             color: isMainAdmin ? "#34d399" : isActive ? "#4ade80" : "#f87171",
                             border: isMainAdmin ? "1px solid rgba(16, 185, 129, 0.35)" : "none",
                           }}

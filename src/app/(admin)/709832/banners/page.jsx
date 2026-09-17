@@ -234,6 +234,14 @@ function BannerFormModal({ banner, initialSlot = "left", onClose, onSaved }) {
                 Right (Bottom)
               </button>
             </div>
+            <div style={{ fontSize: "12px", color: "#a5b4fc", marginTop: "6px", display: "flex", alignItems: "center", gap: "6px", background: "rgba(99, 102, 241, 0.08)", padding: "6px 10px", borderRadius: "6px", border: "1px solid rgba(99, 102, 241, 0.2)" }}>
+              <span style={{ fontSize: "14px" }}>📐</span>
+              <span>
+                {form.slot === "left" || !form.slot
+                  ? "Recommended Size for Left (Main Banner): 1920 × 1080 px (Aspect Ratio 16:9)"
+                  : "Recommended Size for Right Banner: 800 × 400 px (Aspect Ratio 2:1)"}
+              </span>
+            </div>
           </div>
 
           <div className="banner-form-row">
