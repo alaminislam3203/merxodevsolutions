@@ -28,6 +28,7 @@ model User {
   image            String?
   role             String   @default("USER")
   twoFactorEnabled Boolean  @default(false)
+  isActive         Boolean  @default(true)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   reviews          Review[]
@@ -135,4 +136,33 @@ model TwoFactorToken {
   createdAt DateTime @default(now())
 
   @@index([email])
+}
+
+model DailyVisitor {
+  id           String   @id @default(cuid())
+  date         String   @unique // "YYYY-MM-DD" e.g. "2026-09-17"
+  uniqueVisits Int      @default(0)
+  pageViews    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([date])
+}
+
+model VisitorLog {
+  id          String   @id @default(cuid())
+  visitorHash String
+  ip          String?
+  path        String   @default("/")
+  userAgent   String?
+  device      String?
+  browser     String?
+  country     String?
+  referrer    String?
+  date        String   // "YYYY-MM-DD"
+  createdAt   DateTime @default(now())
+
+  @@index([date])
+  @@index([visitorHash])
+  @@index([createdAt])
 }

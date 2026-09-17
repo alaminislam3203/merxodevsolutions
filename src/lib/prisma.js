@@ -153,6 +153,95 @@ function attachFallbacks(client) {
     client.admin._wrappedFor2FA = true;
   }
 
+  // Fallback for DailyVisitor
+  if (!client.dailyVisitor) {
+    client.dailyVisitor = {
+      async findUnique({ where } = {}) {
+        const date = where?.date || '';
+        const rows = await client.$queryRaw`
+          SELECT * FROM "DailyVisitor" WHERE "date" = ${date} LIMIT 1
+        `;
+        return rows?.[0] || null;
+      },
+      async findMany({ orderBy, take } = {}) {
+        const limit = take ? Number(take) : 30;
+        const rows = await client.$queryRaw`
+          SELECT * FROM "DailyVisitor" ORDER BY "date" DESC LIMIT ${limit}
+        `;
+        return rows || [];
+      },
+      async upsert({ where, create, update } = {}) {
+        const date = where?.date || '';
+        const incUnique = update?.uniqueVisits?.increment ? Number(update.uniqueVisits.increment) : 0;
+        const incPage = update?.pageViews?.increment ? Number(update.pageViews.increment) : 1;
+        const id = 'dv_' + date.replace(/-/g, '');
+        const rows = await client.$queryRaw`
+          INSERT INTO "DailyVisitor" ("id", "date", "uniqueVisits", "pageViews", "createdAt", "updatedAt")
+          VALUES (${id}, ${date}, ${create?.uniqueVisits || 1}, ${create?.pageViews || 1}, NOW(), NOW())
+          ON CONFLICT ("date") DO UPDATE
+          SET "uniqueVisits" = "DailyVisitor"."uniqueVisits" + ${incUnique},
+              "pageViews" = "DailyVisitor"."pageViews" + ${incPage},
+              "updatedAt" = NOW()
+          RETURNING *
+        `;
+        return rows?.[0] || null;
+      },
+    };
+  }
+
+  // Fallback for VisitorLog
+  if (!client.visitorLog) {
+    client.visitorLog = {
+      async create({ data } = {}) {
+        const id = 'vl_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        const visitorHash = data?.visitorHash || '';
+        const ip = data?.ip || null;
+        const path = data?.path || '/';
+        const userAgent = data?.userAgent || null;
+        const device = data?.device || null;
+        const browser = data?.browser || null;
+        const country = data?.country || null;
+        const referrer = data?.referrer || null;
+        const date = data?.date || new Date().toISOString().slice(0, 10);
+        await client.$executeRaw`
+          INSERT INTO "VisitorLog" ("id", "visitorHash", "ip", "path", "userAgent", "device", "browser", "country", "referrer", "date", "createdAt")
+          VALUES (${id}, ${visitorHash}, ${ip}, ${path}, ${userAgent}, ${device}, ${browser}, ${country}, ${referrer}, ${date}, NOW())
+        `;
+        return { id, visitorHash, path, date };
+      },
+      async findFirst({ where } = {}) {
+        const date = where?.date || '';
+        const visitorHash = where?.visitorHash || '';
+        const rows = await client.$queryRaw`
+          SELECT * FROM "VisitorLog"
+          WHERE "date" = ${date} AND "visitorHash" = ${visitorHash}
+          LIMIT 1
+        `;
+        return rows?.[0] || null;
+      },
+      async findMany({ take, orderBy } = {}) {
+        const limit = take ? Number(take) : 20;
+        const rows = await client.$queryRaw`
+          SELECT * FROM "VisitorLog"
+          ORDER BY "createdAt" DESC
+          LIMIT ${limit}
+        `;
+        return rows || [];
+      },
+      async count({ where } = {}) {
+        const date = where?.date;
+        if (date) {
+          const rows = await client.$queryRaw`
+            SELECT COUNT(*)::int as count FROM "VisitorLog" WHERE "date" = ${date}
+          `;
+          return rows?.[0]?.count || 0;
+        }
+        const rows = await client.$queryRaw`SELECT COUNT(*)::int as count FROM "VisitorLog"`;
+        return rows?.[0]?.count || 0;
+      },
+    };
+  }
+
   return client;
 }
 
@@ -177,7 +266,7 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-09-17-v6";
+const SCHEMA_VERSION = "2026-09-17-v7";
 
 let prismaInstance = globalForPrisma.prisma;
 if (!prismaInstance || prismaInstance._schemaVersion !== SCHEMA_VERSION) {

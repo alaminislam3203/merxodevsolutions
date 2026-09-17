@@ -79,6 +79,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             user.password
           );
           if (isUserPasswordValid) {
+            // Guard: Check if account has been suspended by Admin
+            if (user.isActive === false) {
+              throw new Error("Your account has been suspended by the administrator. Please contact support.");
+            }
+
             // Check if User has 2FA enabled
             let is2FA = user.twoFactorEnabled;
             if (is2FA === undefined) {

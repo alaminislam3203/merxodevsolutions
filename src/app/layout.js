@@ -4,6 +4,7 @@ import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import VisitorTracker from '@/components/VisitorTracker';
 
 const anton = Anton({
   weight: ['400'],
@@ -259,6 +260,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col font-sans">
         <SessionProviderWrapper>
           <ThemeProvider>
+            <VisitorTracker />
             {children}
           </ThemeProvider>
         </SessionProviderWrapper>

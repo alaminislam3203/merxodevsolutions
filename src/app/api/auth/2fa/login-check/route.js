@@ -77,6 +77,14 @@ export async function POST(request) {
       );
     }
 
+    // Check if account is suspended
+    if (!isAdmin && account.isActive === false) {
+      return NextResponse.json(
+        { error: 'Your account has been suspended by the administrator. Please contact support.' },
+        { status: 403 }
+      );
+    }
+
     // Check if 2FA is enabled
     let is2FA = account.twoFactorEnabled;
     if (is2FA === undefined) {

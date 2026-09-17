@@ -6,31 +6,52 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import LottiePlayer from "@/components/LottiePlayer";
 import { FaRobot, FaLaptopCode } from "react-icons/fa";
-import { FiShield, FiCheckCircle, FiAlertCircle, FiLock } from "react-icons/fi";
+import {
+  FiShield,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiLock,
+  FiUsers,
+  FiEye,
+  FiTrendingUp,
+  FiActivity,
+  FiGlobe,
+  FiSmartphone,
+  FiMonitor,
+  FiClock,
+  FiArrowUpRight,
+} from "react-icons/fi";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
 function DashboardView() {
-  const [stats, setStats] = useState({ projects: 0, images: 0, content: 0 });
+  const [stats, setStats] = useState({ projects: 0, images: 0, content: 0, users: 0 });
   const [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] = useState(null);
+  const [analyticsDays, setAnalyticsDays] = useState(14);
+  const [loadingAnalytics, setLoadingAnalytics] = useState(true);
+  const [hoveredDay, setHoveredDay] = useState(null);
 
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [pr, im, co] = await Promise.all([
+        const [pr, im, co, us] = await Promise.all([
           fetch("/api/admin/projects"),
           fetch("/api/admin/images"),
           fetch("/api/admin/content"),
+          fetch("/api/admin/users"),
         ]);
-        const [projects, images, content] = await Promise.all([
+        const [projects, images, content, usersData] = await Promise.all([
           pr.json(),
           im.json(),
           co.json(),
+          us.json(),
         ]);
         setStats({
           projects: Array.isArray(projects) ? projects.length : 0,
           images: Array.isArray(images) ? images.length : 0,
           content: Array.isArray(content) ? content.length : 0,
+          users: usersData?.stats?.total || (Array.isArray(usersData?.users) ? usersData.users.length : 0),
         });
       } catch (e) {}
       setLoading(false);
@@ -38,15 +59,50 @@ function DashboardView() {
     fetchStats();
   }, []);
 
+  useEffect(() => {
+    async function fetchAnalytics() {
+      setLoadingAnalytics(true);
+      try {
+        const res = await fetch(`/api/admin/analytics?days=${analyticsDays}`);
+        const data = await res.json();
+        if (res.ok) {
+          setAnalytics(data);
+        }
+      } catch (_) {}
+      setLoadingAnalytics(false);
+    }
+    fetchAnalytics();
+  }, [analyticsDays]);
+
   const statCards = [
+    {
+      label: "Today's Visitors",
+      value: analytics?.today?.uniqueVisits || 0,
+      subValue: `${analytics?.today?.pageViews || 0} pageviews`,
+      color: "#10b981",
+      bg: "rgba(16,185,129,0.12)",
+      href: "#analytics-section",
+      isLive: true,
+      icon: <FiActivity size={22} />,
+    },
+    {
+      label: "Registered Users",
+      value: stats.users,
+      subValue: "Manage clients & staff",
+      color: "#8b5cf6",
+      bg: "rgba(139,92,246,0.12)",
+      href: "/709832/users",
+      icon: <FiUsers size={22} />,
+    },
     {
       label: "Total Projects",
       value: stats.projects,
+      subValue: "Active in showcase",
       color: "#6366f1",
-      bg: "rgba(99,102,241,0.1)",
+      bg: "rgba(99,102,241,0.12)",
       href: "/709832/projects",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polygon points="12 2 2 7 12 12 22 7 12 2" />
           <polyline points="2 17 12 22 22 17" />
           <polyline points="2 12 12 17 22 12" />
@@ -54,37 +110,31 @@ function DashboardView() {
       ),
     },
     {
-      label: "Media Files",
+      label: "Media Library",
       value: stats.images,
-      color: "#8b5cf6",
-      bg: "rgba(139,92,246,0.1)",
+      subValue: "Cloud assets",
+      color: "#06b6d4",
+      bg: "rgba(6,182,212,0.12)",
       href: "/709832/images",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
           <circle cx="8.5" cy="8.5" r="1.5" />
           <polyline points="21 15 16 10 5 21" />
         </svg>
       ),
     },
-    {
-      label: "Content Blocks",
-      value: stats.content,
-      color: "#06b6d4",
-      bg: "rgba(6,182,212,0.1)",
-      href: "/709832/content",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-        </svg>
-      ),
-    },
   ];
 
   const quickActions = [
+    {
+      href: "/709832/users",
+      title: "Manage Users",
+      desc: "Control user accounts, roles & status",
+      color: "#8b5cf6",
+      bg: "rgba(139,92,246,0.12)",
+      icon: <FiUsers size={22} />,
+    },
     {
       href: "/709832/projects",
       title: "Add Project",
@@ -120,40 +170,29 @@ function DashboardView() {
       bg: "rgba(6,182,212,0.12)",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+          <path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-        </svg>
-      ),
-    },
-    {
-      href: "/709832/content",
-      title: "Google Meet Link",
-      desc: "Update your live discovery call meeting link",
-      color: "#10b981",
-      bg: "rgba(16,182,129,0.12)",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="22" height="22">
-          <path fill="#ea4335" d="M166 106v90H76" />
-          <path fill="#ffba00" d="M166 106v90h120v62l90-73v-49q0-30-30-30" />
-          <path fill="#00ac47" d="M346 406q30 0 30-30V327l-90-71v60H164v90m212-77 42 34c9 7 18 7 18-7V156c0-14-9-14-18-7l-42 34" />
-          <path fill="#0066da" d="M76 314v62q0 30 30 30h60v-92" />
-          <path fill="#2684fc" d="M76 196h90v120H76" />
-          <path fill="#00832d" d="M286 256l90-73v146" />
         </svg>
       ),
     },
   ];
 
+  // Calculate highest count for proportional chart bars
+  const chartData = analytics?.chartData || [];
+  const maxVisits = Math.max(...chartData.map((d) => Math.max(d.uniqueVisits, d.pageViews)), 6);
+
   return (
-    <div>
+    <div style={{ paddingBottom: 50 }}>
+      {/* Header */}
       <div className="admin-page-header">
         <h1 className="admin-page-title">Dashboard</h1>
-        <p className="admin-page-subtitle">Welcome back! Here is an overview of your workspace.</p>
+        <p className="admin-page-subtitle">Welcome back! Here is a live overview of your visitors, accounts, and portfolio.</p>
       </div>
 
-      <div className="dash-stats-grid">
+      {/* Top Stat Cards */}
+      <div className="dash-stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, marginBottom: 28 }}>
         {statCards.map((card) => (
-          <Link key={card.label} href={card.href} className="dash-stat-card">
+          <Link key={card.label} href={card.href} className="dash-stat-card" style={{ padding: "20px 22px" }}>
             <div className="dash-stat-icon" style={{ background: card.bg, color: card.color }}>
               {card.icon}
             </div>
@@ -161,22 +200,421 @@ function DashboardView() {
               {loading ? (
                 <div className="dash-stat-skeleton"></div>
               ) : (
-                <span className="dash-stat-value" style={{ color: card.color }}>
-                  {card.value}
-                </span>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                  <span className="dash-stat-value" style={{ color: card.color }}>
+                    {card.value}
+                  </span>
+                  {card.isLive && (
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 4,
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: "#10b981",
+                        background: "rgba(16,185,129,0.15)",
+                        padding: "2px 6px",
+                        borderRadius: 4,
+                      }}
+                    >
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", animation: "pulse 2s infinite" }}></span>
+                      LIVE
+                    </span>
+                  )}
+                </div>
               )}
               <span className="dash-stat-label">{card.label}</span>
+              <span style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{card.subValue}</span>
             </div>
             <div className="dash-stat-arrow" style={{ color: card.color }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+              <FiArrowUpRight size={20} />
             </div>
           </Link>
         ))}
       </div>
 
+      {/* ─── DAILY VISITORS & TRAFFIC ANALYTICS ───────────────────── */}
+      <div
+        id="analytics-section"
+        style={{
+          background: "rgba(255, 255, 255, 0.025)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          borderRadius: 18,
+          padding: 24,
+          marginBottom: 32,
+        }}
+      >
+        {/* Section Header */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 16,
+            marginBottom: 24,
+          }}
+        >
+          <div>
+            <h2
+              style={{
+                fontSize: 18,
+                fontWeight: 800,
+                color: "#f8fafc",
+                margin: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+              }}
+            >
+              <FiTrendingUp style={{ color: "#10b981" }} /> Daily Website Visitors & Traffic
+            </h2>
+            <p style={{ margin: "4px 0 0 0", fontSize: 13, color: "#94a3b8" }}>
+              Track daily unique visitors and total page impressions visiting merxodevsolutions.pro.bd
+            </p>
+          </div>
+
+          {/* Days Switcher */}
+          <div
+            style={{
+              display: "flex",
+              background: "rgba(255, 255, 255, 0.04)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              borderRadius: 10,
+              padding: 3,
+            }}
+          >
+            {[
+              { days: 7, label: "7 Days" },
+              { days: 14, label: "14 Days" },
+              { days: 30, label: "30 Days" },
+            ].map((tab) => (
+              <button
+                key={tab.days}
+                onClick={() => setAnalyticsDays(tab.days)}
+                style={{
+                  background: analyticsDays === tab.days ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "transparent",
+                  color: analyticsDays === tab.days ? "#ffffff" : "#94a3b8",
+                  border: "none",
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Analytics Sub-cards */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: 14,
+            marginBottom: 24,
+          }}
+        >
+          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+              <FiEye style={{ color: "#38bdf8" }} /> Today's Visitors
+            </div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#38bdf8", marginTop: 4 }}>
+              {analytics?.today?.uniqueVisits || 0}
+            </div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>Unique people today</div>
+          </div>
+
+          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+              <FiActivity style={{ color: "#818cf8" }} /> Today's Pageviews
+            </div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#818cf8", marginTop: 4 }}>
+              {analytics?.today?.pageViews || 0}
+            </div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>Total hits today</div>
+          </div>
+
+          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+              <FiClock style={{ color: "#f59e0b" }} /> Yesterday
+            </div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#fbbf24", marginTop: 4 }}>
+              {analytics?.yesterday?.uniqueVisits || 0}
+            </div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>{analytics?.yesterday?.pageViews || 0} page views</div>
+          </div>
+
+          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+              <FiGlobe style={{ color: "#34d399" }} /> All-Time Visitors
+            </div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#34d399", marginTop: 4 }}>
+              {analytics?.allTime?.totalUniqueVisits || 0}
+            </div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>{analytics?.allTime?.totalPageViews || 0} total views</div>
+          </div>
+        </div>
+
+        {/* Visual Daily Trend Chart */}
+        <div style={{ marginBottom: 26 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#cbd5e1" }}>Daily Visits Breakdown</div>
+            <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#38bdf8" }}>
+                <span style={{ width: 10, height: 10, borderRadius: 2, background: "linear-gradient(135deg, #06b6d4, #3b82f6)" }}></span>
+                Unique Visitors
+              </span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#818cf8" }}>
+                <span style={{ width: 10, height: 10, borderRadius: 2, background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}></span>
+                Pageviews
+              </span>
+            </div>
+          </div>
+
+          {/* Interactive Bar Chart Area */}
+          <div
+            style={{
+              position: "relative",
+              height: 200,
+              background: "rgba(0, 0, 0, 0.25)",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+              borderRadius: 14,
+              padding: "16px 12px 28px 12px",
+              display: "flex",
+              alignItems: "flex-end",
+              gap: chartData.length > 20 ? 4 : 8,
+            }}
+          >
+            {loadingAnalytics ? (
+              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b", fontSize: 13 }}>
+                Loading visitor history...
+              </div>
+            ) : chartData.length === 0 ? (
+              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b", fontSize: 13 }}>
+                No visitor data recorded yet for this period.
+              </div>
+            ) : (
+              chartData.map((d, index) => {
+                const heightPercent = Math.max(Math.round((d.uniqueVisits / maxVisits) * 140), d.uniqueVisits > 0 ? 12 : 3);
+                const pageViewHeight = Math.max(Math.round((d.pageViews / maxVisits) * 140), d.pageViews > 0 ? 14 : 4);
+                const isHovered = hoveredDay?.date === d.date;
+
+                return (
+                  <div
+                    key={d.date}
+                    onMouseEnter={() => setHoveredDay(d)}
+                    onMouseLeave={() => setHoveredDay(null)}
+                    style={{
+                      flex: 1,
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      cursor: "pointer",
+                      position: "relative",
+                    }}
+                  >
+                    {/* Tooltip on hover */}
+                    {isHovered && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "100%",
+                          marginBottom: 8,
+                          zIndex: 20,
+                          background: "#0c1328",
+                          border: "1px solid rgba(99,102,241,0.4)",
+                          borderRadius: 8,
+                          padding: "6px 10px",
+                          boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+                          whiteSpace: "nowrap",
+                          pointerEvents: "none",
+                          textAlign: "center",
+                        }}
+                      >
+                        <div style={{ fontSize: 11, fontWeight: 700, color: "#f8fafc" }}>{d.label}</div>
+                        <div style={{ fontSize: 12, color: "#38bdf8", fontWeight: 800 }}>
+                          {d.uniqueVisits} unique visitors
+                        </div>
+                        <div style={{ fontSize: 11, color: "#94a3b8" }}>
+                          {d.pageViews} pageviews
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Bars Container */}
+                    <div style={{ display: "flex", gap: 2, alignItems: "flex-end", width: "100%", justifyContent: "center" }}>
+                      {/* Unique Visitors Bar */}
+                      <div
+                        style={{
+                          width: chartData.length > 20 ? "40%" : 12,
+                          height: `${heightPercent}px`,
+                          background: isHovered
+                            ? "linear-gradient(180deg, #38bdf8, #0284c7)"
+                            : "linear-gradient(180deg, #06b6d4, #2563eb)",
+                          borderRadius: "4px 4px 0 0",
+                          transition: "height 0.3s ease, background 0.2s",
+                          boxShadow: isHovered ? "0 0 10px rgba(56, 189, 248, 0.5)" : "none",
+                        }}
+                      ></div>
+
+                      {/* PageViews Bar */}
+                      <div
+                        style={{
+                          width: chartData.length > 20 ? "40%" : 12,
+                          height: `${pageViewHeight}px`,
+                          background: isHovered
+                            ? "linear-gradient(180deg, #a78bfa, #7c3aed)"
+                            : "linear-gradient(180deg, #6366f1, #4f46e5)",
+                          borderRadius: "4px 4px 0 0",
+                          transition: "height 0.3s ease, background 0.2s",
+                          opacity: 0.85,
+                        }}
+                      ></div>
+                    </div>
+
+                    {/* Date Label (show alternate on long lists) */}
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: -22,
+                        fontSize: chartData.length > 15 ? 9 : 11,
+                        color: isHovered ? "#38bdf8" : "#64748b",
+                        fontWeight: isHovered ? 700 : 500,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {chartData.length > 20 && index % 2 !== 0 ? "" : d.label.split(" ")[1] || d.label}
+                    </span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Two Columns: Top Pages & Live Recent Visitors */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: 20,
+          }}
+        >
+          {/* Top Visited Pages */}
+          <div
+            style={{
+              background: "rgba(0, 0, 0, 0.2)",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+              borderRadius: 14,
+              padding: 16,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+              <FiGlobe style={{ color: "#38bdf8" }} /> Top Visited Pages
+            </div>
+
+            {(!analytics?.topPages || analytics.topPages.length === 0) ? (
+              <div style={{ color: "#64748b", fontSize: 12, padding: "16px 0", textAlign: "center" }}>
+                Traffic will appear here as users browse the site.
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {analytics.topPages.map((p, idx) => {
+                  const maxPageViews = analytics.topPages[0]?.views || 1;
+                  const percent = Math.round((p.views / maxPageViews) * 100);
+
+                  return (
+                    <div key={p.path || idx}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
+                        <span style={{ color: "#e2e8f0", fontFamily: "monospace" }}>{p.path}</span>
+                        <span style={{ color: "#38bdf8", fontWeight: 700 }}>{p.views} views</span>
+                      </div>
+                      <div style={{ height: 5, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                        <div
+                          style={{
+                            height: "100%",
+                            width: `${percent}%`,
+                            background: "linear-gradient(90deg, #6366f1, #38bdf8)",
+                            borderRadius: 3,
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Live Recent Visitor Feed */}
+          <div
+            style={{
+              background: "rgba(0, 0, 0, 0.2)",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+              borderRadius: 14,
+              padding: 16,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+              <FiClock style={{ color: "#10b981" }} /> Recent Activity Log
+            </div>
+
+            {(!analytics?.recentLogs || analytics.recentLogs.length === 0) ? (
+              <div style={{ color: "#64748b", fontSize: 12, padding: "16px 0", textAlign: "center" }}>
+                Live visitor events will display here in real-time.
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 200, overflowY: "auto" }}>
+                {analytics.recentLogs.slice(0, 8).map((log, idx) => {
+                  const isMobile = log.device === "Mobile";
+                  const timeAgo = log.createdAt ? new Date(log.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+
+                  return (
+                    <div
+                      key={log.id || idx}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "6px 10px",
+                        background: "rgba(255,255,255,0.02)",
+                        borderRadius: 8,
+                        fontSize: 12,
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, overflow: "hidden" }}>
+                        {isMobile ? (
+                          <FiSmartphone size={14} style={{ color: "#f59e0b", flexShrink: 0 }} />
+                        ) : (
+                          <FiMonitor size={14} style={{ color: "#38bdf8", flexShrink: 0 }} />
+                        )}
+                        <span style={{ color: "#cbd5e1", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                          {log.path}
+                        </span>
+                      </div>
+
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+                        <span style={{ fontSize: 11, color: "#64748b" }}>{log.browser}</span>
+                        <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>{timeAgo}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
       <div className="dash-quick-actions">
         <h2 className="dash-section-title">Quick Actions</h2>
         <div className="dash-actions-grid">
