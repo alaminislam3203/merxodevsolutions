@@ -39,6 +39,7 @@ const SERVICE_CATEGORIES = [
   'Cybersecurity, OAuth & Auth Systems',
   'Website Maintenance & 24/7 Cloud Support',
   'Business Process & Workflow Automation',
+  'Others',
 ];
 
 const RATING_LABELS = {
@@ -59,6 +60,7 @@ function WriteReviewContent() {
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [tag, setTag] = useState(SERVICE_CATEGORIES[0]);
+  const [customTag, setCustomTag] = useState('');
   const [userRole, setUserRole] = useState('');
   const [company, setCompany] = useState('');
   const [location, setLocation] = useState('');
@@ -76,6 +78,11 @@ function WriteReviewContent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (tag === 'Others' && !customTag.trim()) {
+      setError('Please specify your custom service category.');
+      return;
+    }
+
     if (!comment.trim() || comment.trim().length < 5) {
       setError('Please provide a meaningful review comment of at least 5 characters.');
       return;
@@ -83,6 +90,8 @@ function WriteReviewContent() {
 
     setSubmitting(true);
     setError('');
+
+    const finalTag = tag === 'Others' ? customTag.trim() : tag;
 
     try {
       const res = await fetch('/api/reviews', {
@@ -93,7 +102,7 @@ function WriteReviewContent() {
           userRole: userRole.trim() || 'Client',
           company: company.trim(),
           location: location.trim() || 'Bangladesh',
-          tag,
+          tag: finalTag,
           comment: comment.trim(),
         }),
       });
@@ -305,7 +314,7 @@ function WriteReviewContent() {
                 </div>
               </div>
 
-              {/* Service Category Dropdown (All 13 Comprehensive Services) */}
+              {/* Service Category Dropdown (All 13 Comprehensive Services + Others) */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
                   Service Category <span className="text-rose-500">*</span>
@@ -326,6 +335,29 @@ function WriteReviewContent() {
                 <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                   Select the primary technical service MerxoDev Solutions delivered for your project.
                 </p>
+
+                {/* Dynamic input field when 'Others' is selected */}
+                {tag === 'Others' && (
+                  <div className="pt-2 space-y-1.5 transition-all duration-200">
+                    <label className="block text-xs font-bold text-violet-600 dark:text-cyan-400 uppercase tracking-wider">
+                      Specify Custom Service Category <span className="text-rose-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <FiTag className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={15} />
+                      <input
+                        type="text"
+                        required
+                        value={customTag}
+                        onChange={(e) => setCustomTag(e.target.value)}
+                        placeholder="e.g. AI Workflow Integration, DevOps Cloud Architecture, etc."
+                        className="w-full pl-10 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-violet-300 dark:border-violet-700/60 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all shadow-sm"
+                      />
+                    </div>
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                      Type the exact name or type of service provided.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Client Role & Company Grid */}
@@ -405,7 +437,7 @@ function WriteReviewContent() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  disabled={submitting || comment.trim().length < 5}
+                  disabled={submitting || comment.trim().length < 5 || (tag === 'Others' && !customTag.trim())}
                   className="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm shadow-xl shadow-violet-500/25 hover:shadow-cyan-500/30 hover:scale-[1.01] active:scale-98 disabled:opacity-50 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {submitting ? (
