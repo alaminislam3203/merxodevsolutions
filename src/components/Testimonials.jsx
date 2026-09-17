@@ -10,17 +10,10 @@ import {
   FaStar,
   FaQuoteLeft,
   FaCheckCircle,
-  FaArrowLeft,
-  FaArrowRight,
   FaPenNib,
-  FaTimes,
-  FaUserCircle,
-  FaLock,
-  FaSignInAlt,
-  FaUserPlus,
   FaMapMarkerAlt,
 } from 'react-icons/fa';
-import { BsStars, BsShieldCheck } from 'react-icons/bs';
+import { BsStars } from 'react-icons/bs';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
 import '@/components/i18n';
 
@@ -44,20 +37,7 @@ export default function Testimonials() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
-  // Modal State
-  const [showModal, setShowModal] = useState(false);
 
-  // Review Form Inputs
-  const [rating, setRating] = useState(5);
-  const [hoverRating, setHoverRating] = useState(0);
-  const [userRole, setUserRole] = useState('');
-  const [company, setCompany] = useState('');
-  const [location, setLocation] = useState('');
-  const [tag, setTag] = useState('Web Development');
-  const [comment, setComment] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
 
   // Fetch approved reviews from API
   const fetchReviews = async () => {
@@ -75,6 +55,31 @@ export default function Testimonials() {
 
   useEffect(() => {
     fetchReviews();
+  }, []);
+
+  // Smooth scroll to testimonials section when arriving via ?scroll=testimonials or #testimonials
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleScrollTarget = () => {
+      const hash = window.location.hash;
+      const params = new URLSearchParams(window.location.search);
+      if (hash === '#testimonials' || params.get('scroll') === 'testimonials') {
+        setTimeout(() => {
+          const el = document.getElementById('testimonials');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Clean up hash/query param so address bar displays clean URL
+            if (window.history.replaceState) {
+              const cleanUrl = window.location.pathname;
+              window.history.replaceState({}, document.title, cleanUrl);
+            }
+          }
+        }, 250);
+      }
+    };
+
+    handleScrollTarget();
   }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -118,54 +123,7 @@ export default function Testimonials() {
     emblaApi.on('reInit', onSelect);
   }, [emblaApi, onSelect, reviews]);
 
-  const handleOpenReviewModal = () => {
-    setSubmitSuccess(false);
-    setSubmitError('');
-    setShowModal(true);
-  };
 
-  // Submit Review (Waiting for Admin Approval)
-  const handleSubmitReview = async (e) => {
-    e.preventDefault();
-    if (!comment.trim()) return;
-
-    setSubmitting(true);
-    setSubmitError('');
-
-    try {
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          rating,
-          userRole: userRole.trim() || 'Client',
-          company: company.trim(),
-          location: location.trim() || 'Dhaka, Bangladesh',
-          tag,
-          comment: comment.trim(),
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        setSubmitError(data.error || 'Failed to submit review.');
-        setSubmitting(false);
-        return;
-      }
-
-      setSubmitSuccess(true);
-      setComment('');
-      setUserRole('');
-      setCompany('');
-      setLocation('');
-      setRating(5);
-    } catch (err) {
-      console.error('Error submitting review:', err);
-      setSubmitError('Network error. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <section
@@ -229,14 +187,14 @@ export default function Testimonials() {
               </span>
             </div>
 
-            <button
+            <Link
               id="write-review-btn"
-              onClick={handleOpenReviewModal}
+              href={session?.user ? '/write-review' : '/account/login?redirect=/write-review'}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <FaPenNib size={13} />
               <span>{t('testimonials.writeReview') || 'Write a Review'}</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -353,252 +311,6 @@ export default function Testimonials() {
           </div>
         </div>
       </div>
-
-      {/* ─── User Review Submission / Auth Modal ─── */}
-      {showModal && (
-        <div className="fixed inset-0 z-[999] bg-black/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="w-full max-w-lg bg-white dark:bg-[#091124] rounded-3xl p-6 sm:p-7 border border-violet-200/80 dark:border-blue-900/60 shadow-2xl shadow-blue-950/40 space-y-4">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3.5">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-cyan-400 flex items-center justify-center shadow-xs">
-                  <FaPenNib size={14} />
-                </div>
-                <div>
-                  <h3 className="text-base font-extrabold text-zinc-900 dark:text-white">
-                    {session
-                      ? (t('testimonials.modalTitleLoggedIn') || 'Write a Client Review')
-                      : (t('testimonials.modalTitleLoggedOut') || 'Authentication Required')}
-                  </h3>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                    {session
-                      ? (t('testimonials.modalSubtitleLoggedIn') || 'Your feedback will be published after admin verification')
-                      : (t('testimonials.modalSubtitleLoggedOut') || 'Please sign in or register to submit your review')}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-white p-1 rounded-lg"
-              >
-                <FaTimes size={16} />
-              </button>
-            </div>
-
-            {/* SCENARIO A: User is logged in -> Show Review Form */}
-            {session ? (
-              submitSuccess ? (
-                <div className="py-6 text-center space-y-3">
-                  <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl shadow-md animate-bounce">
-                    <FaCheckCircle />
-                  </div>
-                  <h4 className="text-base font-bold text-zinc-900 dark:text-white">
-                    {t('testimonials.thankYou') || 'Thank You'}, {session.user?.name || 'Client'}!
-                  </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-300 max-w-xs mx-auto leading-relaxed">
-                    {t('testimonials.successMsg') || 'Your review has been submitted successfully! Our engineering admin team will verify and approve it shortly.'}
-                  </p>
-                  <button
-                    onClick={() => setShowModal(false)}
-                    className="mt-3 px-6 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold shadow-md hover:opacity-95 cursor-pointer"
-                  >
-                    {t('testimonials.doneBtn') || 'Done'}
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmitReview} className="space-y-3.5 text-xs sm:text-sm">
-                  {/* Logged in User Bar */}
-                  <div className="flex items-center gap-3 p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-900/50">
-                    {session.user?.image ? (
-                      <img
-                        src={session.user.image}
-                        alt={session.user.name || 'User'}
-                        className="w-10 h-10 rounded-xl object-cover border border-violet-300 dark:border-violet-700 shrink-0"
-                      />
-                    ) : (
-                      <FaUserCircle className="text-violet-600 dark:text-cyan-400 text-2xl shrink-0" />
-                    )}
-                    <div className="flex-1 min-w-0 text-xs">
-                      <p className="font-bold text-zinc-900 dark:text-white truncate">
-                        {t('testimonials.postingAs') || 'Posting as:'} {session.user?.name}
-                      </p>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">
-                        {session.user?.email}
-                      </p>
-                    </div>
-                    <BsShieldCheck className="text-emerald-500 text-base shrink-0" title="Verified Account" />
-                  </div>
-
-                  {/* 5-Star Interactive Rating Picker */}
-                  <div>
-                    <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1.5">
-                      {t('testimonials.yourRating') || 'Your Rating (Stars) *'}
-                    </label>
-                    <div className="flex items-center gap-2">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => setRating(star)}
-                          onMouseEnter={() => setHoverRating(star)}
-                          onMouseLeave={() => setHoverRating(0)}
-                          className="p-1 transition-transform hover:scale-125 focus:outline-none cursor-pointer"
-                        >
-                          <FaStar
-                            size={22}
-                            className={`${star <= (hoverRating || rating)
-                              ? 'text-amber-400 drop-shadow-md'
-                              : 'text-zinc-300 dark:text-zinc-700'
-                              } transition-colors`}
-                          />
-                        </button>
-                      ))}
-                      <span className="text-xs font-bold text-amber-500 ml-1">
-                        {rating} / {t('testimonials.starsLabel') || '5 Stars'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Role & Company Inputs */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.yourRole') || 'Your Role / Position'}
-                      </label>
-                      <input
-                        type="text"
-                        value={userRole}
-                        onChange={(e) => setUserRole(e.target.value)}
-                        placeholder={t('testimonials.rolePlaceholder') || 'e.g. Founder, Manager'}
-                        className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.company') || 'Company / Business'}
-                      </label>
-                      <input
-                        type="text"
-                        value={company}
-                        onChange={(e) => setCompany(e.target.value)}
-                        placeholder={t('testimonials.companyPlaceholder') || 'e.g. Tech BD Ltd'}
-                        className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Tag & Location Inputs */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.serviceCategory') || 'Service Category'}
-                      </label>
-                      <select
-                        value={tag}
-                        onChange={(e) => setTag(e.target.value)}
-                        className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
-                      >
-                        <option value="Web Development">{t('testimonials.catWebDev') || 'Web Development'}</option>
-                        <option value="E-Commerce Solutions">{t('testimonials.catEcommerce') || 'E-Commerce Solutions'}</option>
-                        <option value="SaaS Web Application">{t('testimonials.catSaas') || 'SaaS Web Application'}</option>
-                        <option value="UI/UX Design">{t('testimonials.catUiux') || 'UI/UX Design'}</option>
-                        <option value="Payment Gateway">{t('testimonials.catPayment') || 'Payment Gateway'}</option>
-                        <option value="SEO & Growth">{t('testimonials.catSeo') || 'SEO & Growth'}</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.location') || 'Location / City'}
-                      </label>
-                      <input
-                        type="text"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        placeholder={t('testimonials.locationPlaceholder') || 'e.g. Dhaka, Bangladesh'}
-                        className="w-full p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Comment Textarea */}
-                  <div>
-                    <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                      {t('testimonials.yourFeedback') || 'Your Feedback / Review *'}
-                    </label>
-                    <textarea
-                      required
-                      rows={3}
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      placeholder={t('testimonials.feedbackPlaceholder') || 'Share your experience working with MerxoDev Solutions...'}
-                      className="w-full p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500 resize-none"
-                    />
-                  </div>
-
-                  {submitError && (
-                    <p className="text-xs font-bold text-red-500 text-center">{submitError}</p>
-                  )}
-
-                  {/* Submit Button */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={submitting || !comment.trim()}
-                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
-                    >
-                      {submitting
-                        ? (t('testimonials.submitting') || 'Submitting Review...')
-                        : (t('testimonials.submitBtn') || 'Submit Review For Approval')}
-                    </button>
-                  </div>
-                </form>
-              )
-            ) : (
-              /* SCENARIO B: User is NOT logged in -> Link to current login & register pages */
-              <div className="py-6 px-2 text-center space-y-5">
-                <div className="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-br from-violet-600/15 via-indigo-600/10 to-cyan-500/15 border border-violet-500/20 text-violet-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-inner">
-                  <FaLock />
-                </div>
-
-                <div className="space-y-1.5 max-w-sm mx-auto">
-                  <h4 className="text-lg font-bold text-zinc-900 dark:text-white">
-                    {t('testimonials.authRequiredTitle') || 'Sign In to Leave a Review'}
-                  </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                    {t('testimonials.authRequiredDesc') ||
-                      'To submit a verified client review for MerxoDev Solutions, please log in with your existing account or create a new account.'}
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 pt-2 max-w-md mx-auto">
-                  <Link
-                    href="/account/login?redirect=/#testimonials"
-                    onClick={() => setShowModal(false)}
-                    className="flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <FaSignInAlt size={14} />
-                    <span>{t('testimonials.signInBtn') || 'Log In to Account'}</span>
-                  </Link>
-
-                  <Link
-                    href="/account/register?redirect=/#testimonials"
-                    onClick={() => setShowModal(false)}
-                    className="flex-1 py-3 px-5 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <FaUserPlus size={14} />
-                    <span>{t('testimonials.registerBtn') || 'Create New Account'}</span>
-                  </Link>
-                </div>
-
-                <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-zinc-400 dark:text-zinc-500">
-                  <BsShieldCheck className="text-emerald-500 text-sm" />
-                  <span>Verified client feedback • Quick 30-second sign up</span>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </section>
   );
 }

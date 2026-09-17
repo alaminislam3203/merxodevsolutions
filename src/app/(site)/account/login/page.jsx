@@ -57,7 +57,11 @@ function LoginForm() {
           }
         } catch { }
 
-        window.location.href = redirectUrl;
+        let targetUrl = redirectUrl;
+        if (targetUrl === '/#testimonials' || targetUrl === '#testimonials') {
+          targetUrl = '/?scroll=testimonials';
+        }
+        window.location.href = targetUrl;
       }
     } catch (err) {
       setError(err?.message || 'Authentication failed. Please try again.');

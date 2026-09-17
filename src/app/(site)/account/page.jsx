@@ -787,13 +787,21 @@ function AccountContent() {
                         Client feedback submitted for completed engineering projects.
                       </p>
                     </div>
-                    <Link
-                      href="/#testimonials"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-zinc-900 text-xs font-bold font-raleway uppercase shadow-md hover:scale-105 transition-all"
-                    >
-                      <FiStar size={14} />
-                      <span>View Public Showcase</span>
-                    </Link>
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <Link
+                        href="/write-review"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-raleway shadow-md hover:scale-105 transition-all"
+                      >
+                        <FiStar size={14} />
+                        <span>Write a Review</span>
+                      </Link>
+                      <Link
+                        href="/?scroll=testimonials"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold font-raleway hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all"
+                      >
+                        <span>View Showcase</span>
+                      </Link>
+                    </div>
                   </div>
 
                   {userData?.reviews?.length > 0 ? (
