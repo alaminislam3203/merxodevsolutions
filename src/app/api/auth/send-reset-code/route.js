@@ -46,9 +46,9 @@ export async function POST(request) {
 
     const admin = !user
       ? await prisma.admin.findUnique({
-          where: { email: emailTrimmed },
-          select: { id: true, name: true, email: true },
-        })
+        where: { email: emailTrimmed },
+        select: { id: true, name: true, email: true },
+      })
       : null;
 
     if (!user && !admin) {
@@ -62,7 +62,7 @@ export async function POST(request) {
 
     // Generate 6-digit random code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes expiry
 
     // Remove any previous unused reset tokens for this email
     await prisma.passwordResetToken.deleteMany({
@@ -99,7 +99,7 @@ export async function POST(request) {
       <body style="margin: 0; padding: 0; background-color: #060b19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #ffffff;">
         <div style="max-width: 560px; margin: 30px auto; padding: 32px 24px; background: #0c1328; border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
           <div style="text-align: center; margin-bottom: 24px;">
-            <h1 style="margin: 0; font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #7c3aed, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            <h1 style="margin: 0; font-size: 24px; font-weight: 800;">
               MerxoDev Solutions
             </h1>
             <p style="margin: 6px 0 0 0; font-size: 12px; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase;">
@@ -120,7 +120,7 @@ export async function POST(request) {
                 ${code}
               </div>
               <p style="margin: 10px 0 0 0; font-size: 12px; color: #f59e0b;">
-                ⚠️ This code will expire in <strong>10 minutes</strong>.
+                ⚠️ This code will expire in <strong>2 minutes</strong>.
               </p>
             </div>
 
@@ -131,7 +131,7 @@ export async function POST(request) {
 
           <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 18px; font-size: 11px; color: #64748b;">
             <p style="margin: 0 0 6px 0;">© ${new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</p>
-            <p style="margin: 0;">Dhaka, Bangladesh • <a href="https://merxodev.com" style="color: #38bdf8; text-decoration: none;">merxodev.com</a></p>
+            <p style="margin: 0;">Nilphamari Sadar,Rangpur, Bangladesh • <a href="https://merxodevsolutions.pro.bd/" style="color: #38bdf8; text-decoration: none;">merxodevsolutions.pro.bd</a></p>
           </div>
         </div>
       </body>
@@ -143,7 +143,7 @@ export async function POST(request) {
       to: emailTrimmed,
       subject: `${code} is your MerxoDev password reset verification code`,
       html: emailHtml,
-      text: `Hello ${recipientName},\n\nYour MerxoDev password reset code is: ${code}\n\nThis code will expire in 10 minutes.\n\nIf you did not request this, please ignore this email.`,
+      text: `Hello ${recipientName},\n\nYour MerxoDev password reset code is: ${code}\n\nThis code will expire in 2 minutes.\n\nIf you did not request this, please ignore this email.`,
     });
 
     return NextResponse.json({

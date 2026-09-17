@@ -265,7 +265,7 @@ function ForgotPasswordContent() {
                         type="email"
                         required
                         disabled={sendingCode || (codeSent && resendCooldown > 40)}
-                        placeholder="client@example.com"
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway disabled:opacity-70"
@@ -276,7 +276,7 @@ function ForgotPasswordContent() {
                       type="button"
                       onClick={handleSendCode}
                       disabled={sendingCode || resendCooldown > 0 || !email.trim()}
-                      className="px-4 py-3.5 rounded-2xl bg-violet-100 hover:bg-violet-200 dark:bg-violet-950/70 dark:hover:bg-violet-900/80 text-violet-700 dark:text-cyan-400 border border-violet-200 dark:border-violet-800/80 font-bold text-xs font-raleway transition-all shrink-0 disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5"
+                      className="px-4 py-3.5 rounded-2xl bg-violet-100 hover:bg-violet-200 dark:bg-violet-950/70 dark:hover:bg-violet-900/80 text-violet-700 dark:text-cyan-400 border border-violet-200 dark:border-violet-800/80 font-bold text-xs font-raleway transition-all shrink-0 disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5 uppercase"
                     >
                       {sendingCode ? (
                         <>
@@ -292,7 +292,7 @@ function ForgotPasswordContent() {
                         </>
                       ) : (
                         <>
-                          <FiKey size={13} />
+
                           <span>Send Code</span>
                         </>
                       )}
@@ -313,7 +313,7 @@ function ForgotPasswordContent() {
                         6-Digit Verification Code <span className="text-rose-500">*</span>
                       </label>
                       <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
-                        Valid 10 Mins
+                        Valid 2 Mins
                       </span>
                     </div>
                     <div className="relative">
