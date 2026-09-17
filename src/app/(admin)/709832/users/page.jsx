@@ -62,10 +62,10 @@ export default function UsersManagementPage() {
         setUsers(data.users || []);
         setStats(data.stats || {});
       } else {
-        toast.error(data.error || "Failed to load users");
+        showToast.error(data.error || "Failed to load users");
       }
     } catch (err) {
-      toast.error("Network error while loading users");
+      showToast.error("Network error while loading users");
     } finally {
       setLoading(false);
     }

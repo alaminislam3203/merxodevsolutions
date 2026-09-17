@@ -14,8 +14,11 @@ export async function requireAdmin() {
     };
   }
 
-  // If role is explicitly set to non-admin, deny access
-  if (session.user.role && session.user.role !== "ADMIN") {
+  const emailLower = String(session.user.email || "").toLowerCase().trim();
+  const isOwner = emailLower === "merxodevsolutions@gmail.com";
+
+  // If role is explicitly set to non-admin and not owner, deny access
+  if (!isOwner && session.user.role && session.user.role !== "ADMIN") {
     return {
       authorized: false,
       response: NextResponse.json({ error: "Forbidden" }, { status: 403 }),
