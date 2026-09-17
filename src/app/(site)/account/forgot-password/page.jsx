@@ -195,7 +195,7 @@ function ForgotPasswordContent() {
       </div>
 
       {/* ── Right Reset Password Panel (Matching Login Page Structure) ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
         <div className="w-full max-w-md">
           {/* Header Title */}
           <div className="mb-8">
