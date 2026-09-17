@@ -23,6 +23,7 @@ export async function GET() {
         email: true,
         image: true,
         role: true,
+        twoFactorEnabled: true,
         createdAt: true,
         reviews: {
           orderBy: { createdAt: 'desc' },
@@ -51,6 +52,7 @@ export async function GET() {
           name: true,
           email: true,
           image: true,
+          twoFactorEnabled: true,
           createdAt: true,
         },
       });

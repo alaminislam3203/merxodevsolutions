@@ -405,6 +405,245 @@ function ChangePasswordModal({ onClose }) {
   );
 }
 
+// ─── Two-Factor Authentication Modal ─────────────────────────────────────────
+function TwoFactorModal({ user, onClose, onSuccess }) {
+  const [digits, setDigits] = useState(['', '', '', '', '', '']);
+  const [loading, setLoading] = useState(false);
+  const [sendingCode, setSendingCode] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(120);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const inputsRef = useRef([]);
+
+  useEffect(() => {
+    handleSendCode();
+  }, []);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const interval = setInterval(() => {
+      setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [resendCooldown]);
+
+  const handleSendCode = async () => {
+    setError('');
+    setSendingCode(true);
+    try {
+      const res = await fetch('/api/account/2fa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'send-setup-code' }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send verification code');
+      setResendCooldown(120);
+      setTimeout(() => inputsRef.current[0]?.focus(), 100);
+    } catch (err) {
+      setError(err?.message || 'Error sending code');
+    } finally {
+      setSendingCode(false);
+    }
+  };
+
+  const handleVerify = async (codeToVerify) => {
+    const code = codeToVerify || digits.join('');
+    if (code.length !== 6) {
+      setError('Please enter all 6 digits of the code.');
+      return;
+    }
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/account/2fa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify-enable', code }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Invalid or expired code');
+      setSuccess('Two-Factor Authentication is now enabled!');
+      setTimeout(() => {
+        onSuccess();
+        onClose();
+      }, 1000);
+    } catch (err) {
+      setError(err?.message || 'Verification failed');
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (index, value) => {
+    const cleaned = value.replace(/\D/g, '');
+    if (!cleaned) {
+      const next = [...digits];
+      next[index] = '';
+      setDigits(next);
+      return;
+    }
+    if (cleaned.length > 1) {
+      handlePasted(cleaned);
+      return;
+    }
+    const next = [...digits];
+    next[index] = cleaned[0];
+    setDigits(next);
+    setError('');
+    if (index < 5) {
+      inputsRef.current[index + 1]?.focus();
+    }
+    if (next.join('').length === 6) {
+      handleVerify(next.join(''));
+    }
+  };
+
+  const handlePasted = (raw) => {
+    const cleaned = raw.replace(/\D/g, '').slice(0, 6);
+    if (!cleaned) return;
+    const next = [...digits];
+    for (let i = 0; i < 6; i++) {
+      if (cleaned[i]) next[i] = cleaned[i];
+    }
+    setDigits(next);
+    setError('');
+    const focusIndex = Math.min(cleaned.length, 5);
+    inputsRef.current[focusIndex]?.focus();
+    if (cleaned.length === 6) {
+      handleVerify(cleaned);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text');
+    handlePasted(pasted);
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !digits[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    } else if (e.key === 'ArrowLeft' && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    } else if (e.key === 'ArrowRight' && index < 5) {
+      inputsRef.current[index + 1]?.focus();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+      <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer"
+        >
+          <FiX size={20} />
+        </button>
+
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-cyan-400 flex items-center justify-center text-xl">
+            <FiShield />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white font-raleway">
+              Enable 2FA Protection
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway">
+              Email-based Two-Factor Authentication
+            </p>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-raleway flex items-center gap-2">
+            <FiAlertCircle size={15} className="shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        {success ? (
+          <div className="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-center space-y-3">
+            <FiCheckCircle size={36} className="text-emerald-500 mx-auto" />
+            <h4 className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+              {success}
+            </h4>
+            <p className="text-xs text-zinc-500 font-raleway">
+              Your account is now secured with two-factor authentication.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <p className="text-xs text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              We sent a 6-digit confirmation code to <strong className="text-zinc-900 dark:text-white font-mono">{user?.email}</strong>. Enter it below to enable 2FA:
+            </p>
+
+            {/* 6 Square OTP Boxes */}
+            <div className="flex items-center justify-between gap-2" onPaste={handlePaste}>
+              {digits.map((digit, i) => (
+                <input
+                  key={i}
+                  ref={(el) => (inputsRef.current[i] = el)}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={digit}
+                  disabled={loading}
+                  onChange={(e) => handleChange(i, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(i, e)}
+                  className={`w-11 h-13 sm:w-13 sm:h-14 text-center text-xl font-mono font-bold rounded-xl border transition-all ${
+                    digit
+                      ? 'border-violet-500 dark:border-cyan-400 bg-violet-50/50 dark:bg-violet-950/30 text-violet-700 dark:text-white'
+                      : 'border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white'
+                  } focus:outline-none focus:ring-2 focus:ring-violet-500/50`}
+                />
+              ))}
+            </div>
+
+            <p className="text-[11px] text-zinc-400 text-center font-raleway">
+              Paste or type 6 digits. Auto-verifies upon 6th digit.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => handleVerify()}
+              disabled={loading || digits.join('').length !== 6}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider font-raleway shadow-md disabled:opacity-50 transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <span className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                  <span>Verifying...</span>
+                </>
+              ) : (
+                <>
+                  <span>Activate 2FA</span>
+                  <FiCheck size={14} />
+                </>
+              )}
+            </button>
+
+            <div className="pt-2 flex items-center justify-between text-xs font-raleway border-t border-zinc-100 dark:border-zinc-800">
+              <span className="text-zinc-500">Didn't receive code?</span>
+              {resendCooldown > 0 ? (
+                <span className="text-zinc-400 font-mono">Resend in {resendCooldown}s</span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleSendCode}
+                  disabled={sendingCode}
+                  className="text-violet-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer disabled:opacity-50"
+                >
+                  {sendingCode ? 'Sending...' : 'Resend Code'}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Account Component ──────────────────────────────────────────────────
 function AccountContent() {
   const router = useRouter();
@@ -418,6 +657,28 @@ function AccountContent() {
   const [loading, setLoading] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [twoFactorModalOpen, setTwoFactorModalOpen] = useState(false);
+  const [disabling2FA, setDisabling2FA] = useState(false);
+
+  // Handle disabling 2FA
+  const handleDisable2FA = async () => {
+    if (!confirm('Are you sure you want to disable Two-Factor Authentication? Your account will be less secure.')) return;
+    setDisabling2FA(true);
+    try {
+      const res = await fetch('/api/account/2fa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'disable' }),
+      });
+      if (res.ok) {
+        setUserData((prev) => ({ ...(prev || {}), twoFactorEnabled: false }));
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setDisabling2FA(false);
+    }
+  };
 
   // Fetch full user profile
   useEffect(() => {
@@ -881,18 +1142,50 @@ function AccountContent() {
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800">
-                      <div>
-                        <h4 className="text-sm font-bold font-raleway text-zinc-900 dark:text-white">
-                          Two-Factor Authentication (2FA)
-                        </h4>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800 gap-3">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2.5">
+                          <h4 className="text-sm font-bold font-raleway text-zinc-900 dark:text-white">
+                            Two-Factor Authentication (2FA)
+                          </h4>
+                          {userData?.twoFactorEnabled ? (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold font-raleway uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              Active
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold font-raleway uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                              Inactive
+                            </span>
+                          )}
+                        </div>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway">
-                          High security login verification for enterprise accounts.
+                          {userData?.twoFactorEnabled
+                            ? 'Every login requires a 6-digit OTP code sent to your email.'
+                            : 'Require a 6-digit email code upon every login for enhanced security.'}
                         </p>
                       </div>
-                      <span className="text-xs font-bold text-zinc-400 font-raleway">
-                        Available on Request
-                      </span>
+
+                      <div>
+                        {userData?.twoFactorEnabled ? (
+                          <button
+                            type="button"
+                            onClick={handleDisable2FA}
+                            disabled={disabling2FA}
+                            className="px-4 py-2 rounded-xl border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-xs font-bold font-raleway uppercase transition-all cursor-pointer disabled:opacity-50"
+                          >
+                            {disabling2FA ? 'Disabling...' : 'Disable 2FA'}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setTwoFactorModalOpen(true)}
+                            className="px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold font-raleway uppercase shadow-md hover:scale-105 transition-all cursor-pointer"
+                          >
+                            Enable 2FA
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -940,6 +1233,16 @@ function AccountContent() {
 
       {passwordModalOpen && (
         <ChangePasswordModal onClose={() => setPasswordModalOpen(false)} />
+      )}
+
+      {twoFactorModalOpen && (
+        <TwoFactorModal
+          user={currentUser}
+          onClose={() => setTwoFactorModalOpen(false)}
+          onSuccess={() => {
+            setUserData((prev) => ({ ...(prev || {}), twoFactorEnabled: true }));
+          }}
+        />
       )}
     </div>
   );

@@ -24,12 +24,13 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-09-17-v3";
+const SCHEMA_VERSION = "2026-09-17-v4";
 
 const prisma =
   globalForPrisma.prisma &&
   globalForPrisma.prisma._schemaVersion === SCHEMA_VERSION &&
-  Boolean(globalForPrisma.prisma.passwordResetToken)
+  Boolean(globalForPrisma.prisma.passwordResetToken) &&
+  Boolean(globalForPrisma.prisma.twoFactorToken)
     ? globalForPrisma.prisma
     : (() => {
         const client = createPrismaClient();

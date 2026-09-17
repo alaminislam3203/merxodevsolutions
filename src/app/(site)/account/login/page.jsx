@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
@@ -15,6 +15,8 @@ import {
   FiLayers,
   FiHome,
   FiShield,
+  FiKey,
+  FiRotateCw,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
 
@@ -29,43 +31,195 @@ function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // 2FA States
+  const [is2FAStep, setIs2FAStep] = useState(false);
+  const [digits, setDigits] = useState(['', '', '', '', '', '']);
+  const [verifying2FA, setVerifying2FA] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(120);
+  const [resending, setResending] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
+  const inputsRef = useRef([]);
+
+  // 2FA Cooldown Timer
+  useEffect(() => {
+    if (!is2FAStep || resendCooldown <= 0) return;
+    const interval = setInterval(() => {
+      setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [is2FAStep, resendCooldown]);
+
+  const executeSignIn = async (twoFactorCode = null) => {
+    const credentials = {
+      email: formData.email.trim().toLowerCase(),
+      password: formData.password,
+      redirect: false,
+    };
+    if (twoFactorCode) {
+      credentials.twoFactorCode = twoFactorCode;
+    }
+
+    const res = await signIn('credentials', credentials);
+    if (res?.error) {
+      setError(twoFactorCode ? 'Invalid or expired 2FA code. Please try again.' : 'Invalid email or password.');
+      setLoading(false);
+      setVerifying2FA(false);
+      return;
+    }
+
+    // Fetch profile to see if user is ADMIN to redirect appropriately
+    try {
+      const profileRes = await fetch('/api/account/profile');
+      if (profileRes.ok) {
+        const data = await profileRes.json();
+        if (data?.isAdmin && (redirectUrl === '/account' || redirectUrl === '/admin')) {
+          window.location.href = '/709832';
+          return;
+        }
+      }
+    } catch { }
+
+    let targetUrl = redirectUrl;
+    if (targetUrl === '/#testimonials' || targetUrl === '#testimonials') {
+      targetUrl = '/?scroll=testimonials';
+    }
+    window.location.href = targetUrl;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setInfoMessage('');
 
     try {
-      const res = await signIn('credentials', {
-        email: formData.email.trim().toLowerCase(),
-        password: formData.password,
-        redirect: false,
+      // Pre-flight check: see if account has 2FA enabled
+      const checkRes = await fetch('/api/auth/2fa/login-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email.trim().toLowerCase(),
+          password: formData.password,
+        }),
       });
 
-      if (res?.error) {
-        setError('Invalid email or password. Please verify your credentials.');
-        setLoading(false);
-      } else {
-        // Fetch profile to see if user is ADMIN to redirect appropriately
-        try {
-          const profileRes = await fetch('/api/account/profile');
-          if (profileRes.ok) {
-            const data = await profileRes.json();
-            if (data?.isAdmin && (redirectUrl === '/account' || redirectUrl === '/admin')) {
-              window.location.href = '/709832';
-              return;
-            }
-          }
-        } catch { }
-
-        let targetUrl = redirectUrl;
-        if (targetUrl === '/#testimonials' || targetUrl === '#testimonials') {
-          targetUrl = '/?scroll=testimonials';
-        }
-        window.location.href = targetUrl;
+      const checkData = await checkRes.json();
+      if (!checkRes.ok) {
+        throw new Error(checkData.error || 'Invalid email or password. Please verify your credentials.');
       }
+
+      // If account requires 2FA, switch to OTP verification step
+      if (checkData.requires2FA) {
+        setIs2FAStep(true);
+        setResendCooldown(120);
+        setInfoMessage('A 6-digit security code was sent to your email.');
+        setLoading(false);
+        setTimeout(() => inputsRef.current[0]?.focus(), 100);
+        return;
+      }
+
+      // Normal sign-in without 2FA
+      await executeSignIn();
     } catch (err) {
       setError(err?.message || 'Authentication failed. Please try again.');
       setLoading(false);
+    }
+  };
+
+  // 2FA Verification Handler
+  const handleVerify2FA = async (codeToVerify) => {
+    const code = codeToVerify || digits.join('');
+    if (code.length !== 6) {
+      setError('Please enter all 6 digits of the verification code.');
+      return;
+    }
+
+    setError('');
+    setVerifying2FA(true);
+    await executeSignIn(code);
+  };
+
+  const handleDigitChange = (index, value) => {
+    const cleaned = value.replace(/\D/g, '');
+    if (!cleaned) {
+      const next = [...digits];
+      next[index] = '';
+      setDigits(next);
+      return;
+    }
+
+    if (cleaned.length > 1) {
+      handlePastedCode(cleaned);
+      return;
+    }
+
+    const next = [...digits];
+    next[index] = cleaned[0];
+    setDigits(next);
+    setError('');
+
+    if (index < 5) {
+      inputsRef.current[index + 1]?.focus();
+    }
+
+    if (next.join('').length === 6) {
+      handleVerify2FA(next.join(''));
+    }
+  };
+
+  const handlePastedCode = (raw) => {
+    const cleaned = raw.replace(/\D/g, '').slice(0, 6);
+    if (!cleaned) return;
+    const next = [...digits];
+    for (let i = 0; i < 6; i++) {
+      if (cleaned[i]) next[i] = cleaned[i];
+    }
+    setDigits(next);
+    setError('');
+    const focusIdx = Math.min(cleaned.length, 5);
+    inputsRef.current[focusIdx]?.focus();
+
+    if (cleaned.length === 6) {
+      handleVerify2FA(cleaned);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text');
+    handlePastedCode(pasted);
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !digits[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    } else if (e.key === 'ArrowLeft' && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    } else if (e.key === 'ArrowRight' && index < 5) {
+      inputsRef.current[index + 1]?.focus();
+    }
+  };
+
+  const handleResend2FA = async () => {
+    if (resendCooldown > 0 || resending) return;
+    setError('');
+    setResending(true);
+    try {
+      const res = await fetch('/api/auth/2fa/resend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email.trim().toLowerCase() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to resend code.');
+      setInfoMessage('A fresh 2FA security code has been sent to your email.');
+      setResendCooldown(120);
+      setDigits(['', '', '', '', '', '']);
+      setTimeout(() => inputsRef.current[0]?.focus(), 100);
+    } catch (err) {
+      setError(err?.message || 'Failed to resend code.');
+    } finally {
+      setResending(false);
     }
   };
 
@@ -78,45 +232,30 @@ function LoginForm() {
         <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-cyan-500/15 blur-[120px] pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
-        {/* Top Branding */}
-        {/* <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="inline-block transition-transform hover:scale-105">
-            <Logo />
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-raleway text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
-          >
-            <FiHome size={14} />
-            <span>Back to Home</span>
-          </Link>
-        </div> */}
-
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-raleway uppercase tracking-widest shadow-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Enterprise Web & Software Platform</span>
+            <FiShield className="text-violet-400" />
+            <span>MerxoDev Security & Client Portal</span>
           </div>
 
-          <h1 className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5">
-            We Build Your{' '}
-            <span className="text-orange-500">DREAM</span>{' '}
-            <span className="bg-gradient-to-r from-orange-400 via-white to-[#84cc16] bg-clip-text text-transparent">
-              Project
+          <h1 className="text-4xl xl:text-5xl font-extrabold font-display uppercase tracking-tight text-white leading-[1.15] mb-6">
+            Your Dedicated{' '}
+            <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
+              Client Portal
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base leading-relaxed font-raleway mb-10">
-            Sign in to access your client dashboard, track custom software blueprints, monitor project delivery milestones, and manage verified reviews.
+          <p className="text-zinc-400 text-base font-raleway leading-relaxed mb-8">
+            Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.
           </p>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-4">
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
             {[
-              { value: '50+', label: 'Delivered Projects', color: 'from-violet-500 to-indigo-500' },
-              { value: '99.9%', label: 'Uptime SLA', color: 'from-cyan-400 to-blue-500' },
-              { value: '5.0★', label: 'Client Rating', color: 'from-amber-400 to-orange-500' },
+              { value: '2FA', label: 'Security OTP', color: 'from-violet-400 to-indigo-400' },
+              { value: '100%', label: 'Cloud Access', color: 'from-cyan-400 to-teal-400' },
+              { value: '24/7', label: 'Live Monitoring', color: 'from-amber-400 to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -143,37 +282,34 @@ function LoginForm() {
         </div>
       </div>
 
-      {/* ── Right Login Panel ── */}
+      {/* ── Right Form Panel ── */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
-          {/* Mobile Logo Header */}
-          {/* <div className="lg:hidden flex items-center justify-between mb-8">
-            <Link href="/">
-              <Logo />
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold font-raleway text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
-            >
-              <FiHome size={13} />
-              <span>Home</span>
-            </Link>
-          </div> */}
-
+          {/* Header */}
           <div className="mb-8">
             <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
-              Welcome Back
+              {is2FAStep ? 'Two-Factor Verification' : 'Welcome Back'}
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
-              Sign in to manage your client projects and account.
+              {is2FAStep
+                ? `Enter the 6-digit security code sent to ${formData.email}.`
+                : 'Sign in to manage your client projects and account.'}
             </p>
           </div>
 
           {/* Registration Success Banner */}
-          {isRegistered && !error && (
+          {isRegistered && !error && !is2FAStep && (
             <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
               <FiCheckCircle size={18} className="text-emerald-500 shrink-0" />
               <span>Account created successfully! Please sign in with your email and password.</span>
+            </div>
+          )}
+
+          {/* Info Notice */}
+          {infoMessage && (
+            <div className="mb-6 p-4 rounded-2xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/80 text-cyan-800 dark:text-cyan-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
+              <FiShield size={18} className="text-cyan-500 shrink-0" />
+              <span>{infoMessage}</span>
             </div>
           )}
 
@@ -185,95 +321,198 @@ function LoginForm() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email Field */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
-                Email Address
-              </label>
-              <div className="relative">
-                <FiMail size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter Your Email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
-                />
-              </div>
-            </div>
+          {/* ── Conditional View: Step 1 Password OR Step 2 2FA ── */}
+          {is2FAStep ? (
+            /* 2FA Verification Form */
+            <div className="space-y-6 animate-fade-in">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                    6-Digit Security Code <span className="text-rose-500">*</span>
+                  </label>
+                  <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
+                    Valid 2 Mins
+                  </span>
+                </div>
 
-            {/* Password Field */}
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
-                  Password
-                </label>
-                <Link
-                  href="/account/forgot-password"
-                  className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-raleway"
-                >
-                  Forgot password?
-                </Link>
+                {/* 6 Square OTP Boxes */}
+                <div className="flex items-center justify-between gap-2 sm:gap-3" onPaste={handlePaste}>
+                  {digits.map((digit, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => (inputsRef.current[index] = el)}
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={1}
+                      value={digit}
+                      disabled={verifying2FA}
+                      onChange={(e) => handleDigitChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      className={`w-11 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-mono font-bold rounded-2xl border transition-all select-all ${
+                        digit
+                          ? 'border-violet-500 dark:border-cyan-400 bg-violet-50/50 dark:bg-violet-950/30 text-violet-700 dark:text-white shadow-md shadow-violet-500/10'
+                          : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-zinc-900 dark:text-white'
+                      } focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 disabled:opacity-50`}
+                    />
+                  ))}
+                </div>
+
+                <p className="mt-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+                  Paste code or type 6 digits. Auto-verifies on 6th digit.
+                </p>
               </div>
-              <div className="relative">
-                <FiLock size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  placeholder="Enter Your Password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
-                />
+
+              {/* Verify & Sign In Button */}
+              <button
+                type="button"
+                onClick={() => handleVerify2FA()}
+                disabled={verifying2FA || digits.join('').length !== 6}
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer"
+              >
+                {verifying2FA ? (
+                  <>
+                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Verifying Code...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Verify & Sign In</span>
+                    <FiArrowRight size={17} />
+                  </>
+                )}
+              </button>
+
+              {/* Resend 2FA Code */}
+              <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs font-raleway">
+                <span className="text-zinc-500 dark:text-zinc-400">Didn't receive 2FA code?</span>
+                {resendCooldown > 0 ? (
+                  <span className="text-zinc-400 dark:text-zinc-500 font-mono font-semibold">
+                    Resend in {Math.floor(resendCooldown / 60)}:{(resendCooldown % 60).toString().padStart(2, '0')}
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleResend2FA}
+                    disabled={resending}
+                    className="inline-flex items-center gap-1.5 text-violet-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer disabled:opacity-50"
+                  >
+                    <FiRotateCw size={13} className={resending ? 'animate-spin' : ''} />
+                    <span>{resending ? 'Sending...' : 'Resend Code'}</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Back to Password Step */}
+              <div className="text-center pt-2">
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
+                  onClick={() => {
+                    setIs2FAStep(false);
+                    setError('');
+                    setInfoMessage('');
+                    setDigits(['', '', '', '', '', '']);
+                  }}
+                  className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-raleway transition-colors"
                 >
-                  {showPassword ? <FiEyeOff size={17} /> : <FiEye size={17} />}
+                  ← Back to Email & Password
                 </button>
               </div>
             </div>
+          ) : (
+            /* Regular Sign In Form */
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Email Field */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <FiMail size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter Your Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
+                  />
+                </div>
+              </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-2 cursor-pointer"
-            >
-              {loading ? (
-                <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <span>Sign In to Account</span>
-                  <FiArrowRight size={17} />
-                </>
-              )}
-            </button>
-          </form>
+              {/* Password Field */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                    Password
+                  </label>
+                  <Link
+                    href="/account/forgot-password"
+                    className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-raleway"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="relative">
+                  <FiLock size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    placeholder="Enter Your Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
+                  >
+                    {showPassword ? <FiEyeOff size={17} /> : <FiEye size={17} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-2 cursor-pointer"
+              >
+                {loading ? (
+                  <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <span>Sign In to Account</span>
+                    <FiArrowRight size={17} />
+                  </>
+                )}
+              </button>
+            </form>
+          )}
 
           {/* Register Prompt */}
-          <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 font-raleway">
-              Don't have an account yet?{' '}
-              <Link
-                href={`/account/register${redirectUrl !== '/account' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
-                className="font-bold text-violet-600 dark:text-cyan-400 hover:underline"
-              >
-                Create Account
-              </Link>
-            </p>
-          </div>
+          {!is2FAStep && (
+            <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 font-raleway">
+                Don't have an account yet?{' '}
+                <Link
+                  href={`/account/register${redirectUrl !== '/account' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
+                  className="font-bold text-violet-600 dark:text-cyan-400 hover:underline"
+                >
+                  Create Account
+                </Link>
+              </p>
+            </div>
+          )}
 
-          {/* Admin Portal notice */}
+          {/* Security Notice */}
           <div className="mt-6 text-center">
             <div
               className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 font-raleway transition-colors"
             >
               <FiShield size={13} />
-              <span>Client Workspace Portal</span>
+              <span>Encrypted & Protected Workspace</span>
             </div>
           </div>
         </div>

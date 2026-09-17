@@ -12,11 +12,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        twoFactorCode: { label: "2FA Code", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
         const emailLower = credentials.email.toLowerCase().trim();
+        const twoFactorCode = credentials?.twoFactorCode?.trim();
 
         // 1. Try Admin Account
         const admin = await prisma.admin.findUnique({
@@ -29,6 +31,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             admin.password
           );
           if (isPasswordValid) {
+            // Check if Admin has 2FA enabled
+            if (admin.twoFactorEnabled) {
+              if (!twoFactorCode || twoFactorCode.length !== 6) {
+                return null;
+              }
+              const validToken = await prisma.twoFactorToken.findFirst({
+                where: {
+                  email: emailLower,
+                  code: twoFactorCode,
+                  expiresAt: { gt: new Date() },
+                },
+              });
+              if (!validToken) {
+                return null;
+              }
+              // Clear used token
+              await prisma.twoFactorToken.deleteMany({ where: { email: emailLower } });
+            }
+
             return {
               id: admin.id,
               email: admin.email,
@@ -50,6 +71,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             user.password
           );
           if (isUserPasswordValid) {
+            // Check if User has 2FA enabled
+            if (user.twoFactorEnabled) {
+              if (!twoFactorCode || twoFactorCode.length !== 6) {
+                return null;
+              }
+              const validToken = await prisma.twoFactorToken.findFirst({
+                where: {
+                  email: emailLower,
+                  code: twoFactorCode,
+                  expiresAt: { gt: new Date() },
+                },
+              });
+              if (!validToken) {
+                return null;
+              }
+              // Clear used token
+              await prisma.twoFactorToken.deleteMany({ where: { email: emailLower } });
+            }
+
             return {
               id: user.id,
               email: user.email,
