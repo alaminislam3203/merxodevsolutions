@@ -251,8 +251,16 @@ export default function Navbar() {
 
           {/* Main Action Row (Logo | Expanded SearchBar | CTA) */}
           <div className="flex items-center justify-between gap-6">
-            {/* Logo */}
-            <Link href="/" onClick={scrollToTopSmooth} className="shrink-0">
+            {/* Logo with Favicon on left */}
+            <Link href="/" onClick={scrollToTopSmooth} className="shrink-0 flex items-center gap-2 sm:gap-2.5 group">
+              <Image
+                src="/favicon.png"
+                alt="MerxoDev Icon"
+                width={32}
+                height={32}
+                className="w-7 h-7 sm:w-8 sm:h-8 object-contain transition-transform group-hover:scale-105"
+                priority
+              />
               <Logo />
             </Link>
 
@@ -453,12 +461,11 @@ export default function Navbar() {
             <a
               href="tel:+8801313334279"
               aria-label="Call MerxoDev Solutions"
-              className="relative inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white text-[11px] font-bold tracking-wide shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/40 active:scale-95 transition-all duration-200 animate-call-glow overflow-hidden select-none"
+              className="relative inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/40 active:scale-95 transition-all duration-200 animate-call-glow overflow-hidden select-none"
             >
               <span className="animate-phone-ring text-white">
-                <FaPhoneVolume size={11} />
+                <FaPhoneVolume size={16} />
               </span>
-              <span className="font-raleway uppercase font-extrabold">{t('callUs') || 'Call'}</span>
             </a>
           </div>
         </div>

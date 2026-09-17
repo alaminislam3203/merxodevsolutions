@@ -136,46 +136,47 @@ export default function SearchBar({ mobile = false }) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.trim() && setIsOpen(true)}
           placeholder={mobile ? "Search anything..." : "Search projects, services, technologies, solutions..."}
-          className={`w-full rounded-xl transition-all duration-200 outline-none font-raleway ${mobile
-            ? 'py-2 pl-8 pr-7 text-xs font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/25 focus:ring-1 focus:ring-amber-400 shadow-inner'
-            : 'py-2.5 pl-10 pr-9 text-xs sm:text-sm font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/20 focus:ring-2 focus:ring-amber-400/40 shadow-inner'
+          className={`w-full rounded-sm transition-all duration-200 outline-none font-raleway ${mobile
+            ? 'py-2 pl-3 pr-11 text-xs font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/25 focus:ring-1 focus:ring-amber-400 shadow-inner'
+            : 'py-2.5 pl-3.5 pr-12 text-xs sm:text-sm font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/20 focus:ring-2 focus:ring-amber-400/40 shadow-inner'
             }`}
         />
 
-        {/* Search Icon */}
-        <div className="absolute left-2.5 pointer-events-none text-white/70">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={mobile ? '13' : '15'}
-            height={mobile ? '13' : '15'}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-        </div>
+        {/* Right Action Icons (Clear Button + Search Icon) */}
+        <div className="absolute right-2.5 sm:right-3 flex items-center gap-1.5 text-white/70">
+          {query && (
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                setIsOpen(false);
+                inputRef.current?.focus();
+              }}
+              className="p-1 hover:text-white hover:bg-white/15 rounded transition-colors cursor-pointer"
+              aria-label="Clear search"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
 
-        {/* Clear Button */}
-        {query && (
-          <button
-            type="button"
-            onClick={() => {
-              setQuery('');
-              setIsOpen(false);
-              inputRef.current?.focus();
-            }}
-            className="absolute right-2 p-1 text-white/70 hover:text-white transition-colors"
-            aria-label="Clear search"
-          >
+          <div className="pointer-events-none flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
+              width={mobile ? '13' : '15'}
+              height={mobile ? '13' : '15'}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -183,11 +184,11 @@ export default function SearchBar({ mobile = false }) {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-          </button>
-        )}
+          </div>
+        </div>
       </div>
 
       {/* Dropdown Results */}
