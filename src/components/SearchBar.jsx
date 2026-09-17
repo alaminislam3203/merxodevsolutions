@@ -142,59 +142,27 @@ export default function SearchBar({ mobile = false }) {
           }}
           placeholder={mobile ? "Search anything..." : "Search projects, services, technologies, solutions..."}
           className={`w-full rounded-sm transition-all duration-200 outline-none font-raleway ${mobile
-            ? 'py-2 pl-3 pr-16 text-xs font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/25 focus:ring-1 focus:ring-amber-400 shadow-inner'
-            : 'py-2.5 pl-3.5 pr-20 text-xs sm:text-sm font-medium bg-white/15 dark:bg-white/10 text-white placeholder-white/70 border border-white/25 focus:border-amber-400 focus:bg-white/20 focus:ring-2 focus:ring-amber-400/40 shadow-inner'
+            ? 'py-2 pl-3 pr-16 text-xs font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
+            : 'py-2.5 pl-3.5 pr-20 text-xs sm:text-sm font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
             }`}
         />
 
-        {/* Right Action Icons (Clear Button + Search Icon with BG) */}
-        <div className="absolute right-1 sm:right-1.5 flex items-center gap-1.5">
-          {query && (
-            <button
-              type="button"
-              onClick={() => {
-                setQuery('');
-                setIsOpen(false);
-                inputRef.current?.focus();
-              }}
-              className="p-1 text-white/70 hover:text-white hover:bg-white/15 rounded transition-colors cursor-pointer"
-              aria-label="Clear search"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          )}
-
+        {/* Clear Button (When Query Exists) */}
+        {query && (
           <button
             type="button"
             onClick={() => {
-              if (query.trim()) {
-                setIsOpen(true);
-              } else {
-                inputRef.current?.focus();
-              }
+              setQuery('');
+              setIsOpen(false);
+              inputRef.current?.focus();
             }}
-            className={`flex items-center justify-center rounded-sm bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 shadow-sm transition-all duration-200 active:scale-95 cursor-pointer ${
-              mobile ? 'w-7 h-7' : 'w-8 h-8 sm:w-9 sm:h-8'
-            }`}
-            aria-label="Search"
+            className="absolute right-12 sm:right-14 p-1 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors cursor-pointer"
+            aria-label="Clear search"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width={mobile ? '16' : '18'}
-              height={mobile ? '16' : '18'}
+              width="13"
+              height="13"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -202,11 +170,42 @@ export default function SearchBar({ mobile = false }) {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
-        </div>
+        )}
+
+        {/* Right Search Button (Full-Height Tinted Box with Theme Accent) */}
+        <button
+          type="button"
+          onClick={() => {
+            if (query.trim()) {
+              setIsOpen(true);
+            } else {
+              inputRef.current?.focus();
+            }
+          }}
+          className={`absolute inset-y-0 right-0 flex items-center justify-center rounded-r-sm bg-violet-50 hover:bg-violet-100/90 dark:bg-violet-950/60 dark:hover:bg-violet-900/70 text-violet-600 dark:text-cyan-400 border-l border-violet-200/70 dark:border-blue-900/60 transition-colors cursor-pointer select-none ${
+            mobile ? 'w-10' : 'w-11 sm:w-12'
+          }`}
+          aria-label="Search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={mobile ? '16' : '18'}
+            height={mobile ? '16' : '18'}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
       </div>
 
       {/* Dropdown Results */}
