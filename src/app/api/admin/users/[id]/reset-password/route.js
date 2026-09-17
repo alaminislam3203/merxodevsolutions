@@ -21,6 +21,15 @@ export async function POST(request, { params }) {
     }
 
     const user = await prisma.user.findUnique({ where: { id } });
+    const admin = !user ? await prisma.admin.findUnique({ where: { id } }) : null;
+    const targetEmail = (user?.email || admin?.email)?.toLowerCase().trim();
+
+    if (targetEmail === "merxodevsolutions@gmail.com") {
+      return NextResponse.json(
+        { error: "The Main Administrator password cannot be modified from the user management panel." },
+        { status: 403 }
+      );
+    }
 
     if (user) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -35,7 +44,6 @@ export async function POST(request, { params }) {
       });
     }
 
-    const admin = await prisma.admin.findUnique({ where: { id } });
     if (admin) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await prisma.admin.update({

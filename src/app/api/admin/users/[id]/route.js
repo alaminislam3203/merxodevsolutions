@@ -14,8 +14,18 @@ export async function PUT(request, { params }) {
     const body = await request.json();
     const { role, isActive, name } = body;
 
-    // Check if target user exists in User table
+    // Check if target user exists in User or Admin table
     const user = await prisma.user.findUnique({ where: { id } });
+    const admin = !user ? await prisma.admin.findUnique({ where: { id } }) : null;
+    const targetEmail = (user?.email || admin?.email)?.toLowerCase().trim();
+
+    // STRICT GUARD: Main Admin cannot be modified by anyone
+    if (targetEmail === "merxodevsolutions@gmail.com") {
+      return NextResponse.json(
+        { error: "The Main Administrator account (merxodevsolutions@gmail.com) is permanently protected and cannot be modified." },
+        { status: 403 }
+      );
+    }
 
     if (user) {
       // Prevent demoting the currently logged-in admin
@@ -63,7 +73,6 @@ export async function PUT(request, { params }) {
     }
 
     // Check if it's in Admin table
-    const admin = await prisma.admin.findUnique({ where: { id } });
     if (admin) {
       if (name && typeof name === "string") {
         const updatedAdmin = await prisma.admin.update({
@@ -98,6 +107,16 @@ export async function DELETE(request, { params }) {
     const { id } = await params;
 
     const user = await prisma.user.findUnique({ where: { id } });
+    const admin = !user ? await prisma.admin.findUnique({ where: { id } }) : null;
+    const targetEmail = (user?.email || admin?.email)?.toLowerCase().trim();
+
+    // STRICT GUARD: Main Admin cannot be deleted
+    if (targetEmail === "merxodevsolutions@gmail.com") {
+      return NextResponse.json(
+        { error: "The Main Administrator account (merxodevsolutions@gmail.com) is permanently protected and cannot be deleted." },
+        { status: 403 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

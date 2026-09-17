@@ -80,6 +80,11 @@ export default function UsersManagementPage() {
 
   // Toggle user role USER <-> ADMIN
   const handleToggleRole = async (user) => {
+    if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+      toast.error("Main Admin role cannot be modified.");
+      return;
+    }
+
     const newRole = user.role === "ADMIN" ? "USER" : "ADMIN";
     const confirmMsg = `Are you sure you want to change ${user.name}'s role to ${newRole}?`;
     if (!window.confirm(confirmMsg)) return;
@@ -104,6 +109,11 @@ export default function UsersManagementPage() {
 
   // Toggle isActive status
   const handleToggleStatus = async (user) => {
+    if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+      toast.error("Main Admin account cannot be suspended.");
+      return;
+    }
+
     const nextStatus = user.isActive === false; // toggle to active
     const actionLabel = nextStatus ? "activate" : "suspend";
     if (!window.confirm(`Are you sure you want to ${actionLabel} account for ${user.email}?`)) {
@@ -161,6 +171,10 @@ export default function UsersManagementPage() {
   // Reset password
   const handleResetPassword = async (e) => {
     e.preventDefault();
+    if (resetTargetUser?.isMainAdmin || resetTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+      toast.error("Main Admin password cannot be reset from this panel.");
+      return;
+    }
     if (!newPassword || newPassword.length < 6) {
       toast.error("Password must be at least 6 characters.");
       return;
@@ -190,6 +204,10 @@ export default function UsersManagementPage() {
   // Delete user
   const handleDeleteUser = async () => {
     if (!deleteTargetUser) return;
+    if (deleteTargetUser?.isMainAdmin || deleteTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+      toast.error("Main Admin account cannot be deleted.");
+      return;
+    }
     setDeleteLoading(true);
     try {
       const res = await fetch(`/api/admin/users/${deleteTargetUser.id}`, {
@@ -548,8 +566,9 @@ export default function UsersManagementPage() {
                 </tr>
               ) : (
                 users.map((user) => {
-                  const isAdmin = user.role === "ADMIN";
-                  const isActive = user.isActive !== false;
+                  const isMainAdmin = user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com";
+                  const isAdmin = isMainAdmin || user.role === "ADMIN";
+                  const isActive = isMainAdmin ? true : user.isActive !== false;
                   const is2FA = Boolean(user.twoFactorEnabled);
                   const initials = user.name
                     ? user.name.slice(0, 2).toUpperCase()
@@ -560,10 +579,19 @@ export default function UsersManagementPage() {
                       key={user.id}
                       style={{
                         borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        background: isMainAdmin ? "rgba(245, 158, 11, 0.03)" : "transparent",
                         transition: "background 0.15s",
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = isMainAdmin
+                          ? "rgba(245, 158, 11, 0.06)"
+                          : "rgba(255,255,255,0.02)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = isMainAdmin
+                          ? "rgba(245, 158, 11, 0.03)"
+                          : "transparent";
+                      }}
                     >
                       {/* User Avatar + Name + Email */}
                       <td style={{ padding: "14px 18px" }}>
@@ -572,7 +600,14 @@ export default function UsersManagementPage() {
                             <img
                               src={user.image}
                               alt={user.name}
-                              style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover" }}
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                border: isMainAdmin ? "2px solid #f59e0b" : "none",
+                                boxShadow: isMainAdmin ? "0 0 10px rgba(245, 158, 11, 0.4)" : "none",
+                              }}
                             />
                           ) : (
                             <div
@@ -580,23 +615,48 @@ export default function UsersManagementPage() {
                                 width: 40,
                                 height: 40,
                                 borderRadius: "50%",
-                                background: isAdmin
+                                background: isMainAdmin
+                                  ? "linear-gradient(135deg, #f59e0b, #b45309)"
+                                  : isAdmin
                                   ? "linear-gradient(135deg, #f59e0b, #d97706)"
                                   : "linear-gradient(135deg, #6366f1, #06b6d4)",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 color: "#ffffff",
-                                fontWeight: 700,
-                                fontSize: 13,
+                                fontWeight: 800,
+                                fontSize: isMainAdmin ? 16 : 13,
+                                border: isMainAdmin ? "2px solid #fbbf24" : "none",
+                                boxShadow: isMainAdmin ? "0 0 10px rgba(245, 158, 11, 0.4)" : "none",
                               }}
                             >
-                              {initials}
+                              {isMainAdmin ? "👑" : initials}
                             </div>
                           )}
                           <div>
-                            <div style={{ fontWeight: 600, color: "#f8fafc", fontSize: 14 }}>
-                              {user.name}
+                            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                              <span style={{ fontWeight: 700, color: isMainAdmin ? "#fbbf24" : "#f8fafc", fontSize: 14 }}>
+                                {user.name}
+                              </span>
+                              {isMainAdmin && (
+                                <span
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 3,
+                                    fontSize: 10,
+                                    fontWeight: 800,
+                                    color: "#f59e0b",
+                                    background: "rgba(245, 158, 11, 0.15)",
+                                    border: "1px solid rgba(245, 158, 11, 0.35)",
+                                    padding: "1px 6px",
+                                    borderRadius: 4,
+                                    letterSpacing: "0.04em",
+                                  }}
+                                >
+                                  👑 OWNER
+                                </span>
+                              )}
                             </div>
                             <div
                               onClick={() => copyEmail(user.email)}
@@ -604,9 +664,10 @@ export default function UsersManagementPage() {
                                 display: "flex",
                                 alignItems: "center",
                                 gap: 6,
-                                color: "#94a3b8",
+                                color: isMainAdmin ? "#fbbf24" : "#94a3b8",
                                 fontSize: 12,
                                 cursor: "pointer",
+                                opacity: isMainAdmin ? 0.9 : 1,
                               }}
                               title="Click to copy email"
                             >
@@ -619,23 +680,43 @@ export default function UsersManagementPage() {
 
                       {/* Role Badge */}
                       <td style={{ padding: "14px 18px" }}>
-                        <span
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 5,
-                            padding: "4px 10px",
-                            borderRadius: 6,
-                            fontSize: 12,
-                            fontWeight: 700,
-                            background: isAdmin ? "rgba(245, 158, 11, 0.15)" : "rgba(99, 102, 241, 0.15)",
-                            color: isAdmin ? "#fbbf24" : "#818cf8",
-                            border: isAdmin ? "1px solid rgba(245,158,11,0.3)" : "1px solid rgba(99,102,241,0.3)",
-                          }}
-                        >
-                          {isAdmin ? <FiShield size={12} /> : <FiUsers size={12} />}
-                          {user.role}
-                        </span>
+                        {isMainAdmin ? (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 5,
+                              padding: "5px 12px",
+                              borderRadius: 6,
+                              fontSize: 12,
+                              fontWeight: 800,
+                              background: "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.2))",
+                              color: "#fbbf24",
+                              border: "1px solid rgba(245, 158, 11, 0.5)",
+                              boxShadow: "0 0 12px rgba(245, 158, 11, 0.25)",
+                            }}
+                          >
+                            👑 Main Admin
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 5,
+                              padding: "4px 10px",
+                              borderRadius: 6,
+                              fontSize: 12,
+                              fontWeight: 700,
+                              background: isAdmin ? "rgba(245, 158, 11, 0.15)" : "rgba(99, 102, 241, 0.15)",
+                              color: isAdmin ? "#fbbf24" : "#818cf8",
+                              border: isAdmin ? "1px solid rgba(245,158,11,0.3)" : "1px solid rgba(99,102,241,0.3)",
+                            }}
+                          >
+                            {isAdmin ? <FiShield size={12} /> : <FiUsers size={12} />}
+                            {user.role}
+                          </span>
+                        )}
                       </td>
 
                       {/* 2FA Security */}
@@ -670,12 +751,17 @@ export default function UsersManagementPage() {
                             borderRadius: 6,
                             fontSize: 11,
                             fontWeight: 700,
-                            background: isActive ? "rgba(34, 197, 94, 0.12)" : "rgba(239, 68, 68, 0.15)",
-                            color: isActive ? "#4ade80" : "#f87171",
+                            background: isMainAdmin
+                              ? "rgba(16, 185, 129, 0.2)"
+                              : isActive
+                              ? "rgba(34, 197, 94, 0.12)"
+                              : "rgba(239, 68, 68, 0.15)",
+                            color: isMainAdmin ? "#34d399" : isActive ? "#4ade80" : "#f87171",
+                            border: isMainAdmin ? "1px solid rgba(16, 185, 129, 0.35)" : "none",
                           }}
                         >
-                          {isActive ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
-                          {isActive ? "Active" : "Suspended"}
+                          {isMainAdmin ? <FiCheckCircle size={12} /> : isActive ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
+                          {isMainAdmin ? "Permanent Active" : isActive ? "Active" : "Suspended"}
                         </span>
                       </td>
 
@@ -702,87 +788,111 @@ export default function UsersManagementPage() {
 
                       {/* Action Buttons */}
                       <td style={{ padding: "14px 18px", textAlign: "right" }}>
-                        <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-                          {/* Toggle Role */}
-                          <button
-                            onClick={() => handleToggleRole(user)}
-                            title={isAdmin ? "Demote to Client (USER)" : "Promote to Admin (ADMIN)"}
+                        {isMainAdmin ? (
+                          <div
                             style={{
-                              background: "rgba(255,255,255,0.05)",
-                              border: "1px solid rgba(255,255,255,0.1)",
-                              color: "#e2e8f0",
-                              padding: "6px 10px",
-                              borderRadius: 8,
-                              cursor: "pointer",
-                              fontSize: 12,
-                              fontWeight: 600,
                               display: "inline-flex",
                               alignItems: "center",
-                              gap: 4,
-                            }}
-                          >
-                            <FiShield size={12} style={{ color: isAdmin ? "#f87171" : "#34d399" }} />
-                            {isAdmin ? "Make User" : "Make Admin"}
-                          </button>
-
-                          {/* Suspend / Activate */}
-                          <button
-                            onClick={() => handleToggleStatus(user)}
-                            title={isActive ? "Suspend Account" : "Activate Account"}
-                            style={{
-                              background: isActive ? "rgba(239, 68, 68, 0.1)" : "rgba(34, 197, 94, 0.1)",
-                              border: isActive ? "1px solid rgba(239, 68, 68, 0.25)" : "1px solid rgba(34, 197, 94, 0.25)",
-                              color: isActive ? "#f87171" : "#4ade80",
-                              padding: "6px 10px",
+                              gap: 6,
+                              padding: "7px 14px",
+                              background: "rgba(245, 158, 11, 0.08)",
+                              border: "1px solid rgba(245, 158, 11, 0.25)",
                               borderRadius: 8,
-                              cursor: "pointer",
+                              color: "#fbbf24",
                               fontSize: 12,
-                              fontWeight: 600,
+                              fontWeight: 700,
+                              cursor: "not-allowed",
+                              pointerEvents: "none",
+                              userSelect: "none",
                             }}
+                            title="Main Admin account is permanently locked and cannot be modified or deleted."
                           >
-                            {isActive ? "Suspend" : "Activate"}
-                          </button>
+                            <FiLock size={13} />
+                            <span>Protected Account</span>
+                          </div>
+                        ) : (
+                          <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
+                            {/* Toggle Role */}
+                            <button
+                              onClick={() => handleToggleRole(user)}
+                              title={isAdmin ? "Demote to Client (USER)" : "Promote to Admin (ADMIN)"}
+                              style={{
+                                background: "rgba(255,255,255,0.05)",
+                                border: "1px solid rgba(255,255,255,0.1)",
+                                color: "#e2e8f0",
+                                padding: "6px 10px",
+                                borderRadius: 8,
+                                cursor: "pointer",
+                                fontSize: 12,
+                                fontWeight: 600,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 4,
+                              }}
+                            >
+                              <FiShield size={12} style={{ color: isAdmin ? "#f87171" : "#34d399" }} />
+                              {isAdmin ? "Make User" : "Make Admin"}
+                            </button>
 
-                          {/* Reset Password */}
-                          <button
-                            onClick={() => {
-                              setResetTargetUser(user);
-                              setResetModalOpen(true);
-                            }}
-                            title="Reset Password"
-                            style={{
-                              background: "rgba(255,255,255,0.05)",
-                              border: "1px solid rgba(255,255,255,0.1)",
-                              color: "#94a3b8",
-                              padding: "6px 9px",
-                              borderRadius: 8,
-                              cursor: "pointer",
-                            }}
-                          >
-                            <FiKey size={14} />
-                          </button>
+                            {/* Suspend / Activate */}
+                            <button
+                              onClick={() => handleToggleStatus(user)}
+                              title={isActive ? "Suspend Account" : "Activate Account"}
+                              style={{
+                                background: isActive ? "rgba(239, 68, 68, 0.1)" : "rgba(34, 197, 94, 0.1)",
+                                border: isActive ? "1px solid rgba(239, 68, 68, 0.25)" : "1px solid rgba(34, 197, 94, 0.25)",
+                                color: isActive ? "#f87171" : "#4ade80",
+                                padding: "6px 10px",
+                                borderRadius: 8,
+                                cursor: "pointer",
+                                fontSize: 12,
+                                fontWeight: 600,
+                              }}
+                            >
+                              {isActive ? "Suspend" : "Activate"}
+                            </button>
 
-                          {/* Delete User */}
-                          {!user.isDedicatedAdminModel && (
+                            {/* Reset Password */}
                             <button
                               onClick={() => {
-                                setDeleteTargetUser(user);
-                                setDeleteModalOpen(true);
+                                setResetTargetUser(user);
+                                setResetModalOpen(true);
                               }}
-                              title="Delete Account"
+                              title="Reset Password"
                               style={{
-                                background: "rgba(239,68,68,0.1)",
-                                border: "1px solid rgba(239,68,68,0.2)",
-                                color: "#f87171",
+                                background: "rgba(255,255,255,0.05)",
+                                border: "1px solid rgba(255,255,255,0.1)",
+                                color: "#94a3b8",
                                 padding: "6px 9px",
                                 borderRadius: 8,
                                 cursor: "pointer",
                               }}
                             >
-                              <FiTrash2 size={14} />
+                              <FiKey size={14} />
                             </button>
-                          )}
-                        </div>
+
+                            {/* Delete User */}
+                            {!user.isDedicatedAdminModel && (
+                              <button
+                                onClick={() => {
+                                  setDeleteTargetUser(user);
+                                  setDeleteModalOpen(true);
+                                }}
+                                title="Delete Account"
+                                style={{
+                                  background: "rgba(239,68,68,0.1)",
+                                  border: "1px solid rgba(239,68,68,0.2)",
+                                  color: "#f87171",
+                                  padding: "6px 9px",
+                                  borderRadius: 8,
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <FiTrash2 size={14} />
+                              </button>
+                            )}
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );

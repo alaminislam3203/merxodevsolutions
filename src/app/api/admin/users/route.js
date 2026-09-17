@@ -70,7 +70,22 @@ export async function GET(request) {
         isDedicatedAdminModel: true,
       }));
 
-    let allAccounts = [...users, ...adminAsUsers];
+    let allAccounts = [...users, ...adminAsUsers].map((u) => {
+      const isMainAdmin = u.email.toLowerCase() === "merxodevsolutions@gmail.com";
+      return {
+        ...u,
+        role: isMainAdmin ? "ADMIN" : u.role,
+        isActive: isMainAdmin ? true : u.isActive,
+        isMainAdmin,
+      };
+    });
+
+    // Main Admin always pinned at the very top
+    allAccounts.sort((a, b) => {
+      if (a.isMainAdmin) return -1;
+      if (b.isMainAdmin) return 1;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 
     // Compute metrics
     const totalUsers = allAccounts.length;
