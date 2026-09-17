@@ -42,16 +42,29 @@ export async function GET() {
     }
 
     // Try finding admin user
-    const admin = await prisma.admin.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-        createdAt: true,
-      },
-    });
+    let admin = null;
+    try {
+      admin = await prisma.admin.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+          createdAt: true,
+        },
+      });
+    } catch (adminGetErr) {
+      if (
+        adminGetErr?.message?.includes("Unknown field `image`") ||
+        adminGetErr?.message?.includes("Unknown argument `image`")
+      ) {
+        const rows = await prisma.$queryRaw`SELECT "id", "name", "email", "image", "createdAt" FROM "Admin" WHERE LOWER("email") = LOWER(${email}) LIMIT 1`;
+        admin = rows?.[0] || null;
+      } else {
+        throw adminGetErr;
+      }
+    }
 
     if (admin) {
       return NextResponse.json({
@@ -105,9 +118,16 @@ export async function PUT(request) {
 
     if (!user) {
       // Check if admin is updating their profile
-      const admin = await prisma.admin.findFirst({
-        where: { email: { equals: email, mode: 'insensitive' } },
-      });
+      let admin = null;
+      try {
+        admin = await prisma.admin.findFirst({
+          where: { email: { equals: email, mode: 'insensitive' } },
+        });
+      } catch {
+        const rows = await prisma.$queryRaw`SELECT * FROM "Admin" WHERE LOWER("email") = LOWER(${email}) LIMIT 1`;
+        admin = rows?.[0] || null;
+      }
+
       if (admin) {
         const updateData = {};
         if (name && name.trim()) updateData.name = name.trim();
@@ -138,11 +158,40 @@ export async function PUT(request) {
           updateData.password = await bcrypt.hash(newPassword, 10);
         }
 
-        const updatedAdmin = await prisma.admin.update({
-          where: { id: admin.id },
-          data: updateData,
-          select: { id: true, name: true, email: true, image: true, createdAt: true },
-        });
+        let updatedAdmin;
+        try {
+          updatedAdmin = await prisma.admin.update({
+            where: { id: admin.id },
+            data: updateData,
+            select: { id: true, name: true, email: true, image: true, createdAt: true },
+          });
+        } catch (updateErr) {
+          // If in-memory dev bundle has old Prisma schema without Admin.image
+          if (
+            updateErr?.message?.includes("Unknown argument `image`") ||
+            updateErr?.message?.includes("Unknown field `image`")
+          ) {
+            if (updateData.image !== undefined) {
+              await prisma.$executeRaw`UPDATE "Admin" SET "image" = ${updateData.image}, "updatedAt" = NOW() WHERE "id" = ${admin.id}`;
+            }
+            if (updateData.name) {
+              await prisma.$executeRaw`UPDATE "Admin" SET "name" = ${updateData.name}, "updatedAt" = NOW() WHERE "id" = ${admin.id}`;
+            }
+            if (updateData.password) {
+              await prisma.$executeRaw`UPDATE "Admin" SET "password" = ${updateData.password}, "updatedAt" = NOW() WHERE "id" = ${admin.id}`;
+            }
+            const rows = await prisma.$queryRaw`SELECT "id", "name", "email", "image", "createdAt" FROM "Admin" WHERE "id" = ${admin.id} LIMIT 1`;
+            updatedAdmin = rows?.[0] || {
+              id: admin.id,
+              name: updateData.name || admin.name,
+              email: admin.email,
+              image: updateData.image !== undefined ? updateData.image : (admin.image || null),
+              createdAt: admin.createdAt,
+            };
+          } else {
+            throw updateErr;
+          }
+        }
 
         return NextResponse.json({
           message: 'Admin profile updated successfully',

@@ -18,6 +18,7 @@ import {
   FaLock,
   FaSignInAlt,
   FaUserPlus,
+  FaMapMarkerAlt,
 } from 'react-icons/fa';
 import { BsStars, BsShieldCheck } from 'react-icons/bs';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
