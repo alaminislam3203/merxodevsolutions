@@ -1,10 +1,11 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import {
   FaStar,
   FaQuoteLeft,
@@ -15,12 +16,8 @@ import {
   FaTimes,
   FaUserCircle,
   FaLock,
-  FaEnvelope,
-  FaBuilding,
-  FaMapMarkerAlt,
-  FaTag,
-  FaCamera,
-  FaUpload,
+  FaSignInAlt,
+  FaUserPlus,
 } from 'react-icons/fa';
 import { BsStars, BsShieldCheck } from 'react-icons/bs';
 import { DEFAULT_REVIEWS } from '@/lib/defaultReviews';
@@ -37,28 +34,6 @@ const AVATAR_GRADIENTS = [
   'from-indigo-600 to-cyan-500',
 ];
 
-async function uploadToCloudinary(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = async () => {
-      try {
-        const res = await fetch('/api/admin/images', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ base64Image: reader.result }),
-        });
-        const data = await res.json();
-        if (!res.ok) reject(new Error(data.error || 'Upload failed'));
-        else resolve(data.url);
-      } catch (err) {
-        reject(err);
-      }
-    };
-    reader.onerror = () => reject(new Error('Failed to read file'));
-    reader.readAsDataURL(file);
-  });
-}
-
 export default function Testimonials() {
   const { t } = useTranslation();
   const { data: session } = useSession();
@@ -69,17 +44,6 @@ export default function Testimonials() {
 
   // Modal State
   const [showModal, setShowModal] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
-  const [authLoading, setAuthLoading] = useState(false);
-  const [authError, setAuthError] = useState('');
-
-  // Auth Inputs
-  const [authName, setAuthName] = useState('');
-  const [authEmail, setAuthEmail] = useState('');
-  const [authPassword, setAuthPassword] = useState('');
-  const [authImage, setAuthImage] = useState('');
-  const [regUploading, setRegUploading] = useState(false);
-  const regFileRef = useRef(null);
 
   // Review Form Inputs
   const [rating, setRating] = useState(5);
@@ -154,80 +118,7 @@ export default function Testimonials() {
   const handleOpenReviewModal = () => {
     setSubmitSuccess(false);
     setSubmitError('');
-    setAuthError('');
     setShowModal(true);
-  };
-
-  const handleRegFileUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setRegUploading(true);
-    try {
-      const url = await uploadToCloudinary(file);
-      setAuthImage(url);
-    } catch (err) {
-      console.error('Avatar upload error:', err);
-      setAuthError('Avatar upload failed. Please try again or provide an image link.');
-    } finally {
-      setRegUploading(false);
-      e.target.value = '';
-    }
-  };
-
-  // User Login inside Review Modal
-  const handleAuthLogin = async (e) => {
-    e.preventDefault();
-    setAuthLoading(true);
-    setAuthError('');
-    try {
-      const res = await signIn('credentials', {
-        email: authEmail.trim(),
-        password: authPassword,
-        redirect: false,
-      });
-      if (res?.error) {
-        setAuthError('Invalid email or password. Please try again.');
-      }
-    } catch (err) {
-      setAuthError('Login failed. Please check your credentials.');
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
-  // User Register inside Review Modal
-  const handleAuthRegister = async (e) => {
-    e.preventDefault();
-    setAuthLoading(true);
-    setAuthError('');
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: authName.trim(),
-          email: authEmail.trim(),
-          password: authPassword,
-          image: authImage.trim() || null,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setAuthError(data.error || 'Failed to register account.');
-        setAuthLoading(false);
-        return;
-      }
-      // Auto login after registration
-      await signIn('credentials', {
-        email: authEmail.trim(),
-        password: authPassword,
-        redirect: false,
-      });
-    } catch (err) {
-      setAuthError('Registration error. Please try again.');
-    } finally {
-      setAuthLoading(false);
-    }
   };
 
   // Submit Review (Waiting for Admin Approval)
@@ -474,12 +365,12 @@ export default function Testimonials() {
                   <h3 className="text-base font-extrabold text-zinc-900 dark:text-white">
                     {session
                       ? (t('testimonials.modalTitleLoggedIn') || 'Write a Client Review')
-                      : (t('testimonials.modalTitleLoggedOut') || 'Login / Register to Leave Review')}
+                      : (t('testimonials.modalTitleLoggedOut') || 'Authentication Required')}
                   </h3>
                   <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                     {session
                       ? (t('testimonials.modalSubtitleLoggedIn') || 'Your feedback will be published after admin verification')
-                      : (t('testimonials.modalSubtitleLoggedOut') || 'Please authenticate to submit your review')}
+                      : (t('testimonials.modalSubtitleLoggedOut') || 'Please sign in or register to submit your review')}
                   </p>
                 </div>
               </div>
@@ -660,188 +551,46 @@ export default function Testimonials() {
                 </form>
               )
             ) : (
-              /* SCENARIO B: User is NOT logged in -> Show Login/Register */
-              <div className="space-y-4">
-                <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl">
-                  <button
-                    type="button"
-                    onClick={() => { setAuthMode('login'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'login'
-                      ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
-                      }`}
-                  >
-                    {t('testimonials.signInTab') || 'Sign In / Log In'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { setAuthMode('register'); setAuthError(''); }}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${authMode === 'register'
-                      ? 'bg-white dark:bg-zinc-900 text-violet-700 dark:text-cyan-400 shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-white'
-                      }`}
-                  >
-                    {t('testimonials.createAccountTab') || 'Create Account'}
-                  </button>
+              /* SCENARIO B: User is NOT logged in -> Link to current login & register pages */
+              <div className="py-6 px-2 text-center space-y-5">
+                <div className="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-br from-violet-600/15 via-indigo-600/10 to-cyan-500/15 border border-violet-500/20 text-violet-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-inner">
+                  <FaLock />
                 </div>
 
-                {authError && (
-                  <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-medium text-center">
-                    {authError}
-                  </div>
-                )}
+                <div className="space-y-1.5 max-w-sm mx-auto">
+                  <h4 className="text-lg font-bold text-zinc-900 dark:text-white">
+                    {t('testimonials.authRequiredTitle') || 'Sign In to Leave a Review'}
+                  </h4>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {t('testimonials.authRequiredDesc') ||
+                      'To submit a verified client review for MerxoDev Solutions, please log in with your existing account or create a new account.'}
+                  </p>
+                </div>
 
-                {authMode === 'login' ? (
-                  <form onSubmit={handleAuthLogin} className="space-y-3">
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.emailAddress') || 'Email Address *'}
-                      </label>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                        <FaEnvelope className="text-zinc-400 text-xs" />
-                        <input
-                          type="email"
-                          required
-                          value={authEmail}
-                          onChange={(e) => setAuthEmail(e.target.value)}
-                          placeholder={t('testimonials.emailPlaceholder') || 'you@example.com'}
-                          className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.password') || 'Password *'}
-                      </label>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                        <FaLock className="text-zinc-400 text-xs" />
-                        <input
-                          type="password"
-                          required
-                          value={authPassword}
-                          onChange={(e) => setAuthPassword(e.target.value)}
-                          placeholder="••••••••"
-                          className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={authLoading}
-                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
-                    >
-                      {authLoading
-                        ? (t('testimonials.signingIn') || 'Signing In...')
-                        : (t('testimonials.signInBtn') || 'Log In & Continue to Review')}
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleAuthRegister} className="space-y-3">
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.fullName') || 'Your Full Name *'}
-                      </label>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                        <FaUserCircle className="text-zinc-400 text-xs" />
-                        <input
-                          type="text"
-                          required
-                          value={authName}
-                          onChange={(e) => setAuthName(e.target.value)}
-                          placeholder={t('testimonials.fullNamePlaceholder') || 'e.g. Sarah Johnson'}
-                          className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
+                <div className="flex flex-col sm:flex-row gap-3 pt-2 max-w-md mx-auto">
+                  <Link
+                    href="/account/login?redirect=/#testimonials"
+                    onClick={() => setShowModal(false)}
+                    className="flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <FaSignInAlt size={14} />
+                    <span>{t('testimonials.signInBtn') || 'Log In to Account'}</span>
+                  </Link>
 
-                    {/* Profile Photo Upload / URL */}
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.profilePhoto') || 'Profile Photo (Optional)'}
-                      </label>
-                      <div className="flex items-center gap-2.5">
-                        {authImage ? (
-                          <img
-                            src={authImage}
-                            alt="Avatar Preview"
-                            className="w-10 h-10 rounded-xl object-cover border border-violet-500 shadow-sm shrink-0"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-400 shrink-0">
-                            <FaCamera size={14} />
-                          </div>
-                        )}
-                        <input
-                          type="text"
-                          value={authImage}
-                          onChange={(e) => setAuthImage(e.target.value)}
-                          placeholder={t('testimonials.photoPlaceholder') || 'Image URL or upload a photo'}
-                          className="flex-1 p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 outline-none focus:ring-2 focus:ring-violet-500"
-                        />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={regFileRef}
-                          onChange={handleRegFileUpload}
-                          className="hidden"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => regFileRef.current?.click()}
-                          disabled={regUploading}
-                          className="px-3 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 text-xs font-semibold shrink-0 cursor-pointer flex items-center gap-1.5"
-                          title="Upload avatar photo"
-                        >
-                          <FaUpload size={11} />
-                          <span>{regUploading ? '...' : (t('testimonials.uploadBtn') || 'Upload')}</span>
-                        </button>
-                      </div>
-                    </div>
+                  <Link
+                    href="/account/register?redirect=/#testimonials"
+                    onClick={() => setShowModal(false)}
+                    className="flex-1 py-3 px-5 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <FaUserPlus size={14} />
+                    <span>{t('testimonials.registerBtn') || 'Create New Account'}</span>
+                  </Link>
+                </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.emailAddress') || 'Email Address *'}
-                      </label>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                        <FaEnvelope className="text-zinc-400 text-xs" />
-                        <input
-                          type="email"
-                          required
-                          value={authEmail}
-                          onChange={(e) => setAuthEmail(e.target.value)}
-                          placeholder={t('testimonials.emailPlaceholder') || 'you@example.com'}
-                          className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                        {t('testimonials.createPassword') || 'Create Password (min. 6 characters) *'}
-                      </label>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                        <FaLock className="text-zinc-400 text-xs" />
-                        <input
-                          type="password"
-                          required
-                          minLength={6}
-                          value={authPassword}
-                          onChange={(e) => setAuthPassword(e.target.value)}
-                          placeholder="••••••••"
-                          className="w-full bg-transparent text-xs text-zinc-900 dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={authLoading}
-                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
-                    >
-                      {authLoading
-                        ? (t('testimonials.creatingAccount') || 'Creating Account...')
-                        : (t('testimonials.registerBtn') || 'Register & Continue to Review')}
-                    </button>
-                  </form>
-                )}
+                <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-zinc-400 dark:text-zinc-500">
+                  <BsShieldCheck className="text-emerald-500 text-sm" />
+                  <span>Verified client feedback • Quick 30-second sign up</span>
+                </div>
               </div>
             )}
           </div>

@@ -15,8 +15,8 @@ export async function GET() {
     const email = session.user.email.toLowerCase().trim();
 
     // Try finding regular user
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const user = await prisma.user.findFirst({
+      where: { email: { equals: email, mode: 'insensitive' } },
       select: {
         id: true,
         name: true,
@@ -42,8 +42,8 @@ export async function GET() {
     }
 
     // Try finding admin user
-    const admin = await prisma.admin.findUnique({
-      where: { email },
+    const admin = await prisma.admin.findFirst({
+      where: { email: { equals: email, mode: 'insensitive' } },
       select: {
         id: true,
         name: true,
@@ -68,7 +68,7 @@ export async function GET() {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   } catch (err) {
     console.error('Error in GET /api/account/profile:', err);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: err?.message || 'Failed to fetch user profile' }, { status: 500 });
   }
 }
 
@@ -93,19 +93,21 @@ export async function PUT(request) {
       } catch (uploadErr) {
         console.error('Cloudinary avatar upload error:', uploadErr);
         return NextResponse.json(
-          { error: 'Failed to upload avatar image. Please try again.' },
+          { error: `Avatar upload failed: ${uploadErr?.message || 'Please try again'}` },
           { status: 500 }
         );
       }
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const user = await prisma.user.findFirst({
+      where: { email: { equals: email, mode: 'insensitive' } },
     });
 
     if (!user) {
       // Check if admin is updating their profile
-      const admin = await prisma.admin.findUnique({ where: { email } });
+      const admin = await prisma.admin.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+      });
       if (admin) {
         const updateData = {};
         if (name && name.trim()) updateData.name = name.trim();
@@ -137,7 +139,7 @@ export async function PUT(request) {
         }
 
         const updatedAdmin = await prisma.admin.update({
-          where: { email },
+          where: { id: admin.id },
           data: updateData,
           select: { id: true, name: true, email: true, image: true, createdAt: true },
         });
@@ -181,7 +183,7 @@ export async function PUT(request) {
     }
 
     const updatedUser = await prisma.user.update({
-      where: { email },
+      where: { id: user.id },
       data: updateData,
       select: {
         id: true,
@@ -199,6 +201,6 @@ export async function PUT(request) {
     });
   } catch (err) {
     console.error('Error in PUT /api/account/profile:', err);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: err?.message || 'Failed to update profile' }, { status: 500 });
   }
 }

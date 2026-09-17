@@ -23,11 +23,18 @@ function createPrismaClient() {
   return new PrismaClient({ adapter });
 }
 
-// In dev, if PrismaClient in memory was instantiated before newly generated models (e.g. teamMember), recreate it
+// Force recreation of PrismaClient if cached instance in dev server is stale
+const SCHEMA_VERSION = "2026-09-17-v2";
+
 const prisma =
-  globalForPrisma.prisma && globalForPrisma.prisma.teamMember
+  globalForPrisma.prisma &&
+  globalForPrisma.prisma._schemaVersion === SCHEMA_VERSION
     ? globalForPrisma.prisma
-    : createPrismaClient();
+    : (() => {
+        const client = createPrismaClient();
+        client._schemaVersion = SCHEMA_VERSION;
+        return client;
+      })();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 

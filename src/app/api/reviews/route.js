@@ -80,6 +80,18 @@ export async function POST(request) {
 
     const parsedRating = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
 
+    // Verify whether userId exists in User table (Admins have their own table)
+    let validUserId = null;
+    if (session.user?.id && session.user?.role !== 'ADMIN') {
+      const dbUser = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { id: true },
+      });
+      if (dbUser) {
+        validUserId = dbUser.id;
+      }
+    }
+
     // Create review with isApproved: false (Waiting for Admin Approval)
     const review = await prisma.review.create({
       data: {
@@ -94,7 +106,7 @@ export async function POST(request) {
         comment: comment.trim(),
         isApproved: false, // Must be approved by Admin
         isFeatured: false,
-        userId: session.user.id || null,
+        userId: validUserId,
       },
     });
 
