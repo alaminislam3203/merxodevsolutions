@@ -129,26 +129,26 @@ export default function Navbar() {
         </svg>
       ),
     },
-    {
-      label: t('journey'),
-      href: '/our-journey',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 8v4l3 3" />
-        </svg>
-      ),
-    },
+    // {
+    //   label: t('journey'),
+    //   href: '/our-journey',
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       width="22"
+    //       height="22"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //       stroke="currentColor"
+    //       strokeWidth="1.8"
+    //       strokeLinecap="round"
+    //       strokeLinejoin="round"
+    //     >
+    //       <circle cx="12" cy="12" r="9" />
+    //       <path d="M12 8v4l3 3" />
+    //     </svg>
+    //   ),
+    // },
     {
       label: 'Account',
       href: '/account',

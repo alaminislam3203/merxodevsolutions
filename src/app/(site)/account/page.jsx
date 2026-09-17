@@ -25,14 +25,56 @@ import {
   FiChevronRight,
   FiBriefcase,
   FiCalendar,
+  FiCamera,
+  FiUploadCloud,
+  FiTrash2,
 } from 'react-icons/fi';
 
 // ─── Edit Profile Modal ───────────────────────────────────────────────────────
 function EditProfileModal({ user, onClose, onSave }) {
   const [name, setName] = useState(user?.name || '');
   const [image, setImage] = useState(user?.image || '');
+  const [preview, setPreview] = useState(user?.image || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB.');
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setError('Please select a valid image file (PNG, JPG, WebP).');
+      return;
+    }
+
+    setError('');
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      setPreview(result);
+      setImage(result); // Base64 data string to upload to Cloudinary
+    };
+    reader.onerror = () => {
+      setError('Failed to read selected image.');
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemovePhoto = () => {
+    setImage('');
+    setPreview('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +89,10 @@ function EditProfileModal({ user, onClose, onSave }) {
       const res = await fetch('/api/account/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), image: image.trim() || null }),
+        body: JSON.stringify({
+          name: name.trim(),
+          image: image ? image : null,
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -65,12 +110,14 @@ function EditProfileModal({ user, onClose, onSave }) {
     }
   };
 
+  const userInitial = name?.trim() ? name.trim()[0].toUpperCase() : 'U';
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
       <div className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-1 rounded-full transition-colors"
+          className="absolute top-6 right-6 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-1 rounded-full transition-colors cursor-pointer"
         >
           <FiX size={20} />
         </button>
@@ -79,16 +126,87 @@ function EditProfileModal({ user, onClose, onSave }) {
           Edit Profile
         </h3>
         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mb-6">
-          Update your public profile display name and avatar URL.
+          Update your public profile display name and avatar photo.
         </p>
 
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-600 text-xs font-raleway">
-            {error}
+          <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-600 text-xs font-raleway flex items-center gap-2">
+            <FiAlertCircle size={15} className="shrink-0" />
+            <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Avatar Upload Section */}
+          <div className="flex flex-col items-center justify-center gap-3 py-2">
+            <div className="relative group">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 border-violet-500/40 dark:border-cyan-500/40 shadow-xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Avatar preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="font-display text-4xl font-bold text-white uppercase">
+                    {userInitial}
+                  </span>
+                )}
+              </div>
+
+              {/* Click to change overlay */}
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="absolute inset-0 rounded-full bg-black/50 backdrop-blur-xs flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                title="Change Photo"
+              >
+                <FiCamera size={22} />
+                <span className="text-[10px] font-bold uppercase tracking-wider font-raleway mt-1">
+                  Change
+                </span>
+              </button>
+            </div>
+
+            {/* Hidden native file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/jpg"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+
+            {/* Action buttons under avatar */}
+            <div className="flex items-center gap-2 mt-1">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-violet-200 dark:border-violet-900/60 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-cyan-400 hover:bg-violet-100 dark:hover:bg-violet-900/60 text-xs font-bold font-raleway transition-colors cursor-pointer"
+              >
+                <FiUploadCloud size={14} />
+                <span>{preview ? 'Change Photo' : 'Upload Photo'}</span>
+              </button>
+
+              {preview && (
+                <button
+                  type="button"
+                  onClick={handleRemovePhoto}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold font-raleway transition-colors cursor-pointer"
+                  title="Remove custom photo"
+                >
+                  <FiTrash2 size={13} />
+                  <span>Remove</span>
+                </button>
+              )}
+            </div>
+
+            <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-raleway text-center">
+              JPG, PNG, or WebP. Max 5MB.
+            </p>
+          </div>
+
+          {/* Name Field */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
               Display Name
@@ -98,53 +216,27 @@ function EditProfileModal({ user, onClose, onSave }) {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Enter Your Name"
               className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 font-raleway"
             />
           </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
-              Avatar Image URL (Optional)
-            </label>
-            <input
-              type="url"
-              placeholder="https://images.unsplash.com/..."
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 font-raleway"
-            />
-          </div>
-
-          {image && (
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/60">
-              <img
-                src={image}
-                alt="Avatar preview"
-                className="w-10 h-10 rounded-full object-cover border border-zinc-300 dark:border-zinc-600"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-              <span className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway">
-                Live avatar preview
-              </span>
-            </div>
-          )}
 
           <div className="flex justify-end gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-raleway uppercase text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+              disabled={loading}
+              className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-raleway uppercase text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-raleway uppercase shadow-md hover:scale-105 transition-all disabled:opacity-60 cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-raleway uppercase shadow-md hover:scale-105 transition-all disabled:opacity-60 cursor-pointer flex items-center gap-2"
             >
-              {loading ? 'Saving...' : 'Save Changes'}
+              {loading && <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+              <span>{loading ? 'Saving Profile...' : 'Save Changes'}</span>
             </button>
           </div>
         </form>

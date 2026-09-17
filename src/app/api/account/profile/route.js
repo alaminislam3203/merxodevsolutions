@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { uploadImage } from '@/lib/cloudinary';
 
 // GET /api/account/profile - Get current user profile and their activity
 export async function GET() {
@@ -131,9 +132,26 @@ export async function PUT(request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
+    // Handle image upload if a base64 string was sent
+    let finalImageUrl = image;
+    if (image && typeof image === 'string' && image.startsWith('data:image/')) {
+      try {
+        const uploaded = await uploadImage(image);
+        finalImageUrl = uploaded.url;
+      } catch (uploadErr) {
+        console.error('Cloudinary avatar upload error:', uploadErr);
+        return NextResponse.json(
+          { error: 'Failed to upload avatar image. Please try again.' },
+          { status: 500 }
+        );
+      }
+    }
+
     const updateData = {};
     if (name && name.trim()) updateData.name = name.trim();
-    if (image !== undefined) updateData.image = image && image.trim() ? image.trim() : null;
+    if (image !== undefined) {
+      updateData.image = finalImageUrl && finalImageUrl.trim() ? finalImageUrl.trim() : null;
+    }
 
     if (newPassword) {
       if (!currentPassword) {
