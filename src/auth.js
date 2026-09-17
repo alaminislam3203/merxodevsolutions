@@ -32,7 +32,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           );
           if (isPasswordValid) {
             // Check if Admin has 2FA enabled
-            if (admin.twoFactorEnabled) {
+            let is2FA = admin.twoFactorEnabled;
+            if (is2FA === undefined) {
+              try {
+                const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "Admin" WHERE "id" = ${admin.id} LIMIT 1`;
+                is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+              } catch (_) {}
+            }
+
+            if (is2FA) {
               if (!twoFactorCode || twoFactorCode.length !== 6) {
                 return null;
               }
@@ -72,7 +80,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           );
           if (isUserPasswordValid) {
             // Check if User has 2FA enabled
-            if (user.twoFactorEnabled) {
+            let is2FA = user.twoFactorEnabled;
+            if (is2FA === undefined) {
+              try {
+                const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "User" WHERE "id" = ${user.id} LIMIT 1`;
+                is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+              } catch (_) {}
+            }
+
+            if (is2FA) {
               if (!twoFactorCode || twoFactorCode.length !== 6) {
                 return null;
               }

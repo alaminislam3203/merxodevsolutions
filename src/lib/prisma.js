@@ -83,6 +83,76 @@ function attachFallbacks(client) {
     };
   }
 
+  // Intercept user.update to handle twoFactorEnabled without failing in-memory schema validation
+  if (client.user && !client.user._wrappedFor2FA) {
+    const origUserUpdate = client.user.update.bind(client.user);
+    client.user.update = async function (args) {
+      if (args?.data && "twoFactorEnabled" in args.data) {
+        const enabled = Boolean(args.data.twoFactorEnabled);
+        const { twoFactorEnabled, ...restData } = args.data;
+        const id = args.where?.id;
+        const email = args.where?.email;
+
+        if (id) {
+          await client.$executeRaw`
+            UPDATE "User"
+            SET "twoFactorEnabled" = ${enabled}, "updatedAt" = NOW()
+            WHERE "id" = ${id}
+          `;
+        } else if (email) {
+          const emailLower = String(email).toLowerCase().trim();
+          await client.$executeRaw`
+            UPDATE "User"
+            SET "twoFactorEnabled" = ${enabled}, "updatedAt" = NOW()
+            WHERE LOWER("email") = ${emailLower}
+          `;
+        }
+
+        if (Object.keys(restData).length > 0) {
+          return origUserUpdate({ ...args, data: restData });
+        }
+        return { ...(args.where || {}), twoFactorEnabled: enabled };
+      }
+      return origUserUpdate(args);
+    };
+    client.user._wrappedFor2FA = true;
+  }
+
+  // Intercept admin.update to handle twoFactorEnabled without failing in-memory schema validation
+  if (client.admin && !client.admin._wrappedFor2FA) {
+    const origAdminUpdate = client.admin.update.bind(client.admin);
+    client.admin.update = async function (args) {
+      if (args?.data && "twoFactorEnabled" in args.data) {
+        const enabled = Boolean(args.data.twoFactorEnabled);
+        const { twoFactorEnabled, ...restData } = args.data;
+        const id = args.where?.id;
+        const email = args.where?.email;
+
+        if (id) {
+          await client.$executeRaw`
+            UPDATE "Admin"
+            SET "twoFactorEnabled" = ${enabled}, "updatedAt" = NOW()
+            WHERE "id" = ${id}
+          `;
+        } else if (email) {
+          const emailLower = String(email).toLowerCase().trim();
+          await client.$executeRaw`
+            UPDATE "Admin"
+            SET "twoFactorEnabled" = ${enabled}, "updatedAt" = NOW()
+            WHERE LOWER("email") = ${emailLower}
+          `;
+        }
+
+        if (Object.keys(restData).length > 0) {
+          return origAdminUpdate({ ...args, data: restData });
+        }
+        return { ...(args.where || {}), twoFactorEnabled: enabled };
+      }
+      return origAdminUpdate(args);
+    };
+    client.admin._wrappedFor2FA = true;
+  }
+
   return client;
 }
 
@@ -107,7 +177,7 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-09-17-v5";
+const SCHEMA_VERSION = "2026-09-17-v6";
 
 let prismaInstance = globalForPrisma.prisma;
 if (!prismaInstance || prismaInstance._schemaVersion !== SCHEMA_VERSION) {

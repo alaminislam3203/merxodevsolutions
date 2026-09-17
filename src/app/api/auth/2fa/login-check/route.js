@@ -78,7 +78,20 @@ export async function POST(request) {
     }
 
     // Check if 2FA is enabled
-    if (!account.twoFactorEnabled) {
+    let is2FA = account.twoFactorEnabled;
+    if (is2FA === undefined) {
+      try {
+        if (isAdmin) {
+          const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "Admin" WHERE "id" = ${account.id} LIMIT 1`;
+          is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+        } else {
+          const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "User" WHERE "id" = ${account.id} LIMIT 1`;
+          is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+        }
+      } catch (_) {}
+    }
+
+    if (!is2FA) {
       return NextResponse.json({
         requires2FA: false,
       });

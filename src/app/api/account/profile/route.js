@@ -15,28 +15,69 @@ export async function GET() {
     const email = session.user.email.toLowerCase().trim();
 
     // Try finding regular user
-    const user = await prisma.user.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-        role: true,
-        twoFactorEnabled: true,
-        createdAt: true,
-        reviews: {
-          orderBy: { createdAt: 'desc' },
-          select: {
-            id: true,
-            comment: true,
-            rating: true,
-            isApproved: true,
-            createdAt: true,
+    let user = null;
+    try {
+      user = await prisma.user.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+          role: true,
+          twoFactorEnabled: true,
+          createdAt: true,
+          reviews: {
+            orderBy: { createdAt: 'desc' },
+            select: {
+              id: true,
+              comment: true,
+              rating: true,
+              isApproved: true,
+              createdAt: true,
+            },
           },
         },
-      },
-    });
+      });
+    } catch (userErr) {
+      if (
+        userErr?.message?.includes("twoFactorEnabled") ||
+        userErr?.message?.includes("Unknown field") ||
+        userErr?.message?.includes("Unknown argument")
+      ) {
+        user = await prisma.user.findFirst({
+          where: { email: { equals: email, mode: 'insensitive' } },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+            role: true,
+            createdAt: true,
+            reviews: {
+              orderBy: { createdAt: 'desc' },
+              select: {
+                id: true,
+                comment: true,
+                rating: true,
+                isApproved: true,
+                createdAt: true,
+              },
+            },
+          },
+        });
+        if (user) {
+          try {
+            const raw = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "User" WHERE "id" = ${user.id} LIMIT 1`;
+            user.twoFactorEnabled = Boolean(raw?.[0]?.twoFactorEnabled);
+          } catch (_) {
+            user.twoFactorEnabled = false;
+          }
+        }
+      } else {
+        throw userErr;
+      }
+    }
 
     if (user) {
       return NextResponse.json({ user, isAdmin: user.role === 'ADMIN' });
@@ -57,13 +98,10 @@ export async function GET() {
         },
       });
     } catch (adminGetErr) {
-      if (
-        adminGetErr?.message?.includes("Unknown field `image`") ||
-        adminGetErr?.message?.includes("Unknown argument `image`")
-      ) {
-        const rows = await prisma.$queryRaw`SELECT "id", "name", "email", "image", "createdAt" FROM "Admin" WHERE LOWER("email") = LOWER(${email}) LIMIT 1`;
+      try {
+        const rows = await prisma.$queryRaw`SELECT "id", "name", "email", "image", "twoFactorEnabled", "createdAt" FROM "Admin" WHERE LOWER("email") = LOWER(${email}) LIMIT 1`;
         admin = rows?.[0] || null;
-      } else {
+      } catch (_) {
         throw adminGetErr;
       }
     }

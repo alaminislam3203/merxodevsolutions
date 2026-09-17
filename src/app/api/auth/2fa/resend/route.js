@@ -40,7 +40,20 @@ export async function POST(request) {
     const admin = !user ? await prisma.admin.findUnique({ where: { email: emailTrimmed } }) : null;
     const account = user || admin;
 
-    if (!account || !account.twoFactorEnabled) {
+    let is2FA = account?.twoFactorEnabled;
+    if (account && is2FA === undefined) {
+      try {
+        if (user) {
+          const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "User" WHERE "id" = ${user.id} LIMIT 1`;
+          is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+        } else if (admin) {
+          const rows = await prisma.$queryRaw`SELECT "twoFactorEnabled" FROM "Admin" WHERE "id" = ${admin.id} LIMIT 1`;
+          is2FA = Boolean(rows?.[0]?.twoFactorEnabled);
+        }
+      } catch (_) {}
+    }
+
+    if (!account || !is2FA) {
       return NextResponse.json({ error: 'Account not found or 2FA is not enabled.' }, { status: 400 });
     }
 

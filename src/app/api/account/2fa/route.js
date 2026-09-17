@@ -27,24 +27,42 @@ export async function GET() {
 
     const email = session.user.email.toLowerCase().trim();
 
-    // Check user table
-    const user = await prisma.user.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
-      select: { twoFactorEnabled: true },
-    });
-
-    if (user) {
-      return NextResponse.json({ enabled: Boolean(user.twoFactorEnabled) });
+    // Check user table via direct SQL first to avoid stale schema issues
+    try {
+      const rows = await prisma.$queryRaw`
+        SELECT "id", "twoFactorEnabled" FROM "User"
+        WHERE LOWER("email") = LOWER(${email})
+        LIMIT 1
+      `;
+      if (rows && rows.length > 0) {
+        return NextResponse.json({ enabled: Boolean(rows[0].twoFactorEnabled) });
+      }
+    } catch (rawErr) {
+      const user = await prisma.user.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+      });
+      if (user) {
+        return NextResponse.json({ enabled: Boolean(user.twoFactorEnabled) });
+      }
     }
 
-    // Check admin table
-    const admin = await prisma.admin.findFirst({
-      where: { email: { equals: email, mode: 'insensitive' } },
-      select: { twoFactorEnabled: true },
-    });
-
-    if (admin) {
-      return NextResponse.json({ enabled: Boolean(admin.twoFactorEnabled) });
+    // Check admin table via direct SQL first
+    try {
+      const adminRows = await prisma.$queryRaw`
+        SELECT "id", "twoFactorEnabled" FROM "Admin"
+        WHERE LOWER("email") = LOWER(${email})
+        LIMIT 1
+      `;
+      if (adminRows && adminRows.length > 0) {
+        return NextResponse.json({ enabled: Boolean(adminRows[0].twoFactorEnabled) });
+      }
+    } catch (rawErr) {
+      const admin = await prisma.admin.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+      });
+      if (admin) {
+        return NextResponse.json({ enabled: Boolean(admin.twoFactorEnabled) });
+      }
     }
 
     return NextResponse.json({ error: 'Account not found' }, { status: 404 });
@@ -190,25 +208,43 @@ export async function POST(request) {
         );
       }
 
-      // Update User or Admin
+      // Update User or Admin with resilient SQL execution
       const user = await prisma.user.findFirst({
         where: { email: { equals: email, mode: 'insensitive' } },
       });
 
       if (user) {
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { twoFactorEnabled: true },
-        });
+        try {
+          await prisma.$executeRaw`
+            UPDATE "User"
+            SET "twoFactorEnabled" = true, "updatedAt" = NOW()
+            WHERE "id" = ${user.id}
+          `;
+        } catch (sqlErr) {
+          console.warn('Raw SQL update failed, fallback to model update:', sqlErr);
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { twoFactorEnabled: true },
+          });
+        }
       } else {
         const admin = await prisma.admin.findFirst({
           where: { email: { equals: email, mode: 'insensitive' } },
         });
         if (admin) {
-          await prisma.admin.update({
-            where: { id: admin.id },
-            data: { twoFactorEnabled: true },
-          });
+          try {
+            await prisma.$executeRaw`
+              UPDATE "Admin"
+              SET "twoFactorEnabled" = true, "updatedAt" = NOW()
+              WHERE "id" = ${admin.id}
+            `;
+          } catch (sqlErr) {
+            console.warn('Raw SQL update failed, fallback to model update:', sqlErr);
+            await prisma.admin.update({
+              where: { id: admin.id },
+              data: { twoFactorEnabled: true },
+            });
+          }
         }
       }
 
@@ -228,19 +264,37 @@ export async function POST(request) {
       });
 
       if (user) {
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { twoFactorEnabled: false },
-        });
+        try {
+          await prisma.$executeRaw`
+            UPDATE "User"
+            SET "twoFactorEnabled" = false, "updatedAt" = NOW()
+            WHERE "id" = ${user.id}
+          `;
+        } catch (sqlErr) {
+          console.warn('Raw SQL update failed, fallback to model update:', sqlErr);
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { twoFactorEnabled: false },
+          });
+        }
       } else {
         const admin = await prisma.admin.findFirst({
           where: { email: { equals: email, mode: 'insensitive' } },
         });
         if (admin) {
-          await prisma.admin.update({
-            where: { id: admin.id },
-            data: { twoFactorEnabled: false },
-          });
+          try {
+            await prisma.$executeRaw`
+              UPDATE "Admin"
+              SET "twoFactorEnabled" = false, "updatedAt" = NOW()
+              WHERE "id" = ${admin.id}
+            `;
+          } catch (sqlErr) {
+            console.warn('Raw SQL update failed, fallback to model update:', sqlErr);
+            await prisma.admin.update({
+              where: { id: admin.id },
+              data: { twoFactorEnabled: false },
+            });
+          }
         }
       }
 
