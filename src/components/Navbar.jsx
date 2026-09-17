@@ -56,13 +56,13 @@ export default function Navbar() {
 
   // Close dropdown on click outside
   useEffect(() => {
-    const handlePointerDown = (e) => {
+    const handleClickOutside = (e) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
         setUserMenuOpen(false);
       }
     };
-    document.addEventListener('pointerdown', handlePointerDown);
-    return () => document.removeEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   // Auto scroll to top on any route change
@@ -224,7 +224,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen((prev) => !prev)}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-white/25 dark:border-zinc-800 bg-white/10 dark:bg-zinc-900/80 text-white hover:bg-white/20 dark:hover:bg-zinc-800 transition-all font-raleway text-xs sm:text-sm font-bold shadow-sm select-none cursor-pointer backdrop-blur-md"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-white dark:text-white font-bold"
                   aria-label="Account Menu"
                 >
                   {session?.user?.image ? (
@@ -234,7 +234,7 @@ export default function Navbar() {
                       className="w-5 h-5 rounded-full object-cover border border-white/50"
                     />
                   ) : (
-                    <FiUser size={16} className="text-amber-300 dark:text-cyan-400" />
+                    <FiUser size={16} className="text-white dark:text-white" />
                   )}
                   <span>
                     {session?.user?.name ? session.user.name.split(' ')[0] : 'Account'}

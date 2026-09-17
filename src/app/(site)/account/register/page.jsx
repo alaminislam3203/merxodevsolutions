@@ -96,7 +96,7 @@ function RegisterForm() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] no-gsap">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] no-gsap mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) ── */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
         {/* Ambient Glows */}
@@ -104,10 +104,10 @@ function RegisterForm() {
         <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-violet-600/15 blur-[120px] pointer-events-none" />
 
         {/* Top Branding */}
-        <div className="relative z-10 flex items-center justify-between">
-          {/* <Link href="/" className="inline-block transition-transform hover:scale-105">
+        {/* <div className="relative z-10 flex items-center justify-between">
+          <Link href="/" className="inline-block transition-transform hover:scale-105">
             <Logo />
-          </Link> */}
+          </Link>
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-raleway text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
@@ -115,7 +115,7 @@ function RegisterForm() {
             <FiHome size={14} />
             <span>Back to Home</span>
           </Link>
-        </div>
+        </div> */}
 
         {/* Narrative & Benefits */}
         <div className="relative z-10 my-auto py-10 max-w-xl">
@@ -181,7 +181,7 @@ function RegisterForm() {
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-zinc-50 dark:bg-[#060b19]">
         <div className="w-full max-w-md">
           {/* Mobile Logo Header */}
-          <div className="lg:hidden flex items-center justify-between mb-8">
+          {/* <div className="lg:hidden flex items-center justify-between mb-8">
             <Link href="/">
               <Logo />
             </Link>
@@ -192,7 +192,7 @@ function RegisterForm() {
               <FiHome size={13} />
               <span>Home</span>
             </Link>
-          </div>
+          </div> */}
 
           <div className="mb-8">
             <h2

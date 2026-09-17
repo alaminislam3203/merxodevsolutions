@@ -66,7 +66,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] no-gsap">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) ── */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
         {/* Ambient Glows */}
@@ -75,10 +75,10 @@ function LoginForm() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
         {/* Top Branding */}
-        <div className="relative z-10 flex items-center justify-between">
-          {/* <Link href="/" className="inline-block transition-transform hover:scale-105">
+        {/* <div className="relative z-10 flex items-center justify-between">
+          <Link href="/" className="inline-block transition-transform hover:scale-105">
             <Logo />
-          </Link> */}
+          </Link>
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-raleway text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
@@ -86,7 +86,7 @@ function LoginForm() {
             <FiHome size={14} />
             <span>Back to Home</span>
           </Link>
-        </div>
+        </div> */}
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
@@ -95,10 +95,7 @@ function LoginForm() {
             <span>Enterprise Web & Software Platform</span>
           </div>
 
-          <h1
-            suppressHydrationWarning
-            className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
-          >
+          <h1 className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5">
             We Build Your{' '}
             <span className="text-orange-500">DREAM</span>{' '}
             <span className="bg-gradient-to-r from-orange-400 via-white to-[#84cc16] bg-clip-text text-transparent">
@@ -146,7 +143,7 @@ function LoginForm() {
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-zinc-50 dark:bg-[#060b19]">
         <div className="w-full max-w-md">
           {/* Mobile Logo Header */}
-          <div className="lg:hidden flex items-center justify-between mb-8">
+          {/* <div className="lg:hidden flex items-center justify-between mb-8">
             <Link href="/">
               <Logo />
             </Link>
@@ -157,13 +154,10 @@ function LoginForm() {
               <FiHome size={13} />
               <span>Home</span>
             </Link>
-          </div>
+          </div> */}
 
           <div className="mb-8">
-            <h2
-              suppressHydrationWarning
-              className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2"
-            >
+            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
               Welcome Back
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
@@ -198,7 +192,7 @@ function LoginForm() {
                 <input
                   type="email"
                   required
-                  placeholder="name@company.com"
+                  placeholder="Enter Your Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
@@ -224,7 +218,7 @@ function LoginForm() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Enter your password"
+                  placeholder="Enter Your Password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
@@ -271,13 +265,12 @@ function LoginForm() {
 
           {/* Admin Portal notice */}
           <div className="mt-6 text-center">
-            <Link
-              href="/709832"
+            <div
               className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 font-raleway transition-colors"
             >
               <FiShield size={13} />
-              <span>Workspace Administrators Portal</span>
-            </Link>
+              <span>Client Workspace Portal</span>
+            </div>
           </div>
         </div>
       </div>
