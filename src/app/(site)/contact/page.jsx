@@ -401,7 +401,7 @@ export default function ContactPage() {
                       name="name"
                       value={form.name}
                       onChange={handleChange}
-                      placeholder="e.g. John Doe"
+                      placeholder="Enter your name"
                       className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.name
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
@@ -424,7 +424,7 @@ export default function ContactPage() {
                       name="email"
                       value={form.email}
                       onChange={handleChange}
-                      placeholder="john@company.com"
+                      placeholder="Enter your email"
                       className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.email
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'

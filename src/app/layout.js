@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VisitorTracker from '@/components/VisitorTracker';
+import { GlobalToaster } from '@/lib/toast';
 
 const anton = Anton({
   weight: ['400'],
@@ -260,6 +261,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col font-sans">
         <SessionProviderWrapper>
           <ThemeProvider>
+            <GlobalToaster />
             <VisitorTracker />
             {children}
           </ThemeProvider>

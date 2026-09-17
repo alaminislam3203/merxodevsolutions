@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { showToast } from "@/lib/toast";
+import { showToast, confirmToast } from "@/lib/toast";
 
 const SECTIONS = ["all", "hero", "about", "services", "footer", "general"];
 const SECTION_COLORS = { hero: "#6366f1", about: "#8b5cf6", services: "#06b6d4", footer: "#f59e0b", general: "#64748b" };
@@ -61,7 +61,12 @@ export default function ContentPage() {
   };
 
   const handleDelete = async (key) => {
-    if (!confirm("Delete this content block?")) return;
+    const confirmed = await confirmToast("Delete this content block?", {
+      confirmText: "Delete Block",
+      cancelText: "Cancel",
+      danger: true,
+    });
+    if (!confirmed) return;
     setDeleting(key);
     const res = await fetch(`/api/admin/content?key=${key}`, { method: "DELETE" });
     if (res.ok) { showToast("Deleted."); fetchContent(); }

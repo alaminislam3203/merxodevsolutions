@@ -87,7 +87,12 @@ export default function UsersManagementPage() {
 
     const newRole = user.role === "ADMIN" ? "USER" : "ADMIN";
     const confirmMsg = `Are you sure you want to change ${user.name}'s role to ${newRole}?`;
-    if (!window.confirm(confirmMsg)) return;
+    const confirmed = await confirmToast(confirmMsg, {
+      confirmText: `Change to ${newRole}`,
+      cancelText: "Cancel",
+      danger: false,
+    });
+    if (!confirmed) return;
 
     try {
       const res = await fetch(`/api/admin/users/${user.id}`, {
@@ -97,28 +102,34 @@ export default function UsersManagementPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success(data.message || `Role changed to ${newRole}`);
+        showToast.success(data.message || `Role changed to ${newRole}`);
         fetchUsers();
       } else {
-        toast.error(data.error || "Failed to update role");
+        showToast.error(data.error || "Failed to update role");
       }
     } catch (_) {
-      toast.error("Failed to update user role");
+      showToast.error("Failed to update user role");
     }
   };
 
   // Toggle isActive status
   const handleToggleStatus = async (user) => {
     if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
-      toast.error("Main Admin account cannot be suspended.");
+      showToast.lock("Main Admin account cannot be suspended.");
       return;
     }
 
     const nextStatus = user.isActive === false; // toggle to active
     const actionLabel = nextStatus ? "activate" : "suspend";
-    if (!window.confirm(`Are you sure you want to ${actionLabel} account for ${user.email}?`)) {
-      return;
-    }
+    const confirmed = await confirmToast(
+      `Are you sure you want to ${actionLabel} account for ${user.email}?`,
+      {
+        confirmText: nextStatus ? "Activate Account" : "Suspend Account",
+        cancelText: "Cancel",
+        danger: !nextStatus,
+      }
+    );
+    if (!confirmed) return;
 
     try {
       const res = await fetch(`/api/admin/users/${user.id}`, {
@@ -654,7 +665,7 @@ export default function UsersManagementPage() {
                                     letterSpacing: "0.04em",
                                   }}
                                 >
-                                  👑 OWNER
+                                  OWNER
                                 </span>
                               )}
                             </div>

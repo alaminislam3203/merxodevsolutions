@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { showToast } from "@/lib/toast";
+import { showToast, confirmToast } from "@/lib/toast";
 
 // ─── Helpers ─────────────────────────────────────────────────
 function toBase64(file) {
@@ -352,7 +352,12 @@ export default function AdminBannersPage() {
   };
 
   const deleteBanner = async (id) => {
-    if (!confirm("Delete this banner? This cannot be undone.")) return;
+    const confirmed = await confirmToast("Delete this banner? This cannot be undone.", {
+      confirmText: "Delete Banner",
+      cancelText: "Cancel",
+      danger: true,
+    });
+    if (!confirmed) return;
     setDeletingId(id);
     try {
       const res = await fetch(`/api/admin/banners/${id}`, { method: "DELETE" });

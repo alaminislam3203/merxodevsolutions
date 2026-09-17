@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { showToast } from "@/lib/toast";
+import { showToast, confirmToast } from "@/lib/toast";
 
 export default function ImagesPage() {
   const [images, setImages] = useState([]);
@@ -49,7 +49,12 @@ export default function ImagesPage() {
   };
 
   const handleDelete = async (img) => {
-    if (!confirm("Delete this image?")) return;
+    const confirmed = await confirmToast("Delete this image? This cannot be undone.", {
+      confirmText: "Delete Image",
+      cancelText: "Cancel",
+      danger: true,
+    });
+    if (!confirmed) return;
     setDeleting(img.id);
     const res = await fetch("/api/admin/images/" + img.id, { method: "DELETE" });
     if (res.ok) { showToast("Image deleted."); fetchImages(); setSelectedImage(null); }

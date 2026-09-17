@@ -232,7 +232,12 @@ export default function AdminReviewsPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to permanently delete this review?")) return;
+    const confirmed = await confirmToast("Are you sure you want to permanently delete this review?", {
+      confirmText: "Delete Review",
+      cancelText: "Cancel",
+      danger: true,
+    });
+    if (!confirmed) return;
     setActionLoading(`delete-${id}`);
     try {
       const res = await fetch(`/api/admin/reviews/${id}`, {
@@ -273,7 +278,7 @@ export default function AdminReviewsPage() {
         </div>
         <button id="add-review-btn" className="admin-btn admin-btn-primary" onClick={handleOpenAdd}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
           </svg>
           Add Review
         </button>
@@ -357,7 +362,7 @@ export default function AdminReviewsPage() {
       ) : filteredReviews.length === 0 ? (
         <div className="admin-empty">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
           <p>No reviews found matching your filter criteria.</p>
         </div>
@@ -622,7 +627,7 @@ export default function AdminReviewsPage() {
                   <input
                     className="admin-input"
                     required
-                    placeholder="e.g. Sarah Johnson"
+                    placeholder="Enter client name"
                     value={formData.userName}
                     onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
                   />

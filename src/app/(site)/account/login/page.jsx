@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { showToast } from '@/lib/toast';
 import {
   FiMail,
   FiLock,
@@ -61,11 +62,15 @@ function LoginForm() {
 
     const res = await signIn('credentials', credentials);
     if (res?.error) {
-      setError(twoFactorCode ? 'Invalid or expired 2FA code. Please try again.' : 'Invalid email or password.');
+      const errMsg = twoFactorCode ? 'Invalid or expired 2FA code. Please try again.' : 'Invalid email or password.';
+      setError(errMsg);
+      showToast.error(errMsg);
       setLoading(false);
       setVerifying2FA(false);
       return;
     }
+
+    showToast.success('Login successful! Redirecting...');
 
     // Fetch profile to see if user is ADMIN to redirect appropriately
     try {
@@ -113,6 +118,7 @@ function LoginForm() {
         setIs2FAStep(true);
         setResendCooldown(120);
         setInfoMessage('A 6-digit security code was sent to your email.');
+        showToast.info('A 6-digit security code was sent to your email.');
         setLoading(false);
         setTimeout(() => inputsRef.current[0]?.focus(), 100);
         return;
@@ -121,7 +127,9 @@ function LoginForm() {
       // Normal sign-in without 2FA
       await executeSignIn();
     } catch (err) {
-      setError(err?.message || 'Authentication failed. Please try again.');
+      const errMsg = err?.message || 'Authentication failed. Please try again.';
+      setError(errMsg);
+      showToast.error(errMsg);
       setLoading(false);
     }
   };
@@ -131,6 +139,7 @@ function LoginForm() {
     const code = codeToVerify || digits.join('');
     if (code.length !== 6) {
       setError('Please enter all 6 digits of the verification code.');
+      showToast.error('Please enter all 6 digits of the verification code.');
       return;
     }
 
@@ -213,11 +222,14 @@ function LoginForm() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to resend code.');
       setInfoMessage('A fresh 2FA security code has been sent to your email.');
+      showToast.success('A fresh 2FA security code has been sent to your email.');
       setResendCooldown(120);
       setDigits(['', '', '', '', '', '']);
       setTimeout(() => inputsRef.current[0]?.focus(), 100);
     } catch (err) {
-      setError(err?.message || 'Failed to resend code.');
+      const errMsg = err?.message || 'Failed to resend code.';
+      setError(errMsg);
+      showToast.error(errMsg);
     } finally {
       setResending(false);
     }

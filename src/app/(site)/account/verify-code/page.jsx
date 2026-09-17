@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { showToast } from '@/lib/toast';
 import {
   FiShield,
   FiLock,
@@ -59,11 +60,13 @@ function VerifyCodeContent() {
     const code = codeToVerify || fullCode;
     if (!email || !email.includes('@')) {
       setError('Please provide a valid email address.');
+      showToast.error('Please provide a valid email address.');
       return;
     }
 
     if (code.length !== 6) {
       setError('Please enter all 6 digits of the verification code.');
+      showToast.error('Please enter all 6 digits of the verification code.');
       return;
     }
 
@@ -86,13 +89,16 @@ function VerifyCodeContent() {
       }
 
       setSuccessMessage('Code verified successfully! Opening password setup...');
+      showToast.success('Code verified successfully!');
       setTimeout(() => {
         router.push(
           `/account/reset-password?email=${encodeURIComponent(email.trim())}&code=${encodeURIComponent(code.trim())}`
         );
       }, 600);
     } catch (err) {
-      setError(err?.message || 'Verification failed. Please check the code.');
+      const errMsg = err?.message || 'Verification failed. Please check the code.';
+      setError(errMsg);
+      showToast.error(errMsg);
       setVerifying(false);
     }
   };
@@ -194,11 +200,14 @@ function VerifyCodeContent() {
       }
 
       setSuccessMessage('A fresh 6-digit code has been sent to your email.');
+      showToast.success('A fresh 6-digit code has been sent to your email.');
       setResendCooldown(120); // Reset to 2 minutes
       setDigits(['', '', '', '', '', '']);
       inputsRef.current[0]?.focus();
     } catch (err) {
-      setError(err?.message || 'Failed to resend code.');
+      const errMsg = err?.message || 'Failed to resend code.';
+      setError(errMsg);
+      showToast.error(errMsg);
     } finally {
       setResending(false);
     }

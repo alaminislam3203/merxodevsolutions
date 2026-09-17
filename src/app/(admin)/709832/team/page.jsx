@@ -21,7 +21,7 @@ import {
   FaPalette,
   FaLink,
 } from "react-icons/fa";
-import { showToast } from "@/lib/toast";
+import { showToast, confirmToast } from "@/lib/toast";
 
 const GRADIENT_PRESETS = [
   { label: "Violet to Cyan (Default)", value: "from-violet-600 to-cyan-500", colors: ["#7c3aed", "#06b6d4"] },
@@ -272,9 +272,15 @@ export default function AdminTeamPage() {
 
   // Delete team member
   const handleDelete = async (member) => {
-    if (!confirm(`Are you sure you want to remove "${member.name}" from the team?`)) {
-      return;
-    }
+    const confirmed = await confirmToast(
+      `Are you sure you want to remove "${member.name}" from the team?`,
+      {
+        confirmText: "Remove Member",
+        cancelText: "Cancel",
+        danger: true,
+      }
+    );
+    if (!confirmed) return;
 
     setActionLoading(member.id);
     try {

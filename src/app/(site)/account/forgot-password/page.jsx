@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { showToast } from '@/lib/toast';
 import {
   FiMail,
   FiArrowRight,
@@ -30,6 +31,7 @@ function ForgotPasswordContent() {
 
     if (!email.trim() || !email.includes('@')) {
       setError('Please provide a valid email address.');
+      showToast.error('Please provide a valid email address.');
       return;
     }
 
@@ -47,11 +49,14 @@ function ForgotPasswordContent() {
       }
 
       setSuccessMessage('Verification code sent successfully! Redirecting to verification page...');
+      showToast.success('Verification code sent! Please check your email inbox.');
       setTimeout(() => {
         router.push(`/account/verify-code?email=${encodeURIComponent(email.trim())}`);
       }, 700);
     } catch (err) {
-      setError(err?.message || 'Something went wrong. Please try again.');
+      const errMsg = err?.message || 'Something went wrong. Please try again.';
+      setError(errMsg);
+      showToast.error(errMsg);
     } finally {
       setLoading(false);
     }

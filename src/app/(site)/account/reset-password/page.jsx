@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { showToast } from '@/lib/toast';
 import {
   FiShield,
   FiLock,
@@ -39,11 +40,13 @@ function ResetPasswordContent() {
 
     if (newPassword.length < 6) {
       setError('New password must be at least 6 characters long.');
+      showToast.error('New password must be at least 6 characters long.');
       return;
     }
 
     if (newPassword !== confirmPassword) {
       setError('Passwords do not match. Please re-enter.');
+      showToast.error('Passwords do not match. Please re-enter.');
       return;
     }
 
@@ -65,8 +68,11 @@ function ResetPasswordContent() {
       }
 
       setIsSuccess(true);
+      showToast.success('Password updated successfully! You can now log in.');
     } catch (err) {
-      setError(err?.message || 'Failed to update password. Please try again.');
+      const errMsg = err?.message || 'Failed to update password. Please try again.';
+      setError(errMsg);
+      showToast.error(errMsg);
     } finally {
       setLoading(false);
     }

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { showToast, confirmToast } from '@/lib/toast';
 import {
   FiUser,
   FiMail,
@@ -123,13 +124,16 @@ function EditProfileModal({ user, onClose, onSave }) {
 
       if (!res.ok) {
         setError(data.error || 'Failed to update profile.');
+        showToast.error(data.error || 'Failed to update profile.');
       } else {
+        showToast.success('Profile updated successfully!');
         onSave(data.user);
         onClose();
       }
     } catch (err) {
       setLoading(false);
       setError(err?.message || 'Failed to connect to server.');
+      showToast.error(err?.message || 'Failed to connect to server.');
     }
   };
 
@@ -302,13 +306,16 @@ function ChangePasswordModal({ onClose }) {
 
       if (!res.ok) {
         setError(data.error || 'Failed to update password.');
+        showToast.error(data.error || 'Failed to update password.');
       } else {
         setSuccess(true);
-        setTimeout(() => onClose(), 1500);
+        showToast.success('Password changed successfully!');
+        setTimeout(() => onClose(), 1200);
       }
     } catch (err) {
       setLoading(false);
       setError(err?.message || 'Server error.');
+      showToast.error(err?.message || 'Server connection error.');
     }
   };
 
@@ -464,12 +471,14 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Invalid or expired code');
       setSuccess('Two-Factor Authentication is now enabled!');
+      showToast.success('Two-Factor Authentication is now enabled!');
       setTimeout(() => {
         onSuccess();
         onClose();
-      }, 1000);
+      }, 900);
     } catch (err) {
       setError(err?.message || 'Verification failed');
+      showToast.error(err?.message || 'Verification failed');
       setLoading(false);
     }
   };
@@ -662,7 +671,16 @@ function AccountContent() {
 
   // Handle disabling 2FA
   const handleDisable2FA = async () => {
-    if (!confirm('Are you sure you want to disable Two-Factor Authentication? Your account will be less secure.')) return;
+    const confirmed = await confirmToast(
+      'Are you sure you want to disable Two-Factor Authentication? Your account will be less secure.',
+      {
+        confirmText: 'Disable 2FA',
+        cancelText: 'Keep Enabled',
+        danger: true,
+      }
+    );
+    if (!confirmed) return;
+
     setDisabling2FA(true);
     try {
       const res = await fetch('/api/account/2fa', {
@@ -671,10 +689,14 @@ function AccountContent() {
         body: JSON.stringify({ action: 'disable' }),
       });
       if (res.ok) {
+        showToast.success('Two-Factor Authentication has been disabled.');
         setUserData((prev) => ({ ...(prev || {}), twoFactorEnabled: false }));
+      } else {
+        showToast.error('Failed to disable Two-Factor Authentication.');
       }
     } catch (err) {
       console.error(err);
+      showToast.error('Network error disabling 2FA.');
     } finally {
       setDisabling2FA(false);
     }

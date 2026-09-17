@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { showToast } from "@/lib/toast";
+import { showToast, confirmToast } from "@/lib/toast";
 
 function toBase64(file) {
   return new Promise((resolve, reject) => {
@@ -188,7 +188,12 @@ export default function AdminShowcasePage() {
   const handleDelete = async (slotKey) => {
     const existing = getSlotBanner(slotKey);
     if (!existing) return;
-    if (!confirm("Reset this slot to the default theme image?")) return;
+    const confirmed = await confirmToast("Reset this slot to the default theme image?", {
+      confirmText: "Reset Slot",
+      cancelText: "Cancel",
+      danger: true,
+    });
+    if (!confirmed) return;
 
     try {
       const res = await fetch(`/api/admin/banners/${existing.id}`, { method: "DELETE" });

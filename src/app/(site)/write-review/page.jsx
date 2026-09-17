@@ -80,11 +80,13 @@ function WriteReviewContent() {
     e.preventDefault();
     if (tag === 'Others' && !customTag.trim()) {
       setError('Please specify your custom service category.');
+      toast.error('Please specify your custom service category.');
       return;
     }
 
     if (!comment.trim() || comment.trim().length < 5) {
       setError('Please provide a meaningful review comment of at least 5 characters.');
+      toast.error('Please provide a meaningful review comment of at least 5 characters.');
       return;
     }
 
@@ -110,7 +112,9 @@ function WriteReviewContent() {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setError(data.error || 'Failed to submit review. Please try again.');
+        const errMsg = data.error || 'Failed to submit review. Please try again.';
+        setError(errMsg);
+        toast.error(errMsg);
         setSubmitting(false);
       } else {
         setSubmitting(false);
@@ -119,7 +123,9 @@ function WriteReviewContent() {
       }
     } catch (err) {
       setSubmitting(false);
-      setError(err?.message || 'Network error. Please try again.');
+      const errMsg = err?.message || 'Network error. Please try again.';
+      setError(errMsg);
+      toast.error(errMsg);
     }
   };
 

@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { showToast } from '@/lib/toast';
 import {
   FiUser,
   FiMail,
@@ -53,11 +54,13 @@ function RegisterForm() {
     e.preventDefault();
     if (!agreeTerms) {
       setError('You must agree to the Terms of Service and Privacy Policy.');
+      showToast.error('You must agree to the Terms of Service and Privacy Policy.');
       return;
     }
 
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters long.');
+      showToast.error('Password must be at least 6 characters long.');
       return;
     }
 
@@ -75,16 +78,21 @@ function RegisterForm() {
       setLoading(false);
 
       if (!res.ok) {
-        setError(data.error || data.message || 'Registration failed. Please try again.');
+        const errMsg = data.error || data.message || 'Registration failed. Please try again.';
+        setError(errMsg);
+        showToast.error(errMsg);
       } else {
+        showToast.success('Account created successfully! Redirecting to login...');
         const loginUrl = redirectUrl
           ? `/account/login?registered=true&redirect=${encodeURIComponent(redirectUrl)}`
           : '/account/login?registered=true';
-        router.push(loginUrl);
+        setTimeout(() => router.push(loginUrl), 400);
       }
     } catch (err) {
       setLoading(false);
-      setError(err?.message || 'Server connection error. Please try again.');
+      const errMsg = err?.message || 'Server connection error. Please try again.';
+      setError(errMsg);
+      showToast.error(errMsg);
     }
   };
 
