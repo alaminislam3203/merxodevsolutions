@@ -144,7 +144,7 @@ export default async function HeroCarousel() {
         <div className="hero-dual-left rounded-xl">
           <CarouselPanel banners={left} dotButtons arrowButtons autoplay />
         </div>
-        <div className="hero-dual-right">
+        <div className="hero-dual-right hidden md:flex">
           {hasRightTop && (
             <div className="hero-dual-right-item hero-dual-right-top rounded-xl">
               <CarouselPanel banners={rightTop} autoplay />

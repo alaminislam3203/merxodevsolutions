@@ -142,8 +142,8 @@ export default function SearchBar({ mobile = false }) {
           }}
           placeholder={mobile ? "Search anything..." : "Search projects, services, technologies, solutions..."}
           className={`w-full rounded-sm transition-all duration-200 outline-none font-raleway ${mobile
-            ? 'py-2 pl-3 pr-16 text-xs font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
-            : 'py-2.5 pl-3.5 pr-20 text-xs sm:text-sm font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
+            ? 'py-2.5 pl-3 pr-16 text-xs font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
+            : 'py-3 pl-3.5 pr-20 text-xs sm:text-sm font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
             }`}
         />
 
@@ -156,7 +156,7 @@ export default function SearchBar({ mobile = false }) {
               setIsOpen(false);
               inputRef.current?.focus();
             }}
-            className="absolute right-12 sm:right-14 p-1 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors cursor-pointer"
+            className="absolute right-12 sm:right-14 top-1/2 -translate-y-1/2 p-1 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors cursor-pointer"
             aria-label="Clear search"
           >
             <svg
