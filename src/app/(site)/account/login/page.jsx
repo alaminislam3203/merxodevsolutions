@@ -144,7 +144,7 @@ function LoginForm() {
       </div>
 
       {/* ── Right Login Panel ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-zinc-50 dark:bg-[#060b19]">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
           {/* Mobile Logo Header */}
           {/* <div className="lg:hidden flex items-center justify-between mb-8">
@@ -211,7 +211,7 @@ function LoginForm() {
                   Password
                 </label>
                 <Link
-                  href="/contact?subject=Password%20Reset%20Assistance"
+                  href="/account/forgot-password"
                   className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-raleway"
                 >
                   Forgot password?

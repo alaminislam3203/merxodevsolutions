@@ -21,7 +21,9 @@ export default function GsapTextProvider({ children }) {
       pathname.startsWith('/account') ||
       pathname.startsWith('/admin') ||
       pathname.startsWith('/709832') ||
-      pathname.startsWith('/write-review')
+      pathname.startsWith('/write-review') ||
+      pathname.startsWith('/forgot-password') ||
+      pathname.startsWith('/forget-password')
     ) {
       return;
     }

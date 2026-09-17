@@ -118,11 +118,15 @@ html.dark body {
   transform: translateY(-50%);
   z-index: 10;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.25s ease;
 }
 
-.embla-root:hover .embla-arrow {
+.embla-root:hover .embla-arrow,
+.embla-root:focus-within .embla-arrow,
+.embla-root:active .embla-arrow {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .embla-arrow-prev {
@@ -135,8 +139,16 @@ html.dark body {
 
 @media (max-width: 768px) {
   .embla-arrow {
-    display: block !important;
-    opacity: 0.9 !important;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Show only on hover or active touch on mobile */
+  .embla-root:hover .embla-arrow,
+  .embla-root:active .embla-arrow {
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 }
 
