@@ -48,6 +48,7 @@ export async function GET() {
         id: true,
         name: true,
         email: true,
+        image: true,
         createdAt: true,
       },
     });
@@ -57,7 +58,7 @@ export async function GET() {
         user: {
           ...admin,
           role: 'ADMIN',
-          image: null,
+          image: admin.image || null,
           reviews: [],
         },
         isAdmin: true,
@@ -83,6 +84,21 @@ export async function PUT(request) {
     const body = await request.json();
     const { name, image, currentPassword, newPassword } = body;
 
+    // Handle image upload if a base64 string was sent (for either user or admin)
+    let finalImageUrl = image;
+    if (image && typeof image === 'string' && image.startsWith('data:image/')) {
+      try {
+        const uploaded = await uploadImage(image);
+        finalImageUrl = uploaded.url;
+      } catch (uploadErr) {
+        console.error('Cloudinary avatar upload error:', uploadErr);
+        return NextResponse.json(
+          { error: 'Failed to upload avatar image. Please try again.' },
+          { status: 500 }
+        );
+      }
+    }
+
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -93,6 +109,9 @@ export async function PUT(request) {
       if (admin) {
         const updateData = {};
         if (name && name.trim()) updateData.name = name.trim();
+        if (image !== undefined) {
+          updateData.image = finalImageUrl && finalImageUrl.trim() ? finalImageUrl.trim() : null;
+        }
 
         if (newPassword) {
           if (!currentPassword) {
@@ -120,7 +139,7 @@ export async function PUT(request) {
         const updatedAdmin = await prisma.admin.update({
           where: { email },
           data: updateData,
-          select: { id: true, name: true, email: true, createdAt: true },
+          select: { id: true, name: true, email: true, image: true, createdAt: true },
         });
 
         return NextResponse.json({
@@ -130,21 +149,6 @@ export async function PUT(request) {
       }
 
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    // Handle image upload if a base64 string was sent
-    let finalImageUrl = image;
-    if (image && typeof image === 'string' && image.startsWith('data:image/')) {
-      try {
-        const uploaded = await uploadImage(image);
-        finalImageUrl = uploaded.url;
-      } catch (uploadErr) {
-        console.error('Cloudinary avatar upload error:', uploadErr);
-        return NextResponse.json(
-          { error: 'Failed to upload avatar image. Please try again.' },
-          { status: 500 }
-        );
-      }
     }
 
     const updateData = {};

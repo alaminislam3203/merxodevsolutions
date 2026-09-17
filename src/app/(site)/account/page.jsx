@@ -43,12 +43,6 @@ function EditProfileModal({ user, onClose, onSave }) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image size should be less than 5MB.');
-      return;
-    }
-
     // Validate file type
     if (!file.type.startsWith('image/')) {
       setError('Please select a valid image file (PNG, JPG, WebP).');
@@ -57,10 +51,39 @@ function EditProfileModal({ user, onClose, onSave }) {
 
     setError('');
     const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      setPreview(result);
-      setImage(result); // Base64 data string to upload to Cloudinary
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        // High quality client-side resize to max 400x400 for instant fast upload
+        const canvas = document.createElement('canvas');
+        const maxDim = 400;
+        let w = img.width;
+        let h = img.height;
+        if (w > h) {
+          if (w > maxDim) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          }
+        } else {
+          if (h > maxDim) {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/jpeg', 0.88);
+        setPreview(compressed);
+        setImage(compressed);
+      };
+      img.onerror = () => {
+        // Fallback to direct base64
+        setPreview(event.target.result);
+        setImage(event.target.result);
+      };
+      img.src = event.target.result;
     };
     reader.onerror = () => {
       setError('Failed to read selected image.');
@@ -386,7 +409,7 @@ function ChangePasswordModal({ onClose }) {
 function AccountContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
 
   const activeTab = searchParams.get('tab') || 'profile';
 
@@ -473,20 +496,28 @@ function AccountContent() {
 
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-center gap-5">
-              {/* Avatar with status indicator */}
-              <div className="relative">
+              {/* Avatar with status indicator - Clickable to change photo */}
+              <div
+                onClick={() => setEditModalOpen(true)}
+                className="relative group cursor-pointer"
+                title="Click to change profile photo"
+              >
                 {currentUser?.image ? (
                   <img
                     src={currentUser.image}
                     alt={currentUser.name}
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-violet-500/30 shadow-md"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-violet-500/30 shadow-md group-hover:opacity-90 transition-opacity"
                   />
                 ) : (
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white flex items-center justify-center font-display text-2xl sm:text-3xl font-bold shadow-md">
                     {userInitials}
                   </div>
                 )}
-                <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center">
+                {/* Camera icon badge on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-black/40 backdrop-blur-xs flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <FiCamera size={22} />
+                </div>
+                <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center z-10">
                   <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                 </span>
               </div>
@@ -885,7 +916,17 @@ function AccountContent() {
         <EditProfileModal
           user={currentUser}
           onClose={() => setEditModalOpen(false)}
-          onSave={(updated) => setUserData((prev) => ({ ...prev, ...updated }))}
+          onSave={(updated) => {
+            if (updated) {
+              setUserData((prev) => ({ ...(prev || {}), ...updated }));
+              if (typeof update === 'function') {
+                update({
+                  name: updated.name,
+                  image: updated.image,
+                });
+              }
+            }
+          }}
         />
       )}
 

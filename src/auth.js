@@ -33,6 +33,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               id: admin.id,
               email: admin.email,
               name: admin.name,
+              image: admin.image || null,
               role: "ADMIN",
             };
           }
@@ -65,13 +66,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     authorized: authConfig.callbacks.authorized,
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
         token.role = user.role || "USER";
         token.image = user.image || null;
+      }
+      if (trigger === "update" && session) {
+        if (session.name) token.name = session.name;
+        if (session.image !== undefined) token.image = session.image;
       }
       return token;
     },
