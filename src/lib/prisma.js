@@ -242,6 +242,73 @@ function attachFallbacks(client) {
     };
   }
 
+  // Fallback for EnvVault
+  if (!client.envVault) {
+    client.envVault = {
+      async findMany({ where, orderBy } = {}) {
+        let query = `SELECT * FROM "EnvVault"`;
+        const conditions = [];
+        if (where?.projectName) conditions.push(`"projectName" ILIKE '%${where.projectName}%'`);
+        if (where?.environment) conditions.push(`"environment" = '${where.environment}'`);
+        if (conditions.length) query += ` WHERE ${conditions.join(' AND ')}`;
+        query += ` ORDER BY "updatedAt" DESC`;
+        const rows = await client.$queryRawUnsafe(query);
+        return rows || [];
+      },
+      async findUnique({ where } = {}) {
+        if (!where?.id) return null;
+        const rows = await client.$queryRaw`
+          SELECT * FROM "EnvVault" WHERE "id" = ${where.id} LIMIT 1
+        `;
+        return rows?.[0] || null;
+      },
+      async create({ data } = {}) {
+        const id = 'env_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        const projectName = data?.projectName || 'Untitled';
+        const environment = data?.environment || 'production';
+        const fileName = data?.fileName || '.env';
+        const content = data?.content || '';
+        const description = data?.description || null;
+        const rows = await client.$queryRaw`
+          INSERT INTO "EnvVault" ("id", "projectName", "environment", "fileName", "content", "description", "createdAt", "updatedAt")
+          VALUES (${id}, ${projectName}, ${environment}, ${fileName}, ${content}, ${description}, NOW(), NOW())
+          RETURNING *
+        `;
+        return rows?.[0] || { id, projectName, environment, fileName, content, description };
+      },
+      async update({ where, data } = {}) {
+        const id = where?.id;
+        if (!id) return null;
+        const projectName = data?.projectName;
+        const environment = data?.environment;
+        const fileName = data?.fileName;
+        const content = data?.content;
+        const description = data?.description;
+        const rows = await client.$queryRaw`
+          UPDATE "EnvVault"
+          SET 
+            "projectName" = COALESCE(${projectName}, "projectName"),
+            "environment" = COALESCE(${environment}, "environment"),
+            "fileName" = COALESCE(${fileName}, "fileName"),
+            "content" = COALESCE(${content}, "content"),
+            "description" = COALESCE(${description}, "description"),
+            "updatedAt" = NOW()
+          WHERE "id" = ${id}
+          RETURNING *
+        `;
+        return rows?.[0] || null;
+      },
+      async delete({ where } = {}) {
+        const id = where?.id;
+        if (!id) return null;
+        const rows = await client.$queryRaw`
+          DELETE FROM "EnvVault" WHERE "id" = ${id} RETURNING *
+        `;
+        return rows?.[0] || null;
+      }
+    };
+  }
+
   return client;
 }
 
@@ -266,7 +333,7 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-09-17-v7";
+const SCHEMA_VERSION = "2026-09-22-v8";
 
 let prismaInstance = globalForPrisma.prisma;
 if (!prismaInstance || prismaInstance._schemaVersion !== SCHEMA_VERSION) {

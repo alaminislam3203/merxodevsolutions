@@ -166,3 +166,17 @@ model VisitorLog {
   @@index([visitorHash])
   @@index([createdAt])
 }
+
+model EnvVault {
+  id          String   @id @default(cuid())
+  projectName String
+  environment String   @default("production") // production, development, staging, test
+  fileName    String   @default(".env")
+  content     String   @db.Text
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectName])
+  @@index([environment])
+}

@@ -1,0 +1,1507 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { showToast, confirmToast } from "@/lib/toast";
+import {
+  FiLock,
+  FiFileText,
+  FiDownload,
+  FiCopy,
+  FiEye,
+  FiEyeOff,
+  FiTrash2,
+  FiEdit2,
+  FiPlus,
+  FiSearch,
+  FiCheck,
+  FiUploadCloud,
+  FiShield,
+  FiServer,
+  FiCode,
+  FiRefreshCw,
+  FiX,
+  FiExternalLink,
+} from "react-icons/fi";
+
+const ENVIRONMENT_CONFIG = {
+  production: { label: "Production", color: "#10b981", bg: "rgba(16, 185, 129, 0.12)", border: "rgba(16, 185, 129, 0.25)" },
+  development: { label: "Development", color: "#38bdf8", bg: "rgba(56, 189, 248, 0.12)", border: "rgba(56, 189, 248, 0.25)" },
+  staging: { label: "Staging", color: "#f59e0b", bg: "rgba(245, 158, 11, 0.12)", border: "rgba(245, 158, 11, 0.25)" },
+  test: { label: "Testing", color: "#a855f7", bg: "rgba(168, 85, 247, 0.12)", border: "rgba(168, 85, 247, 0.25)" },
+};
+
+export default function EnvVaultPage() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [envFilter, setEnvFilter] = useState("all");
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [previewItem, setPreviewItem] = useState(null);
+  const [previewTab, setPreviewTab] = useState("env"); // "env" | "example"
+  const [isMasked, setIsMasked] = useState(true);
+  const [copiedId, setCopiedId] = useState(null);
+
+  // Form State
+  const [formData, setFormData] = useState({
+    projectName: "",
+    environment: "production",
+    fileName: ".env",
+    content: "",
+    description: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef(null);
+
+  // Fetch all env items
+  const fetchItems = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/admin/env-vault");
+      if (!res.ok) throw new Error("Failed to load environment records");
+      const data = await res.json();
+      if (data.success) {
+        setItems(data.items || []);
+      }
+    } catch (err) {
+      showToast.error(err.message || "Failed to load records");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  // Filtered Items
+  const filteredItems = items.filter((item) => {
+    const matchSearch = item.projectName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchEnv = envFilter === "all" || item.environment === envFilter;
+    return matchSearch && matchEnv;
+  });
+
+  // Calculate statistics
+  const stats = {
+    total: items.length,
+    production: items.filter((i) => i.environment === "production").length,
+    development: items.filter((i) => i.environment === "development").length,
+    totalKeys: items.reduce((acc, curr) => acc + (curr.keyCount || 0), 0),
+  };
+
+  // Open Create Modal
+  const handleOpenCreate = () => {
+    setEditingItem(null);
+    setFormData({
+      projectName: "",
+      environment: "production",
+      fileName: ".env",
+      content: "",
+      description: "",
+    });
+    setIsModalOpen(true);
+  };
+
+  // Open Edit Modal
+  const handleOpenEdit = async (item) => {
+    try {
+      showToast.loading("Fetching environment data...", { id: "edit-fetch" });
+      const res = await fetch(`/api/admin/env-vault/${item.id}`);
+      const data = await res.json();
+      showToast.dismiss("edit-fetch");
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to load data");
+      }
+
+      setEditingItem(data.item);
+      setFormData({
+        projectName: data.item.projectName,
+        environment: data.item.environment,
+        fileName: data.item.fileName,
+        content: data.item.content,
+        description: data.item.description || "",
+      });
+      setIsModalOpen(true);
+    } catch (err) {
+      showToast.error(err.message);
+    }
+  };
+
+  // Open Preview Modal
+  const handleOpenPreview = async (item, initialTab = "env") => {
+    try {
+      showToast.loading("Loading details...", { id: "preview-fetch" });
+      const res = await fetch(`/api/admin/env-vault/${item.id}`);
+      const data = await res.json();
+      showToast.dismiss("preview-fetch");
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to load data");
+      }
+
+      setPreviewItem(data.item);
+      setPreviewTab(initialTab);
+      setIsMasked(true);
+    } catch (err) {
+      showToast.error(err.message);
+    }
+  };
+
+  // Handle File Upload from disk into form
+  const processUploadedFile = (file) => {
+    if (!file) return;
+
+    // Suggest project name from folder or file if not typed
+    if (!formData.projectName) {
+      let suggested = file.name.replace(/\.env(\..+)?$/, "");
+      if (!suggested || suggested === ".env") {
+        suggested = "";
+      }
+      if (suggested) {
+        setFormData((prev) => ({ ...prev, projectName: suggested }));
+      }
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target.result;
+      setFormData((prev) => ({
+        ...prev,
+        content: text,
+        fileName: file.name || ".env",
+      }));
+      showToast.success(`Loaded "${file.name}" (${file.size} bytes)`);
+    };
+    reader.onerror = () => {
+      showToast.error("Failed to read file");
+    };
+    reader.readAsText(file);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processUploadedFile(file);
+  };
+
+  // Submit Create or Update
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.projectName.trim()) {
+      showToast.error("Please provide a project name");
+      return;
+    }
+    if (!formData.content.trim()) {
+      showToast.error("Environment content (.env) cannot be empty");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const url = editingItem
+        ? `/api/admin/env-vault/${editingItem.id}`
+        : "/api/admin/env-vault";
+      const method = editingItem ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Operation failed");
+      }
+
+      showToast.success(
+        editingItem
+          ? `Updated "${formData.projectName}" successfully!`
+          : `Saved "${formData.projectName}" to Vault!`
+      );
+      setIsModalOpen(false);
+      fetchItems();
+    } catch (err) {
+      showToast.error(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Delete Item
+  const handleDelete = async (item) => {
+    const confirmed = await confirmToast(
+      `Delete "${item.projectName}" (${item.environment}) backup from vault? This cannot be undone.`
+    );
+    if (!confirmed) return;
+
+    try {
+      showToast.loading("Deleting...", { id: "delete-env" });
+      const res = await fetch(`/api/admin/env-vault/${item.id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      showToast.dismiss("delete-env");
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to delete");
+      }
+
+      showToast.success(`Deleted "${item.projectName}"`);
+      if (previewItem?.id === item.id) setPreviewItem(null);
+      fetchItems();
+    } catch (err) {
+      showToast.error(err.message);
+    }
+  };
+
+  // Trigger browser download directly
+  const handleDownload = async (item, type = "env") => {
+    try {
+      const res = await fetch(`/api/admin/env-vault/${item.id}`);
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error("Could not fetch file for download");
+
+      const isExample = type === "example";
+      const content = isExample ? data.item.exampleContent : data.item.content;
+      const cleanName = item.projectName.toLowerCase().replace(/[^a-z0-9_-]/g, "-");
+      const filename = isExample ? `${cleanName}.env.example` : `${cleanName}.env`;
+
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast.success(
+        isExample
+          ? `Downloaded "${filename}" (Sanitized for GitHub)`
+          : `Downloaded "${filename}" (Original secrets)`
+      );
+    } catch (err) {
+      showToast.error(err.message);
+    }
+  };
+
+  // Copy to clipboard
+  const handleCopy = async (content, label, idKey) => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedId(idKey);
+      setTimeout(() => setCopiedId(null), 2500);
+      showToast.success(`${label} copied to clipboard!`);
+    } catch (err) {
+      showToast.error("Clipboard copy failed");
+    }
+  };
+
+  // Quick copy from table/card
+  const handleQuickCopy = async (item, type = "env") => {
+    try {
+      const res = await fetch(`/api/admin/env-vault/${item.id}`);
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error("Failed to copy");
+
+      const isExample = type === "example";
+      const content = isExample ? data.item.exampleContent : data.item.content;
+      handleCopy(content, isExample ? ".env.example" : ".env", `${item.id}-${type}`);
+    } catch (err) {
+      showToast.error(err.message);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: 1300, margin: "0 auto", padding: "28px 24px 80px" }}>
+      {/* Top Header */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          marginBottom: 28,
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                boxShadow: "0 4px 14px rgba(99, 102, 241, 0.4)",
+              }}
+            >
+              <FiShield size={20} />
+            </div>
+            <h1 style={{ fontSize: 24, fontWeight: 700, color: "#f8fafc", margin: 0, letterSpacing: "-0.5px" }}>
+              Environment Vault
+            </h1>
+            <span
+              style={{
+                background: "rgba(99, 102, 241, 0.15)",
+                color: "#818cf8",
+                border: "1px solid rgba(99, 102, 241, 0.3)",
+                borderRadius: 20,
+                padding: "2px 10px",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.5px",
+                textTransform: "uppercase",
+              }}
+            >
+              Admin Only
+            </span>
+          </div>
+          <p style={{ margin: 0, fontSize: 13.5, color: "#94a3b8", maxWidth: 620, lineHeight: 1.5 }}>
+            Store and manage production & development <code style={{ color: "#e2e8f0" }}>.env</code> files securely.
+            Download them anytime during git clones, or instantly generate sanitized{" "}
+            <code style={{ color: "#38bdf8" }}>.env.example</code> files ready to push to GitHub without leaking secrets.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <button
+            onClick={fetchItems}
+            title="Refresh list"
+            style={{
+              padding: "10px 14px",
+              background: "rgba(255, 255, 255, 0.04)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              borderRadius: 10,
+              color: "#cbd5e1",
+              fontSize: 13,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)")}
+          >
+            <FiRefreshCw size={14} className={loading ? "admin-spinner-sm" : ""} />
+            Refresh
+          </button>
+
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: "10px 18px",
+              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              border: "none",
+              borderRadius: 10,
+              color: "#fff",
+              fontSize: 13.5,
+              fontWeight: 600,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              boxShadow: "0 4px 16px rgba(99, 102, 241, 0.35)",
+              transition: "transform 0.15s, box-shadow 0.15s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(99, 102, 241, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 4px 16px rgba(99, 102, 241, 0.35)";
+            }}
+          >
+            <FiPlus size={16} />
+            New .env Backup
+          </button>
+        </div>
+      </div>
+
+      {/* Stats Counter Bar */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: 16,
+          marginBottom: 24,
+        }}
+      >
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: "1px solid rgba(255, 255, 255, 0.06)",
+            borderRadius: 14,
+            padding: "16px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: 12,
+              background: "rgba(99, 102, 241, 0.12)",
+              color: "#818cf8",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FiServer size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Total Projects
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc" }}>{stats.total}</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: "1px solid rgba(255, 255, 255, 0.06)",
+            borderRadius: 14,
+            padding: "16px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: 12,
+              background: "rgba(16, 185, 129, 0.12)",
+              color: "#10b981",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FiLock size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Production Envs
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "#10b981" }}>{stats.production}</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: "1px solid rgba(255, 255, 255, 0.06)",
+            borderRadius: 14,
+            padding: "16px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: 12,
+              background: "rgba(56, 189, 248, 0.12)",
+              color: "#38bdf8",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FiCode size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Development Envs
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "#38bdf8" }}>{stats.development}</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: "1px solid rgba(255, 255, 255, 0.06)",
+            borderRadius: 14,
+            padding: "16px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: 12,
+              background: "rgba(168, 85, 247, 0.12)",
+              color: "#c084fc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FiFileText size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Tracked Variables
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc" }}>{stats.totalKeys}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter & Search Bar */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          background: "rgba(255, 255, 255, 0.02)",
+          border: "1px solid rgba(255, 255, 255, 0.06)",
+          borderRadius: 14,
+          padding: "12px 18px",
+          marginBottom: 24,
+        }}
+      >
+        {/* Search */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            background: "rgba(15, 23, 42, 0.6)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: 10,
+            padding: "8px 14px",
+            minWidth: 260,
+            flex: 1,
+            maxWidth: 380,
+          }}
+        >
+          <FiSearch size={16} color="#64748b" />
+          <input
+            type="text"
+            placeholder="Search by project name or note..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#f8fafc",
+              fontSize: 13.5,
+              outline: "none",
+              width: "100%",
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#64748b",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              <FiX size={14} />
+            </button>
+          )}
+        </div>
+
+        {/* Environment Filter Tabs */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          {["all", "production", "development", "staging", "test"].map((env) => {
+            const isSelected = envFilter === env;
+            return (
+              <button
+                key={env}
+                onClick={() => setEnvFilter(env)}
+                style={{
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  fontSize: 12.5,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  border: isSelected ? "1px solid rgba(99, 102, 241, 0.5)" : "1px solid rgba(255, 255, 255, 0.06)",
+                  background: isSelected ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                  color: isSelected ? "#a5b4fc" : "#94a3b8",
+                  textTransform: "capitalize",
+                  transition: "all 0.15s",
+                }}
+              >
+                {env === "all" ? "All Envs" : env}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Main List */}
+      {loading ? (
+        <div style={{ textAlign: "center", padding: "60px 0" }}>
+          <div className="admin-spinner-lg" style={{ margin: "0 auto 16px" }}></div>
+          <p style={{ color: "#94a3b8", fontSize: 14 }}>Loading Environment Vault...</p>
+        </div>
+      ) : filteredItems.length === 0 ? (
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: "1px dashed rgba(255, 255, 255, 0.1)",
+            borderRadius: 16,
+            padding: "50px 20px",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 16,
+              background: "rgba(99, 102, 241, 0.1)",
+              color: "#818cf8",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 16px",
+            }}
+          >
+            <FiShield size={28} />
+          </div>
+          <h3 style={{ color: "#f8fafc", fontSize: 17, fontWeight: 600, margin: "0 0 6px" }}>
+            {searchQuery ? "No matching backups found" : "No environment files backed up yet"}
+          </h3>
+          <p style={{ color: "#94a3b8", fontSize: 13.5, maxWidth: 440, margin: "0 auto 20px" }}>
+            {searchQuery
+              ? "Try searching with a different project keyword or clear the search filter."
+              : "Upload your project's .env file to keep it securely archived, ready to restore anytime, and automatically export .env.example for GitHub."}
+          </p>
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: "10px 20px",
+              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              border: "none",
+              borderRadius: 10,
+              color: "#fff",
+              fontSize: 13.5,
+              fontWeight: 600,
+              cursor: "pointer",
+              boxShadow: "0 4px 14px rgba(99, 102, 241, 0.35)",
+            }}
+          >
+            + Upload First .env
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
+          {filteredItems.map((item) => {
+            const envCfg = ENVIRONMENT_CONFIG[item.environment] || ENVIRONMENT_CONFIG.production;
+            const updatedDate = new Date(item.updatedAt).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            });
+
+            return (
+              <div
+                key={item.id}
+                style={{
+                  background: "rgba(255, 255, 255, 0.025)",
+                  border: "1px solid rgba(255, 255, 255, 0.07)",
+                  borderRadius: 14,
+                  padding: "18px 22px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(99, 102, 241, 0.3)";
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.035)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.07)";
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.025)";
+                }}
+              >
+                {/* Left info */}
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 16, minWidth: 260, flex: 1 }}>
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
+                      background: envCfg.bg,
+                      color: envCfg.color,
+                      border: `1px solid ${envCfg.border}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      marginTop: 2,
+                    }}
+                  >
+                    <FiLock size={20} />
+                  </div>
+
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
+                      <span style={{ fontSize: 16, fontWeight: 700, color: "#f8fafc" }}>
+                        {item.projectName}
+                      </span>
+                      <span
+                        style={{
+                          background: envCfg.bg,
+                          color: envCfg.color,
+                          border: `1px solid ${envCfg.border}`,
+                          borderRadius: 6,
+                          padding: "2px 8px",
+                          fontSize: 11,
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.5px",
+                        }}
+                      >
+                        {envCfg.label}
+                      </span>
+                      <span
+                        style={{
+                          background: "rgba(255, 255, 255, 0.05)",
+                          color: "#cbd5e1",
+                          border: "1px solid rgba(255, 255, 255, 0.08)",
+                          borderRadius: 6,
+                          padding: "2px 8px",
+                          fontSize: 11,
+                          fontFamily: "monospace",
+                        }}
+                      >
+                        {item.keyCount || 0} variables
+                      </span>
+                    </div>
+
+                    {item.description && (
+                      <p style={{ margin: "0 0 6px", fontSize: 13, color: "#94a3b8", lineHeight: 1.4 }}>
+                        {item.description}
+                      </p>
+                    )}
+
+                    <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 11.5, color: "#64748b" }}>
+                      <span>File: <code style={{ color: "#94a3b8" }}>{item.fileName}</code></span>
+                      <span>•</span>
+                      <span>Updated: {updatedDate}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Action buttons */}
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                  {/* Download .env (Real secrets) */}
+                  <button
+                    onClick={() => handleDownload(item, "env")}
+                    title="Download real .env file with secrets (for local project setup)"
+                    style={{
+                      padding: "8px 13px",
+                      borderRadius: 8,
+                      background: "rgba(16, 185, 129, 0.12)",
+                      border: "1px solid rgba(16, 185, 129, 0.25)",
+                      color: "#34d399",
+                      fontSize: 12.5,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      transition: "all 0.15s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(16, 185, 129, 0.2)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(16, 185, 129, 0.12)")}
+                  >
+                    <FiDownload size={14} />
+                    .env
+                  </button>
+
+                  {/* Download .env.example (GitHub ready) */}
+                  <button
+                    onClick={() => handleDownload(item, "example")}
+                    title="Download sanitized .env.example with empty secrets (Ready to push to GitHub)"
+                    style={{
+                      padding: "8px 13px",
+                      borderRadius: 8,
+                      background: "rgba(56, 189, 248, 0.12)",
+                      border: "1px solid rgba(56, 189, 248, 0.25)",
+                      color: "#38bdf8",
+                      fontSize: 12.5,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      transition: "all 0.15s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(56, 189, 248, 0.2)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(56, 189, 248, 0.12)")}
+                  >
+                    <FiFileText size={14} />
+                    .env.example
+                  </button>
+
+                  {/* Quick Copy .env */}
+                  <button
+                    onClick={() => handleQuickCopy(item, "env")}
+                    title="Copy real .env to clipboard"
+                    style={{
+                      padding: "8px 11px",
+                      borderRadius: 8,
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      color: copiedId === `${item.id}-env` ? "#10b981" : "#cbd5e1",
+                      fontSize: 12,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                  >
+                    {copiedId === `${item.id}-env` ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                    Copy .env
+                  </button>
+
+                  {/* Quick Copy .env.example */}
+                  <button
+                    onClick={() => handleQuickCopy(item, "example")}
+                    title="Copy sanitized .env.example to clipboard"
+                    style={{
+                      padding: "8px 11px",
+                      borderRadius: 8,
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      color: copiedId === `${item.id}-example` ? "#38bdf8" : "#cbd5e1",
+                      fontSize: 12,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                    }}
+                  >
+                    {copiedId === `${item.id}-example` ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                    Copy Example
+                  </button>
+
+                  {/* View Details */}
+                  <button
+                    onClick={() => handleOpenPreview(item, "env")}
+                    title="Preview and inspect variables"
+                    style={{
+                      padding: "8px 10px",
+                      borderRadius: 8,
+                      background: "rgba(99, 102, 241, 0.12)",
+                      border: "1px solid rgba(99, 102, 241, 0.25)",
+                      color: "#818cf8",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FiEye size={15} />
+                  </button>
+
+                  {/* Edit */}
+                  <button
+                    onClick={() => handleOpenEdit(item)}
+                    title="Edit variables"
+                    style={{
+                      padding: "8px 10px",
+                      borderRadius: 8,
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      color: "#94a3b8",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FiEdit2 size={15} />
+                  </button>
+
+                  {/* Delete */}
+                  <button
+                    onClick={() => handleDelete(item)}
+                    title="Delete backup"
+                    style={{
+                      padding: "8px 10px",
+                      borderRadius: 8,
+                      background: "rgba(239, 68, 68, 0.1)",
+                      border: "1px solid rgba(239, 68, 68, 0.2)",
+                      color: "#f87171",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FiTrash2 size={15} />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ─── CREATE / EDIT MODAL ────────────────────────────────────── */}
+      {isModalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(8px)",
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 20,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsModalOpen(false);
+          }}
+        >
+          <div
+            style={{
+              background: "#0d1322",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: 18,
+              width: "100%",
+              maxWidth: 720,
+              maxHeight: "90vh",
+              overflowY: "auto",
+              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.9)",
+              padding: "26px 30px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 20,
+                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                paddingBottom: 14,
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: 19, fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>
+                  {editingItem ? `Edit .env for "${editingItem.projectName}"` : "Backup New .env File"}
+                </h2>
+                <p style={{ margin: 0, fontSize: 13, color: "#94a3b8" }}>
+                  Upload your .env file or paste the contents below.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "none",
+                  borderRadius: 8,
+                  color: "#94a3b8",
+                  padding: 8,
+                  cursor: "pointer",
+                }}
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {/* Drag and Drop Zone */}
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                style={{
+                  border: dragOver ? "2px dashed #6366f1" : "2px dashed rgba(255, 255, 255, 0.15)",
+                  background: dragOver ? "rgba(99, 102, 241, 0.1)" : "rgba(255, 255, 255, 0.02)",
+                  borderRadius: 12,
+                  padding: "20px",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+              >
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  accept=".env,text/plain"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) processUploadedFile(f);
+                  }}
+                />
+                <FiUploadCloud size={30} color={dragOver ? "#818cf8" : "#94a3b8"} style={{ marginBottom: 8 }} />
+                <div style={{ fontSize: 13.5, fontWeight: 600, color: "#e2e8f0" }}>
+                  Click to browse or drag & drop your <span style={{ color: "#38bdf8" }}>.env</span> file here
+                </div>
+                <div style={{ fontSize: 12, color: "#64748b", marginTop: 4 }}>
+                  Accepts .env, .env.local, .env.production, etc.
+                </div>
+              </div>
+
+              {/* Project Name & Environment Grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 14 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#cbd5e1", marginBottom: 6 }}>
+                    Project Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. MerxoDev Web, Client CRM, Mobile API"
+                    value={formData.projectName}
+                    onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "rgba(15, 23, 42, 0.6)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: 9,
+                      color: "#f8fafc",
+                      fontSize: 13.5,
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#cbd5e1", marginBottom: 6 }}>
+                    Environment
+                  </label>
+                  <select
+                    value={formData.environment}
+                    onChange={(e) => setFormData({ ...formData, environment: e.target.value })}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "#0d1322",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: 9,
+                      color: "#f8fafc",
+                      fontSize: 13.5,
+                      outline: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <option value="production">Production</option>
+                    <option value="development">Development</option>
+                    <option value="staging">Staging</option>
+                    <option value="test">Testing</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* File Name & Notes */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 14 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#cbd5e1", marginBottom: 6 }}>
+                    File Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.fileName}
+                    onChange={(e) => setFormData({ ...formData, fileName: e.target.value })}
+                    placeholder=".env"
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "rgba(15, 23, 42, 0.6)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: 9,
+                      color: "#f8fafc",
+                      fontSize: 13.5,
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#cbd5e1", marginBottom: 6 }}>
+                    Optional Notes / Description
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="e.g. Neon Postgres + Cloudinary + Auth.js v5"
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "rgba(15, 23, 42, 0.6)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: 9,
+                      color: "#f8fafc",
+                      fontSize: 13.5,
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Content Textarea */}
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <label style={{ fontSize: 12.5, fontWeight: 600, color: "#cbd5e1" }}>
+                    Environment Variables Content *
+                  </label>
+                  <span style={{ fontSize: 11.5, color: "#64748b" }}>
+                    {formData.content.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#")).length} variables detected
+                  </span>
+                </div>
+                <textarea
+                  required
+                  rows={11}
+                  placeholder={`# Paste your .env file content here...\nDATABASE_URL="postgresql://user:pass@host/db"\nJWT_SECRET="super-secret"\nPORT=3000`}
+                  value={formData.content}
+                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px 14px",
+                    background: "#080c18",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
+                    borderRadius: 9,
+                    color: "#38bdf8",
+                    fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                    fontSize: 13,
+                    lineHeight: 1.6,
+                    outline: "none",
+                    resize: "vertical",
+                  }}
+                />
+              </div>
+
+              {/* Modal Buttons */}
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  style={{
+                    padding: "9px 18px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: 9,
+                    color: "#cbd5e1",
+                    fontSize: 13,
+                    cursor: "pointer",
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  style={{
+                    padding: "9px 22px",
+                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                    border: "none",
+                    borderRadius: 9,
+                    color: "#fff",
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    boxShadow: "0 4px 14px rgba(99, 102, 241, 0.4)",
+                  }}
+                >
+                  {submitting ? "Saving to Vault..." : editingItem ? "Update Changes" : "Save to Vault"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─── PREVIEW / INSPECT MODAL ─────────────────────────────────── */}
+      {previewItem && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(8px)",
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 20,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setPreviewItem(null);
+          }}
+        >
+          <div
+            style={{
+              background: "#0d1322",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: 18,
+              width: "100%",
+              maxWidth: 820,
+              maxHeight: "92vh",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.95)",
+              overflow: "hidden",
+            }}
+          >
+            {/* Preview Header */}
+            <div
+              style={{
+                padding: "20px 26px",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f8fafc", margin: 0 }}>
+                    {previewItem.projectName}
+                  </h3>
+                  <span
+                    style={{
+                      background: ENVIRONMENT_CONFIG[previewItem.environment]?.bg || "rgba(99, 102, 241, 0.1)",
+                      color: ENVIRONMENT_CONFIG[previewItem.environment]?.color || "#818cf8",
+                      border: `1px solid ${ENVIRONMENT_CONFIG[previewItem.environment]?.border || "rgba(99, 102, 241, 0.3)"}`,
+                      borderRadius: 6,
+                      padding: "2px 8px",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {previewItem.environment}
+                  </span>
+                </div>
+                <div style={{ fontSize: 12.5, color: "#94a3b8" }}>
+                  {previewItem.stats?.keyCount || 0} variables • {previewItem.stats?.commentCount || 0} comments
+                </div>
+              </div>
+
+              <button
+                onClick={() => setPreviewItem(null)}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "none",
+                  borderRadius: 8,
+                  color: "#94a3b8",
+                  padding: 8,
+                  cursor: "pointer",
+                }}
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+
+            {/* Preview Toolbar */}
+            <div
+              style={{
+                padding: "12px 26px",
+                background: "rgba(255, 255, 255, 0.02)",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 10,
+              }}
+            >
+              {/* Tab Selector */}
+              <div style={{ display: "flex", gap: 4, background: "rgba(0, 0, 0, 0.4)", padding: 3, borderRadius: 8 }}>
+                <button
+                  onClick={() => setPreviewTab("env")}
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: 6,
+                    fontSize: 12.5,
+                    fontWeight: 600,
+                    border: "none",
+                    cursor: "pointer",
+                    background: previewTab === "env" ? "#6366f1" : "transparent",
+                    color: previewTab === "env" ? "#fff" : "#94a3b8",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <FiLock size={13} />
+                  Original (.env)
+                </button>
+                <button
+                  onClick={() => setPreviewTab("example")}
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: 6,
+                    fontSize: 12.5,
+                    fontWeight: 600,
+                    border: "none",
+                    cursor: "pointer",
+                    background: previewTab === "example" ? "#0284c7" : "transparent",
+                    color: previewTab === "example" ? "#fff" : "#94a3b8",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <FiFileText size={13} />
+                  Sanitized (.env.example)
+                </button>
+              </div>
+
+              {/* Action buttons inside preview */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {previewTab === "env" && (
+                  <button
+                    onClick={() => setIsMasked(!isMasked)}
+                    style={{
+                      padding: "6px 12px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      borderRadius: 8,
+                      color: isMasked ? "#f59e0b" : "#10b981",
+                      fontSize: 12,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    {isMasked ? <FiEye size={14} /> : <FiEyeOff size={14} />}
+                    {isMasked ? "Reveal Secrets" : "Mask Secrets"}
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    const text = previewTab === "example" ? previewItem.exampleContent : previewItem.content;
+                    handleCopy(text, previewTab === "example" ? ".env.example" : ".env", "modal-copy");
+                  }}
+                  style={{
+                    padding: "6px 12px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: 8,
+                    color: copiedId === "modal-copy" ? "#10b981" : "#cbd5e1",
+                    fontSize: 12,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  {copiedId === "modal-copy" ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                  Copy
+                </button>
+
+                <button
+                  onClick={() => handleDownload(previewItem, previewTab)}
+                  style={{
+                    padding: "6px 14px",
+                    background:
+                      previewTab === "example"
+                        ? "linear-gradient(135deg, #0284c7, #0369a1)"
+                        : "linear-gradient(135deg, #10b981, #059669)",
+                    border: "none",
+                    borderRadius: 8,
+                    color: "#fff",
+                    fontSize: 12.5,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <FiDownload size={14} />
+                  Download
+                </button>
+              </div>
+            </div>
+
+            {/* Note banner when on .env.example tab */}
+            {previewTab === "example" && (
+              <div
+                style={{
+                  background: "rgba(2, 132, 199, 0.1)",
+                  borderBottom: "1px solid rgba(2, 132, 199, 0.2)",
+                  padding: "8px 26px",
+                  fontSize: 12,
+                  color: "#38bdf8",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                <FiFileText size={14} />
+                <span>
+                  All confidential passwords, keys, and tokens have been automatically stripped. You can safely commit and push this file to GitHub!
+                </span>
+              </div>
+            )}
+
+            {/* Code Content View */}
+            <div
+              style={{
+                flex: 1,
+                overflowY: "auto",
+                background: "#080c18",
+                padding: "18px 24px",
+                fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                fontSize: 13,
+                lineHeight: 1.7,
+                color: previewTab === "example" ? "#7dd3fc" : "#86efac",
+                whiteSpace: "pre",
+              }}
+            >
+              {previewTab === "example"
+                ? previewItem.exampleContent
+                : isMasked
+                ? previewItem.maskedContent
+                : previewItem.content}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
