@@ -56,9 +56,8 @@ export default function NotFound() {
 
       {/* Main Content */}
       <div
-        className={`relative z-10 flex flex-col items-center text-center gap-6 transition-all duration-700 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
+        className={`relative z-10 flex flex-col items-center text-center gap-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
       >
         {/* 404 Illustration */}
         <div
@@ -190,7 +189,7 @@ export default function NotFound() {
             href="/"
             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-raleway"
           >
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -203,7 +202,7 @@ export default function NotFound() {
             >
               <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
               <path d="M9 21V12h6v9" />
-            </svg>
+            </svg> */}
             Back to Home
           </Link>
           <Link

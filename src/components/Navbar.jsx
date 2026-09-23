@@ -24,18 +24,17 @@ import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchBar from './SearchBar';
 
-function Logo({ className = "h-5 sm:h-6 w-auto", mobile = false }) {
-  const src = mobile ? "/mobile-logo.png" : "/logo.png";
+function Logo({ className = "h-7 sm:h-8 w-auto", mobile = false }) {
   return (
     <div className="flex items-center select-none" aria-label="MerxoDev Solutions">
       <Image
-        src={src}
+        src="/mobile-logo.png"
         alt="MerxoDev Solutions"
-        width={mobile ? 40 : 120}
-        height={mobile ? 40 : 28}
+        width={48}
+        height={48}
         className={`${className} object-contain`}
-        style={{ width: 'auto', height: 'auto' }}
         priority
+        unoptimized
       />
     </div>
   );
@@ -249,19 +248,29 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Main Action Row (Logo | Expanded SearchBar | CTA) */}
           <div className="flex items-center justify-between gap-6">
-            {/* Logo with Favicon on left */}
-            <Link href="/" onClick={scrollToTopSmooth} className="shrink-0 flex items-center gap-2 sm:gap-2.5 group">
+            {/* Logo */}
+            <Link href="/" onClick={scrollToTopSmooth} className="shrink-0 flex items-center gap-2 group">
+              {/* Icon */}
               <Image
                 src="/favicon.png"
                 alt="MerxoDev Icon"
-                width={32}
-                height={32}
-                className="w-7 h-7 sm:w-8 sm:h-8 object-contain transition-transform group-hover:scale-105"
+                width={40}
+                height={40}
+                className="h-8 sm:h-9 md:h-10 w-auto object-contain"
                 priority
+                unoptimized
               />
-              <Logo />
+              {/* Text Logo */}
+              <Image
+                src="/logo.png"
+                alt="MerxoDev Solutions"
+                width={120}
+                height={20}
+                className="h-5 sm:h-6 md:h-7 w-auto object-contain"
+                priority
+                unoptimized
+              />
             </Link>
 
             {/* Search Bar on Desktop (Wider / Expanded) */}
