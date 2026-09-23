@@ -640,7 +640,7 @@ const resources = {
         badge: 'Available For New Projects',
         headingStart: 'We',
         headingHighlight: 'Build Your',
-        headingEnd: 'DREAM project',
+        headingEnd: 'DREAM Project',
         subtext:
           'Custom websites, web apps & digital solutions — crafted with precision for startups and growing businesses.',
         ctaPrimary: 'Start a Project',

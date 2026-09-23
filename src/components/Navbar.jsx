@@ -320,7 +320,7 @@ export default function Navbar() {
                       className="fixed inset-0 z-40"
                       onClick={() => setUserMenuOpen(false)}
                     />
-                    <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200">
+                    <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200 uppercase">
                       {session?.user ? (
                         <>
                           <div className="flex items-center gap-3 px-3 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
