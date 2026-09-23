@@ -460,7 +460,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between px-3 py-2.5 gap-2">
           <Link href="/" className="shrink-0">
-            <Logo mobile className="h-7 sm:h-8 w-auto" />
+            <Logo mobile className="h-10 sm:h-11 w-auto" />
           </Link>
 
           {/* Search Bar on Mobile between Logo and Hire Us */}
@@ -654,7 +654,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
-                <Logo mobile className="h-7 w-auto" />
+                <Logo mobile className="h-10 w-auto" />
               </div>
             )}
             <button
