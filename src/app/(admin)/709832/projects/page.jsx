@@ -10,6 +10,7 @@ const EMPTY_FORM = {
   slug: "",
   tag: "SaaS",
   title: "",
+  order: 1,
   descriptionTitle: "About The Project",
   description: "",
   image: "",
@@ -560,7 +561,10 @@ export default function ProjectsPage() {
 
   const openAdd = () => {
     setEditProject(null);
-    setForm(EMPTY_FORM);
+    const nextOrder = projects.length > 0
+      ? Math.max(...projects.map(p => Number(p.order) || 0), 0) + 1
+      : 1;
+    setForm({ ...EMPTY_FORM, order: nextOrder });
     setPreviewImage("");
     setShowModal(true);
   };
@@ -610,6 +614,7 @@ export default function ProjectsPage() {
       slug: p.slug || "",
       tag: p.tag || "SaaS",
       title: p.title || "",
+      order: p.order !== undefined && p.order !== null ? p.order : 0,
       descriptionTitle: det.descriptionTitle || "",
       description: p.description || "",
       image: p.image || "",
@@ -663,6 +668,7 @@ export default function ProjectsPage() {
     slug: form.slug.trim(),
     tag: form.tag,
     title: form.title.trim(),
+    order: form.order !== "" && form.order !== undefined && !isNaN(Number(form.order)) ? Number(form.order) : 0,
     description: form.description.trim(),
     image: form.image.trim() || null,
     accent: form.accent,
@@ -693,6 +699,27 @@ export default function ProjectsPage() {
         .filter(f => f.title || f.subtitles.length > 0),
     },
   });
+
+  const handleQuickOrder = async (proj, newOrder) => {
+    const targetId = proj.id || proj.slug;
+    if (!targetId) return;
+    try {
+      const res = await fetch(`/api/admin/projects/${targetId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: newOrder }),
+      });
+      if (res.ok) {
+        showToast(`Order updated to #${newOrder}`);
+        fetchProjects();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        showToast(data.error || "Failed to update order", "error");
+      }
+    } catch {
+      showToast("Network error", "error");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -793,8 +820,49 @@ export default function ProjectsPage() {
                   </div>
                 )}
                 <div className="project-row-info">
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: accentDot[p.accent] || "#7c3aed", display: "inline-block", flexShrink: 0 }} />
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 3,
+                        padding: "2px 6px",
+                        borderRadius: 6,
+                        background: "rgba(99, 102, 241, 0.12)",
+                        border: "1px solid rgba(99, 102, 241, 0.25)",
+                      }}
+                      title="Display Order (1 = first). Change and press Enter or click away to save."
+                    >
+                      <span style={{ fontSize: 11, color: "#a5b4fc", fontWeight: 700, fontFamily: "monospace" }}>#</span>
+                      <input
+                        type="number"
+                        defaultValue={p.order ?? 0}
+                        key={`${p.id}-${p.order}`}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.currentTarget.blur();
+                          }
+                        }}
+                        onBlur={(e) => {
+                          const val = parseInt(e.target.value, 10);
+                          if (!isNaN(val) && val !== (p.order ?? 0)) {
+                            handleQuickOrder(p, val);
+                          }
+                        }}
+                        style={{
+                          width: 44,
+                          background: "rgba(0, 0, 0, 0.35)",
+                          border: "1px solid rgba(255, 255, 255, 0.15)",
+                          borderRadius: 4,
+                          color: "#fff",
+                          fontSize: 11,
+                          fontWeight: 700,
+                          textAlign: "center",
+                          padding: "1px 2px",
+                        }}
+                      />
+                    </div>
                     <h3 className="project-row-title">{p.title}</h3>
                     <span className="admin-badge admin-badge-purple">{p.tag}</span>
                   </div>
@@ -871,7 +939,7 @@ export default function ProjectsPage() {
                   <input className="admin-input" placeholder="my-awesome-project" value={form.slug} onChange={e => setForm(f => ({ ...f, slug: e.target.value }))} required />
                 </div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1.1fr 100px", gap: 12 }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Tag / Category *</label>
                   <div style={{ display: "flex", gap: 8 }}>
@@ -932,6 +1000,17 @@ export default function ProjectsPage() {
                       />
                     ))}
                   </div>
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-label" title="Controls project display sequence (1 = First, 2 = Second...)">Order #</label>
+                  <input
+                    type="number"
+                    className="admin-input"
+                    placeholder="1"
+                    title="Display priority: lower numbers appear first"
+                    value={form.order ?? ""}
+                    onChange={e => setForm(f => ({ ...f, order: e.target.value === "" ? "" : parseInt(e.target.value, 10) || 0 }))}
+                  />
                 </div>
               </div>
               <div className="admin-field-group">
