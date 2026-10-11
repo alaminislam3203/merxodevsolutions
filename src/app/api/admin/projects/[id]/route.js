@@ -95,10 +95,30 @@ export async function PUT(request, { params }) {
     };
 
     // 4. Update the verified project by its primary key (existing.id)
-    const project = await prisma.project.update({
-      where: { id: existing.id },
-      data: updateData,
-    });
+    let project;
+    try {
+      project = await prisma.project.update({
+        where: { id: existing.id },
+        data: updateData,
+      });
+    } catch (updateErr) {
+      if (updateData.order !== undefined) {
+        const { order, ...restUpdate } = updateData;
+        try {
+          await prisma.$executeRaw`
+            UPDATE "Project" SET "order" = ${updateData.order} WHERE "id" = ${existing.id}
+          `;
+        } catch (rawErr) {
+          console.warn("Failed to update raw order:", rawErr);
+        }
+        project = await prisma.project.update({
+          where: { id: existing.id },
+          data: restUpdate,
+        });
+      } else {
+        throw updateErr;
+      }
+    }
 
     // Invalidate site cache so changes immediately show on Vercel
     try {

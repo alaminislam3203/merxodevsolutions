@@ -10,10 +10,23 @@ export async function GET() {
   const { authorized, response } = await requireAdmin();
   if (!authorized) return response;
 
-  const projects = await prisma.project.findMany({
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-  });
-  return NextResponse.json(projects);
+  try {
+    let projects;
+    try {
+      projects = await prisma.project.findMany({
+        orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+      });
+    } catch (orderErr) {
+      console.warn("Fallback finding projects without order sort:", orderErr?.message);
+      projects = await prisma.project.findMany({
+        orderBy: { createdAt: "desc" },
+      });
+    }
+    return NextResponse.json(projects || []);
+  } catch (error) {
+    console.error("GET /api/admin/projects error:", error);
+    return NextResponse.json({ error: error.message || "Failed to load projects" }, { status: 500 });
+  }
 }
 
 // POST /api/admin/projects
@@ -31,20 +44,44 @@ export async function POST(request) {
 
     const projectOrder = order !== undefined && order !== null && !isNaN(Number(order)) ? Number(order) : 0;
 
-    const project = await prisma.project.create({
-      data: {
-        slug,
-        tag,
-        title,
-        description: description || "",
-        image: image || null,
-        images: images || { mobile: [], desktop: [] },
-        liveUrl: liveUrl || null,
-        accent,
-        details: details || { client: "", duration: "", tech: [], features: [] },
-        order: projectOrder,
-      },
-    });
+    let project;
+    try {
+      project = await prisma.project.create({
+        data: {
+          slug,
+          tag,
+          title,
+          description: description || "",
+          image: image || null,
+          images: images || { mobile: [], desktop: [] },
+          liveUrl: liveUrl || null,
+          accent,
+          details: details || { client: "", duration: "", tech: [], features: [] },
+          order: projectOrder,
+        },
+      });
+    } catch (createErr) {
+      project = await prisma.project.create({
+        data: {
+          slug,
+          tag,
+          title,
+          description: description || "",
+          image: image || null,
+          images: images || { mobile: [], desktop: [] },
+          liveUrl: liveUrl || null,
+          accent,
+          details: details || { client: "", duration: "", tech: [], features: [] },
+        },
+      });
+      try {
+        await prisma.$executeRaw`
+          UPDATE "Project" SET "order" = ${projectOrder} WHERE "id" = ${project.id}
+        `;
+      } catch (rawErr) {
+        console.warn("Failed to set raw order on Project:", rawErr);
+      }
+    }
 
     // Invalidate site cache so changes immediately show on Vercel
     try {

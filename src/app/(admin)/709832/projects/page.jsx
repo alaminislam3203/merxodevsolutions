@@ -543,10 +543,24 @@ export default function ProjectsPage() {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/projects");
+      if (!res.ok) {
+        if (res.status === 401) {
+          showToast("Session expired. Please log in again.", "lock");
+        } else if (res.status === 403) {
+          showToast("Access denied. Admin account required.", "error");
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          showToast(errData.error || "Failed to load projects.", "error");
+        }
+        setProjects([]);
+        setLoading(false);
+        return;
+      }
       const data = await res.json();
       setProjects(Array.isArray(data) ? data : []);
-    } catch {
-      showToast("Failed to load projects.", "error");
+    } catch (err) {
+      console.error("fetchProjects error:", err);
+      showToast("Failed to load projects. Check network.", "error");
     }
     setLoading(false);
   }, []);
