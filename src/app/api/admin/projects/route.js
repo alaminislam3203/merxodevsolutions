@@ -11,7 +11,7 @@ export async function GET() {
   if (!authorized) return response;
 
   const projects = await prisma.project.findMany({
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
   });
   return NextResponse.json(projects);
 }
@@ -23,11 +23,13 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { slug, tag, title, description, image, images, liveUrl, accent, details } = body;
+    const { slug, tag, title, description, image, images, liveUrl, accent, details, order } = body;
 
     if (!slug || !title || !tag || !accent) {
       return NextResponse.json({ error: "slug, title, tag and accent are required" }, { status: 400 });
     }
+
+    const projectOrder = order !== undefined && order !== null && !isNaN(Number(order)) ? Number(order) : 0;
 
     const project = await prisma.project.create({
       data: {
@@ -40,6 +42,7 @@ export async function POST(request) {
         liveUrl: liveUrl || null,
         accent,
         details: details || { client: "", duration: "", tech: [], features: [] },
+        order: projectOrder,
       },
     });
 

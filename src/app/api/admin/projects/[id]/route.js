@@ -91,6 +91,7 @@ export async function PUT(request, { params }) {
       images: body.images !== undefined ? body.images : existing.images,
       liveUrl: body.liveUrl !== undefined ? (body.liveUrl || null) : existing.liveUrl,
       details: body.details !== undefined ? body.details : existing.details,
+      order: body.order !== undefined && body.order !== null && !isNaN(Number(body.order)) ? Number(body.order) : existing.order,
     };
 
     // 4. Update the verified project by its primary key (existing.id)
