@@ -333,7 +333,7 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-09-22-v8";
+const SCHEMA_VERSION = "2026-10-12-v9-project-order";
 
 let prismaInstance = globalForPrisma.prisma;
 if (!prismaInstance || prismaInstance._schemaVersion !== SCHEMA_VERSION) {
