@@ -5,7 +5,9 @@ import prisma from "@/lib/prisma";
  */
 export async function getAllProjects() {
   try {
-    return await prisma.project.findMany({ orderBy: { createdAt: "asc" } });
+    return await prisma.project.findMany({
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    });
   } catch (err) {
     console.error("Error fetching all projects from DB:", err.message);
     return [];
