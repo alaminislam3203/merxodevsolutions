@@ -65,3 +65,17 @@ export default function MetaPreviewerClient() {
       return 'merxodevsolutions.pro.bd';
     }
   }, [url]);
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }}
+      />
