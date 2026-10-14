@@ -183,3 +183,17 @@ export default function RegexTesterClient() {
             <div>
               <span className="text-violet-400 font-bold block mb-1">Character Classes</span>
               <p><code className="text-cyan-400">\d</code> - Any digit [0-9]</p>
+              <p><code className="text-cyan-400">\w</code> - Word char [a-zA-Z0-9_]</p>
+              <p><code className="text-cyan-400">\s</code> - Whitespace [ \t\r\n]</p>
+              <p><code className="text-cyan-400">.</code> - Any character except \n</p>
+            </div>
+            <div>
+              <span className="text-violet-400 font-bold block mb-1">Quantifiers</span>
+              <p><code className="text-cyan-400">+</code> - 1 or more</p>
+              <p><code className="text-cyan-400">*</code> - 0 or more</p>
+              <p><code className="text-cyan-400">?</code> - 0 or 1 (optional)</p>
+              <p><code className="text-cyan-400">{'{n,m}'}</code> - Between n and m</p>
+            </div>
+            <div>
+              <span className="text-violet-400 font-bold block mb-1">Anchors</span>
+              <p><code className="text-cyan-400">^</code> - Start of string/line</p>
