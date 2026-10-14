@@ -287,3 +287,20 @@ export default function HashGeneratorClient() {
                 WebCrypto Subtle API
               </span>
             </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+              Hash & Password{' '}
+              <span className="bg-gradient-to-r from-violet-600 via-indigo-500 to-emerald-500 bg-clip-text text-transparent">
+                Generator
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Generate SHA-256, SHA-512, MD5, and SHA-1 hashes directly in your browser with real-time salt protection and zero server latency.
+            </p>
+          </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
