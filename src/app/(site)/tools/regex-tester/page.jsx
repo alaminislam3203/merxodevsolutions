@@ -19,3 +19,9 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free Online Regex Tester & Debugger — MerxoDev Solutions',
+    description:
+      'Test and debug regular expressions with live match highlighting, flags, and capture group inspection.',
+    url: 'https://merxodevsolutions.pro.bd/tools/regex-tester',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
