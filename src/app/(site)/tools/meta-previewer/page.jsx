@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free Open Graph & Meta Tag Generator & Previewer — MerxoDev Solutions',
+    description:
+      'Live social share card previews for Google, Facebook, Twitter, and LinkedIn with instant HTML meta tag generation.',
+    url: 'https://merxodevsolutions.pro.bd/tools/meta-previewer',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
