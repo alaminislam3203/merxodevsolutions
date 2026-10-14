@@ -58,3 +58,8 @@ export default function CssShadowPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CssShadowClient />
+    </>
+  );
+}
