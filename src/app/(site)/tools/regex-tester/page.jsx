@@ -35,3 +35,9 @@ export const metadata = {
 };
 
 export default function RegexTesterPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online Regular Expression Tester & Debugger',
+    url: 'https://merxodevsolutions.pro.bd/tools/regex-tester',
+    applicationCategory: 'DeveloperApplication',
