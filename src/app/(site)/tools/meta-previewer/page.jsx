@@ -25,3 +25,9 @@ export const metadata = {
     url: 'https://merxodevsolutions.pro.bd/tools/meta-previewer',
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Meta Tag Generator & Social Card Previewer — MerxoDev Solutions',
+    description:
