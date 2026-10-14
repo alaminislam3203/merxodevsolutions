@@ -218,3 +218,19 @@ export default function CssShadowClient() {
                 max="100"
                 value={blur}
                 onChange={(e) => setBlur(Number(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Spread Radius */}
+            <div>
+              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <span>Spread Radius</span>
+                <span className="font-mono text-rose-500">{spread}px</span>
+              </div>
+              <input
+                type="range"
+                min="-40"
+                max="60"
+                value={spread}
+                onChange={(e) => setSpread(Number(e.target.value))}
