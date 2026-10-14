@@ -61,3 +61,18 @@ export default function CssShadowClient() {
   const fullCssSnippet = useMemo(() => {
     if (isGlass) {
       return `box-shadow: ${shadowCss};\nbackground: rgba(255, 255, 255, 0.1);\nbackdrop-filter: blur(12px);\n-webkit-backdrop-filter: blur(12px);\nborder: 1px solid rgba(255, 255, 255, 0.2);`;
+    }
+    return `box-shadow: ${shadowCss};`;
+  }, [shadowCss, isGlass]);
+
+  const handleCopy = (text, key) => {
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedKey(key);
+        toast.success(`Copied ${key}!`);
+        setTimeout(() => setCopiedKey(null), 1500);
+      });
+    }
+  };
+
+  const applyPreset = (p) => {
