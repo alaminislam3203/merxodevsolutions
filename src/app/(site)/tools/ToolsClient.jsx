@@ -273,3 +273,11 @@ export default function ToolsClient() {
               <span
                 className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                 aria-hidden
+              />
+              100% Free & Client-Side
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+              <FiLock className="w-3.5 h-3.5 text-emerald-500" />
+              Zero Data Sent to Server
+            </span>
+          </div>
