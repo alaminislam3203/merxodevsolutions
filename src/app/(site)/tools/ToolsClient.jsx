@@ -37,3 +37,13 @@ const TOOLS_DATA = [
     href: '/tools/json-formatter',
     tags: ['Beautify', 'Minify', 'Validate'],
     clientSide: true,
+  },
+  {
+    id: 'jwt-decoder',
+    title: 'JWT Debugger & Decoder',
+    description:
+      'Inspect JSON Web Tokens in real time. Decode header, payload claims, and verify token expiration securely.',
+    category: 'Security',
+    badge: 'Essential',
+    badgeColor: 'emerald',
+    icon: FiKey,
