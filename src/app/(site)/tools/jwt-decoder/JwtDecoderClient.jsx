@@ -110,3 +110,17 @@ export default function JwtDecoderClient() {
       return { isValid: false, error: 'Invalid Base64Url encoding in JWT Header.', header: null, payload: null };
     }
     if (!decodedPayloadStr) {
+      return { isValid: false, error: 'Invalid Base64Url encoding in JWT Payload.', header: null, payload: null };
+    }
+
+    let headerObj, payloadObj;
+    try {
+      headerObj = JSON.parse(decodedHeaderStr);
+    } catch {
+      return { isValid: false, error: 'JWT Header is not valid JSON.', header: null, payload: null };
+    }
+
+    try {
+      payloadObj = JSON.parse(decodedPayloadStr);
+    } catch {
+      return { isValid: false, error: 'JWT Payload is not valid JSON.', header: null, payload: null };
