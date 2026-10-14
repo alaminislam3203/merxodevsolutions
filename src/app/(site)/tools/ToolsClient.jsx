@@ -243,3 +243,13 @@ export default function ToolsClient() {
         >
           <Link
             href="/"
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            Home
+          </Link>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
