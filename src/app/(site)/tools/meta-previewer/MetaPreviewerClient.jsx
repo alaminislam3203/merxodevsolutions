@@ -259,3 +259,17 @@ export default function MetaPreviewerClient() {
                     {title}
                   </h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Facebook / LinkedIn Open Graph Card */}
+            {activePreview === 'facebook' && (
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
+                  Open Graph Social Card (Facebook, LinkedIn, Discord)
+                </span>
+                <div className="relative w-full h-52 bg-zinc-800 flex items-center justify-center overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
