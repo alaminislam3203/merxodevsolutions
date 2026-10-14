@@ -79,3 +79,17 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
     }
     if (typeof val === 'boolean') {
       return <span className="text-violet-400 font-mono font-semibold">{val ? 'true' : 'false'}</span>;
+    }
+    if (typeof val === 'number') {
+      return <span className="text-cyan-400 font-mono">{val}</span>;
+    }
+    if (typeof val === 'string') {
+      return <span className="text-emerald-400 font-mono">&quot;{val}&quot;</span>;
+    }
+    return <span className="text-zinc-300 font-mono">{String(val)}</span>;
+  };
+
+  if (!isComplex) {
+    return (
+      <div className="flex items-start gap-1 py-0.5 hover:bg-zinc-800/40 px-2 rounded font-mono text-xs">
+        {keyName !== undefined && (
