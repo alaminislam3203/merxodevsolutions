@@ -391,3 +391,11 @@ export default function ToolsClient() {
 
               return (
                 <div
+                  key={tool.id}
+                  className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-violet-400 dark:hover:border-violet-500 overflow-hidden"
+                >
+                  {/* Card Glow Corner Accent */}
+                  <div
+                    aria-hidden
+                    className="absolute -top-12 -right-12 w-28 h-28 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-transparent rounded-full blur-xl group-hover:scale-125 transition-transform duration-500 pointer-events-none"
+                  />
