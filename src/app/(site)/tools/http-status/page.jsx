@@ -58,3 +58,8 @@ export default function HttpStatusPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <HttpStatusClient />
+    </>
+  );
+}
