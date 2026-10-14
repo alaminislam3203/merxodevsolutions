@@ -339,3 +339,17 @@ export default function RegexTesterClient() {
                     {m.groups.length > 0 && (
                       <div className="pt-1.5 border-t border-zinc-800/80">
                         <span className="text-[10px] text-zinc-400 block mb-1">Capture Groups:</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {m.groups.map((g, gi) => (
+                            <span
+                              key={gi}
+                              className="text-[11px] px-2 py-0.5 rounded bg-zinc-800 text-cyan-300"
+                            >
+                              Group {gi + 1}: {g !== undefined ? `"${g}"` : 'undefined'}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))
