@@ -154,3 +154,14 @@ export default function UrlEncoderClient() {
               >
                 Encode URL
               </button>
+              <button
+                onClick={() => setMode('decode')}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                  mode === 'decode'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                }`}
+              >
+                Decode URL
+              </button>
+            </div>
