@@ -173,3 +173,14 @@ export default function HttpStatusClient() {
             />
             {search && (
               <button
+                onClick={() => setSearch('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+              >
+                <FiX className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+            {['All', '1xx', '2xx', '3xx', '4xx', '5xx'].map((cat) => (
