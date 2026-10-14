@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function GradientGeneratorPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online CSS Gradient Maker & Designer',
+    url: 'https://merxodevsolutions.pro.bd/tools/gradient-generator',
+    applicationCategory: 'DeveloperApplication',
