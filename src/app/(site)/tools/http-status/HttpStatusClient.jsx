@@ -60,3 +60,13 @@ const CATEGORY_COLORS = {
   '2xx': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
   '3xx': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950/80 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
   '4xx': 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border-amber-200 dark:border-amber-800',
+  '5xx': 'bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300 border-rose-200 dark:border-rose-800',
+};
+
+export default function HttpStatusClient() {
+  const [activeCat, setActiveCat] = useState('All');
+  const [search, setSearch] = useState('');
+  const [expandedCode, setExpandedCode] = useState(null);
+  const [copiedCode, setCopiedCode] = useState(null);
+
+  const filteredCodes = useMemo(() => {
