@@ -54,3 +54,17 @@ export default function RegexTesterClient() {
             text: match[0],
             index: match.index,
             groups: match.slice(1),
+          });
+          if (match.index === re.lastIndex) re.lastIndex++;
+          count++;
+        }
+      } else {
+        const match = re.exec(testText);
+        if (match) {
+          matches.push({
+            text: match[0],
+            index: match.index,
+            groups: match.slice(1),
+          });
+        }
+      }
