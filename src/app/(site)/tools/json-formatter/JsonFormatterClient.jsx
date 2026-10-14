@@ -241,3 +241,18 @@ export default function JsonFormatterClient() {
         .replace(/'/g, '"')
         // Remove trailing commas before closing braces/brackets
         .replace(/,\s*([\]}])/g, '$1');
+
+      JSON.parse(fixed); // Test if it parses
+      setInputJson(fixed);
+      toast.success('Repaired common JSON syntax mistakes!');
+    } catch {
+      toast.error('Could not auto-repair. Please inspect the syntax error manually.');
+    }
+  };
+
+  // Copy output
+  const handleCopy = (textToCopy) => {
+    const content = textToCopy || (parseResult.isValid ? parseResult.formatted : inputJson);
+    if (!content) return;
+
+    if (navigator.clipboard?.writeText) {
