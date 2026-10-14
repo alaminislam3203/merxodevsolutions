@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free CSS Gradient Generator — MerxoDev Solutions',
+    description:
+      'Design modern linear and radial gradients with color stops and copy ready-to-use CSS rules.',
+    url: 'https://merxodevsolutions.pro.bd/tools/gradient-generator',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
