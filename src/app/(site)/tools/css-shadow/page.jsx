@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free CSS Box Shadow & Glassmorphism Generator — MerxoDev Solutions',
+    description:
+      'Design modern, layered drop shadows and glassmorphic UI cards with one-click CSS and Tailwind export.',
+    url: 'https://merxodevsolutions.pro.bd/tools/css-shadow',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
