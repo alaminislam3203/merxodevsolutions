@@ -69,3 +69,9 @@ export default function ToolsPage() {
     url: 'https://merxodevsolutions.pro.bd/tools',
     description:
       'Free suite of privacy-friendly, client-side online developer tools designed to boost productivity.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'MerxoDev Solutions',
+      url: 'https://merxodevsolutions.pro.bd',
+    },
+  };
