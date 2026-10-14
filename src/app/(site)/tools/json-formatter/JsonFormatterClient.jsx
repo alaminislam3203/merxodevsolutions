@@ -419,3 +419,16 @@ export default function JsonFormatterClient() {
             <button
               onClick={() => fileInputRef.current?.click()}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+            >
+              <FiUpload className="w-3.5 h-3.5" />
+              Upload .json
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept=".json,.txt"
+              className="hidden"
+            />
+
+            <button
