@@ -180,3 +180,17 @@ export default function JwtDecoderClient() {
 
   const handleCopy = (text, partName) => {
     if (!text) return;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedPart(partName);
+        toast.success(`Copied ${partName}!`);
+        setTimeout(() => setCopiedPart(null), 2000);
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
