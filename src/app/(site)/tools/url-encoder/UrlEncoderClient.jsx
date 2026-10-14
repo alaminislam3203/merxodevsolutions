@@ -286,3 +286,15 @@ export default function UrlEncoderClient() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              Component vs Full URL
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Use <strong>Component</strong> mode for single query values so delimiters like <code className="font-mono text-violet-500">&</code> or <code className="font-mono text-violet-500">=</code> are safely escaped without breaking queries.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
+              <FiCheckCircle className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
