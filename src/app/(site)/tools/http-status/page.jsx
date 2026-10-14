@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'HTTP Status Codes Reference & Troubleshooting — MerxoDev Solutions',
+    description:
+      'Searchable reference of HTTP status codes with definitions, causes, and developer solutions.',
+    url: 'https://merxodevsolutions.pro.bd/tools/http-status',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
