@@ -204,3 +204,17 @@ export default function MetaPreviewerClient() {
                   className="w-full px-3 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs"
                 />
               </div>
+              <div>
+                <label className="block text-xs font-raleway font-semibold mb-1">Twitter Handle</label>
+                <input
+                  type="text"
+                  value={twitterUser}
+                  onChange={(e) => setTwitterUser(e.target.value)}
+                  className="w-full px-3 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Live Preview Cards (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
