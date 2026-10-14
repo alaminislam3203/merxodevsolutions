@@ -338,3 +338,20 @@ export default function HashGeneratorClient() {
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
               </div>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+            <label className="flex items-center gap-2 cursor-pointer select-none text-xs font-raleway text-zinc-700 dark:text-zinc-300">
+              <input
+                type="checkbox"
+                checked={uppercase}
+                onChange={(e) => setUppercase(e.target.checked)}
+                className="rounded accent-violet-600"
+              />
+              <span>Uppercase Hex Characters (A-F)</span>
+            </label>
+
+            <button
+              onClick={() => {
+                setInputText('');
