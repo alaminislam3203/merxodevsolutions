@@ -51,3 +51,8 @@ export default function Base64Page() {
       priceCurrency: 'USD',
     },
     description:
+      'Free client-side tool to encode and decode text strings, binary files, and image Data URIs.',
+  };
+
+  return (
+    <>
