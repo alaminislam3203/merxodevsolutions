@@ -185,3 +185,20 @@ export default function HashGeneratorClient() {
     md5: '',
     sha1: '',
     sha256: '',
+    sha384: '',
+    sha512: '',
+  });
+
+  const computeHashes = useCallback(async () => {
+    const raw = inputText + salt;
+    if (!raw) {
+      setHashes({ md5: '', sha1: '', sha256: '', sha384: '', sha512: '' });
+      return;
+    }
+
+    try {
+      const [s1, s256, s384, s512] = await Promise.all([
+        shaHash(raw, 'SHA-1'),
+        shaHash(raw, 'SHA-256'),
+        shaHash(raw, 'SHA-384'),
+        shaHash(raw, 'SHA-512'),
