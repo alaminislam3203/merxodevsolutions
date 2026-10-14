@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free Online UUID & NanoID Generator — MerxoDev Solutions',
     description:
+      'Cryptographically secure UUID v4 & NanoID generator with bulk export.',
+  },
+};
+
+export default function UuidGeneratorPage() {
