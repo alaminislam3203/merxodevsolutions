@@ -215,3 +215,16 @@ export default function JsonFormatterClient() {
   // Format button handler
   const handleFormat = () => {
     if (parseResult.isValid && parseResult.formatted) {
+      setInputJson(parseResult.formatted);
+      toast.success('JSON formatted & beautified!');
+    } else if (!parseResult.isValid) {
+      toast.error('Invalid JSON. Fix syntax errors first.');
+    }
+  };
+
+  // Minify handler
+  const handleMinify = () => {
+    if (parseResult.isValid && parseResult.minified) {
+      setInputJson(parseResult.minified);
+      toast.success('JSON minified!');
+    } else if (!parseResult.isValid) {
