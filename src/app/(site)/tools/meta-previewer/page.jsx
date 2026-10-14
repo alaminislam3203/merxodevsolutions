@@ -42,3 +42,8 @@ export default function MetaPreviewerPage() {
     name: 'Online OpenGraph & SEO Meta Tag Generator',
     url: 'https://merxodevsolutions.pro.bd/tools/meta-previewer',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
