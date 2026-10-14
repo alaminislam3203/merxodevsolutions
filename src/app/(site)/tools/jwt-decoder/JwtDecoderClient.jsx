@@ -152,3 +152,17 @@ export default function JwtDecoderClient() {
           label: 'Expired Token',
           timeRemaining: `Expired ${hours}h ${minutes}m ago`,
           humanDate: expDate.toLocaleString(),
+          utcDate: expDate.toUTCString(),
+        };
+      }
+    }
+
+    // Issued At (iat)
+    let iatDate = null;
+    if (payloadObj && typeof payloadObj.iat === 'number') {
+      iatDate = new Date(payloadObj.iat * 1000).toLocaleString();
+    }
+
+    return {
+      isValid: true,
+      error: null,
