@@ -42,3 +42,8 @@ export default function JsonFormatterPage() {
     '@type': 'WebApplication',
     name: 'Online JSON Formatter & Validator',
     url: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
