@@ -15,3 +15,9 @@ export const metadata = {
     'css box shadow generator',
     'regex tester online',
     'meta tag previewer og tags',
+    'bangladesh postcode finder',
+    'client-side web tools',
+    'merxodev solutions tools',
+    // Bengali (বাংলা)
+    'ডেভেলপার টুলস',
+    'অনলাইন ফ্রি টুলস',
