@@ -292,3 +292,17 @@ export default function JwtDecoderClient() {
             }`}
           >
             <div className="flex items-center gap-3">
+              <div
+                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                  decodedResult.expStatus.isExpired
+                    ? 'bg-rose-200/70 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300'
+                    : 'bg-emerald-200/70 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
+                }`}
+              >
+                <FiClock className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-sm font-raleway">{decodedResult.expStatus.label}</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-mono font-semibold bg-white/70 dark:bg-black/40">
+                    {decodedResult.expStatus.timeRemaining}
