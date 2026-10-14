@@ -32,3 +32,20 @@ function md5(string) {
       return lResult ^ 0x40000000 ^ lX8 ^ lY8;
     }
     return lResult ^ lX8 ^ lY8;
+  }
+  function md5_F(x, y, z) { return (x & y) | (~x & z); }
+  function md5_G(x, y, z) { return (x & z) | (y & ~z); }
+  function md5_H(x, y, z) { return x ^ y ^ z; }
+  function md5_I(x, y, z) { return y ^ (x | ~z); }
+  function md5_FF(a, b, c, d, x, s, ac) {
+    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_F(b, c, d), x), ac));
+    return md5_AddUnsigned(md5_RotateLeft(a, s), b);
+  }
+  function md5_GG(a, b, c, d, x, s, ac) {
+    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_G(b, c, d), x), ac));
+    return md5_AddUnsigned(md5_RotateLeft(a, s), b);
+  }
+  function md5_HH(a, b, c, d, x, s, ac) {
+    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_H(b, c, d), x), ac));
+    return md5_AddUnsigned(md5_RotateLeft(a, s), b);
+  }
