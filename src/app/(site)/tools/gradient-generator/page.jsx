@@ -52,3 +52,9 @@ export default function GradientGeneratorPage() {
     description:
       'Free visual designer for CSS linear and radial color gradients with preset collections.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
