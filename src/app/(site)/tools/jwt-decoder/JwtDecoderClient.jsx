@@ -404,3 +404,17 @@ export default function JwtDecoderClient() {
                 <pre className="whitespace-pre overflow-x-auto">
                   {decodedResult.headerFormatted || (
                     <span className="text-zinc-600 font-sans italic">Decoded header will appear here...</span>
+                  )}
+                </pre>
+              </div>
+            </div>
+
+            {/* 2. Payload Claims Box */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between px-4 py-3 bg-violet-50/50 dark:bg-violet-950/20 border-b border-zinc-200 dark:border-zinc-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-violet-600 dark:text-violet-400">
+                    PAYLOAD: Data Claims & Expiry
+                  </span>
+                </div>
