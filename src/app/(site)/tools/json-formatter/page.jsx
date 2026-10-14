@@ -20,3 +20,7 @@ export const metadata = {
     canonical: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
   },
   openGraph: {
+    title: 'Free Online JSON Formatter, Validator & Minifier — MerxoDev Solutions',
+    description:
+      'Format, validate, and minify JSON with real-time error detection. 100% private and client-side.',
+    url: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
