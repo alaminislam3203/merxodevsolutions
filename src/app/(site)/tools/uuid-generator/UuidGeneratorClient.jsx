@@ -58,3 +58,18 @@ export default function UuidGeneratorClient() {
           const v = c === 'x' ? r : (r & 0x3) | 0x8;
           return v.toString(16);
         });
+
+        if (!hyphens) val = val.replace(/-/g, '');
+        if (uppercase) val = val.toUpperCase();
+        else val = val.toLowerCase();
+      } else {
+        val = generateNanoId(nanoLength);
+        if (uppercase) val = val.toUpperCase();
+      }
+
+      if (wrapBraces) val = `{${val}}`;
+      if (wrapQuotes) val = `"${val}"`;
+
+      list.push(val);
+    }
+    setGeneratedList(list);
