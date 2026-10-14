@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'সিএসএস গ্রেডিয়েন্ট',
     'css gradient banano',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/gradient-generator',
+  },
+  openGraph: {
+    title: 'Free CSS Gradient Generator — MerxoDev Solutions',
