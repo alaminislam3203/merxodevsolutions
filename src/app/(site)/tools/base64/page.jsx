@@ -38,3 +38,7 @@ export const metadata = {
 
 export default function Base64Page() {
   const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online Base64 Encoder & Decoder',
+    url: 'https://merxodevsolutions.pro.bd/tools/base64',
