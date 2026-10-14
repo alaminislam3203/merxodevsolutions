@@ -3,3 +3,9 @@ import GradientGeneratorClient from './GradientGeneratorClient';
 export const metadata = {
   title: 'Free CSS Gradient Generator (Linear, Radial & Presets) — MerxoDev Solutions',
   description:
+    'Free online CSS gradient generator. Create custom linear and radial color gradients, adjust color stops and angles, with instant CSS & Tailwind code export.',
+  keywords: [
+    'css gradient generator',
+    'linear gradient maker',
+    'radial gradient css',
+    'tailwind gradient generator',
