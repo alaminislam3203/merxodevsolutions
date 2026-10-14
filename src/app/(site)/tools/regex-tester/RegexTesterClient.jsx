@@ -68,3 +68,18 @@ export default function RegexTesterClient() {
           });
         }
       }
+
+      return { isValid: true, error: null, matches };
+    } catch (err) {
+      return { isValid: false, error: err.message, matches: [] };
+    }
+  }, [pattern, flagsStr, testText, flags.g]);
+
+  const toggleFlag = (flag) => {
+    setFlags((prev) => ({ ...prev, [flag]: !prev[flag] }));
+  };
+
+  const applyPreset = (p) => {
+    setPattern(p.pattern);
+    setTestText(p.sample);
+    const newFlags = { g: false, i: false, m: false, s: false, u: false };
