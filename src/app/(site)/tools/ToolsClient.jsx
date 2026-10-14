@@ -115,3 +115,13 @@ const TOOLS_DATA = [
   {
     id: 'gradient-generator',
     title: 'CSS Gradient Maker',
+    description:
+      'Create high-contrast linear, radial, and mesh CSS gradients with color stop controls and CSS/Tailwind export.',
+    category: 'CSS & UI',
+    icon: FiSliders,
+    href: '/tools/gradient-generator',
+    tags: ['Linear', 'Radial', 'CSS Gradients'],
+    clientSide: true,
+  },
+  {
+    id: 'regex-tester',
