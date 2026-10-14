@@ -83,3 +83,20 @@ function md5(string) {
       WordToHexValue = WordToHexValue + WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
     }
     return WordToHexValue;
+  }
+  const x = md5_ConvertToWordArray(string);
+  let a = 0x67452301, b = 0xefcdab89, c = 0x98badcfe, d = 0x10325476;
+  const S11 = 7, S12 = 12, S13 = 17, S14 = 22;
+  const S21 = 5, S22 = 9, S23 = 14, S24 = 20;
+  const S31 = 4, S32 = 11, S33 = 16, S34 = 23;
+  const S41 = 6, S42 = 10, S43 = 15, S44 = 21;
+
+  for (let k = 0; k < x.length; k += 16) {
+    const AA = a, BB = b, CC = c, DD = d;
+    a = md5_FF(a, b, c, d, x[k + 0], S11, 0xd76aa478);
+    d = md5_FF(d, a, b, c, x[k + 1], S12, 0xe8c7b756);
+    c = md5_FF(c, d, a, b, x[k + 2], S13, 0x242070db);
+    b = md5_FF(b, c, d, a, x[k + 3], S14, 0xc1bdceee);
+    a = md5_FF(a, b, c, d, x[k + 4], S11, 0xf57c0faf);
+    d = md5_FF(d, a, b, c, x[k + 5], S12, 0x4787c62a);
+    c = md5_FF(c, d, a, b, x[k + 6], S13, 0xa8304613);
