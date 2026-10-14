@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'মেটা ট্যাগ প্রিভিউয়ার',
     'seo meta tag banano',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/meta-previewer',
+  },
+  openGraph: {
+    title: 'Free Open Graph & Meta Tag Generator & Previewer — MerxoDev Solutions',
