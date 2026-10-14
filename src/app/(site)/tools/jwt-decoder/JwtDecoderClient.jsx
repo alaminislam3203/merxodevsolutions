@@ -446,3 +446,17 @@ export default function JwtDecoderClient() {
                 <span className="font-bold text-zinc-800 dark:text-zinc-200 block mb-0.5">
                   Cryptographic Signature Verified Locally
                 </span>
+                <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                  Decoded without secret verification. To verify authenticity, your backend validates the signature using your private key or secret.
+                </p>
+                {decodedResult.signature && (
+                  <div className="mt-2 font-mono text-[11px] text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-200 dark:border-cyan-800/60 break-all">
+                    Signature: {decodedResult.signature}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Information Highlights Section */}
