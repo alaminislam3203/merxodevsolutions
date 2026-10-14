@@ -202,3 +202,15 @@ export default function UrlEncoderClient() {
         {/* Error banner */}
         {outputResult.error && (
           <div className="flex items-center gap-2 p-3 mb-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs">
+            <FiAlertCircle className="w-4 h-4 shrink-0" />
+            <span>{outputResult.error}</span>
+          </div>
+        )}
+
+        {/* Side-by-side Input & Output */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Input */}
+          <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                {mode === 'encode' ? 'Raw URL / Query String Input' : 'Percent-Encoded URL Input'}
