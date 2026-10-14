@@ -469,3 +469,13 @@ export default function ToolsClient() {
             <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto mb-6">
               We couldn&apos;t find any tool matching &quot;{searchQuery}&quot;. Try
               searching with another term or clear the filter.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setActiveCategory('All');
+              }}
+              className="px-5 py-2.5 rounded-xl bg-violet-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-violet-700 transition-colors"
+            >
+              Reset Filters
+            </button>
