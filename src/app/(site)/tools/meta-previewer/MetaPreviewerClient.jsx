@@ -314,3 +314,17 @@ export default function MetaPreviewerClient() {
                         onError={(e) => {
                           e.target.style.display = 'none';
                         }}
+                      />
+                      <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">Twitter Summary Large Image</span>
+                    </div>
+                    <div className="p-3 bg-zinc-50 dark:bg-zinc-800/80">
+                      <span className="text-[11px] text-zinc-400 font-mono block mb-0.5">{domain}</span>
+                      <h4 className="font-bold text-xs text-zinc-900 dark:text-white line-clamp-1 mb-0.5">
+                        {title}
+                      </h4>
+                      <p className="text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-2">
+                        {description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
