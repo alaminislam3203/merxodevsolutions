@@ -254,3 +254,18 @@ export default function UuidGeneratorClient() {
                 <input
                   type="checkbox"
                   checked={hyphens}
+                  onChange={(e) => setHyphens(e.target.checked)}
+                  className="rounded accent-amber-500"
+                />
+                <span>Include Hyphens (-)</span>
+              </label>
+            )}
+
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={wrapQuotes}
+                onChange={(e) => setWrapQuotes(e.target.checked)}
+                className="rounded accent-amber-500"
+              />
+              <span>Wrap in Quotes (&quot;...&quot;)</span>
