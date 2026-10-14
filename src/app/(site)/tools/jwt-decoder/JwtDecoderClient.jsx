@@ -376,3 +376,17 @@ export default function JwtDecoderClient() {
               <span className="flex items-center gap-1.5 text-cyan-500">
                 <span className="w-2 h-2 rounded-full bg-cyan-500" /> Signature
               </span>
+            </div>
+          </div>
+
+          {/* RIGHT: Decoded Inspector (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            {/* 1. Header Box */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between px-4 py-3 bg-rose-50/50 dark:bg-rose-950/20 border-b border-zinc-200 dark:border-zinc-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-rose-600 dark:text-rose-400">
+                    HEADER: Algorithm & Token Type
+                  </span>
+                </div>
