@@ -233,3 +233,19 @@ export default function Base64Client() {
         {/* Mode Selector Tabs: Text vs Image */}
         <div className="flex items-center gap-2 mb-6">
           <button
+            onClick={() => setActiveTab('text')}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
+              activeTab === 'text'
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
+                : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-cyan-600'
+            }`}
+          >
+            <FiFileText className="w-4 h-4" />
+            Text Converter (UTF-8)
+          </button>
+
+          <button
+            onClick={() => setActiveTab('image')}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
+              activeTab === 'image'
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
