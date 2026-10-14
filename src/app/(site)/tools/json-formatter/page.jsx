@@ -47,3 +47,7 @@ export default function JsonFormatterPage() {
     browserRequirements: 'Requires JavaScript',
     offers: {
       '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
