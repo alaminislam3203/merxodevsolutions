@@ -201,3 +201,17 @@ export default function JsonFormatterClient() {
     const reductionPercent =
       rawBytes > 0 && minifiedBytes > 0
         ? Math.max(0, Math.round(((rawBytes - minifiedBytes) / rawBytes) * 100))
+        : 0;
+
+    return {
+      rawBytes,
+      formattedBytes,
+      minifiedBytes,
+      lineCount,
+      reductionPercent,
+    };
+  }, [inputJson, parseResult]);
+
+  // Format button handler
+  const handleFormat = () => {
+    if (parseResult.isValid && parseResult.formatted) {
