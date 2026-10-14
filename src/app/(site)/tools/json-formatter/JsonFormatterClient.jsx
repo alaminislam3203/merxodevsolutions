@@ -106,3 +106,17 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
   const entries = isArray ? value.map((v, i) => [i, v]) : Object.entries(value);
   const openBracket = isArray ? '[' : '{';
   const closeBracket = isArray ? ']' : '}';
+
+  return (
+    <div className="font-mono text-xs py-0.5">
+      <div
+        onClick={toggle}
+        className="flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800/40 px-2 py-0.5 rounded select-none group"
+      >
+        <span className="text-zinc-500 group-hover:text-zinc-300">
+          {collapsed ? <FiChevronRight className="w-3.5 h-3.5" /> : <FiChevronDown className="w-3.5 h-3.5" />}
+        </span>
+
+        {keyName !== undefined && (
+          <span className="text-indigo-300 font-medium">
+            &quot;{keyName}&quot;<span className="text-zinc-500 mr-1.5">:</span>
