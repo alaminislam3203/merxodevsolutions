@@ -300,3 +300,17 @@ export default function MetaPreviewerClient() {
             {/* Twitter Card Preview */}
             {activePreview === 'twitter' && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
+                  Twitter / X Large Image Card Preview
+                </span>
+                <div className="p-4">
+                  <div className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
+                    <div className="relative w-full h-48 bg-zinc-800 flex items-center justify-center overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={image}
+                        alt="Twitter Banner Preview"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
