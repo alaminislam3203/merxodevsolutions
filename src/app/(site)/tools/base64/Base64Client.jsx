@@ -217,3 +217,19 @@ export default function Base64Client() {
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Encode and decode plain text, UTF-8 strings, and image assets to Base64 and Data URIs with zero server upload.
+            </p>
+          </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
+        </div>
+
+        {/* Mode Selector Tabs: Text vs Image */}
+        <div className="flex items-center gap-2 mb-6">
+          <button
