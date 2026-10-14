@@ -364,3 +364,17 @@ export default function JsonFormatterClient() {
 
         {/* Action Toolbar */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 mb-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+          {/* Left tools: Format, Minify, Fix */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={handleFormat}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm shadow-violet-500/20 active:scale-95"
+            >
+              <FiCheck className="w-3.5 h-3.5" />
+              Beautify
+            </button>
+
+            <button
+              onClick={handleMinify}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all active:scale-95"
+            >
