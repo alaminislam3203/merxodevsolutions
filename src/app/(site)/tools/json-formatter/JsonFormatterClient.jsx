@@ -500,3 +500,17 @@ export default function JsonFormatterClient() {
                 onChange={(e) => setInputJson(e.target.value)}
                 placeholder="Paste or write raw JSON here..."
                 spellCheck={false}
+                className="w-full h-full min-h-[460px] p-4 font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400"
+              />
+            </div>
+          </div>
+
+          {/* RIGHT: Output Panel */}
+          <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              {/* Mode switch: Code view vs Tree view */}
+              <div className="flex items-center gap-1 bg-zinc-200/80 dark:bg-zinc-800 p-0.5 rounded-lg">
+                <button
+                  onClick={() => setViewMode('code')}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
+                    viewMode === 'code'
