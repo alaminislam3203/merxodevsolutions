@@ -238,3 +238,15 @@ export default function UrlEncoderClient() {
                 {mode === 'encode' ? 'Encoded URL Output' : 'Decoded URL Output'}
               </span>
               <div className="flex items-center gap-1.5">
+                <button
+                  onClick={handleCopy}
+                  disabled={!outputResult.result}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-600 hover:text-white dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs font-bold transition-all disabled:opacity-40"
+                >
+                  {copied ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
+                <button
+                  onClick={handleDownload}
+                  disabled={!outputResult.result}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all disabled:opacity-40"
