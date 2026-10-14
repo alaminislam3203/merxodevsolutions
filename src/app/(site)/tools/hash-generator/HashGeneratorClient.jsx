@@ -270,3 +270,20 @@ export default function HashGeneratorClient() {
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">Hash & Password Generator</span>
+        </nav>
+
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+                <FiShield className="w-3.5 h-3.5" />
+                Security & Cryptography
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <FiLock className="w-3 h-3 text-emerald-500" />
+                WebCrypto Subtle API
+              </span>
+            </div>
