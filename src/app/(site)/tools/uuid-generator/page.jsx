@@ -42,3 +42,8 @@ export default function UuidGeneratorPage() {
     name: 'Online UUID & NanoID Generator',
     url: 'https://merxodevsolutions.pro.bd/tools/uuid-generator',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
