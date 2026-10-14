@@ -133,3 +133,17 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
 
         {collapsed && <span className="text-zinc-400 font-semibold">{closeBracket}</span>}
         {!isLast && collapsed && <span className="text-zinc-500">,</span>}
+      </div>
+
+      {!collapsed && (
+        <div className="pl-4 border-l border-zinc-800/80 ml-3.5 mt-0.5 space-y-0.5">
+          {entries.map(([k, val], index) => (
+            <TreeNode
+              key={k}
+              keyName={isArray ? undefined : k}
+              value={val}
+              isLast={index === entries.length - 1}
+              depth={depth + 1}
+            />
+          ))}
+          <div className="text-zinc-400 font-semibold px-2">
