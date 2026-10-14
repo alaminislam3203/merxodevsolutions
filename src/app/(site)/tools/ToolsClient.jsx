@@ -86,3 +86,13 @@ const TOOLS_DATA = [
     icon: FiHash,
     href: '/tools/uuid-generator',
     tags: ['UUID v4', 'NanoID', 'Bulk'],
+    clientSide: true,
+  },
+  {
+    id: 'hash-generator',
+    title: 'Hash & Password Generator',
+    description:
+      'Generate secure MD5, SHA-1, SHA-256, SHA-512, and salted password hashes directly inside your browser.',
+    category: 'Security',
+    icon: FiShield,
+    href: '/tools/hash-generator',
