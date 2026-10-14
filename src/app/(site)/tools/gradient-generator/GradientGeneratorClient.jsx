@@ -349,3 +349,17 @@ export default function GradientGeneratorClient() {
                     className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                   >
                     {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                    Copy Tailwind
+                  </button>
+                </div>
+                <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto break-all">
+                  {tailwindSnippet}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
