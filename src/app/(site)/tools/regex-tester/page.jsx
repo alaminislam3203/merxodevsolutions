@@ -25,3 +25,8 @@ export const metadata = {
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online Regex Tester & Debugger — MerxoDev Solutions',
+    description:
