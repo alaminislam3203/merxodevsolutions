@@ -41,3 +41,8 @@ export default function RegexTesterPage() {
     name: 'Online Regular Expression Tester & Debugger',
     url: 'https://merxodevsolutions.pro.bd/tools/regex-tester',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
