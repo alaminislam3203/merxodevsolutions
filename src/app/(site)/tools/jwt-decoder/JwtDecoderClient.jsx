@@ -236,3 +236,17 @@ export default function JwtDecoderClient() {
             </div>
 
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+              JWT{' '}
+              <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                Debugger & Decoder
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Inspect JSON Web Tokens in real time. Decode header algorithms, inspect payload claims, and verify expiry dates locally.
+            </p>
+          </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
