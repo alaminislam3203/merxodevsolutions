@@ -52,3 +52,16 @@ const SAMPLE_JSON = JSON.stringify(
         verified: true,
       },
     ],
+    settings: {
+      theme: 'dark',
+      notifications: null,
+      maxConnections: 100,
+    },
+  },
+  null,
+  2
+);
+
+// ── Recursive JSON Tree Node Component ──────────────────────────────────────────
+function TreeNode({ keyName, value, isLast, depth = 0 }) {
+  const [collapsed, setCollapsed] = useState(depth > 2);
