@@ -106,3 +106,12 @@ const TOOLS_DATA = [
       'Visual drop-shadow and glassmorphism designer with real-time preview and one-click CSS code export.',
     category: 'CSS & UI',
     badge: 'Creative',
+    badgeColor: 'rose',
+    icon: FiBox,
+    href: '/tools/css-shadow',
+    tags: ['Box Shadow', 'Glassmorphism', 'Tailwind'],
+    clientSide: true,
+  },
+  {
+    id: 'gradient-generator',
+    title: 'CSS Gradient Maker',
