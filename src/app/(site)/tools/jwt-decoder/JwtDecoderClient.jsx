@@ -222,3 +222,17 @@ export default function JwtDecoderClient() {
         </nav>
 
         {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-raleway uppercase tracking-widest">
+                <FiKey className="w-3.5 h-3.5" />
+                Security & Authentication
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <FiLock className="w-3 h-3 text-emerald-500" />
+                100% Client-Side (No server logs)
+              </span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
