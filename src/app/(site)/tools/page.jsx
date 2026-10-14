@@ -39,3 +39,9 @@ export const metadata = {
     title: 'Free Developer Tools & Utilities — MerxoDev Solutions',
     description:
       'Fast, private, client-side web tools for developers: JSON formatter, JWT decoder, Base64 converter, UUID generator, and CSS builders.',
+    url: 'https://merxodevsolutions.pro.bd/tools',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
