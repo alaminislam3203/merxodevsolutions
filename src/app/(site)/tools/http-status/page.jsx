@@ -42,3 +42,8 @@ export default function HttpStatusPage() {
     name: 'Online HTTP Status Codes Reference Guide',
     url: 'https://merxodevsolutions.pro.bd/tools/http-status',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
