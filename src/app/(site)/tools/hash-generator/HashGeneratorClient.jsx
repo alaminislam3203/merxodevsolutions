@@ -49,3 +49,20 @@ function md5(string) {
     a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_H(b, c, d), x), ac));
     return md5_AddUnsigned(md5_RotateLeft(a, s), b);
   }
+  function md5_II(a, b, c, d, x, s, ac) {
+    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_I(b, c, d), x), ac));
+    return md5_AddUnsigned(md5_RotateLeft(a, s), b);
+  }
+  function md5_ConvertToWordArray(string) {
+    let lWordCount;
+    const lMessageLength = string.length;
+    const lNumberOfWords_temp1 = lMessageLength + 8;
+    const lNumberOfWords_temp2 = (lNumberOfWords_temp1 - (lNumberOfWords_temp1 % 64)) / 64;
+    const lNumberOfWords = (lNumberOfWords_temp2 + 1) * 16;
+    const lWordArray = Array(lNumberOfWords - 1);
+    let lBytePosition = 0;
+    let lByteCount = 0;
+    while (lByteCount < lMessageLength) {
+      lWordCount = (lByteCount - (lByteCount % 4)) / 4;
+      lBytePosition = (lByteCount % 4) * 8;
+      lWordArray[lWordCount] = lWordArray[lWordCount] | (string.charCodeAt(lByteCount) << lBytePosition);
