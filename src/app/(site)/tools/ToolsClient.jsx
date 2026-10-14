@@ -440,3 +440,13 @@ export default function ToolsClient() {
                           key={tag}
                           className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-raleway"
                         >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={tool.href}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-50 hover:bg-violet-600 dark:bg-zinc-800/80 dark:hover:bg-violet-600 text-zinc-700 hover:text-white dark:text-zinc-200 dark:hover:text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all duration-200 border border-zinc-200 dark:border-zinc-700 hover:border-transparent group-hover:shadow-md group-hover:shadow-violet-500/20"
+                    >
+                      <span>Open Tool</span>
