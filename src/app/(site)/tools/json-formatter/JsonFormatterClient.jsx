@@ -527,3 +527,17 @@ export default function JsonFormatterClient() {
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
                     viewMode === 'tree'
                       ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 disabled:opacity-40'
+                  }`}
+                >
+                  <FiLayers className="w-3.5 h-3.5" />
+                  Tree View
+                </button>
+              </div>
+
+              {/* Action buttons: Copy & Download */}
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handleCopy()}
+                  disabled={!inputJson.trim()}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
