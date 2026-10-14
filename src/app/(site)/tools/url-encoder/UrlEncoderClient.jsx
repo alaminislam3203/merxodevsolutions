@@ -118,3 +118,14 @@ export default function UrlEncoderClient() {
                 100% Client-Side Privacy
               </span>
             </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+              URL{' '}
+              <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-600 bg-clip-text text-transparent">
+                Encoder & Decoder
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Safely encode and decode percent-encoded URLs, query string parameters, and URI components with RFC 3986 compliance.
+            </p>
+          </div>
