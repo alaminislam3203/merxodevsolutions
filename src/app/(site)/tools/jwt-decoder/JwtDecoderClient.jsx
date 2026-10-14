@@ -418,3 +418,17 @@ export default function JwtDecoderClient() {
                     PAYLOAD: Data Claims & Expiry
                   </span>
                 </div>
+                <button
+                  onClick={() => handleCopy(decodedResult.payloadFormatted, 'Payload JSON')}
+                  disabled={!decodedResult.payloadFormatted}
+                  className="text-[11px] font-semibold text-zinc-500 hover:text-violet-600 flex items-center gap-1 transition-colors"
+                >
+                  {copiedPart === 'Payload JSON' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                  Copy Payload
+                </button>
+              </div>
+
+              <div className="p-4 bg-zinc-950 font-mono text-xs text-violet-200">
+                <pre className="whitespace-pre overflow-x-auto leading-relaxed">
+                  {decodedResult.payloadFormatted || (
+                    <span className="text-zinc-600 font-sans italic">Decoded payload claims will appear here...</span>
