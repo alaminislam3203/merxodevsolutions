@@ -80,3 +80,14 @@ export default function HttpStatusClient() {
         c.summary.toLowerCase().includes(q) ||
         c.fix.toLowerCase().includes(q);
       return matchCat && matchSearch;
+    });
+  }, [activeCat, search]);
+
+  const handleCopy = (c) => {
+    const text = `${c.code} ${c.phrase} — ${c.summary}`;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedCode(c.code);
+        toast.success(`Copied ${c.code} ${c.phrase}!`);
+        setTimeout(() => setCopiedCode(null), 1500);
+      });
