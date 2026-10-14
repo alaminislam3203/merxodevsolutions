@@ -45,3 +45,9 @@ export const metadata = {
     type: 'website',
     images: [
       {
+        url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+        width: 1200,
+        height: 630,
+        alt: 'MerxoDev Solutions Developer Tools',
+      },
+    ],
