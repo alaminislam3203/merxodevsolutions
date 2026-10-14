@@ -20,3 +20,7 @@ export const metadata = {
     canonical: 'https://merxodevsolutions.pro.bd/tools/base64',
   },
   openGraph: {
+    title: 'Free Online Base64 Encoder & Decoder — MerxoDev Solutions',
+    description:
+      'Convert text and images to and from Base64 instantly in your browser with zero latency and complete privacy.',
+    url: 'https://merxodevsolutions.pro.bd/tools/base64',
