@@ -38,3 +38,7 @@ export const metadata = {
 
 export default function JsonFormatterPage() {
   const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online JSON Formatter & Validator',
+    url: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
