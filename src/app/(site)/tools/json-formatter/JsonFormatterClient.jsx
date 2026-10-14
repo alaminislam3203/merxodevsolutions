@@ -93,3 +93,16 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
     return (
       <div className="flex items-start gap-1 py-0.5 hover:bg-zinc-800/40 px-2 rounded font-mono text-xs">
         {keyName !== undefined && (
+          <span className="text-indigo-300 font-medium">
+            &quot;{keyName}&quot;<span className="text-zinc-500 mr-1.5">:</span>
+          </span>
+        )}
+        {renderValue(value)}
+        {!isLast && <span className="text-zinc-500">,</span>}
+      </div>
+    );
+  }
+
+  const entries = isArray ? value.map((v, i) => [i, v]) : Object.entries(value);
+  const openBracket = isArray ? '[' : '{';
+  const closeBracket = isArray ? ']' : '}';
