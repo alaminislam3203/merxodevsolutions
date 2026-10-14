@@ -203,3 +203,18 @@ export default function CssShadowClient() {
                 value={y}
                 onChange={(e) => setY(Number(e.target.value))}
                 className="w-full accent-rose-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Blur Radius */}
+            <div>
+              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <span>Blur Radius</span>
+                <span className="font-mono text-rose-500">{blur}px</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={blur}
+                onChange={(e) => setBlur(Number(e.target.value))}
