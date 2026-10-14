@@ -177,3 +177,16 @@ export default function MetaPreviewerClient() {
               <label className="block text-xs font-raleway font-semibold mb-1">Canonical URL</label>
               <input
                 type="text"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+            </div>
+
+            {/* Image URL */}
+            <div>
+              <label className="block text-xs font-raleway font-semibold mb-1">OG Banner Image URL (1200x630)</label>
+              <input
+                type="text"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
