@@ -163,3 +163,17 @@ export default function MetaPreviewerClient() {
                 <span className={`text-[11px] font-mono ${description.length > 160 ? 'text-amber-500' : 'text-zinc-400'}`}>
                   {description.length}/160 chars
                 </span>
+              </div>
+              <textarea
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+            </div>
+
+            {/* Canonical URL */}
+            <div>
+              <label className="block text-xs font-raleway font-semibold mb-1">Canonical URL</label>
+              <input
+                type="text"
