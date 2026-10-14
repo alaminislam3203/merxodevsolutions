@@ -75,3 +75,9 @@ export default function ToolsPage() {
       url: 'https://merxodevsolutions.pro.bd',
     },
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
