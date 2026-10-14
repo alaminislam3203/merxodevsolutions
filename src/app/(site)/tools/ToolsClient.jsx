@@ -399,3 +399,14 @@ export default function ToolsClient() {
                     aria-hidden
                     className="absolute -top-12 -right-12 w-28 h-28 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-transparent rounded-full blur-xl group-hover:scale-125 transition-transform duration-500 pointer-events-none"
                   />
+
+                  {/* Top Header: Icon & Category/Badge */}
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-100 dark:border-violet-800/80 group-hover:scale-105 group-hover:bg-gradient-to-tr group-hover:from-violet-600 group-hover:to-fuchsia-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {tool.badge && (
+                          <span
