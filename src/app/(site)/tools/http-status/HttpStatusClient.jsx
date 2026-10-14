@@ -204,3 +204,14 @@ export default function HttpStatusClient() {
           {filteredCodes.map((item) => {
             const isExpanded = expandedCode === item.code;
             const badgeClass = CATEGORY_COLORS[item.category] || 'bg-zinc-100 text-zinc-800';
+
+            return (
+              <div
+                key={item.code}
+                className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm hover:border-amber-400 dark:hover:border-amber-500 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-2xl font-black text-zinc-900 dark:text-white">
+                      {item.code}
+                    </span>
