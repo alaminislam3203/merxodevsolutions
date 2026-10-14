@@ -45,3 +45,19 @@ export default function CssShadowClient() {
     const b = num & 255;
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   };
+
+  const shadowCss = useMemo(() => {
+    const rgba = hexToRgba(shadowColor, opacity);
+    const insetStr = inset ? 'inset ' : '';
+    return `${insetStr}${x}px ${y}px ${blur}px ${spread}px ${rgba}`;
+  }, [x, y, blur, spread, shadowColor, opacity, inset]);
+
+  const tailwindSnippet = useMemo(() => {
+    const rgbaClean = hexToRgba(shadowColor, opacity).replace(/\s/g, '');
+    const insetPrefix = inset ? 'inset_' : '';
+    return `shadow-[${insetPrefix}${x}px_${y}px_${blur}px_${spread}px_${rgbaClean}]`;
+  }, [x, y, blur, spread, shadowColor, opacity, inset]);
+
+  const fullCssSnippet = useMemo(() => {
+    if (isGlass) {
+      return `box-shadow: ${shadowCss};\nbackground: rgba(255, 255, 255, 0.1);\nbackdrop-filter: blur(12px);\n-webkit-backdrop-filter: blur(12px);\nborder: 1px solid rgba(255, 255, 255, 0.2);`;
