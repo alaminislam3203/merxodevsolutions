@@ -314,3 +314,18 @@ export default function UuidGeneratorClient() {
               <button
                 onClick={handleDownload}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+              >
+                <FiDownload className="w-3.5 h-3.5" />
+                <span>Save .txt</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="divide-y divide-zinc-100 dark:divide-zinc-800/60 max-h-[500px] overflow-y-auto font-mono text-xs">
+            {generatedList.map((id, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between px-5 py-3 hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors group"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] font-mono text-zinc-400 select-none w-6 text-right">
