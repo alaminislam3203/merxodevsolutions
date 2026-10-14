@@ -333,3 +333,18 @@ export default function JwtDecoderClient() {
             </div>
           </div>
         )}
+
+        {/* Main 2-Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* LEFT: Raw Encoded Token Input (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <FiKey className="w-4 h-4 text-emerald-500" />
+                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                  Encoded JWT Token
+                </span>
+              </div>
+              <button
+                onClick={() => handleCopy(tokenInput, 'Encoded Token')}
+                disabled={!tokenInput}
