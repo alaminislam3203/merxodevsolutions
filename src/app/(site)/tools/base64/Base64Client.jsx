@@ -296,3 +296,19 @@ export default function Base64Client() {
                       onChange={(e) => setIsUrlSafe(e.target.checked)}
                       className="rounded accent-cyan-500"
                     />
+                    <span>URL-Safe (- and _)</span>
+                  </label>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setTextInput(SAMPLE_TEXT)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+                >
+                  <FiRefreshCw className="w-3.5 h-3.5" />
+                  Load Sample
+                </button>
+
+                <button
+                  onClick={() => setTextInput('')}
