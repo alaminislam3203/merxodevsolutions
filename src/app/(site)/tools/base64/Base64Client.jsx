@@ -375,3 +375,17 @@ export default function Base64Client() {
                       <FiDownload />
                       <span className="hidden sm:inline">Save</span>
                     </button>
+                  </div>
+                </div>
+
+                <div className="p-4 flex-1 min-h-[380px] bg-zinc-950 font-mono text-xs text-cyan-200">
+                  <pre className="whitespace-pre-wrap break-all leading-relaxed">
+                    {textOutput.result || (
+                      <span className="text-zinc-600 font-sans italic">Converted output will appear here...</span>
+                    )}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
