@@ -321,3 +321,17 @@ export default function GradientGeneratorClient() {
 
             {/* Code Output Cards */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm space-y-4">
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                    CSS Rule
+                  </span>
+                  <button
+                    onClick={() => handleCopy(cssRule, 'CSS Rule')}
+                    className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                  >
+                    {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                    Copy CSS
+                  </button>
+                </div>
+                <pre className="p-3 rounded-xl bg-zinc-950 text-fuchsia-300 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
