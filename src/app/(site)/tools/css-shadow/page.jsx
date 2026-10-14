@@ -52,3 +52,9 @@ export default function CssShadowPage() {
     description:
       'Free visual designer for CSS box shadows, layered soft elevations, and glassmorphic UI elements.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
