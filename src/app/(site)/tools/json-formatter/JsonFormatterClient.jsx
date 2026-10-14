@@ -351,3 +351,16 @@ export default function JsonFormatterClient() {
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
               Beautify, inspect, validate, and minify your JSON data in real time. Zero server transmission.
             </p>
+          </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
+        </div>
+
+        {/* Action Toolbar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 mb-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
