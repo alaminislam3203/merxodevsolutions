@@ -342,3 +342,16 @@ export default function MetaPreviewerClient() {
                   className="text-xs font-bold font-raleway text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
                 >
                   {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                  Copy Meta Tags
+                </button>
+              </div>
+              <pre className="p-3.5 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto whitespace-pre leading-relaxed">
+                {generatedHtml}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
