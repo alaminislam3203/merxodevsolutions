@@ -60,3 +60,7 @@ export default function Base64Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Base64Client />
+    </>
+  );
+}
