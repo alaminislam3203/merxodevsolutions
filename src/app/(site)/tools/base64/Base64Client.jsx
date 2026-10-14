@@ -453,3 +453,19 @@ export default function Base64Client() {
                       alt="Base64 Preview"
                       className="max-w-full max-h-full object-contain"
                     />
+                  </div>
+                  {imageDetails && (
+                    <div className="w-full text-xs font-raleway text-zinc-600 dark:text-zinc-400 space-y-1">
+                      <div className="flex justify-between">
+                        <span>File:</span>
+                        <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate max-w-[180px]">
+                          {imageDetails.name}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Size:</span>
+                        <span className="font-semibold text-zinc-800 dark:text-zinc-200">
+                          {(imageDetails.size / 1024).toFixed(1)} KB
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
