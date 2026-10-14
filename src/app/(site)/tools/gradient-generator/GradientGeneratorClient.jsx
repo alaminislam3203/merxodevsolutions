@@ -335,3 +335,17 @@ export default function GradientGeneratorClient() {
                   </button>
                 </div>
                 <pre className="p-3 rounded-xl bg-zinc-950 text-fuchsia-300 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                  {cssRule}
+                </pre>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                    Tailwind CSS Arbitrary Value
+                  </span>
+                  <button
+                    onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
+                    className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                  >
+                    {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
