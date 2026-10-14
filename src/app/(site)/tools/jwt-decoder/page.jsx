@@ -42,3 +42,8 @@ export default function JwtDecoderPage() {
     '@type': 'WebApplication',
     name: 'Online JWT Decoder & Token Debugger',
     url: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
