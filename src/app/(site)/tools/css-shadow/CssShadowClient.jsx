@@ -360,3 +360,19 @@ export default function CssShadowClient() {
                 <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto break-all">
                   {tailwindSnippet}
                 </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950 flex items-center justify-center text-rose-600 dark:text-rose-400 mb-4">
+              <FiEye className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              60 FPS Live Rendering
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Every slider adjust updates the CSS layout instantly in real time so you can design tactile elevation without leaving the browser.
