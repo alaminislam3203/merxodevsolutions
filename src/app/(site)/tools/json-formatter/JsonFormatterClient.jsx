@@ -487,3 +487,16 @@ export default function JsonFormatterClient() {
                 <FiFileText className="w-4 h-4 text-violet-500" />
                 <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
                   Raw JSON Input
+                </span>
+              </div>
+              <span className="text-[11px] text-zinc-400 font-mono">
+                {inputJson.length} chars
+              </span>
+            </div>
+
+            <div className="relative flex-1 min-h-[460px]">
+              <textarea
+                value={inputJson}
+                onChange={(e) => setInputJson(e.target.value)}
+                placeholder="Paste or write raw JSON here..."
+                spellCheck={false}
