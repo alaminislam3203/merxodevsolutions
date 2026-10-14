@@ -37,3 +37,8 @@ export const metadata = {
 };
 
 export default function UrlEncoderPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online URL Encoder & Decoder',
+    url: 'https://merxodevsolutions.pro.bd/tools/url-encoder',
