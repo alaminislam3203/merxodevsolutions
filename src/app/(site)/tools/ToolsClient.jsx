@@ -96,3 +96,13 @@ const TOOLS_DATA = [
     category: 'Security',
     icon: FiShield,
     href: '/tools/hash-generator',
+    tags: ['SHA-256', 'MD5', 'Crypto'],
+    clientSide: true,
+  },
+  {
+    id: 'css-shadow',
+    title: 'CSS Shadow & Glass Builder',
+    description:
+      'Visual drop-shadow and glassmorphism designer with real-time preview and one-click CSS code export.',
+    category: 'CSS & UI',
+    badge: 'Creative',
