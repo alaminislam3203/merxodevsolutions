@@ -135,3 +135,13 @@ const TOOLS_DATA = [
     href: '/tools/regex-tester',
     tags: ['Regex', 'Match', 'Flags'],
     clientSide: true,
+  },
+  {
+    id: 'meta-previewer',
+    title: 'Meta Tags & OG Previewer',
+    description:
+      'Preview social share cards for Facebook, Twitter/X, and LinkedIn, plus copy ready-to-use HTML meta tags.',
+    category: 'Web & SEO',
+    badge: 'SEO',
+    badgeColor: 'cyan',
+    icon: FiGlobe,
