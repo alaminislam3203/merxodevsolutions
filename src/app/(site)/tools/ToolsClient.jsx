@@ -420,3 +420,13 @@ export default function ToolsClient() {
                         </span>
                       </div>
                     </div>
+
+                    {/* Tool Title */}
+                    <h3 className="font-display text-xl font-bold text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 mb-2">
+                      {tool.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway mb-4 line-clamp-3">
+                      {tool.description}
+                    </p>
