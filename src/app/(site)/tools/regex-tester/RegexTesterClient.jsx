@@ -268,3 +268,17 @@ export default function RegexTesterClient() {
         {/* Match Count Banner */}
         {regexResult.isValid && (
           <div className="flex items-center justify-between px-4 py-2.5 mb-6 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-800/80 text-violet-800 dark:text-violet-300 text-xs font-medium">
+            <div className="flex items-center gap-2">
+              <FiCheckCircle className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+              <span>
+                Found <strong className="font-bold">{regexResult.matches.length}</strong> match
+                {regexResult.matches.length === 1 ? '' : 'es'}
+              </span>
+            </div>
+            <span className="text-[11px] font-mono text-zinc-500">
+              Evaluated via native V8 JavaScript RegExp
+            </span>
+          </div>
+        )}
+
+        {/* Test String Input & Match Results Grid */}
