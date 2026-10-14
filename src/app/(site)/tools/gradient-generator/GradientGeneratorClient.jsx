@@ -124,3 +124,17 @@ export default function GradientGeneratorClient() {
           <Link href="/" className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors">
             Home
           </Link>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <Link href="/tools" className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors">
+            Tools
+          </Link>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">CSS Gradient Maker</span>
+        </nav>
+
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
