@@ -49,3 +49,14 @@ const HTTP_CODES = [
 
   // 5xx
   { code: 500, phrase: 'Internal Server Error', category: '5xx', summary: 'A generic error message, given when an unexpected condition was encountered.', fix: 'Inspect backend error logs, uncaught exceptions, and unhandled promise rejections.' },
+  { code: 501, phrase: 'Not Implemented', category: '5xx', summary: 'The server either does not recognize the request method, or lacks ability to fulfill.', fix: 'Feature or HTTP method has not been implemented by the server handler.' },
+  { code: 502, phrase: 'Bad Gateway', category: '5xx', summary: 'The server, while acting as a gateway or proxy, received an invalid response.', fix: 'Check upstream app process (Node.js/PM2/Docker) or Nginx reverse proxy configuration.' },
+  { code: 503, phrase: 'Service Unavailable', category: '5xx', summary: 'The server cannot handle request due to temporary overloading or maintenance.', fix: 'Check CPU/memory exhaustion, scale container instances, or verify database limits.' },
+  { code: 504, phrase: 'Gateway Timeout', category: '5xx', summary: 'The server acting as a gateway or proxy did not receive a timely response.', fix: 'Increase proxy_read_timeout in Nginx or optimize long-running SQL database queries.' },
+];
+
+const CATEGORY_COLORS = {
+  '1xx': 'bg-blue-100 text-blue-800 dark:bg-blue-950/80 dark:text-blue-300 border-blue-200 dark:border-blue-800',
+  '2xx': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
+  '3xx': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950/80 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
+  '4xx': 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border-amber-200 dark:border-amber-800',
