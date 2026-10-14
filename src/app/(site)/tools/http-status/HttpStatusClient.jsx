@@ -70,3 +70,13 @@ export default function HttpStatusClient() {
   const [copiedCode, setCopiedCode] = useState(null);
 
   const filteredCodes = useMemo(() => {
+    return HTTP_CODES.filter((c) => {
+      const matchCat = activeCat === 'All' || c.category === activeCat;
+      const q = search.toLowerCase().trim();
+      const matchSearch =
+        !q ||
+        c.code.toString().includes(q) ||
+        c.phrase.toLowerCase().includes(q) ||
+        c.summary.toLowerCase().includes(q) ||
+        c.fix.toLowerCase().includes(q);
+      return matchCat && matchSearch;
