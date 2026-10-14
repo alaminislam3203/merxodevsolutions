@@ -57,3 +57,8 @@ export default function RegexTesterPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <RegexTesterClient />
+    </>
+  );
+}
