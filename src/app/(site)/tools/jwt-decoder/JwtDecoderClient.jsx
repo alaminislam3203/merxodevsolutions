@@ -306,3 +306,17 @@ export default function JwtDecoderClient() {
                   <span className="font-bold text-sm font-raleway">{decodedResult.expStatus.label}</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-mono font-semibold bg-white/70 dark:bg-black/40">
                     {decodedResult.expStatus.timeRemaining}
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-raleway">
+                  Expires on: <span className="font-semibold">{decodedResult.expStatus.humanDate}</span> ({decodedResult.expStatus.utcDate})
+                </p>
+              </div>
+            </div>
+
+            {decodedResult.iatDate && (
+              <div className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway sm:text-right">
+                <span>Issued At (iat):</span>
+                <div className="font-semibold text-zinc-700 dark:text-zinc-300">{decodedResult.iatDate}</div>
+              </div>
+            )}
