@@ -226,3 +226,15 @@ export default function UrlEncoderClient() {
                     ? 'Paste or type full URL or parameter string here...'
                     : 'Paste percent-encoded string here (e.g. https%3A%2F%2F...)...'
                 }
+                className="w-full h-full min-h-[360px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
+              />
+            </div>
+          </div>
+
+          {/* Output */}
+          <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                {mode === 'encode' ? 'Encoded URL Output' : 'Decoded URL Output'}
+              </span>
+              <div className="flex items-center gap-1.5">
