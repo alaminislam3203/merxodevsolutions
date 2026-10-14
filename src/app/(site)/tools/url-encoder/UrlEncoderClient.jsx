@@ -94,3 +94,15 @@ export default function UrlEncoderClient() {
             Home
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <Link href="/tools" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            Tools
+          </Link>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">URL Encoder & Decoder</span>
+        </nav>
+
+        {/* Header Section */}
