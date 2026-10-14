@@ -39,3 +39,13 @@ const HTTP_CODES = [
   // 4xx
   { code: 400, phrase: 'Bad Request', category: '4xx', summary: 'The server cannot or will not process request due to an apparent client error.', fix: 'Verify query parameters, JSON payload syntax, and required headers in request.' },
   { code: 401, phrase: 'Unauthorized', category: '4xx', summary: 'Authentication is required and has failed or has not yet been provided.', fix: 'Pass a valid Authorization Bearer token or check cookie session expiration.' },
+  { code: 403, phrase: 'Forbidden', category: '4xx', summary: 'The request was valid, but the server is refusing action (insufficient permissions).', fix: 'User is authenticated but lacks required RBAC role or resource ownership.' },
+  { code: 404, phrase: 'Not Found', category: '4xx', summary: 'The requested resource could not be found on the server.', fix: 'Check URL endpoint spelling, router parameters, and database query ID.' },
+  { code: 405, phrase: 'Method Not Allowed', category: '4xx', summary: 'A request method is not supported for the requested resource.', fix: 'Ensure you are calling POST/GET on routes that explicitly define those methods.' },
+  { code: 408, phrase: 'Request Timeout', category: '4xx', summary: 'The server timed out waiting for the client to send the request.', fix: 'Check network latency or client connection stability during uploads.' },
+  { code: 409, phrase: 'Conflict', category: '4xx', summary: 'Request could not be processed because of conflict in current state of resource.', fix: 'Occurs on duplicate unique keys (e.g. email already exists) or concurrent edits.' },
+  { code: 422, phrase: 'Unprocessable Entity', category: '4xx', summary: 'Request was well-formed but was unable to be followed due to semantic errors.', fix: 'Common in validation libraries (Zod, Joi) when fields fail regex or type rules.' },
+  { code: 429, phrase: 'Too Many Requests', category: '4xx', summary: 'The user has sent too many requests in a given amount of time (Rate Limiting).', fix: 'Inspect Retry-After header and implement exponential backoff on client side.' },
+
+  // 5xx
+  { code: 500, phrase: 'Internal Server Error', category: '5xx', summary: 'A generic error message, given when an unexpected condition was encountered.', fix: 'Inspect backend error logs, uncaught exceptions, and unhandled promise rejections.' },
