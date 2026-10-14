@@ -437,3 +437,19 @@ export default function Base64Client() {
                 onClick={handlePreviewCustomB64}
                 className="px-4 py-2.5 rounded-xl bg-zinc-100 hover:bg-cyan-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-cyan-600 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all shrink-0"
               >
+                Preview Image
+              </button>
+            </div>
+
+            {/* Image Preview & Output Details */}
+            {imageDataUri && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Left: Preview Box (4 cols) */}
+                <div className="lg:col-span-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm flex flex-col items-center justify-center">
+                  <div className="relative w-full h-56 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 mb-4 p-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imageDataUri}
+                      alt="Base64 Preview"
+                      className="max-w-full max-h-full object-contain"
+                    />
