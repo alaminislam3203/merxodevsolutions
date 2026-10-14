@@ -63,3 +63,9 @@ export const metadata = {
 
 export default function ToolsPage() {
   const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free Developer Tools — MerxoDev Solutions',
+    url: 'https://merxodevsolutions.pro.bd/tools',
+    description:
+      'Free suite of privacy-friendly, client-side online developer tools designed to boost productivity.',
