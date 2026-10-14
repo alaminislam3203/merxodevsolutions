@@ -24,3 +24,8 @@ export const metadata = {
     description:
       'Inspect and decode JWT tokens in real time. 100% client-side security with zero server transmission.',
     url: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
