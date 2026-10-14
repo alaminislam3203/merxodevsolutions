@@ -266,3 +266,18 @@ export default function CssShadowClient() {
                 <input
                   type="range"
                   min="0"
+                  max="1"
+                  step="0.01"
+                  value={opacity}
+                  onChange={(e) => setOpacity(Number(e.target.value))}
+                  className="w-full mt-2 accent-rose-500 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* Toggles */}
+            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-raleway">
+              <label className="flex items-center gap-2 cursor-pointer font-semibold select-none">
+                <input
+                  type="checkbox"
+                  checked={inset}
