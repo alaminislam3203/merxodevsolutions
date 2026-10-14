@@ -329,3 +329,18 @@ export default function UuidGeneratorClient() {
               >
                 <div className="flex items-center gap-3">
                   <span className="text-[11px] font-mono text-zinc-400 select-none w-6 text-right">
+                    {index + 1}.
+                  </span>
+                  <span className="text-zinc-900 dark:text-zinc-100 selection:bg-amber-500/30 font-medium">
+                    {id}
+                  </span>
+                </div>
+                <button
+                  onClick={() => handleCopySingle(id, index)}
+                  className="p-1.5 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all opacity-80 group-hover:opacity-100"
+                  title="Copy this ID"
+                >
+                  {copiedIndex === index ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
+                </button>
+              </div>
+            ))}
