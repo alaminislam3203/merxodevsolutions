@@ -29,3 +29,7 @@ export const metadata = {
     type: 'website',
   },
   twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online JWT Decoder & Debugger — MerxoDev Solutions',
+    description:
+      'Inspect JWT headers and claims in real time. Private & client-side.',
