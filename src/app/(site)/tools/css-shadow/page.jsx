@@ -42,3 +42,8 @@ export default function CssShadowPage() {
     name: 'Online CSS Box Shadow & Glassmorphism Generator',
     url: 'https://merxodevsolutions.pro.bd/tools/css-shadow',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
