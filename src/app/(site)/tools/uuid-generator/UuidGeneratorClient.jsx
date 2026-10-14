@@ -73,3 +73,18 @@ export default function UuidGeneratorClient() {
       list.push(val);
     }
     setGeneratedList(list);
+  }, [type, count, uppercase, hyphens, wrapQuotes, wrapBraces, nanoLength]);
+
+  useEffect(() => {
+    generateIds();
+  }, [generateIds]);
+
+  const handleCopySingle = (text, index) => {
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedIndex(index);
+        toast.success('Copied ID!');
+        setTimeout(() => setCopiedIndex(null), 1500);
+      });
+    }
+  };
