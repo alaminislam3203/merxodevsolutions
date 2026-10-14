@@ -278,3 +278,17 @@ export default function JwtDecoderClient() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-600 hover:text-rose-600 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
           >
             <FiTrash2 className="w-3.5 h-3.5" />
+            Clear
+          </button>
+        </div>
+
+        {/* Expiration & Token Status Banner */}
+        {decodedResult.isValid && decodedResult.expStatus && (
+          <div
+            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 mb-6 rounded-2xl border ${
+              decodedResult.expStatus.isExpired
+                ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/80 text-rose-900 dark:text-rose-200'
+                : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-200'
+            }`}
+          >
+            <div className="flex items-center gap-3">
