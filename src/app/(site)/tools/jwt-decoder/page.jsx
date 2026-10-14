@@ -33,3 +33,8 @@ export const metadata = {
     title: 'Free Online JWT Decoder & Debugger — MerxoDev Solutions',
     description:
       'Inspect JWT headers and claims in real time. Private & client-side.',
+  },
+};
+
+export default function JwtDecoderPage() {
+  const jsonLd = {
