@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free Meta Tag Generator & Social Card Previewer — MerxoDev Solutions',
     description:
+      'Preview social share cards and generate SEO meta tags with zero server upload.',
+  },
+};
+
+export default function MetaPreviewerPage() {
