@@ -11,3 +11,7 @@ export const metadata = {
     'base64 to image',
     'data uri generator',
     'base64 text converter',
+    'utf-8 base64',
+    'developer tools bangladesh',
+    'বেস৬৪ এনকোডার',
+    'base64 convert kora',
