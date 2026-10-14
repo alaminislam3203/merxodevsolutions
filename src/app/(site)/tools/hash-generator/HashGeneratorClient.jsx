@@ -202,3 +202,19 @@ export default function HashGeneratorClient() {
         shaHash(raw, 'SHA-256'),
         shaHash(raw, 'SHA-384'),
         shaHash(raw, 'SHA-512'),
+      ]);
+      const m = md5(raw);
+
+      const format = (h) => (uppercase ? h.toUpperCase() : h.toLowerCase());
+
+      setHashes({
+        md5: format(m),
+        sha1: format(s1),
+        sha256: format(s256),
+        sha384: format(s384),
+        sha512: format(s512),
+      });
+    } catch {
+      // Fallback
+    }
+  }, [inputText, salt, uppercase]);
