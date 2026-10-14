@@ -27,3 +27,9 @@ export const metadata = {
     'সিএসএস জেনারেটর',
     // Banglish (বাংলিশ)
     'developer tool bd',
+    'free online dev tools',
+    'json sajano tool',
+    'jwt token check korar tool',
+    'bangladesh jela upazila postcode search',
+  ],
+  alternates: {
