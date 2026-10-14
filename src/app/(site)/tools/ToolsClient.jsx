@@ -66,3 +66,13 @@ const TOOLS_DATA = [
   },
   {
     id: 'url-encoder',
+    title: 'URL & Query Encoder',
+    description:
+      'Safely encode and decode URL query parameters, escaped characters, and UTF-8 strings.',
+    category: 'Formatters',
+    icon: FiLink,
+    href: '/tools/url-encoder',
+    tags: ['RFC3986', 'URI Component'],
+    clientSide: true,
+  },
+  {
