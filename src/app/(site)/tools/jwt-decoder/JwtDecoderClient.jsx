@@ -264,3 +264,17 @@ export default function JwtDecoderClient() {
               className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold transition-all border border-emerald-200 dark:border-emerald-800"
             >
               Active Token
+            </button>
+            <button
+              onClick={() => setTokenInput(samples.expired)}
+              className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 text-xs font-bold transition-all border border-rose-200 dark:border-rose-800"
+            >
+              Expired Token
+            </button>
+          </div>
+
+          <button
+            onClick={() => setTokenInput('')}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-600 hover:text-rose-600 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+          >
+            <FiTrash2 className="w-3.5 h-3.5" />
