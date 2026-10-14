@@ -406,3 +406,19 @@ export default function Base64Client() {
               <h3 className="font-display text-xl font-bold text-zinc-800 dark:text-white mb-1">
                 Drag & Drop Image Here or Click to Browse
               </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway max-w-sm mb-4">
+                Supports PNG, JPEG, SVG, WebP, GIF. Encodes directly into Data URIs and Base64 strings.
+              </p>
+              <button
+                type="button"
+                className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all"
+              >
+                Choose Image File
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e.target.files?.[0])}
+                className="hidden"
+              />
