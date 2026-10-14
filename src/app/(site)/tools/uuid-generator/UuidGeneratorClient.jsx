@@ -194,3 +194,17 @@ export default function UuidGeneratorClient() {
                     ? 'bg-amber-500 text-white shadow-sm'
                     : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                 }`}
+              >
+                UUID v4 (RFC 4122)
+              </button>
+              <button
+                onClick={() => setType('nanoid')}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                  type === 'nanoid'
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                }`}
+              >
+                NanoID
+              </button>
+            </div>
