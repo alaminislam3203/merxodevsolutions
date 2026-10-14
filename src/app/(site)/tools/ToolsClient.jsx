@@ -214,3 +214,13 @@ export default function ToolsClient() {
         tool.description.toLowerCase().includes(q) ||
         tool.tags.some((t) => t.toLowerCase().includes(q));
       return matchCategory && matchSearch;
+    });
+  }, [activeCategory, searchQuery]);
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient decorative glows */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
+        style={{
