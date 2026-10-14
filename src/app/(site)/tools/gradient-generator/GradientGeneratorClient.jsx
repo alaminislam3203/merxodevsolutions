@@ -293,3 +293,17 @@ export default function GradientGeneratorClient() {
                       <button
                         onClick={() => handleRemoveStop(index)}
                         className="text-zinc-400 hover:text-rose-500 p-1"
+                        title="Delete stop"
+                      >
+                        <FiTrash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Preview & Code (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            {/* Live Gradient Preview Box */}
