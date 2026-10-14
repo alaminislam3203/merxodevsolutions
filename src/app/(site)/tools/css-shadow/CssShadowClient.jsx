@@ -234,3 +234,19 @@ export default function CssShadowClient() {
                 max="60"
                 value={spread}
                 onChange={(e) => setSpread(Number(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Shadow Color & Opacity */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-raleway font-semibold mb-1.5">Color</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={shadowColor}
+                    onChange={(e) => setShadowColor(e.target.value)}
+                    className="w-10 h-10 rounded-lg cursor-pointer border border-zinc-200 dark:border-zinc-700 bg-transparent p-0.5"
+                  />
+                  <input
