@@ -174,3 +174,13 @@ const TOOLS_DATA = [
     clientSide: true,
   },
 ];
+
+const CATEGORIES = [
+  'All',
+  'Formatters',
+  'Security',
+  'CSS & UI',
+  'Generators',
+  'Web & SEO',
+  'Utilities',
+  'BD Devs',
