@@ -287,3 +287,16 @@ export default function MetaPreviewerClient() {
                   <span className="text-[11px] uppercase font-mono text-zinc-400 tracking-wider block mb-1">
                     {domain}
                   </span>
+                  <h4 className="font-bold text-sm text-zinc-900 dark:text-white line-clamp-1 mb-1">
+                    {title}
+                  </h4>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Twitter Card Preview */}
+            {activePreview === 'twitter' && (
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
