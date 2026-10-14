@@ -83,3 +83,17 @@ export default function RegexTesterClient() {
     setPattern(p.pattern);
     setTestText(p.sample);
     const newFlags = { g: false, i: false, m: false, s: false, u: false };
+    p.flags.split('').forEach((f) => {
+      newFlags[f] = true;
+    });
+    setFlags(newFlags);
+    toast.success(`Loaded preset: ${p.name}`);
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent 70%)' }}
