@@ -43,3 +43,18 @@ export default function UuidGeneratorClient() {
   const [nanoLength, setNanoLength] = useState(21);
   const [generatedList, setGeneratedList] = useState([]);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [copiedAll, setCopiedAll] = useState(false);
+
+  // Generate IDs
+  const generateIds = useCallback(() => {
+    const list = [];
+    const limit = Math.min(Math.max(1, count), 500);
+
+    for (let i = 0; i < limit; i++) {
+      let val = '';
+      if (type === 'uuidv4') {
+        val = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+          const r = (Math.random() * 16) | 0;
+          const v = c === 'x' ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        });
