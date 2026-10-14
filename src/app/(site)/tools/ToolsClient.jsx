@@ -351,3 +351,13 @@ export default function ToolsClient() {
           role="tablist"
         >
           {CATEGORIES.map((category) => {
+            const count =
+              category === 'All'
+                ? TOOLS_DATA.length
+                : TOOLS_DATA.filter((t) => t.category === category).length;
+            const isActive = activeCategory === category;
+            return (
+              <button
+                key={category}
+                role="tab"
+                aria-selected={isActive}
