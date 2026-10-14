@@ -9,3 +9,8 @@ export const metadata = {
     'linear gradient maker',
     'radial gradient css',
     'tailwind gradient generator',
+    'color blend generator',
+    'css design tools',
+    'developer tools bangladesh',
+    'সিএসএস গ্রেডিয়েন্ট',
+    'css gradient banano',
