@@ -52,3 +52,9 @@ export default function HashGeneratorPage() {
     description:
       'Free client-side tool to calculate SHA-256, SHA-512, SHA-384, SHA-1, and MD5 hashes with salt support.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
