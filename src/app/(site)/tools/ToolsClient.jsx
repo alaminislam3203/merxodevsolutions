@@ -27,3 +27,13 @@ import {
 const TOOLS_DATA = [
   {
     id: 'json-formatter',
+    title: 'JSON Formatter & Validator',
+    description:
+      'Clean, beautify, and validate complex JSON payloads with instant error detection and minification.',
+    category: 'Formatters',
+    badge: 'Popular',
+    badgeColor: 'violet',
+    icon: FiCode,
+    href: '/tools/json-formatter',
+    tags: ['Beautify', 'Minify', 'Validate'],
+    clientSide: true,
