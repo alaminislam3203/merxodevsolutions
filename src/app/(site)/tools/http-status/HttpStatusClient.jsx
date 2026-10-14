@@ -256,3 +256,13 @@ export default function HttpStatusClient() {
                     title="Copy code details"
                   >
                     {copiedCode === item.code ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
