@@ -298,3 +298,14 @@ export default function UrlEncoderClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              Zero Latency & Private
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Everything happens directly on your machine. URLs with API keys, tokens, or personal identifiers are never transmitted across the network.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
