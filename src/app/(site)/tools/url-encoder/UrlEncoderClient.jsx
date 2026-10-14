@@ -70,3 +70,15 @@ export default function UrlEncoderClient() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    toast.success('Downloaded file!');
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }}
+      />
+      <div
