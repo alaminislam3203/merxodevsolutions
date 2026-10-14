@@ -329,3 +329,18 @@ export default function CssShadowClient() {
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
                     Pure CSS
+                  </span>
+                  <button
+                    onClick={() => handleCopy(fullCssSnippet, 'CSS Rule')}
+                    className="text-xs font-bold font-raleway text-rose-600 hover:text-rose-700 flex items-center gap-1"
+                  >
+                    {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                    Copy CSS
+                  </button>
+                </div>
+                <pre className="p-3 rounded-xl bg-zinc-950 text-rose-300 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                  {fullCssSnippet}
+                </pre>
+              </div>
+
+              {/* Tailwind CSS */}
