@@ -423,3 +423,20 @@ export default function HashGeneratorClient() {
               Adding a random salt string defends password hashes against pre-computed rainbow table lookups and dictionary cracking attacks.
             </p>
           </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
+              <FiCheckCircle className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              Native Hardware Acceleration
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Calculated using the browser&apos;s Web Cryptography API, utilizing your CPU&apos;s native hardware AES/SHA instructions for instant computation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
