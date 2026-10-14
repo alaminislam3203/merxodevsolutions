@@ -273,3 +273,17 @@ export default function MetaPreviewerClient() {
                 </span>
                 <div className="relative w-full h-52 bg-zinc-800 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={image}
+                    alt="OG Banner Preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">1200 × 630 OG Image</span>
+                </div>
+                <div className="p-4 bg-zinc-50 dark:bg-zinc-800/80 border-t border-zinc-200 dark:border-zinc-700">
+                  <span className="text-[11px] uppercase font-mono text-zinc-400 tracking-wider block mb-1">
+                    {domain}
+                  </span>
