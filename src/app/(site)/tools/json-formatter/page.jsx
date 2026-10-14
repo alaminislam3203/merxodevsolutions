@@ -24,3 +24,8 @@ export const metadata = {
     description:
       'Format, validate, and minify JSON with real-time error detection. 100% private and client-side.',
     url: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
