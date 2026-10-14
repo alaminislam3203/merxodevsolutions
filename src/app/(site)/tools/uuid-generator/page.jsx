@@ -52,3 +52,9 @@ export default function UuidGeneratorPage() {
     description:
       'Free client-side tool to generate cryptographically safe UUID v4 and NanoID strings in bulk.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
