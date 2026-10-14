@@ -235,3 +235,14 @@ export default function HttpStatusClient() {
                         Developer Troubleshooting:
                       </span>
                       <p className="text-zinc-500 dark:text-zinc-300 leading-relaxed bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-xl border border-zinc-100 dark:border-zinc-700/60">
+                        {item.fix}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-3 mt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-raleway">
+                  <button
+                    onClick={() => setExpandedCode(isExpanded ? null : item.code)}
+                    className="text-amber-600 hover:text-amber-700 font-bold flex items-center gap-1"
+                  >
