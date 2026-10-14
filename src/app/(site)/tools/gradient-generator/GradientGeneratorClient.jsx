@@ -209,3 +209,17 @@ export default function GradientGeneratorClient() {
                       : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
                 >
+                  Linear
+                </button>
+                <button
+                  onClick={() => setType('radial')}
+                  className={`py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                    type === 'radial'
+                      ? 'bg-fuchsia-600 text-white shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  Radial (Circle)
+                </button>
+              </div>
+            </div>
