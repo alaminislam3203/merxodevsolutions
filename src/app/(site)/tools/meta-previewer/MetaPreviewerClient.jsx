@@ -135,3 +135,17 @@ export default function MetaPreviewerClient() {
         {/* 2-Column Interface: Inputs (5 cols) & Live Previews (7 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Inputs Card */}
+          <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-4">
+            <h2 className="font-display text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
+              Page Metadata
+            </h2>
+
+            {/* Title */}
+            <div>
+              <div className="flex justify-between text-xs font-raleway font-semibold mb-1">
+                <span>Page Title</span>
+                <span className={`text-[11px] font-mono ${title.length > 60 ? 'text-amber-500' : 'text-zinc-400'}`}>
+                  {title.length}/60 chars
+                </span>
+              </div>
+              <input
