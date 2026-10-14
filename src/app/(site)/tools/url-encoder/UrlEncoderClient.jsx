@@ -46,3 +46,15 @@ export default function UrlEncoderClient() {
     } catch (err) {
       return { success: false, result: '', error: 'Malformed URI sequence. Check percent-encoded sequences.' };
     }
+  }, [inputVal, mode, scope]);
+
+  const handleCopy = () => {
+    if (!outputResult.result) return;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(outputResult.result).then(() => {
+        setCopied(true);
+        toast.success('Copied to clipboard!');
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
