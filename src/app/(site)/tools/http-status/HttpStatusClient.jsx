@@ -225,3 +225,13 @@ export default function HttpStatusClient() {
                   </h3>
 
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed mb-3">
+                    {item.summary}
+                  </p>
+
+                  {/* Expandable Fix Info */}
+                  {isExpanded && (
+                    <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-xs font-raleway animate-fadeIn">
+                      <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block mb-1">
+                        Developer Troubleshooting:
+                      </span>
+                      <p className="text-zinc-500 dark:text-zinc-300 leading-relaxed bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-xl border border-zinc-100 dark:border-zinc-700/60">
