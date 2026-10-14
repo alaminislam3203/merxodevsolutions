@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function MetaPreviewerPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online OpenGraph & SEO Meta Tag Generator',
+    url: 'https://merxodevsolutions.pro.bd/tools/meta-previewer',
+    applicationCategory: 'DeveloperApplication',
