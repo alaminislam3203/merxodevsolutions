@@ -371,3 +371,12 @@ export default function ToolsClient() {
                 <span
                   className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${isActive
                     ? 'bg-white/20 text-white'
+                    : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                    }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
