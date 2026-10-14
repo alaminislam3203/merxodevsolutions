@@ -82,3 +82,17 @@ export default function GradientGeneratorClient() {
     if (stops.length <= 2) {
       toast.error('Gradients require at least 2 color stops.');
       return;
+    }
+    setStops(stops.filter((_, i) => i !== index));
+  };
+
+  const handleRandom = () => {
+    const randomHex = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    setAngle(Math.floor(Math.random() * 360));
+    setStops([
+      { color: randomHex(), pos: 0 },
+      { color: randomHex(), pos: Math.floor(Math.random() * 40) + 30 },
+      { color: randomHex(), pos: 100 },
+    ]);
+    toast.success('Generated random gradient!');
+  };
