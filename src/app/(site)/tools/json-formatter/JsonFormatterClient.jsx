@@ -459,3 +459,17 @@ export default function JsonFormatterClient() {
                   </span>
                 </>
               )}
+            </div>
+            <span className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 hidden sm:inline">
+              ✓ Ready for API / Payload
+            </span>
+          </div>
+        )}
+
+        {parseResult.isValid === false && (
+          <div className="flex items-start gap-2.5 px-4 py-3 mb-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
+            <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <span className="font-bold block mb-0.5">Invalid JSON Syntax</span>
+              <code className="font-mono text-[11px] bg-rose-100 dark:bg-rose-900/50 px-2 py-0.5 rounded text-rose-900 dark:text-rose-200 break-all">
+                {parseResult.error}
