@@ -154,3 +154,17 @@ export default function RegexTesterClient() {
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
           </Link>
+        </div>
+
+        {/* Preset Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
+          <span className="text-xs font-bold font-raleway text-zinc-400 whitespace-nowrap">Presets:</span>
+          {PRESETS.map((p) => (
+            <button
+              key={p.name}
+              onClick={() => applyPreset(p)}
+              className="px-3.5 py-1.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-violet-400 dark:hover:border-violet-500 text-zinc-700 dark:text-zinc-300 text-xs font-semibold whitespace-nowrap transition-all shadow-sm"
+            >
+              {p.name}
+            </button>
+          ))}
