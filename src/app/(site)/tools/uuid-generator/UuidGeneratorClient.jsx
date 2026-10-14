@@ -224,3 +224,18 @@ export default function UuidGeneratorClient() {
                 >
                   {n}
                 </button>
+              ))}
+            </div>
+
+            {/* Regenerate Action */}
+            <button
+              onClick={generateIds}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-md shadow-amber-500/20 active:scale-95"
+            >
+              <FiRefreshCw className="w-3.5 h-3.5" />
+              Regenerate
+            </button>
+          </div>
+
+          {/* Additional Options */}
+          <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs font-raleway text-zinc-700 dark:text-zinc-300">
