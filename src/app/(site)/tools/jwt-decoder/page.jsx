@@ -11,3 +11,7 @@ export const metadata = {
     'jwt token inspect',
     'jwt expiration check',
     'bearer token decoder',
+    'free jwt tool',
+    'jwt decoder bangladesh',
+    'জেডব্লিউটি ডিকোডার',
+    'jwt token check',
