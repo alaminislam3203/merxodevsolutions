@@ -446,3 +446,16 @@ export default function JsonFormatterClient() {
           <div className="flex items-center justify-between gap-3 px-4 py-2.5 mb-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs font-medium">
             <div className="flex items-center gap-2">
               <FiCheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
+              <span className="font-semibold">Valid JSON</span>
+              <span className="text-zinc-400">|</span>
+              <span>{stats.lineCount} lines</span>
+              <span className="text-zinc-400">|</span>
+              <span>Original: {stats.rawBytes} bytes</span>
+              {stats.reductionPercent > 0 && (
+                <>
+                  <span className="text-zinc-400">|</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                    Minify saves ~{stats.reductionPercent}%
+                  </span>
+                </>
+              )}
