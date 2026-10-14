@@ -65,3 +65,17 @@ const SAMPLE_JSON = JSON.stringify(
 // ── Recursive JSON Tree Node Component ──────────────────────────────────────────
 function TreeNode({ keyName, value, isLast, depth = 0 }) {
   const [collapsed, setCollapsed] = useState(depth > 2);
+
+  const isObject = value !== null && typeof value === 'object' && !Array.isArray(value);
+  const isArray = Array.isArray(value);
+  const isComplex = isObject || isArray;
+
+  const toggle = () => setCollapsed(!collapsed);
+
+  // Render Primitive values
+  const renderValue = (val) => {
+    if (val === null) {
+      return <span className="text-rose-400 font-mono italic">null</span>;
+    }
+    if (typeof val === 'boolean') {
+      return <span className="text-violet-400 font-mono font-semibold">{val ? 'true' : 'false'}</span>;
