@@ -332,3 +332,12 @@ export default function ToolsClient() {
               >
                 <FiX className="w-4 h-4" />
               </button>
+            )}
+          </div>
+
+          {/* Result Count */}
+          <div className="text-xs font-raleway font-semibold text-zinc-500 dark:text-zinc-400">
+            Showing{' '}
+            <span className="text-violet-600 dark:text-violet-400 font-bold">
+              {filteredTools.length}
+            </span>{' '}
