@@ -38,3 +38,18 @@ export default function MetaPreviewerClient() {
 <meta property="og:description" content="${description}">
 <meta property="og:image" content="${image}">
 <meta property="og:site_name" content="${siteName}">
+
+<!-- Twitter / X -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="${url}">
+<meta property="twitter:title" content="${title}">
+<meta property="twitter:description" content="${description}">
+<meta property="twitter:image" content="${image}">
+<meta property="twitter:site" content="${twitterUser}">`;
+  }, [title, description, url, image, siteName, twitterUser]);
+
+  const handleCopy = () => {
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(generatedHtml).then(() => {
+        setCopied(true);
+        toast.success('Copied HTML meta tags!');
