@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free Online Hash & Password Generator — MerxoDev Solutions',
+    description:
+      'Generate cryptographic hashes (SHA-256, MD5, SHA-512) instantly with salt support and zero server transmission.',
+    url: 'https://merxodevsolutions.pro.bd/tools/hash-generator',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
