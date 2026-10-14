@@ -51,3 +51,8 @@ export default function JwtDecoderPage() {
       priceCurrency: 'USD',
     },
     description:
+      'Free client-side tool to decode and inspect JSON Web Tokens (JWT) with expiration checking and claims inspection.',
+  };
+
+  return (
+    <>
