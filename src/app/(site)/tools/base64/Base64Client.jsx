@@ -343,3 +343,19 @@ export default function Base64Client() {
                     value={textInput}
                     onChange={(e) => setTextInput(e.target.value)}
                     placeholder={
+                      textMode === 'encode'
+                        ? 'Type or paste plain text here...'
+                        : 'Paste Base64 string here (e.g. SGVsbG8gV29ybGQh)...'
+                    }
+                    className="w-full h-full min-h-[360px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
+                  />
+                </div>
+              </div>
+
+              {/* Output */}
+              <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+                <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                    {textMode === 'encode' ? 'Base64 Output' : 'Decoded Plain Text'}
+                  </span>
+                  <div className="flex items-center gap-1.5">
