@@ -359,3 +359,18 @@ export default function UuidGeneratorClient() {
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
               Powered by native browser <code className="font-mono text-amber-600">crypto.getRandomValues</code> CSPRNG entropy sources to guarantee zero collision probability.
             </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-4">
+              <FiZap className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              NanoID URL Safety
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              NanoIDs are smaller, faster, and URL-friendly without dangerous characters, making them ideal for shortlinks, primary keys, and public tokens.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
