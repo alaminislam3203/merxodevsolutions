@@ -140,3 +140,17 @@ export default function RegexTesterClient() {
               Regex Tester &{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
                 Visualizer
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Test and debug regular expressions with live match counter, capture group inspection, and common pattern presets.
+            </p>
+          </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
