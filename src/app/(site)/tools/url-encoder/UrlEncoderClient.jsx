@@ -165,3 +165,15 @@ export default function UrlEncoderClient() {
                 Decode URL
               </button>
             </div>
+
+            {/* Scope: Component vs Full */}
+            <div className="flex items-center gap-1.5 text-xs font-raleway text-zinc-600 dark:text-zinc-300 pl-2 border-l border-zinc-200 dark:border-zinc-800">
+              <span className="text-zinc-400 hidden sm:inline">Method:</span>
+              <select
+                value={scope}
+                onChange={(e) => setScope(e.target.value)}
+                className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-2.5 py-1.5 text-xs text-zinc-700 dark:text-zinc-200 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
+              >
+                <option value="component">Component (encodeURIComponent - Strict)</option>
+                <option value="full">Full URL (encodeURI - Preserves ://?#)</option>
+              </select>
