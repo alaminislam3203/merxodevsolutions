@@ -33,3 +33,8 @@ export const metadata = {
     title: 'Free Online JSON Formatter & Validator — MerxoDev Solutions',
     description:
       'Format, validate, and minify JSON instantly with zero server logging.',
+  },
+};
+
+export default function JsonFormatterPage() {
+  const jsonLd = {
