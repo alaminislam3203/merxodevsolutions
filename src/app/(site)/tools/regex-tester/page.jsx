@@ -14,3 +14,8 @@ export const metadata = {
     'রেজেক্স টেস্টার',
     'regex check kora',
   ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/regex-tester',
+  },
+  openGraph: {
+    title: 'Free Online Regex Tester & Debugger — MerxoDev Solutions',
