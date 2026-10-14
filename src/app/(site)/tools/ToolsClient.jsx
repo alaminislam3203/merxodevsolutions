@@ -204,3 +204,13 @@ export default function ToolsClient() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredTools = useMemo(() => {
+    return TOOLS_DATA.filter((tool) => {
+      const matchCategory =
+        activeCategory === 'All' || tool.category === activeCategory;
+      const q = searchQuery.toLowerCase().trim();
+      const matchSearch =
+        !q ||
+        tool.title.toLowerCase().includes(q) ||
+        tool.description.toLowerCase().includes(q) ||
+        tool.tags.some((t) => t.toLowerCase().includes(q));
+      return matchCategory && matchSearch;
