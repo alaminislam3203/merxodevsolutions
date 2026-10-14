@@ -8,3 +8,13 @@ import {
   FiSearch,
   FiX,
   FiCopy,
+  FiCheck,
+  FiArrowLeft,
+  FiChevronDown,
+  FiChevronUp,
+  FiInfo,
+  FiAlertTriangle,
+  FiCheckCircle,
+} from 'react-icons/fi';
+
+const HTTP_CODES = [
