@@ -359,3 +359,19 @@ export default function Base64Client() {
                     {textMode === 'encode' ? 'Base64 Output' : 'Decoded Plain Text'}
                   </span>
                   <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => handleCopy(textOutput.result, 'Output')}
+                      disabled={!textOutput.result}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-50 hover:bg-cyan-600 hover:text-white dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 text-xs font-bold transition-all disabled:opacity-40"
+                    >
+                      {copiedKey === 'Output' ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
+                      <span>Copy</span>
+                    </button>
+                    <button
+                      onClick={handleDownloadText}
+                      disabled={!textOutput.result}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all disabled:opacity-40"
+                    >
+                      <FiDownload />
+                      <span className="hidden sm:inline">Save</span>
+                    </button>
