@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function HttpStatusPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online HTTP Status Codes Reference Guide',
+    url: 'https://merxodevsolutions.pro.bd/tools/http-status',
+    applicationCategory: 'DeveloperApplication',
