@@ -56,3 +56,13 @@ const TOOLS_DATA = [
     title: 'Base64 Encoder & Decoder',
     description:
       'Instantly convert plain text, binary strings, and image assets to and from clean Base64 strings.',
+    category: 'Formatters',
+    badge: 'Fast',
+    badgeColor: 'cyan',
+    icon: FiFileText,
+    href: '/tools/base64',
+    tags: ['Encode', 'Decode', 'Data URI'],
+    clientSide: true,
+  },
+  {
+    id: 'url-encoder',
