@@ -256,3 +256,16 @@ export default function JsonFormatterClient() {
     if (!content) return;
 
     if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(content).then(() => {
+        setCopied(true);
+        toast.success('Copied to clipboard!');
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
+
+  // Download JSON
+  const handleDownload = (isMin = false) => {
+    const content = isMin ? parseResult.minified : parseResult.formatted || inputJson;
+    if (!content) return;
+    const blob = new Blob([content], { type: 'application/json' });
