@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'এইচটিটিপি স্ট্যাটাস কোড',
     'http status code guide',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/http-status',
+  },
+  openGraph: {
+    title: 'HTTP Status Codes Reference & Troubleshooting — MerxoDev Solutions',
