@@ -120,3 +120,16 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
         {keyName !== undefined && (
           <span className="text-indigo-300 font-medium">
             &quot;{keyName}&quot;<span className="text-zinc-500 mr-1.5">:</span>
+          </span>
+        )}
+
+        <span className="text-zinc-400 font-semibold">{openBracket}</span>
+
+        {collapsed && (
+          <span className="text-[11px] px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-400 ml-1">
+            {entries.length} {entries.length === 1 ? 'item' : 'items'}
+          </span>
+        )}
+
+        {collapsed && <span className="text-zinc-400 font-semibold">{closeBracket}</span>}
+        {!isLast && collapsed && <span className="text-zinc-500">,</span>}
