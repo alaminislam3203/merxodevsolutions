@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free Online Hash Generator — MerxoDev Solutions',
     description:
+      'Generate SHA-256, SHA-512, and MD5 hashes securely inside your browser.',
+  },
+};
+
+export default function HashGeneratorPage() {
