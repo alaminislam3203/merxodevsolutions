@@ -362,3 +362,17 @@ export default function JwtDecoderClient() {
                 placeholder="Paste encoded JWT token here (e.g. eyJhbGciOi...)..."
                 spellCheck={false}
                 className="w-full h-full min-h-[420px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 break-all leading-relaxed"
+              />
+            </div>
+
+            {/* Token segment legend */}
+            <div className="p-3 bg-zinc-50 dark:bg-zinc-800/40 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-3 text-[11px] font-mono">
+              <span className="flex items-center gap-1.5 text-rose-500">
+                <span className="w-2 h-2 rounded-full bg-rose-500" /> Header
+              </span>
+              <span className="flex items-center gap-1.5 text-violet-500">
+                <span className="w-2 h-2 rounded-full bg-violet-500" /> Payload
+              </span>
+              <span className="flex items-center gap-1.5 text-cyan-500">
+                <span className="w-2 h-2 rounded-full bg-cyan-500" /> Signature
+              </span>
