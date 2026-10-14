@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'হ্যাশ জেনারেটর',
     'sha256 toiri kora',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/hash-generator',
+  },
+  openGraph: {
+    title: 'Free Online Hash & Password Generator — MerxoDev Solutions',
