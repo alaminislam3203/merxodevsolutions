@@ -223,3 +223,17 @@ export default function GradientGeneratorClient() {
                 </button>
               </div>
             </div>
+
+            {/* Angle Slider (if linear) */}
+            {type === 'linear' && (
+              <div>
+                <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                  <span className="flex items-center gap-1.5">
+                    <FiCompass className="w-3.5 h-3.5 text-fuchsia-500" />
+                    Angle Direction
+                  </span>
+                  <span className="font-mono text-fuchsia-500">{angle}°</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
