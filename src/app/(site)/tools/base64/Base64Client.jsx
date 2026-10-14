@@ -202,3 +202,18 @@ export default function Base64Client() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-raleway uppercase tracking-widest">
                 <FiFileText className="w-3.5 h-3.5" />
+                Formatters & Converters
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <FiLock className="w-3 h-3 text-emerald-500" />
+                100% Client-Side Privacy
+              </span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+              Base64{' '}
+              <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-violet-600 bg-clip-text text-transparent">
+                Encoder & Decoder
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
