@@ -344,3 +344,19 @@ export default function CssShadowClient() {
               </div>
 
               {/* Tailwind CSS */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                    Tailwind CSS Arbitrary Value
+                  </span>
+                  <button
+                    onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
+                    className="text-xs font-bold font-raleway text-rose-600 hover:text-rose-700 flex items-center gap-1"
+                  >
+                    {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                    Copy Tailwind
+                  </button>
+                </div>
+                <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto break-all">
+                  {tailwindSnippet}
+                </pre>
