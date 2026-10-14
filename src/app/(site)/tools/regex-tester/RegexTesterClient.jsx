@@ -168,3 +168,18 @@ export default function RegexTesterClient() {
               {p.name}
             </button>
           ))}
+          <button
+            onClick={() => setShowCheatsheet(!showCheatsheet)}
+            className="px-3.5 py-1.5 rounded-xl bg-violet-50 hover:bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 text-xs font-bold whitespace-nowrap transition-all border border-violet-200 dark:border-violet-800 flex items-center gap-1.5"
+          >
+            <FiHelpCircle className="w-3.5 h-3.5" />
+            Cheat Sheet
+          </button>
+        </div>
+
+        {/* Cheat sheet Collapsible Drawer */}
+        {showCheatsheet && (
+          <div className="mb-6 p-5 rounded-2xl bg-zinc-950 text-zinc-200 border border-zinc-800 text-xs font-mono grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fadeIn">
+            <div>
+              <span className="text-violet-400 font-bold block mb-1">Character Classes</span>
+              <p><code className="text-cyan-400">\d</code> - Any digit [0-9]</p>
