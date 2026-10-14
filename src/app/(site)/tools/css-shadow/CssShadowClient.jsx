@@ -281,3 +281,19 @@ export default function CssShadowClient() {
                 <input
                   type="checkbox"
                   checked={inset}
+                  onChange={(e) => setInset(e.target.checked)}
+                  className="rounded accent-rose-500"
+                />
+                <span>Inset Shadow (Inner)</span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer font-semibold select-none">
+                <input
+                  type="checkbox"
+                  checked={isGlass}
+                  onChange={(e) => setIsGlass(e.target.checked)}
+                  className="rounded accent-rose-500"
+                />
+                <span>Glassmorphism Effect</span>
+              </label>
+            </div>
