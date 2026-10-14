@@ -29,3 +29,7 @@ export const metadata = {
     type: 'website',
   },
   twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online JSON Formatter & Validator — MerxoDev Solutions',
+    description:
+      'Format, validate, and minify JSON instantly with zero server logging.',
