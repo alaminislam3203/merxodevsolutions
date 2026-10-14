@@ -40,3 +40,17 @@ export default function RegexTesterClient() {
   // Execute regex
   const regexResult = useMemo(() => {
     if (!pattern) {
+      return { isValid: true, error: null, matches: [] };
+    }
+    try {
+      const re = new RegExp(pattern, flagsStr);
+      const matches = [];
+
+      if (flags.g) {
+        let match;
+        let count = 0;
+        while ((match = re.exec(testText)) !== null && count < 200) {
+          matches.push({
+            text: match[0],
+            index: match.index,
+            groups: match.slice(1),
