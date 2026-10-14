@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function CssShadowPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online CSS Box Shadow & Glassmorphism Generator',
+    url: 'https://merxodevsolutions.pro.bd/tools/css-shadow',
+    applicationCategory: 'DeveloperApplication',
