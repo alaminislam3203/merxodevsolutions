@@ -341,3 +341,13 @@ export default function ToolsClient() {
             <span className="text-violet-600 dark:text-violet-400 font-bold">
               {filteredTools.length}
             </span>{' '}
+            of {TOOLS_DATA.length} Tools
+          </div>
+        </div>
+
+        {/* Category Pills */}
+        <div
+          className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none"
+          role="tablist"
+        >
+          {CATEGORIES.map((category) => {
