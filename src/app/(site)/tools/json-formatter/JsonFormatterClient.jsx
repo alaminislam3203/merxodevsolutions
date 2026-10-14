@@ -378,3 +378,17 @@ export default function JsonFormatterClient() {
               onClick={handleMinify}
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all active:scale-95"
             >
+              <FiMinimize2 className="w-3.5 h-3.5" />
+              Minify
+            </button>
+
+            <button
+              onClick={handleAutoFix}
+              title="Automatically fix single quotes and trailing commas"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 text-xs font-bold font-raleway transition-all"
+            >
+              <FiZap className="w-3.5 h-3.5" />
+              Fix Quotes/Commas
+            </button>
+
+            {/* Indent Selector */}
