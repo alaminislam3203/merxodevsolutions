@@ -42,3 +42,9 @@ export default function UrlEncoderPage() {
     '@type': 'WebApplication',
     name: 'Online URL Encoder & Decoder',
     url: 'https://merxodevsolutions.pro.bd/tools/url-encoder',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
