@@ -9,3 +9,8 @@ export const metadata = {
     'uuid v4 generator',
     'nanoid generator',
     'bulk uuid generator',
+    'random guid generator',
+    'crypto random uuid',
+    'developer tools bangladesh',
+    'ইউইউআইডি জেনারেটর',
+    'unique id toiri kora',
