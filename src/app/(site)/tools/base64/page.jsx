@@ -47,3 +47,7 @@ export default function Base64Page() {
     browserRequirements: 'Requires JavaScript',
     offers: {
       '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
