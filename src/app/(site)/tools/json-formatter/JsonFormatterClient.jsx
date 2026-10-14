@@ -295,3 +295,17 @@ export default function JsonFormatterClient() {
     reader.readAsText(file);
     e.target.value = '';
   };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }}
+      />
