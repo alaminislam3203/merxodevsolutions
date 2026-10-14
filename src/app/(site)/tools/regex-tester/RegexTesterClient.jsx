@@ -197,3 +197,17 @@ export default function RegexTesterClient() {
             <div>
               <span className="text-violet-400 font-bold block mb-1">Anchors</span>
               <p><code className="text-cyan-400">^</code> - Start of string/line</p>
+              <p><code className="text-cyan-400">$</code> - End of string/line</p>
+              <p><code className="text-cyan-400">\b</code> - Word boundary</p>
+            </div>
+            <div>
+              <span className="text-violet-400 font-bold block mb-1">Groups & Lookarounds</span>
+              <p><code className="text-cyan-400">(abc)</code> - Capture group</p>
+              <p><code className="text-cyan-400">(?:abc)</code> - Non-capturing group</p>
+              <p><code className="text-cyan-400">(?=abc)</code> - Positive lookahead</p>
+            </div>
+          </div>
+        )}
+
+        {/* Pattern Input Card with Flag Toggles */}
+        <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
