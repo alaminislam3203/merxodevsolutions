@@ -20,3 +20,7 @@ export const metadata = {
     canonical: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
   },
   openGraph: {
+    title: 'Free Online JWT Decoder & Debugger — MerxoDev Solutions',
+    description:
+      'Inspect and decode JWT tokens in real time. 100% client-side security with zero server transmission.',
+    url: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
