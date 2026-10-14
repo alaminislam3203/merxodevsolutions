@@ -532,3 +532,18 @@ export default function Base64Client() {
                       <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
                         CSS background-image
                       </span>
+                      <button
+                        onClick={() =>
+                          handleCopy(`background-image: url('${imageDataUri}');`, 'CSS background-image')
+                        }
+                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                      >
+                        {copiedKey === 'CSS background-image' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                        Copy CSS
+                      </button>
+                    </div>
+                    <pre className="p-3 rounded-xl bg-zinc-950 text-violet-300 font-mono text-[11px] overflow-x-auto">
+                      background-image: url(&apos;{imageDataUri.slice(0, 60)}...&apos;);
+                    </pre>
+                  </div>
+                </div>
