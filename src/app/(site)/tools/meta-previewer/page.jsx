@@ -9,3 +9,8 @@ export const metadata = {
     'open graph previewer',
     'og tag generator',
     'twitter card previewer',
+    'google search snippet preview',
+    'seo meta tags tool',
+    'developer tools bangladesh',
+    'মেটা ট্যাগ প্রিভিউয়ার',
+    'seo meta tag banano',
