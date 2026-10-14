@@ -325,3 +325,17 @@ export default function RegexTesterClient() {
                     key={index}
                     className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800 space-y-1.5"
                   >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-violet-400 uppercase tracking-wider">
+                        Match #{index + 1}
+                      </span>
+                      <span className="text-[10px] text-zinc-500">at index {m.index}</span>
+                    </div>
+
+                    <div className="p-2 rounded bg-zinc-950 text-emerald-300 break-all">
+                      &quot;{m.text}&quot;
+                    </div>
+
+                    {m.groups.length > 0 && (
+                      <div className="pt-1.5 border-t border-zinc-800/80">
+                        <span className="text-[10px] text-zinc-400 block mb-1">Capture Groups:</span>
