@@ -17,3 +17,13 @@ import {
   FiArrowRight,
   FiExternalLink,
   FiLayers,
+  FiGlobe,
+  FiMapPin,
+  FiLock,
+  FiCpu,
+  FiZap,
+} from 'react-icons/fi';
+
+const TOOLS_DATA = [
+  {
+    id: 'json-formatter',
