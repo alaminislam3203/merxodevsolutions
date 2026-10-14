@@ -299,3 +299,18 @@ export default function UuidGeneratorClient() {
 
         {/* Output List Display */}
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+          <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+            <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+              Generated Identifiers ({generatedList.length})
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleCopyAll}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-raleway transition-all shadow-sm"
+              >
+                {copiedAll ? <FiCheck className="w-3.5 h-3.5" /> : <FiCopy className="w-3.5 h-3.5" />}
+                <span>{copiedAll ? 'Copied All' : 'Copy All'}</span>
+              </button>
+              <button
+                onClick={handleDownload}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
