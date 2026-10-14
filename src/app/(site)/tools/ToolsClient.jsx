@@ -76,3 +76,13 @@ const TOOLS_DATA = [
     clientSide: true,
   },
   {
+    id: 'uuid-generator',
+    title: 'UUID & NanoID Generator',
+    description:
+      'Generate cryptographically safe UUID v4, v1, and customizable NanoIDs in single or bulk quantities.',
+    category: 'Generators',
+    badge: 'Fast',
+    badgeColor: 'amber',
+    icon: FiHash,
+    href: '/tools/uuid-generator',
+    tags: ['UUID v4', 'NanoID', 'Bulk'],
