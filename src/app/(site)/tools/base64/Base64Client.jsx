@@ -45,3 +45,18 @@ function base64ToUtf8(str) {
     let base64 = str.trim().replace(/-/g, '+').replace(/_/g, '/');
     while (base64.length % 4) {
       base64 += '=';
+    }
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const decoded = new TextDecoder().decode(bytes);
+    return { success: true, result: decoded, error: null };
+  } catch (err) {
+    return { success: false, result: '', error: 'Invalid Base64 string syntax.' };
+  }
+}
+
+const SAMPLE_TEXT = `Hello World! 🚀
+MerxoDev Solutions — Full Stack Web Engineering.
