@@ -262,3 +262,15 @@ export default function UrlEncoderClient() {
                 {outputResult.result || (
                   <span className="text-zinc-600 font-sans italic">Output will appear here...</span>
                 )}
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Informational Cards */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
+              <FiGlobe className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
