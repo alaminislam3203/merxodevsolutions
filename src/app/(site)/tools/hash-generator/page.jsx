@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function HashGeneratorPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online Cryptographic Hash Generator',
+    url: 'https://merxodevsolutions.pro.bd/tools/hash-generator',
+    applicationCategory: 'DeveloperApplication',
