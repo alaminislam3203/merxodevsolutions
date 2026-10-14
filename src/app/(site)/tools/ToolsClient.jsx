@@ -499,3 +499,12 @@ export default function ToolsClient() {
           </div>
           <Link
             href="/contact"
+            className="shrink-0 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] transition-all"
+          >
+            Request a Tool
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
