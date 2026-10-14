@@ -211,3 +211,17 @@ export default function RegexTesterClient() {
 
         {/* Pattern Input Card with Flag Toggles */}
         <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300 mb-2">
+              Regular Expression Pattern
+            </label>
+            <div className="flex items-center gap-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 py-2">
+              <span className="text-zinc-400 font-mono text-base">/</span>
+              <input
+                type="text"
+                value={pattern}
+                onChange={(e) => setPattern(e.target.value)}
+                placeholder="Enter regex pattern here..."
+                className="flex-1 bg-transparent text-sm font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none"
+              />
+              <span className="text-zinc-400 font-mono text-base">/</span>
