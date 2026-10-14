@@ -218,3 +218,17 @@ export default function MetaPreviewerClient() {
 
           {/* Live Preview Cards (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-6">
+            {/* Preview Selector Tabs */}
+            <div className="flex items-center gap-2 p-1 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+              {[
+                { id: 'google', name: 'Google Search' },
+                { id: 'facebook', name: 'Facebook / LinkedIn' },
+                { id: 'twitter', name: 'Twitter / X' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActivePreview(tab.id)}
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
+                    activePreview === tab.id
+                      ? 'bg-cyan-500 text-white shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
