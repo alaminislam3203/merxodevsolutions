@@ -47,3 +47,8 @@ export default function HashGeneratorPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free client-side tool to calculate SHA-256, SHA-512, SHA-384, SHA-1, and MD5 hashes with salt support.',
+  };
