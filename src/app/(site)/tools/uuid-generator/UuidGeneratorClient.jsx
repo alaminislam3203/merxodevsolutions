@@ -284,3 +284,18 @@ export default function UuidGeneratorClient() {
             {type === 'nanoid' && (
               <div className="flex items-center gap-2">
                 <span>Length:</span>
+                <input
+                  type="number"
+                  min="6"
+                  max="64"
+                  value={nanoLength}
+                  onChange={(e) => setNanoLength(Number(e.target.value))}
+                  className="w-16 px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-center"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Output List Display */}
+        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
