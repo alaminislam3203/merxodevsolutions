@@ -245,3 +245,17 @@ export default function MetaPreviewerClient() {
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-4">
                   Google Search Result Preview
                 </span>
+                <div className="max-w-xl">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-6 h-6 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-500">
+                      G
+                    </div>
+                    <div>
+                      <div className="text-xs text-zinc-800 dark:text-zinc-200 font-medium">{siteName}</div>
+                      <div className="text-[11px] text-zinc-400 font-mono">{url}</div>
+                    </div>
+                  </div>
+                  <h3 className="text-blue-600 dark:text-blue-400 text-lg hover:underline cursor-pointer font-medium line-clamp-1">
+                    {title}
+                  </h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
