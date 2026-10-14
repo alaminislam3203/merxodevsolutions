@@ -269,3 +269,18 @@ export default function UuidGeneratorClient() {
                 className="rounded accent-amber-500"
               />
               <span>Wrap in Quotes (&quot;...&quot;)</span>
+            </label>
+
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={wrapBraces}
+                onChange={(e) => setWrapBraces(e.target.checked)}
+                className="rounded accent-amber-500"
+              />
+              <span>Wrap in Braces ({'{...}'})</span>
+            </label>
+
+            {type === 'nanoid' && (
+              <div className="flex items-center gap-2">
+                <span>Length:</span>
