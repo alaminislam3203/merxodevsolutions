@@ -51,3 +51,9 @@ export default function RegexTesterPage() {
     description:
       'Free client-side tool to test, validate, and debug regular expressions with real-time match highlighting.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
