@@ -348,3 +348,17 @@ export default function JwtDecoderClient() {
               <button
                 onClick={() => handleCopy(tokenInput, 'Encoded Token')}
                 disabled={!tokenInput}
+                className="text-[11px] font-semibold text-zinc-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
+              >
+                {copiedPart === 'Encoded Token' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                Copy Token
+              </button>
+            </div>
+
+            <div className="relative flex-1 p-4 min-h-[440px]">
+              <textarea
+                value={tokenInput}
+                onChange={(e) => setTokenInput(e.target.value)}
+                placeholder="Paste encoded JWT token here (e.g. eyJhbGciOi...)..."
+                spellCheck={false}
+                className="w-full h-full min-h-[420px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 break-all leading-relaxed"
