@@ -280,3 +280,19 @@ export default function Base64Client() {
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
                       textMode === 'decode'
                         ? 'bg-cyan-500 text-white shadow-sm'
+                        : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
+                  >
+                    Base64 → Text
+                  </button>
+                </div>
+
+                {/* URL Safe Toggle (applicable in encode mode) */}
+                {textMode === 'encode' && (
+                  <label className="flex items-center gap-2 text-xs font-raleway cursor-pointer ml-2 text-zinc-600 dark:text-zinc-300">
+                    <input
+                      type="checkbox"
+                      checked={isUrlSafe}
+                      onChange={(e) => setIsUrlSafe(e.target.checked)}
+                      className="rounded accent-cyan-500"
+                    />
