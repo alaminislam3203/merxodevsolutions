@@ -15,3 +15,8 @@ export const metadata = {
     'jwt decoder bangladesh',
     'জেডব্লিউটি ডিকোডার',
     'jwt token check',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
+  },
+  openGraph: {
