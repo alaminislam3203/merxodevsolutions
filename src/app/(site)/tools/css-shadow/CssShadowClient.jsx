@@ -297,3 +297,19 @@ export default function CssShadowClient() {
                 <span>Glassmorphism Effect</span>
               </label>
             </div>
+          </div>
+
+          {/* Interactive Preview Canvas & Code Output (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            {/* Visual Canvas */}
+            <div className="relative w-full h-80 rounded-3xl bg-gradient-to-tr from-zinc-100 to-zinc-200 dark:from-zinc-950 dark:to-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center p-8 overflow-hidden">
+              <div
+                style={{
+                  boxShadow: shadowCss,
+                  backgroundColor: isGlass ? 'rgba(255, 255, 255, 0.15)' : undefined,
+                  backdropFilter: isGlass ? 'blur(14px)' : undefined,
+                  border: isGlass ? '1px solid rgba(255, 255, 255, 0.25)' : undefined,
+                }}
+                className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${
+                  isGlass ? 'text-white' : 'bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100'
+                }`}
