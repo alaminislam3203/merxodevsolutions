@@ -14,3 +14,9 @@ export const metadata = {
     'percent encoding tool',
     'developer tools bangladesh',
     'ইউআরএল এনকোডার',
+    'url encode kora',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/url-encoder',
+  },
+  openGraph: {
