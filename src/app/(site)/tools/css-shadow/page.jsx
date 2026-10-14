@@ -47,3 +47,8 @@ export default function CssShadowPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free visual designer for CSS box shadows, layered soft elevations, and glassmorphic UI elements.',
+  };
