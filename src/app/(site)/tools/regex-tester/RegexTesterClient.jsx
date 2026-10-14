@@ -26,3 +26,17 @@ const PRESETS = [
 export default function RegexTesterClient() {
   const [pattern, setPattern] = useState('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}');
   const [flags, setFlags] = useState({ g: true, i: true, m: true, s: false, u: false });
+  const [testText, setTestText] = useState('Contact developer team at hello@merxodevsolutions.pro.bd or support@example.com.\nInvalid email: no-at-symbol.domain.');
+  const [showCheatsheet, setShowCheatsheet] = useState(false);
+
+  // Flags string
+  const flagsStr = useMemo(() => {
+    return Object.entries(flags)
+      .filter(([, v]) => v)
+      .map(([k]) => k)
+      .join('');
+  }, [flags]);
+
+  // Execute regex
+  const regexResult = useMemo(() => {
+    if (!pattern) {
