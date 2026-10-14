@@ -514,3 +514,16 @@ export default function JsonFormatterClient() {
                   onClick={() => setViewMode('code')}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
                     viewMode === 'code'
+                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+                  }`}
+                >
+                  <FiCode className="w-3.5 h-3.5" />
+                  Code
+                </button>
+                <button
+                  onClick={() => setViewMode('tree')}
+                  disabled={!parseResult.isValid}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
+                    viewMode === 'tree'
+                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
