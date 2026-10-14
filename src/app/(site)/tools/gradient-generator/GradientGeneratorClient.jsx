@@ -181,3 +181,17 @@ export default function GradientGeneratorClient() {
             >
               {p.name}
             </button>
+          ))}
+          <button
+            onClick={handleRandom}
+            className="px-3.5 py-1.5 rounded-xl bg-fuchsia-50 hover:bg-fuchsia-100 dark:bg-fuchsia-950/60 text-fuchsia-700 dark:text-fuchsia-300 text-xs font-bold whitespace-nowrap transition-all border border-fuchsia-200 dark:border-fuchsia-800 flex items-center gap-1.5"
+          >
+            <FiRefreshCw className="w-3 h-3" />
+            Random
+          </button>
+        </div>
+
+        {/* Main 2-Column Interface */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Controls (5 cols) */}
+          <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
