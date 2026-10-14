@@ -15,3 +15,8 @@ export const metadata = {
     'developer tools bangladesh',
     'জেসন ফরম্যাটার',
     'json format kora',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/json-formatter',
+  },
+  openGraph: {
