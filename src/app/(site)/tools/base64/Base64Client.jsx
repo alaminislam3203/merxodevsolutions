@@ -13,3 +13,19 @@ import {
   FiRefreshCw,
   FiTrash2,
   FiArrowLeft,
+  FiLock,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiCode,
+  FiEye,
+} from 'react-icons/fi';
+
+// Safe UTF-8 Base64 Encoder
+function utf8ToBase64(str, isUrlSafe = false) {
+  try {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
