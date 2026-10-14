@@ -313,3 +313,19 @@ export default function CssShadowClient() {
                 className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${
                   isGlass ? 'text-white' : 'bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100'
                 }`}
+              >
+                <FiBox className="w-8 h-8 text-rose-500 mb-2" />
+                <h3 className="font-display text-lg font-bold">Preview Card</h3>
+                <p className="text-xs opacity-70 font-raleway mt-1">
+                  {inset ? 'Inner Inset Shadow' : 'Elevation Drop Shadow'}
+                </p>
+              </div>
+            </div>
+
+            {/* Generated CSS Snippets */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm space-y-4">
+              {/* CSS Rule */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                    Pure CSS
