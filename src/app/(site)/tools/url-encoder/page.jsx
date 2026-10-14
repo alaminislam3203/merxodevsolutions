@@ -53,3 +53,9 @@ export default function UrlEncoderPage() {
     description:
       'Free client-side tool to encode and decode query parameters, percent-escaped characters, and full URL strings.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
