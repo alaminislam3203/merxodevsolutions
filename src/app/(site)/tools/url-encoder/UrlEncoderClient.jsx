@@ -129,3 +129,16 @@ export default function UrlEncoderClient() {
               Safely encode and decode percent-encoded URLs, query string parameters, and URI components with RFC 3986 compliance.
             </p>
           </div>
+
+          <Link
+            href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 mb-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
