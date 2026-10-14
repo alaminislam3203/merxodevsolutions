@@ -251,3 +251,17 @@ export default function GradientGeneratorClient() {
                 <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
                   Color Stops ({stops.length}/6)
                 </span>
+                <button
+                  onClick={handleAddStop}
+                  className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                >
+                  <FiPlus className="w-3.5 h-3.5" />
+                  Add Color
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {stops.map((stop, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700"
