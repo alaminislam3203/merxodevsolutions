@@ -184,3 +184,13 @@ export default function HttpStatusClient() {
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
             {['All', '1xx', '2xx', '3xx', '4xx', '5xx'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCat(cat)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold font-raleway uppercase transition-all ${
+                  activeCat === cat
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                }`}
+              >
+                {cat}
