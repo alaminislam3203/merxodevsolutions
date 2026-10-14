@@ -25,3 +25,9 @@ export const metadata = {
       'Safely encode and decode URL parameters and URI strings with zero latency and complete privacy.',
     url: 'https://merxodevsolutions.pro.bd/tools/url-encoder',
     siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online URL Encoder & Decoder — MerxoDev Solutions',
