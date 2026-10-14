@@ -47,3 +47,8 @@ export default function UuidGeneratorPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free client-side tool to generate cryptographically safe UUID v4 and NanoID strings in bulk.',
+  };
