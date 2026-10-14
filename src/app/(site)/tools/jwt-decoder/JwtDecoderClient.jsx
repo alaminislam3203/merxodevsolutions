@@ -40,3 +40,17 @@ function base64UrlDecode(str) {
 }
 
 // Generate realistic dynamic sample tokens
+function generateSampleTokens() {
+  const now = Math.floor(Date.now() / 1000);
+
+  const header = { alg: 'HS256', typ: 'JWT' };
+  const headerB64 = btoa(JSON.stringify(header)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+
+  // Active token (expires in 24 hours)
+  const activePayload = {
+    sub: 'usr_8492049102',
+    name: 'Al Amin',
+    email: 'developer@merxodevsolutions.pro.bd',
+    role: 'super_admin',
+    iss: 'https://auth.merxodevsolutions.pro.bd',
+    aud: 'merxodev-api-gateway',
