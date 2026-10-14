@@ -106,3 +106,15 @@ export default function UrlEncoderClient() {
         </nav>
 
         {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-raleway uppercase tracking-widest">
+                <FiLink className="w-3.5 h-3.5" />
+                Formatters & Converters
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <FiLock className="w-3 h-3 text-emerald-500" />
+                100% Client-Side Privacy
+              </span>
+            </div>
