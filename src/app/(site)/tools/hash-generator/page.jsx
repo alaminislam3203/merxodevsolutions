@@ -42,3 +42,8 @@ export default function HashGeneratorPage() {
     name: 'Online Cryptographic Hash Generator',
     url: 'https://merxodevsolutions.pro.bd/tools/hash-generator',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
