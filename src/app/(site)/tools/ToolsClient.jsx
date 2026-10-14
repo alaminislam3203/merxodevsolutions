@@ -430,3 +430,13 @@ export default function ToolsClient() {
                     <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway mb-4 line-clamp-3">
                       {tool.description}
                     </p>
+                  </div>
+
+                  {/* Bottom: Tags & Launch Action */}
+                  <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/80">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {tool.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-raleway"
+                        >
