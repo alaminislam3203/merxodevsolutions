@@ -76,3 +76,19 @@ export default function CssShadowClient() {
   };
 
   const applyPreset = (p) => {
+    setX(p.x);
+    setY(p.y);
+    setBlur(p.blur);
+    setSpread(p.spread);
+    setShadowColor(p.color);
+    setOpacity(p.opacity);
+    setInset(p.inset);
+    toast.success(`Applied ${p.name}!`);
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
