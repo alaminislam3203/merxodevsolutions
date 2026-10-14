@@ -361,3 +361,13 @@ export default function ToolsClient() {
                 key={category}
                 role="tab"
                 aria-selected={isActive}
+                onClick={() => setActiveCategory(category)}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-raleway transition-all duration-200 border cursor-pointer ${isActive
+                  ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-md shadow-violet-500/25'
+                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
+                  }`}
+              >
+                {category}
+                <span
+                  className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${isActive
+                    ? 'bg-white/20 text-white'
