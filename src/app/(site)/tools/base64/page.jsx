@@ -15,3 +15,8 @@ export const metadata = {
     'developer tools bangladesh',
     'বেস৬৪ এনকোডার',
     'base64 convert kora',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/base64',
+  },
+  openGraph: {
