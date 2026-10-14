@@ -139,3 +139,19 @@ export default function Base64Client() {
         toast.success(`Loaded "${file.name}"`);
       }
     };
+    reader.readAsDataURL(file);
+  };
+
+  // Drag and drop for image
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleImageUpload(file);
+  };
+
+  // Handle custom pasted base64 image preview
+  const handlePreviewCustomB64 = () => {
+    const raw = customB64Input.trim();
+    if (!raw) return;
+    const uri = raw.startsWith('data:image/') ? raw : `data:image/png;base64,${raw}`;
+    setImageDataUri(uri);
