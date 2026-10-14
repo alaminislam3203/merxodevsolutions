@@ -250,3 +250,19 @@ export default function CssShadowClient() {
                     className="w-10 h-10 rounded-lg cursor-pointer border border-zinc-200 dark:border-zinc-700 bg-transparent p-0.5"
                   />
                   <input
+                    type="text"
+                    value={shadowColor}
+                    onChange={(e) => setShadowColor(e.target.value)}
+                    className="w-full px-2.5 py-2 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                  <span>Opacity</span>
+                  <span className="font-mono text-rose-500">{Math.round(opacity * 100)}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
