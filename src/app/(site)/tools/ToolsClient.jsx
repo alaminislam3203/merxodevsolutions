@@ -263,3 +263,13 @@ export default function ToolsClient() {
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
             Developer Tools
+          </span>
+        </nav>
+
+        {/* Hero Header */}
+        <div className="flex flex-col gap-4 mt-8 mb-10">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+              <span
+                className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                aria-hidden
