@@ -30,3 +30,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free Online Regex Tester & Debugger — MerxoDev Solutions',
     description:
+      'Live regex pattern tester with capture group inspection and syntax cheatsheet.',
+  },
+};
+
+export default function RegexTesterPage() {
