@@ -307,3 +307,17 @@ export default function GradientGeneratorClient() {
           {/* Preview & Code (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-6">
             {/* Live Gradient Preview Box */}
+            <div
+              style={{ background: gradientString }}
+              className="w-full h-80 rounded-3xl shadow-xl flex items-center justify-center p-8 text-white text-center transition-all duration-200 select-none border border-white/20"
+            >
+              <div className="px-6 py-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/20">
+                <h3 className="font-display text-2xl font-bold uppercase tracking-wider">
+                  Live Gradient Preview
+                </h3>
+                <p className="text-xs font-mono opacity-90 mt-1">{type.toUpperCase()} • {stops.length} STOPS</p>
+              </div>
+            </div>
+
+            {/* Code Output Cards */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm space-y-4">
