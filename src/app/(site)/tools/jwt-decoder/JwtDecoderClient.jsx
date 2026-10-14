@@ -320,3 +320,16 @@ export default function JwtDecoderClient() {
                 <div className="font-semibold text-zinc-700 dark:text-zinc-300">{decodedResult.iatDate}</div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Error Banner */}
+        {decodedResult.isValid === false && (
+          <div className="flex items-start gap-2.5 px-4 py-3 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
+            <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <span className="font-bold block mb-0.5">Invalid JWT Format</span>
+              <p className="font-raleway text-zinc-600 dark:text-zinc-400">{decodedResult.error}</p>
+            </div>
+          </div>
+        )}
