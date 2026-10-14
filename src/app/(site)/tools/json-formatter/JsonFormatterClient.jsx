@@ -188,3 +188,16 @@ export default function JsonFormatterClient() {
         parsed: null,
         formatted: '',
         minified: '',
+      };
+    }
+  }, [inputJson, indentSize]);
+
+  // Size and stats calculation
+  const stats = useMemo(() => {
+    const rawBytes = new Blob([inputJson]).size;
+    const formattedBytes = parseResult.formatted ? new Blob([parseResult.formatted]).size : 0;
+    const minifiedBytes = parseResult.minified ? new Blob([parseResult.minified]).size : 0;
+    const lineCount = inputJson ? inputJson.split('\n').length : 0;
+    const reductionPercent =
+      rawBytes > 0 && minifiedBytes > 0
+        ? Math.max(0, Math.round(((rawBytes - minifiedBytes) / rawBytes) * 100))
