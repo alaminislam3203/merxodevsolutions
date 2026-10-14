@@ -29,3 +29,19 @@ export default function CssShadowClient() {
   const [y, setY] = useState(14);
   const [blur, setBlur] = useState(30);
   const [spread, setSpread] = useState(-4);
+  const [shadowColor, setShadowColor] = useState('#7c3aed');
+  const [opacity, setOpacity] = useState(0.3);
+  const [inset, setInset] = useState(false);
+  const [isGlass, setIsGlass] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(null);
+
+  // Convert hex to rgba
+  const hexToRgba = (hex, alpha) => {
+    let c = hex.replace('#', '');
+    if (c.length === 3) c = c.split('').map((x) => x + x).join('');
+    const num = parseInt(c, 16);
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
