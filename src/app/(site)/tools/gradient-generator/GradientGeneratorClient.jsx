@@ -279,3 +279,17 @@ export default function GradientGeneratorClient() {
                       className="w-20 px-2 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono"
                     />
                     <div className="flex-1 flex items-center gap-2">
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={stop.pos}
+                        onChange={(e) => handleUpdateStop(index, 'pos', Number(e.target.value))}
+                        className="w-full accent-fuchsia-600 cursor-pointer"
+                      />
+                      <span className="text-xs font-mono text-zinc-500 w-8 text-right">{stop.pos}%</span>
+                    </div>
+                    {stops.length > 2 && (
+                      <button
+                        onClick={() => handleRemoveStop(index)}
+                        className="text-zinc-400 hover:text-rose-500 p-1"
