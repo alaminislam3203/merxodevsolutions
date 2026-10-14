@@ -57,3 +57,9 @@ export const metadata = {
     title: 'Free Developer Tools & Utilities — MerxoDev Solutions',
     description:
       'Instant, private, client-side dev tools to speed up your everyday engineering workflow.',
+    images: ['https://merxodevsolutions.pro.bd/logo-light.png'],
+  },
+};
+
+export default function ToolsPage() {
+  const collectionSchema = {
