@@ -12,3 +12,17 @@ import {
   FiAlertCircle,
   FiCheckCircle,
   FiArrowLeft,
+  FiRefreshCw,
+  FiTrash2,
+  FiLock,
+  FiCode,
+  FiUser,
+  FiCalendar,
+  FiActivity,
+} from 'react-icons/fi';
+
+// Safe Base64URL decoder with UTF-8 support
+function base64UrlDecode(str) {
+  try {
+    let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (base64.length % 4) {
