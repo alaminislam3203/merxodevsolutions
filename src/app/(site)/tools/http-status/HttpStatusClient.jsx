@@ -142,3 +142,14 @@ export default function HttpStatusClient() {
 
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               HTTP Status Codes{' '}
+              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 bg-clip-text text-transparent">
+                Reference
+              </span>
+            </h1>
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+              Comprehensive and searchable cheatsheet of HTTP response status codes with official specifications, common causes, and developer solutions.
+            </p>
+          </div>
+
+          <Link
+            href="/tools"
