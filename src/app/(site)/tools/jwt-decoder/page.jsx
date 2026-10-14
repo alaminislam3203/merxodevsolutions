@@ -6,3 +6,8 @@ export const metadata = {
     'Free online JWT decoder and token inspector. Decode JSON Web Tokens instantly, inspect payload claims, and verify expiration date with 100% client-side privacy.',
   keywords: [
     'jwt decoder online',
+    'jwt debugger',
+    'decode json web token',
+    'jwt token inspect',
+    'jwt expiration check',
+    'bearer token decoder',
