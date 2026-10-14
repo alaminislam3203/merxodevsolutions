@@ -155,3 +155,18 @@ export default function Base64Client() {
     if (!raw) return;
     const uri = raw.startsWith('data:image/') ? raw : `data:image/png;base64,${raw}`;
     setImageDataUri(uri);
+    setImageDetails({
+      name: 'pasted_image.png',
+      size: Math.round((raw.length * 3) / 4),
+      type: 'image/png',
+      rawBase64: raw.replace(/^data:image\/[a-z]+;base64,/, ''),
+    });
+    toast.success('Decoded and rendered image preview!');
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
