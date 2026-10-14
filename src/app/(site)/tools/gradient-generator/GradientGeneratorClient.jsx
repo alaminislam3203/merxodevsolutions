@@ -237,3 +237,17 @@ export default function GradientGeneratorClient() {
                 <input
                   type="range"
                   min="0"
+                  max="360"
+                  value={angle}
+                  onChange={(e) => setAngle(Number(e.target.value))}
+                  className="w-full accent-fuchsia-600 cursor-pointer"
+                />
+              </div>
+            )}
+
+            {/* Color Stops List */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  Color Stops ({stops.length}/6)
+                </span>
