@@ -151,3 +151,20 @@ function md5(string) {
     a = md5_II(a, b, c, d, x[k + 12], S41, 0x655b59c3);
     d = md5_II(d, a, b, c, x[k + 3], S42, 0x8f0ccc92);
     c = md5_II(c, d, a, b, x[k + 10], S43, 0xffeff47d);
+    b = md5_II(b, c, d, a, x[k + 1], S44, 0x85845dd1);
+    a = md5_II(a, b, c, d, x[k + 8], S41, 0x6fa87e4f);
+    d = md5_II(d, a, b, c, x[k + 15], S42, 0xfe2ce6e0);
+    c = md5_II(c, d, a, b, x[k + 6], S43, 0xa3014314);
+    b = md5_II(b, c, d, a, x[k + 13], S44, 0x4e0811a1);
+    a = md5_II(a, b, c, d, x[k + 4], S41, 0xf7537e82);
+    d = md5_II(d, a, b, c, x[k + 11], S42, 0xbd3af235);
+    c = md5_II(c, d, a, b, x[k + 2], S43, 0x2ad7d2bb);
+    b = md5_II(b, c, d, a, x[k + 9], S44, 0xeb86d391);
+
+    a = md5_AddUnsigned(a, AA);
+    b = md5_AddUnsigned(b, BB);
+    c = md5_AddUnsigned(c, CC);
+    d = md5_AddUnsigned(d, DD);
+  }
+  return (md5_WordToHex(a) + md5_WordToHex(b) + md5_WordToHex(c) + md5_WordToHex(d)).toLowerCase();
+}
