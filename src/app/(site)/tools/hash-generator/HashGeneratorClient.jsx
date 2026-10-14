@@ -236,3 +236,20 @@ export default function HashGeneratorClient() {
 
   const hashItems = [
     { key: 'sha256', name: 'SHA-256 (Recommended)', length: '256 bits (64 hex chars)', color: 'text-violet-500', value: hashes.sha256 },
+    { key: 'sha512', name: 'SHA-512 (Ultra Secure)', length: '512 bits (128 hex chars)', color: 'text-emerald-500', value: hashes.sha512 },
+    { key: 'md5', name: 'MD5 (Checksums & Legacy)', length: '128 bits (32 hex chars)', color: 'text-amber-500', value: hashes.md5 },
+    { key: 'sha1', name: 'SHA-1 (Git Commit Hashes)', length: '160 bits (40 hex chars)', color: 'text-cyan-500', value: hashes.sha1 },
+    { key: 'sha384', name: 'SHA-384', length: '384 bits (96 hex chars)', color: 'text-indigo-500', value: hashes.sha384 },
+  ];
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent 70%)' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
