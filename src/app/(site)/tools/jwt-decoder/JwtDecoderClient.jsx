@@ -68,3 +68,17 @@ function generateSampleTokens() {
     email: 'guest@example.com',
     role: 'tester',
     iss: 'https://auth.example.com',
+    iat: now - 259200, // 3 days ago
+    exp: now - 172800, // 2 days ago
+  };
+  const expiredPayloadB64 = btoa(JSON.stringify(expiredPayload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+
+  return {
+    active: `${headerB64}.${activePayloadB64}.${activeSig}`,
+    expired: `${headerB64}.${expiredPayloadB64}.${activeSig}`,
+  };
+}
+
+export default function JwtDecoderClient() {
+  const samples = useMemo(() => generateSampleTokens(), []);
+  const [tokenInput, setTokenInput] = useState(samples.active);
