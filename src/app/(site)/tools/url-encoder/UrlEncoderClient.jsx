@@ -250,3 +250,15 @@ export default function UrlEncoderClient() {
                   onClick={handleDownload}
                   disabled={!outputResult.result}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all disabled:opacity-40"
+                >
+                  <FiDownload />
+                  <span className="hidden sm:inline">Save</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-4 flex-1 min-h-[380px] bg-zinc-950 font-mono text-xs text-blue-200">
+              <pre className="whitespace-pre-wrap break-all leading-relaxed">
+                {outputResult.result || (
+                  <span className="text-zinc-600 font-sans italic">Output will appear here...</span>
+                )}
