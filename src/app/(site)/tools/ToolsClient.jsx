@@ -292,3 +292,13 @@ export default function ToolsClient() {
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-raleway">
             A curated suite of fast, lightweight, and privacy-focused online
             utilities engineered for developers, designers, and engineering
+            teams. All calculations happen locally inside your browser.
+          </p>
+
+          {/* Quick Stats Banner */}
+          <div className="flex flex-wrap items-center gap-6 pt-2">
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm">
+              <FiZap className="text-amber-500 w-4 h-4" />
+              <span>Instant Local Processing</span>
+            </div>
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm">
