@@ -187,3 +187,19 @@ export default function CssShadowClient() {
                 value={x}
                 onChange={(e) => setX(Number(e.target.value))}
                 className="w-full accent-rose-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Vertical (Y) */}
+            <div>
+              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <span>Vertical Offset (Y)</span>
+                <span className="font-mono text-rose-500">{y}px</span>
+              </div>
+              <input
+                type="range"
+                min="-60"
+                max="60"
+                value={y}
+                onChange={(e) => setY(Number(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer"
