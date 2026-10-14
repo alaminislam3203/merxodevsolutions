@@ -117,3 +117,20 @@ function md5(string) {
     a = md5_GG(a, b, c, d, x[k + 5], S21, 0xd62f105d);
     d = md5_GG(d, a, b, c, x[k + 10], S22, 0x2441453);
     c = md5_GG(c, d, a, b, x[k + 15], S23, 0xd8a1e681);
+    b = md5_GG(b, c, d, a, x[k + 4], S24, 0xe7d3fbc8);
+    a = md5_GG(a, b, c, d, x[k + 9], S21, 0x21e1cde6);
+    d = md5_GG(d, a, b, c, x[k + 14], S22, 0xc33707d6);
+    c = md5_GG(c, d, a, b, x[k + 3], S23, 0xf4d50d87);
+    b = md5_GG(b, c, d, a, x[k + 8], S24, 0x455a14ed);
+    a = md5_GG(a, b, c, d, x[k + 13], S21, 0xa9e3e905);
+    d = md5_GG(d, a, b, c, x[k + 2], S22, 0xfcefa3f8);
+    c = md5_GG(c, d, a, b, x[k + 7], S23, 0x676f02d9);
+    b = md5_GG(b, c, d, a, x[k + 12], S24, 0x8d2a4c8a);
+
+    a = md5_HH(a, b, c, d, x[k + 5], S31, 0xfffa3942);
+    d = md5_HH(d, a, b, c, x[k + 8], S32, 0x8771f681);
+    c = md5_HH(c, d, a, b, x[k + 11], S33, 0x6d9d6122);
+    b = md5_HH(b, c, d, a, x[k + 14], S34, 0xfde5380c);
+    a = md5_HH(a, b, c, d, x[k + 1], S31, 0xa4beea44);
+    d = md5_HH(d, a, b, c, x[k + 4], S32, 0x4bdecfa9);
+    c = md5_HH(c, d, a, b, x[k + 7], S33, 0xf6bb4b60);
