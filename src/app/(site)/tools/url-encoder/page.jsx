@@ -9,3 +9,8 @@ export const metadata = {
     'url decoder',
     'encode url component',
     'decode uri',
+    'query string encoder',
+    'rfc 3986 encoder',
+    'percent encoding tool',
+    'developer tools bangladesh',
+    'ইউআরএল এনকোডার',
