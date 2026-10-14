@@ -405,3 +405,17 @@ export default function JsonFormatterClient() {
               </select>
             </div>
           </div>
+
+          {/* Right tools: Sample, Upload, Clear */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setInputJson(SAMPLE_JSON)}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+            >
+              <FiRefreshCw className="w-3.5 h-3.5" />
+              Load Sample
+            </button>
+
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
