@@ -47,3 +47,8 @@ export default function GradientGeneratorPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free visual designer for CSS linear and radial color gradients with preset collections.',
+  };
