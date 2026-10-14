@@ -225,3 +225,17 @@ export default function RegexTesterClient() {
                 className="flex-1 bg-transparent text-sm font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none"
               />
               <span className="text-zinc-400 font-mono text-base">/</span>
+              <span className="text-violet-600 dark:text-violet-400 font-mono text-sm font-bold">
+                {flagsStr || 'none'}
+              </span>
+            </div>
+          </div>
+
+          {/* Flag checkboxes */}
+          <div className="flex flex-wrap items-center gap-4 text-xs font-raleway pt-2 border-t border-zinc-100 dark:border-zinc-800">
+            <span className="text-zinc-400 font-bold">Flags:</span>
+            {[
+              { id: 'g', label: 'g (global match)' },
+              { id: 'i', label: 'i (case-insensitive)' },
+              { id: 'm', label: 'm (multi-line)' },
+              { id: 's', label: 's (dot matches all)' },
