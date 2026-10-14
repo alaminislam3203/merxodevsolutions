@@ -253,3 +253,18 @@ export default function RegexTesterClient() {
             ))}
           </div>
         </div>
+
+        {/* Error banner if regex syntax invalid */}
+        {regexResult.isValid === false && (
+          <div className="flex items-start gap-2.5 px-4 py-3 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
+            <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold block mb-0.5">Regex Syntax Error</span>
+              <p className="font-mono text-[11px] text-rose-700 dark:text-rose-200">{regexResult.error}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Match Count Banner */}
+        {regexResult.isValid && (
+          <div className="flex items-center justify-between px-4 py-2.5 mb-6 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-800/80 text-violet-800 dark:text-violet-300 text-xs font-medium">
