@@ -422,3 +422,18 @@ export default function Base64Client() {
                 onChange={(e) => handleImageUpload(e.target.files?.[0])}
                 className="hidden"
               />
+            </div>
+
+            {/* Or Paste Base64 String to Preview Image */}
+            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+              <input
+                type="text"
+                value={customB64Input}
+                onChange={(e) => setCustomB64Input(e.target.value)}
+                placeholder="Or paste an existing Base64 Data URI string to decode and preview image..."
+                className="flex-1 px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+              <button
+                onClick={handlePreviewCustomB64}
+                className="px-4 py-2.5 rounded-xl bg-zinc-100 hover:bg-cyan-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-cyan-600 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all shrink-0"
+              >
