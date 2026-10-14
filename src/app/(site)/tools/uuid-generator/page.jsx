@@ -25,3 +25,9 @@ export const metadata = {
     url: 'https://merxodevsolutions.pro.bd/tools/uuid-generator',
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online UUID & NanoID Generator — MerxoDev Solutions',
+    description:
