@@ -163,3 +163,13 @@ export default function HttpStatusClient() {
         {/* Toolbar: Search & Category Pills */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
           <div className="relative flex-1 max-w-md">
+            <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by code (404, 500) or keyword (auth, redirect)..."
+              className="w-full pl-10 pr-9 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+            {search && (
+              <button
