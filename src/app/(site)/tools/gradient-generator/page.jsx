@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free CSS Gradient Generator — MerxoDev Solutions',
     description:
+      'Visual CSS and Tailwind gradient creator with color stops and curated presets.',
+  },
+};
+
+export default function GradientGeneratorPage() {
