@@ -389,3 +389,20 @@ export default function Base64Client() {
             </div>
           </div>
         )}
+
+        {/* ── TAB 2: IMAGE TO BASE64 ────────────────────────────────────────── */}
+        {activeTab === 'image' && (
+          <div className="space-y-6">
+            {/* Upload Zone */}
+            <div
+              onDrop={handleDrop}
+              onDragOver={(e) => e.preventDefault()}
+              className="p-8 rounded-3xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-900/60 text-center flex flex-col items-center justify-center hover:border-cyan-500 transition-colors cursor-pointer"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <div className="w-16 h-16 rounded-2xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-3 shadow-sm">
+                <FiUpload className="w-8 h-8" />
+              </div>
+              <h3 className="font-display text-xl font-bold text-zinc-800 dark:text-white mb-1">
+                Drag & Drop Image Here or Click to Browse
+              </h3>
