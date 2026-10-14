@@ -54,3 +54,17 @@ function generateSampleTokens() {
     role: 'super_admin',
     iss: 'https://auth.merxodevsolutions.pro.bd',
     aud: 'merxodev-api-gateway',
+    iat: now - 3600, // issued 1 hour ago
+    nbf: now - 3600,
+    exp: now + 86400, // expires in 24 hours
+  };
+  const activePayloadB64 = btoa(JSON.stringify(activePayload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+  const activeSig = 'c4dE_39FkL78w0_sample_signature_abc123';
+
+  // Expired token (expired 2 days ago)
+  const expiredPayload = {
+    sub: 'usr_old_5829104',
+    name: 'Test Visitor',
+    email: 'guest@example.com',
+    role: 'tester',
+    iss: 'https://auth.example.com',
