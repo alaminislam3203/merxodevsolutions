@@ -239,3 +239,17 @@ export default function RegexTesterClient() {
               { id: 'i', label: 'i (case-insensitive)' },
               { id: 'm', label: 'm (multi-line)' },
               { id: 's', label: 's (dot matches all)' },
+              { id: 'u', label: 'u (unicode)' },
+            ].map((f) => (
+              <label key={f.id} className="flex items-center gap-1.5 cursor-pointer font-medium select-none">
+                <input
+                  type="checkbox"
+                  checked={flags[f.id]}
+                  onChange={() => toggleFlag(f.id)}
+                  className="rounded accent-violet-600"
+                />
+                <span>{f.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
