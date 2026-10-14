@@ -29,3 +29,7 @@ export const metadata = {
     type: 'website',
   },
   twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online Base64 Encoder & Decoder — MerxoDev Solutions',
+    description:
+      'Convert text and images to Base64 strings & Data URIs with zero server upload.',
