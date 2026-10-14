@@ -67,3 +67,18 @@ export default function GradientGeneratorClient() {
       return next;
     });
   };
+
+  const handleAddStop = () => {
+    if (stops.length >= 6) {
+      toast.error('Maximum 6 color stops.');
+      return;
+    }
+    const lastPos = stops[stops.length - 1]?.pos || 50;
+    const newPos = Math.min(100, lastPos + 15);
+    setStops([...stops, { color: '#ec4899', pos: newPos }]);
+  };
+
+  const handleRemoveStop = (index) => {
+    if (stops.length <= 2) {
+      toast.error('Gradients require at least 2 color stops.');
+      return;
