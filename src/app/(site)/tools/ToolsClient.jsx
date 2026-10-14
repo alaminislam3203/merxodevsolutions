@@ -224,3 +224,12 @@ export default function ToolsClient() {
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
         style={{
+          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-32 -left-32 w-[520px] h-[520px] rounded-full opacity-15 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+        }}
