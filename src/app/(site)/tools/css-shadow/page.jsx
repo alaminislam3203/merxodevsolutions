@@ -9,3 +9,8 @@ export const metadata = {
     'glassmorphism generator',
     'tailwind shadow generator',
     'drop shadow css',
+    'soft ui shadow generator',
+    'css design tools',
+    'developer tools bangladesh',
+    'সিএসএস শ্যাডো জেনারেটর',
+    'css shadow banano',
