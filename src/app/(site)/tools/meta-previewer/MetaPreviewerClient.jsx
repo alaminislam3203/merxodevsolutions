@@ -190,3 +190,17 @@ export default function MetaPreviewerClient() {
                 type="text"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+                className="w-full px-3.5 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <div>
+                <label className="block text-xs font-raleway font-semibold mb-1">Site Name</label>
+                <input
+                  type="text"
+                  value={siteName}
+                  onChange={(e) => setSiteName(e.target.value)}
+                  className="w-full px-3 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs"
+                />
+              </div>
