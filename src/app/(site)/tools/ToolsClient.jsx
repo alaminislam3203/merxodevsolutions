@@ -489,3 +489,13 @@ export default function ToolsClient() {
               Missing Your Favorite Tool?
             </span>
             <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
+              Have a Tool Suggestion in Mind?
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-400 font-raleway leading-relaxed">
+              We frequently build and open-source utilities based on community
+              requests. Tell us what repetitive task you want automated, and
+              we&apos;ll ship it next!
+            </p>
+          </div>
+          <Link
+            href="/contact"
