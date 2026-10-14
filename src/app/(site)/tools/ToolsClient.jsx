@@ -380,3 +380,14 @@ export default function ToolsClient() {
             );
           })}
         </div>
+
+        {/* Tools Grid */}
+        {filteredTools.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredTools.map((tool) => {
+              const IconComponent = tool.icon;
+              const badgeStyle =
+                BADGE_STYLES[tool.badgeColor] || BADGE_STYLES.violet;
+
+              return (
+                <div
