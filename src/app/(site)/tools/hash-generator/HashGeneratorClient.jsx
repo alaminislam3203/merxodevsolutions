@@ -168,3 +168,20 @@ function md5(string) {
   }
   return (md5_WordToHex(a) + md5_WordToHex(b) + md5_WordToHex(c) + md5_WordToHex(d)).toLowerCase();
 }
+
+async function shaHash(str, algo) {
+  const msgBuffer = new TextEncoder().encode(str);
+  const hashBuffer = await crypto.subtle.digest(algo, msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+export default function HashGeneratorClient() {
+  const [inputText, setInputText] = useState('MerxoDevSolutions2026');
+  const [salt, setSalt] = useState('');
+  const [uppercase, setUppercase] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(null);
+  const [hashes, setHashes] = useState({
+    md5: '',
+    sha1: '',
+    sha256: '',
