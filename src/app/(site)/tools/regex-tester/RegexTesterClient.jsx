@@ -282,3 +282,17 @@ export default function RegexTesterClient() {
         )}
 
         {/* Test String Input & Match Results Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Test Textarea */}
+          <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                Test String Input
+              </span>
+              <button
+                onClick={() => setTestText('')}
+                className="text-xs text-rose-500 hover:text-rose-600 flex items-center gap-1 font-semibold"
+              >
+                <FiTrash2 className="w-3.5 h-3.5" />
+                Clear
+              </button>
