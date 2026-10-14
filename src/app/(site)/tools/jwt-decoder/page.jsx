@@ -38,3 +38,7 @@ export const metadata = {
 
 export default function JwtDecoderPage() {
   const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online JWT Decoder & Token Debugger',
+    url: 'https://merxodevsolutions.pro.bd/tools/jwt-decoder',
