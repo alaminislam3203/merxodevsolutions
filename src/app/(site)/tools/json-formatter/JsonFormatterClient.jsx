@@ -228,3 +228,16 @@ export default function JsonFormatterClient() {
       setInputJson(parseResult.minified);
       toast.success('JSON minified!');
     } else if (!parseResult.isValid) {
+      toast.error('Invalid JSON. Fix syntax errors first.');
+    }
+  };
+
+  // Smart Fix Common Mistakes (single quotes, trailing commas, unquoted keys)
+  const handleAutoFix = () => {
+    if (!inputJson.trim()) return;
+    try {
+      let fixed = inputJson
+        // Replace single quotes around keys/values with double quotes
+        .replace(/'/g, '"')
+        // Remove trailing commas before closing braces/brackets
+        .replace(/,\s*([\]}])/g, '$1');
