@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Free CSS Box Shadow & Glassmorphism Generator — MerxoDev Solutions',
     description:
+      'Visual CSS box shadow designer with Tailwind and pure CSS code generation.',
+  },
+};
+
+export default function CssShadowPage() {
