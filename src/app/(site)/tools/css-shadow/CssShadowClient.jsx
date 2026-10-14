@@ -171,3 +171,19 @@ export default function CssShadowClient() {
           {/* Controls Form (5 cols) */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
             <h2 className="font-display text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
+              Shadow Parameters
+            </h2>
+
+            {/* Horizontal (X) */}
+            <div>
+              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <span>Horizontal Offset (X)</span>
+                <span className="font-mono text-rose-500">{x}px</span>
+              </div>
+              <input
+                type="range"
+                min="-60"
+                max="60"
+                value={x}
+                onChange={(e) => setX(Number(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer"
