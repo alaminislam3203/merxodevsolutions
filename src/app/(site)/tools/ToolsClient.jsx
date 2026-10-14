@@ -145,3 +145,13 @@ const TOOLS_DATA = [
     badge: 'SEO',
     badgeColor: 'cyan',
     icon: FiGlobe,
+    href: '/tools/meta-previewer',
+    tags: ['Open Graph', 'Twitter Cards', 'SEO'],
+    clientSide: true,
+  },
+  {
+    id: 'http-status',
+    title: 'HTTP Status Codes Reference',
+    description:
+      'Fast, searchable cheat sheet of all HTTP response codes (1xx - 5xx) with troubleshooting advice.',
+    category: 'Utilities',
