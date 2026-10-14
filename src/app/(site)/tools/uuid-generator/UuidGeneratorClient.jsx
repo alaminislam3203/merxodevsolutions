@@ -88,3 +88,18 @@ export default function UuidGeneratorClient() {
       });
     }
   };
+
+  const handleCopyAll = () => {
+    if (!generatedList.length) return;
+    const text = generatedList.join('\n');
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedAll(true);
+        toast.success(`Copied all ${generatedList.length} IDs!`);
+        setTimeout(() => setCopiedAll(false), 2000);
+      });
+    }
+  };
+
+  const handleDownload = () => {
+    if (!generatedList.length) return;
