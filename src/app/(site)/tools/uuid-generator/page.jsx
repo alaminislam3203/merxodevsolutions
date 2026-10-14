@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'ইউইউআইডি জেনারেটর',
     'unique id toiri kora',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/uuid-generator',
+  },
+  openGraph: {
+    title: 'Free Online UUID & NanoID Generator — MerxoDev Solutions',
