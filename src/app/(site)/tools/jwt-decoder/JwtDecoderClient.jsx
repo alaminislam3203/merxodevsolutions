@@ -96,3 +96,17 @@ export default function JwtDecoderClient() {
       return {
         isValid: false,
         error: `A valid JWT must have 3 dot-separated parts (Header.Payload.Signature). Found ${parts.length} part(s).`,
+        header: null,
+        payload: null,
+        signature: null,
+      };
+    }
+
+    const [rawHeader, rawPayload, signature] = parts;
+    const decodedHeaderStr = base64UrlDecode(rawHeader);
+    const decodedPayloadStr = base64UrlDecode(rawPayload);
+
+    if (!decodedHeaderStr) {
+      return { isValid: false, error: 'Invalid Base64Url encoding in JWT Header.', header: null, payload: null };
+    }
+    if (!decodedPayloadStr) {
