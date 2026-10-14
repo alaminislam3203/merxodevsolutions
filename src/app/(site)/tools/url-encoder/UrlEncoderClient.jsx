@@ -58,3 +58,15 @@ export default function UrlEncoderClient() {
       });
     }
   };
+
+  const handleDownload = () => {
+    if (!outputResult.result) return;
+    const blob = new Blob([outputResult.result], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = mode === 'encode' ? 'url_encoded.txt' : 'url_decoded.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
