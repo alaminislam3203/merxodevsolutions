@@ -31,3 +31,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Complete HTTP Status Codes Reference — MerxoDev Solutions',
     description:
+      'Fast, searchable cheat sheet of all HTTP response codes with troubleshooting advice.',
+  },
+};
+
+export default function HttpStatusPage() {
