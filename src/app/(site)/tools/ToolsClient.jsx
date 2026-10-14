@@ -410,3 +410,13 @@ export default function ToolsClient() {
                       <div className="flex items-center gap-2">
                         {tool.badge && (
                           <span
+                            className={`text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full border ${badgeStyle}`}
+                          >
+                            {tool.badge}
+                          </span>
+                        )}
+                        <span className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 font-raleway">
+                          {tool.category}
+                        </span>
+                      </div>
+                    </div>
