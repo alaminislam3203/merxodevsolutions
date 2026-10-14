@@ -25,3 +25,9 @@ export const metadata = {
     url: 'https://merxodevsolutions.pro.bd/tools/css-shadow',
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free CSS Box Shadow & Glassmorphism Generator — MerxoDev Solutions',
+    description:
