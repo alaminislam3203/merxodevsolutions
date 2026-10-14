@@ -107,3 +107,19 @@ export default function Base64Client() {
     const blob = new Blob([textOutput.result], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
+    a.href = url;
+    a.download = textMode === 'encode' ? 'base64_encoded.txt' : 'decoded_text.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success('Downloaded text file!');
+  };
+
+  // Handle Image Upload
+  const handleImageUpload = (file) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file (PNG, JPG, SVG, WebP, GIF).');
+      return;
+    }
