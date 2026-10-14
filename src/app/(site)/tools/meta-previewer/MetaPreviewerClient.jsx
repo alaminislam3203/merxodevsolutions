@@ -53,3 +53,15 @@ export default function MetaPreviewerClient() {
       navigator.clipboard.writeText(generatedHtml).then(() => {
         setCopied(true);
         toast.success('Copied HTML meta tags!');
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
+
+  const domain = useMemo(() => {
+    try {
+      return new URL(url).hostname;
+    } catch {
+      return 'merxodevsolutions.pro.bd';
+    }
+  }, [url]);
