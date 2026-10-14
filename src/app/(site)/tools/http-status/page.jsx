@@ -52,3 +52,9 @@ export default function HttpStatusPage() {
     description:
       'Free searchable reference guide for HTTP response status codes with developer troubleshooting tips.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
