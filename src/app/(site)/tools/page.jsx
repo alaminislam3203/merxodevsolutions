@@ -51,3 +51,9 @@ export const metadata = {
         alt: 'MerxoDev Solutions Developer Tools',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Developer Tools & Utilities — MerxoDev Solutions',
+    description:
+      'Instant, private, client-side dev tools to speed up your everyday engineering workflow.',
