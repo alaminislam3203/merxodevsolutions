@@ -389,3 +389,20 @@ export default function HashGeneratorClient() {
                   {copiedKey === item.name ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
                   <span>{copiedKey === item.name ? 'Copied' : 'Copy'}</span>
                 </button>
+              </div>
+
+              <div className="p-3 rounded-xl bg-zinc-950 font-mono text-xs text-zinc-200 break-all select-all">
+                {item.value || <span className="text-zinc-600 font-sans italic">Enter text above to compute hash...</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Informational Cards */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+              <FiLock className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              Cryptographic One-Way Hashes
