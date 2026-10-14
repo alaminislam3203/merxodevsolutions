@@ -42,3 +42,8 @@ export default function Base64Page() {
     '@type': 'WebApplication',
     name: 'Online Base64 Encoder & Decoder',
     url: 'https://merxodevsolutions.pro.bd/tools/base64',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
