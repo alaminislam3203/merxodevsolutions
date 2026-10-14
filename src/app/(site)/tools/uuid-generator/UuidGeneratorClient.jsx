@@ -178,3 +178,19 @@ export default function UuidGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
+        </div>
+
+        {/* Configuration Controls Card */}
+        <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            {/* Format toggle: UUID v4 vs NanoID */}
+            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
+              <button
+                onClick={() => setType('uuidv4')}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                  type === 'uuidv4'
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                }`}
