@@ -46,3 +46,8 @@ export default function RegexTesterPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free client-side tool to test, validate, and debug regular expressions with real-time match highlighting.',
+  };
