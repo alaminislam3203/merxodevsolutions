@@ -34,3 +34,15 @@ export default function UrlEncoderClient() {
         const encoded =
           scope === 'component'
             ? encodeURIComponent(inputVal)
+            : encodeURI(inputVal);
+        return { success: true, result: encoded, error: null };
+      } else {
+        const decoded =
+          scope === 'component'
+            ? decodeURIComponent(inputVal)
+            : decodeURI(inputVal);
+        return { success: true, result: decoded, error: null };
+      }
+    } catch (err) {
+      return { success: false, result: '', error: 'Malformed URI sequence. Check percent-encoded sequences.' };
+    }
