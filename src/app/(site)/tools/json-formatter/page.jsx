@@ -51,3 +51,8 @@ export default function JsonFormatterPage() {
       priceCurrency: 'USD',
     },
     description:
+      'Free online tool to beautify, format, validate, and minify JSON code with tree view and syntax checking.',
+  };
+
+  return (
+    <>
