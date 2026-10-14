@@ -269,3 +269,17 @@ export default function JsonFormatterClient() {
     const content = isMin ? parseResult.minified : parseResult.formatted || inputJson;
     if (!content) return;
     const blob = new Blob([content], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = isMin ? 'minified.json' : 'formatted.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success('File downloaded!');
+  };
+
+  // File Upload
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
