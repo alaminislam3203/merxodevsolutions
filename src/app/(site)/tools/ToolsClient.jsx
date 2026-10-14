@@ -302,3 +302,12 @@ export default function ToolsClient() {
               <span>Instant Local Processing</span>
             </div>
             <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm">
+              <FiShield className="text-emerald-500 w-4 h-4" />
+              <span>No Cookies / No Logs</span>
+            </div>
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm">
+              <FiCheckCircle className="text-violet-500 w-4 h-4" />
+              <span>Unlimited Free Usage</span>
+            </div>
+          </div>
+        </div>
