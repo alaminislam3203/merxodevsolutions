@@ -47,3 +47,12 @@ const TOOLS_DATA = [
     badge: 'Essential',
     badgeColor: 'emerald',
     icon: FiKey,
+    href: '/tools/jwt-decoder',
+    tags: ['JWT', 'Bearer', 'Auth'],
+    clientSide: true,
+  },
+  {
+    id: 'base64',
+    title: 'Base64 Encoder & Decoder',
+    description:
+      'Instantly convert plain text, binary strings, and image assets to and from clean Base64 strings.',
