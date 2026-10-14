@@ -246,3 +246,13 @@ export default function HttpStatusClient() {
                     onClick={() => setExpandedCode(isExpanded ? null : item.code)}
                     className="text-amber-600 hover:text-amber-700 font-bold flex items-center gap-1"
                   >
+                    <span>{isExpanded ? 'Less Info' : 'Fix & Details'}</span>
+                    {isExpanded ? <FiChevronUp className="w-3.5 h-3.5" /> : <FiChevronDown className="w-3.5 h-3.5" />}
+                  </button>
+
+                  <button
+                    onClick={() => handleCopy(item)}
+                    className="p-1.5 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                    title="Copy code details"
+                  >
+                    {copiedCode === item.code ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
