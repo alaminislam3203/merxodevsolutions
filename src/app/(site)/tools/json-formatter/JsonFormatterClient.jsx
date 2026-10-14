@@ -174,3 +174,17 @@ export default function JsonFormatterClient() {
       const space = indentSize === 'tab' ? '\t' : Number(indentSize);
       const formatted = JSON.stringify(parsed, null, space);
       const minified = JSON.stringify(parsed);
+      return {
+        isValid: true,
+        error: null,
+        parsed,
+        formatted,
+        minified,
+      };
+    } catch (err) {
+      return {
+        isValid: false,
+        error: err.message,
+        parsed: null,
+        formatted: '',
+        minified: '',
