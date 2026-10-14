@@ -60,3 +60,19 @@ function base64ToUtf8(str) {
 
 const SAMPLE_TEXT = `Hello World! 🚀
 MerxoDev Solutions — Full Stack Web Engineering.
+বাংলা ভাষা ও ইউনিকোড সাপোর্ট (UTF-8 Verified).
+Special symbols: @#$%^&*()_+={}:"<>?`;
+
+export default function Base64Client() {
+  const [activeTab, setActiveTab] = useState('text'); // 'text' | 'image'
+
+  // Text Mode state
+  const [textMode, setTextMode] = useState('encode'); // 'encode' | 'decode'
+  const [textInput, setTextInput] = useState(SAMPLE_TEXT);
+  const [isUrlSafe, setIsUrlSafe] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(null);
+
+  // Image Mode state
+  const [imageFile, setImageFile] = useState(null);
+  const [imageDataUri, setImageDataUri] = useState('');
+  const [imageDetails, setImageDetails] = useState(null);
