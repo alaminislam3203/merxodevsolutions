@@ -123,3 +123,19 @@ export default function Base64Client() {
       toast.error('Please select an image file (PNG, JPG, SVG, WebP, GIF).');
       return;
     }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUri = e.target?.result;
+      if (typeof dataUri === 'string') {
+        setImageDataUri(dataUri);
+        setImageFile(file);
+        setImageDetails({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          rawBase64: dataUri.split(',')[1] || '',
+        });
+        toast.success(`Loaded "${file.name}"`);
+      }
+    };
