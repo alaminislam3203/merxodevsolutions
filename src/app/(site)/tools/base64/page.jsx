@@ -24,3 +24,8 @@ export const metadata = {
     description:
       'Convert text and images to and from Base64 instantly in your browser with zero latency and complete privacy.',
     url: 'https://merxodevsolutions.pro.bd/tools/base64',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
