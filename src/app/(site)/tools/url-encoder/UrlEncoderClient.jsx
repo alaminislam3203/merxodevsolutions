@@ -274,3 +274,15 @@ export default function UrlEncoderClient() {
               <FiGlobe className="w-5 h-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              RFC 3986 Compliance
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Correctly encodes unsafe characters including spaces into <code className="font-mono text-blue-600">%20</code>, ampersands, slashes, hash symbols, and UTF-8 multibyte characters.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+              <FiCode className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
