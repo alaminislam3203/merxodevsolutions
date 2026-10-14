@@ -568,3 +568,17 @@ export default function JsonFormatterClient() {
               ) : (
                 <pre className="whitespace-pre overflow-x-auto leading-relaxed selection:bg-violet-500/30">
                   {parseResult.formatted || (
+                    <span className="text-zinc-500 font-sans italic">
+                      {parseResult.isValid === false
+                        ? 'Fix syntax error on the left to view output.'
+                        : 'Formatted output will appear here...'}
+                    </span>
+                  )}
+                </pre>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Highlights & FAQ */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
