@@ -9,3 +9,8 @@ export const metadata = {
     'sha256 generator',
     'md5 hash generator',
     'sha512 online',
+    'password hash generator',
+    'crypto hash online',
+    'developer tools bangladesh',
+    'হ্যাশ জেনারেটর',
+    'sha256 toiri kora',
