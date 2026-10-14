@@ -155,3 +155,13 @@ const TOOLS_DATA = [
     description:
       'Fast, searchable cheat sheet of all HTTP response codes (1xx - 5xx) with troubleshooting advice.',
     category: 'Utilities',
+    icon: FiZap,
+    href: '/tools/http-status',
+    tags: ['REST API', 'HTTP Codes', 'Cheatsheet'],
+    clientSide: true,
+  },
+  {
+    id: 'bd-lookup',
+    title: 'Bangladesh Postcode & Geo Data',
+    description:
+      'Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.',
