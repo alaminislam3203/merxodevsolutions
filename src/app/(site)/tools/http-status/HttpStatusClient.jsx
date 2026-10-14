@@ -215,3 +215,13 @@ export default function HttpStatusClient() {
                     <span className="font-mono text-2xl font-black text-zinc-900 dark:text-white">
                       {item.code}
                     </span>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${badgeClass}`}>
+                      {item.category}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-base font-bold text-zinc-800 dark:text-zinc-100 mb-2">
+                    {item.phrase}
+                  </h3>
+
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed mb-3">
