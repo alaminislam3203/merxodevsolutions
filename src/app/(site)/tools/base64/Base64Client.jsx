@@ -265,3 +265,18 @@ export default function Base64Client() {
               <div className="flex items-center gap-2">
                 {/* Encode vs Decode toggle */}
                 <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
+                  <button
+                    onClick={() => setTextMode('encode')}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                      textMode === 'encode'
+                        ? 'bg-cyan-500 text-white shadow-sm'
+                        : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
+                  >
+                    Text → Base64
+                  </button>
+                  <button
+                    onClick={() => setTextMode('decode')}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                      textMode === 'decode'
+                        ? 'bg-cyan-500 text-white shadow-sm'
