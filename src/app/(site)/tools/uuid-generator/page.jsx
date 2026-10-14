@@ -36,3 +36,9 @@ export const metadata = {
 };
 
 export default function UuidGeneratorPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Online UUID & NanoID Generator',
+    url: 'https://merxodevsolutions.pro.bd/tools/uuid-generator',
+    applicationCategory: 'DeveloperApplication',
