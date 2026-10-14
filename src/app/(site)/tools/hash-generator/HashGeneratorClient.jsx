@@ -372,3 +372,20 @@ export default function HashGeneratorClient() {
               key={item.key}
               className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm hover:border-violet-400 dark:hover:border-violet-600 transition-all"
             >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs font-bold uppercase tracking-wider font-raleway ${item.color}`}>
+                    {item.name}
+                  </span>
+                  <span className="text-[11px] text-zinc-400 font-mono hidden sm:inline">
+                    ({item.length})
+                  </span>
+                </div>
+                <button
+                  onClick={() => handleCopy(item.value, item.name)}
+                  disabled={!item.value}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
+                >
+                  {copiedKey === item.name ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
+                  <span>{copiedKey === item.name ? 'Copied' : 'Copy'}</span>
+                </button>
