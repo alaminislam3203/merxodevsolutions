@@ -195,3 +195,17 @@ export default function GradientGeneratorClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls (5 cols) */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
+            {/* Type Switcher: Linear vs Radial */}
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300 mb-2">
+                Gradient Type
+              </label>
+              <div className="grid grid-cols-2 gap-2 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl border border-zinc-200 dark:border-zinc-700">
+                <button
+                  onClick={() => setType('linear')}
+                  className={`py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
+                    type === 'linear'
+                      ? 'bg-fuchsia-600 text-white shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
