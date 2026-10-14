@@ -233,3 +233,13 @@ export default function ToolsClient() {
         style={{
           background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
         }}
+      />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-4 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
