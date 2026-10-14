@@ -265,3 +265,17 @@ export default function GradientGeneratorClient() {
                   <div
                     key={index}
                     className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700"
+                  >
+                    <input
+                      type="color"
+                      value={stop.color}
+                      onChange={(e) => handleUpdateStop(index, 'color', e.target.value)}
+                      className="w-9 h-9 rounded-lg cursor-pointer border border-zinc-200 dark:border-zinc-600 bg-transparent p-0.5"
+                    />
+                    <input
+                      type="text"
+                      value={stop.color}
+                      onChange={(e) => handleUpdateStop(index, 'color', e.target.value)}
+                      className="w-20 px-2 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono"
+                    />
+                    <div className="flex-1 flex items-center gap-2">
