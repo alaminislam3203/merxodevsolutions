@@ -76,3 +76,19 @@ export default function Base64Client() {
   const [imageFile, setImageFile] = useState(null);
   const [imageDataUri, setImageDataUri] = useState('');
   const [imageDetails, setImageDetails] = useState(null);
+  const [customB64Input, setCustomB64Input] = useState('');
+  const fileInputRef = useRef(null);
+
+  // Process text conversion
+  const textOutput = useMemo(() => {
+    if (!textInput.trim()) return { success: true, result: '', error: null };
+    if (textMode === 'encode') {
+      return utf8ToBase64(textInput, isUrlSafe);
+    } else {
+      return base64ToUtf8(textInput);
+    }
+  }, [textInput, textMode, isUrlSafe]);
+
+  // Copy helper
+  const handleCopy = (text, keyName = 'Output') => {
+    if (!text) return;
