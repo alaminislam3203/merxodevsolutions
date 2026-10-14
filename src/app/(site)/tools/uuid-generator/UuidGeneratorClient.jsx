@@ -147,3 +147,19 @@ export default function UuidGeneratorClient() {
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">UUID & NanoID Generator</span>
         </nav>
+
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-raleway uppercase tracking-widest">
+                <FiHash className="w-3.5 h-3.5" />
+                Generators & Identifiers
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <FiLock className="w-3 h-3 text-emerald-500" />
+                Crypto API CSPRNG
+              </span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
