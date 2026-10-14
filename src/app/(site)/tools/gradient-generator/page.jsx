@@ -42,3 +42,8 @@ export default function GradientGeneratorPage() {
     name: 'Online CSS Gradient Maker & Designer',
     url: 'https://merxodevsolutions.pro.bd/tools/gradient-generator',
     applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
