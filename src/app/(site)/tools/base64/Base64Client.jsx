@@ -516,3 +516,19 @@ export default function Base64Client() {
                           handleCopy(`<img src="${imageDataUri}" alt="Base64 Image" />`, 'HTML img tag')
                         }
                         className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                      >
+                        {copiedKey === 'HTML img tag' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                        Copy HTML
+                      </button>
+                    </div>
+                    <pre className="p-3 rounded-xl bg-zinc-950 text-emerald-300 font-mono text-[11px] overflow-x-auto">
+                      &lt;img src=&quot;{imageDataUri.slice(0, 60)}...&quot; alt=&quot;Base64 Image&quot; /&gt;
+                    </pre>
+                  </div>
+
+                  {/* CSS background-image */}
+                  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                        CSS background-image
+                      </span>
