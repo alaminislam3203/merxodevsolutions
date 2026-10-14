@@ -92,3 +92,18 @@ export default function Base64Client() {
   // Copy helper
   const handleCopy = (text, keyName = 'Output') => {
     if (!text) return;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedKey(keyName);
+        toast.success(`Copied ${keyName}!`);
+        setTimeout(() => setCopiedKey(null), 2000);
+      });
+    }
+  };
+
+  // Download text file
+  const handleDownloadText = () => {
+    if (!textOutput.result) return;
+    const blob = new Blob([textOutput.result], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
