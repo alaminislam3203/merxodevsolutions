@@ -184,3 +184,13 @@ const CATEGORIES = [
   'Web & SEO',
   'Utilities',
   'BD Devs',
+];
+
+const BADGE_STYLES = {
+  violet:
+    'bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800',
+  emerald:
+    'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
+  cyan:
+    'bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
+  amber:
