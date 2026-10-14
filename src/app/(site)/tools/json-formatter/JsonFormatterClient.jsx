@@ -473,3 +473,17 @@ export default function JsonFormatterClient() {
               <span className="font-bold block mb-0.5">Invalid JSON Syntax</span>
               <code className="font-mono text-[11px] bg-rose-100 dark:bg-rose-900/50 px-2 py-0.5 rounded text-rose-900 dark:text-rose-200 break-all">
                 {parseResult.error}
+              </code>
+            </div>
+          </div>
+        )}
+
+        {/* Main Side-by-Side Editor & Output Panels */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* LEFT: Input Editor */}
+          <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <FiFileText className="w-4 h-4 text-violet-500" />
+                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                  Raw JSON Input
