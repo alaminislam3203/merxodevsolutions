@@ -232,3 +232,16 @@ export default function MetaPreviewerClient() {
                     activePreview === tab.id
                       ? 'bg-cyan-500 text-white shadow-sm'
                       : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Google Search Preview */}
+            {activePreview === 'google' && (
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-4">
+                  Google Search Result Preview
+                </span>
