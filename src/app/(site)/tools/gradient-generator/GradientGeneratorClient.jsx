@@ -40,3 +40,17 @@ export default function GradientGeneratorClient() {
     const stopsStr = sorted.map((s) => `${s.color} ${s.pos}%`).join(', ');
     if (type === 'linear') {
       return `linear-gradient(${angle}deg, ${stopsStr})`;
+    }
+    return `radial-gradient(circle, ${stopsStr})`;
+  }, [type, angle, stops]);
+
+  const cssRule = `background: ${gradientString};`;
+
+  const tailwindSnippet = useMemo(() => {
+    return `bg-[${gradientString.replace(/\s+/g, '_')}]`;
+  }, [gradientString]);
+
+  const handleCopy = (text, key) => {
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedKey(key);
