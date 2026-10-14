@@ -328,3 +328,17 @@ export default function MetaPreviewerClient() {
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* Generated Code Card */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  Ready-to-Use HTML Meta Tags
+                </span>
+                <button
+                  onClick={handleCopy}
+                  className="text-xs font-bold font-raleway text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
+                >
+                  {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
