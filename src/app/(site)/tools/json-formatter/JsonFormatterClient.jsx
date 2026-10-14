@@ -161,3 +161,16 @@ export default function JsonFormatterClient() {
   const [inputJson, setInputJson] = useState(SAMPLE_JSON);
   const [indentSize, setIndentSize] = useState(2);
   const [viewMode, setViewMode] = useState('code'); // 'code' | 'tree'
+  const [copied, setCopied] = useState(false);
+  const fileInputRef = useRef(null);
+
+  // Parsing & Validation
+  const parseResult = useMemo(() => {
+    if (!inputJson.trim()) {
+      return { isValid: null, error: null, parsed: null, formatted: '', minified: '' };
+    }
+    try {
+      const parsed = JSON.parse(inputJson);
+      const space = indentSize === 'tab' ? '\t' : Number(indentSize);
+      const formatted = JSON.stringify(parsed, null, space);
+      const minified = JSON.stringify(parsed);
