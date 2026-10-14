@@ -239,3 +239,18 @@ export default function UuidGeneratorClient() {
 
           {/* Additional Options */}
           <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs font-raleway text-zinc-700 dark:text-zinc-300">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={uppercase}
+                onChange={(e) => setUppercase(e.target.checked)}
+                className="rounded accent-amber-500"
+              />
+              <span>Uppercase (A-F)</span>
+            </label>
+
+            {type === 'uuidv4' && (
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={hyphens}
