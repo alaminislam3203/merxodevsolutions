@@ -138,3 +138,17 @@ export default function JwtDecoderClient() {
         const minutes = Math.floor((diff % 3600) / 60);
         expStatus = {
           isExpired: false,
+          label: 'Active & Valid',
+          timeRemaining: `${hours}h ${minutes}m remaining`,
+          humanDate: expDate.toLocaleString(),
+          utcDate: expDate.toUTCString(),
+        };
+      } else {
+        const absDiff = Math.abs(diff);
+        const hours = Math.floor(absDiff / 3600);
+        const minutes = Math.floor((absDiff % 3600) / 60);
+        expStatus = {
+          isExpired: true,
+          label: 'Expired Token',
+          timeRemaining: `Expired ${hours}h ${minutes}m ago`,
+          humanDate: expDate.toLocaleString(),
