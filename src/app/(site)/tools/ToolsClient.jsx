@@ -479,3 +479,13 @@ export default function ToolsClient() {
             >
               Reset Filters
             </button>
+          </div>
+        )}
+
+        {/* Suggest a Tool CTA Banner */}
+        <div className="mt-16 p-8 rounded-3xl bg-black border border-violet-800/40 relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="max-w-xl">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-violet-400 font-raleway">
+              Missing Your Favorite Tool?
+            </span>
+            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
