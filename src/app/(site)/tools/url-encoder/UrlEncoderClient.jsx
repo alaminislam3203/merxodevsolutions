@@ -214,3 +214,15 @@ export default function UrlEncoderClient() {
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
                 {mode === 'encode' ? 'Raw URL / Query String Input' : 'Percent-Encoded URL Input'}
+              </span>
+              <span className="text-[11px] text-zinc-400 font-mono">{inputVal.length} chars</span>
+            </div>
+            <div className="p-4 flex-1 min-h-[380px]">
+              <textarea
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                placeholder={
+                  mode === 'encode'
+                    ? 'Paste or type full URL or parameter string here...'
+                    : 'Paste percent-encoded string here (e.g. https%3A%2F%2F...)...'
+                }
