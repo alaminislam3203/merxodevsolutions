@@ -121,6 +121,7 @@ export default function Navbar() {
     { label: t('journey'), href: '/our-journey' },
     { label: t('about'), href: '/about' },
     { label: t('team'), href: '/our-team' },
+    { label: t('tools'), href: '/tools' },
     { label: t('contact'), href: '/contact' },
     { label: t('projects'), href: '/our-projects' },
   ];
