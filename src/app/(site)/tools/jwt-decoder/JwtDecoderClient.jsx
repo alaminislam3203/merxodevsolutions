@@ -124,3 +124,17 @@ export default function JwtDecoderClient() {
       payloadObj = JSON.parse(decodedPayloadStr);
     } catch {
       return { isValid: false, error: 'JWT Payload is not valid JSON.', header: null, payload: null };
+    }
+
+    // Parse Expiration Status
+    let expStatus = null;
+    if (payloadObj && typeof payloadObj.exp === 'number') {
+      const now = Math.floor(Date.now() / 1000);
+      const diff = payloadObj.exp - now;
+      const expDate = new Date(payloadObj.exp * 1000);
+
+      if (diff > 0) {
+        const hours = Math.floor(diff / 3600);
+        const minutes = Math.floor((diff % 3600) / 60);
+        expStatus = {
+          isExpired: false,
