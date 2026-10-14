@@ -153,3 +153,13 @@ export default function HttpStatusClient() {
 
           <Link
             href="/tools"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            All Tools
+          </Link>
+        </div>
+
+        {/* Toolbar: Search & Category Pills */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+          <div className="relative flex-1 max-w-md">
