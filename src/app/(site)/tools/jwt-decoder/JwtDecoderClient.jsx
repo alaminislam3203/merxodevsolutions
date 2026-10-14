@@ -390,3 +390,17 @@ export default function JwtDecoderClient() {
                     HEADER: Algorithm & Token Type
                   </span>
                 </div>
+                <button
+                  onClick={() => handleCopy(decodedResult.headerFormatted, 'Header JSON')}
+                  disabled={!decodedResult.headerFormatted}
+                  className="text-[11px] font-semibold text-zinc-500 hover:text-rose-600 flex items-center gap-1 transition-colors"
+                >
+                  {copiedPart === 'Header JSON' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                  Copy Header
+                </button>
+              </div>
+
+              <div className="p-4 bg-zinc-950 font-mono text-xs text-rose-300">
+                <pre className="whitespace-pre overflow-x-auto">
+                  {decodedResult.headerFormatted || (
+                    <span className="text-zinc-600 font-sans italic">Decoded header will appear here...</span>
