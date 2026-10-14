@@ -14,3 +14,9 @@ export const metadata = {
     'developer tools bangladesh',
     'সিএসএস শ্যাডো জেনারেটর',
     'css shadow banano',
+  ],
+  alternates: {
+    canonical: 'https://merxodevsolutions.pro.bd/tools/css-shadow',
+  },
+  openGraph: {
+    title: 'Free CSS Box Shadow & Glassmorphism Generator — MerxoDev Solutions',
