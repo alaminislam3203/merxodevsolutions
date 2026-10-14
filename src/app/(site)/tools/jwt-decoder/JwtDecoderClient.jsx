@@ -432,3 +432,17 @@ export default function JwtDecoderClient() {
                 <pre className="whitespace-pre overflow-x-auto leading-relaxed">
                   {decodedResult.payloadFormatted || (
                     <span className="text-zinc-600 font-sans italic">Decoded payload claims will appear here...</span>
+                  )}
+                </pre>
+              </div>
+            </div>
+
+            {/* 3. Signature & Verification Banner */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm flex items-start gap-3">
+              <div className="w-8 h-8 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 shrink-0">
+                <FiShield className="w-4 h-4" />
+              </div>
+              <div className="text-xs font-raleway flex-1">
+                <span className="font-bold text-zinc-800 dark:text-zinc-200 block mb-0.5">
+                  Cryptographic Signature Verified Locally
+                </span>
