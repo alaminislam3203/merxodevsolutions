@@ -541,3 +541,17 @@ export default function JsonFormatterClient() {
                   onClick={() => handleCopy()}
                   disabled={!inputJson.trim()}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
+                  title="Copy formatted JSON"
+                >
+                  {copied ? <FiCheck className="w-3.5 h-3.5 text-emerald-400" /> : <FiCopy className="w-3.5 h-3.5" />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
+
+                <button
+                  onClick={() => handleDownload(false)}
+                  disabled={!parseResult.isValid}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
+                  title="Download formatted.json"
+                >
+                  <FiDownload className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Download</span>
