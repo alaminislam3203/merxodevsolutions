@@ -469,3 +469,19 @@ export default function Base64Client() {
                         </span>
                       </div>
                       <div className="flex justify-between">
+                        <span>MIME:</span>
+                        <span className="font-semibold text-zinc-800 dark:text-zinc-200">{imageDetails.type}</span>
+                      </div>
+                    </div>
+                  )}
+                  <a
+                    href={imageDataUri}
+                    download={imageDetails?.name || 'downloaded_image.png'}
+                    className="w-full mt-4 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider transition-all"
+                  >
+                    <FiDownload className="w-4 h-4" />
+                    Download Image
+                  </a>
+                </div>
+
+                {/* Right: Code Snippets to Copy (8 cols) */}
