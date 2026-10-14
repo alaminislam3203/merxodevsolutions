@@ -31,3 +31,9 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Free Online URL Encoder & Decoder — MerxoDev Solutions',
+    description:
+      'Safely encode and decode URLs and query components with zero server upload.',
+  },
+};
+
+export default function UrlEncoderPage() {
