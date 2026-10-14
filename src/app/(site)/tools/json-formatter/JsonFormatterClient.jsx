@@ -147,3 +147,17 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
             />
           ))}
           <div className="text-zinc-400 font-semibold px-2">
+            {closeBracket}
+            {!isLast && <span className="text-zinc-500">,</span>}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Main Client Component ───────────────────────────────────────────────────────
+export default function JsonFormatterClient() {
+  const [inputJson, setInputJson] = useState(SAMPLE_JSON);
+  const [indentSize, setIndentSize] = useState(2);
+  const [viewMode, setViewMode] = useState('code'); // 'code' | 'tree'
