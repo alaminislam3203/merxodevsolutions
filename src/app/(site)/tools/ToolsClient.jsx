@@ -459,3 +459,13 @@ export default function ToolsClient() {
           </div>
         ) : (
           /* Empty Search State */
+          <div className="text-center py-16 px-4 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400">
+              <FiSearch className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-bold text-zinc-800 dark:text-white mb-2">
+              No matching tools found
+            </h3>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto mb-6">
+              We couldn&apos;t find any tool matching &quot;{searchQuery}&quot;. Try
+              searching with another term or clear the filter.
