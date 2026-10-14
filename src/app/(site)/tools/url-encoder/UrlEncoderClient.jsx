@@ -190,3 +190,15 @@ export default function UrlEncoderClient() {
             </button>
 
             <button
+              onClick={() => setInputVal('')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-raleway transition-all"
+            >
+              <FiTrash2 className="w-3.5 h-3.5" />
+              Clear
+            </button>
+          </div>
+        </div>
+
+        {/* Error banner */}
+        {outputResult.error && (
+          <div className="flex items-center gap-2 p-3 mb-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs">
