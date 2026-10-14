@@ -208,3 +208,19 @@ export default function UuidGeneratorClient() {
                 NanoID
               </button>
             </div>
+
+            {/* Quantity Selector */}
+            <div className="flex items-center gap-2 text-xs font-raleway font-semibold">
+              <span className="text-zinc-500 dark:text-zinc-400">Generate Quantity:</span>
+              {[1, 5, 10, 25, 50].map((n) => (
+                <button
+                  key={n}
+                  onClick={() => setCount(n)}
+                  className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${
+                    count === n
+                      ? 'bg-amber-500 text-white border-transparent'
+                      : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
+                  }`}
+                >
+                  {n}
+                </button>
