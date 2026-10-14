@@ -91,3 +91,13 @@ export default function HttpStatusClient() {
         toast.success(`Copied ${c.code} ${c.phrase}!`);
         setTimeout(() => setCopiedCode(null), 1500);
       });
+    }
+  };
+
+  return (
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Background ambient lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: 'radial-gradient(circle, #f59e0b, transparent 70%)' }}
