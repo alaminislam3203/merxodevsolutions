@@ -353,3 +353,17 @@ export default function RegexTesterClient() {
                     )}
                   </div>
                 ))
+              ) : (
+                <div className="text-center py-12 text-zinc-500 font-sans italic">
+                  {regexResult.isValid
+                    ? 'No matches found for the given pattern in test text.'
+                    : 'Fix regex syntax error above to calculate matches.'}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
