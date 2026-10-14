@@ -82,3 +82,17 @@ function generateSampleTokens() {
 export default function JwtDecoderClient() {
   const samples = useMemo(() => generateSampleTokens(), []);
   const [tokenInput, setTokenInput] = useState(samples.active);
+  const [copiedPart, setCopiedPart] = useState(null);
+
+  // Decode JWT into parts
+  const decodedResult = useMemo(() => {
+    const raw = tokenInput.trim();
+    if (!raw) {
+      return { isValid: null, header: null, payload: null, signature: null, error: null };
+    }
+
+    const parts = raw.split('.');
+    if (parts.length !== 3) {
+      return {
+        isValid: false,
+        error: `A valid JWT must have 3 dot-separated parts (Header.Payload.Signature). Found ${parts.length} part(s).`,
