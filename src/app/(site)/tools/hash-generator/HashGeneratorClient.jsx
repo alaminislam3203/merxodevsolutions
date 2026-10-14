@@ -218,3 +218,21 @@ export default function HashGeneratorClient() {
       // Fallback
     }
   }, [inputText, salt, uppercase]);
+
+  useEffect(() => {
+    computeHashes();
+  }, [computeHashes]);
+
+  const handleCopy = (text, keyName) => {
+    if (!text) return;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedKey(keyName);
+        toast.success(`Copied ${keyName}!`);
+        setTimeout(() => setCopiedKey(null), 1500);
+      });
+    }
+  };
+
+  const hashItems = [
+    { key: 'sha256', name: 'SHA-256 (Recommended)', length: '256 bits (64 hex chars)', color: 'text-violet-500', value: hashes.sha256 },
