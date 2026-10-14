@@ -485,3 +485,18 @@ export default function Base64Client() {
                 </div>
 
                 {/* Right: Code Snippets to Copy (8 cols) */}
+                <div className="lg:col-span-8 flex flex-col gap-4">
+                  {/* Data URI */}
+                  <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                        Full Data URI (with mime type)
+                      </span>
+                      <button
+                        onClick={() => handleCopy(imageDataUri, 'Data URI')}
+                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                      >
+                        {copiedKey === 'Data URI' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                        Copy Data URI
+                      </button>
+                    </div>
