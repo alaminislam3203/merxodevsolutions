@@ -609,3 +609,16 @@ export default function JsonFormatterClient() {
           <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <FiZap className="w-5 h-5" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              Instant Minification
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+              Strip all unnecessary whitespaces and indentation with a single click to optimize API response sizes and bandwidth usage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
