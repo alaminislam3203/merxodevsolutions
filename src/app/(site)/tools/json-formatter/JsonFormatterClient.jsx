@@ -283,3 +283,15 @@ export default function JsonFormatterClient() {
   // File Upload
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result;
+      if (typeof text === 'string') {
+        setInputJson(text);
+        toast.success(`Loaded "${file.name}"`);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
