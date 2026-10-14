@@ -166,3 +166,17 @@ export default function JwtDecoderClient() {
     return {
       isValid: true,
       error: null,
+      rawHeader,
+      rawPayload,
+      signature,
+      header: headerObj,
+      payload: payloadObj,
+      headerFormatted: JSON.stringify(headerObj, null, 2),
+      payloadFormatted: JSON.stringify(payloadObj, null, 2),
+      expStatus,
+      iatDate,
+    };
+  }, [tokenInput]);
+
+  const handleCopy = (text, partName) => {
+    if (!text) return;
