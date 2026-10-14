@@ -52,3 +52,9 @@ export default function MetaPreviewerPage() {
     description:
       'Free visual tool to generate and preview Open Graph and Twitter Card HTML meta tags.',
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
