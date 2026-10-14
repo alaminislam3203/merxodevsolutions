@@ -54,3 +54,16 @@ export default function GradientGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(key);
+        toast.success(`Copied ${key}!`);
+        setTimeout(() => setCopiedKey(null), 1500);
+      });
+    }
+  };
+
+  const handleUpdateStop = (index, field, value) => {
+    setStops((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: value };
+      return next;
+    });
+  };
