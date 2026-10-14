@@ -125,3 +125,13 @@ const TOOLS_DATA = [
   },
   {
     id: 'regex-tester',
+    title: 'Regex Tester & Visualizer',
+    description:
+      'Test and debug regular expressions with real-time match highlighting, capture groups, and flag toggles.',
+    category: 'Utilities',
+    badge: 'Popular',
+    badgeColor: 'violet',
+    icon: FiLayers,
+    href: '/tools/regex-tester',
+    tags: ['Regex', 'Match', 'Flags'],
+    clientSide: true,
