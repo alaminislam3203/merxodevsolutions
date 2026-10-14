@@ -311,3 +311,17 @@ export default function RegexTesterClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                Extracted Matches & Capture Groups
+              </span>
+              <span className="text-[11px] font-mono text-zinc-400">
+                {regexResult.matches.length} matches
+              </span>
+            </div>
+
+            <div className="p-4 flex-1 min-h-[360px] bg-zinc-950 font-mono text-xs overflow-y-auto max-h-[460px] space-y-3">
+              {regexResult.matches.length > 0 ? (
+                regexResult.matches.map((m, index) => (
+                  <div
+                    key={index}
+                    className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800 space-y-1.5"
+                  >
