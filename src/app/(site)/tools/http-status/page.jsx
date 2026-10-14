@@ -47,3 +47,8 @@ export default function HttpStatusPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free searchable reference guide for HTTP response status codes with developer troubleshooting tips.',
+  };
