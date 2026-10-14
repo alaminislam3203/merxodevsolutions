@@ -26,3 +26,17 @@ const PRESET_GRADIENTS = [
 
 export default function GradientGeneratorClient() {
   const [type, setType] = useState('linear'); // 'linear' | 'radial'
+  const [angle, setAngle] = useState(135);
+  const [stops, setStops] = useState([
+    { color: '#7c3aed', pos: 0 },
+    { color: '#d946ef', pos: 50 },
+    { color: '#06b6d4', pos: 100 },
+  ]);
+  const [copiedKey, setCopiedKey] = useState(null);
+
+  // Computed gradient string
+  const gradientString = useMemo(() => {
+    const sorted = [...stops].sort((a, b) => a.pos - b.pos);
+    const stopsStr = sorted.map((s) => `${s.color} ${s.pos}%`).join(', ');
+    if (type === 'linear') {
+      return `linear-gradient(${angle}deg, ${stopsStr})`;
