@@ -281,3 +281,14 @@ export default function ToolsClient() {
               Zero Data Sent to Server
             </span>
           </div>
+
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
+            Developer{' '}
+            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+              Tools & Utilities
+            </span>
+          </h1>
+
+          <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-raleway">
+            A curated suite of fast, lightweight, and privacy-focused online
+            utilities engineered for developers, designers, and engineering
