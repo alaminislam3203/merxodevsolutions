@@ -47,3 +47,8 @@ export default function MetaPreviewerPage() {
     offers: {
       '@type': 'Offer',
       price: '0',
+      priceCurrency: 'USD',
+    },
+    description:
+      'Free visual tool to generate and preview Open Graph and Twitter Card HTML meta tags.',
+  };
