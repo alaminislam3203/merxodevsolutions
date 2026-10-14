@@ -9,3 +9,8 @@ export const metadata = {
     'http status reference',
     'rest api status codes',
     '404 not found fix',
+    '500 internal server error fix',
+    '401 vs 403 status code',
+    'developer tools bangladesh',
+    'এইচটিটিপি স্ট্যাটাস কোড',
+    'http status code guide',
