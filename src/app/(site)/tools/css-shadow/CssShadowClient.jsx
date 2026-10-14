@@ -155,3 +155,19 @@ export default function CssShadowClient() {
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
           <span className="text-xs font-bold font-raleway text-zinc-400 whitespace-nowrap">Presets:</span>
+          {PRESETS.map((p) => (
+            <button
+              key={p.name}
+              onClick={() => applyPreset(p)}
+              className="px-3.5 py-1.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-rose-400 dark:hover:border-rose-500 text-zinc-700 dark:text-zinc-300 text-xs font-semibold whitespace-nowrap transition-all shadow-sm"
+            >
+              {p.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Main 2-Column Visual Builder */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Controls Form (5 cols) */}
+          <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
+            <h2 className="font-display text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
