@@ -38,3 +38,17 @@ const SAMPLE_JSON = JSON.stringify(
     },
     team: [
       {
+        id: 1,
+        name: 'Al Amin',
+        role: 'Full Stack Engineer',
+        skills: ['React', 'Node.js', 'PostgreSQL', 'Cloud'],
+        verified: true,
+      },
+      {
+        id: 2,
+        name: 'Merxo Team',
+        role: 'Engineering & Design',
+        skills: ['UI/UX', 'DevOps', 'Next.js'],
+        verified: true,
+      },
+    ],
