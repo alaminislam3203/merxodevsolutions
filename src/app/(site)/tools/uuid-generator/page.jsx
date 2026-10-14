@@ -20,3 +20,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free Online UUID & NanoID Generator — MerxoDev Solutions',
+    description:
+      'Generate cryptographically secure UUIDs and NanoIDs in single or bulk batches with custom formatting.',
+    url: 'https://merxodevsolutions.pro.bd/tools/uuid-generator',
+    siteName: 'MerxoDev Solutions',
+    locale: 'en_US',
