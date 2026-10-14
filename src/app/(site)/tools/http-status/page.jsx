@@ -25,3 +25,9 @@ export const metadata = {
     url: 'https://merxodevsolutions.pro.bd/tools/http-status',
     siteName: 'MerxoDev Solutions',
     locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete HTTP Status Codes Reference — MerxoDev Solutions',
+    description:
