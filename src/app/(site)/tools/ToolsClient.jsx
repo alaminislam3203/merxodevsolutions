@@ -169,7 +169,7 @@ const TOOLS_DATA = [
     badge: 'Local Special',
     badgeColor: 'emerald',
     icon: FiMapPin,
-    href: '/tools/bangladesh-geojson',
+    href: '/bangladesh-geojson',
     tags: ['Districts', 'Postcodes', 'JSON Data'],
     clientSide: true,
   },
