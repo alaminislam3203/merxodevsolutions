@@ -247,7 +247,7 @@ export default function BangladeshGeoDemoPage() {
           </div>
 
           {/* Interactive Map Column */}
-          <div className="relative min-h-[520px] overflow-hidden rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-900/5 lg:col-span-3 lg:min-h-[640px]">
+          <div className="relative w-full h-[560px] lg:h-[720px] overflow-hidden rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-900/5 lg:col-span-3">
             <BangladeshMap
               flyTo={flyTo}
               selectedUpazilaId={upazilaId}

@@ -1,14 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Map, NavigationControl, AttributionControl, Popup, setWorkerUrl } from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useBangladeshGeoLang } from '@/context/BangladeshGeoLangContext';
-
-// Ensure worker URL is set to same-origin public file for Next.js / Turbopack
-if (typeof window !== 'undefined') {
-  setWorkerUrl('/maplibre-gl-worker.mjs');
-}
 
 const BD_CENTER = [90.3563, 23.685];
 const BD_ZOOM = 6.4;
@@ -113,7 +108,7 @@ export default function BangladeshMap({
         if (!e.features?.length) return;
         const f = e.features[0];
         if (!bazarPopupRef.current) {
-          bazarPopupRef.current = new Popup({
+          bazarPopupRef.current = new maplibregl.Popup({
             closeButton: false,
             closeOnClick: false,
             offset: 8,
@@ -209,7 +204,7 @@ export default function BangladeshMap({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const map = new Map({
+    const map = new maplibregl.Map({
       container: containerRef.current,
       style: STYLE_URL,
       center: BD_CENTER,
@@ -217,9 +212,11 @@ export default function BangladeshMap({
       attributionControl: { compact: true },
     });
 
-    map.addControl(new NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
     map.on('load', () => {
+      map.resize();
+
       fetch(GEOJSON_URL)
         .then((r) => (r.ok ? r.json() : null))
         .then((geojson) => {
@@ -279,7 +276,7 @@ export default function BangladeshMap({
 
           loadedRef.current.boundary = true;
 
-          popupRef.current = new Popup({
+          popupRef.current = new maplibregl.Popup({
             closeButton: false,
             closeOnClick: false,
             offset: 8,
@@ -341,7 +338,16 @@ export default function BangladeshMap({
 
     mapRef.current = map;
 
+    // Handle container resize
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       popupRef.current?.remove();
       bazarPopupRef.current?.remove();
       popupRef.current = null;
@@ -393,7 +399,7 @@ export default function BangladeshMap({
 
   return (
     <div className="relative h-full w-full min-h-[520px] lg:min-h-[640px]">
-      <div ref={containerRef} className="h-full w-full min-h-[520px] lg:min-h-[640px]" />
+      <div ref={containerRef} className="absolute inset-0 h-full w-full" />
       <Legend overlays={overlays} setOverlays={setOverlays} lang={lang} />
     </div>
   );
