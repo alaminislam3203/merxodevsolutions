@@ -262,15 +262,19 @@ export default function BangladeshMap({
             id: 'bd-boundary-line-active',
             type: 'line',
             source: 'bd-boundary',
-            filter: [
-              'any',
-              ['boolean', ['feature-state', 'hover'], false],
-              ['boolean', ['feature-state', 'selected'], false],
-            ],
             paint: {
               'line-color': '#047857',
-              'line-width': 1.8,
-              'line-opacity': 0.95,
+              'line-width': 2.0,
+              'line-opacity': [
+                'case',
+                [
+                  'any',
+                  ['boolean', ['feature-state', 'hover'], false],
+                  ['boolean', ['feature-state', 'selected'], false],
+                ],
+                0.95,
+                0,
+              ],
             },
           });
 
