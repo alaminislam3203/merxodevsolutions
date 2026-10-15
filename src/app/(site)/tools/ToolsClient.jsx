@@ -161,7 +161,7 @@ const TOOLS_DATA = [
     clientSide: true,
   },
   {
-    id: 'bd-lookup',
+    id: 'bangladesh-geojson',
     title: 'Bangladesh Postcode & Geo Data',
     description:
       'Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.',
@@ -169,7 +169,7 @@ const TOOLS_DATA = [
     badge: 'Local Special',
     badgeColor: 'emerald',
     icon: FiMapPin,
-    href: '/tools/bd-lookup',
+    href: '/tools/bangladesh-geojson',
     tags: ['Districts', 'Postcodes', 'JSON Data'],
     clientSide: true,
   },
