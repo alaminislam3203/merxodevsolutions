@@ -345,7 +345,9 @@ export default function BangladeshGeoOverviewPage() {
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 flex items-center justify-between">
               <div>
-                <span className="text-emerald-400 select-none"># Install via npm or pnpm</span>
+                <span className="text-emerald-400 select-none">
+                  {t('# Install via npm or pnpm', '# npm বা pnpm দিয়ে ইনস্টল করুন')}
+                </span>
                 <div className="mt-1 text-sm text-white font-semibold">npm install bangladesh-geojson</div>
               </div>
               <button
@@ -358,9 +360,23 @@ export default function BangladeshGeoOverviewPage() {
             </div>
 
             <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 overflow-x-auto space-y-2">
-              <span className="text-zinc-500">// Example: TypeScript / JavaScript usage</span>
+              <span className="text-zinc-500">
+                {t('// Example: TypeScript / JavaScript usage', '// উদাহরণ: TypeScript বা JavaScript-এ ব্যবহার')}
+              </span>
               <pre className="text-emerald-300">
-{`import bd from 'bangladesh-geojson';
+{lang === 'bn' ? `import bd from 'bangladesh-geojson';
+
+// ১. ৮টি বিভাগ পান
+const divisions = bd.getDivisions();
+
+// ২. ঢাকা বিভাগের জেলাসমূহ
+const dhakaDistricts = bd.getDistrictsByDivision('3');
+
+// ৩. বাংলা বা ইংরেজিতে সার্চ করুন
+const searchResults = bd.search('সিলেট');
+
+// ৪. কুরিয়ার চেকআউটের পোস্টকোড
+const postcodes = bd.getPostcodesByDistrict('1');` : `import bd from 'bangladesh-geojson';
 
 // 1. Get all 8 divisions
 const divisions = bd.getDivisions();

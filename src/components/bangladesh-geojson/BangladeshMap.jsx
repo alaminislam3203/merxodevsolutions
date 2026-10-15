@@ -38,11 +38,12 @@ function bazarPopupHtml(p, lang) {
   const primary = lang === 'bn' ? p.bn_name || p.name || '' : p.name || '';
   const upa = p.upazila || '';
   const dist = p.district || '';
+  const tag = lang === 'bn' ? 'বাজার' : 'Bazar';
   const safe = (s) =>
     (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return `
     <div style="font-family:'Hind Siliguri',system-ui,sans-serif;font-size:12px;line-height:1.35;padding:4px 6px;">
-      <div style="color:#d97706;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">Bazar</div>
+      <div style="color:#d97706;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${tag}</div>
       <div style="color:#0f172a;font-weight:600;letter-spacing:-0.01em;margin-top:2px;">${safe(primary)}</div>
       ${upa || dist ? `<div style="color:#64748b;font-size:11px;margin-top:1px;">${safe([upa, dist].filter(Boolean).join(' · '))}</div>` : ''}
     </div>

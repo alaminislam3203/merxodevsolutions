@@ -26,16 +26,16 @@ import {
 
 const TOOLS_DATA = [
   {
-    id: 'json-formatter',
-    title: 'JSON Formatter & Validator',
+    id: 'bangladesh-geojson',
+    title: 'Bangladesh Postcode & Geo Data',
     description:
-      'Clean, beautify, and validate complex JSON payloads with instant error detection and minification.',
-    category: 'Formatters',
-    badge: 'Popular',
-    badgeColor: 'violet',
-    icon: FiCode,
-    href: '/tools/json-formatter',
-    tags: ['Beautify', 'Minify', 'Validate'],
+      'Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.',
+    category: 'BD Devs',
+    badge: 'Local Special',
+    badgeColor: 'emerald',
+    icon: FiMapPin,
+    href: '/bangladesh-geojson',
+    tags: ['Districts', 'Postcodes', 'JSON Data'],
     clientSide: true,
   },
   {
@@ -161,16 +161,16 @@ const TOOLS_DATA = [
     clientSide: true,
   },
   {
-    id: 'bangladesh-geojson',
-    title: 'Bangladesh Postcode & Geo Data',
+    id: 'json-formatter',
+    title: 'JSON Formatter & Validator',
     description:
-      'Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.',
-    category: 'BD Devs',
-    badge: 'Local Special',
-    badgeColor: 'emerald',
-    icon: FiMapPin,
-    href: '/bangladesh-geojson',
-    tags: ['Districts', 'Postcodes', 'JSON Data'],
+      'Clean, beautify, and validate complex JSON payloads with instant error detection and minification.',
+    category: 'Formatters',
+    badge: 'Popular',
+    badgeColor: 'violet',
+    icon: FiCode,
+    href: '/tools/json-formatter',
+    tags: ['Beautify', 'Minify', 'Validate'],
     clientSide: true,
   },
 ];
