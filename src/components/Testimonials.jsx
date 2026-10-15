@@ -263,7 +263,7 @@ export default function Testimonials() {
                         ) : (
                           <div
                             aria-hidden
-                            className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-display text-base font-black shadow-md shadow-violet-500/20 shrink-0 group-hover:scale-105 transition-transform`}
+                            className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-exo-medium text-base font-black shadow-md shadow-violet-500/20 shrink-0 group-hover:scale-105 transition-transform`}
                           >
                             {(item.userName || 'C').charAt(0).toUpperCase()}
                           </div>
@@ -301,11 +301,10 @@ export default function Testimonials() {
                 type="button"
                 onClick={() => scrollTo(dotIdx)}
                 aria-label={`Go to slide ${dotIdx + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  selectedIndex === dotIdx
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${selectedIndex === dotIdx
                     ? 'w-7 bg-gradient-to-r from-violet-600 to-cyan-500 shadow-sm shadow-violet-500/25'
                     : 'w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-violet-400'
-                }`}
+                  }`}
               />
             ))}
           </div>

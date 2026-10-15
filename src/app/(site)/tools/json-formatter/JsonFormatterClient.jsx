@@ -312,7 +312,7 @@ export default function JsonFormatterClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
             Home
           </Link>
@@ -332,7 +332,7 @@ export default function JsonFormatterClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiCode className="w-3.5 h-3.5" />
                 Formatting & Validation
               </span>
@@ -342,20 +342,20 @@ export default function JsonFormatterClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               JSON{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
                 Formatter & Validator
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Beautify, inspect, validate, and minify your JSON data in real time. Zero server transmission.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -368,7 +368,7 @@ export default function JsonFormatterClient() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleFormat}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm shadow-violet-500/20 active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm shadow-violet-500/20 active:scale-95"
             >
               <FiCheck className="w-3.5 h-3.5" />
               Beautify
@@ -376,7 +376,7 @@ export default function JsonFormatterClient() {
 
             <button
               onClick={handleMinify}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all active:scale-95"
             >
               <FiMinimize2 className="w-3.5 h-3.5" />
               Minify
@@ -385,14 +385,14 @@ export default function JsonFormatterClient() {
             <button
               onClick={handleAutoFix}
               title="Automatically fix single quotes and trailing commas"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 text-xs font-bold font-raleway transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiZap className="w-3.5 h-3.5" />
               Fix Quotes/Commas
             </button>
 
             {/* Indent Selector */}
-            <div className="flex items-center gap-1.5 pl-2 border-l border-zinc-200 dark:border-zinc-800 text-xs font-raleway">
+            <div className="flex items-center gap-1.5 pl-2 border-l border-zinc-200 dark:border-zinc-800 text-xs font-exo-extralight">
               <span className="text-zinc-400 hidden sm:inline">Indent:</span>
               <select
                 value={indentSize}
@@ -410,7 +410,7 @@ export default function JsonFormatterClient() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setInputJson(SAMPLE_JSON)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
               Load Sample
@@ -418,7 +418,7 @@ export default function JsonFormatterClient() {
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiUpload className="w-3.5 h-3.5" />
               Upload .json
@@ -433,7 +433,7 @@ export default function JsonFormatterClient() {
 
             <button
               onClick={() => setInputJson('')}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-bold font-raleway transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
               Clear
@@ -485,7 +485,7 @@ export default function JsonFormatterClient() {
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-2">
                 <FiFileText className="w-4 h-4 text-violet-500" />
-                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                   Raw JSON Input
                 </span>
               </div>
@@ -512,11 +512,10 @@ export default function JsonFormatterClient() {
               <div className="flex items-center gap-1 bg-zinc-200/80 dark:bg-zinc-800 p-0.5 rounded-lg">
                 <button
                   onClick={() => setViewMode('code')}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
-                    viewMode === 'code'
-                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
-                  }`}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-exo-extralight transition-all ${viewMode === 'code'
+                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
+                    : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+                    }`}
                 >
                   <FiCode className="w-3.5 h-3.5" />
                   Code
@@ -524,11 +523,10 @@ export default function JsonFormatterClient() {
                 <button
                   onClick={() => setViewMode('tree')}
                   disabled={!parseResult.isValid}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-raleway transition-all ${
-                    viewMode === 'tree'
-                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 disabled:opacity-40'
-                  }`}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold font-exo-extralight transition-all ${viewMode === 'tree'
+                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
+                    : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 disabled:opacity-40'
+                    }`}
                 >
                   <FiLayers className="w-3.5 h-3.5" />
                   Tree View
@@ -540,7 +538,7 @@ export default function JsonFormatterClient() {
                 <button
                   onClick={() => handleCopy()}
                   disabled={!inputJson.trim()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all disabled:opacity-40"
                   title="Copy formatted JSON"
                 >
                   {copied ? <FiCheck className="w-3.5 h-3.5 text-emerald-400" /> : <FiCopy className="w-3.5 h-3.5" />}
@@ -550,7 +548,7 @@ export default function JsonFormatterClient() {
                 <button
                   onClick={() => handleDownload(false)}
                   disabled={!parseResult.isValid}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all disabled:opacity-40"
                   title="Download formatted.json"
                 >
                   <FiDownload className="w-3.5 h-3.5" />
@@ -586,10 +584,10 @@ export default function JsonFormatterClient() {
             <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
               <FiLock className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               100% Client-Side Privacy
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Your JSON data is parsed and formatted locally in your browser via native V8 JavaScript engines. No API requests, no tracking, and no external storage.
             </p>
           </div>
@@ -598,10 +596,10 @@ export default function JsonFormatterClient() {
             <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
               <FiLayers className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Interactive Tree View
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Easily navigate deep objects, arrays, and nested structures with collapsible nodes, color-coded types, and item counts.
             </p>
           </div>
@@ -610,10 +608,10 @@ export default function JsonFormatterClient() {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <FiZap className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Instant Minification
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Strip all unnecessary whitespaces and indentation with a single click to optimize API response sizes and bandwidth usage.
             </p>
           </div>

@@ -106,7 +106,7 @@ function ProjectCard({ project, index, visible }) {
         {/* Tag overlay on image */}
         <div className="absolute top-3 left-3 z-20">
           <span
-            className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-raleway backdrop-blur-sm ${a.tag}`}
+            className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight backdrop-blur-sm ${a.tag}`}
           >
             {project.tag}
           </span>
@@ -119,13 +119,13 @@ function ProjectCard({ project, index, visible }) {
           href={`/our-projects/${project.slug}`}
           className="cursor-pointer group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors"
         >
-          <h3 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
+          <h3 className="font-exo-medium text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
             {project.title}
           </h3>
         </Link>
 
         {/* Description */}
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway flex-1">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight flex-1">
           {truncateWords(project.description, 20)}
         </p>
 
@@ -135,7 +135,7 @@ function ProjectCard({ project, index, visible }) {
           <Link
             href={`/our-projects/${project.slug}`}
             aria-label={`View details for ${project.title}`}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-semibold uppercase tracking-widest font-raleway transition-all duration-300 hover:scale-105 active:scale-95 ${a.detailBtn}`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-semibold uppercase tracking-widest font-exo-extralight transition-all duration-300 hover:scale-105 active:scale-95 ${a.detailBtn}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@ function ProjectCard({ project, index, visible }) {
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`View live project: ${project.title}`}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
               View Live
               <svg
@@ -252,9 +252,9 @@ export default function FeaturedProjects({ projects = [] }) {
   // Visible indices (wrap-around)
   const visibleIndices = TOTAL > 0
     ? Array.from(
-        { length: VISIBLE_CARDS },
-        (_, i) => (activeIndex + i) % TOTAL,
-      )
+      { length: VISIBLE_CARDS },
+      (_, i) => (activeIndex + i) % TOTAL,
+    )
     : [];
 
   if (TOTAL === 0) return null;
@@ -308,7 +308,7 @@ export default function FeaturedProjects({ projects = [] }) {
               }`}
           >
             <div className="flex flex-col gap-3">
-              <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"
                   aria-hidden
@@ -317,14 +317,14 @@ export default function FeaturedProjects({ projects = [] }) {
               </span>
               <h2
                 id="projects-heading"
-                className="font-display text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight"
+                className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight"
               >
                 Our{' '}
                 <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
                   Projects
                 </span>
               </h2>
-              <p className="max-w-md text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-raleway">
+              <p className="max-w-md text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
                 Hand-picked work that showcases what we build — from SaaS to
                 storefronts, all crafted with precision.
               </p>
@@ -333,7 +333,7 @@ export default function FeaturedProjects({ projects = [] }) {
             <Link
               href="/our-projects"
               aria-label="View all MerxoDev Solutions projects"
-              className="hidden sm:inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-violet-400 dark:hover:border-violet-600 transition-all duration-300 font-raleway uppercase tracking-widest group shrink-0"
+              className="hidden sm:inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-violet-400 dark:hover:border-violet-600 transition-all duration-300 font-exo-extralight uppercase tracking-widest group shrink-0"
             >
               All Projects
               <svg
@@ -445,8 +445,8 @@ export default function FeaturedProjects({ projects = [] }) {
                     setIsPaused(true);
                   }}
                   className={`rounded-full transition-all duration-300 ${isActive
-                      ? `w-6 h-2 ${a.indicator}`
-                      : 'w-2 h-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500'
+                    ? `w-6 h-2 ${a.indicator}`
+                    : 'w-2 h-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500'
                     }`}
                 />
               );
@@ -476,7 +476,7 @@ export default function FeaturedProjects({ projects = [] }) {
             <Link
               href="/our-projects"
               aria-label="View all MerxoDev Solutions projects"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all font-raleway uppercase tracking-widest group"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all font-exo-extralight uppercase tracking-widest group"
             >
               All Projects
               <svg

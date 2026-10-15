@@ -253,7 +253,7 @@ export default function WebAppContent() {
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-raleway mb-6"
+            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
               Home
@@ -269,40 +269,40 @@ export default function WebAppContent() {
           </nav>
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950/90 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 uppercase tracking-widest font-raleway mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950/90 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-violet-400 animate-ping" />
             Full-Stack SaaS & Enterprise Applications
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             Custom Web Application{' '}
             <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent animated-gradient-text">
               Development
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-raleway">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
             From high-growth SaaS MVPs to enterprise management portals, we build secure, scalable full-stack applications tailored to your business logic.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/contact?service=Web%20Application%20Development"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white text-sm font-black uppercase tracking-wider font-raleway hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300"
             >
               <span>Build Your Web App</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-raleway text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600 transition-all duration-300"
             >
               Explore Live Apps
             </Link>
           </div>
 
           {/* Trust Highlights Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-raleway">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
               <span>Full Source Code Ownership</span>
@@ -331,10 +331,10 @@ export default function WebAppContent() {
               key={i}
               className="text-center p-6 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-violet-950/5 card-hover-lift"
             >
-              <p className="text-3xl sm:text-4xl font-display uppercase tracking-wide bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent mb-1">
+              <p className="text-3xl sm:text-4xl font-exo-medium uppercase tracking-wide bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway font-semibold">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight font-semibold">
                 {stat.label}
               </p>
             </div>
@@ -346,12 +346,12 @@ export default function WebAppContent() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="features-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
               ✦ Engineered for Modern Scale
             </span>
             <h2
               id="features-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Enterprise-Grade{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent">
@@ -376,16 +376,16 @@ export default function WebAppContent() {
                       {meta.icon}
                     </div>
 
-                    <h3 className="font-display text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                       {feature.title}
                     </h3>
 
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway">
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                       {feature.desc}
                     </p>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 font-raleway group-hover:translate-x-1 transition-transform">
+                  <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
                     <span>Cloud Ready</span>
                     <FiCheckCircle size={14} className="text-emerald-500" />
                   </div>
@@ -400,10 +400,10 @@ export default function WebAppContent() {
       <section className="px-4 sm:px-6 pb-24" aria-label="Technology stack">
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-cyan-50/50 via-white to-violet-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
               ✦ Robust & Resilient Infrastructure
             </span>
-            <h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wide">
+            <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
               Full-Stack Application Stack
             </h3>
           </div>
@@ -415,7 +415,7 @@ export default function WebAppContent() {
                 className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm hover:border-cyan-500 hover:shadow-md hover:scale-105 transition-all duration-200 cursor-default"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-cyan-500 to-violet-600" />
-                <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   {tech.label}
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
@@ -431,12 +431,12 @@ export default function WebAppContent() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="pricing-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
               ✦ Transparent App Packages
             </span>
             <h2
               id="pricing-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Choose Your{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent">
@@ -461,23 +461,23 @@ export default function WebAppContent() {
                 )}
 
                 <div>
-                  <h3 className="font-display text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
+                  <h3 className="font-exo-medium text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mb-6 min-h-[36px]">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6 min-h-[36px]">
                     {plan.desc}
                   </p>
 
                   <div className="flex items-baseline gap-1 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
-                    <span className="font-display text-4xl sm:text-5xl uppercase tracking-tight text-cyan-600 dark:text-cyan-400">
+                    <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-cyan-600 dark:text-cyan-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-raleway">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-raleway">
+                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                         <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
                         <span>{feat}</span>
                       </li>
@@ -487,7 +487,7 @@ export default function WebAppContent() {
 
                 <Link
                   href={`/contact?service=Web%20Application%20Development&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
                     ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white hover:opacity-95 shadow-lg shadow-cyan-500/25'
                     : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600'
                     }`}
@@ -504,12 +504,12 @@ export default function WebAppContent() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="faq-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
               ✦ Have Questions?
             </span>
             <h2
               id="faq-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
               Web App Development FAQ
             </h2>
@@ -528,7 +528,7 @@ export default function WebAppContent() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer gap-4"
                   >
-                    <span className="font-display text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
+                    <span className="font-exo-medium text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
                       {faq.q}
                     </span>
                     <FiChevronDown
@@ -538,7 +538,7 @@ export default function WebAppContent() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
+                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
                       <p className="pt-4">{faq.a}</p>
                     </div>
                   )}
@@ -553,18 +553,18 @@ export default function WebAppContent() {
       <section className="px-4 sm:px-6 pb-24">
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#031526] via-[#0b1736] to-[#1d0b38] border border-cyan-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-raleway mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
               ✦ Ready to Turn Your Vision into Reality?
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+            <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
               Let's Engineer Your SaaS or Web Application
             </h2>
-            <p className="text-sm sm:text-base text-zinc-300 font-raleway leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
               Discuss architecture, technical stack, timeline, and deliverables directly with our lead full-stack engineers.
             </p>
             <Link
               href="/contact?service=Web%20Application%20Development"
-              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-black text-sm uppercase tracking-wider font-raleway hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
             >
               <span>Request Technical Blueprint</span>
               <FiArrowRight size={18} />

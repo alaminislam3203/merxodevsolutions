@@ -97,7 +97,7 @@ function ProjectCard({ project, index, visible }) {
           </div>
         )}
         <div className="absolute top-3 left-3 z-20">
-          <span className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-raleway backdrop-blur-sm ${a.tag}`}>
+          <span className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight backdrop-blur-sm ${a.tag}`}>
             {project.tag}
           </span>
         </div>
@@ -108,11 +108,11 @@ function ProjectCard({ project, index, visible }) {
           href={`/our-projects/${project.slug}`}
           className="cursor-pointer group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors"
         >
-          <h2 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
+          <h2 className="font-exo-medium text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-snug">
             {project.title}
           </h2>
         </Link>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway flex-1">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight flex-1">
           {truncateWords(project.description, 20)}
         </p>
 
@@ -120,7 +120,7 @@ function ProjectCard({ project, index, visible }) {
         {tech.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {tech.map(t => (
-              <span key={t} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-raleway">
+              <span key={t} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                 {t}
               </span>
             ))}
@@ -132,7 +132,7 @@ function ProjectCard({ project, index, visible }) {
           <Link
             href={`/our-projects/${project.slug}`}
             aria-label={`View details for ${project.title}`}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-semibold uppercase tracking-widest font-raleway transition-all duration-300 hover:scale-105 active:scale-95 ${a.detailBtn}`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-semibold uppercase tracking-widest font-exo-extralight transition-all duration-300 hover:scale-105 active:scale-95 ${a.detailBtn}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -146,7 +146,7 @@ function ProjectCard({ project, index, visible }) {
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`View live project: ${project.title}`}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
               View Live
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -199,7 +199,7 @@ export default function ProjectsGrid({ projects }) {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className={`pt-8 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+        <nav aria-label="Breadcrumb" className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Home</Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polyline points="9 18 15 12 9 6" /></svg>
           <span className="text-zinc-600 dark:text-zinc-400 font-semibold">Our Projects</span>
@@ -207,15 +207,15 @@ export default function ProjectsGrid({ projects }) {
 
         {/* Hero Header */}
         <div className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+          <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" aria-hidden />
             Portfolio
           </span>
-          <h1 className="font-display text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
+          <h1 className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
             Our{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">Projects</span>
           </h1>
-          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-raleway">
+          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
             Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.
           </p>
           <div className="flex flex-wrap gap-6 mt-2">
@@ -225,8 +225,8 @@ export default function ProjectsGrid({ projects }) {
               { value: '5★', label: 'Average Rating' },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
-                <span className="font-display text-2xl font-extrabold text-[#27003B] dark:text-white">{value}</span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-raleway uppercase tracking-widest">{label}</span>
+                <span className="font-exo-medium text-2xl font-extrabold text-[#27003B] dark:text-white">{value}</span>
+                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-exo-extralight uppercase tracking-widest">{label}</span>
               </div>
             ))}
           </div>
@@ -240,7 +240,7 @@ export default function ProjectsGrid({ projects }) {
               role="tab"
               aria-selected={activeFilter === tag}
               onClick={() => handleFilter(tag)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-raleway transition-all duration-200 border ${activeFilter === tag
+              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-exo-extralight transition-all duration-200 border ${activeFilter === tag
                 ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
                 : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
                 }`}
@@ -267,17 +267,17 @@ export default function ProjectsGrid({ projects }) {
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
-            <p className="text-zinc-500 dark:text-zinc-400 font-raleway text-sm">No projects found in this category.</p>
+            <p className="text-zinc-500 dark:text-zinc-400 font-exo-extralight text-sm">No projects found in this category.</p>
           </div>
         )}
 
         {/* Bottom CTA */}
         <div className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-col gap-2 text-center sm:text-left">
-            <h2 className="font-display text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">Have a Project in Mind?</h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-raleway max-w-sm">We turn ideas into polished digital products. Let's talk about what we can build together.</p>
+            <h2 className="font-exo-medium text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">Have a Project in Mind?</h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm">We turn ideas into polished digital products. Let's talk about what we can build together.</p>
           </div>
-          <Link href="/contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-raleway bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0">
+          <Link href="/contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0">
             Start a Project
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />

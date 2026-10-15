@@ -1,3 +1,4 @@
+import localFont from 'next/font/local';
 import { Anton, DM_Sans, Raleway, Hind_Siliguri } from 'next/font/google';
 import './globals.css';
 import SessionProviderWrapper from '@/components/SessionProviderWrapper';
@@ -6,6 +7,23 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VisitorTracker from '@/components/VisitorTracker';
 import { GlobalToaster } from '@/lib/toast';
+
+const exo2 = localFont({
+  src: [
+    {
+      path: './fonts/exo_2/Exo2-ExtraLight.otf',
+      weight: '200',
+      style: 'normal',
+    },
+    {
+      path: './fonts/exo_2/Exo2-Medium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-exo2',
+  display: 'swap',
+});
 
 const anton = Anton({
   weight: ['400'],
@@ -139,7 +157,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${dmSans.variable} ${raleway.variable} h-full antialiased`}
+      className={`${exo2.variable} ${anton.variable} ${dmSans.variable} ${raleway.variable} ${hindSiliguri.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

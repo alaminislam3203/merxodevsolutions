@@ -9,7 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-dm)', 'sans-serif'],
+        sans: ['var(--font-exo2)', 'var(--font-dm)', 'sans-serif'],
+        exo: ['var(--font-exo2)', 'sans-serif'],
+        exo2: ['var(--font-exo2)', 'sans-serif'],
         display: ['var(--font-anton)', 'sans-serif'],
         raleway: ['var(--font-raleway)', 'sans-serif'],
       },

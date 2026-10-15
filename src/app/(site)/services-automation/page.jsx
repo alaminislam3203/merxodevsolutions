@@ -191,7 +191,7 @@ export default function ServicesAutomationPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-raleway mb-6"
+            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-orange-500 transition-colors">
               Home
@@ -206,39 +206,39 @@ export default function ServicesAutomationPage() {
             </span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-orange-100 dark:bg-orange-950/90 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 uppercase tracking-widest font-raleway mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-orange-100 dark:bg-orange-950/90 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
             Zero Manual Work, 100% Efficiency
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             Business{' '}
             <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent animated-gradient-text">
               Automation
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-raleway">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
             Automate repetitive tasks, notifications, courier bookings, reports, and AI workflows so your team can focus purely on business growth and revenue.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/contact?service=Business%20Automation"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white text-sm font-black uppercase tracking-wider font-raleway hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 transition-all duration-300"
             >
               <span>Automate Your Business</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-raleway text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600 transition-all duration-300"
             >
               Automation Demos
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-raleway">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaRobot className="text-orange-500" />
               <span>AI Process Agents</span>
@@ -267,10 +267,10 @@ export default function ServicesAutomationPage() {
               key={i}
               className="text-center p-6 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-orange-950/5 card-hover-lift"
             >
-              <p className="text-3xl sm:text-4xl font-display uppercase tracking-wide bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent mb-1">
+              <p className="text-3xl sm:text-4xl font-exo-medium uppercase tracking-wide bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway font-semibold">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight font-semibold">
                 {stat.label}
               </p>
             </div>
@@ -282,12 +282,12 @@ export default function ServicesAutomationPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="features-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-3">
               ✦ Engineered for Autonomous Operations
             </span>
             <h2
               id="features-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Business Automation{' '}
               <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
@@ -309,16 +309,16 @@ export default function ServicesAutomationPage() {
                     {feature.icon}
                   </div>
 
-                  <h3 className="font-display text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                  <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                     {feature.title}
                   </h3>
 
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                     {feature.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-orange-600 dark:text-orange-400 font-raleway group-hover:translate-x-1 transition-transform">
+                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-orange-600 dark:text-orange-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
                   <span>Autonomous Execution</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
@@ -332,10 +332,10 @@ export default function ServicesAutomationPage() {
       <section className="px-4 sm:px-6 pb-24" aria-label="Automation stack">
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-orange-50/50 via-white to-purple-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-2 block">
               ✦ Enterprise Automation Engines
             </span>
-            <h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wide">
+            <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
               Automation Toolchain & Protocols
             </h3>
           </div>
@@ -347,7 +347,7 @@ export default function ServicesAutomationPage() {
                 className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm hover:border-orange-500 hover:shadow-md hover:scale-105 transition-all duration-200 cursor-default"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-orange-500 to-purple-600" />
-                <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   {tech.label}
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
@@ -363,12 +363,12 @@ export default function ServicesAutomationPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="pricing-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-3">
               ✦ Transparent Automation Setup
             </span>
             <h2
               id="pricing-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Choose Your{' '}
               <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
@@ -381,11 +381,10 @@ export default function ServicesAutomationPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
-                    ? 'border-2 border-orange-500 bg-gradient-to-b from-orange-50/80 via-white to-white dark:from-orange-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-orange-500/20 scale-105 z-10'
-                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
+                  ? 'border-2 border-orange-500 bg-gradient-to-b from-orange-50/80 via-white to-white dark:from-orange-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-orange-500/20 scale-105 z-10'
+                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -394,23 +393,23 @@ export default function ServicesAutomationPage() {
                 )}
 
                 <div>
-                  <h3 className="font-display text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
+                  <h3 className="font-exo-medium text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mb-6 min-h-[36px]">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6 min-h-[36px]">
                     {plan.desc}
                   </p>
 
                   <div className="flex items-baseline gap-1 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
-                    <span className="font-display text-4xl sm:text-5xl uppercase tracking-tight text-orange-600 dark:text-orange-400">
+                    <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-orange-600 dark:text-orange-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-raleway">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-raleway">
+                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                         <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
                         <span>{feat}</span>
                       </li>
@@ -420,11 +419,10 @@ export default function ServicesAutomationPage() {
 
                 <Link
                   href={`/contact?service=Business%20Automation&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white hover:opacity-95 shadow-lg shadow-orange-500/25'
-                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600'
-                  }`}
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
+                    ? 'bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white hover:opacity-95 shadow-lg shadow-orange-500/25'
+                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600'
+                    }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -438,12 +436,12 @@ export default function ServicesAutomationPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="faq-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-2 block">
               ✦ Automation FAQs
             </span>
             <h2
               id="faq-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
               Frequently Asked Questions
             </h2>
@@ -462,18 +460,17 @@ export default function ServicesAutomationPage() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer gap-4"
                   >
-                    <span className="font-display text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
+                    <span className="font-exo-medium text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
                       {faq.q}
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
+                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
                       <p className="pt-4">{faq.a}</p>
                     </div>
                   )}
@@ -488,18 +485,18 @@ export default function ServicesAutomationPage() {
       <section className="px-4 sm:px-6 pb-24">
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#291301] via-[#240317] to-[#12052b] border border-orange-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-raleway mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
               ✦ Put Your Business on Autopilot
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+            <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
               Stop Wasting Hours on Manual Tasks
             </h2>
-            <p className="text-sm sm:text-base text-zinc-300 font-raleway leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
               Let us engineer custom business automation pipelines that save you hundreds of hours every month.
             </p>
             <Link
               href="/contact?service=Business%20Automation"
-              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white font-black text-sm uppercase tracking-wider font-raleway hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300"
             >
               <span>Build Automation Pipeline</span>
               <FiArrowRight size={18} />

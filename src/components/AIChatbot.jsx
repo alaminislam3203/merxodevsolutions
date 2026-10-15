@@ -251,7 +251,7 @@ export default function AIChatbot() {
       {/* ─── Main Chat Window: Full-Screen on Mobile, Floating Box on Desktop ─── */}
       {isOpen && (
         <div
-          className="fixed inset-0 sm:inset-auto sm:bottom-5 sm:right-5 z-[999] sm:z-50 w-full sm:w-[410px] h-full sm:h-[580px] sm:max-h-[82vh] rounded-none sm:rounded-3xl bg-white dark:bg-[#060b19] sm:bg-white/95 sm:dark:bg-[#060b19]/95 backdrop-blur-2xl border-0 sm:border border-violet-200/80 dark:border-blue-900/50 shadow-2xl shadow-blue-950/30 flex flex-col overflow-hidden font-raleway transition-all duration-300 transform sm:origin-bottom-right animate-in fade-in zoom-in-95"
+          className="fixed inset-0 sm:inset-auto sm:bottom-5 sm:right-5 z-[999] sm:z-50 w-full sm:w-[410px] h-full sm:h-[580px] sm:max-h-[82vh] rounded-none sm:rounded-3xl bg-white dark:bg-[#060b19] sm:bg-white/95 sm:dark:bg-[#060b19]/95 backdrop-blur-2xl border-0 sm:border border-violet-200/80 dark:border-blue-900/50 shadow-2xl shadow-blue-950/30 flex flex-col overflow-hidden font-exo-extralight transition-all duration-300 transform sm:origin-bottom-right animate-in fade-in zoom-in-95"
         >
           {/* Header */}
           <div className="px-4 sm:px-5 py-3.5 bg-gradient-to-r from-violet-700 via-indigo-800 to-cyan-700 dark:from-[#091124] dark:via-[#0c1630] dark:to-[#091124] text-white flex items-center justify-between border-b border-white/10 dark:border-blue-900/40 shrink-0 shadow-md">
@@ -428,7 +428,7 @@ export default function AIChatbot() {
       )}
 
       {/* ─── Floating Launcher Trigger ─── */}
-      <div className="fixed bottom-20 md:bottom-5 right-3.5 sm:right-5 z-50 flex flex-col items-end pointer-events-none select-none font-raleway">
+      <div className="fixed bottom-20 md:bottom-5 right-3.5 sm:right-5 z-50 flex flex-col items-end pointer-events-none select-none font-exo-extralight">
         {/* Floating Launcher Trigger Button */}
         <button
           onClick={handleToggle}

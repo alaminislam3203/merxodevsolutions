@@ -180,7 +180,7 @@ export default function Base64Client() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
             Home
           </Link>
@@ -200,7 +200,7 @@ export default function Base64Client() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight uppercase tracking-widest">
                 <FiFileText className="w-3.5 h-3.5" />
                 Formatters & Converters
               </span>
@@ -210,20 +210,20 @@ export default function Base64Client() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               Base64{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-violet-600 bg-clip-text text-transparent">
                 Encoder & Decoder
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Encode and decode plain text, UTF-8 strings, and image assets to Base64 and Data URIs with zero server upload.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -234,11 +234,10 @@ export default function Base64Client() {
         <div className="flex items-center gap-2 mb-6">
           <button
             onClick={() => setActiveTab('text')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
-              activeTab === 'text'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
-                : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-cyan-600'
-            }`}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all ${activeTab === 'text'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
+              : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-cyan-600'
+              }`}
           >
             <FiFileText className="w-4 h-4" />
             Text Converter (UTF-8)
@@ -246,11 +245,10 @@ export default function Base64Client() {
 
           <button
             onClick={() => setActiveTab('image')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
-              activeTab === 'image'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
-                : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-cyan-600'
-            }`}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all ${activeTab === 'image'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25'
+              : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-cyan-600'
+              }`}
           >
             <FiImage className="w-4 h-4" />
             Image to Base64 & Data URI
@@ -267,21 +265,19 @@ export default function Base64Client() {
                 <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
                   <button
                     onClick={() => setTextMode('encode')}
-                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                      textMode === 'encode'
-                        ? 'bg-cyan-500 text-white shadow-sm'
-                        : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${textMode === 'encode'
+                      ? 'bg-cyan-500 text-white shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                      }`}
                   >
                     Text → Base64
                   </button>
                   <button
                     onClick={() => setTextMode('decode')}
-                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                      textMode === 'decode'
-                        ? 'bg-cyan-500 text-white shadow-sm'
-                        : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${textMode === 'decode'
+                      ? 'bg-cyan-500 text-white shadow-sm'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                      }`}
                   >
                     Base64 → Text
                   </button>
@@ -289,7 +285,7 @@ export default function Base64Client() {
 
                 {/* URL Safe Toggle (applicable in encode mode) */}
                 {textMode === 'encode' && (
-                  <label className="flex items-center gap-2 text-xs font-raleway cursor-pointer ml-2 text-zinc-600 dark:text-zinc-300">
+                  <label className="flex items-center gap-2 text-xs font-exo-extralight cursor-pointer ml-2 text-zinc-600 dark:text-zinc-300">
                     <input
                       type="checkbox"
                       checked={isUrlSafe}
@@ -304,7 +300,7 @@ export default function Base64Client() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setTextInput(SAMPLE_TEXT)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
                 >
                   <FiRefreshCw className="w-3.5 h-3.5" />
                   Load Sample
@@ -312,7 +308,7 @@ export default function Base64Client() {
 
                 <button
                   onClick={() => setTextInput('')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-raleway transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-exo-extralight transition-all"
                 >
                   <FiTrash2 className="w-3.5 h-3.5" />
                   Clear
@@ -333,7 +329,7 @@ export default function Base64Client() {
               {/* Input */}
               <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
                 <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                     {textMode === 'encode' ? 'Plain Text Input (UTF-8)' : 'Base64 Encoded Input'}
                   </span>
                   <span className="text-[11px] text-zinc-400 font-mono">{textInput.length} chars</span>
@@ -355,7 +351,7 @@ export default function Base64Client() {
               {/* Output */}
               <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
                 <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                     {textMode === 'encode' ? 'Base64 Output' : 'Decoded Plain Text'}
                   </span>
                   <div className="flex items-center gap-1.5">
@@ -403,15 +399,15 @@ export default function Base64Client() {
               <div className="w-16 h-16 rounded-2xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-3 shadow-sm">
                 <FiUpload className="w-8 h-8" />
               </div>
-              <h3 className="font-display text-xl font-bold text-zinc-800 dark:text-white mb-1">
+              <h3 className="font-exo-medium text-xl font-bold text-zinc-800 dark:text-white mb-1">
                 Drag & Drop Image Here or Click to Browse
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway max-w-sm mb-4">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm mb-4">
                 Supports PNG, JPEG, SVG, WebP, GIF. Encodes directly into Data URIs and Base64 strings.
               </p>
               <button
                 type="button"
-                className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all"
+                className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all"
               >
                 Choose Image File
               </button>
@@ -435,7 +431,7 @@ export default function Base64Client() {
               />
               <button
                 onClick={handlePreviewCustomB64}
-                className="px-4 py-2.5 rounded-xl bg-zinc-100 hover:bg-cyan-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-cyan-600 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-raleway transition-all shrink-0"
+                className="px-4 py-2.5 rounded-xl bg-zinc-100 hover:bg-cyan-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-cyan-600 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shrink-0"
               >
                 Preview Image
               </button>
@@ -455,7 +451,7 @@ export default function Base64Client() {
                     />
                   </div>
                   {imageDetails && (
-                    <div className="w-full text-xs font-raleway text-zinc-600 dark:text-zinc-400 space-y-1">
+                    <div className="w-full text-xs font-exo-extralight text-zinc-600 dark:text-zinc-400 space-y-1">
                       <div className="flex justify-between">
                         <span>File:</span>
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate max-w-[180px]">
@@ -489,12 +485,12 @@ export default function Base64Client() {
                   {/* Data URI */}
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                      <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                         Full Data URI (with mime type)
                       </span>
                       <button
                         onClick={() => handleCopy(imageDataUri, 'Data URI')}
-                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'Data URI' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                         Copy Data URI
@@ -508,14 +504,14 @@ export default function Base64Client() {
                   {/* HTML img tag */}
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                      <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                         HTML &lt;img&gt; Tag
                       </span>
                       <button
                         onClick={() =>
                           handleCopy(`<img src="${imageDataUri}" alt="Base64 Image" />`, 'HTML img tag')
                         }
-                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'HTML img tag' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                         Copy HTML
@@ -529,14 +525,14 @@ export default function Base64Client() {
                   {/* CSS background-image */}
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                      <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                         CSS background-image
                       </span>
                       <button
                         onClick={() =>
                           handleCopy(`background-image: url('${imageDataUri}');`, 'CSS background-image')
                         }
-                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-raleway"
+                        className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'CSS background-image' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                         Copy CSS
@@ -558,10 +554,10 @@ export default function Base64Client() {
             <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
               <FiLock className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               100% Local Conversion
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Your text, passwords, and images are processed using native Web API <code className="font-mono text-cyan-600">FileReader</code> and <code className="font-mono text-cyan-600">TextEncoder</code> with zero uploads.
             </p>
           </div>
@@ -570,10 +566,10 @@ export default function Base64Client() {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <FiCheckCircle className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Full UTF-8 Unicode
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Unlike default JavaScript <code className="font-mono text-emerald-600">btoa()</code>, our encoder natively supports non-ASCII characters including Bengali, Arabic, and emojis.
             </p>
           </div>
@@ -582,10 +578,10 @@ export default function Base64Client() {
             <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
               <FiCode className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Ready-to-Use Snippets
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Instantly export HTML img tags, CSS background-image rules, or raw Data URIs for inline frontend icons, emails, and SVG embeds.
             </p>
           </div>

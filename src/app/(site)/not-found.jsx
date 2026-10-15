@@ -69,7 +69,7 @@ export default function NotFound() {
         >
           {/* Big 404 */}
           <div className="flex items-center gap-2 sm:gap-4">
-            <span className="font-display text-[100px] sm:text-[150px] md:text-[180px] font-extrabold leading-none text-zinc-100 dark:text-zinc-800 select-none">
+            <span className="font-exo-medium text-[100px] sm:text-[150px] md:text-[180px] font-extrabold leading-none text-zinc-100 dark:text-zinc-800 select-none">
               4
             </span>
 
@@ -155,7 +155,7 @@ export default function NotFound() {
               </div>
             </div>
 
-            <span className="font-display text-[100px] sm:text-[150px] md:text-[180px] font-extrabold leading-none text-zinc-100 dark:text-zinc-800 select-none">
+            <span className="font-exo-medium text-[100px] sm:text-[150px] md:text-[180px] font-extrabold leading-none text-zinc-100 dark:text-zinc-800 select-none">
               4
             </span>
           </div>
@@ -165,12 +165,12 @@ export default function NotFound() {
         <div className="flex flex-col items-center gap-3 -mt-4">
           <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950 border border-amber-200 dark:border-amber-800">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest font-raleway">
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest font-exo-extralight">
               Page Not Found
             </span>
           </div>
 
-          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-widest">
+          <h1 className="font-exo-medium text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-widest">
             Oops! Lost in{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               Space
@@ -187,7 +187,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
           <Link
             href="/"
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-raleway"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-exo-extralight"
           >
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +207,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/contact"
-            className="flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors font-raleway"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors font-exo-extralight"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@ export default function NotFound() {
         </div>
 
         {/* Bottom hint */}
-        <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-raleway">
+        <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-exo-extralight">
           Need help?{' '}
           <Link href="/contact" className="text-violet-500 hover:underline">
             Reach out to us

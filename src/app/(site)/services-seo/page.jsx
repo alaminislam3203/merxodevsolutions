@@ -201,7 +201,7 @@ export default function ServicesSeoPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-raleway mb-6"
+            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-emerald-500 transition-colors">
               Home
@@ -216,40 +216,40 @@ export default function ServicesSeoPage() {
             </span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 uppercase tracking-widest font-raleway mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             Rank #1 on Google & Drive Organic Revenue
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             Search Engine{' '}
             <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
               Optimization
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-raleway">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
             Dominate Google search results with our data-backed technical SEO, Core Web Vitals speed tuning, high-authority backlink outreach, and schema rich snippets.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/contact?service=SEO%20Optimization"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-raleway hover:shadow-xl hover:shadow-emerald-500/25 hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-emerald-500/25 hover:scale-105 transition-all duration-300"
             >
               <span>Get Free SEO Audit</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-raleway text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300"
             >
               View Ranking Case Studies
             </Link>
           </div>
 
           {/* Trust Highlights Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-raleway">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaGoogle className="text-emerald-500" />
               <span>Google 95+ PageSpeed</span>
@@ -278,10 +278,10 @@ export default function ServicesSeoPage() {
               key={i}
               className="text-center p-6 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-emerald-950/5 card-hover-lift"
             >
-              <p className="text-3xl sm:text-4xl font-display uppercase tracking-wide bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent mb-1">
+              <p className="text-3xl sm:text-4xl font-exo-medium uppercase tracking-wide bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway font-semibold">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight font-semibold">
                 {stat.label}
               </p>
             </div>
@@ -293,12 +293,12 @@ export default function ServicesSeoPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="features-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-3">
               ✦ Engineered for Search Dominance
             </span>
             <h2
               id="features-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Comprehensive Search Engine{' '}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
@@ -320,16 +320,16 @@ export default function ServicesSeoPage() {
                     {feature.icon}
                   </div>
 
-                  <h3 className="font-display text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                     {feature.title}
                   </h3>
 
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                     {feature.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 font-raleway group-hover:translate-x-1 transition-transform">
+                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
                   <span>Google Certified Process</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
@@ -343,10 +343,10 @@ export default function ServicesSeoPage() {
       <section className="px-4 sm:px-6 pb-24" aria-label="SEO tools">
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-emerald-50/50 via-white to-cyan-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-2 block">
               ✦ Enterprise Auditing Stack
             </span>
-            <h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wide">
+            <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
               Data & SEO Toolchain
             </h3>
           </div>
@@ -358,7 +358,7 @@ export default function ServicesSeoPage() {
                 className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm hover:border-emerald-500 hover:shadow-md hover:scale-105 transition-all duration-200 cursor-default"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500" />
-                <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   {tech.label}
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
@@ -374,12 +374,12 @@ export default function ServicesSeoPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="pricing-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-3">
               ✦ Transparent Search Growth
             </span>
             <h2
               id="pricing-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Choose Your{' '}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
@@ -404,23 +404,23 @@ export default function ServicesSeoPage() {
                 )}
 
                 <div>
-                  <h3 className="font-display text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
+                  <h3 className="font-exo-medium text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mb-6 min-h-[36px]">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6 min-h-[36px]">
                     {plan.desc}
                   </p>
 
                   <div className="flex items-baseline gap-1 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
-                    <span className="font-display text-4xl sm:text-5xl uppercase tracking-tight text-emerald-600 dark:text-emerald-400">
+                    <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-emerald-600 dark:text-emerald-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-raleway">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-raleway">
+                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                         <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
                         <span>{feat}</span>
                       </li>
@@ -430,7 +430,7 @@ export default function ServicesSeoPage() {
 
                 <Link
                   href={`/contact?service=SEO%20Optimization&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
                     ? 'bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white hover:opacity-95 shadow-lg shadow-emerald-500/25'
                     : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600'
                     }`}
@@ -447,12 +447,12 @@ export default function ServicesSeoPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="faq-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-2 block">
               ✦ Organic Ranking FAQs
             </span>
             <h2
               id="faq-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
               Frequently Asked Questions
             </h2>
@@ -471,7 +471,7 @@ export default function ServicesSeoPage() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer gap-4"
                   >
-                    <span className="font-display text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
+                    <span className="font-exo-medium text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
                       {faq.q}
                     </span>
                     <FiChevronDown
@@ -481,7 +481,7 @@ export default function ServicesSeoPage() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
+                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
                       <p className="pt-4">{faq.a}</p>
                     </div>
                   )}
@@ -496,18 +496,18 @@ export default function ServicesSeoPage() {
       <section className="px-4 sm:px-6 pb-24">
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#012419] via-[#021f24] to-[#0a182e] border border-emerald-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-raleway mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
               ✦ Ready to Rank on Page 1 of Google?
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+            <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
               Let's Unlock Your Maximum Organic Growth
             </h2>
-            <p className="text-sm sm:text-base text-zinc-300 font-raleway leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
               Claim your free in-depth website audit today and discover the exact technical and keyword bottlenecks holding your rankings back.
             </p>
             <Link
               href="/contact?service=SEO%20Optimization"
-              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white font-black text-sm uppercase tracking-wider font-raleway hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300"
             >
               <span>Claim Free SEO Audit</span>
               <FiArrowRight size={18} />

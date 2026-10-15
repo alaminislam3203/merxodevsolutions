@@ -239,7 +239,7 @@ export default function ToolsClient() {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="pt-4 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600"
+          className="pt-4 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
         >
           <Link
             href="/"
@@ -269,7 +269,7 @@ export default function ToolsClient() {
         {/* Hero Header */}
         <div className="flex flex-col gap-4 mt-8 mb-10">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
               <span
                 className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                 aria-hidden
@@ -282,14 +282,14 @@ export default function ToolsClient() {
             </span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
+          <h1 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
             Developer{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               Tools & Utilities
             </span>
           </h1>
 
-          <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-raleway">
+          <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-exo-extralight">
             A curated suite of fast, lightweight, and privacy-focused online
             utilities engineered for developers, designers, and engineering
             teams. All calculations happen locally inside your browser.
@@ -336,9 +336,9 @@ export default function ToolsClient() {
           </div>
 
           {/* Result Count */}
-          <div className="text-xs font-raleway font-semibold text-zinc-500 dark:text-zinc-400">
+          <div className="text-xs font-exo-extralight text-zinc-500 dark:text-zinc-400">
             Showing{' '}
-            <span className="text-violet-600 dark:text-violet-400 font-bold">
+            <span className="text-violet-600 dark:text-violet-400 font-semibold">
               {filteredTools.length}
             </span>{' '}
             of {TOOLS_DATA.length} Tools
@@ -362,7 +362,7 @@ export default function ToolsClient() {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setActiveCategory(category)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-raleway transition-all duration-200 border cursor-pointer ${isActive
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all duration-200 border cursor-pointer ${isActive
                   ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-md shadow-violet-500/25'
                   : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
                   }`}
@@ -415,19 +415,19 @@ export default function ToolsClient() {
                             {tool.badge}
                           </span>
                         )}
-                        <span className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 font-raleway">
+                        <span className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 font-exo-extralight">
                           {tool.category}
                         </span>
                       </div>
                     </div>
 
                     {/* Tool Title */}
-                    <h3 className="font-display text-xl font-bold text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 mb-2">
+                    <h3 className="font-exo-medium text-xl font-bold text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 mb-2">
                       {tool.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway mb-4 line-clamp-3">
+                    <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight mb-4 line-clamp-3">
                       {tool.description}
                     </p>
                   </div>
@@ -438,7 +438,7 @@ export default function ToolsClient() {
                       {tool.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-raleway"
+                          className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-exo-extralight"
                         >
                           #{tag}
                         </span>
@@ -447,7 +447,7 @@ export default function ToolsClient() {
 
                     <Link
                       href={tool.href}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-50 hover:bg-violet-600 dark:bg-zinc-800/80 dark:hover:bg-violet-600 text-zinc-700 hover:text-white dark:text-zinc-200 dark:hover:text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all duration-200 border border-zinc-200 dark:border-zinc-700 hover:border-transparent group-hover:shadow-md group-hover:shadow-violet-500/20"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-50 hover:bg-violet-600 dark:bg-zinc-800/80 dark:hover:bg-violet-600 text-zinc-700 hover:text-white dark:text-zinc-200 dark:hover:text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all duration-200 border border-zinc-200 dark:border-zinc-700 hover:border-transparent group-hover:shadow-md group-hover:shadow-violet-500/20"
                     >
                       <span>Open Tool</span>
                       <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -485,13 +485,13 @@ export default function ToolsClient() {
         {/* Suggest a Tool CTA Banner */}
         <div className="mt-16 p-8 rounded-3xl bg-black border border-violet-800/40 relative overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-violet-400 font-raleway">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-violet-400 font-exo-extralight">
               Missing Your Favorite Tool?
             </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
+            <h3 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
               Have a Tool Suggestion in Mind?
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-400 font-exo-extralight leading-relaxed">
               We frequently build and open-source utilities based on community
               requests. Tell us what repetitive task you want automated, and
               we&apos;ll ship it next!

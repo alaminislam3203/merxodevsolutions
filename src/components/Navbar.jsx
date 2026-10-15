@@ -232,7 +232,7 @@ export default function Navbar() {
         >
           {/* Centered Navlinks (Collapses/Hides on Scroll Down, Reveals on Scroll Top) */}
           <div
-            className={`flex items-center justify-center gap-8 text-xs sm:text-[13px] font-bold font-raleway uppercase tracking-wider text-white/90 dark:text-zinc-300 transition-all duration-300 ease-in-out overflow-hidden ${scrolled
+            className={`flex items-center justify-center gap-8 text-xs sm:text-[13px] font-bold font-exo-extralight uppercase tracking-wider text-white/90 dark:text-zinc-300 transition-all duration-300 ease-in-out overflow-hidden ${scrolled
               ? 'max-h-0 opacity-0 -translate-y-2 pointer-events-none mb-0'
               : 'max-h-12 opacity-100 translate-y-0 mb-0.5'
               }`}
@@ -321,7 +321,7 @@ export default function Navbar() {
                       className="fixed inset-0 z-40"
                       onClick={() => setUserMenuOpen(false)}
                     />
-                    <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-raleway text-zinc-800 dark:text-zinc-200 uppercase">
+                    <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white/95 dark:bg-[#0c1328]/95 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl p-2 z-50 animate-fade-in font-exo-extralight text-zinc-800 dark:text-zinc-200 uppercase">
                       {session?.user ? (
                         <>
                           <div className="flex items-center gap-3 px-3 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80 mb-1">
@@ -443,7 +443,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={scrollToTopSmooth}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-raleway uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-900 text-xs sm:text-sm font-bold hover:opacity-95 transition-all font-exo-extralight uppercase shadow-md shadow-amber-500/20 whitespace-nowrap"
               >
                 <span className="inline-block animate-phone-ring">{t('getInTouch')}</span>
               </Link>
@@ -491,7 +491,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
+                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-exo-extralight transition-colors ${isActive
                   ? 'text-violet-600 dark:text-cyan-400'
                   : 'text-zinc-400 dark:text-zinc-400 hover:text-violet-500'
                   }`}
@@ -523,7 +523,7 @@ export default function Navbar() {
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </Link>
-            <span className="text-[10px] font-medium text-violet-600 dark:text-cyan-400 mt-0.5 font-raleway">
+            <span className="text-[10px] font-medium text-violet-600 dark:text-cyan-400 mt-0.5 font-exo-extralight">
               {t('contact')}
             </span>
           </div>
@@ -535,7 +535,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-raleway transition-colors ${isActive
+                className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium font-exo-extralight transition-colors ${isActive
                   ? 'text-violet-600 dark:text-cyan-400'
                   : 'text-zinc-400 dark:text-zinc-400 hover:text-violet-500'
                   }`}
@@ -549,7 +549,7 @@ export default function Navbar() {
           {/* Menu button */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-400 hover:text-violet-500 transition-colors font-raleway"
+            className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-400 hover:text-violet-500 transition-colors font-exo-extralight"
             aria-label="Open menu"
           >
             <svg
@@ -684,7 +684,7 @@ export default function Navbar() {
           <div className="flex flex-col px-4 py-6 gap-1.5 uppercase">
             <div className="flex items-center gap-2 px-3 mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-amber-400 animate-pulse" />
-              <p className="text-[10px] font-bold tracking-[0.2em] text-violet-700 dark:text-amber-400 uppercase font-raleway">
+              <p className="text-[10px] font-bold tracking-[0.2em] text-violet-700 dark:text-amber-400 uppercase font-exo-extralight">
                 {t('navigation')}
               </p>
             </div>
@@ -695,7 +695,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold font-raleway tracking-wider transition-all ${isActive
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold font-exo-extralight tracking-wider transition-all ${isActive
                     ? 'bg-gradient-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 dark:shadow-violet-900/50 border border-violet-400/30'
                     : 'text-zinc-900 dark:text-white/80 hover:text-violet-700 dark:hover:text-white hover:bg-violet-100/80 dark:hover:bg-white/10'
                     }`}
@@ -729,7 +729,7 @@ export default function Navbar() {
               <Link
                 href="/account"
                 onClick={() => setSidebarOpen(false)}
-                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-violet-100/70 dark:bg-zinc-800/80 text-violet-800 dark:text-cyan-300 text-xs font-bold uppercase tracking-wider font-raleway transition-colors"
+                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-violet-100/70 dark:bg-zinc-800/80 text-violet-800 dark:text-cyan-300 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-colors"
               >
                 <div className="flex items-center gap-2.5">
                   <FiUser size={15} />
@@ -743,7 +743,7 @@ export default function Navbar() {
 
             {/* Theme Toggle container */}
             <div className="mt-2 pt-2 px-2 flex items-center justify-between">
-              <span className="text-xs font-bold font-raleway text-zinc-900 dark:text-white/70">
+              <span className="text-xs font-bold font-exo-extralight text-zinc-900 dark:text-white/70">
                 Theme
               </span>
               <ThemeToggle />
@@ -756,7 +756,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setSidebarOpen(false)}
-            className="flex items-center justify-center gap-2 w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-raleway uppercase shadow-lg shadow-amber-500/25"
+            className="flex items-center justify-center gap-2 w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-exo-extralight uppercase shadow-lg shadow-amber-500/25"
           >
             <span className="inline-block animate-phone-ring">{t('getInTouch')}</span>
             <svg
@@ -776,7 +776,7 @@ export default function Navbar() {
           </Link>
 
           {/* Mobile Legal Quick Links */}
-          <div className="flex items-center justify-center gap-3 pt-3 text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+          <div className="flex items-center justify-center gap-3 pt-3 text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
             <Link
               href="/privacy"
               onClick={() => setSidebarOpen(false)}

@@ -178,19 +178,19 @@ export default function ContactPage() {
       <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Page Header ── */}
         <div className="flex flex-col items-center text-center gap-4 mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-raleway uppercase tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Available For New Projects • 2–12h Response
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
+          <h1 className="font-exo-medium text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
             Let's Build Something{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               Exceptional
             </span>
           </h1>
 
-          <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed font-raleway max-w-2xl">
+          <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed font-exo-extralight max-w-2xl">
             Have an idea, project, or need custom engineering? Tell us about your
             vision and our team will craft the optimal roadmap and quote for you.
           </p>
@@ -202,7 +202,7 @@ export default function ContactPage() {
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Quick Contact Cards Grid */}
             <div className="flex flex-col gap-3.5">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-amber-500 font-raleway mb-1">
+              <h2 className="text-xs font-bold uppercase tracking-widest text-amber-500 font-exo-extralight mb-1">
                 Direct Communication Channels
               </h2>
 
@@ -218,10 +218,10 @@ export default function ContactPage() {
                     <FaWhatsapp size={22} />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase font-raleway">
+                    <span className="text-[10px] font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase font-exo-extralight">
                       WhatsApp Live Chat
                     </span>
-                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                       +880 1313 334279
                     </span>
                     <span className="text-xs text-emerald-600 dark:text-emerald-400/80 font-medium">
@@ -244,10 +244,10 @@ export default function ContactPage() {
                     <FaEnvelope size={18} />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest text-violet-700 dark:text-violet-400 uppercase font-raleway">
+                    <span className="text-[10px] font-bold tracking-widest text-violet-700 dark:text-violet-400 uppercase font-exo-extralight">
                       Official Email
                     </span>
-                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway break-all">
+                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight break-all">
                       merxodevsolutions@gmail.com
                     </span>
                     <span className="text-xs text-violet-600 dark:text-violet-400/80 font-medium">
@@ -270,10 +270,10 @@ export default function ContactPage() {
                     <FaPhoneAlt size={16} />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest text-cyan-700 dark:text-cyan-400 uppercase font-raleway">
+                    <span className="text-[10px] font-bold tracking-widest text-cyan-700 dark:text-cyan-400 uppercase font-exo-extralight">
                       Direct Phone
                     </span>
-                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                    <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                       +880 1313 334279
                     </span>
                     <span className="text-xs text-cyan-600 dark:text-cyan-400/80 font-medium">
@@ -289,14 +289,14 @@ export default function ContactPage() {
 
             {/* Why Work With Us & Guarantees */}
             <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80 flex flex-col gap-4 shadow-sm">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-raleway">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                 Why Clients Trust MerxoDev
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="flex items-start gap-2.5">
                   <FaBolt className="text-amber-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-raleway">
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
                       Fast Turnaround
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -308,7 +308,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-2.5">
                   <FaShieldAlt className="text-violet-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-raleway">
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
                       100% IP Security
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -320,7 +320,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-2.5">
                   <FaCheckCircle className="text-emerald-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-raleway">
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
                       Transparent Pricing
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -332,7 +332,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-2.5">
                   <FaClock className="text-cyan-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-raleway">
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
                       Post-Launch Care
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -349,7 +349,7 @@ export default function ContactPage() {
                 <FaMapMarkerAlt size={18} />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-zinc-900 dark:text-white font-raleway">
+                <span className="text-xs font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   Global Software Agency
                 </span>
                 <span className="text-xs text-zinc-500 dark:text-zinc-400">
@@ -364,10 +364,10 @@ export default function ContactPage() {
             <div className="relative rounded-3xl backdrop-blur-2xl p-6 sm:p-10 border border-zinc-200 dark:border-zinc-800 shadow-2xl shadow-violet-950/10">
               <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-5 mb-6">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#27003B] dark:text-white font-display uppercase tracking-wide">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#27003B] dark:text-white font-exo-medium uppercase tracking-wide">
                     Send Project Inquiry
                   </h2>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mt-1">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-1">
                     Fill out the form below to receive a personalized estimate.
                   </p>
                 </div>
@@ -393,7 +393,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                       Your Name <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -402,13 +402,13 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="Enter your name"
-                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.name
+                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.name
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                         }`}
                     />
                     {errors.name && (
-                      <p className="text-[11px] text-rose-500 font-semibold font-raleway">
+                      <p className="text-[11px] text-rose-500 font-semibold font-exo-extralight">
                         ⚠ {errors.name}
                       </p>
                     )}
@@ -416,7 +416,7 @@ export default function ContactPage() {
 
                   {/* Email */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                       Work Email <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -425,13 +425,13 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="Enter your email"
-                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.email
+                      className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.email
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                         }`}
                     />
                     {errors.email && (
-                      <p className="text-[11px] text-rose-500 font-semibold font-raleway">
+                      <p className="text-[11px] text-rose-500 font-semibold font-exo-extralight">
                         ⚠ {errors.email}
                       </p>
                     )}
@@ -440,7 +440,7 @@ export default function ContactPage() {
 
                 {/* Phone */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     Phone / WhatsApp{' '}
                     <span className="text-xs text-zinc-400 font-normal">
                       (Optional)
@@ -452,13 +452,13 @@ export default function ContactPage() {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+1 234 567 8900"
-                    className={`w-full px-4 py-3 rounded-xl  border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-raleway ${errors.phone
+                    className={`w-full px-4 py-3 rounded-xl  border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.phone
                       ? 'border-rose-500 focus:ring-rose-500/30'
                       : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                       }`}
                   />
                   {errors.phone && (
-                    <p className="text-[11px] text-rose-500 font-semibold font-raleway">
+                    <p className="text-[11px] text-rose-500 font-semibold font-exo-extralight">
                       ⚠ {errors.phone}
                     </p>
                   )}
@@ -466,7 +466,7 @@ export default function ContactPage() {
 
                 {/* Service Selection (Interactive Chips) */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     What Service Do You Need?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -477,7 +477,7 @@ export default function ContactPage() {
                           key={s}
                           type="button"
                           onClick={() => setService(s)}
-                          className={`px-3.5 py-2 rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
+                          className={`px-3.5 py-2 rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
                             ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
                             : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
@@ -491,7 +491,7 @@ export default function ContactPage() {
 
                 {/* Budget Selection (Interactive Chips) */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     Approximate Budget Range
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -502,7 +502,7 @@ export default function ContactPage() {
                           key={b}
                           type="button"
                           onClick={() => setBudget(b)}
-                          className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-raleway transition-all ${isSelected
+                          className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
                             ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
                             : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
@@ -516,7 +516,7 @@ export default function ContactPage() {
 
                 {/* Message */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     Project Overview & Details <span className="text-rose-500">*</span>
                   </label>
                   <textarea
@@ -525,21 +525,21 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about the project goals, features needed, timeline, or reference links..."
-                    className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-raleway ${errors.message
+                    className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-exo-extralight ${errors.message
                       ? 'border-rose-500 focus:ring-rose-500/30'
                       : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                       }`}
                   />
                   <div className="flex justify-between items-center mt-0.5">
                     {errors.message ? (
-                      <p className="text-[11px] text-rose-500 font-semibold font-raleway">
+                      <p className="text-[11px] text-rose-500 font-semibold font-exo-extralight">
                         ⚠ {errors.message}
                       </p>
                     ) : (
                       <span />
                     )}
                     <span
-                      className={`text-[11px] font-raleway font-medium ml-auto ${form.message.length > 1800
+                      className={`text-[11px] font-exo-extralight font-medium ml-auto ${form.message.length > 1800
                         ? 'text-rose-500'
                         : 'text-zinc-400'
                         }`}
@@ -553,7 +553,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full mt-2 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-sm font-bold uppercase tracking-widest hover:opacity-95 transition-all shadow-xl shadow-violet-500/25 disabled:opacity-60 font-raleway flex items-center justify-center gap-2 group cursor-pointer"
+                  className="w-full mt-2 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-sm font-bold uppercase tracking-widest hover:opacity-95 transition-all shadow-xl shadow-violet-500/25 disabled:opacity-60 font-exo-extralight flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   {status === 'loading' ? (
                     <>
@@ -577,10 +577,10 @@ export default function ContactPage() {
                       <FaCheckCircle size={20} />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-200 font-raleway">
+                      <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-200 font-exo-extralight">
                         Inquiry Received Successfully!
                       </h4>
-                      <p className="text-xs text-emerald-700 dark:text-emerald-300/90 font-raleway leading-relaxed">
+                      <p className="text-xs text-emerald-700 dark:text-emerald-300/90 font-exo-extralight leading-relaxed">
                         Thank you for reaching out. We have received your project
                         details and our lead engineer will review and contact you
                         within 2–12 hours.
@@ -590,14 +590,14 @@ export default function ContactPage() {
                 )}
 
                 {status === 'ratelimit' && (
-                  <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs font-semibold text-amber-700 dark:text-amber-300 font-raleway">
+                  <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs font-semibold text-amber-700 dark:text-amber-300 font-exo-extralight">
                     ⏳ Too many submissions from your connection. Please wait an
                     hour or message us directly on WhatsApp or Email.
                   </div>
                 )}
 
                 {status === 'error' && (
-                  <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-xs font-semibold text-rose-700 dark:text-rose-300 font-raleway">
+                  <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-xs font-semibold text-rose-700 dark:text-rose-300 font-exo-extralight">
                     ⚠ Something went wrong sending the message. Please contact us
                     directly via WhatsApp (+880 1313 334279) or Email.
                   </div>
@@ -610,10 +610,10 @@ export default function ContactPage() {
         {/* ── Client FAQ Section ── */}
         <div className="mt-24 max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-raleway">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight">
               Client Questions
             </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide font-display mt-2">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide font-exo-medium mt-2">
               Frequently Asked Questions
             </h3>
           </div>
@@ -629,7 +629,7 @@ export default function ContactPage() {
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-bold text-zinc-900 dark:text-white font-raleway text-sm sm:text-base hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                    className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-bold text-zinc-900 dark:text-white font-exo-extralight text-sm sm:text-base hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                   >
                     <span>{faq.q}</span>
                     <FaChevronDown
@@ -639,7 +639,7 @@ export default function ContactPage() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed border-t border-zinc-100 dark:border-zinc-800/60">
+                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed border-t border-zinc-100 dark:border-zinc-800/60">
                       {faq.a}
                     </div>
                   )}

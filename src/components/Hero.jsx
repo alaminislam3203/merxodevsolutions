@@ -88,7 +88,7 @@ export default function Hero() {
           {/* ── Left Content Column ── */}
           <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
             {/* Top Innovation / Status Pill */}
-            <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 dark:border-cyan-500/30 bg-violet-500/10 dark:bg-cyan-500/10 text-violet-700 dark:text-cyan-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-5 md:mb-6 backdrop-blur-md shadow-sm font-raleway">
+            <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 dark:border-cyan-500/30 bg-violet-500/10 dark:bg-cyan-500/10 text-violet-700 dark:text-cyan-300 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-5 md:mb-6 backdrop-blur-md shadow-sm font-exo-extralight">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500" />
@@ -102,7 +102,7 @@ export default function Hero() {
               const parts = headingEnd.split(/(dream)/i);
 
               return (
-                <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-raleway">
+                <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-exo-extralight">
                   {t('hero.headingStart') || 'We'}{' '}
                   <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
                     {t('hero.headingHighlight') || 'Build Your'}
@@ -139,7 +139,7 @@ export default function Hero() {
             })()}
 
             {/* Subtitle Description */}
-            <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal font-raleway">
+            <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal font-exo-extralight">
               {t('hero.subtext') ||
                 'We craft high-performance web apps and software ecosystems that do not just look good — they dominate competition and scale infinitely.'}
             </p>
@@ -149,7 +149,7 @@ export default function Hero() {
               <Link
                 href="/contact"
                 aria-label="Start Your Project"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 hover:scale-[1.03] active:scale-95 transition-all group overflow-hidden relative text-sm sm:text-base font-raleway"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 hover:scale-[1.03] active:scale-95 transition-all group overflow-hidden relative text-sm sm:text-base font-exo-extralight"
               >
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                 <span className="relative z-10">{t('hero.ctaPrimary') || 'Start Your Project'}</span>
@@ -159,7 +159,7 @@ export default function Hero() {
               <Link
                 href="/our-projects"
                 aria-label="View Projects"
-                className="inline-flex items-center space-x-3 text-zinc-800 dark:text-white font-semibold hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group px-5 py-2 font-raleway"
+                className="inline-flex items-center space-x-3 text-zinc-800 dark:text-white font-semibold hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group px-5 py-2 font-exo-extralight"
               >
                 <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-zinc-300 dark:border-white/20 bg-white/50 dark:bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-violet-500 dark:group-hover:border-cyan-400 group-hover:scale-105 transition-all shadow-sm">
                   <Play size={14} className="ml-0.5 text-violet-600 dark:text-cyan-400" fill="currentColor" />
@@ -171,7 +171,7 @@ export default function Hero() {
             </div>
 
             {/* Bottom Key Stats */}
-            <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-zinc-200/70 dark:border-white/10 grid grid-cols-3 gap-4 md:gap-8 justify-items-center lg:justify-items-start font-raleway">
+            <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-zinc-200/70 dark:border-white/10 grid grid-cols-3 gap-4 md:gap-8 justify-items-center lg:justify-items-start font-exo-extralight">
               <div>
                 <p className="text-xl md:text-2xl font-black text-[#27003B] dark:text-white tracking-tighter">
                   99.9%
@@ -250,7 +250,7 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+                  <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                     <span className="flex items-center gap-1.5 font-semibold">
                       <Sparkles size={13} className="text-amber-500" /> Web & Digital Engineering
                     </span>
@@ -262,7 +262,7 @@ export default function Hero() {
               </div>
 
               {/* ── Floating Element 1 - Speed Indicator (Bottom Left) ── */}
-              <div className="animate-float-reverse absolute -bottom-6 -left-6 sm:-left-10 p-4 sm:p-5 rounded-2xl shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl flex items-center space-x-3 sm:space-x-4 pr-6 sm:pr-8 z-30 font-raleway">
+              <div className="animate-float-reverse absolute -bottom-6 -left-6 sm:-left-10 p-4 sm:p-5 rounded-2xl shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl flex items-center space-x-3 sm:space-x-4 pr-6 sm:pr-8 z-30 font-exo-extralight">
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 dark:bg-amber-400/15 flex items-center justify-center text-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.25)] shrink-0">
                   <Zap size={22} fill="currentColor" />
                 </div>
@@ -277,7 +277,7 @@ export default function Hero() {
               </div>
 
               {/* ── Floating Element 3 - Global Scale (Center Right) ── */}
-              <div className="animate-float-side absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 px-4 sm:px-5 py-3 rounded-full shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 flex items-center space-x-2.5 whitespace-nowrap backdrop-blur-xl z-40 font-raleway">
+              <div className="animate-float-side absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 px-4 sm:px-5 py-3 rounded-full shadow-2xl border border-zinc-200/90 dark:border-white/20 bg-white/90 dark:bg-zinc-900/90 flex items-center space-x-2.5 whitespace-nowrap backdrop-blur-xl z-40 font-exo-extralight">
                 <div className="w-7 h-7 rounded-full bg-cyan-500/15 flex items-center justify-center text-cyan-500">
                   <Globe size={14} />
                 </div>
@@ -297,11 +297,11 @@ export default function Hero() {
 
         {/* ── Bottom Modern Tech Stack Strip ── */}
         <div className="mt-14 sm:mt-20 pt-8 border-t border-zinc-200/70 dark:border-white/10 flex flex-col items-center gap-4">
-          <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 font-raleway">
+          <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 font-exo-extralight">
             Engineered With State-Of-The-Art Technologies
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs font-semibold font-raleway text-zinc-600 dark:text-zinc-400">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs font-semibold font-exo-extralight text-zinc-600 dark:text-zinc-400">
             <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40 hover:border-violet-500/50 transition-colors">
               <SiNextdotjs className="text-zinc-900 dark:text-white" />
               <span>Next.js 15</span>

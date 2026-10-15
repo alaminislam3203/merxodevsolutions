@@ -162,19 +162,19 @@ export default function Process() {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center gap-3 mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             {t('process.badge')}
           </span>
           <h2
             id="process-heading"
-            className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+            className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
           >
             {t('process.headingStart')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               {t('process.headingEnd')}
             </span>
           </h2>
-          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-raleway">
+          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight">
             {t('process.subtext')}
           </p>
         </div>
@@ -209,7 +209,7 @@ export default function Process() {
                 {icons[i]}
                 <span
                   aria-hidden
-                  className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black font-display text-white ${colors[i].line} shadow-sm`}
+                  className={`absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black font-exo-medium text-white ${colors[i].line} shadow-sm`}
                 >
                   {i + 1}
                 </span>
@@ -217,12 +217,12 @@ export default function Process() {
 
               <div className="flex flex-col gap-1 sm:gap-1.5">
                 <h3
-                  className={`font-display text-sm sm:text-lg uppercase tracking-wide ${colors[i].text}`}
+                  className={`font-exo-medium text-sm sm:text-lg uppercase tracking-wide ${colors[i].text}`}
                 >
                   {step.title}
                 </h3>
                 <p
-                  className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway"
+                  className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight"
                   itemProp="text"
                 >
                   {step.description}

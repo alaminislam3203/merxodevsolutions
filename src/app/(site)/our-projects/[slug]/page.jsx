@@ -56,21 +56,21 @@ export async function generateMetadata({ params }) {
       type: 'article',
       images: project.image
         ? [
-            {
-              url: project.image,
-              width: 1200,
-              height: 630,
-              alt: `${project.title} Preview`,
-            },
-          ]
+          {
+            url: project.image,
+            width: 1200,
+            height: 630,
+            alt: `${project.title} Preview`,
+          },
+        ]
         : [
-            {
-              url: 'https://merxodevsolutions.pro.bd/logo-light.png',
-              width: 1200,
-              height: 630,
-              alt: 'MerxoDev Solutions',
-            },
-          ],
+          {
+            url: 'https://merxodevsolutions.pro.bd/logo-light.png',
+            width: 1200,
+            height: 630,
+            alt: 'MerxoDev Solutions',
+          },
+        ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -188,7 +188,7 @@ export default async function ProjectDetailPage({ params }) {
           <div>
             <Link
               href="/our-projects"
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold font-raleway uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow hover:-translate-x-0.5 ${a.border} ${a.back}`}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold font-exo-extralight uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow hover:-translate-x-0.5 ${a.border} ${a.back}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -211,11 +211,11 @@ export default async function ProjectDetailPage({ params }) {
           {/* ── Tag + Title ── */}
           <div className="flex flex-col gap-3">
             <span
-              className={`inline-block w-fit text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-raleway ${a.tag}`}
+              className={`inline-block w-fit text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight ${a.tag}`}
             >
               {project.tag}
             </span>
-            <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
+            <h1 className="font-exo-medium text-2xl sm:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
               {project.title}
             </h1>
           </div>
@@ -246,10 +246,10 @@ export default async function ProjectDetailPage({ params }) {
           {/* Description + Live button */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
             <div className="max-w-2xl flex flex-col gap-3">
-              <h2 className="font-display text-lg sm:text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+              <h2 className="font-exo-medium text-lg sm:text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
                 {details.descriptionTitle || "About The Project"}
               </h2>
-              <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway whitespace-pre-line">
+              <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight whitespace-pre-line">
                 {project.description}
               </p>
             </div>
@@ -258,7 +258,7 @@ export default async function ProjectDetailPage({ params }) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
               >
                 View Live
                 <svg
@@ -293,10 +293,10 @@ export default async function ProjectDetailPage({ params }) {
               { label: 'Stack', value: `${(details.tech || []).length} technologies` },
             ].map(({ label, value }) => (
               <div key={label} className="flex flex-col gap-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-raleway">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-exo-extralight">
                   {label}
                 </span>
-                <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 font-raleway">
+                <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
                   {value}
                 </span>
               </div>
@@ -308,14 +308,14 @@ export default async function ProjectDetailPage({ params }) {
 
           {/* Tech Stack */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-display text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+            <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
               Tech Stack
             </h2>
             <div className="flex flex-wrap gap-2">
               {(details.tech || []).map(t => (
                 <span
                   key={t}
-                  className={`text-xs font-bold px-4 py-1.5 rounded-full font-raleway tracking-wide ${a.badge}`}
+                  className={`text-xs font-bold px-4 py-1.5 rounded-full font-exo-extralight tracking-wide ${a.badge}`}
                 >
                   {t}
                 </span>
@@ -329,11 +329,11 @@ export default async function ProjectDetailPage({ params }) {
           {/* Key Features */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <h2 className="font-display text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+              <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
                 Key Features
               </h2>
               {details.features && details.features.length > 0 && (
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-raleway">
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                   {details.features.length} Highlights
                 </span>
               )}
@@ -372,7 +372,7 @@ export default async function ProjectDetailPage({ params }) {
                 return (
                   <li
                     key={i}
-                    className={`group relative flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${a.border} bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm font-raleway`}
+                    className={`group relative flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${a.border} bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm font-exo-extralight`}
                   >
                     {/* Number badge or glowing dot */}
                     {isNumberStyle ? (
@@ -432,7 +432,7 @@ export default async function ProjectDetailPage({ params }) {
 
           {/* Related Projects */}
           <div className="flex flex-col gap-5">
-            <h2 className="font-display text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+            <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
               Other Projects
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -455,14 +455,14 @@ export default async function ProjectDetailPage({ params }) {
                     </div>
                     <div className="flex flex-col gap-1 min-w-0">
                       <span
-                        className={`text-[10px] font-bold uppercase tracking-widest font-raleway ${ra.back}`}
+                        className={`text-[10px] font-bold uppercase tracking-widest font-exo-extralight ${ra.back}`}
                       >
                         {rp.tag}
                       </span>
-                      <span className="text-sm font-extrabold text-[#27003B] dark:text-white uppercase font-display truncate">
+                      <span className="text-sm font-extrabold text-[#27003B] dark:text-white uppercase font-exo-medium truncate">
                         {rp.title}
                       </span>
-                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway line-clamp-2">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight line-clamp-2">
                         {truncateWords(rp.description, 20)}
                       </span>
                     </div>
@@ -492,16 +492,16 @@ export default async function ProjectDetailPage({ params }) {
             className={`rounded-2xl border ${a.border} p-8 flex flex-col sm:flex-row items-center justify-between gap-5`}
           >
             <div className="flex flex-col gap-1 text-center sm:text-left">
-              <h3 className="font-display text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+              <h3 className="font-exo-medium text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
                 Like What You See?
               </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 font-raleway">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                 Let's build something amazing together.
               </p>
             </div>
             <Link
               href="/contact"
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-raleway shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
+              className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
             >
               Start a Project
               <svg

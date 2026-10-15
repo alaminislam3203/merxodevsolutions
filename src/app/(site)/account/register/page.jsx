@@ -118,7 +118,7 @@ function RegisterForm() {
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-raleway text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-exo-extralight text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
           >
             <FiHome size={14} />
             <span>Back to Home</span>
@@ -127,14 +127,14 @@ function RegisterForm() {
 
         {/* Narrative & Benefits */}
         <div className="relative z-10 my-auto py-10 max-w-xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/80 font-raleway uppercase tracking-widest shadow-sm mb-6">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <span>MerxoDev Client Network</span>
           </div>
 
           <h1
             suppressHydrationWarning
-            className="font-display text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
+            className="font-exo-medium text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
           >
             Start Your{' '}
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
@@ -142,14 +142,14 @@ function RegisterForm() {
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base leading-relaxed font-raleway mb-8">
+          <p className="text-zinc-400 text-base leading-relaxed font-exo-extralight mb-8">
             Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.
           </p>
 
           {/* Benefits List */}
           <div className="space-y-3.5 mb-10">
             {benefits.map((benefit, i) => (
-              <div key={i} className="flex items-center gap-3 text-sm text-zinc-300 font-raleway">
+              <div key={i} className="flex items-center gap-3 text-sm text-zinc-300 font-exo-extralight">
                 <div className="w-5 h-5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 flex items-center justify-center text-white shrink-0 text-xs">
                   <FiCheck size={12} strokeWidth={3} />
                 </div>
@@ -161,22 +161,22 @@ function RegisterForm() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 border-t border-zinc-800/80 pt-6">
             <div>
-              <p className="font-display text-xl text-white font-extrabold">100%</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-raleway">Code Ownership</p>
+              <p className="font-exo-medium text-xl text-white font-extrabold">100%</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Code Ownership</p>
             </div>
             <div>
-              <p className="font-display text-xl text-cyan-400 font-extrabold">2–12h</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-raleway">Response SLA</p>
+              <p className="font-exo-medium text-xl text-cyan-400 font-extrabold">2–12h</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Response SLA</p>
             </div>
             <div>
-              <p className="font-display text-xl text-amber-400 font-extrabold">Verified</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-raleway">Client Reviews</p>
+              <p className="font-exo-medium text-xl text-amber-400 font-extrabold">Verified</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Client Reviews</p>
             </div>
           </div>
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-raleway border-t border-zinc-800/60 pt-6">
+        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
@@ -195,7 +195,7 @@ function RegisterForm() {
             </Link>
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold font-raleway text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold font-exo-extralight text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
             >
               <FiHome size={13} />
               <span>Home</span>
@@ -205,18 +205,18 @@ function RegisterForm() {
           <div className="mb-8">
             <h2
               suppressHydrationWarning
-              className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2"
+              className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2"
             >
               Create Account
             </h2>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
               Fill in your details to set up your client account.
             </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
+            <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-exo-extralight flex items-center gap-3">
               <FiAlertCircle size={18} className="text-rose-500 shrink-0" />
               <span>{error}</span>
             </div>
@@ -225,7 +225,7 @@ function RegisterForm() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
                 Full Name
               </label>
               <div className="relative">
@@ -236,14 +236,14 @@ function RegisterForm() {
                   placeholder="Enter Your Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-raleway"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
                 />
               </div>
             </div>
 
             {/* Email Field */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
                 Email Address
               </label>
               <div className="relative">
@@ -254,14 +254,14 @@ function RegisterForm() {
                   placeholder="Enter Your Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-raleway"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
                 />
               </div>
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -272,7 +272,7 @@ function RegisterForm() {
                   placeholder="Create a strong password (min 6 chars)"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-raleway"
+                  className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
                 />
                 <button
                   type="button"
@@ -286,7 +286,7 @@ function RegisterForm() {
               {/* Password Strength Indicator (matching organic reference project) */}
               {formData.password.length > 0 && (
                 <div className="mt-2.5">
-                  <div className="flex items-center justify-between text-[11px] font-raleway mb-1">
+                  <div className="flex items-center justify-between text-[11px] font-exo-extralight mb-1">
                     <span className="text-zinc-500 dark:text-zinc-400">Password Strength:</span>
                     <span className="font-bold text-zinc-700 dark:text-zinc-300">{strength.label}</span>
                   </div>
@@ -309,7 +309,7 @@ function RegisterForm() {
                   onChange={(e) => setAgreeTerms(e.target.checked)}
                   className="mt-1 w-4 h-4 rounded border-zinc-300 text-violet-600 focus:ring-violet-500"
                 />
-                <span className="text-xs text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed">
+                <span className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
                   I agree to MerxoDev's{' '}
                   <Link href="/terms" target="_blank" className="text-violet-600 dark:text-cyan-400 hover:underline">
                     Terms of Service
@@ -327,7 +327,7 @@ function RegisterForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-3 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-bold text-sm uppercase tracking-wider font-exo-extralight shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-3 cursor-pointer"
             >
               {loading ? (
                 <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -342,7 +342,7 @@ function RegisterForm() {
 
           {/* Login Prompt */}
           <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 font-raleway">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight">
               Already have an account?{' '}
               <Link
                 href={`/account/login${redirectUrl ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}

@@ -137,7 +137,7 @@ export default function EcommerceContent() {
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-[11px] text-zinc-400 font-display mb-5"
+            className="flex items-center justify-center gap-2 text-[11px] text-zinc-400 font-exo-medium mb-5"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
               {t('ecommerce.breadcrumb.home')}
@@ -155,10 +155,10 @@ export default function EcommerceContent() {
             </span>
           </nav>
 
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-4">
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-4">
             {t('ecommerce.badge')}
           </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase font-display mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black uppercase font-exo-medium mb-6 leading-tight">
             {t('ecommerce.heroTitleStart')}{' '}
             <span className="bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">
               {t('ecommerce.heroTitleHighlight')}
@@ -170,13 +170,13 @@ export default function EcommerceContent() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-bold font-raleway hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-bold font-exo-extralight hover:opacity-90 transition-opacity"
             >
               {t('ecommerce.ctaStartStore')} <FiArrowRight size={16} />
             </Link>
             <Link
               href="/our-projects"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-sm font-bold font-raleway hover:border-cyan-300 dark:hover:border-cyan-700 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-sm font-bold font-exo-extralight hover:border-cyan-300 dark:hover:border-cyan-700 transition-colors"
             >
               {t('ecommerce.ctaViewWork')}
             </Link>
@@ -192,7 +192,7 @@ export default function EcommerceContent() {
               key={i}
               className="text-center p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
             >
-              <p className="text-3xl font-black font-raleway bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent mb-1">
+              <p className="text-3xl font-black font-exo-extralight bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </p>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
@@ -207,12 +207,12 @@ export default function EcommerceContent() {
       <section className="px-6 pb-20" aria-labelledby="features-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.features.badge')}
             </span>
             <h2
               id="features-heading"
-              className="text-3xl font-black font-raleway"
+              className="text-3xl font-black font-exo-extralight"
             >
               {t('ecommerce.features.heading')}
             </h2>
@@ -231,7 +231,7 @@ export default function EcommerceContent() {
                     {meta.icon}
                   </div>
                   <div>
-                    <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase">
+                    <h3 className="font-black font-exo-extralight text-[#27003B] dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase">
                       {feature.title}
                     </h3>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -252,12 +252,12 @@ export default function EcommerceContent() {
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.included.badge')}
             </span>
             <h2
               id="included-heading"
-              className="text-3xl font-black font-raleway uppercase"
+              className="text-3xl font-black font-exo-extralight uppercase"
             >
               {t('ecommerce.included.heading')}
             </h2>
@@ -282,12 +282,12 @@ export default function EcommerceContent() {
       <section className="px-6 py-20" aria-labelledby="process-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.process.badge')}
             </span>
             <h2
               id="process-heading"
-              className="text-3xl font-black font-raleway"
+              className="text-3xl font-black font-exo-extralight"
             >
               {t('ecommerce.process.heading')}
             </h2>
@@ -298,11 +298,11 @@ export default function EcommerceContent() {
                 key={i}
                 className="flex items-start gap-5 p-5 rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950"
               >
-                <span className="text-3xl font-black font-raleway bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent leading-none shrink-0 w-10">
+                <span className="text-3xl font-black font-exo-extralight bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent leading-none shrink-0 w-10">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-1">
+                  <h3 className="font-black font-exo-extralight text-[#27003B] dark:text-white mb-1">
                     {step.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -322,10 +322,10 @@ export default function EcommerceContent() {
       >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.tech.badge')}
             </span>
-            <h2 id="tech-heading" className="text-3xl font-black font-raleway">
+            <h2 id="tech-heading" className="text-3xl font-black font-exo-extralight">
               {t('ecommerce.tech.heading')}
             </h2>
           </div>
@@ -349,10 +349,10 @@ export default function EcommerceContent() {
       <section className="px-6 py-20" aria-labelledby="faq-heading">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.faq.badge')}
             </span>
-            <h2 id="faq-heading" className="text-3xl font-black font-raleway">
+            <h2 id="faq-heading" className="text-3xl font-black font-exo-extralight">
               {t('ecommerce.faq.heading')}
             </h2>
           </div>
@@ -362,7 +362,7 @@ export default function EcommerceContent() {
                 key={i}
                 className="p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950"
               >
-                <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2 text-sm">
+                <h3 className="font-black font-exo-extralight text-[#27003B] dark:text-white mb-2 text-sm">
                   {faq.q}
                 </h3>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -381,12 +381,12 @@ export default function EcommerceContent() {
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-8">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               {t('ecommerce.related.badge')}
             </span>
             <h2
               id="related-heading"
-              className="text-3xl font-black font-raleway"
+              className="text-3xl font-black font-exo-extralight"
             >
               {t('ecommerce.related.heading')}
             </h2>
@@ -405,7 +405,7 @@ export default function EcommerceContent() {
                   >
                     {meta.icon}
                   </span>
-                  <span className="text-sm font-bold font-raleway group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                  <span className="text-sm font-bold font-exo-extralight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                     {rel.label}
                   </span>
                   <FiArrowRight
@@ -424,7 +424,7 @@ export default function EcommerceContent() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-500 p-px">
             <div className="rounded-2xl bg-white dark:bg-zinc-950 px-8 py-12">
-              <h2 className="text-2xl font-black font-raleway mb-3">
+              <h2 className="text-2xl font-black font-exo-extralight mb-3">
                 {t('ecommerce.cta.heading')}
               </h2>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-6">
@@ -433,13 +433,13 @@ export default function EcommerceContent() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-bold font-raleway hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-bold font-exo-extralight hover:opacity-90 transition-opacity"
                 >
                   {t('ecommerce.cta.getQuote')} <FiArrowRight size={16} />
                 </Link>
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-sm font-bold font-raleway hover:border-cyan-300 dark:hover:border-cyan-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-sm font-bold font-exo-extralight hover:border-cyan-300 dark:hover:border-cyan-700 transition-colors"
                 >
                   {t('ecommerce.cta.allServices')}
                 </Link>

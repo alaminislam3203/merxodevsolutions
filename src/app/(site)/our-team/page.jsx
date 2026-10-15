@@ -140,19 +140,19 @@ export default async function OurTeamPage() {
 
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Tag Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 text-xs font-bold uppercase tracking-widest font-raleway mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 text-xs font-bold uppercase tracking-widest font-exo-extralight mb-6">
             <FiUsers className="w-3.5 h-3.5 text-amber-500" />
             <span>Meet Our Team</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-raleway tracking-tight mb-6 leading-[1.15]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-exo-extralight tracking-tight mb-6 leading-[1.15]">
             The Passionate Minds Behind{' '}
             <span className="bg-gradient-to-r from-violet-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
               Every Solution
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-8 font-raleway">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-8 font-exo-extralight">
             We are a tight-knit collective of full-stack engineers, creative designers,
             and digital strategists dedicated to delivering high-performance web products
             and cloud solutions that elevate businesses.
@@ -162,7 +162,7 @@ export default async function OurTeamPage() {
           <div className="inline-flex items-center gap-6 px-6 py-3 rounded-2xl bg-zinc-100/80 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-              <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 font-raleway">
+              <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                 {team.length} Active Members
               </span>
             </div>
@@ -219,10 +219,10 @@ export default async function OurTeamPage() {
                   </div>
 
                   {/* Name & Role */}
-                  <h3 className="text-xl font-black font-raleway text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors mb-1">
+                  <h3 className="text-xl font-black font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400 font-raleway mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400 font-exo-extralight mb-3">
                     {member.role}
                   </p>
 
@@ -296,7 +296,7 @@ export default async function OurTeamPage() {
                       )}
                   </div>
 
-                  <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 font-raleway group-hover:text-violet-500 transition-colors">
+                  <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 font-exo-extralight group-hover:text-violet-500 transition-colors">
                     MerxoDev Solutions
                   </span>
                 </div>
@@ -309,10 +309,10 @@ export default async function OurTeamPage() {
       {/* ── Culture & Values Section ── */}
       <section className="px-6 py-20 max-w-[1440px] mx-auto">
         <div className="text-center mb-14">
-          <span className="inline-block text-[11px] font-bold tracking-[0.35em] text-amber-500 uppercase font-raleway mb-3">
+          <span className="inline-block text-[11px] font-bold tracking-[0.35em] text-amber-500 uppercase font-exo-extralight mb-3">
             How We Work
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black font-raleway tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black font-exo-extralight tracking-tight">
             Our Core Team Principles
           </h2>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2 max-w-lg mx-auto">
@@ -329,7 +329,7 @@ export default async function OurTeamPage() {
               <div className="w-12 h-12 rounded-xl bg-violet-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
                 {val.icon}
               </div>
-              <h3 className="font-bold font-raleway text-base mb-2 text-[#27003B] dark:text-white">
+              <h3 className="font-bold font-exo-extralight text-base mb-2 text-[#27003B] dark:text-white">
                 {val.title}
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -344,13 +344,13 @@ export default async function OurTeamPage() {
       <section className="px-6 py-16 mb-12">
         <div className="max-w-4xl mx-auto text-center rounded-3xl p-10 sm:p-14 bg-gradient-to-br from-violet-600/10 via-indigo-600/10 to-cyan-500/10 border border-violet-500/25 relative overflow-hidden">
           <div className="relative z-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-500 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-500 uppercase font-exo-extralight mb-3">
               Join Or Collaborate
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black font-raleway mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-black font-exo-extralight mb-4 tracking-tight">
               Want to Work With Our Team?
             </h2>
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto mb-8 font-raleway">
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto mb-8 font-exo-extralight">
               Have a digital project that needs high-level engineering, or interested in joining
               our team? Let's talk and build something exceptional together.
             </p>
@@ -358,13 +358,13 @@ export default async function OurTeamPage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm font-raleway shadow-lg shadow-violet-500/25 transition-all duration-200"
+                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm font-exo-extralight shadow-lg shadow-violet-500/25 transition-all duration-200"
               >
                 Hire Our Team
               </Link>
               <Link
                 href="/about"
-                className="px-8 py-3.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm font-bold font-raleway transition-all duration-200"
+                className="px-8 py-3.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm font-bold font-exo-extralight transition-all duration-200"
               >
                 About Our Company
               </Link>

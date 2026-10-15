@@ -106,7 +106,7 @@ export default function RegexTesterClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
             Home
           </Link>
@@ -126,7 +126,7 @@ export default function RegexTesterClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiLayers className="w-3.5 h-3.5" />
                 Regular Expressions
               </span>
@@ -136,20 +136,20 @@ export default function RegexTesterClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               Regex Tester &{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
                 Visualizer
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Test and debug regular expressions with live match counter, capture group inspection, and common pattern presets.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -158,7 +158,7 @@ export default function RegexTesterClient() {
 
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-          <span className="text-xs font-bold font-raleway text-zinc-400 whitespace-nowrap">Presets:</span>
+          <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">Presets:</span>
           {PRESETS.map((p) => (
             <button
               key={p.name}
@@ -212,7 +212,7 @@ export default function RegexTesterClient() {
         {/* Pattern Input Card with Flag Toggles */}
         <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-2">
               Regular Expression Pattern
             </label>
             <div className="flex items-center gap-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 py-2">
@@ -232,7 +232,7 @@ export default function RegexTesterClient() {
           </div>
 
           {/* Flag checkboxes */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-raleway pt-2 border-t border-zinc-100 dark:border-zinc-800">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-exo-extralight pt-2 border-t border-zinc-100 dark:border-zinc-800">
             <span className="text-zinc-400 font-bold">Flags:</span>
             {[
               { id: 'g', label: 'g (global match)' },
@@ -286,7 +286,7 @@ export default function RegexTesterClient() {
           {/* Test Textarea */}
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
-              <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+              <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                 Test String Input
               </span>
               <button
@@ -310,7 +310,7 @@ export default function RegexTesterClient() {
           {/* Match Results Inspection */}
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
-              <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+              <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                 Extracted Matches & Capture Groups
               </span>
               <span className="text-[11px] font-mono text-zinc-400">

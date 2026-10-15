@@ -214,10 +214,10 @@ export default function JourneyPage() {
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full dark:from-violet-950 dark:to-cyan-950 opacity-50 blur-3xl pointer-events-none" />
         <div className="relative max-w-3xl mx-auto text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-4">
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-4">
             Our Story
           </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-raleway mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-exo-extralight mb-6 leading-tight">
             From one laptop{' '}
             <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
               to 56+ projects.
@@ -239,7 +239,7 @@ export default function JourneyPage() {
               key={n.label}
               className="flex flex-col items-center gap-1.5 py-7 px-4 rounded-2xl"
             >
-              <span className="text-3xl font-black font-raleway bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              <span className="text-3xl font-black font-exo-extralight bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
                 {n.value}
               </span>
               <span className="text-xs text-zinc-500 dark:text-zinc-400 text-center font-medium">
@@ -254,10 +254,10 @@ export default function JourneyPage() {
       <section className="px-6 py-16 ">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-14">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               Timeline
             </span>
-            <h2 className="text-3xl font-black font-raleway">
+            <h2 className="text-3xl font-black font-exo-extralight">
               Milestone by milestone
             </h2>
           </div>
@@ -281,12 +281,12 @@ export default function JourneyPage() {
                       className={`inline-flex items-center gap-2 mb-3 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''
                         }`}
                     >
-                      <span className="text-[11px] font-bold tracking-widest text-amber-400 uppercase font-raleway">
+                      <span className="text-[11px] font-bold tracking-widest text-amber-400 uppercase font-exo-extralight">
                         {m.year} · {m.quarter}
                       </span>
                     </div>
                     <div className="p-5 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-100 dark:border-zinc-800 hover:border-violet-200 dark:hover:border-violet-800 transition-colors">
-                      <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-2">
+                      <h3 className="font-black font-exo-extralight text-[#27003B] dark:text-white mb-2">
                         {m.title}
                       </h3>
                       <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
@@ -327,10 +327,10 @@ export default function JourneyPage() {
       <section className="px-6 py-16">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               Looking Ahead
             </span>
-            <h2 className="text-3xl font-black font-raleway">
+            <h2 className="text-3xl font-black font-exo-extralight">
               Where we are going
             </h2>
           </div>
@@ -344,7 +344,7 @@ export default function JourneyPage() {
                   {v.icon}
                 </div>
                 <div>
-                  <h3 className="font-black font-raleway text-[#27003B] dark:text-white mb-1.5">
+                  <h3 className="font-black font-exo-extralight text-[#27003B] dark:text-white mb-1.5">
                     {v.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -361,10 +361,10 @@ export default function JourneyPage() {
       <section className="px-6 py-16 ">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               Lessons
             </span>
-            <h2 className="text-3xl font-black font-raleway">
+            <h2 className="text-3xl font-black font-exo-extralight">
               What the journey taught us
             </h2>
           </div>
@@ -399,7 +399,7 @@ export default function JourneyPage() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="p-px">
             <div className="rounded-2xl px-8 py-12">
-              <h2 className="text-2xl font-black font-raleway mb-3">
+              <h2 className="text-2xl font-black font-exo-extralight mb-3">
                 Want to be part of our next chapter?
               </h2>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-6">
@@ -408,7 +408,7 @@ export default function JourneyPage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-raleway hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-exo-extralight hover:opacity-90 transition-opacity"
               >
                 Start a Project <FiArrowRight size={16} />
               </Link>

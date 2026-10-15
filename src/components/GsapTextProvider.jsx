@@ -126,7 +126,7 @@ export default function GsapTextProvider({ children }) {
 
       // 4. Subtle Interactive Hover Physics on Interactive Headings & Links
       const interactiveTitles = document.querySelectorAll(
-        '.group h2, .group h3, a h2, a h3, h2.font-display'
+        '.group h2, .group h3, a h2, a h3, h2.font-exo-medium'
       );
       interactiveTitles.forEach((title) => {
         if (title.closest('.no-gsap') || title.closest('form')) return;

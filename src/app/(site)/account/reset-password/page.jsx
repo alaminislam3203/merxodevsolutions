@@ -89,19 +89,19 @@ function ResetPasswordContent() {
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-raleway uppercase tracking-widest shadow-sm mb-6">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
             <span>MerxoDev Security & Account Recovery</span>
           </div>
 
-          <h1 className="text-4xl xl:text-5xl font-extrabold font-display uppercase tracking-tight text-white leading-[1.15] mb-6">
+          <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
             Create Your{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
               New Password
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base font-raleway leading-relaxed mb-8">
+          <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             Your verification code was confirmed. Choose a strong, unique password to complete your account recovery.
           </p>
 
@@ -129,8 +129,8 @@ function ResetPasswordContent() {
                   <item.icon size={15} />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-zinc-200 font-raleway">{item.title}</h4>
-                  <p className="text-xs text-zinc-400 font-raleway">{item.desc}</p>
+                  <h4 className="text-sm font-bold text-zinc-200 font-exo-extralight">{item.title}</h4>
+                  <p className="text-xs text-zinc-400 font-exo-extralight">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -147,10 +147,10 @@ function ResetPasswordContent() {
                 key={s.label}
                 className="p-4 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-md text-center group hover:border-violet-500/50 transition-colors"
               >
-                <p className={`text-2xl font-extrabold font-display bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>
+                <p className={`text-2xl font-extrabold font-exo-medium bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>
                   {s.value}
                 </p>
-                <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider font-raleway mt-1">
+                <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider font-exo-extralight mt-1">
                   {s.label}
                 </p>
               </div>
@@ -159,7 +159,7 @@ function ResetPasswordContent() {
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-raleway border-t border-zinc-800/60 pt-6">
+        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
@@ -177,7 +177,7 @@ function ResetPasswordContent() {
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono">
                 3
               </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-raleway">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-exo-extralight">
                 Step 3 of 3: New Password
               </span>
             </div>
@@ -189,10 +189,10 @@ function ResetPasswordContent() {
               <div className="w-12 h-12 mx-auto rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center text-2xl">
                 <FiAlertCircle />
               </div>
-              <h3 className="text-base font-bold text-zinc-900 dark:text-white font-raleway">
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white font-exo-extralight">
                 Verification Required
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
                 You must verify your email with a 6-digit code before creating a new password.
               </p>
               <Link
@@ -210,10 +210,10 @@ function ResetPasswordContent() {
                 <FiCheckCircle />
               </div>
               <div className="space-y-1.5">
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-white font-raleway">
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   Password Updated!
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
                   Your password has been changed successfully. You can now sign into your account with your new credentials.
                 </p>
               </div>
@@ -233,17 +233,17 @@ function ResetPasswordContent() {
             <>
               {/* Header */}
               <div className="mb-6">
-                <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
+                <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
                   Set New Password
                 </h2>
-                <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
+                <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
                   Create a new password for <strong className="text-zinc-900 dark:text-white font-mono">{email}</strong>.
                 </p>
               </div>
 
               {/* Error Message */}
               {error && (
-                <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs sm:text-sm font-raleway flex items-center gap-2.5">
+                <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs sm:text-sm font-exo-extralight flex items-center gap-2.5">
                   <FiAlertCircle size={16} className="shrink-0" />
                   <span>{error}</span>
                 </div>
@@ -252,7 +252,7 @@ function ResetPasswordContent() {
               <form onSubmit={handleResetPassword} className="space-y-5">
                 {/* New Password Field */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-raleway">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-exo-extralight">
                     New Password <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
@@ -264,7 +264,7 @@ function ResetPasswordContent() {
                       placeholder="At least 6 characters"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
+                      className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
                     />
                     <button
                       type="button"
@@ -278,7 +278,7 @@ function ResetPasswordContent() {
 
                 {/* Confirm Password Field */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-raleway">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-exo-extralight">
                     Confirm New Password <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
@@ -290,11 +290,10 @@ function ResetPasswordContent() {
                       placeholder="Re-type your new password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className={`w-full pl-11 pr-11 py-3.5 rounded-2xl border bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all font-raleway ${
-                        confirmPassword && confirmPassword !== newPassword
-                          ? 'border-rose-500 focus:border-rose-500'
-                          : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500'
-                      }`}
+                      className={`w-full pl-11 pr-11 py-3.5 rounded-2xl border bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all font-exo-extralight ${confirmPassword && confirmPassword !== newPassword
+                        ? 'border-rose-500 focus:border-rose-500'
+                        : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500'
+                        }`}
                     />
                     <button
                       type="button"
@@ -305,7 +304,7 @@ function ResetPasswordContent() {
                     </button>
                   </div>
                   {confirmPassword && confirmPassword !== newPassword && (
-                    <p className="mt-1 text-[11px] text-rose-500 font-raleway">
+                    <p className="mt-1 text-[11px] text-rose-500 font-exo-extralight">
                       Passwords do not match.
                     </p>
                   )}
@@ -315,7 +314,7 @@ function ResetPasswordContent() {
                 <button
                   type="submit"
                   disabled={loading || newPassword.length < 6 || !confirmPassword || newPassword !== confirmPassword}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm shadow-xl shadow-violet-500/25 hover:shadow-cyan-500/30 hover:scale-[1.01] active:scale-98 disabled:opacity-50 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 cursor-pointer font-raleway uppercase tracking-wider"
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm shadow-xl shadow-violet-500/25 hover:shadow-cyan-500/30 hover:scale-[1.01] active:scale-98 disabled:opacity-50 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 cursor-pointer font-exo-extralight uppercase tracking-wider"
                 >
                   {loading ? (
                     <>
@@ -333,7 +332,7 @@ function ResetPasswordContent() {
 
               {/* Back to Sign In Link */}
               <div className="mt-8 text-center">
-                <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm font-raleway">
+                <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm font-exo-extralight">
                   Remember your password?{' '}
                   <Link
                     href="/account/login"
@@ -353,7 +352,7 @@ function ResetPasswordContent() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen pt-32 text-center text-zinc-400 font-raleway">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen pt-32 text-center text-zinc-400 font-exo-extralight">Loading...</div>}>
       <ResetPasswordContent />
     </Suspense>
   );

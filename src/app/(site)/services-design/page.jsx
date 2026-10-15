@@ -201,7 +201,7 @@ export default function ServicesDesignPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-raleway mb-6"
+            className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
               Home
@@ -216,40 +216,40 @@ export default function ServicesDesignPage() {
             </span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-pink-100 dark:bg-pink-950/90 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 uppercase tracking-widest font-raleway mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-pink-100 dark:bg-pink-950/90 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping" />
             Figma & World-Class Product Design
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             UI/UX Design That{' '}
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent animated-gradient-text">
               Inspires & Converts
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-raleway">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
             We craft visually breathtaking, user-obsessed digital experiences — from high-converting landing pages to complex SaaS dashboard architectures in Figma.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link
               href="/contact?service=UI/UX%20Design"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white text-sm font-black uppercase tracking-wider font-raleway hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105 transition-all duration-300"
             >
               <span>Book Design Consultation</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-raleway text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600 transition-all duration-300"
             >
               View Design Showcase
             </Link>
           </div>
 
           {/* Trust Highlights Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-raleway">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaPalette className="text-pink-500" />
               <span>Figma Auto-Layout</span>
@@ -278,10 +278,10 @@ export default function ServicesDesignPage() {
               key={i}
               className="text-center p-6 rounded-3xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 backdrop-blur-xl shadow-xl shadow-pink-950/5 card-hover-lift"
             >
-              <p className="text-3xl sm:text-4xl font-display uppercase tracking-wide bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-1">
+              <p className="text-3xl sm:text-4xl font-exo-medium uppercase tracking-wide bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway font-semibold">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight font-semibold">
                 {stat.label}
               </p>
             </div>
@@ -293,12 +293,12 @@ export default function ServicesDesignPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="features-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-3">
               ✦ Human-Centered Craftsmanship
             </span>
             <h2
               id="features-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Comprehensive UI/UX{' '}
               <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
@@ -320,16 +320,16 @@ export default function ServicesDesignPage() {
                     {feature.icon}
                   </div>
 
-                  <h3 className="font-display text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                  <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
                     {feature.title}
                   </h3>
 
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                     {feature.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-pink-600 dark:text-pink-400 font-raleway group-hover:translate-x-1 transition-transform">
+                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-pink-600 dark:text-pink-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
                   <span>Pixel-Perfect Fidelity</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
@@ -343,10 +343,10 @@ export default function ServicesDesignPage() {
       <section className="px-4 sm:px-6 pb-24" aria-label="Design tools">
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-pink-50/50 via-white to-purple-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-2 block">
               ✦ Professional Design Stack
             </span>
-            <h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wide">
+            <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
               Industry-Leading Design Tools
             </h3>
           </div>
@@ -358,7 +358,7 @@ export default function ServicesDesignPage() {
                 className="flex items-center gap-2.5 px-5 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm hover:border-pink-500 hover:shadow-md hover:scale-105 transition-all duration-200 cursor-default"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600" />
-                <span className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                   {tech.label}
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
@@ -374,12 +374,12 @@ export default function ServicesDesignPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="pricing-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-3">
               ✦ Transparent Design Investment
             </span>
             <h2
               id="pricing-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
               Choose Your{' '}
               <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
@@ -404,23 +404,23 @@ export default function ServicesDesignPage() {
                 )}
 
                 <div>
-                  <h3 className="font-display text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
+                  <h3 className="font-exo-medium text-2xl uppercase tracking-wide text-zinc-900 dark:text-white mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway mb-6 min-h-[36px]">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6 min-h-[36px]">
                     {plan.desc}
                   </p>
 
                   <div className="flex items-baseline gap-1 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
-                    <span className="font-display text-4xl sm:text-5xl uppercase tracking-tight text-pink-600 dark:text-pink-400">
+                    <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-pink-600 dark:text-pink-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-raleway">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-raleway">
+                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                         <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
                         <span>{feat}</span>
                       </li>
@@ -430,7 +430,7 @@ export default function ServicesDesignPage() {
 
                 <Link
                   href={`/contact?service=UI/UX%20Design&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-raleway transition-all duration-200 ${plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
                     ? 'bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white hover:opacity-95 shadow-lg shadow-pink-500/25'
                     : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600'
                     }`}
@@ -447,12 +447,12 @@ export default function ServicesDesignPage() {
       <section className="px-4 sm:px-6 pb-24" aria-labelledby="faq-heading">
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-raleway mb-2 block">
+            <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-2 block">
               ✦ Design FAQs
             </span>
             <h2
               id="faq-heading"
-              className="font-display text-3xl sm:text-5xl uppercase tracking-wide"
+              className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
               Frequently Asked Questions
             </h2>
@@ -471,7 +471,7 @@ export default function ServicesDesignPage() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer gap-4"
                   >
-                    <span className="font-display text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
+                    <span className="font-exo-medium text-lg uppercase tracking-wide text-zinc-900 dark:text-white">
                       {faq.q}
                     </span>
                     <FiChevronDown
@@ -481,7 +481,7 @@ export default function ServicesDesignPage() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
+                    <div className="px-6 pb-6 pt-0 text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80">
                       <p className="pt-4">{faq.a}</p>
                     </div>
                   )}
@@ -496,18 +496,18 @@ export default function ServicesDesignPage() {
       <section className="px-4 sm:px-6 pb-24">
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#200329] via-[#1a0533] to-[#0d0426] border border-pink-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-raleway mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
               ✦ Ready to Redefine Your Brand's Visual Identity?
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+            <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
               Let's Create Exceptional Design Together
             </h2>
-            <p className="text-sm sm:text-base text-zinc-300 font-raleway leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
               Work directly with our senior product designers to craft a digital interface that elevates your brand and turns visitors into loyal customers.
             </p>
             <Link
               href="/contact?service=UI/UX%20Design"
-              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-black text-sm uppercase tracking-wider font-raleway hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
             >
               <span>Schedule Design Discovery</span>
               <FiArrowRight size={18} />

@@ -178,10 +178,10 @@ export default async function AboutPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full dark:from-violet-950 dark:to-cyan-950 opacity-40 blur-3xl pointer-events-none" />
 
         <div className="relative max-w-3xl mx-auto text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-4">
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-4">
             Who We Are
           </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-raleway mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight font-exo-extralight mb-6 leading-tight">
             We build digital things{' '}
             <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
               that last.
@@ -204,7 +204,7 @@ export default async function AboutPage() {
               className="flex flex-col items-center gap-2 py-8 px-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
             >
               <span className="text-violet-500">{stat.icon}</span>
-              <span className="text-3xl font-black font-raleway bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              <span className="text-3xl font-black font-exo-extralight bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
                 {stat.value}
               </span>
               <span className="text-xs text-zinc-500 dark:text-zinc-400 text-center font-medium">
@@ -219,10 +219,10 @@ export default async function AboutPage() {
       <section className="px-6 py-16">
         <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               Our Story
             </span>
-            <h2 className="text-3xl font-black font-raleway mb-5 leading-tight">
+            <h2 className="text-3xl font-black font-exo-extralight mb-5 leading-tight">
               Started small,{' '}
               <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
                 thinking big.
@@ -251,7 +251,7 @@ export default async function AboutPage() {
                     {i + 1}
                   </div>
                   <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
-                  <span className="text-sm font-semibold font-raleway text-zinc-700 dark:text-zinc-300">
+                  <span className="text-sm font-semibold font-exo-extralight text-zinc-700 dark:text-zinc-300">
                     {step}
                   </span>
                 </div>
@@ -265,10 +265,10 @@ export default async function AboutPage() {
       <section className="px-6 py-16">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               What We Stand For
             </span>
-            <h2 className="text-3xl font-black font-raleway">Our Values</h2>
+            <h2 className="text-3xl font-black font-exo-extralight">Our Values</h2>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             {values.map(v => (
@@ -280,7 +280,7 @@ export default async function AboutPage() {
                   {v.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold font-raleway mb-1 text-[#27003B] dark:text-white">
+                  <h3 className="font-bold font-exo-extralight mb-1 text-[#27003B] dark:text-white">
                     {v.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
@@ -297,10 +297,10 @@ export default async function AboutPage() {
       <section className="px-6 py-16 ">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               What We Do
             </span>
-            <h2 className="text-3xl font-black font-raleway">Our Expertise</h2>
+            <h2 className="text-3xl font-black font-exo-extralight">Our Expertise</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map(s => (
@@ -312,7 +312,7 @@ export default async function AboutPage() {
                   {s.icon}
                 </span>
                 <div>
-                  <p className="font-bold text-sm font-raleway text-[#27003B] dark:text-white">
+                  <p className="font-bold text-sm font-exo-extralight text-[#27003B] dark:text-white">
                     {s.label}
                   </p>
                   <p className="text-xs text-zinc-400 mt-0.5">{s.desc}</p>
@@ -327,10 +327,10 @@ export default async function AboutPage() {
       <section className="px-6 py-16">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-raleway mb-3">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
               The People
             </span>
-            <h2 className="text-3xl font-black font-raleway">Meet the Team</h2>
+            <h2 className="text-3xl font-black font-exo-extralight">Meet the Team</h2>
           </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {displayedTeam.map(member => (
@@ -352,7 +352,7 @@ export default async function AboutPage() {
                   )}
                 </div>
                 <div className="w-full">
-                  <h3 className="font-bold font-raleway text-[#27003B] dark:text-white text-base">
+                  <h3 className="font-bold font-exo-extralight text-[#27003B] dark:text-white text-base">
                     {member.name}
                   </h3>
                   <p className="text-xs text-violet-500 font-semibold mt-0.5">
@@ -420,7 +420,7 @@ export default async function AboutPage() {
           <div className="mt-12 text-center">
             <Link
               href="/our-team"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600/10 via-indigo-600/10 to-cyan-500/10 hover:from-violet-600/20 hover:via-indigo-600/20 hover:to-cyan-500/20 border border-violet-500/30 hover:border-violet-500/60 text-[#27003B] dark:text-white font-bold text-sm font-raleway transition-all duration-300 shadow-sm hover:shadow-violet-500/10 hover:shadow-lg group"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600/10 via-indigo-600/10 to-cyan-500/10 hover:from-violet-600/20 hover:via-indigo-600/20 hover:to-cyan-500/20 border border-violet-500/30 hover:border-violet-500/60 text-[#27003B] dark:text-white font-bold text-sm font-exo-extralight transition-all duration-300 shadow-sm hover:shadow-violet-500/10 hover:shadow-lg group"
             >
               <span>View All Team Members</span>
               {team.length > 3 && (
@@ -439,7 +439,7 @@ export default async function AboutPage() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="p-px">
             <div className="rounded-2xl px-8 py-12">
-              <h2 className="text-2xl font-black font-raleway mb-3">
+              <h2 className="text-2xl font-black font-exo-extralight mb-3">
                 Let's build something together
               </h2>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-6">
@@ -448,7 +448,7 @@ export default async function AboutPage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-7 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-raleway hover:opacity-90 transition-opacity"
+                className="inline-block px-7 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-exo-extralight hover:opacity-90 transition-opacity"
               >
                 Get In Touch
               </Link>

@@ -126,7 +126,7 @@ export default function TermsOfServicePage() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Breadcrumbs & Switcher ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs font-semibold uppercase tracking-wider font-raleway text-zinc-500 dark:text-zinc-400">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs font-semibold uppercase tracking-wider font-exo-extralight text-zinc-500 dark:text-zinc-400">
           <div className="flex items-center gap-2">
             <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
               Home
@@ -151,19 +151,19 @@ export default function TermsOfServicePage() {
 
         {/* ── Page Header ── */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase font-raleway bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border border-cyan-200/80 dark:border-cyan-800/80 mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase font-exo-extralight bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border border-cyan-200/80 dark:border-cyan-800/80 mb-5 shadow-sm">
             <FiShield className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 animate-pulse" />
             Fair & Transparent Engagement
           </div>
 
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-[#27003B] dark:text-white uppercase tracking-tight leading-tight mb-5">
+          <h1 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl font-black text-[#27003B] dark:text-white uppercase tracking-tight leading-tight mb-5">
             Terms of{' '}
             <span className="bg-gradient-to-r from-cyan-500 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
               Service
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
             These terms establish a balanced, collaborative foundation for our engineering contracts,
             ensuring crystal-clear deliverables, milestone payments, and unambiguous intellectual property ownership.
           </p>
@@ -195,10 +195,10 @@ export default function TermsOfServicePage() {
               <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 {h.icon}
               </div>
-              <h2 className="text-sm font-bold font-raleway text-[#27003B] dark:text-white uppercase mb-1 tracking-wide">
+              <h2 className="text-sm font-bold font-exo-extralight text-[#27003B] dark:text-white uppercase mb-1 tracking-wide">
                 {h.title}
               </h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                 {h.desc}
               </p>
             </div>
@@ -210,11 +210,11 @@ export default function TermsOfServicePage() {
           {/* Left Column: Sticky Table of Contents & Quick Support */}
           <aside className="lg:col-span-4 sticky top-24 space-y-6">
             <div className="p-5 rounded-2xl bg-white/90 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-xl shadow-lg">
-              <h3 className="text-xs font-bold uppercase tracking-widest font-raleway text-cyan-600 dark:text-cyan-400 mb-4 flex items-center gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest font-exo-extralight text-cyan-600 dark:text-cyan-400 mb-4 flex items-center gap-2">
                 <FiFileText className="w-4 h-4" />
                 Table of Contents
               </h3>
-              <nav className="space-y-1.5 text-xs font-medium font-raleway">
+              <nav className="space-y-1.5 text-xs font-medium font-exo-extralight">
                 {sections.map(s => (
                   <a
                     key={s.id}
@@ -229,18 +229,18 @@ export default function TermsOfServicePage() {
 
             {/* Quick Action Widget */}
             <div className="p-5 rounded-2xl bg-gradient-to-br from-cyan-600 to-violet-600 text-white shadow-xl">
-              <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full inline-block mb-3 font-raleway">
+              <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full inline-block mb-3 font-exo-extralight">
                 Custom Enterprise Contracts
               </span>
-              <h4 className="text-base font-bold font-display uppercase tracking-wide mb-2">
+              <h4 className="text-base font-bold font-exo-medium uppercase tracking-wide mb-2">
                 Have Specific Terms?
               </h4>
-              <p className="text-xs text-white/90 leading-relaxed mb-4 font-raleway">
+              <p className="text-xs text-white/90 leading-relaxed mb-4 font-exo-extralight">
                 We accommodate enterprise master service agreements (MSAs) and custom vendor onboarding workflows.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white text-cyan-800 hover:bg-zinc-100 font-bold text-xs uppercase tracking-wider font-raleway transition-transform hover:scale-[1.02] active:scale-95 shadow-md"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white text-cyan-800 hover:bg-zinc-100 font-bold text-xs uppercase tracking-wider font-exo-extralight transition-transform hover:scale-[1.02] active:scale-95 shadow-md"
               >
                 <span>Request Custom SOW</span>
                 <FiArrowRight className="w-3.5 h-3.5" />
@@ -259,11 +259,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   1
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Acceptance of Terms
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   These Terms of Service constitute a legally binding agreement between <strong>MerxoDev Solutions</strong> (&quot;Agency&quot;, &quot;we&quot;, &quot;us&quot;)
                   and the person or corporate entity (&quot;Client&quot;, &quot;you&quot;) engaging our digital engineering, software architecture, UI/UX design, or cloud maintenance services.
@@ -283,11 +283,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   2
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Services & Statements of Work
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   We deliver custom digital solutions across multiple specialized disciplines:
                 </p>
@@ -324,11 +324,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">
                   3
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Client Responsibilities
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>To ensure milestone deliveries remain strictly on schedule, Client agrees to:</p>
                 <ul className="space-y-2 list-none pl-0 text-xs">
                   <li className="flex items-start gap-2.5">
@@ -356,11 +356,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                   4
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   IP & Source Code Ownership
                 </h2>
               </div>
-              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-900 dark:text-emerald-200 font-medium leading-relaxed">
                   <strong>Unconditional Transfer:</strong> Upon receipt of 100% of agreed contract fees, Client receives full, unconditional ownership of all custom software code, UI designs, and database schemas created specifically for the project.
                 </div>
@@ -382,11 +382,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   5
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Milestones & Payment Terms
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>Unless customized in your specific SOW, standard fixed-price projects follow a milestone billing schedule:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs">
                   <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50">
@@ -417,11 +417,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   6
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Revisions & Scope Changes
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   Every contract includes <strong>2–3 rounds of design and interface revisions</strong> within the approved scope of work.
                 </p>
@@ -440,11 +440,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                   7
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   30-Day Free Warranty & SLA
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   We stand 100% behind our code. Every bespoke project includes a <strong>30-day complimentary post-launch warranty period</strong> starting on the date of production release.
                 </p>
@@ -464,11 +464,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-sm">
                   8
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Disclaimers & Limitations
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   While we engineer software to modern performance and security standards, Agency cannot guarantee specific commercial outcomes, sales conversions, or search engine rankings, as those depend on market forces and marketing execution.
                 </p>
@@ -487,11 +487,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   9
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Confidentiality & Non-Disclosure
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   Both parties agree to protect and keep confidential all non-public technical, financial, and strategic information disclosed during the engagement.
                 </p>
@@ -510,11 +510,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">
                   10
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Termination & Handover
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   Either party may terminate an agreement with 14 business days written notice. In the event of early termination, Client pays only for approved milestones and hours completed to date, and Agency immediately transfers all corresponding project code and assets.
                 </p>
@@ -530,11 +530,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   11
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Governing Law & Disputes
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   These Terms shall be interpreted and governed in accordance with the commercial and civil laws of Bangladesh. In the event of any disagreement, both parties commit to an initial 30-day amicable mediation period prior to initiating any formal arbitration.
                 </p>
@@ -550,11 +550,11 @@ export default function TermsOfServicePage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   12
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Legal Inquiries & Contracts
                 </h2>
               </div>
-              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>For contract queries, master service agreement reviews, or billing questions, reach out directly:</p>
                 <div className="p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200/80 dark:border-zinc-700 space-y-2 text-xs">
                   <p><strong>Entity:</strong> MerxoDev Solutions</p>

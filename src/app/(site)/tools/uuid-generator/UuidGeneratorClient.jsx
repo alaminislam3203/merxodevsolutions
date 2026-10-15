@@ -22,8 +22,8 @@ function generateNanoId(size = 21, alphabet = 'use-standard') {
     alphabet === 'numbers'
       ? '0123456789'
       : alphabet === 'lowercase'
-      ? 'abcdefghijklmnopqrstuvwxyz0123456789'
-      : 'ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_kqer';
+        ? 'abcdefghijklmnopqrstuvwxyz0123456789'
+        : 'ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_kqer';
   const bytes = new Uint8Array(size);
   crypto.getRandomValues(bytes);
   let id = '';
@@ -132,7 +132,7 @@ export default function UuidGeneratorClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
             Home
           </Link>
@@ -152,7 +152,7 @@ export default function UuidGeneratorClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-exo-extralight uppercase tracking-widest">
                 <FiHash className="w-3.5 h-3.5" />
                 Generators & Identifiers
               </span>
@@ -162,20 +162,20 @@ export default function UuidGeneratorClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               UUID & NanoID{' '}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">
                 Generator
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Generate cryptographically secure UUID v4 (RFC 4122) and URL-friendly NanoIDs in bulk with custom casing and quotes.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -189,38 +189,35 @@ export default function UuidGeneratorClient() {
             <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
               <button
                 onClick={() => setType('uuidv4')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                  type === 'uuidv4'
-                    ? 'bg-amber-500 text-white shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                }`}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'uuidv4'
+                  ? 'bg-amber-500 text-white shadow-sm'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
               >
                 UUID v4 (RFC 4122)
               </button>
               <button
                 onClick={() => setType('nanoid')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                  type === 'nanoid'
-                    ? 'bg-amber-500 text-white shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                }`}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'nanoid'
+                  ? 'bg-amber-500 text-white shadow-sm'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
               >
                 NanoID
               </button>
             </div>
 
             {/* Quantity Selector */}
-            <div className="flex items-center gap-2 text-xs font-raleway font-semibold">
+            <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold">
               <span className="text-zinc-500 dark:text-zinc-400">Generate Quantity:</span>
               {[1, 5, 10, 25, 50].map((n) => (
                 <button
                   key={n}
                   onClick={() => setCount(n)}
-                  className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${
-                    count === n
-                      ? 'bg-amber-500 text-white border-transparent'
-                      : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
-                  }`}
+                  className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${count === n
+                    ? 'bg-amber-500 text-white border-transparent'
+                    : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
+                    }`}
                 >
                   {n}
                 </button>
@@ -230,7 +227,7 @@ export default function UuidGeneratorClient() {
             {/* Regenerate Action */}
             <button
               onClick={generateIds}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-md shadow-amber-500/20 active:scale-95"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-md shadow-amber-500/20 active:scale-95"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
               Regenerate
@@ -238,7 +235,7 @@ export default function UuidGeneratorClient() {
           </div>
 
           {/* Additional Options */}
-          <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs font-raleway text-zinc-700 dark:text-zinc-300">
+          <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs font-exo-extralight text-zinc-700 dark:text-zinc-300">
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
@@ -300,20 +297,20 @@ export default function UuidGeneratorClient() {
         {/* Output List Display */}
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
           <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
-            <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+            <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
               Generated Identifiers ({generatedList.length})
             </span>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyAll}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-raleway transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-exo-extralight transition-all shadow-sm"
               >
                 {copiedAll ? <FiCheck className="w-3.5 h-3.5" /> : <FiCopy className="w-3.5 h-3.5" />}
                 <span>{copiedAll ? 'Copied All' : 'Copy All'}</span>
               </button>
               <button
                 onClick={handleDownload}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
               >
                 <FiDownload className="w-3.5 h-3.5" />
                 <span>Save .txt</span>
@@ -353,10 +350,10 @@ export default function UuidGeneratorClient() {
             <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
               <FiLock className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Cryptographically Secure
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Powered by native browser <code className="font-mono text-amber-600">crypto.getRandomValues</code> CSPRNG entropy sources to guarantee zero collision probability.
             </p>
           </div>
@@ -365,10 +362,10 @@ export default function UuidGeneratorClient() {
             <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-4">
               <FiZap className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               NanoID URL Safety
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               NanoIDs are smaller, faster, and URL-friendly without dangerous characters, making them ideal for shortlinks, primary keys, and public tokens.
             </p>
           </div>
@@ -377,10 +374,10 @@ export default function UuidGeneratorClient() {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <FiCheckCircle className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Bulk Export Ready
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Generate up to 500 identifiers at a time, format with SQL quotes or hyphens, and export directly as a plain text file for database seed scripts.
             </p>
           </div>

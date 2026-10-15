@@ -102,7 +102,7 @@ export default function CssShadowClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
             Home
           </Link>
@@ -122,7 +122,7 @@ export default function CssShadowClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 font-exo-extralight uppercase tracking-widest">
                 <FiBox className="w-3.5 h-3.5" />
                 CSS & UI Design
               </span>
@@ -132,20 +132,20 @@ export default function CssShadowClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               CSS Shadow &{' '}
               <span className="bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
                 Glass Builder
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Fine-tune drop shadows and glassmorphic blur effects with interactive sliders. Copy ready-to-use CSS and Tailwind arbitrary classes.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -154,7 +154,7 @@ export default function CssShadowClient() {
 
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-          <span className="text-xs font-bold font-raleway text-zinc-400 whitespace-nowrap">Presets:</span>
+          <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">Presets:</span>
           {PRESETS.map((p) => (
             <button
               key={p.name}
@@ -170,13 +170,13 @@ export default function CssShadowClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls Form (5 cols) */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
-            <h2 className="font-display text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
+            <h2 className="font-exo-medium text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
               Shadow Parameters
             </h2>
 
             {/* Horizontal (X) */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                 <span>Horizontal Offset (X)</span>
                 <span className="font-mono text-rose-500">{x}px</span>
               </div>
@@ -192,7 +192,7 @@ export default function CssShadowClient() {
 
             {/* Vertical (Y) */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                 <span>Vertical Offset (Y)</span>
                 <span className="font-mono text-rose-500">{y}px</span>
               </div>
@@ -208,7 +208,7 @@ export default function CssShadowClient() {
 
             {/* Blur Radius */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                 <span>Blur Radius</span>
                 <span className="font-mono text-rose-500">{blur}px</span>
               </div>
@@ -224,7 +224,7 @@ export default function CssShadowClient() {
 
             {/* Spread Radius */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                 <span>Spread Radius</span>
                 <span className="font-mono text-rose-500">{spread}px</span>
               </div>
@@ -241,7 +241,7 @@ export default function CssShadowClient() {
             {/* Shadow Color & Opacity */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-raleway font-semibold mb-1.5">Color</label>
+                <label className="block text-xs font-exo-extralight font-semibold mb-1.5">Color</label>
                 <div className="flex items-center gap-2">
                   <input
                     type="color"
@@ -259,7 +259,7 @@ export default function CssShadowClient() {
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                   <span>Opacity</span>
                   <span className="font-mono text-rose-500">{Math.round(opacity * 100)}%</span>
                 </div>
@@ -276,7 +276,7 @@ export default function CssShadowClient() {
             </div>
 
             {/* Toggles */}
-            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-raleway">
+            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-exo-extralight">
               <label className="flex items-center gap-2 cursor-pointer font-semibold select-none">
                 <input
                   type="checkbox"
@@ -310,13 +310,12 @@ export default function CssShadowClient() {
                   backdropFilter: isGlass ? 'blur(14px)' : undefined,
                   border: isGlass ? '1px solid rgba(255, 255, 255, 0.25)' : undefined,
                 }}
-                className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${
-                  isGlass ? 'text-white' : 'bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100'
-                }`}
+                className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${isGlass ? 'text-white' : 'bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100'
+                  }`}
               >
                 <FiBox className="w-8 h-8 text-rose-500 mb-2" />
-                <h3 className="font-display text-lg font-bold">Preview Card</h3>
-                <p className="text-xs opacity-70 font-raleway mt-1">
+                <h3 className="font-exo-medium text-lg font-bold">Preview Card</h3>
+                <p className="text-xs opacity-70 font-exo-extralight mt-1">
                   {inset ? 'Inner Inset Shadow' : 'Elevation Drop Shadow'}
                 </p>
               </div>
@@ -327,12 +326,12 @@ export default function CssShadowClient() {
               {/* CSS Rule */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                     Pure CSS
                   </span>
                   <button
                     onClick={() => handleCopy(fullCssSnippet, 'CSS Rule')}
-                    className="text-xs font-bold font-raleway text-rose-600 hover:text-rose-700 flex items-center gap-1"
+                    className="text-xs font-bold font-exo-extralight text-rose-600 hover:text-rose-700 flex items-center gap-1"
                   >
                     {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                     Copy CSS
@@ -346,12 +345,12 @@ export default function CssShadowClient() {
               {/* Tailwind CSS */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                     Tailwind CSS Arbitrary Value
                   </span>
                   <button
                     onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
-                    className="text-xs font-bold font-raleway text-rose-600 hover:text-rose-700 flex items-center gap-1"
+                    className="text-xs font-bold font-exo-extralight text-rose-600 hover:text-rose-700 flex items-center gap-1"
                   >
                     {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                     Copy Tailwind
@@ -371,10 +370,10 @@ export default function CssShadowClient() {
             <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950 flex items-center justify-center text-rose-600 dark:text-rose-400 mb-4">
               <FiEye className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               60 FPS Live Rendering
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Every slider adjust updates the CSS layout instantly in real time so you can design tactile elevation without leaving the browser.
             </p>
           </div>
@@ -383,10 +382,10 @@ export default function CssShadowClient() {
             <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
               <FiLayers className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Glassmorphism Presets
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Combine box-shadows with backdrop-filter blur and translucent borders to achieve state-of-the-art frosted glass aesthetic.
             </p>
           </div>
@@ -395,10 +394,10 @@ export default function CssShadowClient() {
             <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
               <FiCode className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Tailwind v3 & v4 Ready
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Generates ready-to-paste arbitrary classes formatted with underscores so Tailwind projects compile without syntax escapes.
             </p>
           </div>

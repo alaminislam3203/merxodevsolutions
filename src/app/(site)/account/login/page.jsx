@@ -246,19 +246,19 @@ function LoginForm() {
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-raleway uppercase tracking-widest shadow-sm mb-6">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
             <span>MerxoDev Security & Client Portal</span>
           </div>
 
-          <h1 className="text-4xl xl:text-5xl font-extrabold font-display uppercase tracking-tight text-white leading-[1.15] mb-6">
+          <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
             Your Dedicated{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
               Client Portal
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base font-raleway leading-relaxed mb-8">
+          <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.
           </p>
 
@@ -273,10 +273,10 @@ function LoginForm() {
                 key={s.label}
                 className="p-4 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-md text-center group hover:border-violet-500/50 transition-colors"
               >
-                <p className={`text-2xl font-extrabold font-display bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>
+                <p className={`text-2xl font-extrabold font-exo-medium bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>
                   {s.value}
                 </p>
-                <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider font-raleway mt-1">
+                <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider font-exo-extralight mt-1">
                   {s.label}
                 </p>
               </div>
@@ -285,7 +285,7 @@ function LoginForm() {
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-raleway border-t border-zinc-800/60 pt-6">
+        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
@@ -299,10 +299,10 @@ function LoginForm() {
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="mb-8">
-            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
+            <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
               {is2FAStep ? 'Two-Factor Verification' : 'Welcome Back'}
             </h2>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm font-raleway">
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
               {is2FAStep
                 ? `Enter the 6-digit security code sent to ${formData.email}.`
                 : 'Sign in to manage your client projects and account.'}
@@ -311,7 +311,7 @@ function LoginForm() {
 
           {/* Registration Success Banner */}
           {isRegistered && !error && !is2FAStep && (
-            <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
+            <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm font-exo-extralight flex items-center gap-3">
               <FiCheckCircle size={18} className="text-emerald-500 shrink-0" />
               <span>Account created successfully! Please sign in with your email and password.</span>
             </div>
@@ -319,7 +319,7 @@ function LoginForm() {
 
           {/* Info Notice */}
           {infoMessage && (
-            <div className="mb-6 p-4 rounded-2xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/80 text-cyan-800 dark:text-cyan-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
+            <div className="mb-6 p-4 rounded-2xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/80 text-cyan-800 dark:text-cyan-300 text-xs sm:text-sm font-exo-extralight flex items-center gap-3">
               <FiShield size={18} className="text-cyan-500 shrink-0" />
               <span>{infoMessage}</span>
             </div>
@@ -327,7 +327,7 @@ function LoginForm() {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-raleway flex items-center gap-3">
+            <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-exo-extralight flex items-center gap-3">
               <FiAlertCircle size={18} className="text-rose-500 shrink-0" />
               <span>{error}</span>
             </div>
@@ -339,7 +339,7 @@ function LoginForm() {
             <div className="space-y-6 animate-fade-in">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     6-Digit Security Code <span className="text-rose-500">*</span>
                   </label>
                   <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
@@ -361,16 +361,15 @@ function LoginForm() {
                       disabled={verifying2FA}
                       onChange={(e) => handleDigitChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
-                      className={`w-11 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-mono font-bold rounded-2xl border transition-all select-all ${
-                        digit
-                          ? 'border-violet-500 dark:border-cyan-400 bg-violet-50/50 dark:bg-violet-950/30 text-violet-700 dark:text-white shadow-md shadow-violet-500/10'
-                          : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-zinc-900 dark:text-white'
-                      } focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 disabled:opacity-50`}
+                      className={`w-11 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-mono font-bold rounded-2xl border transition-all select-all ${digit
+                        ? 'border-violet-500 dark:border-cyan-400 bg-violet-50/50 dark:bg-violet-950/30 text-violet-700 dark:text-white shadow-md shadow-violet-500/10'
+                        : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-zinc-900 dark:text-white'
+                        } focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 disabled:opacity-50`}
                     />
                   ))}
                 </div>
 
-                <p className="mt-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 font-raleway">
+                <p className="mt-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                   Paste code or type 6 digits. Auto-verifies on 6th digit.
                 </p>
               </div>
@@ -380,7 +379,7 @@ function LoginForm() {
                 type="button"
                 onClick={() => handleVerify2FA()}
                 disabled={verifying2FA || digits.join('').length !== 6}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-exo-extralight shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all cursor-pointer"
               >
                 {verifying2FA ? (
                   <>
@@ -396,7 +395,7 @@ function LoginForm() {
               </button>
 
               {/* Resend 2FA Code */}
-              <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs font-raleway">
+              <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs font-exo-extralight">
                 <span className="text-zinc-500 dark:text-zinc-400">Didn't receive 2FA code?</span>
                 {resendCooldown > 0 ? (
                   <span className="text-zinc-400 dark:text-zinc-500 font-mono font-semibold">
@@ -425,7 +424,7 @@ function LoginForm() {
                     setInfoMessage('');
                     setDigits(['', '', '', '', '', '']);
                   }}
-                  className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-raleway transition-colors"
+                  className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-exo-extralight transition-colors"
                 >
                   ← Back to Email & Password
                 </button>
@@ -436,7 +435,7 @@ function LoginForm() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Field */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
                   Email Address
                 </label>
                 <div className="relative">
@@ -447,7 +446,7 @@ function LoginForm() {
                     placeholder="Enter Your Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
                   />
                 </div>
               </div>
@@ -455,12 +454,12 @@ function LoginForm() {
               {/* Password Field */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-raleway">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
                     Password
                   </label>
                   <Link
                     href="/account/forgot-password"
-                    className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-raleway"
+                    className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
                   >
                     Forgot password?
                   </Link>
@@ -473,7 +472,7 @@ function LoginForm() {
                     placeholder="Enter Your Password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-raleway"
+                    className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
                   />
                   <button
                     type="button"
@@ -489,7 +488,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-raleway shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-2 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm uppercase tracking-wider font-exo-extralight shadow-lg shadow-violet-600/25 hover:shadow-violet-600/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 transition-all mt-2 cursor-pointer"
               >
                 {loading ? (
                   <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -506,7 +505,7 @@ function LoginForm() {
           {/* Register Prompt */}
           {!is2FAStep && (
             <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 font-raleway">
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight">
                 Don't have an account yet?{' '}
                 <Link
                   href={`/account/register${redirectUrl !== '/account' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
@@ -521,7 +520,7 @@ function LoginForm() {
           {/* Security Notice */}
           <div className="mt-6 text-center">
             <div
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 font-raleway transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 font-exo-extralight transition-colors"
             >
               <FiShield size={13} />
               <span>Encrypted & Protected Workspace</span>

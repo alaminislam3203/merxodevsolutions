@@ -205,7 +205,7 @@ export default function JwtDecoderClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
             Home
           </Link>
@@ -225,7 +225,7 @@ export default function JwtDecoderClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-exo-extralight uppercase tracking-widest">
                 <FiKey className="w-3.5 h-3.5" />
                 Security & Authentication
               </span>
@@ -235,20 +235,20 @@ export default function JwtDecoderClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               JWT{' '}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
                 Debugger & Decoder
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Inspect JSON Web Tokens in real time. Decode header algorithms, inspect payload claims, and verify expiry dates locally.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -257,7 +257,7 @@ export default function JwtDecoderClient() {
 
         {/* Quick Sample Selector Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 mb-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
-          <div className="flex items-center gap-2 text-xs font-raleway font-semibold text-zinc-600 dark:text-zinc-300">
+          <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold text-zinc-600 dark:text-zinc-300">
             <span>Test with Samples:</span>
             <button
               onClick={() => setTokenInput(samples.active)}
@@ -275,7 +275,7 @@ export default function JwtDecoderClient() {
 
           <button
             onClick={() => setTokenInput('')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-600 hover:text-rose-600 dark:text-zinc-300 text-xs font-bold font-raleway transition-all"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-600 hover:text-rose-600 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
           >
             <FiTrash2 className="w-3.5 h-3.5" />
             Clear
@@ -285,37 +285,35 @@ export default function JwtDecoderClient() {
         {/* Expiration & Token Status Banner */}
         {decodedResult.isValid && decodedResult.expStatus && (
           <div
-            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 mb-6 rounded-2xl border ${
-              decodedResult.expStatus.isExpired
-                ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/80 text-rose-900 dark:text-rose-200'
-                : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-200'
-            }`}
+            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 mb-6 rounded-2xl border ${decodedResult.expStatus.isExpired
+              ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/80 text-rose-900 dark:text-rose-200'
+              : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/80 text-emerald-900 dark:text-emerald-200'
+              }`}
           >
             <div className="flex items-center gap-3">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                  decodedResult.expStatus.isExpired
-                    ? 'bg-rose-200/70 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300'
-                    : 'bg-emerald-200/70 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
-                }`}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${decodedResult.expStatus.isExpired
+                  ? 'bg-rose-200/70 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300'
+                  : 'bg-emerald-200/70 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
+                  }`}
               >
                 <FiClock className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-sm font-raleway">{decodedResult.expStatus.label}</span>
+                  <span className="font-bold text-sm font-exo-extralight">{decodedResult.expStatus.label}</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-mono font-semibold bg-white/70 dark:bg-black/40">
                     {decodedResult.expStatus.timeRemaining}
                   </span>
                 </div>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-raleway">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-exo-extralight">
                   Expires on: <span className="font-semibold">{decodedResult.expStatus.humanDate}</span> ({decodedResult.expStatus.utcDate})
                 </p>
               </div>
             </div>
 
             {decodedResult.iatDate && (
-              <div className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway sm:text-right">
+              <div className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight sm:text-right">
                 <span>Issued At (iat):</span>
                 <div className="font-semibold text-zinc-700 dark:text-zinc-300">{decodedResult.iatDate}</div>
               </div>
@@ -329,7 +327,7 @@ export default function JwtDecoderClient() {
             <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div className="flex-1">
               <span className="font-bold block mb-0.5">Invalid JWT Format</span>
-              <p className="font-raleway text-zinc-600 dark:text-zinc-400">{decodedResult.error}</p>
+              <p className="font-exo-extralight text-zinc-600 dark:text-zinc-400">{decodedResult.error}</p>
             </div>
           </div>
         )}
@@ -341,7 +339,7 @@ export default function JwtDecoderClient() {
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-2">
                 <FiKey className="w-4 h-4 text-emerald-500" />
-                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-200">
+                <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
                   Encoded JWT Token
                 </span>
               </div>
@@ -386,7 +384,7 @@ export default function JwtDecoderClient() {
               <div className="flex items-center justify-between px-4 py-3 bg-rose-50/50 dark:bg-rose-950/20 border-b border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-rose-600 dark:text-rose-400">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-rose-600 dark:text-rose-400">
                     HEADER: Algorithm & Token Type
                   </span>
                 </div>
@@ -414,7 +412,7 @@ export default function JwtDecoderClient() {
               <div className="flex items-center justify-between px-4 py-3 bg-violet-50/50 dark:bg-violet-950/20 border-b border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-violet-600 dark:text-violet-400">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-violet-600 dark:text-violet-400">
                     PAYLOAD: Data Claims & Expiry
                   </span>
                 </div>
@@ -442,7 +440,7 @@ export default function JwtDecoderClient() {
               <div className="w-8 h-8 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 shrink-0">
                 <FiShield className="w-4 h-4" />
               </div>
-              <div className="text-xs font-raleway flex-1">
+              <div className="text-xs font-exo-extralight flex-1">
                 <span className="font-bold text-zinc-800 dark:text-zinc-200 block mb-0.5">
                   Cryptographic Signature Verified Locally
                 </span>
@@ -465,10 +463,10 @@ export default function JwtDecoderClient() {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <FiLock className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Zero Server Transmission
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Unlike many online tools that send your authorization tokens to remote servers, this tool executes strictly in your browser using standard Base64Url decoders.
             </p>
           </div>
@@ -477,10 +475,10 @@ export default function JwtDecoderClient() {
             <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
               <FiClock className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               Automatic Time Parsing
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Unix timestamps like <code className="font-mono text-violet-500">exp</code> and <code className="font-mono text-violet-500">iat</code> are automatically translated into human-readable local time and UTC with active countdowns.
             </p>
           </div>
@@ -489,10 +487,10 @@ export default function JwtDecoderClient() {
             <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
               <FiShield className="w-5 h-5" />
             </div>
-            <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white mb-2">
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
               RFC 7519 Standards
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
               Full compliance with JSON Web Token specifications, ensuring reliable decoding for Auth0, Supabase, NextAuth, Firebase, and custom JWT servers.
             </p>
           </div>

@@ -32,13 +32,13 @@ function StatCard({ value, suffix, label, color, index, animate }) {
       <meta itemProp="position" content={String(index + 1)} />
       <meta itemProp="name" content={label} />
       <span
-        className={`font-display text-5xl sm:text-6xl font-black ${color.text}`}
+        className={`font-exo-medium text-5xl sm:text-6xl font-black ${color.text}`}
         aria-label={`${count}${suffix} ${label}`}
       >
         {count}
         {suffix}
       </span>
-      <span className="text-sm font-raleway font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
+      <span className="text-sm font-exo-extralight font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">
         {label}
       </span>
       <div
@@ -152,19 +152,19 @@ export default function Stats() {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center gap-3 mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             {t('stats.badge')}
           </span>
           <h2
             id="stats-heading"
-            className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+            className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
           >
             {t('stats.headingStart')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               {t('stats.headingEnd')}
             </span>
           </h2>
-          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-raleway">
+          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight">
             {t('stats.subtext')}
           </p>
         </div>

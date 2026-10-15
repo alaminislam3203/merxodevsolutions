@@ -334,19 +334,19 @@ export default function ServicesPage() {
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 px-6">
         <div className="relative max-w-4xl mx-auto text-center">
-          <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-raleway mb-6 shadow-sm">
+          <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight mb-6 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
             Tailored Engineering & Design
           </span>
 
-          <h1 className="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wide font-display mb-6 leading-tight uppercase">
+          <h1 className="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wide font-exo-medium mb-6 leading-tight uppercase">
             Services Built For{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
               Real Results.
             </span>
           </h1>
 
-          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10 font-raleway">
+          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
             From modern responsive web applications to enterprise digital systems —
             we engineer every layer with state-of-the-art precision.
           </p>
@@ -354,7 +354,7 @@ export default function ServicesPage() {
           <div className="animate-fade-in-up flex items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 text-white text-sm font-bold font-raleway uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
             >
               <span>Start a Project</span>
               <FiArrowRight
@@ -393,14 +393,14 @@ export default function ServicesPage() {
 
                 {/* Title & Desc with Hover Slide */}
                 <div className="flex flex-col gap-2.5">
-                  <h2 className="text-xl font-extrabold font-raleway text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between">
+                  <h2 className="text-xl font-extrabold font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between">
                     <span>{service.title}</span>
                     <FiArrowRight
                       size={18}
                       className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 shrink-0"
                     />
                   </h2>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-raleway group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors">
                     {service.desc}
                   </p>
                 </div>
@@ -411,7 +411,7 @@ export default function ServicesPage() {
                 {service.highlights.map((h) => (
                   <span
                     key={h}
-                    className="text-[11px] font-bold font-raleway px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
+                    className="text-[11px] font-bold font-exo-extralight px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
                   >
                     {h}
                   </span>
@@ -426,10 +426,10 @@ export default function ServicesPage() {
       <section className="relative px-6 py-20 border-y border-zinc-200/80 dark:border-zinc-800/80">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-raleway mb-3">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-exo-extralight mb-3">
               Why MerxoDev
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
               Why Clients Choose Our Engineering
             </h2>
           </div>
@@ -444,11 +444,11 @@ export default function ServicesPage() {
                   <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <FiCheckCircle size={18} />
                   </div>
-                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white font-raleway">
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                     {item.text}
                   </h3>
                 </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-raleway pl-11">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight pl-11">
                   {item.subtitle}
                 </p>
               </div>
@@ -462,19 +462,19 @@ export default function ServicesPage() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="relative card-hover-lift">
             <div className="px-8 py-14 sm:px-12">
-              <span className="inline-block text-[11px] font-bold tracking-widest text-amber-500 uppercase font-raleway mb-3">
+              <span className="inline-block text-[11px] font-bold tracking-widest text-amber-500 uppercase font-exo-extralight mb-3">
                 Let's Discuss
               </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold font-display uppercase tracking-wide mb-4 text-[#27003B] dark:text-white">
+              <h2 className="text-2xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide mb-4 text-[#27003B] dark:text-white">
                 Not sure which service fits your project?
               </h2>
-              <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto font-raleway">
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto font-exo-extralight">
                 Share your requirements or idea, and our team will prepare a
                 custom scope, timeline, and quote within hours.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-raleway uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
               >
                 <span>Talk to Us Now</span>
                 <FiArrowRight

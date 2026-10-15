@@ -183,13 +183,13 @@ export default function WhyUs() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center gap-3 mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-raleway uppercase tracking-widest">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             {t('whyUs.badge')}
           </span>
 
           <h2
             id="why-us-heading"
-            className="font-display text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
+            className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
           >
             {t('whyUs.headingStart')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
@@ -197,7 +197,7 @@ export default function WhyUs() {
             </span>
           </h2>
 
-          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-raleway">
+          <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight">
             {t('whyUs.subtext')}
           </p>
         </div>
@@ -229,18 +229,18 @@ export default function WhyUs() {
               {/* Text */}
               <div className="flex flex-col gap-1.5">
                 <h3
-                  className={`font-display text-lg uppercase tracking-wide ${colors[i].text}`}
+                  className={`font-exo-medium text-lg uppercase tracking-wide ${colors[i].text}`}
                 >
                   {reason.title}
                 </h3>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                   {reason.description}
                 </p>
               </div>
 
               {/* Subtle number */}
               <span
-                className="absolute top-4 right-5 text-4xl font-black text-zinc-100 dark:text-zinc-800 select-none font-display"
+                className="absolute top-4 right-5 text-4xl font-black text-zinc-100 dark:text-zinc-800 select-none font-exo-medium"
                 aria-hidden="true"
               >
                 0{i + 1}
@@ -254,7 +254,7 @@ export default function WhyUs() {
           <Link
             href="/contact"
             aria-label="Start working with MerxoDev Solutions"
-            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-raleway uppercase tracking-widest"
+            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-exo-extralight uppercase tracking-widest"
           >
             {t('whyUs.cta')}
           </Link>

@@ -14,7 +14,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm);
+  --font-sans: var(--font-exo2), var(--font-dm), sans-serif;
+  --font-exo: var(--font-exo2), sans-serif;
+  --font-exo2: var(--font-exo2), sans-serif;
   --font-display: var(--font-anton);
   --font-raleway: var(--font-raleway-var);
   --font-bangla: var(--font-hind-siliguri);
@@ -23,9 +25,22 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-hind-siliguri), var(--font-dm), Arial, sans-serif;
+  font-family: var(--font-exo2), var(--font-hind-siliguri), var(--font-dm), Arial, sans-serif;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
   min-height: 100vh;
+}
+
+/* Exo 2 Typography Classes */
+.font-exo {
+  font-family: var(--font-exo2), sans-serif;
+}
+.font-exo-extralight {
+  font-family: var(--font-exo2), sans-serif;
+  font-weight: 200;
+}
+.font-exo-medium {
+  font-family: var(--font-exo2), sans-serif;
+  font-weight: 500;
 }
 
 /* ── Premium Ambient Gradient Grid Background for Light Mode ── */

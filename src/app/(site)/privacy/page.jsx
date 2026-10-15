@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Breadcrumbs & Switcher ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs font-semibold uppercase tracking-wider font-raleway text-zinc-500 dark:text-zinc-400">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs font-semibold uppercase tracking-wider font-exo-extralight text-zinc-500 dark:text-zinc-400">
           <div className="flex items-center gap-2">
             <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
               Home
@@ -150,19 +150,19 @@ export default function PrivacyPolicyPage() {
 
         {/* ── Page Header ── */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase font-raleway bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200/80 dark:border-violet-800/80 mb-5 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase font-exo-extralight bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200/80 dark:border-violet-800/80 mb-5 shadow-sm">
             <FiShield className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 animate-pulse" />
             Transparency & Security
           </div>
 
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-[#27003B] dark:text-white uppercase tracking-tight leading-tight mb-5">
+          <h1 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl font-black text-[#27003B] dark:text-white uppercase tracking-tight leading-tight mb-5">
             Privacy{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               Policy
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-raleway leading-relaxed">
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
             At MerxoDev Solutions, your privacy and intellectual property are treated with the highest
             level of confidentiality. Here is an honest, straightforward explanation of how your data is protected.
           </p>
@@ -194,10 +194,10 @@ export default function PrivacyPolicyPage() {
               <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 {h.icon}
               </div>
-              <h2 className="text-sm font-bold font-raleway text-[#27003B] dark:text-white uppercase mb-1 tracking-wide">
+              <h2 className="text-sm font-bold font-exo-extralight text-[#27003B] dark:text-white uppercase mb-1 tracking-wide">
                 {h.title}
               </h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-raleway">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight">
                 {h.desc}
               </p>
             </div>
@@ -209,11 +209,11 @@ export default function PrivacyPolicyPage() {
           {/* Left Column: Sticky Table of Contents & Contact Widget */}
           <aside className="lg:col-span-4 sticky top-24 space-y-6">
             <div className="p-5 rounded-2xl bg-white/90 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-xl shadow-lg">
-              <h3 className="text-xs font-bold uppercase tracking-widest font-raleway text-violet-600 dark:text-violet-400 mb-4 flex items-center gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest font-exo-extralight text-violet-600 dark:text-violet-400 mb-4 flex items-center gap-2">
                 <FiFileText className="w-4 h-4" />
                 Table of Contents
               </h3>
-              <nav className="space-y-1.5 text-xs font-medium font-raleway">
+              <nav className="space-y-1.5 text-xs font-medium font-exo-extralight">
                 {sections.map(s => (
                   <a
                     key={s.id}
@@ -228,18 +228,18 @@ export default function PrivacyPolicyPage() {
 
             {/* Quick Contact Box */}
             <div className="p-5 rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-600 text-white shadow-xl">
-              <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full inline-block mb-3 font-raleway">
+              <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full inline-block mb-3 font-exo-extralight">
                 Have Legal Questions?
               </span>
-              <h4 className="text-base font-bold font-display uppercase tracking-wide mb-2">
+              <h4 className="text-base font-bold font-exo-medium uppercase tracking-wide mb-2">
                 Need a Custom NDA?
               </h4>
-              <p className="text-xs text-white/90 leading-relaxed mb-4 font-raleway">
+              <p className="text-xs text-white/90 leading-relaxed mb-4 font-exo-extralight">
                 We sign formal client NDAs before looking at proprietary code or discussing sensitive logic.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white text-violet-700 hover:bg-zinc-100 font-bold text-xs uppercase tracking-wider font-raleway transition-transform hover:scale-[1.02] active:scale-95 shadow-md"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white text-violet-700 hover:bg-zinc-100 font-bold text-xs uppercase tracking-wider font-exo-extralight transition-transform hover:scale-[1.02] active:scale-95 shadow-md"
               >
                 <span>Contact Legal Team</span>
                 <FiArrowRight className="w-3.5 h-3.5" />
@@ -258,11 +258,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   1
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Introduction & Scope
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   Welcome to <strong>MerxoDev Solutions</strong> (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;). We operate as a premier
                   software development and digital solutions agency headquartered in Rangpur, Bangladesh, serving global businesses across SaaS, E-Commerce, Mobile Applications, and Cloud Systems.
@@ -286,11 +286,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   2
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Information We Collect
                 </h2>
               </div>
-              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>We only collect data that is strictly required to execute our professional engineering and advisory contracts:</p>
                 <ul className="space-y-2.5 list-none pl-0">
                   <li className="flex items-start gap-2.5">
@@ -330,11 +330,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">
                   3
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   How We Use Your Data
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>We process collected data exclusively for lawful business and engineering purposes:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                   <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200/70 dark:border-zinc-700/60">
@@ -366,11 +366,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                   4
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Client IP & Code Privacy
                 </h2>
               </div>
-              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   As an engineering agency, we recognize that your software architecture and business logic are your most valuable intellectual assets:
                 </p>
@@ -398,11 +398,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   5
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Subprocessors & Cloud Vendors
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>We work only with globally certified, SOC-2 and ISO 27001 compliant cloud infrastructure providers:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/40">
@@ -434,11 +434,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-sm">
                   6
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Cookies & Analytics
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   We utilize cookies strictly to ensure website stability, remember theme preferences (Light vs Dark mode), and retain language settings:
                 </p>
@@ -467,11 +467,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                   7
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Security Standards
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>We deploy defensive security practices throughout our development lifecycle:</p>
                 <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-700/60 space-y-2 text-xs">
                   <p>• <strong>Transport Security:</strong> 100% of traffic is encrypted in transit using modern TLS 1.3 encryption certificates.</p>
@@ -491,11 +491,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">
                   8
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Your Rights (GDPR & Global)
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>No matter where your business is based, you have guaranteed control over your data:</p>
                 <ul className="space-y-2 list-none pl-0 text-xs">
                   <li className="flex items-center gap-2">
@@ -523,11 +523,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-sm">
                   9
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Data Retention & Deletion
                 </h2>
               </div>
-              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   Upon final project delivery and termination of maintenance warranties, clients may request a full archival or purge of repository access, design assets, and shared sandbox credentials.
                 </p>
@@ -546,11 +546,11 @@ export default function PrivacyPolicyPage() {
                 <span className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-sm">
                   10
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display uppercase tracking-wide text-[#27003B] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
                   Contact & Privacy Officer
                 </h2>
               </div>
-              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-raleway leading-relaxed">
+              <div className="space-y-4 text-sm text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
                 <p>
                   If you have inquiries regarding our data processing, wish to request an NDA, or need to exercise your GDPR rights, contact our leadership team directly:
                 </p>

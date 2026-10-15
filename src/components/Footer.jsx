@@ -145,7 +145,7 @@ export default function Footer() {
           <Link href="/" className="inline-block transition-transform hover:scale-105 duration-200">
             <Logo />
           </Link>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs font-raleway">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs font-exo-extralight">
             {t('footer.brand.desc')}
           </p>
           <div className="flex items-center gap-3 mt-1">
@@ -166,7 +166,7 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div className="flex flex-col gap-4">
-          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-raleway flex items-center gap-2">
+          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             {t('footer.quickLinks.heading')}
           </h3>
@@ -175,7 +175,7 @@ export default function Footer() {
               <li key={i}>
                 <Link
                   href={link.href}
-                  className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+                  className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-exo-extralight"
                 >
                   <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
                     ›
@@ -190,7 +190,7 @@ export default function Footer() {
             <li className="block md:hidden">
               <Link
                 href="/privacy"
-                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-exo-extralight"
               >
                 <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
                   ›
@@ -203,7 +203,7 @@ export default function Footer() {
             <li className="block md:hidden">
               <Link
                 href="/terms"
-                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+                className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-exo-extralight"
               >
                 <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
                   ›
@@ -218,7 +218,7 @@ export default function Footer() {
 
         {/* Services */}
         <div className="flex flex-col gap-4">
-          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-raleway flex items-center gap-2">
+          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             {t('footer.services.heading')}
           </h3>
@@ -227,7 +227,7 @@ export default function Footer() {
               <li key={i}>
                 <Link
                   href={service.href}
-                  className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-raleway"
+                  className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-exo-extralight"
                 >
                   <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
                     ›
@@ -243,11 +243,11 @@ export default function Footer() {
 
         {/* Contact */}
         <div className="flex flex-col gap-4">
-          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-raleway flex items-center gap-2">
+          <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             {t('footer.contact.heading')}
           </h3>
-          <ul className="flex flex-col gap-3 text-sm text-zinc-500 dark:text-zinc-400 font-raleway">
+          <ul className="flex flex-col gap-3 text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight">
             {/* Address */}
             <li className="flex items-start gap-2.5 group">
               <svg
@@ -331,7 +331,7 @@ export default function Footer() {
 
       {/* ── Bottom Bar ── */}
       <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-transparent">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-raleway">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-exo-extralight">
           <span>{t('footer.bottom.copy', { year: currentYear })}</span>
           <div className="flex items-center gap-5">
             <Link

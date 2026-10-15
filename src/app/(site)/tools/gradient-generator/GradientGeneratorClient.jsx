@@ -120,7 +120,7 @@ export default function GradientGeneratorClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors">
             Home
           </Link>
@@ -140,7 +140,7 @@ export default function GradientGeneratorClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-100 dark:bg-fuchsia-950 text-fuchsia-700 dark:text-fuchsia-300 border border-fuchsia-200 dark:border-fuchsia-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-100 dark:bg-fuchsia-950 text-fuchsia-700 dark:text-fuchsia-300 border border-fuchsia-200 dark:border-fuchsia-800 font-exo-extralight uppercase tracking-widest">
                 <FiSliders className="w-3.5 h-3.5" />
                 Color & Gradient Tools
               </span>
@@ -150,20 +150,20 @@ export default function GradientGeneratorClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               CSS Gradient{' '}
               <span className="bg-gradient-to-r from-fuchsia-500 via-rose-500 to-cyan-500 bg-clip-text text-transparent">
                 Generator
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Craft multi-stop linear and radial gradients with interactive angle sliders, preset palettes, and one-click CSS and Tailwind exports.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 hover:border-fuchsia-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 hover:border-fuchsia-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -172,7 +172,7 @@ export default function GradientGeneratorClient() {
 
         {/* Presets Gallery */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-          <span className="text-xs font-bold font-raleway text-zinc-400 whitespace-nowrap">Presets:</span>
+          <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">Presets:</span>
           {PRESET_GRADIENTS.map((p) => (
             <button
               key={p.name}
@@ -197,27 +197,25 @@ export default function GradientGeneratorClient() {
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
             {/* Type Switcher: Linear vs Radial */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-2">
                 Gradient Type
               </label>
               <div className="grid grid-cols-2 gap-2 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl border border-zinc-200 dark:border-zinc-700">
                 <button
                   onClick={() => setType('linear')}
-                  className={`py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                    type === 'linear'
-                      ? 'bg-fuchsia-600 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'linear'
+                    ? 'bg-fuchsia-600 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
                 >
                   Linear
                 </button>
                 <button
                   onClick={() => setType('radial')}
-                  className={`py-2 rounded-lg text-xs font-bold font-raleway uppercase transition-all ${
-                    type === 'radial'
-                      ? 'bg-fuchsia-600 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'radial'
+                    ? 'bg-fuchsia-600 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
                 >
                   Radial (Circle)
                 </button>
@@ -227,7 +225,7 @@ export default function GradientGeneratorClient() {
             {/* Angle Slider (if linear) */}
             {type === 'linear' && (
               <div>
-                <div className="flex justify-between text-xs font-raleway font-semibold mb-1.5">
+                <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                   <span className="flex items-center gap-1.5">
                     <FiCompass className="w-3.5 h-3.5 text-fuchsia-500" />
                     Angle Direction
@@ -248,12 +246,12 @@ export default function GradientGeneratorClient() {
             {/* Color Stops List */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                   Color Stops ({stops.length}/6)
                 </span>
                 <button
                   onClick={handleAddStop}
-                  className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                  className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                 >
                   <FiPlus className="w-3.5 h-3.5" />
                   Add Color
@@ -312,7 +310,7 @@ export default function GradientGeneratorClient() {
               className="w-full h-80 rounded-3xl shadow-xl flex items-center justify-center p-8 text-white text-center transition-all duration-200 select-none border border-white/20"
             >
               <div className="px-6 py-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/20">
-                <h3 className="font-display text-2xl font-bold uppercase tracking-wider">
+                <h3 className="font-exo-medium text-2xl font-bold uppercase tracking-wider">
                   Live Gradient Preview
                 </h3>
                 <p className="text-xs font-mono opacity-90 mt-1">{type.toUpperCase()} • {stops.length} STOPS</p>
@@ -323,12 +321,12 @@ export default function GradientGeneratorClient() {
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                     CSS Rule
                   </span>
                   <button
                     onClick={() => handleCopy(cssRule, 'CSS Rule')}
-                    className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                    className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                   >
                     {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                     Copy CSS
@@ -341,12 +339,12 @@ export default function GradientGeneratorClient() {
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                  <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                     Tailwind CSS Arbitrary Value
                   </span>
                   <button
                     onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
-                    className="text-xs font-bold font-raleway text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
+                    className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                   >
                     {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                     Copy Tailwind

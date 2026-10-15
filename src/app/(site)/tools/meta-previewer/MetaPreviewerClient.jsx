@@ -82,7 +82,7 @@ export default function MetaPreviewerClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-raleway text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
             Home
           </Link>
@@ -102,7 +102,7 @@ export default function MetaPreviewerClient() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-6 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-raleway uppercase tracking-widest">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight uppercase tracking-widest">
                 <FiGlobe className="w-3.5 h-3.5" />
                 SEO & Open Graph
               </span>
@@ -112,20 +112,20 @@ export default function MetaPreviewerClient() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               Meta Tags &{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
                 OG Previewer
               </span>
             </h1>
-            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-raleway">
+            <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
               Simulate Google, Facebook, Twitter/X, and LinkedIn social share cards in real time and copy ready-to-paste HTML meta tags.
             </p>
           </div>
 
           <Link
             href="/tools"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-raleway transition-all shadow-sm"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
             All Tools
@@ -136,13 +136,13 @@ export default function MetaPreviewerClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Inputs Card */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-4">
-            <h2 className="font-display text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
+            <h2 className="font-exo-medium text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
               Page Metadata
             </h2>
 
             {/* Title */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
                 <span>Page Title</span>
                 <span className={`text-[11px] font-mono ${title.length > 60 ? 'text-amber-500' : 'text-zinc-400'}`}>
                   {title.length}/60 chars
@@ -158,7 +158,7 @@ export default function MetaPreviewerClient() {
 
             {/* Description */}
             <div>
-              <div className="flex justify-between text-xs font-raleway font-semibold mb-1">
+              <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
                 <span>Description</span>
                 <span className={`text-[11px] font-mono ${description.length > 160 ? 'text-amber-500' : 'text-zinc-400'}`}>
                   {description.length}/160 chars
@@ -174,7 +174,7 @@ export default function MetaPreviewerClient() {
 
             {/* Canonical URL */}
             <div>
-              <label className="block text-xs font-raleway font-semibold mb-1">Canonical URL</label>
+              <label className="block text-xs font-exo-extralight font-semibold mb-1">Canonical URL</label>
               <input
                 type="text"
                 value={url}
@@ -185,7 +185,7 @@ export default function MetaPreviewerClient() {
 
             {/* Image URL */}
             <div>
-              <label className="block text-xs font-raleway font-semibold mb-1">OG Banner Image URL (1200x630)</label>
+              <label className="block text-xs font-exo-extralight font-semibold mb-1">OG Banner Image URL (1200x630)</label>
               <input
                 type="text"
                 value={image}
@@ -196,7 +196,7 @@ export default function MetaPreviewerClient() {
 
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="block text-xs font-raleway font-semibold mb-1">Site Name</label>
+                <label className="block text-xs font-exo-extralight font-semibold mb-1">Site Name</label>
                 <input
                   type="text"
                   value={siteName}
@@ -205,7 +205,7 @@ export default function MetaPreviewerClient() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-raleway font-semibold mb-1">Twitter Handle</label>
+                <label className="block text-xs font-exo-extralight font-semibold mb-1">Twitter Handle</label>
                 <input
                   type="text"
                   value={twitterUser}
@@ -228,11 +228,10 @@ export default function MetaPreviewerClient() {
                 <button
                   key={tab.id}
                   onClick={() => setActivePreview(tab.id)}
-                  className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-raleway transition-all ${
-                    activePreview === tab.id
-                      ? 'bg-cyan-500 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all ${activePreview === tab.id
+                    ? 'bg-cyan-500 text-white shadow-sm'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    }`}
                 >
                   {tab.name}
                 </button>
@@ -334,12 +333,12 @@ export default function MetaPreviewerClient() {
             {/* Generated Code Card */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider font-raleway text-zinc-700 dark:text-zinc-300">
+                <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
                   Ready-to-Use HTML Meta Tags
                 </span>
                 <button
                   onClick={handleCopy}
-                  className="text-xs font-bold font-raleway text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
+                  className="text-xs font-bold font-exo-extralight text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
                 >
                   {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
                   Copy Meta Tags

@@ -547,7 +547,7 @@ function ServiceCard({ item }) {
 
       {/* Bottom Title Text */}
       <div className="mt-1.5 sm:mt-2 px-0.5 text-center flex items-center justify-center min-h-[22px] sm:min-h-[28px]">
-        <span className="text-[10px] sm:text-xs md:text-[13px] font-bold tracking-tight text-zinc-800 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors font-raleway truncate w-full">
+        <span className="text-[10px] sm:text-xs md:text-[13px] font-bold tracking-tight text-zinc-800 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors font-exo-extralight truncate w-full">
           {item.title}
         </span>
       </div>
@@ -650,11 +650,10 @@ export default function ServicesPreview() {
               key={index}
               onClick={() => scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === selectedIndex
+              className={`h-1.5 rounded-full transition-all duration-300 ${index === selectedIndex
                   ? 'w-5 bg-gradient-to-r from-violet-600 to-cyan-400'
                   : 'w-1.5 bg-zinc-300 dark:bg-zinc-700/80 hover:bg-zinc-400 dark:hover:bg-zinc-600'
-              }`}
+                }`}
             />
           ))}
         </div>
