@@ -599,6 +599,23 @@ const ar = {
       navigation: 'التنقل',
       darkMode: 'الوضع الداكن',
       menu: 'القائمة',
+      navProfile: {
+        account: 'الحساب',
+        valuedClient: 'عميل مميز',
+        myProfile: 'ملفي الشخصي',
+        inquiries: 'استفسارات المشاريع',
+        reviews: 'تقييماتي',
+        adminPanel: 'لوحة التحكم',
+        signOut: 'تسجيل الخروج',
+        login: 'تسجيل الدخول',
+        register: 'إنشاء حساب',
+        copyEmail: 'انقر لنسخ البريد الإلكتروني',
+        copied: 'تم النسخ',
+        language: 'اللغة',
+        myAccount: 'حسابي',
+        portal: 'البوابة',
+        signIn: 'دخول',
+      },
 
       // Hero
       hero: {

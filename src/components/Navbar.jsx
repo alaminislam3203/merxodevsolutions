@@ -190,7 +190,7 @@ export default function Navbar() {
     //   ),
     // },
     {
-      label: 'Account',
+      label: t('navProfile.account', 'Account'),
       href: '/account',
       icon: session?.user?.image ? (
         <img
@@ -338,14 +338,14 @@ export default function Navbar() {
                             )}
                             <div className="min-w-0 flex-1">
                               <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
-                                {session.user.name || 'Valued Client'}
+                                {session.user.name || t('navProfile.valuedClient', 'Valued Client')}
                               </p>
                               {session.user.email && (
                                 <button
                                   type="button"
                                   onClick={handleCopyEmail}
                                   className="mt-0.5 inline-flex items-center gap-1.5 max-w-full text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group cursor-pointer text-left"
-                                  title="Click to copy email"
+                                  title={t('navProfile.copyEmail', 'Click to copy email')}
                                 >
                                   <span className="truncate max-w-[125px] font-mono select-all">
                                     {session.user.email}
@@ -353,7 +353,7 @@ export default function Navbar() {
                                   {emailCopied ? (
                                     <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-500 font-bold shrink-0">
                                       <FiCheck size={11} />
-                                      <span>Copied</span>
+                                      <span>{t('navProfile.copied', 'Copied')}</span>
                                     </span>
                                   ) : (
                                     <FiCopy size={11} className="text-zinc-400 group-hover:text-violet-500 dark:group-hover:text-cyan-400 shrink-0" />
@@ -369,7 +369,7 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
                             <FiUser size={14} className="text-violet-500" />
-                            <span>My Profile</span>
+                            <span>{t('navProfile.myProfile', 'My Profile')}</span>
                           </Link>
 
                           <Link
@@ -378,7 +378,7 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
                             <FiFolder size={14} className="text-cyan-500" />
-                            <span>Project Inquiries</span>
+                            <span>{t('navProfile.inquiries', 'Project Inquiries')}</span>
                           </Link>
 
                           <Link
@@ -387,7 +387,7 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
                             <FiStar size={14} className="text-amber-400" />
-                            <span>My Reviews</span>
+                            <span>{t('navProfile.reviews', 'My Reviews')}</span>
                           </Link>
 
                           {session.user.role === 'ADMIN' && (
@@ -397,9 +397,14 @@ export default function Navbar() {
                               className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-300 hover:bg-violet-100/70 dark:hover:bg-violet-900/40 transition-colors"
                             >
                               <FiShield size={14} className="text-violet-500" />
-                              <span>Admin Panel</span>
+                              <span>{t('navProfile.adminPanel', 'Admin Panel')}</span>
                             </Link>
                           )}
+
+                          {/* Language Switcher under Admin Panel */}
+                          <div className="my-1.5 px-0.5">
+                            <LanguageSwitcher variant="menu" />
+                          </div>
 
                           <div className="border-t border-zinc-100 dark:border-zinc-800/80 my-1 pt-1">
                             <button
@@ -411,7 +416,7 @@ export default function Navbar() {
                               className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 w-full transition-colors cursor-pointer"
                             >
                               <FiLogOut size={14} />
-                              <span>Sign Out</span>
+                              <span>{t('navProfile.signOut', 'Sign Out')}</span>
                             </button>
                           </div>
                         </>
@@ -423,7 +428,7 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-zinc-900 dark:text-white hover:bg-violet-50 dark:hover:bg-violet-950/50 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
                           >
                             <FiLogIn size={15} className="text-violet-500" />
-                            <span>Log In</span>
+                            <span>{t('navProfile.login', 'Log In')}</span>
                           </Link>
                           <Link
                             href="/account/register"
@@ -431,8 +436,11 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white transition-colors"
                           >
                             <FiUserPlus size={15} className="text-cyan-500" />
-                            <span>Create Account</span>
+                            <span>{t('navProfile.register', 'Create Account')}</span>
                           </Link>
+                          <div className="mt-2 pt-2 border-t border-zinc-100 dark:border-zinc-800/80 px-0.5">
+                            <LanguageSwitcher variant="menu" />
+                          </div>
                         </>
                       )}
                     </div>
@@ -624,7 +632,7 @@ export default function Navbar() {
                     className="block group"
                   >
                     <h4 className="text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors">
-                      {session.user.name || 'Valued Client'}
+                      {session.user.name || t('navProfile.valuedClient', 'Valued Client')}
                     </h4>
                   </Link>
 
@@ -633,7 +641,7 @@ export default function Navbar() {
                       type="button"
                       onClick={handleCopyEmail}
                       className="mt-0.5 inline-flex items-center gap-1.5 max-w-full text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-300 transition-colors group cursor-pointer text-left"
-                      title="Click to copy email"
+                      title={t('navProfile.copyEmail', 'Click to copy email')}
                     >
                       <span className="truncate max-w-[130px] font-mono select-all">
                         {session.user.email}
@@ -641,7 +649,7 @@ export default function Navbar() {
                       {emailCopied ? (
                         <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-500 font-bold shrink-0">
                           <FiCheck size={11} />
-                          <span>Copied!</span>
+                          <span>{t('navProfile.copied', 'Copied')}</span>
                         </span>
                       ) : (
                         <FiCopy
@@ -733,18 +741,23 @@ export default function Navbar() {
               >
                 <div className="flex items-center gap-2.5">
                   <FiUser size={15} />
-                  <span>{session?.user ? session.user.name?.split(' ')[0] || 'My Account' : 'Client Account'}</span>
+                  <span>{session?.user ? session.user.name?.split(' ')[0] || t('navProfile.myAccount', 'My Account') : t('navProfile.account', 'Account')}</span>
                 </div>
                 <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-zinc-700 text-violet-900 dark:text-zinc-200 font-extrabold">
-                  {session?.user ? 'Portal' : 'Sign In'}
+                  {session?.user ? t('navProfile.portal', 'Portal') : t('navProfile.signIn', 'Sign In')}
                 </span>
               </Link>
+            </div>
+
+            {/* Language Switcher container in mobile drawer */}
+            <div className="mt-2 px-2">
+              <LanguageSwitcher variant="menu" />
             </div>
 
             {/* Theme Toggle container */}
             <div className="mt-2 pt-2 px-2 flex items-center justify-between">
               <span className="text-xs font-bold font-exo-extralight text-zinc-900 dark:text-white/70">
-                Theme
+                {t('darkMode', 'Dark Mode')}
               </span>
               <ThemeToggle />
             </div>

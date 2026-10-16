@@ -30,8 +30,8 @@ const GlobeIcon = () => (
   </svg>
 );
 
-export default function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+export default function LanguageSwitcher({ variant = 'default', className = '' }) {
+  const { t, i18n } = useTranslation();
   const [current, setCurrent] = useState('en');
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -64,6 +64,46 @@ export default function LanguageSwitcher() {
   };
 
   const currentLang = languages.find(l => l.code === current);
+
+  // Variant for profile dropdown / compact menu
+  if (variant === 'menu') {
+    return (
+      <div className={`p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/70 dark:border-zinc-800/80 ${className}`}>
+        <div className="flex items-center justify-between px-1 mb-1.5">
+          <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
+            <GlobeIcon />
+            <span>{t('navProfile.language', 'Language')}</span>
+          </span>
+          <span className="text-[10px] font-mono font-bold text-violet-600 dark:text-cyan-400">
+            {currentLang?.full}
+          </span>
+        </div>
+        <div className="grid grid-cols-4 gap-1">
+          {languages.map(({ code, label, full, activeColor }) => {
+            const isActive = current === code;
+            return (
+              <button
+                key={code}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  changeLanguage(code);
+                }}
+                title={full}
+                className={`py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-center transition-all cursor-pointer ${
+                  isActive
+                    ? `bg-white dark:bg-zinc-800 shadow-xs ring-1 ring-zinc-200 dark:ring-zinc-700 font-extrabold ${activeColor}`
+                    : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-white/60 dark:hover:bg-zinc-800/40'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

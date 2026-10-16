@@ -631,6 +631,23 @@ const en = {
       navigation: 'Navigation',
       darkMode: 'Dark Mode',
       menu: 'Menu',
+      navProfile: {
+        account: 'Account',
+        valuedClient: 'Valued Client',
+        myProfile: 'My Profile',
+        inquiries: 'Project Inquiries',
+        reviews: 'My Reviews',
+        adminPanel: 'Admin Panel',
+        signOut: 'Sign Out',
+        login: 'Log In',
+        register: 'Create Account',
+        copyEmail: 'Click to copy email',
+        copied: 'Copied',
+        language: 'Language',
+        myAccount: 'My Account',
+        portal: 'Portal',
+        signIn: 'Sign In',
+      },
 
       // Hero
       hero: {

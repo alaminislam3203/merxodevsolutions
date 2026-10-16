@@ -560,6 +560,23 @@ const zh = {
       navigation: '导航',
       darkMode: '深色模式',
       menu: '菜单',
+      navProfile: {
+        account: '账户',
+        valuedClient: '尊贵客户',
+        myProfile: '个人资料',
+        inquiries: '项目咨询',
+        reviews: '我的评价',
+        adminPanel: '管理后台',
+        signOut: '退出登录',
+        login: '登录',
+        register: '创建账户',
+        copyEmail: '点击复制邮箱',
+        copied: '已复制',
+        language: '语言',
+        myAccount: '我的账户',
+        portal: '门户',
+        signIn: '登录',
+      },
 
       // Hero
       hero: {
