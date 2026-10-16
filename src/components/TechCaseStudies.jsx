@@ -96,7 +96,7 @@ const CASE_STUDIES = [
 ];
 
 export default function TechCaseStudies() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeStudy, setActiveStudy] = useState(null);
   const isBn = i18n.language === 'bn';
 
@@ -116,29 +116,27 @@ export default function TechCaseStudies() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/70 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-xs font-bold mb-4 tracking-wide">
               <FiBookOpen className="text-violet-600 dark:text-violet-400" />
-              <span>{isBn ? 'কেস স্টাডি ও টেকনিক্যাল ইনসাইট' : 'CASE STUDIES & TECH INSIGHTS'}</span>
+              <span>{t('techCaseStudies.badge')}</span>
             </div>
 
             <h2
               id="case-studies-heading"
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight"
             >
-              {isBn ? 'বাস্তব প্রজেক্টের ' : 'Real Engineering '}
+              {t('techCaseStudies.titleStart')}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500">
-                {isBn ? 'কেস স্টাডি ও ফলাফল' : 'Case Studies & Results'}
+                {t('techCaseStudies.titleHighlight')}
               </span>
             </h2>
 
             <p className="mt-4 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-              {isBn
-                ? 'আমরা কীভাবে জটিল টেকনিক্যাল চ্যালেঞ্জ সমাধান করি এবং ক্লায়েন্টদের জন্য মেজারেবল ফলাফল তৈরি করি তা দেখে নিন।'
-                : 'Explore how we engineer scalable architectures, optimize performance to sub-second load times, and deliver measurable business ROI.'}
+              {t('techCaseStudies.subtitle')}
             </p>
           </div>
 
           <div className="shrink-0 flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400">
             <FiZap className="text-amber-500" />
-            <span>Proven Engineering Standards</span>
+            <span>{t('techCaseStudies.provenStandards')}</span>
           </div>
         </div>
 
@@ -213,7 +211,7 @@ export default function TechCaseStudies() {
                     onClick={() => setActiveStudy(study)}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-600 dark:text-violet-400 group-hover:text-violet-700 dark:group-hover:text-cyan-300 transition-colors cursor-pointer"
                   >
-                    <span>{isBn ? 'সম্পূর্ণ কেস স্টাডি পড়ুন' : 'Read Case Study'}</span>
+                    <span>{t('techCaseStudies.readMore')}</span>
                     <FiArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                   <span className="text-[11px] text-zinc-400 dark:text-zinc-500">{study.date}</span>
@@ -243,7 +241,7 @@ export default function TechCaseStudies() {
                 type="button"
                 onClick={() => setActiveStudy(null)}
                 className="w-9 h-9 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
-                aria-label="Close modal"
+                aria-label={t('techCaseStudies.closeModal')}
               >
                 <FiX size={18} />
               </button>
@@ -254,7 +252,7 @@ export default function TechCaseStudies() {
               {/* Challenge */}
               <div className="p-4 rounded-2xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 space-y-1.5">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400">
-                  {isBn ? '১. মূল চ্যালেঞ্জ (Problem)' : '1. The Core Challenge'}
+                  {t('techCaseStudies.challenge')}
                 </h4>
                 <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
                   {activeStudy.fullContent.problem}
@@ -264,7 +262,7 @@ export default function TechCaseStudies() {
               {/* Engineering Solution */}
               <div className="p-4 rounded-2xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-900/40 space-y-1.5">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-400">
-                  {isBn ? '২. টেকনিক্যাল সমাধান (Engineering Solution)' : '2. Engineering Solution'}
+                  {t('techCaseStudies.engineeringSolution')}
                 </h4>
                 <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
                   {activeStudy.fullContent.solution}
@@ -274,7 +272,7 @@ export default function TechCaseStudies() {
               {/* Measurable Results */}
               <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 space-y-1.5">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                  {isBn ? '৩. মেজারেবল ফলাফল (Measurable ROI & Results)' : '3. Measurable ROI & Results'}
+                  {t('techCaseStudies.keyResults')}
                 </h4>
                 <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
                   {activeStudy.fullContent.result}

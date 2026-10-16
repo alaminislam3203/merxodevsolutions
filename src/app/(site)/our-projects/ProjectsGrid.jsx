@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { truncateWords } from '@/lib/utils';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
@@ -52,6 +53,7 @@ const accentMap = {
 
 // ─── Project Card ─────────────────────────────────────────────────────────────
 function ProjectCard({ project, index, visible }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const a = accentMap[project.accent] || accentMap.violet;
   const details = project.details || {};
@@ -137,7 +139,7 @@ function ProjectCard({ project, index, visible }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            Details
+            {t('projectsPage.detailsBtn', 'Details')}
           </Link>
           {project.liveUrl && (
             <a
@@ -148,7 +150,7 @@ function ProjectCard({ project, index, visible }) {
               aria-label={`View live project: ${project.title}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
-              View Live
+              {t('projectsPage.viewLiveBtn', 'View Live')}
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
@@ -163,10 +165,12 @@ function ProjectCard({ project, index, visible }) {
 
 // ─── Main Grid (Client Component) ────────────────────────────────────────────
 export default function ProjectsGrid({ projects }) {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
 
+  const allLabel = t('projectsPage.filterAll', 'All');
   const tags = ['All', ...Array.from(new Set(projects.map(p => p.tag)))];
   const filtered = activeFilter === 'All' ? projects : projects.filter(p => p.tag === activeFilter);
 
@@ -189,40 +193,41 @@ export default function ProjectsGrid({ projects }) {
     <main ref={sectionRef} className="min-h-screen pb-24 overflow-hidden mt-2">
       {/* Background glows */}
       <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-
-        style={{
-          //  background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
-        }} />
-      <div aria-hidden className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl" style={{
-        // background: 'radial-gradient(circle, #06b6d4, transparent 70%)'
-      }} />
+        style={{}} />
+      <div aria-hidden className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl" style={{}} />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-          <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Home</Link>
+          <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+            {t('projectsPage.breadcrumbHome', 'Home')}
+          </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polyline points="9 18 15 12 9 6" /></svg>
-          <span className="text-zinc-600 dark:text-zinc-400 font-semibold">Our Projects</span>
+          <span className="text-zinc-600 dark:text-zinc-400 font-semibold">
+            {t('projectsPage.breadcrumbCurrent', 'Our Projects')}
+          </span>
         </nav>
 
         {/* Hero Header */}
         <div className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" aria-hidden />
-            Portfolio
+            {t('projectsPage.badge', 'Portfolio')}
           </span>
           <h1 className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
-            Our{' '}
-            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">Projects</span>
+            {t('projectsPage.titleStart', 'Our')}{' '}
+            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+              {t('projectsPage.titleHighlight', 'Projects')}
+            </span>
           </h1>
           <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
-            Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.
+            {t('projectsPage.desc', 'Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.')}
           </p>
           <div className="flex flex-wrap gap-6 mt-2">
             {[
-              { value: `${projects.length}+`, label: 'Projects Delivered' },
-              { value: '100%', label: 'Client Satisfaction' },
-              { value: '5★', label: 'Average Rating' },
+              { value: `${projects.length}+`, label: t('projectsPage.statProjects', 'Projects Delivered') },
+              { value: '100%', label: t('projectsPage.statSatisfaction', 'Client Satisfaction') },
+              { value: '5★', label: t('projectsPage.statRating', 'Average Rating') },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <span className="font-exo-medium text-2xl font-extrabold text-[#27003B] dark:text-white">{value}</span>
@@ -245,7 +250,7 @@ export default function ProjectsGrid({ projects }) {
                 : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
                 }`}
             >
-              {tag}
+              {tag === 'All' ? allLabel : tag}
               {tag !== 'All' && (
                 <span className="ml-1.5 opacity-60">({projects.filter(p => p.tag === tag).length})</span>
               )}
@@ -267,18 +272,24 @@ export default function ProjectsGrid({ projects }) {
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
-            <p className="text-zinc-500 dark:text-zinc-400 font-exo-extralight text-sm">No projects found in this category.</p>
+            <p className="text-zinc-500 dark:text-zinc-400 font-exo-extralight text-sm">
+              {t('projectsPage.emptyTitle', 'No projects found in this category.')}
+            </p>
           </div>
         )}
 
         {/* Bottom CTA */}
         <div className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-col gap-2 text-center sm:text-left">
-            <h2 className="font-exo-medium text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">Have a Project in Mind?</h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm">We turn ideas into polished digital products. Let's talk about what we can build together.</p>
+            <h2 className="font-exo-medium text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
+              {t('projectsPage.ctaTitle', 'Have a Project in Mind?')}
+            </h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm">
+              {t('projectsPage.ctaDesc', "We turn ideas into polished digital products. Let's talk about what we can build together.")}
+            </p>
           </div>
           <Link href="/contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0">
-            Start a Project
+            {t('projectsPage.ctaBtn', 'Start a Project')}
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>
@@ -288,3 +299,4 @@ export default function ProjectsGrid({ projects }) {
     </main>
   );
 }
+

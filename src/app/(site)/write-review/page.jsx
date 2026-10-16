@@ -24,6 +24,7 @@ import {
 import { FaStar } from 'react-icons/fa';
 import { BsStars, BsShieldCheck } from 'react-icons/bs';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const SERVICE_CATEGORIES = [
   'Custom Website Development (Next.js & React)',
@@ -51,6 +52,7 @@ const RATING_LABELS = {
 };
 
 function WriteReviewContent() {
+  const { t } = useTranslation();
   const router = useRouter();
   const sessionContext = useContext(SessionContext);
   const session = sessionContext?.data;
@@ -79,14 +81,16 @@ function WriteReviewContent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (tag === 'Others' && !customTag.trim()) {
-      setError('Please specify your custom service category.');
-      toast.error('Please specify your custom service category.');
+      const msg = t('writeReviewPage.validationCategory', 'Please specify your custom service category.');
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!comment.trim() || comment.trim().length < 5) {
-      setError('Please provide a meaningful review comment of at least 5 characters.');
-      toast.error('Please provide a meaningful review comment of at least 5 characters.');
+      const msg = t('writeReviewPage.validationComment', 'Please provide a meaningful review comment of at least 5 characters.');
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -119,7 +123,7 @@ function WriteReviewContent() {
       } else {
         setSubmitting(false);
         setIsSuccess(true);
-        toast.success('Review submitted successfully for review!');
+        toast.success(t('writeReviewPage.successToast', 'Review submitted successfully for review!'));
       }
     } catch (err) {
       setSubmitting(false);
@@ -145,11 +149,11 @@ function WriteReviewContent() {
             className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-500 hover:text-violet-600 dark:text-zinc-400 dark:hover:text-cyan-400 transition-colors"
           >
             <FiArrowLeft size={14} />
-            <span>Back to Testimonials</span>
+            <span>{t('writeReviewPage.backToTestimonials', 'Back to Testimonials')}</span>
           </Link>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-100/80 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-800/80 text-violet-700 dark:text-violet-300 text-[11px] font-bold">
             <BsStars className="text-violet-600 dark:text-cyan-400" />
-            <span>Verified Client Review</span>
+            <span>{t('writeReviewPage.verifiedBadge', 'Verified Client Review')}</span>
           </div>
         </div>
 
@@ -159,13 +163,13 @@ function WriteReviewContent() {
             suppressHydrationWarning
             className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight"
           >
-            Share Your Experience with{' '}
+            {t('writeReviewPage.headingStart', 'Share Your Experience with')}{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500">
-              MerxoDev Solutions
+              {t('writeReviewPage.headingHighlight', 'MerxoDev Solutions')}
             </span>
           </h1>
           <p className="mt-3 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Your genuine feedback empowers our team to keep building world-class digital products and helps other businesses make informed decisions.
+            {t('writeReviewPage.subheading', 'Your genuine feedback empowers our team to keep building world-class digital products and helps other businesses make informed decisions.')}
           </p>
         </div>
 
@@ -173,7 +177,9 @@ function WriteReviewContent() {
         {!mounted ? (
           <div className="p-12 rounded-3xl bg-white/90 dark:bg-[#0c1328]/90 backdrop-blur-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl text-center space-y-4">
             <div className="w-8 h-8 mx-auto border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Loading review workspace...</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
+              {t('writeReviewPage.loadingWorkspace', 'Loading review workspace...')}
+            </p>
           </div>
         ) : isSuccess ? (
           <div className="p-8 sm:p-12 rounded-3xl bg-white/90 dark:bg-[#0c1328]/90 backdrop-blur-2xl border border-emerald-500/30 shadow-2xl text-center space-y-6 animate-fade-in">
@@ -186,10 +192,10 @@ function WriteReviewContent() {
                 suppressHydrationWarning
                 className="text-2xl font-bold text-zinc-900 dark:text-white"
               >
-                Thank You for Your Feedback!
+                {t('writeReviewPage.thankYouTitle', 'Thank You for Your Feedback!')}
               </h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Your client review has been recorded successfully. To maintain platform integrity, all testimonials undergo a brief review and will appear live on our homepage shortly.
+                {t('writeReviewPage.thankYouDesc', 'Your client review has been recorded successfully. To maintain platform integrity, all testimonials undergo a brief review and will appear live on our homepage shortly.')}
               </p>
             </div>
 
@@ -198,13 +204,13 @@ function WriteReviewContent() {
                 href="/?scroll=testimonials"
                 className="flex-1 py-3 px-6 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/20 hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2"
               >
-                <span>View Homepage Testimonials</span>
+                <span>{t('writeReviewPage.viewTestimonialsBtn', 'View Homepage Testimonials')}</span>
               </Link>
               <Link
                 href="/account"
                 className="flex-1 py-3 px-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-bold text-xs sm:text-sm hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-2"
               >
-                <span>My Client Account</span>
+                <span>{t('writeReviewPage.myAccountBtn', 'My Client Account')}</span>
               </Link>
             </div>
           </div>
@@ -220,10 +226,10 @@ function WriteReviewContent() {
                 suppressHydrationWarning
                 className="text-2xl font-bold text-zinc-900 dark:text-white"
               >
-                Sign In to Leave a Client Review
+                {t('writeReviewPage.signInTitle', 'Sign In to Leave a Client Review')}
               </h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                To prevent spam and ensure all reviews come from verified clients, you must be logged in to submit a testimonial.
+                {t('writeReviewPage.signInDesc', 'To prevent spam and ensure all reviews come from verified clients, you must be logged in to submit a testimonial.')}
               </p>
             </div>
 
@@ -233,23 +239,24 @@ function WriteReviewContent() {
                 className="flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/25 hover:shadow-cyan-500/35 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
               >
                 <FiLogIn size={16} />
-                <span>Log In to Account</span>
+                <span>{t('writeReviewPage.loginBtn', 'Log In to Account')}</span>
               </Link>
               <Link
                 href="/account/register?redirect=/write-review"
                 className="flex-1 py-3.5 px-6 rounded-2xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
               >
                 <FiUserPlus size={16} />
-                <span>Create New Account</span>
+                <span>{t('writeReviewPage.createAccountBtn', 'Create New Account')}</span>
               </Link>
             </div>
 
             <div className="pt-4 flex items-center justify-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
               <BsShieldCheck className="text-emerald-500" />
-              <span>Takes 30 seconds • Automatic return here after sign in</span>
+              <span>{t('writeReviewPage.quickNote', 'Takes 30 seconds • Automatic return here after sign in')}</span>
             </div>
           </div>
         ) : (
+
           /* ─── SCENARIO C: User is Logged In -> Full Review Form ─── */
           <div className="p-6 sm:p-10">
             {/* Authenticated Client Card Banner */}
@@ -268,10 +275,10 @@ function WriteReviewContent() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">
-                    {session.user.name || 'Valued Client'}
+                    {session.user.name || t('navProfile.valuedClient', 'Valued Client')}
                   </p>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">
-                    Verified
+                    {t('writeReviewPage.verifiedUser', 'Verified')}
                   </span>
                 </div>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">
@@ -291,7 +298,7 @@ function WriteReviewContent() {
               {/* Star Rating Selection */}
               <div className="space-y-2">
                 <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                  Overall Experience Rating <span className="text-rose-500">*</span>
+                  {t('writeReviewPage.ratingLabel', 'Overall Experience Rating')} <span className="text-rose-500">*</span>
                 </label>
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
@@ -323,7 +330,7 @@ function WriteReviewContent() {
               {/* Service Category Dropdown (All 13 Comprehensive Services + Others) */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                  Service Category <span className="text-rose-500">*</span>
+                  {t('writeReviewPage.serviceCategoryLabel', 'Service Category')} <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
                   <select
@@ -339,14 +346,14 @@ function WriteReviewContent() {
                   </select>
                 </div>
                 <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                  Select the primary technical service MerxoDev Solutions delivered for your project.
+                  {t('writeReviewPage.serviceCategoryHint', 'Select the primary technical service MerxoDev Solutions delivered for your project.')}
                 </p>
 
                 {/* Dynamic input field when 'Others' is selected */}
                 {tag === 'Others' && (
                   <div className="pt-2 space-y-1.5 transition-all duration-200">
                     <label className="block text-xs font-bold text-violet-600 dark:text-cyan-400 uppercase tracking-wider">
-                      Specify Custom Service Category <span className="text-rose-500">*</span>
+                      {t('writeReviewPage.customCategoryLabel', 'Specify Custom Service Category')} <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <FiTag className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={15} />
@@ -355,12 +362,12 @@ function WriteReviewContent() {
                         required
                         value={customTag}
                         onChange={(e) => setCustomTag(e.target.value)}
-                        placeholder="e.g. AI Workflow Integration, DevOps Cloud Architecture, etc."
+                        placeholder={t('writeReviewPage.customCategoryPlaceholder', 'e.g. AI Workflow Integration, DevOps Cloud Architecture, etc.')}
                         className="w-full pl-10 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-violet-300 dark:border-violet-700/60 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all shadow-sm"
                       />
                     </div>
                     <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                      Type the exact name or type of service provided.
+                      {t('writeReviewPage.customCategoryHint', 'Type the exact name or type of service provided.')}
                     </p>
                   </div>
                 )}
@@ -370,7 +377,7 @@ function WriteReviewContent() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                    Your Role / Title
+                    {t('writeReviewPage.roleLabel', 'Your Role / Title')}
                   </label>
                   <div className="relative">
                     <FiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={15} />
@@ -378,7 +385,7 @@ function WriteReviewContent() {
                       type="text"
                       value={userRole}
                       onChange={(e) => setUserRole(e.target.value)}
-                      placeholder="e.g. Founder & CEO, Product Manager"
+                      placeholder={t('writeReviewPage.rolePlaceholder', 'e.g. Founder & CEO, Product Manager')}
                       className="w-full pl-10 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
                     />
                   </div>
@@ -386,7 +393,7 @@ function WriteReviewContent() {
 
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                    Company / Organization
+                    {t('writeReviewPage.companyLabel', 'Company / Organization')}
                   </label>
                   <div className="relative">
                     <FiBriefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={15} />
@@ -394,7 +401,7 @@ function WriteReviewContent() {
                       type="text"
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
-                      placeholder="e.g. Apex Innovations Ltd"
+                      placeholder={t('writeReviewPage.companyPlaceholder', 'e.g. Apex Innovations Ltd')}
                       className="w-full pl-10 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
                     />
                   </div>
@@ -404,7 +411,7 @@ function WriteReviewContent() {
               {/* Location Input */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                  Location / City
+                  {t('writeReviewPage.locationLabel', 'Location / City')}
                 </label>
                 <div className="relative">
                   <FiMapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" size={15} />
@@ -412,7 +419,7 @@ function WriteReviewContent() {
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    placeholder="e.g. Dhaka, Bangladesh or London, UK"
+                    placeholder={t('writeReviewPage.locationPlaceholder', 'e.g. Dhaka, Bangladesh or London, UK')}
                     className="w-full pl-10 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 transition-all"
                   />
                 </div>
@@ -422,7 +429,7 @@ function WriteReviewContent() {
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <label className="block text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                    Your Review & Experience <span className="text-rose-500">*</span>
+                    {t('writeReviewPage.reviewLabel', 'Your Review & Experience')} <span className="text-rose-500">*</span>
                   </label>
                   <span className="text-[11px] font-mono text-zinc-400">
                     {comment.length} / 1000 chars
@@ -434,7 +441,7 @@ function WriteReviewContent() {
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   maxLength={1000}
-                  placeholder="Tell us about the project: how did MerxoDev Solutions help solve your problems, speed up your business, or deliver your vision? What stood out in communication, performance, or design quality?"
+                  placeholder={t('writeReviewPage.commentPlaceholder', 'Tell us about the project: how did MerxoDev Solutions help solve your problems, speed up your business, or deliver your vision? What stood out in communication, performance, or design quality?')}
                   className="w-full p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500 resize-none transition-all"
                 />
               </div>
@@ -449,23 +456,24 @@ function WriteReviewContent() {
                   {submitting ? (
                     <>
                       <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                      <span>Submitting Review...</span>
+                      <span>{t('writeReviewPage.submittingBtn', 'Submitting Review...')}</span>
                     </>
                   ) : (
                     <>
                       <FiSend size={16} />
-                      <span>Submit Client Review For Approval</span>
+                      <span>{t('writeReviewPage.submitBtn', 'Submit Client Review For Approval')}</span>
                     </>
                   )}
                 </button>
               </div>
 
               <div className="pt-2 text-center text-[11px] text-zinc-400 dark:text-zinc-500">
-                <span>By submitting, you confirm this review represents your genuine experience working with MerxoDev Solutions.</span>
+                <span>{t('writeReviewPage.legalConfirm', 'By submitting, you confirm this review represents your genuine experience working with MerxoDev Solutions.')}</span>
               </div>
             </form>
           </div>
         )}
+
       </div>
     </div>
   );

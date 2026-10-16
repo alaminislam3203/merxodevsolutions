@@ -256,33 +256,33 @@ export default function WebAppContent() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
-              Home
+              {t('webApp.breadcrumbHome') || 'Home'}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-violet-500 transition-colors">
-              Services
+              {t('webApp.breadcrumbServices') || 'Services'}
             </Link>
             <span>/</span>
             <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
-              Web Applications
+              {t('webApp.breadcrumbCurrent') || 'Web Applications'}
             </span>
           </nav>
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950/90 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-violet-400 animate-ping" />
-            Full-Stack SaaS & Enterprise Applications
+            {t('webApp.badge')}
           </div>
 
           <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Custom Web Application{' '}
+            {t('webApp.heroTitleStart')}
             <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent animated-gradient-text">
-              Development
+              {t('webApp.heroTitleHighlight')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            From high-growth SaaS MVPs to enterprise management portals, we build secure, scalable full-stack applications tailored to your business logic.
+            {t('webApp.heroSubtitle')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -290,14 +290,14 @@ export default function WebAppContent() {
               href="/contact?service=Web%20Application%20Development"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Build Your Web App</span>
+              <span>{t('webApp.bookDiscoveryBtn')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600 transition-all duration-300"
             >
-              Explore Live Apps
+              {t('featuredProjects.viewAllBtn') || 'Explore Live Apps'}
             </Link>
           </div>
 
@@ -438,10 +438,7 @@ export default function WebAppContent() {
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent">
-                Application Tier
-              </span>
+              {t('webApp.pricingTitle')}
             </h2>
           </div>
 
@@ -511,7 +508,7 @@ export default function WebAppContent() {
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Web App Development FAQ
+              {t('webApp.faqTitle')}
             </h2>
           </div>
 
@@ -557,16 +554,16 @@ export default function WebAppContent() {
               ✦ Ready to Turn Your Vision into Reality?
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Let's Engineer Your SaaS or Web Application
+              {t('webApp.ctaTitle')}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Discuss architecture, technical stack, timeline, and deliverables directly with our lead full-stack engineers.
+              {t('webApp.ctaDesc')}
             </p>
             <Link
               href="/contact?service=Web%20Application%20Development"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
             >
-              <span>Request Technical Blueprint</span>
+              <span>{t('webApp.ctaBtn')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>

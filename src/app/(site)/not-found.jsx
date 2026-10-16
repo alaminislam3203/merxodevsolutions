@@ -2,8 +2,11 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 
 export default function NotFound() {
+  const { t } = useTranslation();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
 
@@ -166,20 +169,19 @@ export default function NotFound() {
           <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950 border border-amber-200 dark:border-amber-800">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest font-exo-extralight">
-              Page Not Found
+              {t('notFound.badge')}
             </span>
           </div>
 
           <h1 className="font-exo-medium text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-widest">
-            Oops! Lost in{' '}
+            {t('notFound.titleStart')}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              Space
+              {t('notFound.titleHighlight')}
             </span>
           </h1>
 
           <p className="max-w-md text-sm sm:text-base text-zinc-500 dark:text-zinc-400 leading-relaxed">
-            The page you're looking for doesn't exist or has been moved. Let's
-            get you back on track.
+            {t('notFound.desc')}
           </p>
         </div>
 
@@ -189,21 +191,7 @@ export default function NotFound() {
             href="/"
             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-exo-extralight"
           >
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
-              <path d="M9 21V12h6v9" />
-            </svg> */}
-            Back to Home
+            {t('notFound.homeBtn')}
           </Link>
           <Link
             href="/contact"
@@ -222,17 +210,17 @@ export default function NotFound() {
             >
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
-            Contact Us
+            {t('notFound.contactBtn')}
           </Link>
         </div>
 
         {/* Bottom hint */}
         <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-2 font-exo-extralight">
-          Need help?{' '}
+          {t('notFound.helpHint')}{' '}
           <Link href="/contact" className="text-violet-500 hover:underline">
-            Reach out to us
+            {t('notFound.reachOut')}
           </Link>{' '}
-          and we'll assist you.
+          {t('notFound.assistSuffix')}
         </p>
       </div>
     </div>

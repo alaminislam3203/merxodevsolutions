@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { truncateWords } from '@/lib/utils';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
@@ -66,6 +68,7 @@ const accentMap = {
 // ─── Project Card ──────────────────────────────────────────────────────────────
 function ProjectCard({ project, index, visible }) {
   const router = useRouter();
+  const { t } = useTranslation();
   if (!project) return null;
   const a = accentMap[project?.accent] || accentMap.violet;
 
@@ -152,7 +155,7 @@ function ProjectCard({ project, index, visible }) {
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            Details
+            {t('featuredProjects.details') || 'Details'}
           </Link>
 
           {/* View Live */}
@@ -165,7 +168,7 @@ function ProjectCard({ project, index, visible }) {
               aria-label={`View live project: ${project.title}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
-              View Live
+              {t('featuredProjects.viewLive') || 'View Live'}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="12"
@@ -192,6 +195,7 @@ function ProjectCard({ project, index, visible }) {
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
 export default function FeaturedProjects({ projects = [] }) {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const intervalRef = useRef(null);
@@ -313,20 +317,20 @@ export default function FeaturedProjects({ projects = [] }) {
                   className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"
                   aria-hidden
                 />
-                Featured Work
+                {t('featuredProjects.badge') || 'Featured Work'}
               </span>
               <h2
                 id="projects-heading"
                 className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight"
               >
-                Our{' '}
+                {t('featuredProjects.titleStart') || 'Our'}{' '}
                 <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                  Projects
+                  {t('featuredProjects.titleHighlight') || 'Projects'}
                 </span>
               </h2>
               <p className="max-w-md text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
-                Hand-picked work that showcases what we build — from SaaS to
-                storefronts, all crafted with precision.
+                {t('featuredProjects.desc') ||
+                  'Hand-picked work that showcases what we build — from SaaS to storefronts, all crafted with precision.'}
               </p>
             </div>
 
@@ -335,7 +339,7 @@ export default function FeaturedProjects({ projects = [] }) {
               aria-label="View all MerxoDev Solutions projects"
               className="hidden sm:inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-violet-400 dark:hover:border-violet-600 transition-all duration-300 font-exo-extralight uppercase tracking-widest group shrink-0"
             >
-              All Projects
+              {t('featuredProjects.allProjects') || 'All Projects'}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -478,7 +482,7 @@ export default function FeaturedProjects({ projects = [] }) {
               aria-label="View all MerxoDev Solutions projects"
               className="inline-flex items-center gap-2 px-7 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all font-exo-extralight uppercase tracking-widest group"
             >
-              All Projects
+              {t('featuredProjects.allProjects') || 'All Projects'}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"

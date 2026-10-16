@@ -58,20 +58,27 @@ const FAQ_ITEMS = [
 ];
 
 export default function HomepageFAQ() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openIndex, setOpenIndex] = useState(0);
-  const isBn = i18n.language === 'bn';
+
+  const rawFaqs = t('homepageFaq.items', { returnObjects: true });
+  const faqList = Array.isArray(rawFaqs) && rawFaqs.length > 0
+    ? rawFaqs
+    : FAQ_ITEMS.map((item) => ({
+        q: i18n.language === 'bn' ? item.qBn : item.qEn,
+        a: i18n.language === 'bn' ? item.aBn : item.aEn,
+      }));
 
   // Generate structured FAQ Schema for Google Search Rich Snippets
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_ITEMS.map((item) => ({
+    mainEntity: faqList.map((item) => ({
       '@type': 'Question',
-      name: isBn ? item.qBn : item.qEn,
+      name: item.q,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: isBn ? item.aBn : item.aEn,
+        text: item.a,
       },
     })),
   };
@@ -99,40 +106,38 @@ export default function HomepageFAQ() {
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-xs font-bold mb-4 tracking-wide">
             <FiHelpCircle className="text-violet-600 dark:text-violet-400" />
-            <span>{isBn ? 'সাধারণ প্রশ্নোত্তর (FAQ)' : 'FREQUENTLY ASKED QUESTIONS'}</span>
+            <span>{t('homepageFaq.badge') || 'FREQUENTLY ASKED QUESTIONS'}</span>
           </div>
 
           <h2
             id="faq-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight"
           >
-            {isBn ? 'আপনার মনে থাকা প্রশ্নগুলোর ' : 'Got Questions? '}
+            {t('homepageFaq.titleStart') || 'Got Questions? '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500">
-              {isBn ? 'সহজ ও স্পষ্ট উত্তর' : 'We Have Answers.'}
+              {t('homepageFaq.titleHighlight') || 'We Have Answers.'}
             </span>
           </h2>
 
           <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-            {isBn
-              ? 'ওয়েবসাইট ও সফটওয়্যার ডেভেলপমেন্ট প্রজেক্ট শুরুর আগে জেনে নিন গুরুত্বপূর্ণ সব তথ্য।'
-              : 'Everything you need to know about our pricing, timelines, source code ownership, and engineering process.'}
+            {t('homepageFaq.subtitle') ||
+              'Everything you need to know about our pricing, timelines, source code ownership, and engineering process.'}
           </p>
         </div>
 
         {/* FAQ Accordion List */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((item, idx) => {
+          {faqList.map((item, idx) => {
             const isOpen = openIndex === idx;
-            const question = isBn ? item.qBn : item.qEn;
-            const answer = isBn ? item.aBn : item.aEn;
 
             return (
               <div
-                key={item.id}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen
+                key={idx}
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                  isOpen
                     ? 'border-violet-500/60 dark:border-violet-600/70 bg-violet-50/20 dark:bg-zinc-900 shadow-md shadow-violet-500/5'
                     : 'border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:border-zinc-300 dark:hover:border-zinc-700'
-                  }`}
+                }`}
                 itemScope
                 itemProp="mainEntity"
                 itemType="https://schema.org/Question"
@@ -145,29 +150,32 @@ export default function HomepageFAQ() {
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold transition-colors ${isOpen
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold transition-colors ${
+                        isOpen
                           ? 'bg-violet-600 text-white'
                           : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-400'
-                        }`}
+                      }`}
                     >
                       {String(idx + 1).padStart(2, '0')}
                     </div>
                     <h3
-                      className={`text-sm sm:text-base font-bold transition-colors ${isOpen
+                      className={`text-sm sm:text-base font-bold transition-colors ${
+                        isOpen
                           ? 'text-violet-700 dark:text-violet-400'
                           : 'text-zinc-900 dark:text-zinc-100'
-                        }`}
+                      }`}
                       itemProp="name"
                     >
-                      {question}
+                      {item.q}
                     </h3>
                   </div>
 
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${isOpen
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                      isOpen
                         ? 'bg-violet-600 text-white border-violet-600 rotate-180'
                         : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 rotate-0'
-                      }`}
+                    }`}
                   >
                     <FiChevronDown size={17} />
                   </div>
@@ -175,8 +183,9 @@ export default function HomepageFAQ() {
 
                 {/* Animated Answer Body */}
                 <div
-                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                    }`}
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}
                   itemScope
                   itemProp="acceptedAnswer"
                   itemType="https://schema.org/Answer"
@@ -184,7 +193,7 @@ export default function HomepageFAQ() {
                   <div className="overflow-hidden">
                     <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed border-t border-zinc-200/60 dark:border-zinc-800/60 mt-1">
                       <p itemProp="text" className="mt-3">
-                        {answer}
+                        {item.a}
                       </p>
                     </div>
                   </div>
@@ -198,12 +207,11 @@ export default function HomepageFAQ() {
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-violet-600/10 via-rose-500/10 to-cyan-500/10 border border-violet-200/60 dark:border-violet-900/40 text-center flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-left">
             <h4 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
-              {isBn ? 'আপনার অন্য কোনো প্রশ্ন আছে?' : 'Still have a specific question?'}
+              {t('homepageFaq.stillHaveTitle') || 'Still have a specific question?'}
             </h4>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-              {isBn
-                ? 'আমাদের টেক এক্সপার্টদের সাথে সরাসরি কথা বলে সমাধান জেনে নিন।'
-                : 'Get in touch directly with our team. We are available 24/7.'}
+              {t('homepageFaq.stillHaveDesc') ||
+                'Get in touch directly with our team. We are available 24/7.'}
             </p>
           </div>
 
@@ -211,7 +219,7 @@ export default function HomepageFAQ() {
             href="/contact"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all shrink-0"
           >
-            <span>{isBn ? 'মেসেজ পাঠান' : 'Ask Us Directly'}</span>
+            <span>{t('homepageFaq.askUsBtn') || 'Ask Us Directly'}</span>
             <FiArrowRight size={14} />
           </Link>
         </div>

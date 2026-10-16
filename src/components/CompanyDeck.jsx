@@ -16,9 +16,8 @@ import {
 import '@/components/i18n';
 
 export default function CompanyDeck() {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [previewOpen, setPreviewOpen] = useState(false);
-  const isBn = i18n.language === 'bn';
 
   const handlePrintOrDownload = () => {
     window.print();
@@ -40,37 +39,33 @@ export default function CompanyDeck() {
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold tracking-wide">
                 <FiFileText className="text-cyan-600 dark:text-cyan-400" />
-                <span>{isBn ? 'কোম্পানি প্রোফাইল ও ডেক' : 'OFFICIAL COMPANY DECK'}</span>
+                <span>{t('companyDeck.badge')}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                {isBn
-                  ? 'আমাদের অফিশিয়াল কোম্পানি প্রোফাইল '
-                  : 'Download MerxoDev Solutions '}
+                {t('companyDeck.titleStart')}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500">
-                  {isBn ? 'ডাউনলোড ও দেখুন' : 'Company Profile & Deck'}
+                  {t('companyDeck.titleHighlight')}
                 </span>
               </h2>
 
               <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-2xl">
-                {isBn
-                  ? 'আমাদের টেক স্ট্যাক, সার্ভিসসমূহ, ৫৬+ সম্পন্ন প্রজেক্টের সামারি, ক্লায়েন্ট টেস্টিমোনিয়াল এবং টার্মস অফ সার্ভিস সম্বলিত এক পাতার অফিশিয়াল কোম্পানি ডেক।'
-                  : 'Get a clean, comprehensive PDF overview of our full-stack engineering capabilities, 56+ delivered projects, client case studies, security standards, and workflow.'}
+                {t('companyDeck.subtitle')}
               </p>
 
               {/* Quick Specs Badges */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiAward className="text-violet-500" />
-                  <span>56+ Delivered Projects</span>
+                  <span>{t('companyDeck.deliveredProjects')}</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiUsers className="text-cyan-500" />
-                  <span>47+ Global & Local Clients</span>
+                  <span>{t('companyDeck.globalClients')}</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiCode className="text-emerald-500" />
-                  <span>Next.js • Node • Cloud</span>
+                  <span>{t('companyDeck.techStack')}</span>
                 </div>
               </div>
             </div>
@@ -83,7 +78,7 @@ export default function CompanyDeck() {
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/25 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer w-full"
               >
                 <FiFileText size={16} />
-                <span>{isBn ? 'কোম্পানি প্রোফাইল প্রিভিউ করুন' : 'Preview Company Profile'}</span>
+                <span>{t('companyDeck.previewBtn')}</span>
               </button>
 
               <button
@@ -92,7 +87,7 @@ export default function CompanyDeck() {
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm shadow-sm transition-all duration-300 cursor-pointer w-full"
               >
                 <FiDownload size={16} className="text-violet-600 dark:text-cyan-400" />
-                <span>{isBn ? 'ডেক সংরক্ষণ / প্রিন্ট (PDF)' : 'Print / Save Deck (PDF)'}</span>
+                <span>{t('companyDeck.savePdfBtn')}</span>
               </button>
             </div>
           </div>
@@ -108,7 +103,7 @@ export default function CompanyDeck() {
               <div className="flex items-center gap-2">
                 <FiFileText className="text-violet-600 dark:text-cyan-400" size={18} />
                 <span className="font-bold text-sm sm:text-base text-zinc-900 dark:text-white">
-                  MerxoDev Solutions — Company Deck
+                  {t('companyDeck.modalTitle')}
                 </span>
               </div>
 
@@ -119,7 +114,7 @@ export default function CompanyDeck() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold shadow transition-all cursor-pointer"
                 >
                   <FiPrinter size={14} />
-                  <span>{isBn ? 'প্রিন্ট / PDF সেভ' : 'Print / Save PDF'}</span>
+                  <span>{t('companyDeck.printSaveBtn')}</span>
                 </button>
 
                 <button
@@ -142,7 +137,7 @@ export default function CompanyDeck() {
                     MerxoDev Solutions
                   </h1>
                   <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                    Modern Web & Software Engineering Agency • Rangpur, Bangladesh & Global
+                    {t('companyDeck.agencySubtitle')}
                   </p>
                 </div>
                 <div className="text-xs sm:text-right text-zinc-600 dark:text-zinc-400 space-y-0.5">

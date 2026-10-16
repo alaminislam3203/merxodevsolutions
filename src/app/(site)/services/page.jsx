@@ -279,6 +279,8 @@ const whyUs = [
   { text: 'Transparent pricing with zero hidden fees', subtitle: 'Clear quotes tailored to your scope' },
 ];
 
+import ServicesClient from './ServicesClient';
+
 export default function ServicesPage() {
   const servicesCatalogSchema = {
     '@context': 'https://schema.org',
@@ -296,7 +298,7 @@ export default function ServicesPage() {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Digital & Software Development Services',
-      itemListElement: services.map((s, idx) => ({
+      itemListElement: services.map((s) => ({
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
@@ -309,183 +311,12 @@ export default function ServicesPage() {
   };
 
   return (
-    <main className="relative text-[#27003B] dark:text-white overflow-hidden">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesCatalogSchema) }}
       />
-      {/* Background Ambient Glows */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-0 left-1/4 w-[700px] h-[500px] rounded-full opacity-25 blur-3xl animate-pulse-glow"
-        style={{
-          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
-        style={{
-          // background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
-          animationDelay: '3s',
-        }}
-      />
-
-      {/* ── Hero ── */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="relative max-w-4xl mx-auto text-center">
-          <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight mb-6 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
-            Tailored Engineering & Design
-          </span>
-
-          <h1 className="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wide font-exo-medium mb-6 leading-tight uppercase">
-            Services Built For{' '}
-            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
-              Real Results.
-            </span>
-          </h1>
-
-          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            From modern responsive web applications to enterprise digital systems —
-            we engineer every layer with state-of-the-art precision.
-          </p>
-
-          <div className="animate-fade-in-up flex items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
-            >
-              <span>Start a Project</span>
-              <FiArrowRight
-                size={16}
-                className="group-hover:translate-x-1.5 transition-transform"
-              />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Services Grid ── */}
-      <section className="relative px-4 sm:px-6 pb-24 z-10">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <Link
-              key={service.title}
-              href={service.href}
-              className={`group relative flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80  dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${service.glowColor} transition-all duration-300 overflow-hidden`}
-              style={{
-                animationDelay: `${(index % 3) * 150}ms`,
-              }}
-            >
-              {/* Top Accent Gradient Bar on Hover */}
-              <div
-                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-              />
-
-              <div>
-                {/* Icon Container with 3D Hover Float */}
-                <div
-                  className={`w-14 h-14 rounded-2xl ${service.lightBg} flex items-center justify-center ${service.iconColor} mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-sm group-hover:shadow-md`}
-                >
-                  {service.icon}
-                </div>
-
-                {/* Title & Desc with Hover Slide */}
-                <div className="flex flex-col gap-2.5">
-                  <h2 className="text-xl font-extrabold font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between">
-                    <span>{service.title}</span>
-                    <FiArrowRight
-                      size={18}
-                      className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 shrink-0"
-                    />
-                  </h2>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors">
-                    {service.desc}
-                  </p>
-                </div>
-              </div>
-
-              {/* Highlights Chips with Staggered Hover Effect */}
-              <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800/80">
-                {service.highlights.map((h) => (
-                  <span
-                    key={h}
-                    className="text-[11px] font-bold font-exo-extralight px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
-                  >
-                    {h}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Why Clients Choose Us ── */}
-      <section className="relative px-6 py-20 border-y border-zinc-200/80 dark:border-zinc-800/80">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-exo-extralight mb-3">
-              Why MerxoDev
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
-              Why Clients Choose Our Engineering
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {whyUs.map((item, idx) => (
-              <div
-                key={idx}
-                className="group flex flex-col gap-2 p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-sm card-hover-lift hover:border-violet-400 dark:hover:border-violet-600 transition-all duration-200"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <FiCheckCircle size={18} />
-                  </div>
-                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
-                    {item.text}
-                  </h3>
-                </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight pl-11">
-                  {item.subtitle}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Bottom CTA ── */}
-      <section className="relative px-6 py-24">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="relative card-hover-lift">
-            <div className="px-8 py-14 sm:px-12">
-              <span className="inline-block text-[11px] font-bold tracking-widest text-amber-500 uppercase font-exo-extralight mb-3">
-                Let's Discuss
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide mb-4 text-[#27003B] dark:text-white">
-                Not sure which service fits your project?
-              </h2>
-              <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto font-exo-extralight">
-                Share your requirements or idea, and our team will prepare a
-                custom scope, timeline, and quote within hours.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
-              >
-                <span>Talk to Us Now</span>
-                <FiArrowRight
-                  size={16}
-                  className="group-hover:translate-x-1.5 transition-transform"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      <ServicesClient />
+    </>
   );
 }

@@ -42,10 +42,9 @@ const GOOGLE_MEET_LINK = process.env.NEXT_PUBLIC_GOOGLE_MEET_LINK || 'https://me
 const WHATSAPP_LINK = 'https://wa.me/8801313334279?text=Hello%20MerxoDev%20Team,%20I%20would%20like%20to%20schedule%20a%2015-minute%20discovery%20call%20for%20my%20project.';
 
 export default function DiscoveryCall() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
   const [meetLink, setMeetLink] = useState(GOOGLE_MEET_LINK);
-  const isBn = i18n.language === 'bn';
 
   useEffect(() => {
     let isMounted = true;
@@ -62,19 +61,7 @@ export default function DiscoveryCall() {
     };
   }, []);
 
-  const benefits = isBn
-    ? [
-      '১০০% ফ্রি কনসালটেশন — কোনো লুকানো চার্জ বা সেলস প্রেসার নেই',
-      'আপনার ধারণার টেকনিক্যাল ফিজিবিলিটি ও আর্কিটেকচার বিশ্লেষণ',
-      'সঠিক বাজেট প্ল্যান ও দ্রুততম ডেলিভারি টাইমলাইন নির্ধারণ',
-      'সরাসরি লিড ইঞ্জিনিয়ার ও ইউআই/ইউএক্স এক্সপার্টের সাথে আলোচনা',
-    ]
-    : [
-      '100% Free Consultation — zero sales pressure, pure technical insight',
-      'In-depth technical feasibility, stack recommendation & architecture plan',
-      'Transparent budget estimation & fastest delivery roadmap',
-      'Direct 1-on-1 talk with lead full-stack engineers & UI/UX designers',
-    ];
+  const benefits = t('discoveryCall.benefits', { returnObjects: true }) || [];
 
   return (
     <section
@@ -96,25 +83,23 @@ export default function DiscoveryCall() {
             <div className="lg:col-span-7 flex flex-col items-start text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/70 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-xs font-bold mb-5 tracking-wide">
                 <FiVideo className="text-violet-600 dark:text-violet-400" />
-                <span>{isBn ? 'সরাসরি মিটিং বুক করুন' : 'SCHEDULE A FREE CONSULTATION'}</span>
+                <span>{t('discoveryCall.badge')}</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight">
-                {isBn ? 'আপনার প্রজেক্ট নিয়ে কথা বলুন ' : 'Book a 15-Minute '}
+                {t('discoveryCall.titleStart')}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500">
-                  {isBn ? '১৫ মিনিটের ফ্রি কলে' : 'Discovery Call'}
+                  {t('discoveryCall.titleHighlight')}
                 </span>
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
-                {isBn
-                  ? 'আপনার নতুন আইডিয়া, সফটওয়্যার বা ওয়েবসাইটের প্রয়োজনীয়তা নিয়ে সরাসরি আমাদের টেক টিমের সাথে লাইভ গুগল মিট বা জুম কলে কথা বলুন।'
-                  : 'Discuss your project scope, timeline, and exact budget with our senior engineers on Google Meet or Zoom. No commitment required.'}
+                {t('discoveryCall.subtitle')}
               </p>
 
               {/* Value checklist */}
               <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
-                {benefits.map((item, i) => (
+                {Array.isArray(benefits) && benefits.map((item, i) => (
                   <div key={i} className="flex items-start gap-2.5">
                     <FiCheckCircle className="text-emerald-500 shrink-0 mt-1" size={17} />
                     <span className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-medium leading-snug">
@@ -132,7 +117,7 @@ export default function DiscoveryCall() {
                   className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-sm sm:text-base shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer w-full sm:w-auto"
                 >
                   <GoogleMeetIcon size={20} className="shrink-0" />
-                  <span>{isBn ? '১৫ মিনিটের গুগল মিট বুক করুন' : 'Book 15-Min Google Meet'}</span>
+                  <span>{t('discoveryCall.bookMeetBtn')}</span>
                   <FiArrowRight size={16} />
                 </button>
 
@@ -143,7 +128,7 @@ export default function DiscoveryCall() {
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 font-bold text-sm shadow-sm transition-all duration-300 cursor-pointer w-full sm:w-auto"
                 >
                   <FaWhatsapp size={19} className="text-emerald-600 dark:text-emerald-400" />
-                  <span>{isBn ? 'হোয়াটসঅ্যাপে ইনস্ট্যান্ট চ্যাট' : 'Instant WhatsApp Call'}</span>
+                  <span>{t('discoveryCall.instantWhatsappBtn')}</span>
                 </a>
               </div>
             </div>
@@ -171,7 +156,7 @@ export default function DiscoveryCall() {
                       </span>
                     </div>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      Lead Engineering & Product Architecture Team
+                      {t('discoveryCall.cardSubtitle')}
                     </p>
                   </div>
                 </div>
@@ -179,22 +164,20 @@ export default function DiscoveryCall() {
                 <div className="space-y-2.5 pt-3 border-t border-zinc-200 dark:border-zinc-700/60 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">
                   <div className="flex items-center gap-3">
                     <FiClock className="text-violet-600 dark:text-cyan-400 shrink-0" size={16} />
-                    <span>{isBn ? 'সময়কাল: ১৫ মিনিট দ্রুত আলোচনা' : 'Duration: 15 Minutes Quick Discovery'}</span>
+                    <span>{t('discoveryCall.cardDuration')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <GoogleMeetIcon size={18} className="shrink-0" />
-                    <span>{isBn ? 'প্ল্যাটফর্ম: Google Meet ভিডিও কল' : 'Location: Google Meet live video call'}</span>
+                    <span>{t('discoveryCall.cardLocation')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <FiShield className="text-emerald-500 shrink-0" size={16} />
-                    <span>{isBn ? '১০০% ফ্রি ও কোন বাধ্যবাধকতা নেই' : '100% Free & No Obligation'}</span>
+                    <span>{t('discoveryCall.cardFree')}</span>
                   </div>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-violet-500/10 dark:bg-violet-950/40 border border-violet-200/60 dark:border-violet-800/60 text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                  💬 {isBn
-                    ? 'আপনার আইডিয়া শেয়ার করুন — আমরা ফ্রন্টএন্ড, ব্যাকএন্ড ও খরচের রোডম্যাপ লাইভ শেয়ার করব।'
-                    : 'Share your vision — we will show you how to build it efficiently with optimal budget and modern tech.'}
+                  💬 {t('discoveryCall.cardNote')}
                 </div>
               </div>
             </div>
@@ -214,7 +197,7 @@ export default function DiscoveryCall() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
-                    {isBn ? '১৫ মিনিটের গুগল মিট কল শিডিউল করুন' : '15-Min Google Meet Discovery Call'}
+                    {t('discoveryCall.modal.title')}
                   </h3>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     MerxoDev Solutions Engineering Consultation
@@ -236,9 +219,7 @@ export default function DiscoveryCall() {
             <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
               <div className="text-center max-w-lg mx-auto space-y-2">
                 <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  {isBn
-                    ? 'আপনি কীভাবে আমাদের সাথে দ্রুত কথা বলতে চান তা বেছে নিন:'
-                    : 'Choose your preferred way to connect directly with our engineering lead:'}
+                  {t('discoveryCall.modal.subtitle')}
                 </p>
               </div>
 
@@ -256,20 +237,15 @@ export default function DiscoveryCall() {
                     </div>
                     <div className="flex items-center gap-2">
                       <h4 className="text-base font-bold text-zinc-900 dark:text-white">
-                        Google Meet
+                        {t('discoveryCall.modal.instantMeetTitle')}
                       </h4>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300">
-                        {isBn ? 'লাইভ মিটিং' : 'Live Call'}
-                      </span>
                     </div>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                      {isBn
-                        ? 'গুগল মিটে সরাসরি আমাদের লিড ইঞ্জিনিয়ারের সাথে লাইভ ভিডিও কলে যুক্ত হোন।'
-                        : 'Join an instant 1-on-1 Google Meet video call with our senior tech team.'}
+                      {t('discoveryCall.modal.instantMeetDesc')}
                     </p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                    {isBn ? 'গুগল মিট শুরু করুন' : 'Join Google Meet'} →
+                    {t('discoveryCall.modal.launchMeetBtn')} →
                   </span>
                 </a>
 
@@ -285,23 +261,21 @@ export default function DiscoveryCall() {
                       <FaWhatsapp size={22} />
                     </div>
                     <h4 className="text-base font-bold text-zinc-900 dark:text-white">
-                      Direct WhatsApp
+                      {t('discoveryCall.modal.whatsappTitle')}
                     </h4>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                      {isBn
-                        ? 'জরুরি প্রজেক্টের জন্য সরাসরি হোয়াটসঅ্যাপে মেসেজ বা কল দিন।'
-                        : 'Instant audio/video chat or message directly on WhatsApp (+880 1313-334279).'}
+                      {t('discoveryCall.modal.whatsappDesc')}
                     </p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                    {isBn ? 'হোয়াটসঅ্যাপে কথা বলুন' : 'Connect on WhatsApp'} →
+                    {t('discoveryCall.modal.chatWhatsappBtn')} →
                   </span>
                 </a>
               </div>
 
               {/* Direct Phone fallback */}
               <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-500 dark:text-zinc-400">
-                <span>{isBn ? 'সরাসরি ফোন করতে পারেন: ' : 'Prefer a direct phone call? '}</span>
+                <span>{t('discoveryCall.phoneFallback')} </span>
                 <a
                   href="tel:+8801313334279"
                   className="font-bold text-violet-600 dark:text-cyan-400 hover:underline"

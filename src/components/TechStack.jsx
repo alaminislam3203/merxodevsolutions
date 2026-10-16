@@ -85,10 +85,10 @@ export default function TechStack() {
       <div className="max-w-7xl mx-auto px-6 mb-6 text-center">
         <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight">
           <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
-          Cutting-Edge Technologies
+          {t('techStackSection.badge') || 'Cutting-Edge Technologies'}
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide font-exo-medium mt-3">
-          Technologies We Master
+          {t('techStackSection.title') || 'Technologies We Master'}
         </h2>
       </div>
 

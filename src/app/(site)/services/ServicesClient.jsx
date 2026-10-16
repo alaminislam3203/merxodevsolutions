@@ -1,0 +1,297 @@
+'use client';
+
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import {
+  FiGlobe,
+  FiShoppingCart,
+  FiCode,
+  FiLayout,
+  FiLink,
+  FiShield,
+  FiCreditCard,
+  FiDatabase,
+  FiTool,
+  FiTrendingUp,
+  FiCpu,
+  FiMonitor,
+  FiArrowRight,
+  FiCheckCircle,
+} from 'react-icons/fi';
+import '@/components/i18n';
+
+const SERVICE_STYLES = [
+  {
+    icon: <FiGlobe size={26} />,
+    accent: 'from-violet-600 to-indigo-600',
+    lightBg: 'bg-violet-50 dark:bg-violet-950/80',
+    iconColor: 'text-violet-600 dark:text-violet-400',
+    glowColor: 'hover:shadow-violet-500/20 hover:border-violet-400 dark:hover:border-violet-500',
+    defaultHref: '/services-web',
+  },
+  {
+    icon: <FiShoppingCart size={26} />,
+    accent: 'from-cyan-500 to-teal-500',
+    lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+    glowColor: 'hover:shadow-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-500',
+    defaultHref: '/services-ecommerce',
+  },
+  {
+    icon: <FiCode size={26} />,
+    accent: 'from-indigo-500 to-violet-600',
+    lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
+    iconColor: 'text-indigo-600 dark:text-indigo-400',
+    glowColor: 'hover:shadow-indigo-500/20 hover:border-indigo-400 dark:hover:border-indigo-500',
+    defaultHref: '/services-web-app',
+  },
+  {
+    icon: <FiLayout size={26} />,
+    accent: 'from-pink-500 to-rose-500',
+    lightBg: 'bg-pink-50 dark:bg-pink-950/80',
+    iconColor: 'text-pink-600 dark:text-pink-400',
+    glowColor: 'hover:shadow-pink-500/20 hover:border-pink-400 dark:hover:border-pink-500',
+    defaultHref: '/services-design',
+  },
+  {
+    icon: <FiLink size={26} />,
+    accent: 'from-amber-500 to-orange-500',
+    lightBg: 'bg-amber-50 dark:bg-amber-950/80',
+    iconColor: 'text-amber-600 dark:text-amber-400',
+    glowColor: 'hover:shadow-amber-500/20 hover:border-amber-400 dark:hover:border-amber-500',
+    defaultHref: '/services-api-integration',
+  },
+  {
+    icon: <FiDatabase size={26} />,
+    accent: 'from-blue-600 to-cyan-500',
+    lightBg: 'bg-blue-50 dark:bg-blue-950/80',
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    glowColor: 'hover:shadow-blue-500/20 hover:border-blue-400 dark:hover:border-blue-500',
+    defaultHref: '/services-database',
+  },
+  {
+    icon: <FiTool size={26} />,
+    accent: 'from-slate-600 to-zinc-500',
+    lightBg: 'bg-slate-50 dark:bg-slate-900/80',
+    iconColor: 'text-slate-600 dark:text-slate-400',
+    glowColor: 'hover:shadow-slate-500/20 hover:border-slate-400 dark:hover:border-slate-500',
+    defaultHref: '/services-maintenance',
+  },
+  {
+    icon: <FiTrendingUp size={26} />,
+    accent: 'from-emerald-500 to-teal-500',
+    lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
+    iconColor: 'text-emerald-600 dark:text-emerald-400',
+    glowColor: 'hover:shadow-emerald-500/20 hover:border-emerald-400 dark:hover:border-emerald-500',
+    defaultHref: '/services-seo',
+  },
+  {
+    icon: <FiCpu size={26} />,
+    accent: 'from-orange-500 to-amber-500',
+    lightBg: 'bg-orange-50 dark:bg-orange-950/80',
+    iconColor: 'text-orange-600 dark:text-orange-400',
+    glowColor: 'hover:shadow-orange-500/20 hover:border-orange-400 dark:hover:border-orange-500',
+    defaultHref: '/services-automation',
+  },
+  {
+    icon: <FiMonitor size={26} />,
+    accent: 'from-cyan-600 to-violet-600',
+    lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+    glowColor: 'hover:shadow-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-500',
+    defaultHref: '/contact',
+  },
+  {
+    icon: <FiCreditCard size={26} />,
+    accent: 'from-violet-500 to-cyan-500',
+    lightBg: 'bg-violet-50 dark:bg-violet-950/80',
+    iconColor: 'text-violet-600 dark:text-violet-400',
+    glowColor: 'hover:shadow-violet-500/20 hover:border-violet-400 dark:hover:border-violet-500',
+    defaultHref: '/services-payment-gateway',
+  },
+];
+
+export default function ServicesClient() {
+  const { t } = useTranslation();
+  const servicesData = t('servicesPage.services', { returnObjects: true }) || [];
+  const whyUsData = t('servicesPage.whyUs', { returnObjects: true }) || [];
+
+  return (
+    <main className="relative text-[#27003B] dark:text-white overflow-hidden">
+      {/* Background Ambient Glows */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-0 left-1/4 w-[700px] h-[500px] rounded-full opacity-25 blur-3xl animate-pulse-glow"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 -right-32 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-pulse-glow"
+        style={{
+          animationDelay: '3s',
+        }}
+      />
+
+      {/* ── Hero ── */}
+      <section className="relative pt-32 pb-20 px-6">
+        <div className="relative max-w-4xl mx-auto text-center">
+          <span className="animate-fade-in-down inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight mb-6 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
+            {t('servicesPage.heroBadge')}
+          </span>
+
+          <h1 className="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wide font-exo-medium mb-6 leading-tight uppercase">
+            {t('servicesPage.heroTitleStart')}
+            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
+              {t('servicesPage.heroTitleHighlight')}
+            </span>
+          </h1>
+
+          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
+            {t('servicesPage.heroSubtitle')}
+          </p>
+
+          <div className="animate-fade-in-up flex items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 via-violet-700 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
+            >
+              <span>{t('servicesPage.startProjectBtn')}</span>
+              <FiArrowRight
+                size={16}
+                className="group-hover:translate-x-1.5 transition-transform"
+              />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Services Grid ── */}
+      <section className="relative px-4 sm:px-6 pb-24 z-10">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.isArray(servicesData) &&
+            servicesData.map((service, index) => {
+              const style = SERVICE_STYLES[index] || SERVICE_STYLES[0];
+              const targetHref = service.href || style.defaultHref;
+
+              return (
+                <Link
+                  key={service.title || index}
+                  href={targetHref}
+                  className={`group relative flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${style.glowColor} transition-all duration-300 overflow-hidden`}
+                  style={{
+                    animationDelay: `${(index % 3) * 150}ms`,
+                  }}
+                >
+                  {/* Top Accent Gradient Bar on Hover */}
+                  <div
+                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${style.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  />
+
+                  <div>
+                    {/* Icon Container with 3D Hover Float */}
+                    <div
+                      className={`w-14 h-14 rounded-2xl ${style.lightBg} flex items-center justify-center ${style.iconColor} mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-sm group-hover:shadow-md`}
+                    >
+                      {style.icon}
+                    </div>
+
+                    {/* Title & Desc with Hover Slide */}
+                    <div className="flex flex-col gap-2.5">
+                      <h2 className="text-xl font-extrabold font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between">
+                        <span>{service.title}</span>
+                        <FiArrowRight
+                          size={18}
+                          className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 shrink-0"
+                        />
+                      </h2>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors">
+                        {service.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Highlights Chips with Staggered Hover Effect */}
+                  <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800/80">
+                    {Array.isArray(service.highlights) &&
+                      service.highlights.map((h) => (
+                        <span
+                          key={h}
+                          className="text-[11px] font-bold font-exo-extralight px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
+                        >
+                          {h}
+                        </span>
+                      ))}
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+      </section>
+
+      {/* ── Why Clients Choose Us ── */}
+      <section className="relative px-6 py-20 border-y border-zinc-200/80 dark:border-zinc-800/80">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-widest font-exo-extralight mb-3">
+              {t('servicesPage.whyBadge')}
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide text-[#27003B] dark:text-white">
+              {t('servicesPage.whyTitle')}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {Array.isArray(whyUsData) &&
+              whyUsData.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="group flex flex-col gap-2 p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-sm card-hover-lift hover:border-violet-400 dark:hover:border-violet-600 transition-all duration-200"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <FiCheckCircle size={18} />
+                    </div>
+                    <h3 className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
+                      {item.text}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight pl-11">
+                    {item.subtitle}
+                  </p>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Bottom CTA ── */}
+      <section className="relative px-6 py-24">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="relative card-hover-lift">
+            <div className="px-8 py-14 sm:px-12">
+              <span className="inline-block text-[11px] font-bold tracking-widest text-amber-500 uppercase font-exo-extralight mb-3">
+                {t('servicesPage.ctaBadge')}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold font-exo-medium uppercase tracking-wide mb-4 text-[#27003B] dark:text-white">
+                {t('servicesPage.ctaTitle')}
+              </h2>
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto font-exo-extralight">
+                {t('servicesPage.ctaDesc')}
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-bold font-exo-extralight uppercase tracking-wider hover:opacity-95 hover:scale-105 transition-all shadow-xl shadow-violet-500/25 group"
+              >
+                <span>{t('servicesPage.talkToUsBtn')}</span>
+                <FiArrowRight
+                  size={16}
+                  className="group-hover:translate-x-1.5 transition-transform"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

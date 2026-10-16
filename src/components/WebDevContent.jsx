@@ -259,33 +259,33 @@ export default function WebDevContent() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-violet-500 transition-colors">
-              Home
+              {t('webDev.breadcrumbHome') || 'Home'}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-violet-500 transition-colors">
-              Services
+              {t('webDev.breadcrumbServices') || 'Services'}
             </Link>
             <span>/</span>
             <span className="text-violet-600 dark:text-violet-400 font-semibold">
-              Web Development
+              {t('webDev.breadcrumbCurrent') || 'Web Development'}
             </span>
           </nav>
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/90 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            Next.js & React Engineering
+            {t('webDev.badge')}
           </div>
 
           <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Modern Web Development{' '}
+            {t('webDev.heroTitleStart')}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
-              Built for Scale
+              {t('webDev.heroTitleHighlight')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            We craft ultra-fast, responsive, and SEO-optimized business websites and web platforms using Next.js 16, React, and cloud-native architecture.
+            {t('webDev.heroSubtitle')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -293,14 +293,14 @@ export default function WebDevContent() {
               href="/contact?service=Website%20Development"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-violet-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Get Free Consultation</span>
+              <span>{t('webDev.startProjectBtn')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-violet-500 hover:text-violet-600 transition-all duration-300"
             >
-              View Live Portfolio
+              {t('featuredProjects.viewAllBtn') || 'View Live Portfolio'}
             </Link>
           </div>
 
@@ -441,10 +441,7 @@ export default function WebDevContent() {
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
-              <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                Web Package
-              </span>
+              {t('webDev.pricingTitle')}
             </h2>
           </div>
 
@@ -514,7 +511,7 @@ export default function WebDevContent() {
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('webDev.faqTitle')}
             </h2>
           </div>
 
@@ -560,16 +557,16 @@ export default function WebDevContent() {
               ✦ Ready to Elevate Your Online Presence?
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Let's Build Your Dream Website Together
+              {t('webDev.ctaTitle')}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Book a free discovery session with our lead architects today and get a tailored strategy for your business.
+              {t('webDev.ctaDesc')}
             </p>
             <Link
               href="/contact?service=Website%20Development"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300"
             >
-              <span>Schedule Free Strategy Call</span>
+              <span>{t('webDev.ctaBtn')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>

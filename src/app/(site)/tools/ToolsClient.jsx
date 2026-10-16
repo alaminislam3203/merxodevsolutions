@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiCode,
   FiKey,
@@ -201,6 +203,7 @@ const BADGE_STYLES = {
 };
 
 export default function ToolsClient() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -275,25 +278,23 @@ export default function ToolsClient() {
                 className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                 aria-hidden
               />
-              100% Free & Client-Side
+              {t('toolsPage.badge')}
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
               <FiLock className="w-3.5 h-3.5 text-emerald-500" />
-              Zero Data Sent to Server
+              {t('toolsPage.clientSideOnly')}
             </span>
           </div>
 
           <h1 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
-            Developer{' '}
+            {t('toolsPage.heroTitleStart')}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              Tools & Utilities
+              {t('toolsPage.heroTitleHighlight')}
             </span>
           </h1>
 
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-exo-extralight">
-            A curated suite of fast, lightweight, and privacy-focused online
-            utilities engineered for developers, designers, and engineering
-            teams. All calculations happen locally inside your browser.
+            {t('toolsPage.heroSubtitle')}
           </p>
 
           {/* Quick Stats Banner */}
@@ -322,7 +323,7 @@ export default function ToolsClient() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tools by name, keyword, or tag..."
+              placeholder={t('toolsPage.searchPlaceholder') || "Search tools by name, keyword, or tag..."}
               className="w-full pl-10 pr-9 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
             />
             {searchQuery && (
@@ -413,7 +414,7 @@ export default function ToolsClient() {
                 <div
                   className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 lg:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-[10px] sm:text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30"
                 >
-                  <span>Open Tool</span>
+                  <span>{t('toolsPage.openTool') || 'Open Tool'}</span>
                   <FiArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
@@ -451,19 +452,17 @@ export default function ToolsClient() {
               Missing Your Favorite Tool?
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
-              Have a Tool Suggestion in Mind?
+              {t('toolsPage.customToolTitle')}
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400 font-exo-extralight leading-relaxed">
-              We frequently build and open-source utilities based on community
-              requests. Tell us what repetitive task you want automated, and
-              we&apos;ll ship it next!
+              {t('toolsPage.customToolDesc')}
             </p>
           </div>
           <Link
             href="/contact"
             className="shrink-0 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] transition-all"
           >
-            Request a Tool
+            {t('toolsPage.requestToolBtn')}
           </Link>
         </div>
       </div>
