@@ -28,6 +28,7 @@ const NAV_TABS = [
     icon: FiCompass,
     badgeEn: 'Home',
     badgeBn: 'হোম',
+    external: false,
   },
   {
     nameEn: 'Interactive Demo',
@@ -36,6 +37,7 @@ const NAV_TABS = [
     icon: FiMapPin,
     badgeEn: 'Live Map',
     badgeBn: 'ম্যাপ ভিউ',
+    external: true,
   },
   {
     nameEn: 'Documentation',
@@ -44,6 +46,7 @@ const NAV_TABS = [
     icon: FiBookOpen,
     badgeEn: 'API & Guide',
     badgeBn: 'API গাইড',
+    external: true,
   },
 ];
 
@@ -67,7 +70,7 @@ function BangladeshGeoLayoutInner({ children }) {
           <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-transparent blur-3xl rounded-full" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
@@ -93,7 +96,7 @@ function BangladeshGeoLayoutInner({ children }) {
           </nav>
 
           {/* Header row */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/60 shadow-sm">
@@ -123,7 +126,7 @@ function BangladeshGeoLayoutInner({ children }) {
               </p>
             </div>
 
-            {/* Quick Action Buttons with EN / BN Switcher on the right */}
+            {/* Quick Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               {/* npm install copy button */}
               <button
@@ -152,76 +155,149 @@ function BangladeshGeoLayoutInner({ children }) {
                 <span>GitHub Repo</span>
                 <FiExternalLink className="w-3.5 h-3.5 opacity-80" />
               </a>
-
-              {/* EN / BN Language Switcher Button (Directly to the right of GitHub Repo) */}
-              <button
-                type="button"
-                onClick={toggleLang}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs font-bold font-mono transition-all border border-zinc-200 dark:border-zinc-700 shadow-sm cursor-pointer"
-                title={lang === 'en' ? 'Switch to বাংলা' : 'Switch to English'}
-              >
-                <span
-                  className={
-                    lang === 'en'
-                      ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                      : 'text-zinc-400'
-                  }
-                >
-                  EN
-                </span>
-                <span className="text-zinc-300 dark:text-zinc-600">/</span>
-                <span
-                  className={
-                    lang === 'bn'
-                      ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
-                      : 'text-zinc-400'
-                  }
-                >
-                  বাংলা
-                </span>
-              </button>
             </div>
-          </div>
-
-          {/* Navigation Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-b border-transparent">
-            {NAV_TABS.map((tab) => {
-              const isActive = pathname === tab.href;
-              const Icon = tab.icon;
-
-              return (
-                <Link
-                  key={tab.href}
-                  href={tab.href}
-                  className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-t-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border-b-2 ${isActive
-                      ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/40 shadow-sm'
-                      : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/60 dark:hover:bg-zinc-800/40'
-                    }`}
-                >
-                  <Icon
-                    className={`w-4 h-4 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400'
-                      }`}
-                  />
-                  <span>{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${isActive
-                        ? 'bg-emerald-500 text-white'
-                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
-                      }`}
-                  >
-                    {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
-                  </span>
-                </Link>
-              );
-            })}
           </div>
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {children}
-      </main>
+      {/* Main Content Area with Left Sidebar Column */}
+      <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Left Sidebar Column: Overview, Interactive Demo, Documentation & Language Switcher */}
+          <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-4">
+            <div className="p-4 rounded-3xl bg-white dark:bg-zinc-900/90 border border-zinc-200/90 dark:border-zinc-800 shadow-sm space-y-3">
+              <div className="px-2 pt-1 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
+                {lang === 'bn' ? 'নেভিগেশন মেনু' : 'Navigation Menu'}
+              </div>
+
+              {/* Column of 3 Buttons: Overview, Interactive Demo, Documentation */}
+              <nav className="flex flex-col gap-1.5" aria-label="Bangladesh GeoJSON Navigation">
+                {NAV_TABS.map((tab) => {
+                  const isActive = pathname === tab.href;
+                  const Icon = tab.icon;
+                  const isExternal = tab.external;
+
+                  return (
+                    <Link
+                      key={tab.href}
+                      href={tab.href}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noopener noreferrer' : undefined}
+                      className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
+                        isActive
+                          ? 'bg-emerald-600 text-white border-transparent shadow-md shadow-emerald-600/20'
+                          : 'bg-zinc-50/60 dark:bg-zinc-800/40 text-zinc-700 dark:text-zinc-300 border-zinc-200/60 dark:border-zinc-800/80 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:border-emerald-300 dark:hover:border-emerald-800 hover:text-emerald-700 dark:hover:text-emerald-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <Icon
+                          className={`w-4 h-4 shrink-0 transition-colors ${
+                            isActive
+                              ? 'text-white'
+                              : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
+                          }`}
+                        />
+                        <span className="truncate">{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${
+                            isActive
+                              ? 'bg-white/20 text-white'
+                              : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                          }`}
+                        >
+                          {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
+                        </span>
+                        {isExternal && (
+                          <FiExternalLink
+                            className={`w-3.5 h-3.5 ${
+                              isActive
+                                ? 'text-white/80'
+                                : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
+                            }`}
+                          />
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* Divider */}
+              <div className="my-2 border-t border-zinc-100 dark:border-zinc-800" />
+
+              {/* EN / বাংলা Language Switcher Button in Sidebar */}
+              <div className="space-y-2">
+                <div className="px-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
+                  {lang === 'bn' ? 'ভাষা নির্বাচন' : 'Language / ভাষা'}
+                </div>
+                <button
+                  type="button"
+                  onClick={toggleLang}
+                  className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all border border-zinc-200/80 dark:border-zinc-700/80 cursor-pointer shadow-sm group"
+                  title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
+                >
+                  <span className="text-zinc-600 dark:text-zinc-400 font-medium pl-1">
+                    {lang === 'bn' ? 'ভাষা:' : 'Language:'}
+                  </span>
+                  <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
+                    <span
+                      className={`text-xs font-mono transition-colors ${
+                        lang === 'en'
+                          ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
+                          : 'text-zinc-400'
+                      }`}
+                    >
+                      EN
+                    </span>
+                    <span className="text-zinc-300 dark:text-zinc-600">/</span>
+                    <span
+                      className={`text-xs transition-colors ${
+                        lang === 'bn'
+                          ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
+                          : 'text-zinc-400'
+                      }`}
+                    >
+                      বাংলা
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Info & Copy Card in Sidebar */}
+            <div className="p-4 rounded-3xl bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-transparent border border-emerald-500/20 dark:border-emerald-500/20 space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-mono text-emerald-700 dark:text-emerald-400 font-bold">
+                  bangladesh-geojson
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-mono font-medium border border-emerald-300/60 dark:border-emerald-800/60">
+                  v1.0.0
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyInstall}
+                className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-mono transition-all border border-zinc-800 cursor-pointer shadow-sm"
+              >
+                <span className="truncate">$ npm i bangladesh-geojson</span>
+                {copied ? (
+                  <FiCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 ml-1.5" />
+                ) : (
+                  <FiCopy className="w-3.5 h-3.5 text-zinc-400 shrink-0 ml-1.5" />
+                )}
+              </button>
+            </div>
+          </aside>
+
+          {/* Main Content Area */}
+          <main className="flex-1 min-w-0 w-full">
+            {children}
+          </main>
+        </div>
+      </div>
     </div>
   );
 }
