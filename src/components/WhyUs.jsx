@@ -127,9 +127,37 @@ const colors = [
   { text: 'text-rose-400', bg: 'bg-rose-400/10', border: 'border-rose-400/20' },
 ];
 
+const defaultReasons = [
+  {
+    title: 'Fast Delivery',
+    description: 'We move quickly without cutting corners. Your project ships on time, every time.',
+  },
+  {
+    title: 'Clean Code',
+    description: 'Scalable, maintainable, and well-documented code that your team can build on.',
+  },
+  {
+    title: 'Reliable Support',
+    description: 'We stay with you after launch — bugs, updates, or new features, we have your back.',
+  },
+  {
+    title: 'Modern Tech Stack',
+    description: 'Next.js, React, Node.js, Tailwind — we use the best tools to build the best products.',
+  },
+  {
+    title: 'Client-First',
+    description: 'Your vision drives everything. We listen, understand, and build exactly what you need.',
+  },
+  {
+    title: 'Transparent Pricing',
+    description: 'No hidden fees. Clear quotes, honest timelines, and value that exceeds the cost.',
+  },
+];
+
 export default function WhyUs() {
   const { t } = useTranslation();
-  const reasons = t('whyUs.reasons', { returnObjects: true });
+  const rawReasons = t('whyUs.reasons', { returnObjects: true });
+  const reasons = Array.isArray(rawReasons) && rawReasons.length > 0 ? rawReasons : defaultReasons;
 
   return (
     <section
@@ -184,21 +212,21 @@ export default function WhyUs() {
         {/* Section Header */}
         <div className="flex flex-col items-center text-center gap-3 mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
-            {t('whyUs.badge')}
+            {t('whyUs.badge', 'Why Choose Us')}
           </span>
 
           <h2
             id="why-us-heading"
             className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
           >
-            {t('whyUs.headingStart')}{' '}
+            {t('whyUs.headingStart', 'Built Different.')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              {t('whyUs.headingEnd')}
+              {t('whyUs.headingEnd', 'Delivered Better.')}
             </span>
           </h2>
 
           <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight">
-            {t('whyUs.subtext')}
+            {t('whyUs.subtext', "We don't just write code — we build digital products that drive real results for your business.")}
           </p>
         </div>
 
@@ -256,7 +284,7 @@ export default function WhyUs() {
             aria-label="Start working with MerxoDev Solutions"
             className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/25 font-exo-extralight uppercase tracking-widest"
           >
-            {t('whyUs.cta')}
+            {t('whyUs.cta', 'Start Working With Us →')}
           </Link>
         </div>
       </div>
