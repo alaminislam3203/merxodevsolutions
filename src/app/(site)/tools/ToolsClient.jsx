@@ -382,14 +382,14 @@ export default function ToolsClient() {
           })}
         </div>
 
-        {/* Tools Grid - 4 cards per row */}
+        {/* Tools Grid - 2 cards per row on mobile, 4 on desktop */}
         {filteredTools.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
             {filteredTools.map((tool) => (
               <Link
                 key={tool.id}
                 href={tool.href}
-                className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50 dark:hover:border-blue-500/50 overflow-hidden cursor-pointer"
+                className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-3 sm:p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50 dark:hover:border-blue-500/50 overflow-hidden cursor-pointer"
               >
                 {/* Ambient glow accent */}
                 <div
@@ -398,23 +398,23 @@ export default function ToolsClient() {
                 />
 
                 {/* Top: Vector Icon / Illustration Showcase matching reference style */}
-                <div className="relative w-full h-36 sm:h-40 rounded-xl sm:rounded-2xl bg-gradient-to-b from-blue-50/70 via-slate-50/50 to-blue-50/30 dark:from-zinc-800/60 dark:via-zinc-800/40 dark:to-zinc-800/20 border border-blue-100/60 dark:border-zinc-700/50 flex items-center justify-center p-2.5 sm:p-3 overflow-hidden group-hover:scale-[1.02] transition-transform duration-300">
+                <div className="relative w-full h-28 sm:h-36 lg:h-40 rounded-xl sm:rounded-2xl bg-gradient-to-b from-blue-50/70 via-slate-50/50 to-blue-50/30 dark:from-zinc-800/60 dark:via-zinc-800/40 dark:to-zinc-800/20 border border-blue-100/60 dark:border-zinc-700/50 flex items-center justify-center p-2 sm:p-3 overflow-hidden group-hover:scale-[1.02] transition-transform duration-300">
                   <ToolIllustration id={tool.id} />
                 </div>
 
                 {/* Middle: Just the Main Title */}
-                <div className="pt-4 pb-4 text-center flex-1 flex items-center justify-center min-h-[4rem]">
-                  <h3 className="font-exo-medium text-base sm:text-lg font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                <div className="pt-2.5 sm:pt-4 pb-2.5 sm:pb-4 text-center flex-1 flex items-center justify-center min-h-[3rem] sm:min-h-[4rem]">
+                  <h3 className="font-exo-medium text-xs sm:text-base lg:text-lg font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug sm:leading-normal">
                     {tool.title}
                   </h3>
                 </div>
 
                 {/* Bottom: Open Tool Button */}
                 <div
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30"
+                  className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 lg:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-[10px] sm:text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30"
                 >
                   <span>Open Tool</span>
-                  <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <FiArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
             ))}
