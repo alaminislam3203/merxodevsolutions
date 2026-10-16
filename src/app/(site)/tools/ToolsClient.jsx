@@ -23,6 +23,7 @@ import {
   FiCpu,
   FiZap,
 } from 'react-icons/fi';
+import ToolIllustration from '@/components/tools/ToolIllustration';
 
 const TOOLS_DATA = [
   {
@@ -384,78 +385,39 @@ export default function ToolsClient() {
         {/* Tools Grid */}
         {filteredTools.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTools.map((tool) => {
-              const IconComponent = tool.icon;
-              const badgeStyle =
-                BADGE_STYLES[tool.badgeColor] || BADGE_STYLES.violet;
-
-              return (
+            {filteredTools.map((tool) => (
+              <div
+                key={tool.id}
+                className="group relative flex flex-col justify-between rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-6 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50 dark:hover:border-blue-500/50 overflow-hidden"
+              >
+                {/* Ambient glow accent */}
                 <div
-                  key={tool.id}
-                  className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-violet-400 dark:hover:border-violet-500 overflow-hidden"
-                >
-                  {/* Card Glow Corner Accent */}
-                  <div
-                    aria-hidden
-                    className="absolute -top-12 -right-12 w-28 h-28 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-transparent rounded-full blur-xl group-hover:scale-125 transition-transform duration-500 pointer-events-none"
-                  />
+                  aria-hidden
+                  className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500 pointer-events-none"
+                />
 
-                  {/* Top Header: Icon & Category/Badge */}
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-100 dark:border-violet-800/80 group-hover:scale-105 group-hover:bg-gradient-to-tr group-hover:from-violet-600 group-hover:to-fuchsia-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {tool.badge && (
-                          <span
-                            className={`text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full border ${badgeStyle}`}
-                          >
-                            {tool.badge}
-                          </span>
-                        )}
-                        <span className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 font-exo-extralight">
-                          {tool.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Tool Title */}
-                    <h3 className="font-exo-medium text-xl font-bold text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors line-clamp-1 mb-2">
-                      {tool.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight mb-4 line-clamp-3">
-                      {tool.description}
-                    </p>
-                  </div>
-
-                  {/* Bottom: Tags & Launch Action */}
-                  <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/80">
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {tool.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-exo-extralight"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <Link
-                      href={tool.href}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-50 hover:bg-violet-600 dark:bg-zinc-800/80 dark:hover:bg-violet-600 text-zinc-700 hover:text-white dark:text-zinc-200 dark:hover:text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all duration-200 border border-zinc-200 dark:border-zinc-700 hover:border-transparent group-hover:shadow-md group-hover:shadow-violet-500/20"
-                    >
-                      <span>Open Tool</span>
-                      <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </div>
+                {/* Top: Vector Icon / Illustration Showcase matching the reference style */}
+                <div className="relative w-full h-44 rounded-2xl bg-gradient-to-b from-blue-50/70 via-slate-50/50 to-blue-50/30 dark:from-zinc-800/60 dark:via-zinc-800/40 dark:to-zinc-800/20 border border-blue-100/60 dark:border-zinc-700/50 flex items-center justify-center p-3 overflow-hidden group-hover:scale-[1.02] transition-transform duration-300">
+                  <ToolIllustration id={tool.id} />
                 </div>
-              );
-            })}
+
+                {/* Middle: Just the Main Title */}
+                <div className="pt-5 pb-5 text-center flex-1 flex items-center justify-center">
+                  <h3 className="font-exo-medium text-lg sm:text-xl font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                    {tool.title}
+                  </h3>
+                </div>
+
+                {/* Bottom: Open Tool Button */}
+                <Link
+                  href={tool.href}
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 cursor-pointer"
+                >
+                  <span>Open Tool</span>
+                  <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            ))}
           </div>
         ) : (
           /* Empty Search State */

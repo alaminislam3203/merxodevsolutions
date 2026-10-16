@@ -193,24 +193,21 @@ function BangladeshGeoLayoutInner({ children }) {
                 <Link
                   key={tab.href}
                   href={tab.href}
-                  className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-t-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border-b-2 ${
-                    isActive
+                  className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-t-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border-b-2 ${isActive
                       ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/40 shadow-sm'
                       : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/60 dark:hover:bg-zinc-800/40'
-                  }`}
+                    }`}
                 >
                   <Icon
-                    className={`w-4 h-4 ${
-                      isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400'
-                    }`}
+                    className={`w-4 h-4 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400'
+                      }`}
                   />
                   <span>{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${
-                      isActive
+                    className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${isActive
                         ? 'bg-emerald-500 text-white'
                         : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
-                    }`}
+                      }`}
                   >
                     {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
                   </span>
