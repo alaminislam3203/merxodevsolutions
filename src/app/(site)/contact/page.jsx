@@ -15,6 +15,24 @@ import {
   FaClock,
   FaChevronDown,
 } from 'react-icons/fa';
+import {
+  FiGlobe,
+  FiLayers,
+  FiShoppingBag,
+  FiPenTool,
+  FiCode,
+  FiTrendingUp,
+  FiLink,
+  FiShield,
+  FiCreditCard,
+  FiDatabase,
+  FiClock as FiClockIcon,
+  FiZap,
+  FiPlusCircle,
+  FiCheck,
+  FiEdit3,
+  FiDollarSign,
+} from 'react-icons/fi';
 
 const defaultFaqs = [
   {
@@ -39,30 +57,131 @@ export default function ContactPage() {
   const { t } = useTranslation();
 
   const serviceOptions = [
-    { id: 'Website Development', label: t('services.items.webDev.title', 'Website Development') },
-    { id: 'Web App (Next.js/React)', label: t('services.items.webApp.title', 'Web App (Next.js/React)') },
-    { id: 'E-commerce Store', label: t('services.items.ecommerce.title', 'E-commerce Store') },
-    { id: 'UI/UX Design (Figma)', label: t('services.items.uiUx.title', 'UI/UX Design (Figma)') },
-    { id: 'Custom Software', label: t('services.items.customSoft.title', 'Custom Software') },
-    { id: 'SEO & Performance', label: t('services.items.seo.title', 'SEO & Performance') },
+    {
+      id: 'webDev',
+      label: t('contact.serviceOptions.webDev', 'Website Development'),
+      desc: t('contact.serviceOptions.webDevDesc', 'Landing pages, portfolio & corporate sites'),
+      icon: FiGlobe,
+    },
+    {
+      id: 'webApp',
+      label: t('contact.serviceOptions.webApp', 'Custom Web Apps'),
+      desc: t('contact.serviceOptions.webAppDesc', 'SaaS, dashboards & client portals'),
+      icon: FiLayers,
+    },
+    {
+      id: 'ecommerce',
+      label: t('contact.serviceOptions.ecommerce', 'E-Commerce Solutions'),
+      desc: t('contact.serviceOptions.ecommerceDesc', 'Online stores & multi-vendor hubs'),
+      icon: FiShoppingBag,
+    },
+    {
+      id: 'uiUx',
+      label: t('contact.serviceOptions.uiUx', 'UI/UX & Figma Design'),
+      desc: t('contact.serviceOptions.uiUxDesc', 'Wireframes, prototypes & brand UI'),
+      icon: FiPenTool,
+    },
+    {
+      id: 'customSoft',
+      label: t('contact.serviceOptions.customSoft', 'Custom Software'),
+      desc: t('contact.serviceOptions.customSoftDesc', 'Tailored enterprise architectures'),
+      icon: FiCode,
+    },
+    {
+      id: 'seo',
+      label: t('contact.serviceOptions.seo', 'SEO & Growth'),
+      desc: t('contact.serviceOptions.seoDesc', 'Search rankings & speed audit'),
+      icon: FiTrendingUp,
+    },
+    {
+      id: 'api',
+      label: t('contact.serviceOptions.api', 'APIs & Webhooks'),
+      desc: t('contact.serviceOptions.apiDesc', 'Third-party & microservice sync'),
+      icon: FiLink,
+    },
+    {
+      id: 'security',
+      label: t('contact.serviceOptions.security', 'Security & Auth'),
+      desc: t('contact.serviceOptions.securityDesc', 'OAuth, 2FA & vulnerability audit'),
+      icon: FiShield,
+    },
+    {
+      id: 'payment',
+      label: t('contact.serviceOptions.payment', 'Payment Gateway'),
+      desc: t('contact.serviceOptions.paymentDesc', 'bKash, Nagad, Stripe & SSLCommerz'),
+      icon: FiCreditCard,
+    },
+    {
+      id: 'database',
+      label: t('contact.serviceOptions.database', 'Database & Cloud'),
+      desc: t('contact.serviceOptions.databaseDesc', 'PostgreSQL, cloud storage & sync'),
+      icon: FiDatabase,
+    },
+    {
+      id: 'maintenance',
+      label: t('contact.serviceOptions.maintenance', 'Maintenance & 24/7 SLA'),
+      desc: t('contact.serviceOptions.maintenanceDesc', 'Bug fixes, uptime & updates'),
+      icon: FiClockIcon,
+    },
+    {
+      id: 'automation',
+      label: t('contact.serviceOptions.automation', 'Automation & AI'),
+      desc: t('contact.serviceOptions.automationDesc', 'Chatbots, scrapers & workflows'),
+      icon: FiZap,
+    },
+    {
+      id: 'other',
+      label: t('contact.serviceOptions.other', 'Other / Custom Need'),
+      desc: t('contact.serviceOptions.otherDesc', 'Tell us your unique specifications'),
+      icon: FiPlusCircle,
+    },
   ];
 
   const budgetOptions = [
-    { id: 'Under $500', label: t('contact.budgets.under500', 'Under $500') },
-    { id: '$500 – $1,500', label: t('contact.budgets.b500to1500', '$500 – $1,500') },
-    { id: '$1,500 – $3,000', label: t('contact.budgets.b1500to3000', '$1,500 – $3,000') },
-    { id: '$3,000 – $5,000+', label: t('contact.budgets.b3000plus', '$3,000 – $5,000+') },
+    {
+      id: 'under500',
+      label: t('contact.budgetOptions.under500', 'Under $500'),
+      badge: t('contact.budgetOptions.under500Badge', 'Starter'),
+    },
+    {
+      id: 'b500to1500',
+      label: t('contact.budgetOptions.b500to1500', '$500 – $1,500'),
+      badge: t('contact.budgetOptions.b500to1500Badge', 'Popular'),
+    },
+    {
+      id: 'b1500to3000',
+      label: t('contact.budgetOptions.b1500to3000', '$1,500 – $3,000'),
+      badge: t('contact.budgetOptions.b1500to3000Badge', 'Growth'),
+    },
+    {
+      id: 'b3000to5000',
+      label: t('contact.budgetOptions.b3000to5000', '$3,000 – $5,000'),
+      badge: t('contact.budgetOptions.b3000to5000Badge', 'Scale'),
+    },
+    {
+      id: 'b5000plus',
+      label: t('contact.budgetOptions.b5000plus', '$5,000 – $10k+'),
+      badge: t('contact.budgetOptions.b5000plusBadge', 'Enterprise'),
+    },
+    {
+      id: 'other',
+      label: t('contact.budgetOptions.other', 'Custom Budget'),
+      badge: t('contact.budgetOptions.otherBadge', 'Custom'),
+    },
   ];
 
   const localizedFaqs = t('contact.faqs', { returnObjects: true });
   const activeFaqs = Array.isArray(localizedFaqs) && localizedFaqs.length > 0 ? localizedFaqs : defaultFaqs;
 
+  const [selectedService, setSelectedService] = useState('webDev');
+  const [customService, setCustomService] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('b500to1500');
+  const [customBudget, setCustomBudget] = useState('');
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
-    service: 'Website Development',
-    budget: '$500 – $1,500',
     message: '',
     honeypot: '',
   });
@@ -75,14 +194,6 @@ export default function ContactPage() {
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
     }
-  };
-
-  const setService = (service) => {
-    setForm((prev) => ({ ...prev, service }));
-  };
-
-  const setBudget = (budget) => {
-    setForm((prev) => ({ ...prev, budget }));
   };
 
   const validate = () => {
@@ -121,11 +232,27 @@ export default function ContactPage() {
     if (!validate()) return;
     setStatus('loading');
 
+    const resolvedService =
+      selectedService === 'other'
+        ? (customService.trim() ? `Other: ${customService.trim()}` : t('contact.serviceOptions.other', 'Other / Custom Need'))
+        : (serviceOptions.find((s) => s.id === selectedService)?.label || selectedService);
+
+    const resolvedBudget =
+      selectedBudget === 'other'
+        ? (customBudget.trim() ? `Custom: ${customBudget.trim()}` : t('contact.budgetOptions.other', 'Custom Budget'))
+        : (budgetOptions.find((b) => b.id === selectedBudget)?.label || selectedBudget);
+
+    const payload = {
+      ...form,
+      service: resolvedService,
+      budget: resolvedBudget,
+    };
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -135,10 +262,13 @@ export default function ContactPage() {
           name: '',
           email: '',
           phone: '',
-          service: 'Website Development',
-          budget: '$500 – $1,500',
           message: '',
+          honeypot: '',
         });
+        setSelectedService('webDev');
+        setCustomService('');
+        setSelectedBudget('b500to1500');
+        setCustomBudget('');
         setErrors({});
       } else if (res.status === 429) {
         setStatus('ratelimit');
@@ -470,54 +600,171 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                {/* Service Selection (Interactive Chips) */}
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    {t('contact.serviceLabel', 'What Service Do You Need?')}
-                  </label>
-                  <div className="flex flex-wrap gap-2">
+                {/* Service Selection (Premium Interactive Cards) */}
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight flex items-center gap-1.5">
+                      <span>{t('contact.serviceLabel', 'What Service Do You Need?')}</span>
+                      <span className="text-rose-500">*</span>
+                    </label>
+                    <span className="text-[11px] font-semibold text-violet-600 dark:text-violet-400 font-exo-extralight truncate max-w-[200px]">
+                      {serviceOptions.find((s) => s.id === selectedService)?.label}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                     {serviceOptions.map((s) => {
-                      const isSelected = form.service === s.id;
+                      const isSelected = selectedService === s.id;
+                      const IconComponent = s.icon;
                       return (
                         <button
                           key={s.id}
                           type="button"
-                          onClick={() => setService(s.id)}
-                          className={`px-3.5 py-2 rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
-                            ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
-                            : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                            }`}
+                          onClick={() => setSelectedService(s.id)}
+                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center gap-3 ${
+                            isSelected
+                              ? 'bg-gradient-to-br from-violet-600/10 via-purple-600/5 to-cyan-500/10 border-violet-500 dark:border-violet-400 shadow-md shadow-violet-500/10 ring-1 ring-violet-500/30'
+                              : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-violet-300 dark:hover:border-violet-700/60 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
+                          }`}
                         >
-                          {s.label}
+                          <div
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 ${
+                              isSelected
+                                ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white shadow-sm shadow-violet-500/40'
+                                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/40'
+                            }`}
+                          >
+                            <IconComponent size={17} />
+                          </div>
+
+                          <div className="flex-1 min-w-0 pr-1">
+                            <div className="flex items-center justify-between gap-1">
+                              <span
+                                className={`text-xs font-bold font-exo-extralight truncate leading-tight ${
+                                  isSelected
+                                    ? 'text-violet-950 dark:text-white'
+                                    : 'text-zinc-800 dark:text-zinc-200 group-hover:text-violet-700 dark:group-hover:text-violet-300'
+                                }`}
+                              >
+                                {s.label}
+                              </span>
+                              {isSelected && (
+                                <span className="w-4 h-4 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] shrink-0 shadow-sm">
+                                  <FiCheck size={11} strokeWidth={3} />
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-exo-extralight truncate mt-0.5">
+                              {s.desc}
+                            </p>
+                          </div>
                         </button>
                       );
                     })}
                   </div>
+
+                  {/* Custom Service Input when "Other" is selected */}
+                  {selectedService === 'other' && (
+                    <div className="mt-1 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-br from-violet-50/80 to-purple-50/40 dark:from-violet-950/30 dark:to-zinc-900/60 border border-violet-200 dark:border-violet-800/70 shadow-sm">
+                      <div className="flex items-center gap-2 mb-2">
+                        <FiEdit3 className="text-violet-600 dark:text-violet-400 shrink-0" size={15} />
+                        <label className="text-xs font-bold text-violet-950 dark:text-violet-200 font-exo-extralight">
+                          {t('contact.otherServiceLabel', 'Specify your custom service or technical needs')}
+                        </label>
+                      </div>
+                      <input
+                        type="text"
+                        value={customService}
+                        onChange={(e) => setCustomService(e.target.value)}
+                        placeholder={t(
+                          'contact.otherServicePlaceholder',
+                          'e.g. Telegram Bot, Custom AI Chatbot, Scraping Engine, Custom ERP...'
+                        )}
+                        className="w-full px-4 py-2.5 rounded-xl border border-violet-200 dark:border-violet-800/80 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/30 font-exo-extralight"
+                      />
+                    </div>
+                  )}
                 </div>
 
-                {/* Budget Selection (Interactive Chips) */}
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    {t('contact.budgetLabel', 'Approximate Budget Range')}
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {/* Budget Selection (Premium Interactive Cards) */}
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight flex items-center gap-1.5">
+                      <span>{t('contact.budgetLabel', 'Approximate Budget Range')}</span>
+                      <span className="text-xs text-zinc-400 font-normal">
+                        {t('contact.optional', '(Optional)')}
+                      </span>
+                    </label>
+                    <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 font-exo-extralight">
+                      {budgetOptions.find((b) => b.id === selectedBudget)?.label}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                     {budgetOptions.map((b) => {
-                      const isSelected = form.budget === b.id;
+                      const isSelected = selectedBudget === b.id;
                       return (
                         <button
                           key={b.id}
                           type="button"
-                          onClick={() => setBudget(b.id)}
-                          className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
-                            ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
-                            : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                            }`}
+                          onClick={() => setSelectedBudget(b.id)}
+                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[68px] ${
+                            isSelected
+                              ? 'bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-orange-500/10 border-amber-500 dark:border-amber-400 shadow-md shadow-amber-500/10 ring-1 ring-amber-500/30'
+                              : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-amber-300 dark:hover:border-amber-600/50 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
+                          }`}
                         >
-                          {b.label}
+                          <div className="flex items-center justify-between gap-1 w-full">
+                            <span
+                              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full transition-colors ${
+                                isSelected
+                                  ? 'bg-amber-500 text-zinc-950 font-extrabold shadow-sm'
+                                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                              }`}
+                            >
+                              {b.badge}
+                            </span>
+                            {isSelected && (
+                              <span className="w-4 h-4 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center text-[10px] shrink-0 shadow-sm">
+                                <FiCheck size={11} strokeWidth={3} />
+                              </span>
+                            )}
+                          </div>
+                          <span
+                            className={`text-xs sm:text-sm font-bold font-exo-extralight mt-1.5 ${
+                              isSelected
+                                ? 'text-zinc-950 dark:text-white'
+                                : 'text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-950 dark:group-hover:text-white'
+                            }`}
+                          >
+                            {b.label}
+                          </span>
                         </button>
                       );
                     })}
                   </div>
+
+                  {/* Custom Budget Input when "Other" is selected */}
+                  {selectedBudget === 'other' && (
+                    <div className="mt-1 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-br from-amber-50/80 to-orange-50/40 dark:from-amber-950/30 dark:to-zinc-900/60 border border-amber-200 dark:border-amber-800/70 shadow-sm">
+                      <div className="flex items-center gap-2 mb-2">
+                        <FiDollarSign className="text-amber-600 dark:text-amber-400 shrink-0" size={15} />
+                        <label className="text-xs font-bold text-amber-950 dark:text-amber-200 font-exo-extralight">
+                          {t('contact.otherBudgetLabel', 'Enter your estimated budget or target price')}
+                        </label>
+                      </div>
+                      <input
+                        type="text"
+                        value={customBudget}
+                        onChange={(e) => setCustomBudget(e.target.value)}
+                        placeholder={t(
+                          'contact.otherBudgetPlaceholder',
+                          'e.g. $2,500 or ৳1,00,000 BDT or Negotiable...'
+                        )}
+                        className="w-full px-4 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800/80 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 font-exo-extralight"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* Message */}
