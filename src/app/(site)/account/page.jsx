@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast, confirmToast } from '@/lib/toast';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import {
@@ -34,6 +36,7 @@ import {
 
 // ─── Edit Profile Modal ───────────────────────────────────────────────────────
 function EditProfileModal({ user, onClose, onSave }) {
+  const { t } = useTranslation();
   const [name, setName] = useState(user?.name || '');
   const [image, setImage] = useState(user?.image || '');
   const [preview, setPreview] = useState(user?.image || '');
@@ -151,10 +154,10 @@ function EditProfileModal({ user, onClose, onSave }) {
         </button>
 
         <h3 className="text-xl font-bold font-exo-extralight text-zinc-900 dark:text-white mb-1">
-          Edit Profile
+          {t('accountPage.modals.editProfileTitle', 'Edit Profile')}
         </h3>
         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6">
-          Update your public profile display name and avatar photo.
+          {t('accountPage.modals.editProfileSubtitle', 'Update your public profile display name and avatar photo.')}
         </p>
 
         {error && (
@@ -187,11 +190,11 @@ function EditProfileModal({ user, onClose, onSave }) {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 className="absolute inset-0 rounded-full bg-black/50 backdrop-blur-xs flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                title="Change Photo"
+                title={t('accountPage.modals.changePhoto', 'Change Photo')}
               >
                 <FiCamera size={22} />
                 <span className="text-[10px] font-bold uppercase tracking-wider font-exo-extralight mt-1">
-                  Change
+                  {t('accountPage.modals.changePhoto', 'Change')}
                 </span>
               </button>
             </div>
@@ -213,38 +216,38 @@ function EditProfileModal({ user, onClose, onSave }) {
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-violet-200 dark:border-violet-900/60 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-cyan-400 hover:bg-violet-100 dark:hover:bg-violet-900/60 text-xs font-bold font-exo-extralight transition-colors cursor-pointer"
               >
                 <FiUploadCloud size={14} />
-                <span>{preview ? 'Change Photo' : 'Upload Photo'}</span>
+                <span>{preview ? t('accountPage.modals.changePhoto', 'Change Photo') : t('accountPage.modals.uploadPhoto', 'Upload Photo')}</span>
               </button>
 
               {preview && (
                 <button
                   type="button"
                   onClick={handleRemovePhoto}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold font-exo-extralight transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold font-exo-extralight transition-colors cursor-pointer"
                   title="Remove custom photo"
                 >
                   <FiTrash2 size={13} />
-                  <span>Remove</span>
+                  <span>{t('accountPage.modals.remove', 'Remove')}</span>
                 </button>
               )}
             </div>
 
             <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-exo-extralight text-center">
-              JPG, PNG, or WebP. Max 5MB.
+              {t('accountPage.modals.photoHint', 'JPG, PNG, or WebP. Max 5MB.')}
             </p>
           </div>
 
           {/* Name Field */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-              Display Name
+              {t('accountPage.modals.displayName', 'Display Name')}
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter Your Name"
+              placeholder={t('accountPage.modals.displayNamePlaceholder', 'Enter Your Name')}
               className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 font-exo-extralight"
             />
           </div>
@@ -256,7 +259,7 @@ function EditProfileModal({ user, onClose, onSave }) {
               disabled={loading}
               className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-exo-extralight uppercase text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer disabled:opacity-50"
             >
-              Cancel
+              {t('accountPage.modals.cancel', 'Cancel')}
             </button>
             <button
               type="submit"
@@ -264,7 +267,7 @@ function EditProfileModal({ user, onClose, onSave }) {
               className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all disabled:opacity-60 cursor-pointer flex items-center gap-2"
             >
               {loading && <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-              <span>{loading ? 'Saving Profile...' : 'Save Changes'}</span>
+              <span>{loading ? t('accountPage.modals.saving', 'Saving Profile...') : t('accountPage.modals.save', 'Save Changes')}</span>
             </button>
           </div>
         </form>
@@ -275,6 +278,7 @@ function EditProfileModal({ user, onClose, onSave }) {
 
 // ─── Change Password Modal ───────────────────────────────────────────────────
 function ChangePasswordModal({ onClose }) {
+  const { t } = useTranslation();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -331,10 +335,10 @@ function ChangePasswordModal({ onClose }) {
         </button>
 
         <h3 className="text-xl font-bold font-exo-extralight text-zinc-900 dark:text-white mb-1">
-          Change Password
+          {t('accountPage.modals.changePasswordTitle', 'Change Password')}
         </h3>
         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6">
-          Keep your account secure with a unique password.
+          {t('accountPage.modals.changePasswordSubtitle', 'Ensure your account stays secure with a strong password.')}
         </p>
 
         {success ? (
@@ -352,7 +356,7 @@ function ChangePasswordModal({ onClose }) {
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                Current Password
+                {t('accountPage.modals.currentPassword', 'Current Password')}
               </label>
               <input
                 type="password"
@@ -365,7 +369,7 @@ function ChangePasswordModal({ onClose }) {
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                New Password
+                {t('accountPage.modals.newPassword', 'New Password')}
               </label>
               <input
                 type="password"
@@ -379,7 +383,7 @@ function ChangePasswordModal({ onClose }) {
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                Confirm New Password
+                {t('accountPage.modals.confirmNewPassword', 'Confirm New Password')}
               </label>
               <input
                 type="password"
@@ -396,14 +400,14 @@ function ChangePasswordModal({ onClose }) {
                 onClick={onClose}
                 className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-exo-extralight uppercase text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
               >
-                Cancel
+                {t('accountPage.modals.cancel', 'Cancel')}
               </button>
               <button
                 type="submit"
                 disabled={loading}
                 className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all disabled:opacity-60 cursor-pointer"
               >
-                {loading ? 'Updating...' : 'Update Password'}
+                {loading ? t('accountPage.modals.updatingPassword', 'Updating Password...') : t('accountPage.modals.updatePasswordBtn', 'Update Password')}
               </button>
             </div>
           </form>
@@ -415,6 +419,7 @@ function ChangePasswordModal({ onClose }) {
 
 // ─── Two-Factor Authentication Modal ─────────────────────────────────────────
 function TwoFactorModal({ user, onClose, onSuccess }) {
+  const { t } = useTranslation();
   const [digits, setDigits] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [sendingCode, setSendingCode] = useState(false);
@@ -471,8 +476,8 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Invalid or expired code');
-      setSuccess('Two-Factor Authentication is now enabled!');
-      showToast.success('Two-Factor Authentication is now enabled!');
+      setSuccess(t('accountPage.modals.twoFactorSuccessTitle', 'Two-Factor Authentication is now enabled!'));
+      showToast.success(t('accountPage.modals.twoFactorSuccessTitle', 'Two-Factor Authentication is now enabled!'));
       setTimeout(() => {
         onSuccess();
         onClose();
@@ -556,10 +561,10 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
           </div>
           <div>
             <h3 className="text-lg font-bold text-zinc-900 dark:text-white font-exo-extralight">
-              Enable 2FA Protection
+              {t('accountPage.modals.enable2faTitle', 'Enable 2FA Protection')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-              Email-based Two-Factor Authentication
+              {t('accountPage.modals.enable2faSubtitle', 'Email-based Two-Factor Authentication')}
             </p>
           </div>
         </div>
@@ -578,13 +583,14 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
               {success}
             </h4>
             <p className="text-xs text-zinc-500 font-exo-extralight">
-              Your account is now secured with two-factor authentication.
+              {t('accountPage.modals.twoFactorSuccessDesc', 'Your account is now secured with two-factor authentication.')}
             </p>
           </div>
         ) : (
           <div className="space-y-4">
             <p className="text-xs text-zinc-600 dark:text-zinc-300 font-exo-extralight leading-relaxed">
-              We sent a 6-digit confirmation code to <strong className="text-zinc-900 dark:text-white font-mono">{user?.email}</strong>. Enter it below to enable 2FA:
+              {t('accountPage.modals.twoFactorSentCode', 'We sent a 6-digit confirmation code to')}{' '}
+              <strong className="text-zinc-900 dark:text-white font-mono">{user?.email}</strong>.
             </p>
 
             {/* 6 Square OTP Boxes */}
@@ -609,7 +615,7 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
             </div>
 
             <p className="text-[11px] text-zinc-400 text-center font-exo-extralight">
-              Paste or type 6 digits. Auto-verifies upon 6th digit.
+              {t('accountPage.modals.twoFactorInstruction', 'Paste or type 6 digits. Auto-verifies upon 6th digit.')}
             </p>
 
             <button
@@ -621,20 +627,22 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
               {loading ? (
                 <>
                   <span className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                  <span>Verifying...</span>
+                  <span>{t('accountPage.modals.verifying', 'Verifying...')}</span>
                 </>
               ) : (
                 <>
-                  <span>Activate 2FA</span>
+                  <span>{t('accountPage.modals.activate2fa', 'Activate 2FA')}</span>
                   <FiCheck size={14} />
                 </>
               )}
             </button>
 
             <div className="pt-2 flex items-center justify-between text-xs font-exo-extralight border-t border-zinc-100 dark:border-zinc-800">
-              <span className="text-zinc-500">Didn't receive code?</span>
+              <span className="text-zinc-500">{t('accountPage.modals.noCode', "Didn't receive code?")}</span>
               {resendCooldown > 0 ? (
-                <span className="text-zinc-400 font-mono">Resend in {resendCooldown}s</span>
+                <span className="text-zinc-400 font-mono">
+                  {t('accountPage.modals.resendIn', 'Resend in')} {resendCooldown}s
+                </span>
               ) : (
                 <button
                   type="button"
@@ -642,7 +650,9 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
                   disabled={sendingCode}
                   className="text-violet-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer disabled:opacity-50"
                 >
-                  {sendingCode ? 'Sending...' : 'Resend Code'}
+                  {sendingCode
+                    ? t('accountPage.modals.sending', 'Sending...')
+                    : t('accountPage.modals.resendCode', 'Resend Code')}
                 </button>
               )}
             </div>
@@ -655,6 +665,7 @@ function TwoFactorModal({ user, onClose, onSuccess }) {
 
 // ─── Main Account Component ──────────────────────────────────────────────────
 function AccountContent() {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status, update } = useSession();
@@ -737,7 +748,7 @@ function AccountContent() {
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-3 border-violet-600 border-t-transparent rounded-full animate-spin" />
           <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 font-exo-extralight">
-            Loading Account...
+            {t('accountPage.loading', 'Loading Account...')}
           </span>
         </div>
       </div>
@@ -754,10 +765,10 @@ function AccountContent() {
       .toUpperCase() || 'MD';
 
   const navTabs = [
-    { id: 'profile', label: 'My Profile', icon: FiUser },
-    { id: 'inquiries', label: 'Project Inquiries', icon: FiFolder },
-    { id: 'reviews', label: 'My Reviews', icon: FiStar },
-    { id: 'settings', label: 'Settings', icon: FiSettings },
+    { id: 'profile', label: t('accountPage.tabs.profile', 'My Profile'), icon: FiUser },
+    { id: 'inquiries', label: t('accountPage.tabs.inquiries', 'Project Inquiries'), icon: FiFolder },
+    { id: 'reviews', label: t('accountPage.tabs.reviews', 'My Reviews'), icon: FiStar },
+    { id: 'settings', label: t('accountPage.tabs.settings', 'Settings'), icon: FiSettings },
   ];
 
   return (
@@ -767,10 +778,10 @@ function AccountContent() {
         <div className="flex items-center justify-between gap-4 mb-8">
           <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-exo-extralight text-zinc-400 dark:text-zinc-500">
             <Link href="/" className="hover:text-violet-600 dark:hover:text-cyan-400 transition-colors">
-              Home
+              {t('navProfile.home', t('home', 'Home'))}
             </Link>
             <span>/</span>
-            <span className="text-violet-600 dark:text-cyan-400">Account Portal</span>
+            <span className="text-violet-600 dark:text-cyan-400">{t('accountPage.portalTitle', 'Account Portal')}</span>
           </nav>
 
           <div className="shrink-0">
@@ -789,7 +800,7 @@ function AccountContent() {
               <div
                 onClick={() => setEditModalOpen(true)}
                 className="relative group cursor-pointer"
-                title="Click to change profile photo"
+                title={t('accountPage.changePhotoTitle', 'Click to change profile photo')}
               >
                 {currentUser?.image ? (
                   <img
@@ -817,15 +828,15 @@ function AccountContent() {
                     suppressHydrationWarning
                     className="font-exo-medium text-2xl sm:text-3xl uppercase tracking-wide text-zinc-900 dark:text-white"
                   >
-                    {currentUser?.name || 'Valued Client'}
+                    {currentUser?.name || t('navProfile.valuedClient', 'Valued Client')}
                   </h1>
                   {isAdmin ? (
                     <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 font-exo-extralight flex items-center gap-1">
-                      <FiShield size={11} /> Admin
+                      <FiShield size={11} /> {t('accountPage.adminBadge', 'Admin')}
                     </span>
                   ) : (
                     <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight flex items-center gap-1">
-                      <FiCheckCircle size={11} /> Client
+                      <FiCheckCircle size={11} /> {t('accountPage.clientBadge', 'Client')}
                     </span>
                   )}
                 </div>
@@ -835,7 +846,7 @@ function AccountContent() {
                 </p>
                 <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-exo-extralight flex items-center gap-1.5">
                   <FiCalendar size={12} />
-                  <span>Member since {new Date(currentUser?.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                  <span>{t('accountPage.memberSince', 'Member since')} {new Date(currentUser?.createdAt || Date.now()).toLocaleDateString(i18n.language === 'bn' ? 'bn-BD' : 'en-US', { month: 'short', year: 'numeric' })}</span>
                 </p>
               </div>
             </div>
@@ -847,7 +858,7 @@ function AccountContent() {
                 className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-exo-extralight uppercase text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700/80 transition-colors shadow-sm cursor-pointer"
               >
                 <FiEdit2 size={13} />
-                <span>Edit Profile</span>
+                <span>{t('accountPage.editProfile', 'Edit Profile')}</span>
               </button>
 
               {isAdmin && (
@@ -856,7 +867,7 @@ function AccountContent() {
                   className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-bold font-exo-extralight uppercase shadow-md shadow-violet-600/25 hover:scale-105 transition-all"
                 >
                   <FiShield size={14} />
-                  <span>Admin Panel</span>
+                  <span>{t('navProfile.adminPanel', 'Admin Panel')}</span>
                 </Link>
               )}
 
@@ -865,7 +876,7 @@ function AccountContent() {
                 className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/60 text-xs font-bold font-exo-extralight uppercase text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
               >
                 <FiLogOut size={13} />
-                <span>Sign Out</span>
+                <span>{t('navProfile.signOut', 'Sign Out')}</span>
               </button>
             </div>
           </div>
@@ -907,7 +918,7 @@ function AccountContent() {
                 >
                   <div className="flex items-center gap-3">
                     <FiShield size={16} />
-                    <span>Admin Dashboard</span>
+                    <span>{t('accountPage.adminDashboard', 'Admin Dashboard')}</span>
                   </div>
                   <FiExternalLink size={14} />
                 </Link>
@@ -925,10 +936,10 @@ function AccountContent() {
                   <div className="flex items-center justify-between mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
                       <h2 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white">
-                        Personal Information
+                        {t('accountPage.profileTab.personalInfo', 'Personal Information')}
                       </h2>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                        Your account contact details and credentials.
+                        {t('accountPage.profileTab.personalInfoDesc', 'Your account contact details and credentials.')}
                       </p>
                     </div>
                     <button
@@ -936,14 +947,14 @@ function AccountContent() {
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold font-exo-extralight text-violet-600 dark:text-cyan-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                     >
                       <FiEdit2 size={12} />
-                      <span>Edit</span>
+                      <span>{t('accountPage.profileTab.edit', 'Edit')}</span>
                     </button>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-exo-extralight mb-1">
-                        Full Name
+                        {t('accountPage.profileTab.fullName', 'Full Name')}
                       </span>
                       <p className="text-sm font-semibold text-zinc-900 dark:text-white font-exo-extralight">
                         {currentUser?.name || 'N/A'}
@@ -952,7 +963,7 @@ function AccountContent() {
 
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-exo-extralight mb-1">
-                        Email Address
+                        {t('accountPage.profileTab.emailAddress', 'Email Address')}
                       </span>
                       <p className="text-sm font-semibold text-zinc-900 dark:text-white font-exo-extralight">
                         {currentUser?.email || 'N/A'}
@@ -961,19 +972,19 @@ function AccountContent() {
 
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-exo-extralight mb-1">
-                        Role & Access Level
+                        {t('accountPage.profileTab.roleAccess', 'Role & Access Level')}
                       </span>
                       <p className="text-sm font-semibold text-zinc-900 dark:text-white font-exo-extralight">
-                        {isAdmin ? 'Master Administrator' : 'Standard Client Account'}
+                        {isAdmin ? t('accountPage.profileTab.masterAdmin', 'Master Administrator') : t('accountPage.profileTab.clientAccount', 'Standard Client Account')}
                       </p>
                     </div>
 
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-exo-extralight mb-1">
-                        Account Status
+                        {t('accountPage.profileTab.accountStatus', 'Account Status')}
                       </span>
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 font-exo-extralight">
-                        <FiCheckCircle size={14} /> Active & Verified
+                        <FiCheckCircle size={14} /> {t('accountPage.profileTab.activeVerified', 'Active & Verified')}
                       </span>
                     </div>
                   </div>
@@ -984,10 +995,10 @@ function AccountContent() {
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h2 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white">
-                        Account Security
+                        {t('accountPage.profileTab.accountSecurity', 'Account Security')}
                       </h2>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                        Manage your password and security credentials.
+                        {t('accountPage.profileTab.securityDesc', 'Manage your password and security credentials.')}
                       </p>
                     </div>
                     <button
@@ -995,11 +1006,11 @@ function AccountContent() {
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-50 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-800 text-xs font-bold font-exo-extralight text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/60 transition-colors cursor-pointer"
                     >
                       <FiLock size={12} />
-                      <span>Change Password</span>
+                      <span>{t('accountPage.profileTab.changePassword', 'Change Password')}</span>
                     </button>
                   </div>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-                    Your password is encrypted using production bcrypt salted hashing. We recommend updating your password every 90 days.
+                    {t('accountPage.profileTab.securityNote', 'Your password is encrypted using production bcrypt salted hashing. We recommend updating your password every 90 days.')}
                   </p>
                 </div>
               </div>
@@ -1012,10 +1023,10 @@ function AccountContent() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
                       <h2 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white">
-                        Custom Project Blueprints
+                        {t('accountPage.inquiriesTab.title', 'Custom Project Blueprints')}
                       </h2>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                        Inquiries, scopes, and proposals submitted under your account.
+                        {t('accountPage.inquiriesTab.subtitle', 'Inquiries, scopes, and proposals submitted under your account.')}
                       </p>
                     </div>
                     <Link
@@ -1023,7 +1034,7 @@ function AccountContent() {
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all"
                     >
                       <FiPlus size={14} />
-                      <span>Request New Project</span>
+                      <span>{t('accountPage.inquiriesTab.requestNew', 'Request New Project')}</span>
                     </Link>
                   </div>
 
@@ -1033,27 +1044,27 @@ function AccountContent() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300">
-                            Custom Web Application
+                            {t('accountPage.inquiriesTab.customApp', 'Custom Web Application')}
                           </span>
                           <span className="text-xs text-zinc-400 font-exo-extralight">• #MD-8201</span>
                         </div>
                         <h4 className="font-bold text-sm text-zinc-900 dark:text-white font-exo-extralight">
-                          High-Concurrency Next.js & PostgreSQL SaaS Portal
+                          {t('accountPage.inquiriesTab.sampleTitle', 'High-Concurrency Next.js & PostgreSQL SaaS Portal')}
                         </h4>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                          Architectural roadmap & server blueprint prepared.
+                          {t('accountPage.inquiriesTab.sampleDesc', 'Architectural roadmap & server blueprint prepared.')}
                         </p>
                       </div>
 
                       <div className="flex items-center gap-3 self-end sm:self-center">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80 font-exo-extralight">
-                          <FiCheckCircle size={13} /> Proposal Ready
+                          <FiCheckCircle size={13} /> {t('accountPage.inquiriesTab.proposalReady', 'Proposal Ready')}
                         </span>
                         <Link
                           href="/contact?ref=MD-8201"
                           className="text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
                         >
-                          Details
+                          {t('accountPage.inquiriesTab.details', 'Details')}
                         </Link>
                       </div>
                     </div>
@@ -1069,10 +1080,10 @@ function AccountContent() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
                       <h2 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white">
-                        My Reviews & Testimonials
+                        {t('accountPage.reviewsTab.title', 'My Reviews & Testimonials')}
                       </h2>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                        Client feedback submitted for completed engineering projects.
+                        {t('accountPage.reviewsTab.subtitle', 'Client feedback submitted for completed engineering projects.')}
                       </p>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0">
@@ -1081,13 +1092,13 @@ function AccountContent() {
                         className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight shadow-md hover:scale-105 transition-all"
                       >
                         <FiStar size={14} />
-                        <span>Write a Review</span>
+                        <span>{t('accountPage.reviewsTab.writeReview', 'Write a Review')}</span>
                       </Link>
                       <Link
                         href="/?scroll=testimonials"
                         className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold font-exo-extralight hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all"
                       >
-                        <span>View Showcase</span>
+                        <span>{t('accountPage.reviewsTab.viewShowcase', 'View Showcase')}</span>
                       </Link>
                     </div>
                   </div>
@@ -1111,7 +1122,9 @@ function AccountContent() {
                                 : 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300'
                                 }`}
                             >
-                              {rev.isApproved ? 'Published on Site' : 'In Review'}
+                              {rev.isApproved
+                                ? t('accountPage.reviewsTab.published', 'Published on Site')
+                                : t('accountPage.reviewsTab.inReview', 'In Review')}
                             </span>
                           </div>
                           <p className="text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight leading-relaxed italic">
@@ -1124,16 +1137,16 @@ function AccountContent() {
                     <div className="py-12 text-center">
                       <FiStar size={36} className="mx-auto text-zinc-300 dark:text-zinc-700 mb-3" />
                       <h4 className="font-exo-medium text-lg text-zinc-800 dark:text-zinc-200 uppercase mb-1">
-                        No Reviews Submitted Yet
+                        {t('accountPage.reviewsTab.emptyTitle', 'No Reviews Submitted Yet')}
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm mx-auto mb-4">
-                        Completed a project with MerxoDev? Contact our engineering team to publish your verified client testimonial.
+                        {t('accountPage.reviewsTab.emptyDesc', 'Completed a project with MerxoDev? Contact our engineering team to publish your verified client testimonial.')}
                       </p>
                       <Link
                         href="/contact?subject=Client%20Review%20Submission"
                         className="inline-flex items-center gap-2 text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
                       >
-                        <span>Submit Project Testimonial</span>
+                        <span>{t('accountPage.reviewsTab.submitTestimonial', 'Submit Project Testimonial')}</span>
                         <FiArrowRight size={13} />
                       </Link>
                     </div>
@@ -1147,10 +1160,10 @@ function AccountContent() {
               <div className="space-y-6 animate-fade-in">
                 <div className="p-6 sm:p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm">
                   <h2 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-1">
-                    Platform Preferences
+                    {t('accountPage.settingsTab.title', 'Platform Preferences')}
                   </h2>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6">
-                    Manage session preferences and communication alerts.
+                    {t('accountPage.settingsTab.subtitle', 'Manage session preferences and communication alerts.')}
                   </p>
 
                   <div className="space-y-4">
@@ -1158,10 +1171,10 @@ function AccountContent() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800 gap-3">
                       <div>
                         <h4 className="text-sm font-bold font-exo-extralight text-zinc-900 dark:text-white">
-                          Interface Language / ভাষা
+                          {t('accountPage.settingsTab.languageTitle', 'Interface Language / ভাষা')}
                         </h4>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                          Choose your preferred interface language across the platform.
+                          {t('accountPage.settingsTab.languageDesc', 'Choose your preferred interface language across the platform.')}
                         </p>
                       </div>
                       <div className="shrink-0">
@@ -1171,14 +1184,14 @@ function AccountContent() {
                     <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800">
                       <div>
                         <h4 className="text-sm font-bold font-exo-extralight text-zinc-900 dark:text-white">
-                          Project Milestone Notifications
+                          {t('accountPage.settingsTab.notificationsTitle', 'Project Milestone Notifications')}
                         </h4>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                          Receive email updates when blueprints or milestones are ready.
+                          {t('accountPage.settingsTab.notificationsDesc', 'Receive email updates when blueprints or milestones are ready.')}
                         </p>
                       </div>
                       <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-exo-extralight">
-                        Enabled
+                        {t('accountPage.settingsTab.enabled', 'Enabled')}
                       </span>
                     </div>
 
@@ -1186,23 +1199,23 @@ function AccountContent() {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2.5">
                           <h4 className="text-sm font-bold font-exo-extralight text-zinc-900 dark:text-white">
-                            Two-Factor Authentication (2FA)
+                            {t('accountPage.settingsTab.twoFactorTitle', 'Two-Factor Authentication (2FA)')}
                           </h4>
                           {userData?.twoFactorEnabled ? (
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold font-exo-extralight uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                              Active
+                              {t('accountPage.settingsTab.active', 'Active')}
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold font-exo-extralight uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
-                              Inactive
+                              {t('accountPage.settingsTab.inactive', 'Inactive')}
                             </span>
                           )}
                         </div>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                           {userData?.twoFactorEnabled
-                            ? 'Every login requires a 6-digit OTP code sent to your email.'
-                            : 'Require a 6-digit email code upon every login for enhanced security.'}
+                            ? t('accountPage.settingsTab.twoFactorActiveDesc', 'Every login requires a 6-digit OTP code sent to your email.')
+                            : t('accountPage.settingsTab.twoFactorInactiveDesc', 'Require a 6-digit email code upon every login for enhanced security.')}
                         </p>
                       </div>
 
@@ -1214,7 +1227,7 @@ function AccountContent() {
                             disabled={disabling2FA}
                             className="px-4 py-2 rounded-xl border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-xs font-bold font-exo-extralight uppercase transition-all cursor-pointer disabled:opacity-50"
                           >
-                            {disabling2FA ? 'Disabling...' : 'Disable 2FA'}
+                            {disabling2FA ? 'Disabling...' : t('accountPage.settingsTab.disable2fa', 'Disable 2FA')}
                           </button>
                         ) : (
                           <button
@@ -1222,7 +1235,7 @@ function AccountContent() {
                             onClick={() => setTwoFactorModalOpen(true)}
                             className="px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all cursor-pointer"
                           >
-                            Enable 2FA
+                            {t('accountPage.settingsTab.enable2fa', 'Enable 2FA')}
                           </button>
                         )}
                       </div>
@@ -1232,17 +1245,17 @@ function AccountContent() {
                   <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
                     <div>
                       <h4 className="text-sm font-bold font-exo-extralight text-rose-600 dark:text-rose-400">
-                        Sign Out Everywhere
+                        {t('accountPage.settingsTab.signOutAllTitle', 'Sign Out Everywhere')}
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                        Invalidate this session and return to homepage.
+                        {t('accountPage.settingsTab.signOutAllDesc', 'Invalidate this session and return to homepage.')}
                       </p>
                     </div>
                     <button
                       onClick={handleSignOut}
                       className="px-5 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold font-exo-extralight uppercase transition-colors cursor-pointer"
                     >
-                      Sign Out
+                      {t('navProfile.signOut', 'Sign Out')}
                     </button>
                   </div>
                 </div>
