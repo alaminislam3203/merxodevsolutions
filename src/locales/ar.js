@@ -593,7 +593,7 @@ const ar = {
       about: 'من نحن',
       team: 'فريقنا',
       tools: 'الأدوات',
-      contact: 'اتصل بنا',
+      contactNav: 'اتصل بنا',
       projects: 'المشاريع',
       getInTouch: 'تواصل معنا',
       callUs: 'اتصل بنا',
@@ -928,6 +928,7 @@ const ar = {
       },
 
       contact: {
+        nav: 'اتصل بنا',
         badge: 'متاح لمشاريع جديدة • الرد خلال 2–12 ساعة',
         headingStart: 'دعنا نبني معاً شيئاً',
         headingGradient: 'استثنائياً',

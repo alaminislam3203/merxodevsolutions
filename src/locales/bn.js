@@ -632,7 +632,7 @@ const bn = {
     about: 'আমাদের সম্পর্কে',
     team: 'আমাদের টিম',
     tools: 'টুলস',
-    contact: 'যোগাযোগ',
+    contactNav: 'যোগাযোগ',
     projects: 'প্রজেক্ট',
     getInTouch: 'যোগাযোগ করুন',
     callUs: 'কল করুন',
@@ -967,6 +967,7 @@ const bn = {
     },
 
     contact: {
+      nav: 'যোগাযোগ',
       badge: 'নতুন প্রকল্পের জন্য উন্মুক্ত • ২–১২ ঘণ্টার মধ্যে উত্তর',
       headingStart: 'আসুন গড়ে তুলি অসাধারণ',
       headingGradient: 'কিছু ডিজিটাল সমাধান',

@@ -554,7 +554,7 @@ const zh = {
       about: '关于我们',
       team: '团队',
       tools: '实用工具',
-      contact: '联系',
+      contactNav: '联系',
       projects: '项目',
       getInTouch: '联系我们',
       callUs: '致电我们',
@@ -889,6 +889,7 @@ const zh = {
       },
 
       contact: {
+        nav: '联系',
         badge: '开放承接新项目 • 2–12小时内快速响应',
         headingStart: '让我们携手打造',
         headingGradient: '非凡卓越的产品',

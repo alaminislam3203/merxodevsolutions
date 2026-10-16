@@ -122,7 +122,7 @@ export default function Navbar() {
     { label: t('about'), href: '/about' },
     { label: t('team'), href: '/our-team' },
     { label: t('tools', 'Tools'), href: '/tools' },
-    { label: t('contact'), href: '/contact' },
+    { label: t('contact.nav', t('contactNav', 'Contact')), href: '/contact' },
     { label: t('projects'), href: '/our-projects' },
   ];
 
@@ -532,7 +532,7 @@ export default function Navbar() {
               </svg>
             </Link>
             <span className="text-[10px] font-medium text-violet-600 dark:text-cyan-400 mt-0.5 font-exo-extralight">
-              {t('contact')}
+              {t('contact.nav', t('contactNav', 'Contact'))}
             </span>
           </div>
 

@@ -625,7 +625,7 @@ const en = {
       about: 'About',
       team: 'Our Team',
       tools: 'Tools',
-      contact: 'Contact',
+      contactNav: 'Contact',
       projects: 'Projects',
       getInTouch: 'Get In Touch',
       callUs: 'Hire Us',
@@ -960,6 +960,7 @@ const en = {
       },
 
       contact: {
+        nav: 'Contact',
         badge: 'Available For New Projects • 2–12h Response',
         headingStart: "Let's Build Something",
         headingGradient: 'Exceptional',
