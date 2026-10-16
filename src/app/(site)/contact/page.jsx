@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FaWhatsapp,
   FaEnvelope,
@@ -14,23 +16,7 @@ import {
   FaChevronDown,
 } from 'react-icons/fa';
 
-const serviceOptions = [
-  'Website Development',
-  'Web App (Next.js/React)',
-  'E-commerce Store',
-  'UI/UX Design (Figma)',
-  'Custom Software',
-  'SEO & Performance',
-];
-
-const budgetOptions = [
-  'Under $500',
-  '$500 – $1,500',
-  '$1,500 – $3,000',
-  '$3,000 – $5,000+',
-];
-
-const faqs = [
+const defaultFaqs = [
   {
     q: 'How fast can we start after the initial discussion?',
     a: 'We usually complete the initial discovery call within 12–24 hours and can begin architecture and design sprints within 2–3 business days.',
@@ -50,6 +36,27 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+  const { t } = useTranslation();
+
+  const serviceOptions = [
+    { id: 'Website Development', label: t('services.items.webDev.title', 'Website Development') },
+    { id: 'Web App (Next.js/React)', label: t('services.items.webApp.title', 'Web App (Next.js/React)') },
+    { id: 'E-commerce Store', label: t('services.items.ecommerce.title', 'E-commerce Store') },
+    { id: 'UI/UX Design (Figma)', label: t('services.items.uiUx.title', 'UI/UX Design (Figma)') },
+    { id: 'Custom Software', label: t('services.items.customSoft.title', 'Custom Software') },
+    { id: 'SEO & Performance', label: t('services.items.seo.title', 'SEO & Performance') },
+  ];
+
+  const budgetOptions = [
+    { id: 'Under $500', label: t('contact.budgets.under500', 'Under $500') },
+    { id: '$500 – $1,500', label: t('contact.budgets.b500to1500', '$500 – $1,500') },
+    { id: '$1,500 – $3,000', label: t('contact.budgets.b1500to3000', '$1,500 – $3,000') },
+    { id: '$3,000 – $5,000+', label: t('contact.budgets.b3000plus', '$3,000 – $5,000+') },
+  ];
+
+  const localizedFaqs = t('contact.faqs', { returnObjects: true });
+  const activeFaqs = Array.isArray(localizedFaqs) && localizedFaqs.length > 0 ? localizedFaqs : defaultFaqs;
+
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -82,27 +89,27 @@ export default function ContactPage() {
     const newErrors = {};
 
     if (!form.name.trim()) {
-      newErrors.name = 'Please enter your name';
+      newErrors.name = t('contact.validation.nameRequired', 'Please enter your name');
     } else if (form.name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+      newErrors.name = t('contact.validation.nameMin', 'Name must be at least 2 characters');
     }
 
     if (!form.email.trim()) {
-      newErrors.email = 'Please enter your email address';
+      newErrors.email = t('contact.validation.emailRequired', 'Please enter your email address');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email';
+      newErrors.email = t('contact.validation.emailInvalid', 'Please enter a valid email');
     }
 
     if (form.phone && !/^[+\d\s\-()]{7,18}$/.test(form.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = t('contact.validation.phoneInvalid', 'Please enter a valid phone number');
     }
 
     if (!form.message.trim()) {
-      newErrors.message = 'Please provide details about your project';
+      newErrors.message = t('contact.validation.messageRequired', 'Please provide details about your project');
     } else if (form.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+      newErrors.message = t('contact.validation.messageMin', 'Message must be at least 10 characters');
     } else if (form.message.trim().length > 2000) {
-      newErrors.message = 'Message must be under 2000 characters';
+      newErrors.message = t('contact.validation.messageMax', 'Message must be under 2000 characters');
     }
 
     setErrors(newErrors);
@@ -180,19 +187,18 @@ export default function ContactPage() {
         <div className="flex flex-col items-center text-center gap-4 mb-16 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Available For New Projects • 2–12h Response
+            {t('contact.badge', 'Available For New Projects • 2–12h Response')}
           </div>
 
           <h1 className="font-exo-medium text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
-            Let's Build Something{' '}
+            {t('contact.headingStart', "Let's Build Something")}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              Exceptional
+              {t('contact.headingGradient', 'Exceptional')}
             </span>
           </h1>
 
           <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed font-exo-extralight max-w-2xl">
-            Have an idea, project, or need custom engineering? Tell us about your
-            vision and our team will craft the optimal roadmap and quote for you.
+            {t('contact.subheading', 'Have an idea, project, or need custom engineering? Tell us about your vision and our team will craft the optimal roadmap and quote for you.')}
           </p>
         </div>
 
@@ -203,7 +209,7 @@ export default function ContactPage() {
             {/* Quick Contact Cards Grid */}
             <div className="flex flex-col gap-3.5">
               <h2 className="text-xs font-bold uppercase tracking-widest text-amber-500 font-exo-extralight mb-1">
-                Direct Communication Channels
+                {t('contact.channelsTitle', 'Direct Communication Channels')}
               </h2>
 
               {/* WhatsApp Card */}
@@ -219,13 +225,13 @@ export default function ContactPage() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase font-exo-extralight">
-                      WhatsApp Live Chat
+                      {t('contact.whatsappTitle', 'WhatsApp Live Chat')}
                     </span>
                     <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                       +880 1313 334279
                     </span>
                     <span className="text-xs text-emerald-600 dark:text-emerald-400/80 font-medium">
-                      Instant reply within minutes
+                      {t('contact.whatsappSub', 'Instant reply within minutes')}
                     </span>
                   </div>
                 </div>
@@ -245,13 +251,13 @@ export default function ContactPage() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold tracking-widest text-violet-700 dark:text-violet-400 uppercase font-exo-extralight">
-                      Official Email
+                      {t('contact.emailTitle', 'Official Email')}
                     </span>
                     <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight break-all">
                       merxodevsolutions@gmail.com
                     </span>
                     <span className="text-xs text-violet-600 dark:text-violet-400/80 font-medium">
-                      Detailed proposals & RFPs
+                      {t('contact.emailSub', 'Detailed proposals & RFPs')}
                     </span>
                   </div>
                 </div>
@@ -271,13 +277,13 @@ export default function ContactPage() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold tracking-widest text-cyan-700 dark:text-cyan-400 uppercase font-exo-extralight">
-                      Direct Phone
+                      {t('contact.phoneTitle', 'Direct Phone')}
                     </span>
                     <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight">
                       +880 1313 334279
                     </span>
                     <span className="text-xs text-cyan-600 dark:text-cyan-400/80 font-medium">
-                      Mon – Sat, 9:00 AM – 11:00 PM (GMT+6)
+                      {t('contact.phoneSub', 'Mon – Sat, 9:00 AM – 11:00 PM (GMT+6)')}
                     </span>
                   </div>
                 </div>
@@ -290,17 +296,17 @@ export default function ContactPage() {
             {/* Why Work With Us & Guarantees */}
             <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80 flex flex-col gap-4 shadow-sm">
               <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                Why Clients Trust MerxoDev
+                {t('contact.trustTitle', 'Why Clients Trust MerxoDev')}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="flex items-start gap-2.5">
                   <FaBolt className="text-amber-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
                     <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
-                      Fast Turnaround
+                      {t('contact.trustFastTitle', 'Fast Turnaround')}
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                      Sprint-based agile delivery
+                      {t('contact.trustFastDesc', 'Sprint-based agile delivery')}
                     </span>
                   </div>
                 </div>
@@ -309,10 +315,10 @@ export default function ContactPage() {
                   <FaShieldAlt className="text-violet-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
                     <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
-                      100% IP Security
+                      {t('contact.trustIpTitle', '100% IP Security')}
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                      Full code & asset ownership
+                      {t('contact.trustIpDesc', 'Full code & asset ownership')}
                     </span>
                   </div>
                 </div>
@@ -321,10 +327,10 @@ export default function ContactPage() {
                   <FaCheckCircle className="text-emerald-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
                     <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
-                      Transparent Pricing
+                      {t('contact.trustPriceTitle', 'Transparent Pricing')}
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                      Milestones & zero hidden fees
+                      {t('contact.trustPriceDesc', 'Milestones & zero hidden fees')}
                     </span>
                   </div>
                 </div>
@@ -333,10 +339,10 @@ export default function ContactPage() {
                   <FaClock className="text-cyan-500 mt-1 shrink-0" size={14} />
                   <div className="flex flex-col">
                     <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 font-exo-extralight">
-                      Post-Launch Care
+                      {t('contact.trustCareTitle', 'Post-Launch Care')}
                     </span>
                     <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                      30 days free warranty support
+                      {t('contact.trustCareDesc', '30 days free warranty support')}
                     </span>
                   </div>
                 </div>
@@ -350,10 +356,10 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xs font-bold text-zinc-900 dark:text-white font-exo-extralight">
-                  Global Software Agency
+                  {t('contact.agencyTitle', 'Global Software Agency')}
                 </span>
                 <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                  Headquartered in Rangpur, BD • Serving worldwide
+                  {t('contact.agencySub', 'Headquartered in Rangpur, BD • Serving worldwide')}
                 </span>
               </div>
             </div>
@@ -365,19 +371,19 @@ export default function ContactPage() {
               <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-5 mb-6">
                 <div>
                   <h2 className="text-xl sm:text-2xl font-extrabold text-[#27003B] dark:text-white font-exo-medium uppercase tracking-wide">
-                    Send Project Inquiry
+                    {t('contact.formTitle', 'Send Project Inquiry')}
                   </h2>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-1">
-                    Fill out the form below to receive a personalized estimate.
+                    {t('contact.formSub', 'Fill out the form below to receive a personalized estimate.')}
                   </p>
                 </div>
                 <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest">
-                  Step 1 of 1
+                  {t('contact.stepBadge', 'Step 1 of 1')}
                 </span>
               </div>
 
               <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-                {/* Honeypot Bot Trap (Invisible to humans, traps automated spam scripts) */}
+                {/* Honeypot Bot Trap */}
                 <input
                   type="text"
                   name="honeypot"
@@ -394,14 +400,14 @@ export default function ContactPage() {
                   {/* Name */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                      Your Name <span className="text-rose-500">*</span>
+                      {t('contact.nameLabel', 'Your Name')} <span className="text-rose-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={form.name}
                       onChange={handleChange}
-                      placeholder="Enter your name"
+                      placeholder={t('contact.namePlaceholder', 'Enter your name')}
                       className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.name
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
@@ -417,14 +423,14 @@ export default function ContactPage() {
                   {/* Email */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                      Work Email <span className="text-rose-500">*</span>
+                      {t('contact.emailLabel', 'Work Email')} <span className="text-rose-500">*</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
-                      placeholder="Enter your email"
+                      placeholder={t('contact.emailPlaceholder', 'Enter your email')}
                       className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.email
                         ? 'border-rose-500 focus:ring-rose-500/30'
                         : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
@@ -441,9 +447,9 @@ export default function ContactPage() {
                 {/* Phone */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    Phone / WhatsApp{' '}
+                    {t('contact.phoneLabel', 'Phone / WhatsApp')}{' '}
                     <span className="text-xs text-zinc-400 font-normal">
-                      (Optional)
+                      {t('contact.optional', '(Optional)')}
                     </span>
                   </label>
                   <input
@@ -452,7 +458,7 @@ export default function ContactPage() {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+1 234 567 8900"
-                    className={`w-full px-4 py-3 rounded-xl  border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.phone
+                    className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all font-exo-extralight ${errors.phone
                       ? 'border-rose-500 focus:ring-rose-500/30'
                       : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
                       }`}
@@ -467,22 +473,22 @@ export default function ContactPage() {
                 {/* Service Selection (Interactive Chips) */}
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    What Service Do You Need?
+                    {t('contact.serviceLabel', 'What Service Do You Need?')}
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {serviceOptions.map((s) => {
-                      const isSelected = form.service === s;
+                      const isSelected = form.service === s.id;
                       return (
                         <button
-                          key={s}
+                          key={s.id}
                           type="button"
-                          onClick={() => setService(s)}
+                          onClick={() => setService(s.id)}
                           className={`px-3.5 py-2 rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
                             ? 'bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-md shadow-violet-500/25 scale-[1.02]'
                             : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
                         >
-                          {s}
+                          {s.label}
                         </button>
                       );
                     })}
@@ -492,22 +498,22 @@ export default function ContactPage() {
                 {/* Budget Selection (Interactive Chips) */}
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    Approximate Budget Range
+                    {t('contact.budgetLabel', 'Approximate Budget Range')}
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {budgetOptions.map((b) => {
-                      const isSelected = form.budget === b;
+                      const isSelected = form.budget === b.id;
                       return (
                         <button
-                          key={b}
+                          key={b.id}
                           type="button"
-                          onClick={() => setBudget(b)}
+                          onClick={() => setBudget(b.id)}
                           className={`py-2 px-2 text-center rounded-xl text-xs font-bold font-exo-extralight transition-all ${isSelected
                             ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/25 scale-[1.02]'
                             : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                             }`}
                         >
-                          {b}
+                          {b.label}
                         </button>
                       );
                     })}
@@ -517,14 +523,14 @@ export default function ContactPage() {
                 {/* Message */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    Project Overview & Details <span className="text-rose-500">*</span>
+                    {t('contact.messageLabel', 'Project Overview & Details')} <span className="text-rose-500">*</span>
                   </label>
                   <textarea
                     name="message"
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="Tell us about the project goals, features needed, timeline, or reference links..."
+                    placeholder={t('contact.messagePlaceholder', 'Tell us about the project goals, features needed, timeline, or reference links...')}
                     className={`w-full px-4 py-3 rounded-xl border text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 transition-all resize-none font-exo-extralight ${errors.message
                       ? 'border-rose-500 focus:ring-rose-500/30'
                       : 'border-zinc-200 dark:border-zinc-800 focus:border-violet-500 focus:ring-violet-500/20'
@@ -558,11 +564,11 @@ export default function ContactPage() {
                   {status === 'loading' ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Sending Your Inquiry...
+                      {t('contact.submitting', 'Sending Your Inquiry...')}
                     </>
                   ) : (
                     <>
-                      <span>Send Project Request</span>
+                      <span>{t('contact.submitBtn', 'Send Project Request')}</span>
                       <span className="group-hover:translate-x-1.5 transition-transform">
                         →
                       </span>
@@ -578,12 +584,10 @@ export default function ContactPage() {
                     </div>
                     <div className="flex flex-col gap-0.5">
                       <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-200 font-exo-extralight">
-                        Inquiry Received Successfully!
+                        {t('contact.successTitle', 'Inquiry Received Successfully!')}
                       </h4>
                       <p className="text-xs text-emerald-700 dark:text-emerald-300/90 font-exo-extralight leading-relaxed">
-                        Thank you for reaching out. We have received your project
-                        details and our lead engineer will review and contact you
-                        within 2–12 hours.
+                        {t('contact.successDesc', 'Thank you for reaching out. We have received your project details and our lead engineer will review and contact you within 2–12 hours.')}
                       </p>
                     </div>
                   </div>
@@ -591,15 +595,13 @@ export default function ContactPage() {
 
                 {status === 'ratelimit' && (
                   <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs font-semibold text-amber-700 dark:text-amber-300 font-exo-extralight">
-                    ⏳ Too many submissions from your connection. Please wait an
-                    hour or message us directly on WhatsApp or Email.
+                    {t('contact.ratelimit', '⏳ Too many submissions from your connection. Please wait an hour or message us directly on WhatsApp or Email.')}
                   </div>
                 )}
 
                 {status === 'error' && (
                   <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-xs font-semibold text-rose-700 dark:text-rose-300 font-exo-extralight">
-                    ⚠ Something went wrong sending the message. Please contact us
-                    directly via WhatsApp (+880 1313 334279) or Email.
+                    {t('contact.error', '⚠ Something went wrong sending the message. Please contact us directly via WhatsApp (+880 1313 334279) or Email.')}
                   </div>
                 )}
               </form>
@@ -611,15 +613,15 @@ export default function ContactPage() {
         <div className="mt-24 max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 uppercase tracking-widest font-exo-extralight">
-              Client Questions
+              {t('contact.faqBadge', 'Client Questions')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide font-exo-medium mt-2">
-              Frequently Asked Questions
+              {t('contact.faqTitle', 'Frequently Asked Questions')}
             </h3>
           </div>
 
           <div className="flex flex-col gap-3">
-            {faqs.map((faq, index) => {
+            {activeFaqs.map((faq, index) => {
               const isOpen = openFaq === index;
               return (
                 <div
