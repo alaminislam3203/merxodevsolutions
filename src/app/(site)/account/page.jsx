@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { showToast, confirmToast } from '@/lib/toast';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import {
   FiUser,
   FiMail,
@@ -762,14 +763,20 @@ function AccountContent() {
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-zinc-50/60 dark:bg-[#060b19] no-gsap">
       <div className="max-w-[1440px] mx-auto">
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-exo-extralight text-zinc-400 dark:text-zinc-500 mb-8">
-          <Link href="/" className="hover:text-violet-600 dark:hover:text-cyan-400 transition-colors">
-            Home
-          </Link>
-          <span>/</span>
-          <span className="text-violet-600 dark:text-cyan-400">Account Portal</span>
-        </nav>
+        {/* Breadcrumb Navigation & Language Switcher */}
+        <div className="flex items-center justify-between gap-4 mb-8">
+          <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-exo-extralight text-zinc-400 dark:text-zinc-500">
+            <Link href="/" className="hover:text-violet-600 dark:hover:text-cyan-400 transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-violet-600 dark:text-cyan-400">Account Portal</span>
+          </nav>
+
+          <div className="shrink-0">
+            <LanguageSwitcher />
+          </div>
+        </div>
 
         {/* ── Top Hero User Profile Banner ── */}
         <div className="relative overflow-hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/80 backdrop-blur-xl p-6 sm:p-10 mb-8 shadow-sm">
@@ -1147,6 +1154,20 @@ function AccountContent() {
                   </p>
 
                   <div className="space-y-4">
+                    {/* Language Preference */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800 gap-3">
+                      <div>
+                        <h4 className="text-sm font-bold font-exo-extralight text-zinc-900 dark:text-white">
+                          Interface Language / ভাষা
+                        </h4>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight">
+                          Choose your preferred interface language across the platform.
+                        </p>
+                      </div>
+                      <div className="shrink-0">
+                        <LanguageSwitcher />
+                      </div>
+                    </div>
                     <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/60 dark:border-zinc-800">
                       <div>
                         <h4 className="text-sm font-bold font-exo-extralight text-zinc-900 dark:text-white">

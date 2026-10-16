@@ -587,7 +587,7 @@ export default function Navbar() {
       >
         <div>
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-violet-200/70 dark:border-blue-900/40 bg-violet-100/60 dark:bg-[#091124]">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-violet-200/70 dark:border-blue-900/40 bg-violet-700 dark:bg-[#091124]">
             {session?.user ? (
               <div className="flex items-center gap-3 min-w-0 flex-1 mr-2">
                 <Link
@@ -654,7 +654,7 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <div className="p-2 px-3.5 rounded-xl bg-gradient-to-r from-violet-900 via-violet-800 to-violet-950 shadow-md shadow-violet-950/30 border border-violet-700/40 flex items-center justify-center">
+              <div className="flex items-center justify-center">
                 <Logo mobile className="h-10 w-auto" />
               </div>
             )}
