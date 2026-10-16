@@ -263,7 +263,7 @@ export default function BangladeshGeoDemoPage() {
           <p>
             {T.footerLeft[lang]}
             <a
-              href="https://x.com/alaminislam3203"
+              href="https://x.com/merxodev"
               target="_blank"
               rel="noreferrer"
               className="text-zinc-900 dark:text-white font-medium underline decoration-emerald-300 dark:decoration-emerald-500 underline-offset-2 hover:decoration-emerald-600"
@@ -272,7 +272,7 @@ export default function BangladeshGeoDemoPage() {
             </a>{' '}
             ·{' '}
             <a
-              href="https://x.com/alaminislam3203"
+              href="https://x.com/merxodev"
               target="_blank"
               rel="noreferrer"
               className="hover:text-zinc-900 dark:hover:text-white transition-colors"
@@ -356,8 +356,8 @@ function SearchBar({ onSelect, lang }) {
               h.type === 'postcode'
                 ? `Upazila: ${data.upazila}`
                 : lang === 'en'
-                ? data.bn_name ?? ''
-                : data.name ?? '';
+                  ? data.bn_name ?? ''
+                  : data.name ?? '';
 
             return (
               <li key={`${h.type}-${i}`}>

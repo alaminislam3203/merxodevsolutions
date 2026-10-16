@@ -85,22 +85,22 @@ export default function BangladeshGeoOverviewPage() {
 
   const stats = [
     {
-      label: t('Divisions (বিভাগ)', 'বিভাগ'),
+      label: t('Divisions', 'বিভাগ'),
       count: t('8', '৮'),
       desc: t('Full administrative divisions with Geo lat/long', '৮টি প্রশাসনিক বিভাগের সেন্টার কোঅর্ডিনেট'),
     },
     {
-      label: t('Districts (জেলা)', 'জেলা'),
+      label: t('Districts', 'জেলা'),
       count: t('64', '৬৪'),
       desc: t('All 64 districts with bilingual names and centers', 'দ্বিভাষিক নাম ও ভৌগোলিক সেন্টার সহ ৬৪ জেলা'),
     },
     {
-      label: t('Upazilas (উপজেলা)', 'উপজেলা'),
+      label: t('Upazilas', 'উপজেলা'),
       count: t('494+', '৪৯৪+'),
       desc: t('Mapped to respective parent districts', 'সংশ্লিষ্ট জেলার সাথে যুক্ত সকল থানা/উপজেলা'),
     },
     {
-      label: t('Postcodes (ডাকঘর)', 'পোস্টকোড ও ডাকঘর'),
+      label: t('Postcodes', 'পোস্টকোড'),
       count: t('1,349+', '১,৩৪৯+'),
       desc: t('Post offices, upazilas and postal codes', 'বাংলাদেশ ডাক বিভাগের সকল পোস্টাল কোড'),
     },
@@ -364,7 +364,7 @@ export default function BangladeshGeoOverviewPage() {
                 {t('// Example: TypeScript / JavaScript usage', '// উদাহরণ: TypeScript বা JavaScript-এ ব্যবহার')}
               </span>
               <pre className="text-emerald-300">
-{lang === 'bn' ? `import bd from 'bangladesh-geojson';
+                {lang === 'bn' ? `import bd from 'bangladesh-geojson';
 
 // ১. ৮টি বিভাগ পান
 const divisions = bd.getDivisions();

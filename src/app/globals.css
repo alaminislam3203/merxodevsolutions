@@ -19,28 +19,72 @@
   --font-exo2: var(--font-exo2), sans-serif;
   --font-display: var(--font-anton);
   --font-raleway: var(--font-raleway-var);
-  --font-bangla: var(--font-hind-siliguri);
+  --font-bangla: var(--font-hind-siliguri), 'Hind Siliguri', sans-serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-exo2), var(--font-hind-siliguri), var(--font-dm), Arial, sans-serif;
+  font-family: var(--font-exo2), var(--font-hind-siliguri), 'Hind Siliguri', var(--font-dm), Arial, sans-serif;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
   min-height: 100vh;
 }
 
-/* Exo 2 Typography Classes */
+/* Exo 2 Typography Classes with Hind Siliguri fallback for Bengali text */
 .font-exo {
-  font-family: var(--font-exo2), sans-serif;
+  font-family: var(--font-exo2), var(--font-hind-siliguri), 'Hind Siliguri', sans-serif;
 }
 .font-exo-extralight {
-  font-family: var(--font-exo2), sans-serif;
+  font-family: var(--font-exo2), var(--font-hind-siliguri), 'Hind Siliguri', sans-serif;
   font-weight: 200;
 }
 .font-exo-medium {
-  font-family: var(--font-exo2), sans-serif;
+  font-family: var(--font-exo2), var(--font-hind-siliguri), 'Hind Siliguri', sans-serif;
   font-weight: 500;
+}
+
+/* Hind Siliguri Bengali Font Classes */
+.font-bangla,
+.font-hind,
+[lang='bn'],
+.lang-bn {
+  font-family: var(--font-hind-siliguri), 'Hind Siliguri', sans-serif !important;
+}
+
+/* When lang-bn or font-bangla is active, render Bengali content with Hind Siliguri */
+.lang-bn,
+.lang-bn h1,
+.lang-bn h2,
+.lang-bn h3,
+.lang-bn h4,
+.lang-bn h5,
+.lang-bn h6,
+.lang-bn p,
+.lang-bn span,
+.lang-bn button,
+.lang-bn a,
+.lang-bn input,
+.lang-bn select,
+.lang-bn option,
+.lang-bn .font-exo,
+.lang-bn .font-exo-medium,
+.lang-bn .font-exo-extralight,
+.font-bangla .font-exo,
+.font-bangla .font-exo-medium,
+.font-bangla .font-exo-extralight {
+  font-family: var(--font-hind-siliguri), 'Hind Siliguri', sans-serif;
+}
+
+/* Keep code and terminal blocks in crisp monospace font */
+.lang-bn code,
+.lang-bn pre,
+.lang-bn kbd,
+.lang-bn .font-mono,
+.font-bangla code,
+.font-bangla pre,
+.font-bangla kbd,
+.font-bangla .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
 /* ── Premium Ambient Gradient Grid Background for Light Mode ── */

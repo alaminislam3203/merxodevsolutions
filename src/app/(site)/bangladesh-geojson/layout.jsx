@@ -60,7 +60,13 @@ function BangladeshGeoLayoutInner({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 font-exo selection:bg-emerald-500 selection:text-white relative">
+    <div
+      className={`min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white relative transition-all duration-150 ${
+        lang === 'bn' ? 'font-bangla lang-bn' : 'font-exo'
+      }`}
+      data-lang={lang}
+      lang={lang}
+    >
       {/* Background ambient decorative glow */}
       <div className="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-emerald-500/15 via-teal-500/10 to-transparent blur-3xl rounded-full" />
@@ -86,21 +92,19 @@ function BangladeshGeoLayoutInner({ children }) {
                   title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
                 >
                   <span
-                    className={`text-[11px] font-mono ${
-                      lang === 'en'
+                    className={`text-[11px] font-mono ${lang === 'en'
                         ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
                         : 'text-zinc-400'
-                    }`}
+                      }`}
                   >
                     EN
                   </span>
                   <span className="text-zinc-300 dark:text-zinc-600 text-[10px]">/</span>
                   <span
-                    className={`text-[11px] ${
-                      lang === 'bn'
+                    className={`text-[11px] ${lang === 'bn'
                         ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
                         : 'text-zinc-400'
-                    }`}
+                      }`}
                   >
                     বাংলা
                   </span>
@@ -120,29 +124,26 @@ function BangladeshGeoLayoutInner({ children }) {
                     <Link
                       key={tab.href}
                       href={tab.href}
-                      className={`group flex items-center justify-center lg:justify-between gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border shrink-0 lg:shrink flex-1 lg:flex-initial whitespace-nowrap ${
-                        isActive
+                      className={`group flex items-center justify-center lg:justify-between gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border shrink-0 lg:shrink flex-1 lg:flex-initial whitespace-nowrap ${isActive
                           ? 'bg-emerald-600 text-white border-transparent shadow-md shadow-emerald-600/20'
                           : 'bg-zinc-50/60 dark:bg-zinc-800/40 text-zinc-700 dark:text-zinc-300 border-zinc-200/60 dark:border-zinc-800/80 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:border-emerald-300 dark:hover:border-emerald-800 hover:text-emerald-700 dark:hover:text-emerald-300'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-2 lg:gap-3 min-w-0">
                         <Icon
-                          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors ${
-                            isActive
+                          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors ${isActive
                               ? 'text-white'
                               : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
-                          }`}
+                            }`}
                         />
                         <span className="truncate">{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
                       </div>
 
                       <span
-                        className={`hidden sm:inline-block lg:inline-block text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${
-                          isActive
+                        className={`hidden sm:inline-block lg:inline-block text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${isActive
                             ? 'bg-white/20 text-white'
                             : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
-                        }`}
+                          }`}
                       >
                         {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
                       </span>
@@ -169,21 +170,19 @@ function BangladeshGeoLayoutInner({ children }) {
                     </span>
                     <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
                       <span
-                        className={`text-xs font-mono transition-colors ${
-                          lang === 'en'
+                        className={`text-xs font-mono transition-colors ${lang === 'en'
                             ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
                             : 'text-zinc-400'
-                        }`}
+                          }`}
                       >
                         EN
                       </span>
                       <span className="text-zinc-300 dark:text-zinc-600">/</span>
                       <span
-                        className={`text-xs transition-colors ${
-                          lang === 'bn'
+                        className={`text-xs transition-colors ${lang === 'bn'
                             ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
                             : 'text-zinc-400'
-                        }`}
+                          }`}
                       >
                         বাংলা
                       </span>
@@ -242,8 +241,8 @@ function BangladeshGeoLayoutInner({ children }) {
               <Link
                 href="/bangladesh-geojson"
                 className={`transition-colors ${pathname === '/bangladesh-geojson'
-                    ? 'text-emerald-600 dark:text-emerald-400 font-medium'
-                    : 'hover:text-emerald-600 dark:hover:text-emerald-400'
+                  ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                  : 'hover:text-emerald-600 dark:hover:text-emerald-400'
                   }`}
               >
                 {t('Bangladesh GeoJSON', 'বাংলাদেশ জিওজেসন')}
@@ -291,7 +290,7 @@ function BangladeshGeoLayoutInner({ children }) {
                     <p className="max-w-2xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
                       {t(
                         'Open-source geographic data for Bangladesh — 8 divisions, 64 districts, 494+ upazilas, 1,349+ postcodes, and boundary GeoJSON. Free, accurate & developer-ready.',
-                        'বাংলাদেশ প্রশাসনিক ভৌগোলিক ডাটাবেজ — ৮টি বিভাগ, ৬৪টি জেলা, ৪৯৪+ উপজেলা, ১,৩৪৯+ পোস্টকোড এবং হাই-এক্যুরেট জিওজেসন বাউন্ডারি। Free, open-source & developer-ready.'
+                        'বাংলাদেশ প্রশাসনিক ভৌগোলিক ডাটাবেজ — ৮টি বিভাগ, ৬৪টি জেলা, ৪৯৪+ উপজেলা, ১,৩৪৯+ পোস্টকোড এবং হাই-এক্যুরেট জিওজেসন বাউন্ডারি। বিনামূল্যে, ওপেন-সোর্স এবং ডেভেলপারদের জন্য প্রস্তুত।'
                       )}
                     </p>
                   </div>
