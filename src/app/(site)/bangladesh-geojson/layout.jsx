@@ -28,7 +28,6 @@ const NAV_TABS = [
     icon: FiCompass,
     badgeEn: 'Home',
     badgeBn: 'হোম',
-    external: false,
   },
   {
     nameEn: 'Interactive Demo',
@@ -37,7 +36,6 @@ const NAV_TABS = [
     icon: FiMapPin,
     badgeEn: 'Live Map',
     badgeBn: 'ম্যাপ ভিউ',
-    external: true,
   },
   {
     nameEn: 'Documentation',
@@ -46,7 +44,6 @@ const NAV_TABS = [
     icon: FiBookOpen,
     badgeEn: 'API & Guide',
     badgeBn: 'API গাইড',
-    external: true,
   },
 ];
 
@@ -63,163 +60,55 @@ function BangladeshGeoLayoutInner({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 font-exo selection:bg-emerald-500 selection:text-white">
-      {/* Top Banner / Hero Header */}
-      <section className="relative pt-28 sm:pt-32 pb-8 border-b border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden bg-gradient-to-b from-emerald-50/20 via-transparent to-transparent dark:from-emerald-950/20">
-        <div className="absolute inset-0 pointer-events-none opacity-40">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-transparent blur-3xl rounded-full" />
-        </div>
+    <div className="min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 font-exo selection:bg-emerald-500 selection:text-white relative">
+      {/* Background ambient decorative glow */}
+      <div className="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-emerald-500/15 via-teal-500/10 to-transparent blur-3xl rounded-full" />
+      </div>
 
-        <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-500 mb-6"
-          >
-            <Link
-              href="/"
-              className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-            >
-              {t('Home', 'হোম')}
-            </Link>
-            <span>/</span>
-            <Link
-              href="/tools"
-              className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-            >
-              {t('Tools', 'টুলস')}
-            </Link>
-            <span>/</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-              {t('Bangladesh GeoJSON', 'বাংলাদেশ জিওজেসন')}
-            </span>
-          </nav>
-
-          {/* Header row */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/60 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  npm v1.0.0
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
-                  MIT License
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-900/40 font-bangla">
-                  🇧🇩 ওপেন সোর্স বাংলাদেশ
-                </span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-exo-medium text-zinc-900 dark:text-white leading-tight">
-                Bangladesh{' '}
-                <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-                  GeoJSON &amp; Data Suite
-                </span>
-              </h1>
-
-              <p className="max-w-2xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-                {t(
-                  'Open-source geographic data for Bangladesh — 8 divisions, 64 districts, 494+ upazilas, 1,349+ postcodes, and boundary GeoJSON. Free, accurate & developer-ready.',
-                  'বাংলাদেশ প্রশাসনিক ভৌগোলিক ডাটাবেজ — ৮টি বিভাগ, ৬৪টি জেলা, ৪৯৪+ উপজেলা, ১,৩৪৯+ পোস্টকোড এবং হাই-এক্যুরেট জিওজেসন বাউন্ডারি। Free, open-source & developer-ready.'
-                )}
-              </p>
-            </div>
-
-            {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              {/* npm install copy button */}
-              <button
-                type="button"
-                onClick={handleCopyInstall}
-                className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white text-xs font-mono font-medium transition-all shadow-md shadow-zinc-900/10 cursor-pointer border border-zinc-700"
-                title="Click to copy npm install command"
-              >
-                <span className="text-emerald-400">$</span>
-                <span>npm i bangladesh-geojson</span>
-                {copied ? (
-                  <FiCheck className="w-4 h-4 text-emerald-400" />
-                ) : (
-                  <FiCopy className="w-4 h-4 text-zinc-400" />
-                )}
-              </button>
-
-              {/* GitHub Repo Button */}
-              <a
-                href="https://github.com/alaminislam3203/bangladesh-geojson"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-md shadow-emerald-600/25"
-              >
-                <FiGithub className="w-4 h-4" />
-                <span>GitHub Repo</span>
-                <FiExternalLink className="w-3.5 h-3.5 opacity-80" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content Area with Left Sidebar Column */}
-      <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      {/* Main Container: Sidebar starts directly under the main navbar */}
+      <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Left Sidebar Column: Overview, Interactive Demo, Documentation & Language Switcher */}
+          {/* Left Sidebar Column - starts right under navbar */}
           <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-4">
             <div className="p-4 rounded-3xl bg-white dark:bg-zinc-900/90 border border-zinc-200/90 dark:border-zinc-800 shadow-sm space-y-3">
               <div className="px-2 pt-1 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
                 {lang === 'bn' ? 'নেভিগেশন মেনু' : 'Navigation Menu'}
               </div>
 
-              {/* Column of 3 Buttons: Overview, Interactive Demo, Documentation */}
+              {/* Column of 3 Buttons: Overview, Interactive Demo, Documentation (in-place navigation) */}
               <nav className="flex flex-col gap-1.5" aria-label="Bangladesh GeoJSON Navigation">
                 {NAV_TABS.map((tab) => {
                   const isActive = pathname === tab.href;
                   const Icon = tab.icon;
-                  const isExternal = tab.external;
 
                   return (
                     <Link
                       key={tab.href}
                       href={tab.href}
-                      target={isExternal ? '_blank' : undefined}
-                      rel={isExternal ? 'noopener noreferrer' : undefined}
-                      className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
-                        isActive
+                      className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${isActive
                           ? 'bg-emerald-600 text-white border-transparent shadow-md shadow-emerald-600/20'
                           : 'bg-zinc-50/60 dark:bg-zinc-800/40 text-zinc-700 dark:text-zinc-300 border-zinc-200/60 dark:border-zinc-800/80 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:border-emerald-300 dark:hover:border-emerald-800 hover:text-emerald-700 dark:hover:text-emerald-300'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <Icon
-                          className={`w-4 h-4 shrink-0 transition-colors ${
-                            isActive
+                          className={`w-4 h-4 shrink-0 transition-colors ${isActive
                               ? 'text-white'
                               : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
-                          }`}
+                            }`}
                         />
                         <span className="truncate">{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span
-                          className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${
-                            isActive
-                              ? 'bg-white/20 text-white'
-                              : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
                           }`}
-                        >
-                          {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
-                        </span>
-                        {isExternal && (
-                          <FiExternalLink
-                            className={`w-3.5 h-3.5 ${
-                              isActive
-                                ? 'text-white/80'
-                                : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
-                            }`}
-                          />
-                        )}
-                      </div>
+                      >
+                        {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
+                      </span>
                     </Link>
                   );
                 })}
@@ -244,21 +133,19 @@ function BangladeshGeoLayoutInner({ children }) {
                   </span>
                   <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
                     <span
-                      className={`text-xs font-mono transition-colors ${
-                        lang === 'en'
+                      className={`text-xs font-mono transition-colors ${lang === 'en'
                           ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
                           : 'text-zinc-400'
-                      }`}
+                        }`}
                     >
                       EN
                     </span>
                     <span className="text-zinc-300 dark:text-zinc-600">/</span>
                     <span
-                      className={`text-xs transition-colors ${
-                        lang === 'bn'
+                      className={`text-xs transition-colors ${lang === 'bn'
                           ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
                           : 'text-zinc-400'
-                      }`}
+                        }`}
                     >
                       বাংলা
                     </span>
@@ -292,10 +179,123 @@ function BangladeshGeoLayoutInner({ children }) {
             </div>
           </aside>
 
-          {/* Main Content Area */}
-          <main className="flex-1 min-w-0 w-full">
-            {children}
-          </main>
+          {/* Right Column: Breadcrumb + (Overview Header ONLY on /bangladesh-geojson) + Children */}
+          <div className="flex-1 min-w-0 w-full space-y-6">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-500"
+            >
+              <Link
+                href="/"
+                className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                {t('Home', 'হোম')}
+              </Link>
+              <span>/</span>
+              <Link
+                href="/tools"
+                className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                {t('Tools', 'টুলস')}
+              </Link>
+              <span>/</span>
+              <Link
+                href="/bangladesh-geojson"
+                className={`transition-colors ${pathname === '/bangladesh-geojson'
+                    ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                    : 'hover:text-emerald-600 dark:hover:text-emerald-400'
+                  }`}
+              >
+                {t('Bangladesh GeoJSON', 'বাংলাদেশ জিওজেসন')}
+              </Link>
+              {pathname === '/bangladesh-geojson/demo' && (
+                <>
+                  <span>/</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+                    {t('Interactive Demo', 'লাইভ ডেমো')}
+                  </span>
+                </>
+              )}
+              {pathname === '/bangladesh-geojson/docs' && (
+                <>
+                  <span>/</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+                    {t('Documentation', 'ডকুমেন্টেশন')}
+                  </span>
+                </>
+              )}
+            </nav>
+
+            {/* Header row (Titles, badges, description, npm copy, GitHub Repo) - ONLY on Overview page! */}
+            {pathname === '/bangladesh-geojson' && (
+              <div className="pb-8 border-b border-zinc-200/80 dark:border-zinc-800/80">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/60 shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        npm v1.0.0
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                        MIT License
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-900/40 font-bangla">
+                        {t('Bangladesh Open Source', 'বাংলাদেশ ওপেন সোর্স')} 🇧🇩
+                      </span>
+                    </div>
+
+                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-exo-medium text-zinc-900 dark:text-white leading-tight">
+                      {t('Bangladesh GeoJSON & Data Suite', 'বাংলাদেশ জিওজেসন ও ডেটা স্যুট')}
+                    </h1>
+
+                    <p className="max-w-2xl text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+                      {t(
+                        'Open-source geographic data for Bangladesh — 8 divisions, 64 districts, 494+ upazilas, 1,349+ postcodes, and boundary GeoJSON. Free, accurate & developer-ready.',
+                        'বাংলাদেশ প্রশাসনিক ভৌগোলিক ডাটাবেজ — ৮টি বিভাগ, ৬৪টি জেলা, ৪৯৪+ উপজেলা, ১,৩৪৯+ পোস্টকোড এবং হাই-এক্যুরেট জিওজেসন বাউন্ডারি। Free, open-source & developer-ready.'
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Quick Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3 shrink-0">
+                    {/* npm install copy button */}
+                    <button
+                      type="button"
+                      onClick={handleCopyInstall}
+                      className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white text-xs font-mono font-medium transition-all shadow-md shadow-zinc-900/10 cursor-pointer border border-zinc-700"
+                      title="Click to copy npm install command"
+                    >
+                      <span className="text-emerald-400">$</span>
+                      <span>npm i bangladesh-geojson</span>
+                      {copied ? (
+                        <FiCheck className="w-4 h-4 text-emerald-400" />
+                      ) : (
+                        <FiCopy className="w-4 h-4 text-zinc-400" />
+                      )}
+                    </button>
+
+                    {/* GitHub Repo Button */}
+                    <a
+                      href="https://github.com/alaminislam3203/bangladesh-geojson"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-md shadow-emerald-600/25"
+                    >
+                      <FiGithub className="w-4 h-4" />
+                      <span>GitHub Repo</span>
+                      <FiExternalLink className="w-3.5 h-3.5 opacity-80" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Main Content Area */}
+            <main className="w-full">
+              {children}
+            </main>
+          </div>
         </div>
       </div>
     </div>
