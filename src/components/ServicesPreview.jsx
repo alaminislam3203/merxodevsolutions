@@ -5,6 +5,8 @@ import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 
 // ─── High-End Vector Illustration Components ──────────────────────────────
 
@@ -439,85 +441,97 @@ function AllServicesArt() {
 
 const serviceCategories = [
   {
-    title: 'Web Dev',
-    fullTitle: 'Website Development',
+    id: 'webDev',
+    defaultTitle: 'Web Dev',
+    defaultFullTitle: 'Website Development',
     href: '/services-web',
     glowBg: 'bg-indigo-500',
     illustration: <WebDevArt />,
   },
   {
-    title: 'E-Commerce',
-    fullTitle: 'E-Commerce Solutions',
+    id: 'ecommerce',
+    defaultTitle: 'E-Commerce',
+    defaultFullTitle: 'E-Commerce Solutions',
     href: '/services-ecommerce',
     glowBg: 'bg-amber-500',
     illustration: <ECommerceArt />,
   },
   {
-    title: 'Web App',
-    fullTitle: 'Custom Web Applications',
+    id: 'webApp',
+    defaultTitle: 'Web App',
+    defaultFullTitle: 'Custom Web Applications',
     href: '/services-web-app',
     glowBg: 'bg-cyan-500',
     illustration: <WebAppArt />,
   },
   {
-    title: 'UI/UX Design',
-    fullTitle: 'UI/UX & Figma Design',
+    id: 'uiUx',
+    defaultTitle: 'UI/UX Design',
+    defaultFullTitle: 'UI/UX & Figma Design',
     href: '/services-design',
     glowBg: 'bg-purple-500',
     illustration: <UIUXArt />,
   },
   {
-    title: 'SEO Growth',
-    fullTitle: 'SEO & Organic Growth',
+    id: 'seo',
+    defaultTitle: 'SEO Growth',
+    defaultFullTitle: 'SEO & Organic Growth',
     href: '/services-seo',
     glowBg: 'bg-lime-500',
     illustration: <SEOGrowthArt />,
   },
   {
-    title: 'API Integration',
-    fullTitle: 'APIs & Webhooks',
+    id: 'api',
+    defaultTitle: 'API Integration',
+    defaultFullTitle: 'APIs & Webhooks',
     href: '/services-api-integration',
     glowBg: 'bg-yellow-500',
     illustration: <APIIntegrationArt />,
   },
   {
-    title: 'Security',
-    fullTitle: 'Authentication & Security',
+    id: 'security',
+    defaultTitle: 'Security',
+    defaultFullTitle: 'Authentication & Security',
     href: '/services-security',
     glowBg: 'bg-sky-500',
     illustration: <SecurityArt />,
   },
   {
-    title: 'Payment Gateway',
-    fullTitle: 'bKash, Nagad & Stripe',
+    id: 'payment',
+    defaultTitle: 'Payment Gateway',
+    defaultFullTitle: 'bKash, Nagad & Stripe',
     href: '/services-payment-gateway',
     glowBg: 'bg-pink-500',
     illustration: <PaymentGatewayArt />,
   },
   {
-    title: 'Database',
-    fullTitle: 'Database & Cloud Storage',
+    id: 'database',
+    defaultTitle: 'Database',
+    defaultFullTitle: 'Database & Cloud Storage',
     href: '/services-database',
     glowBg: 'bg-violet-500',
     illustration: <DatabaseArt />,
   },
   {
-    title: 'Maintenance',
-    fullTitle: 'Maintenance & 24/7 SLA',
+    id: 'maintenance',
+    defaultTitle: 'Maintenance',
+    defaultFullTitle: 'Maintenance & 24/7 SLA',
     href: '/services-maintenance',
     glowBg: 'bg-blue-500',
     illustration: <MaintenanceArt />,
   },
   {
-    title: 'Automation',
-    fullTitle: 'Business Automation & AI',
+    id: 'automation',
+    defaultTitle: 'Automation',
+    defaultFullTitle: 'Business Automation & AI',
     href: '/services-automation',
     glowBg: 'bg-rose-500',
     illustration: <AutomationArt />,
   },
   {
-    title: 'All Services',
-    fullTitle: 'Explore All Solutions',
+    id: 'allServices',
+    defaultTitle: 'All Services',
+    defaultFullTitle: 'Explore All Solutions',
     href: '/services',
     glowBg: 'bg-emerald-500',
     illustration: <AllServicesArt />,
@@ -527,10 +541,14 @@ const serviceCategories = [
 // ─── Individual Card Component ───────────────────────────────────────────
 
 function ServiceCard({ item }) {
+  const { t } = useTranslation();
+  const title = t(`servicesPreview.${item.id}.title`, item.defaultTitle);
+  const fullTitle = t(`servicesPreview.${item.id}.fullTitle`, item.defaultFullTitle);
+
   return (
     <Link
       href={item.href}
-      title={item.fullTitle}
+      title={fullTitle}
       className="group flex flex-col h-full bg-white dark:bg-[#0c1224] border border-zinc-200/90 dark:border-white/[0.08] rounded-2xl p-1.5 sm:p-2 lg:p-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-xl hover:shadow-violet-500/10 dark:hover:shadow-cyan-500/10 hover:border-violet-400 dark:hover:border-cyan-400/60 hover:-translate-y-1.5 transition-all duration-300 select-none cursor-pointer"
     >
       {/* Top Image / Illustration Box */}
@@ -548,7 +566,7 @@ function ServiceCard({ item }) {
       {/* Bottom Title Text */}
       <div className="mt-1.5 sm:mt-2 px-0.5 text-center flex items-center justify-center min-h-[22px] sm:min-h-[28px]">
         <span className="text-[10px] sm:text-xs md:text-[13px] font-bold tracking-tight text-zinc-800 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors font-exo-extralight truncate w-full">
-          {item.title}
+          {title}
         </span>
       </div>
     </Link>
@@ -558,6 +576,8 @@ function ServiceCard({ item }) {
 // ─── Main Services Preview Carousel Component ─────────────────────────────
 
 export default function ServicesPreview() {
+  const { t } = useTranslation();
+
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -594,7 +614,7 @@ export default function ServicesPreview() {
 
   return (
     <section
-      aria-label="Core Services"
+      aria-label={t('servicesPreview.ariaCore', 'Core Services')}
       className="w-full max-w-full relative py-3 sm:py-5 lg:py-6 px-3 sm:px-6 lg:px-8 overflow-hidden bg-transparent transition-colors duration-300"
     >
       {/* Ambient background soft glow */}
@@ -627,7 +647,7 @@ export default function ServicesPreview() {
           {/* Left Navigation Arrow — Hidden on Mobile, Shown on Desktop/Tablet */}
           <button
             onClick={scrollPrev}
-            aria-label="Previous Services"
+            aria-label={t('servicesPreview.prev', 'Previous Services')}
             className="absolute -left-2 sm:-left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg hidden md:flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 cursor-pointer"
           >
             <FiChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -636,7 +656,7 @@ export default function ServicesPreview() {
           {/* Right Navigation Arrow — Hidden on Mobile, Shown on Desktop/Tablet */}
           <button
             onClick={scrollNext}
-            aria-label="Next Services"
+            aria-label={t('servicesPreview.next', 'Next Services')}
             className="absolute -right-2 sm:-right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-white/10 shadow-md hover:shadow-lg hidden md:flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:text-violet-600 dark:hover:text-cyan-400 hover:scale-110 active:scale-95 transition-all duration-200 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 cursor-pointer"
           >
             <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -649,11 +669,14 @@ export default function ServicesPreview() {
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${index === selectedIndex
+              aria-label={t('servicesPreview.goToSlide', `Go to slide ${index + 1}`, {
+                index: index + 1,
+              })}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === selectedIndex
                   ? 'w-5 bg-gradient-to-r from-violet-600 to-cyan-400'
                   : 'w-1.5 bg-zinc-300 dark:bg-zinc-700/80 hover:bg-zinc-400 dark:hover:bg-zinc-600'
-                }`}
+              }`}
             />
           ))}
         </div>
