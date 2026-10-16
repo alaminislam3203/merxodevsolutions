@@ -69,15 +69,49 @@ function BangladeshGeoLayoutInner({ children }) {
       {/* Main Container: Sidebar starts directly under the main navbar */}
       <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Left Sidebar Column - starts right under navbar */}
-          <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-4">
-            <div className="p-4 rounded-3xl bg-white dark:bg-zinc-900/90 border border-zinc-200/90 dark:border-zinc-800 shadow-sm space-y-3">
-              <div className="px-2 pt-1 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
-                {lang === 'bn' ? 'নেভিগেশন মেনু' : 'Navigation Menu'}
+          {/* Left Sidebar Column - starts right under navbar, horizontal row on mobile */}
+          <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-3 lg:space-y-4">
+            <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-zinc-900/90 border border-zinc-200/90 dark:border-zinc-800 shadow-sm space-y-2.5 sm:space-y-3">
+              {/* Header with Title and Mobile-only compact Language Switcher */}
+              <div className="flex items-center justify-between px-1 pt-0.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
+                  {lang === 'bn' ? 'নেভিগেশন মেনু' : 'Navigation Menu'}
+                </span>
+
+                {/* Mobile-only compact EN/BN Switcher */}
+                <button
+                  type="button"
+                  onClick={toggleLang}
+                  className="lg:hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700 text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
+                >
+                  <span
+                    className={`text-[11px] font-mono ${
+                      lang === 'en'
+                        ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
+                        : 'text-zinc-400'
+                    }`}
+                  >
+                    EN
+                  </span>
+                  <span className="text-zinc-300 dark:text-zinc-600 text-[10px]">/</span>
+                  <span
+                    className={`text-[11px] ${
+                      lang === 'bn'
+                        ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
+                        : 'text-zinc-400'
+                    }`}
+                  >
+                    বাংলা
+                  </span>
+                </button>
               </div>
 
-              {/* Column of 3 Buttons: Overview, Interactive Demo, Documentation (in-place navigation) */}
-              <nav className="flex flex-col gap-1.5" aria-label="Bangladesh GeoJSON Navigation">
+              {/* Navigation Menu: Horizontal ROW on mobile, Column on desktop */}
+              <nav
+                className="flex flex-row lg:flex-col gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none pb-1 lg:pb-0"
+                aria-label="Bangladesh GeoJSON Navigation"
+              >
                 {NAV_TABS.map((tab) => {
                   const isActive = pathname === tab.href;
                   const Icon = tab.icon;
@@ -86,26 +120,29 @@ function BangladeshGeoLayoutInner({ children }) {
                     <Link
                       key={tab.href}
                       href={tab.href}
-                      className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${isActive
+                      className={`group flex items-center justify-center lg:justify-between gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border shrink-0 lg:shrink flex-1 lg:flex-initial whitespace-nowrap ${
+                        isActive
                           ? 'bg-emerald-600 text-white border-transparent shadow-md shadow-emerald-600/20'
                           : 'bg-zinc-50/60 dark:bg-zinc-800/40 text-zinc-700 dark:text-zinc-300 border-zinc-200/60 dark:border-zinc-800/80 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:border-emerald-300 dark:hover:border-emerald-800 hover:text-emerald-700 dark:hover:text-emerald-300'
-                        }`}
+                      }`}
                     >
-                      <div className="flex items-center gap-3 min-w-0">
+                      <div className="flex items-center gap-2 lg:gap-3 min-w-0">
                         <Icon
-                          className={`w-4 h-4 shrink-0 transition-colors ${isActive
+                          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors ${
+                            isActive
                               ? 'text-white'
                               : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
-                            }`}
+                          }`}
                         />
                         <span className="truncate">{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
                       </div>
 
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${isActive
+                        className={`hidden sm:inline-block lg:inline-block text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${
+                          isActive
                             ? 'bg-white/20 text-white'
                             : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
-                          }`}
+                        }`}
                       >
                         {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
                       </span>
@@ -114,48 +151,50 @@ function BangladeshGeoLayoutInner({ children }) {
                 })}
               </nav>
 
-              {/* Divider */}
-              <div className="my-2 border-t border-zinc-100 dark:border-zinc-800" />
-
-              {/* EN / বাংলা Language Switcher Button in Sidebar */}
-              <div className="space-y-2">
-                <div className="px-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
-                  {lang === 'bn' ? 'ভাষা নির্বাচন' : 'Language / ভাষা'}
-                </div>
-                <button
-                  type="button"
-                  onClick={toggleLang}
-                  className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all border border-zinc-200/80 dark:border-zinc-700/80 cursor-pointer shadow-sm group"
-                  title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
-                >
-                  <span className="text-zinc-600 dark:text-zinc-400 font-medium pl-1">
-                    {lang === 'bn' ? 'ভাষা:' : 'Language:'}
-                  </span>
-                  <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
-                    <span
-                      className={`text-xs font-mono transition-colors ${lang === 'en'
-                          ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                          : 'text-zinc-400'
-                        }`}
-                    >
-                      EN
-                    </span>
-                    <span className="text-zinc-300 dark:text-zinc-600">/</span>
-                    <span
-                      className={`text-xs transition-colors ${lang === 'bn'
-                          ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
-                          : 'text-zinc-400'
-                        }`}
-                    >
-                      বাংলা
-                    </span>
+              {/* Desktop-only full Language Switcher */}
+              <div className="hidden lg:block">
+                <div className="my-2 border-t border-zinc-100 dark:border-zinc-800" />
+                <div className="space-y-2 pt-1">
+                  <div className="px-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
+                    {lang === 'bn' ? 'ভাষা নির্বাচন' : 'Language / ভাষা'}
                   </div>
-                </button>
+                  <button
+                    type="button"
+                    onClick={toggleLang}
+                    className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all border border-zinc-200/80 dark:border-zinc-700/80 cursor-pointer shadow-sm group"
+                    title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
+                  >
+                    <span className="text-zinc-600 dark:text-zinc-400 font-medium pl-1">
+                      {lang === 'bn' ? 'ভাষা:' : 'Language:'}
+                    </span>
+                    <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
+                      <span
+                        className={`text-xs font-mono transition-colors ${
+                          lang === 'en'
+                            ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
+                            : 'text-zinc-400'
+                        }`}
+                      >
+                        EN
+                      </span>
+                      <span className="text-zinc-300 dark:text-zinc-600">/</span>
+                      <span
+                        className={`text-xs transition-colors ${
+                          lang === 'bn'
+                            ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
+                            : 'text-zinc-400'
+                        }`}
+                      >
+                        বাংলা
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Quick Info & Copy Card in Sidebar */}
-            <div className="p-4 rounded-3xl bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-transparent border border-emerald-500/20 dark:border-emerald-500/20 space-y-3">
+            {/* Quick Info & Copy Card in Sidebar - desktop only */}
+            <div className="hidden lg:block p-4 rounded-3xl bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-transparent border border-emerald-500/20 dark:border-emerald-500/20 space-y-3">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-mono text-emerald-700 dark:text-emerald-400 font-bold">
                   bangladesh-geojson
