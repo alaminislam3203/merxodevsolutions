@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
   FiMail,
@@ -22,6 +24,7 @@ import {
 import Logo from '@/components/Logo';
 
 function LoginForm() {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/account';
@@ -62,7 +65,7 @@ function LoginForm() {
 
     const res = await signIn('credentials', credentials);
     if (res?.error) {
-      const errMsg = twoFactorCode ? 'Invalid or expired 2FA code. Please try again.' : 'Invalid email or password.';
+      const errMsg = twoFactorCode ? t('auth.login.invalid2fa', 'Invalid or expired 2FA code. Please try again.') : t('auth.login.invalidCredentials', 'Invalid email or password.');
       setError(errMsg);
       showToast.error(errMsg);
       setLoading(false);
@@ -70,7 +73,7 @@ function LoginForm() {
       return;
     }
 
-    showToast.success('Login successful! Redirecting...');
+    showToast.success(t('auth.login.loginSuccess', 'Login successful! Redirecting...'));
 
     // Fetch profile to see if user is ADMIN to redirect appropriately
     try {
@@ -117,8 +120,8 @@ function LoginForm() {
       if (checkData.requires2FA) {
         setIs2FAStep(true);
         setResendCooldown(120);
-        setInfoMessage('A 6-digit security code was sent to your email.');
-        showToast.info('A 6-digit security code was sent to your email.');
+        setInfoMessage(t('auth.login.twoFactorSent', 'A 6-digit security code was sent to your email.'));
+        showToast.info(t('auth.login.twoFactorSent', 'A 6-digit security code was sent to your email.'));
         setLoading(false);
         setTimeout(() => inputsRef.current[0]?.focus(), 100);
         return;
@@ -138,8 +141,8 @@ function LoginForm() {
   const handleVerify2FA = async (codeToVerify) => {
     const code = codeToVerify || digits.join('');
     if (code.length !== 6) {
-      setError('Please enter all 6 digits of the verification code.');
-      showToast.error('Please enter all 6 digits of the verification code.');
+      setError(t('auth.verifyCode.codeLengthError', 'Please enter all 6 digits of the verification code.'));
+      showToast.error(t('auth.verifyCode.codeLengthError', 'Please enter all 6 digits of the verification code.'));
       return;
     }
 
@@ -248,26 +251,26 @@ function LoginForm() {
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
-            <span>MerxoDev Security & Client Portal</span>
+            <span>{t('auth.login.portalBadge', 'MerxoDev Security & Client Portal')}</span>
           </div>
 
           <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
-            Your Dedicated{' '}
+            {t('auth.login.heroTitleStart', 'Your Dedicated')}{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
-              Client Portal
+              {t('auth.login.heroTitleGradient', 'Client Portal')}
             </span>
           </h1>
 
           <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
-            Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.
+            {t('auth.login.heroDesc', 'Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.')}
           </p>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
             {[
-              { value: '2FA', label: 'Security OTP', color: 'from-violet-400 to-indigo-400' },
-              { value: '100%', label: 'Cloud Access', color: 'from-cyan-400 to-teal-400' },
-              { value: '24/7', label: 'Live Monitoring', color: 'from-amber-400 to-orange-500' },
+              { value: t('auth.login.metric1Value', '2FA'), label: t('auth.login.metric1Label', 'Security OTP'), color: 'from-violet-400 to-indigo-400' },
+              { value: t('auth.login.metric2Value', '100%'), label: t('auth.login.metric2Label', 'Cloud Access'), color: 'from-cyan-400 to-teal-400' },
+              { value: t('auth.login.metric3Value', '24/7'), label: t('auth.login.metric3Label', 'Live Monitoring'), color: 'from-amber-400 to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -288,8 +291,8 @@ function LoginForm() {
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('privacyPolicy', 'Privacy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('termsOfService', 'Terms')}</Link>
           </div>
         </div>
       </div>
@@ -300,12 +303,12 @@ function LoginForm() {
           {/* Header */}
           <div className="mb-8">
             <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
-              {is2FAStep ? 'Two-Factor Verification' : 'Welcome Back'}
+              {is2FAStep ? t('auth.login.title2fa', 'Two-Factor Verification') : t('auth.login.title', 'Welcome Back')}
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
               {is2FAStep
-                ? `Enter the 6-digit security code sent to ${formData.email}.`
-                : 'Sign in to manage your client projects and account.'}
+                ? t('auth.login.subtitle2fa', { email: formData.email, defaultValue: `Enter the 6-digit security code sent to ${formData.email}.` })
+                : t('auth.login.subtitle', 'Sign in to manage your client projects and account.')}
             </p>
           </div>
 
@@ -313,7 +316,7 @@ function LoginForm() {
           {isRegistered && !error && !is2FAStep && (
             <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm font-exo-extralight flex items-center gap-3">
               <FiCheckCircle size={18} className="text-emerald-500 shrink-0" />
-              <span>Account created successfully! Please sign in with your email and password.</span>
+              <span>{t('auth.login.regSuccess', 'Account created successfully! Please sign in with your email and password.')}</span>
             </div>
           )}
 
@@ -340,10 +343,10 @@ function LoginForm() {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    6-Digit Security Code <span className="text-rose-500">*</span>
+                    {t('auth.login.twoFactorLabel', '6-Digit Security Code')} <span className="text-rose-500">*</span>
                   </label>
                   <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
-                    Valid 2 Mins
+                    {t('auth.login.validMins', 'Valid 2 Mins')}
                   </span>
                 </div>
 
@@ -370,7 +373,7 @@ function LoginForm() {
                 </div>
 
                 <p className="mt-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                  Paste code or type 6 digits. Auto-verifies on 6th digit.
+                  {t('auth.login.twoFactorHint', 'Paste code or type 6 digits. Auto-verifies on 6th digit.')}
                 </p>
               </div>
 
@@ -384,11 +387,11 @@ function LoginForm() {
                 {verifying2FA ? (
                   <>
                     <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Verifying Code...</span>
+                    <span>{t('auth.login.verifying', 'Verifying Code...')}</span>
                   </>
                 ) : (
                   <>
-                    <span>Verify & Sign In</span>
+                    <span>{t('auth.login.verifyBtn', 'Verify & Sign In')}</span>
                     <FiArrowRight size={17} />
                   </>
                 )}
@@ -396,10 +399,10 @@ function LoginForm() {
 
               {/* Resend 2FA Code */}
               <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs font-exo-extralight">
-                <span className="text-zinc-500 dark:text-zinc-400">Didn't receive 2FA code?</span>
+                <span className="text-zinc-500 dark:text-zinc-400">{t('auth.login.noCode', "Didn't receive 2FA code?")}</span>
                 {resendCooldown > 0 ? (
                   <span className="text-zinc-400 dark:text-zinc-500 font-mono font-semibold">
-                    Resend in {Math.floor(resendCooldown / 60)}:{(resendCooldown % 60).toString().padStart(2, '0')}
+                    {t('auth.login.resendIn', 'Resend in')} {Math.floor(resendCooldown / 60)}:{(resendCooldown % 60).toString().padStart(2, '0')}
                   </span>
                 ) : (
                   <button
@@ -409,7 +412,7 @@ function LoginForm() {
                     className="inline-flex items-center gap-1.5 text-violet-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer disabled:opacity-50"
                   >
                     <FiRotateCw size={13} className={resending ? 'animate-spin' : ''} />
-                    <span>{resending ? 'Sending...' : 'Resend Code'}</span>
+                    <span>{resending ? t('auth.login.sending', 'Sending...') : t('auth.login.resendCode', 'Resend Code')}</span>
                   </button>
                 )}
               </div>
@@ -426,7 +429,7 @@ function LoginForm() {
                   }}
                   className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-exo-extralight transition-colors"
                 >
-                  ← Back to Email & Password
+                  {t('auth.login.backToLogin', '← Back to Email & Password')}
                 </button>
               </div>
             </div>
@@ -436,14 +439,14 @@ function LoginForm() {
               {/* Email Field */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                  Email Address
+                  {t('auth.login.emailLabel', 'Email Address')}
                 </label>
                 <div className="relative">
                   <FiMail size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input
                     type="email"
                     required
-                    placeholder="Enter Your Email"
+                    placeholder={t('auth.login.emailPlaceholder', 'Enter Your Email')}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
@@ -455,13 +458,13 @@ function LoginForm() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                    Password
+                    {t('auth.login.passwordLabel', 'Password')}
                   </label>
                   <Link
                     href="/account/forgot-password"
                     className="text-xs text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
                   >
-                    Forgot password?
+                    {t('auth.login.forgotPassword', 'Forgot password?')}
                   </Link>
                 </div>
                 <div className="relative">
@@ -469,7 +472,7 @@ function LoginForm() {
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    placeholder="Enter Your Password"
+                    placeholder={t('auth.login.passwordPlaceholder', 'Enter Your Password')}
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
@@ -494,7 +497,7 @@ function LoginForm() {
                   <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <span>Sign In to Account</span>
+                    <span>{t('auth.login.signInBtn', 'Sign In to Account')}</span>
                     <FiArrowRight size={17} />
                   </>
                 )}
@@ -506,12 +509,12 @@ function LoginForm() {
           {!is2FAStep && (
             <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
               <p className="text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight">
-                Don't have an account yet?{' '}
+                {t('auth.login.noAccount', "Don't have an account yet?")}{' '}
                 <Link
                   href={`/account/register${redirectUrl !== '/account' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
                   className="font-bold text-violet-600 dark:text-cyan-400 hover:underline"
                 >
-                  Create Account
+                  {t('auth.login.createAccount', 'Create Account')}
                 </Link>
               </p>
             </div>
@@ -523,7 +526,7 @@ function LoginForm() {
               className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 font-exo-extralight transition-colors"
             >
               <FiShield size={13} />
-              <span>Encrypted & Protected Workspace</span>
+              <span>{t('auth.login.encryptedWorkspace', 'Encrypted & Protected Workspace')}</span>
             </div>
           </div>
         </div>

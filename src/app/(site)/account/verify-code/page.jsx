@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
   FiShield,
@@ -20,6 +22,7 @@ function VerifyCodeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const emailParam = searchParams.get('email') || '';
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState(emailParam);
   const [digits, setDigits] = useState(['', '', '', '', '', '']);
@@ -59,14 +62,16 @@ function VerifyCodeContent() {
   const handleVerify = async (codeToVerify) => {
     const code = codeToVerify || fullCode;
     if (!email || !email.includes('@')) {
-      setError('Please provide a valid email address.');
-      showToast.error('Please provide a valid email address.');
+      const msg = t('auth.forgotPassword.validEmailError', 'Please provide a valid email address.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
     if (code.length !== 6) {
-      setError('Please enter all 6 digits of the verification code.');
-      showToast.error('Please enter all 6 digits of the verification code.');
+      const msg = t('auth.verifyCode.codeLengthError', 'Please enter all 6 digits of the verification code.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
@@ -88,8 +93,8 @@ function VerifyCodeContent() {
         throw new Error(data.error || 'Invalid or expired verification code.');
       }
 
-      setSuccessMessage('Code verified successfully! Opening password setup...');
-      showToast.success('Code verified successfully!');
+      setSuccessMessage(t('auth.verifyCode.codeSuccess', 'Code verified successfully! Opening password setup...'));
+      showToast.success(t('auth.verifyCode.codeSuccess', 'Code verified successfully!'));
       setTimeout(() => {
         router.push(
           `/account/reset-password?email=${encodeURIComponent(email.trim())}&code=${encodeURIComponent(code.trim())}`
@@ -199,13 +204,13 @@ function VerifyCodeContent() {
         throw new Error(data.error || 'Failed to resend code.');
       }
 
-      setSuccessMessage('A fresh 6-digit code has been sent to your email.');
-      showToast.success('A fresh 6-digit code has been sent to your email.');
+      setSuccessMessage(t('auth.verifyCode.freshCodeSent', 'A fresh 6-digit code has been sent to your email.'));
+      showToast.success(t('auth.verifyCode.freshCodeSent', 'A fresh 6-digit code has been sent to your email.'));
       setResendCooldown(120); // Reset to 2 minutes
       setDigits(['', '', '', '', '', '']);
       inputsRef.current[0]?.focus();
     } catch (err) {
-      const errMsg = err?.message || 'Failed to resend code.';
+      const errMsg = err?.message || t('auth.verifyCode.failedResend', 'Failed to resend code.');
       setError(errMsg);
       showToast.error(errMsg);
     } finally {
@@ -226,18 +231,18 @@ function VerifyCodeContent() {
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
-            <span>MerxoDev Security & Account Recovery</span>
+            <span>{t('auth.verifyCode.badge', 'MerxoDev Security & Account Recovery')}</span>
           </div>
 
           <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
-            Verify Your{' '}
+            {t('auth.verifyCode.heroTitleStart', 'Verify Your')}{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
-              Security Code
+              {t('auth.verifyCode.heroTitleGradient', 'Security Code')}
             </span>
           </h1>
 
           <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
-            Check your email inbox or spam folder. Enter the 6-digit verification code below to verify your ownership and unlock password reset.
+            {t('auth.verifyCode.heroDesc', 'Check your email inbox or spam folder. Enter the 6-digit verification code below to verify your ownership and unlock password reset.')}
           </p>
 
           {/* Value props list */}
@@ -245,18 +250,18 @@ function VerifyCodeContent() {
             {[
               {
                 icon: FiLock,
-                title: 'Auto-Verification Support',
-                desc: 'Paste or type all 6 digits and verification triggers automatically without extra clicks.',
+                title: t('auth.verifyCode.prop1Title', 'Auto-Verification Support'),
+                desc: t('auth.verifyCode.prop1Desc', 'Paste or type all 6 digits and verification triggers automatically without extra clicks.'),
               },
               {
                 icon: FiMail,
-                title: 'Check Inbox & Spam Folder',
-                desc: 'In rare cases, your mail filter may route the OTP to your spam or junk folder.',
+                title: t('auth.verifyCode.prop2Title', 'Check Inbox & Spam Folder'),
+                desc: t('auth.verifyCode.prop2Desc', 'In rare cases, your mail filter may route the OTP to your spam or junk folder.'),
               },
               {
                 icon: FiZap,
-                title: '2-Minute Safe Window',
-                desc: 'For your security, OTP codes expire automatically after 120 seconds.',
+                title: t('auth.verifyCode.prop3Title', '2-Minute Safe Window'),
+                desc: t('auth.verifyCode.prop3Desc', 'For your security, OTP codes expire automatically after 120 seconds.'),
               },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-3.5">
@@ -274,9 +279,9 @@ function VerifyCodeContent() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
             {[
-              { value: '2 Mins', label: 'OTP Expiry', color: 'from-violet-400 to-indigo-400' },
-              { value: '6 Digits', label: 'Code Length', color: 'from-cyan-400 to-teal-400' },
-              { value: '100%', label: 'Secure Access', color: 'from-amber-400 to-orange-500' },
+              { value: t('auth.verifyCode.metric1Value', '2 Mins'), label: t('auth.verifyCode.metric1Label', 'OTP Expiry'), color: 'from-violet-400 to-indigo-400' },
+              { value: t('auth.verifyCode.metric2Value', '6 Digits'), label: t('auth.verifyCode.metric2Label', 'Code Length'), color: 'from-cyan-400 to-teal-400' },
+              { value: t('auth.verifyCode.metric3Value', '100%'), label: t('auth.verifyCode.metric3Label', 'Secure Access'), color: 'from-amber-400 to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -297,8 +302,8 @@ function VerifyCodeContent() {
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('auth.login.privacy', 'Privacy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('auth.login.terms', 'Terms')}</Link>
           </div>
         </div>
       </div>
@@ -312,17 +317,17 @@ function VerifyCodeContent() {
               2
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-cyan-400 font-exo-extralight">
-              Step 2 of 3: Verify Code
+              {t('auth.verifyCode.stepIndicator', 'Step 2 of 3: Verify Code')}
             </span>
           </div>
 
           {/* Header Title */}
           <div className="mb-6">
             <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
-              Enter 6-Digit Code
+              {t('auth.verifyCode.title', 'Enter 6-Digit Code')}
             </h2>
             <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight">
-              <span>Code sent to:</span>
+              <span>{t('auth.verifyCode.codeSentTo', 'Code sent to:')}</span>
               <strong className="text-zinc-900 dark:text-white font-mono break-all">
                 {email || 'your email'}
               </strong>
@@ -331,7 +336,7 @@ function VerifyCodeContent() {
                 className="inline-flex items-center gap-1 text-xs text-violet-600 dark:text-cyan-400 hover:underline font-bold font-exo-extralight"
               >
                 <FiEdit3 size={12} />
-                <span>Change</span>
+                <span>{t('auth.verifyCode.change', 'Change')}</span>
               </Link>
             </div>
           </div>
@@ -363,10 +368,10 @@ function VerifyCodeContent() {
             <div>
               <div className="flex items-center justify-between mb-3">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                  Verification Code <span className="text-rose-500">*</span>
+                  {t('auth.verifyCode.codeLabel', 'Verification Code')} <span className="text-rose-500">*</span>
                 </label>
                 <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
-                  Valid 2 Mins
+                  {t('auth.verifyCode.validMins', 'Valid 2 Mins')}
                 </span>
               </div>
 
@@ -393,7 +398,7 @@ function VerifyCodeContent() {
               </div>
 
               <p className="mt-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                Paste your 6-digit code or type it in. Auto-verifies upon 6th digit.
+                {t('auth.verifyCode.twoFactorHint', 'Paste your 6-digit code or type it in. Auto-verifies upon 6th digit.')}
               </p>
             </div>
 
@@ -406,11 +411,11 @@ function VerifyCodeContent() {
               {verifying ? (
                 <>
                   <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                  <span>Verifying Code...</span>
+                  <span>{t('auth.verifyCode.verifying', 'Verifying Code...')}</span>
                 </>
               ) : (
                 <>
-                  <span>Verify Code</span>
+                  <span>{t('auth.verifyCode.verifyBtn', 'Verify Code')}</span>
                   <FiArrowRight size={16} />
                 </>
               )}
@@ -420,11 +425,11 @@ function VerifyCodeContent() {
           {/* Resend Code Section */}
           <div className="mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-exo-extralight">
             <span className="text-zinc-500 dark:text-zinc-400">
-              Didn’t receive the code?
+              {t('auth.verifyCode.noCode', "Didn’t receive the code?")}
             </span>
             {resendCooldown > 0 ? (
               <span className="text-zinc-400 dark:text-zinc-500 font-mono font-semibold">
-                Resend in {Math.floor(resendCooldown / 60)}:{(resendCooldown % 60).toString().padStart(2, '0')}
+                {t('auth.verifyCode.resendIn', 'Resend in')} {Math.floor(resendCooldown / 60)}:{(resendCooldown % 60).toString().padStart(2, '0')}
               </span>
             ) : (
               <button
@@ -434,7 +439,7 @@ function VerifyCodeContent() {
                 className="inline-flex items-center gap-1.5 text-violet-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer disabled:opacity-50"
               >
                 <FiRotateCw size={13} className={resending ? 'animate-spin' : ''} />
-                <span>{resending ? 'Sending...' : 'Resend Code'}</span>
+                <span>{resending ? t('auth.verifyCode.sending', 'Sending...') : t('auth.verifyCode.resendCode', 'Resend Code')}</span>
               </button>
             )}
           </div>
@@ -445,7 +450,7 @@ function VerifyCodeContent() {
               href="/account/forgot-password"
               className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-exo-extralight transition-colors"
             >
-              ← Back to Email Request
+              {t('auth.verifyCode.backToRequest', '← Back to Email Request')}
             </Link>
           </div>
         </div>

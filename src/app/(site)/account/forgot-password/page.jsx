@@ -3,6 +3,8 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
   FiMail,
@@ -18,6 +20,7 @@ function ForgotPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialEmail = searchParams.get('email') || '';
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState(initialEmail);
   const [loading, setLoading] = useState(false);
@@ -30,8 +33,9 @@ function ForgotPasswordContent() {
     setSuccessMessage('');
 
     if (!email.trim() || !email.includes('@')) {
-      setError('Please provide a valid email address.');
-      showToast.error('Please provide a valid email address.');
+      const msg = t('auth.forgotPassword.validEmailError', 'Please provide a valid email address.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
@@ -48,8 +52,8 @@ function ForgotPasswordContent() {
         throw new Error(data.error || 'Failed to send verification code.');
       }
 
-      setSuccessMessage('Verification code sent successfully! Redirecting to verification page...');
-      showToast.success('Verification code sent! Please check your email inbox.');
+      setSuccessMessage(t('auth.forgotPassword.codeSentSuccess', 'Verification code sent! Please check your email inbox.'));
+      showToast.success(t('auth.forgotPassword.codeSentSuccess', 'Verification code sent! Please check your email inbox.'));
       setTimeout(() => {
         router.push(`/account/verify-code?email=${encodeURIComponent(email.trim())}`);
       }, 700);
@@ -75,18 +79,18 @@ function ForgotPasswordContent() {
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
-            <span>MerxoDev Security & Account Recovery</span>
+            <span>{t('auth.forgotPassword.badge', 'MerxoDev Security & Account Recovery')}</span>
           </div>
 
           <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
-            Recover Your{' '}
+            {t('auth.forgotPassword.heroTitleStart', 'Recover Your')}{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
-              Account Securely
+              {t('auth.forgotPassword.heroTitleGradient', 'Account Securely')}
             </span>
           </h1>
 
           <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
-            Forgot your password? No worries. We will send a secure 6-digit verification code to your registered email to confirm your identity.
+            {t('auth.forgotPassword.heroDesc', 'Forgot your password? No worries. We will send a secure 6-digit verification code to your registered email to confirm your identity.')}
           </p>
 
           {/* Value props list */}
@@ -94,18 +98,18 @@ function ForgotPasswordContent() {
             {[
               {
                 icon: FiLock,
-                title: 'Encrypted Security',
-                desc: 'End-to-end encrypted token verification with 2-minute safety window.',
+                title: t('auth.forgotPassword.prop1Title', 'Encrypted Security'),
+                desc: t('auth.forgotPassword.prop1Desc', 'End-to-end encrypted token verification with 2-minute safety window.'),
               },
               {
                 icon: FiMail,
-                title: 'Instant Email Delivery',
-                desc: 'Direct OTP sent straight to your inbox with anti-spam protection.',
+                title: t('auth.forgotPassword.prop2Title', 'Instant Email Delivery'),
+                desc: t('auth.forgotPassword.prop2Desc', 'Direct OTP sent straight to your inbox with anti-spam protection.'),
               },
               {
                 icon: FiZap,
-                title: 'Quick 3-Step Process',
-                desc: 'Enter email → Verify 6-digit box code → Set new secure password.',
+                title: t('auth.forgotPassword.prop3Title', 'Quick 3-Step Process'),
+                desc: t('auth.forgotPassword.prop3Desc', 'Enter email → Verify 6-digit box code → Set new secure password.'),
               },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-3.5">
@@ -123,9 +127,9 @@ function ForgotPasswordContent() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
             {[
-              { value: '2 Mins', label: 'OTP Expiry', color: 'from-violet-400 to-indigo-400' },
-              { value: '6 Digits', label: 'Code Length', color: 'from-cyan-400 to-teal-400' },
-              { value: '100%', label: 'Secure Access', color: 'from-amber-400 to-orange-500' },
+              { value: t('auth.forgotPassword.metric1Value', '2 Mins'), label: t('auth.forgotPassword.metric1Label', 'OTP Expiry'), color: 'from-violet-400 to-indigo-400' },
+              { value: t('auth.forgotPassword.metric2Value', '6 Digits'), label: t('auth.forgotPassword.metric2Label', 'Code Length'), color: 'from-cyan-400 to-teal-400' },
+              { value: t('auth.forgotPassword.metric3Value', '100%'), label: t('auth.forgotPassword.metric3Label', 'Secure Access'), color: 'from-amber-400 to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -146,8 +150,8 @@ function ForgotPasswordContent() {
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('auth.login.privacy', 'Privacy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('auth.login.terms', 'Terms')}</Link>
           </div>
         </div>
       </div>
@@ -161,17 +165,17 @@ function ForgotPasswordContent() {
               1
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-cyan-400 font-exo-extralight">
-              Step 1 of 3: Enter Email
+              {t('auth.forgotPassword.stepIndicator', 'Step 1 of 3: Enter Email')}
             </span>
           </div>
 
           {/* Header Title */}
           <div className="mb-8">
             <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
-              Forgot Password?
+              {t('auth.forgotPassword.title', 'Forgot Password?')}
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
-              Enter your registered email and we’ll send you a 6-digit verification code to reset your password.
+              {t('auth.forgotPassword.subtitle', 'Enter your registered email and we’ll send you a 6-digit verification code to reset your password.')}
             </p>
           </div>
 
@@ -195,7 +199,7 @@ function ForgotPasswordContent() {
             {/* Email Address */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-exo-extralight">
-                Registered Email Address <span className="text-rose-500">*</span>
+                {t('auth.forgotPassword.registeredEmailLabel', 'Registered Email Address')} <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
                 <FiMail size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
@@ -203,14 +207,14 @@ function ForgotPasswordContent() {
                   type="email"
                   required
                   disabled={loading}
-                  placeholder="Enter your registered email"
+                  placeholder={t('auth.forgotPassword.emailPlaceholder', 'Enter your registered email')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight disabled:opacity-70"
                 />
               </div>
               <p className="mt-1.5 text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                We will send a 6-digit one-time code to this address (Valid for 2 minutes).
+                {t('auth.forgotPassword.helperNote', 'We will send a 6-digit one-time code to this address (Valid for 2 minutes).')}
               </p>
             </div>
 
@@ -223,11 +227,11 @@ function ForgotPasswordContent() {
               {loading ? (
                 <>
                   <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                  <span>Sending Code...</span>
+                  <span>{t('auth.forgotPassword.sending', 'Sending Code...')}</span>
                 </>
               ) : (
                 <>
-                  <span>Send Verification Code</span>
+                  <span>{t('auth.forgotPassword.sendBtn', 'Send Verification Code')}</span>
                   <FiArrowRight size={16} />
                 </>
               )}
@@ -240,13 +244,13 @@ function ForgotPasswordContent() {
               href="/account/login"
               className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-400 font-exo-extralight transition-colors"
             >
-              ← Back to Sign In
+              {t('auth.forgotPassword.backToLogin', 'Back to Sign In')}
             </Link>
             <Link
               href={email.trim() ? `/account/verify-code?email=${encodeURIComponent(email.trim())}` : '/account/verify-code'}
               className="text-xs text-violet-600 dark:text-cyan-400 font-bold hover:underline font-exo-extralight"
             >
-              Already have a code? Verify now →
+              {t('auth.forgotPassword.alreadyHaveCode', 'Already have a code? Verify now →')}
             </Link>
           </div>
         </div>

@@ -3,6 +3,8 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
   FiShield,
@@ -22,6 +24,7 @@ function ResetPasswordContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
   const code = searchParams.get('code') || '';
+  const { t } = useTranslation();
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -39,14 +42,16 @@ function ResetPasswordContent() {
     setError('');
 
     if (newPassword.length < 6) {
-      setError('New password must be at least 6 characters long.');
-      showToast.error('New password must be at least 6 characters long.');
+      const msg = t('auth.resetPassword.passwordLength', 'New password must be at least 6 characters long.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match. Please re-enter.');
-      showToast.error('Passwords do not match. Please re-enter.');
+      const msg = t('auth.resetPassword.passwordMismatch', 'Passwords do not match. Please re-enter.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
@@ -68,7 +73,7 @@ function ResetPasswordContent() {
       }
 
       setIsSuccess(true);
-      showToast.success('Password updated successfully! You can now log in.');
+      showToast.success(t('auth.resetPassword.updatedSuccess', 'Password updated successfully! You can now log in.'));
     } catch (err) {
       const errMsg = err?.message || 'Failed to update password. Please try again.';
       setError(errMsg);
@@ -91,18 +96,18 @@ function ResetPasswordContent() {
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <FiShield className="text-violet-400" />
-            <span>MerxoDev Security & Account Recovery</span>
+            <span>{t('auth.resetPassword.badge', 'MerxoDev Security & Account Recovery')}</span>
           </div>
 
           <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
-            Create Your{' '}
+            {t('auth.resetPassword.heroTitleStart', 'Create Your')}{' '}
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
-              New Password
+              {t('auth.resetPassword.heroTitleGradient', 'New Password')}
             </span>
           </h1>
 
           <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
-            Your verification code was confirmed. Choose a strong, unique password to complete your account recovery.
+            {t('auth.resetPassword.heroDesc', 'Your verification code was confirmed. Choose a strong, unique password to complete your account recovery.')}
           </p>
 
           {/* Value props list */}
@@ -110,18 +115,18 @@ function ResetPasswordContent() {
             {[
               {
                 icon: FiLock,
-                title: 'Bcrypt Password Hashing',
-                desc: 'Passwords are irreversibly hashed with salt before storage in PostgreSQL.',
+                title: t('auth.resetPassword.prop1Title', 'Bcrypt Password Hashing'),
+                desc: t('auth.resetPassword.prop1Desc', 'Passwords are irreversibly hashed with salt before storage in PostgreSQL.'),
               },
               {
                 icon: FiKey,
-                title: 'Instant Session Invalidation',
-                desc: 'Old reset tokens are permanently destroyed once your new password is saved.',
+                title: t('auth.resetPassword.prop2Title', 'Instant Session Invalidation'),
+                desc: t('auth.resetPassword.prop2Desc', 'Old reset tokens are permanently destroyed once your new password is saved.'),
               },
               {
                 icon: FiZap,
-                title: 'Seamless Login',
-                desc: 'Sign straight into your dashboard or client portal with your updated credentials.',
+                title: t('auth.resetPassword.prop3Title', 'Seamless Login'),
+                desc: t('auth.resetPassword.prop3Desc', 'Sign straight into your dashboard or client portal with your updated credentials.'),
               },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-3.5">
@@ -139,9 +144,9 @@ function ResetPasswordContent() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
             {[
-              { value: 'Verified', label: 'OTP Status', color: 'from-emerald-400 to-teal-400' },
-              { value: 'Min 6', label: 'Characters', color: 'from-cyan-400 to-indigo-400' },
-              { value: '100%', label: 'Secure Access', color: 'from-amber-400 to-orange-500' },
+              { value: t('auth.resetPassword.metric1Value', 'Bcrypt'), label: t('auth.resetPassword.metric1Label', 'Hashing Algo'), color: 'from-emerald-400 to-teal-400' },
+              { value: t('auth.resetPassword.metric2Value', 'Salt'), label: t('auth.resetPassword.metric2Label', 'Auto-Generated'), color: 'from-cyan-400 to-indigo-400' },
+              { value: t('auth.resetPassword.metric3Value', '100%'), label: t('auth.resetPassword.metric3Label', 'Data Privacy'), color: 'from-amber-400 to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -162,8 +167,8 @@ function ResetPasswordContent() {
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('auth.login.privacy', 'Privacy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('auth.login.terms', 'Terms')}</Link>
           </div>
         </div>
       </div>
@@ -178,7 +183,7 @@ function ResetPasswordContent() {
                 3
               </span>
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-exo-extralight">
-                Step 3 of 3: New Password
+                {t('auth.resetPassword.stepIndicator', 'Step 3 of 3: Set New Password')}
               </span>
             </div>
           )}
@@ -190,16 +195,16 @@ function ResetPasswordContent() {
                 <FiAlertCircle />
               </div>
               <h3 className="text-base font-bold text-zinc-900 dark:text-white font-exo-extralight">
-                Verification Required
+                {t('auth.resetPassword.title', 'Verification Required')}
               </h3>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-                You must verify your email with a 6-digit code before creating a new password.
+                {t('auth.resetPassword.missingNotice', 'Verification session expired or missing parameters. Please start again from the email step.')}
               </p>
               <Link
                 href="/account/forgot-password"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wider shadow-md"
               >
-                <span>Start Password Reset</span>
+                <span>{t('auth.resetPassword.restartVerification', 'Start Recovery Again')}</span>
                 <FiArrowRight size={14} />
               </Link>
             </div>
@@ -211,10 +216,10 @@ function ResetPasswordContent() {
               </div>
               <div className="space-y-1.5">
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-white font-exo-extralight">
-                  Password Updated!
+                  {t('auth.resetPassword.successTitle', 'Password Reset Complete!')}
                 </h3>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-                  Your password has been changed successfully. You can now sign into your account with your new credentials.
+                  {t('auth.resetPassword.successDesc', 'Your password has been securely updated. You can now log into your account.')}
                 </p>
               </div>
 
@@ -223,7 +228,7 @@ function ResetPasswordContent() {
                   href="/account/login"
                   className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-sm shadow-lg shadow-violet-500/25 hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2"
                 >
-                  <span>Sign In Now</span>
+                  <span>{t('auth.resetPassword.goToLogin', 'Proceed to Log In')}</span>
                   <FiArrowRight size={16} />
                 </Link>
               </div>
@@ -234,10 +239,11 @@ function ResetPasswordContent() {
               {/* Header */}
               <div className="mb-6">
                 <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
-                  Set New Password
+                  {t('auth.resetPassword.title', 'Create New Password')}
                 </h2>
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
-                  Create a new password for <strong className="text-zinc-900 dark:text-white font-mono">{email}</strong>.
+                  {t('auth.resetPassword.subtitle', 'Enter and confirm your new secure password for')}{' '}
+                  <strong className="text-zinc-900 dark:text-white font-mono">{email}</strong>.
                 </p>
               </div>
 
@@ -253,7 +259,7 @@ function ResetPasswordContent() {
                 {/* New Password Field */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-exo-extralight">
-                    New Password <span className="text-rose-500">*</span>
+                    {t('auth.resetPassword.newPasswordLabel', 'New Password')} <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
                     <FiLock size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
@@ -261,7 +267,7 @@ function ResetPasswordContent() {
                       type={showPassword ? 'text' : 'password'}
                       required
                       minLength={6}
-                      placeholder="At least 6 characters"
+                      placeholder={t('auth.resetPassword.newPasswordPlaceholder', 'Enter new password (min. 6 chars)')}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all font-exo-extralight"
@@ -279,7 +285,7 @@ function ResetPasswordContent() {
                 {/* Confirm Password Field */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5 font-exo-extralight">
-                    Confirm New Password <span className="text-rose-500">*</span>
+                    {t('auth.resetPassword.confirmPasswordLabel', 'Confirm New Password')} <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
                     <FiKey size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
@@ -287,7 +293,7 @@ function ResetPasswordContent() {
                       type={showConfirmPassword ? 'text' : 'password'}
                       required
                       minLength={6}
-                      placeholder="Re-type your new password"
+                      placeholder={t('auth.resetPassword.confirmPasswordPlaceholder', 'Re-enter new password')}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       className={`w-full pl-11 pr-11 py-3.5 rounded-2xl border bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 transition-all font-exo-extralight ${confirmPassword && confirmPassword !== newPassword
@@ -305,7 +311,7 @@ function ResetPasswordContent() {
                   </div>
                   {confirmPassword && confirmPassword !== newPassword && (
                     <p className="mt-1 text-[11px] text-rose-500 font-exo-extralight">
-                      Passwords do not match.
+                      {t('auth.resetPassword.passwordMismatch', 'Passwords do not match. Please re-enter.')}
                     </p>
                   )}
                 </div>
@@ -319,11 +325,11 @@ function ResetPasswordContent() {
                   {loading ? (
                     <>
                       <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                      <span>Updating Password...</span>
+                      <span>{t('auth.resetPassword.updating', 'Updating Password...')}</span>
                     </>
                   ) : (
                     <>
-                      <span>Save New Password</span>
+                      <span>{t('auth.resetPassword.updateBtn', 'Update Password & Continue')}</span>
                       <FiArrowRight size={16} />
                     </>
                   )}
@@ -333,12 +339,12 @@ function ResetPasswordContent() {
               {/* Back to Sign In Link */}
               <div className="mt-8 text-center">
                 <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm font-exo-extralight">
-                  Remember your password?{' '}
+                  {t('auth.forgotPassword.rememberPassword', 'Remember your password?')}{' '}
                   <Link
                     href="/account/login"
                     className="text-violet-600 dark:text-cyan-400 font-bold hover:underline"
                   >
-                    Back to Sign In
+                    {t('auth.forgotPassword.backToLogin', 'Back to Sign In')}
                   </Link>
                 </p>
               </div>

@@ -3,6 +3,8 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
   FiUser,
@@ -23,6 +25,7 @@ function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '';
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -37,15 +40,15 @@ function RegisterForm() {
   // Dynamic Password Strength Meter (matching organic reference project)
   const calculateStrength = (pass) => {
     if (!pass || pass.length === 0) return { score: 0, label: '', width: '0%', color: 'bg-zinc-700' };
-    if (pass.length < 6) return { score: 1, label: 'Too Short (Min 6 chars)', width: '25%', color: 'bg-rose-500' };
-    if (pass.length < 8) return { score: 2, label: 'Weak', width: '50%', color: 'bg-amber-500' };
+    if (pass.length < 6) return { score: 1, label: t('auth.register.strengthTooShort', 'Too Short (Min 6 chars)'), width: '25%', color: 'bg-rose-500' };
+    if (pass.length < 8) return { score: 2, label: t('auth.register.strengthWeak', 'Weak'), width: '50%', color: 'bg-amber-500' };
     if (/[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass)) {
-      return { score: 4, label: 'Very Strong', width: '100%', color: 'bg-emerald-500' };
+      return { score: 4, label: t('auth.register.strengthVeryStrong', 'Very Strong'), width: '100%', color: 'bg-emerald-500' };
     }
     if (/[A-Z]/.test(pass) && /[0-9]/.test(pass)) {
-      return { score: 3, label: 'Strong', width: '75%', color: 'bg-cyan-500' };
+      return { score: 3, label: t('auth.register.strengthStrong', 'Strong'), width: '75%', color: 'bg-cyan-500' };
     }
-    return { score: 2, label: 'Fair', width: '50%', color: 'bg-amber-400' };
+    return { score: 2, label: t('auth.register.strengthFair', 'Fair'), width: '50%', color: 'bg-amber-400' };
   };
 
   const strength = calculateStrength(formData.password);
@@ -53,14 +56,16 @@ function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!agreeTerms) {
-      setError('You must agree to the Terms of Service and Privacy Policy.');
-      showToast.error('You must agree to the Terms of Service and Privacy Policy.');
+      const msg = t('auth.register.agreeTermsError', 'You must agree to the Terms of Service and Privacy Policy.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long.');
-      showToast.error('Password must be at least 6 characters long.');
+      const msg = t('auth.register.passwordLengthError', 'Password must be at least 6 characters long.');
+      setError(msg);
+      showToast.error(msg);
       return;
     }
 
@@ -82,7 +87,7 @@ function RegisterForm() {
         setError(errMsg);
         showToast.error(errMsg);
       } else {
-        showToast.success('Account created successfully! Redirecting to login...');
+        showToast.success(t('auth.register.regSuccessRedirect', 'Account created successfully! Redirecting to login...'));
         const loginUrl = redirectUrl
           ? `/account/login?registered=true&redirect=${encodeURIComponent(redirectUrl)}`
           : '/account/login?registered=true';
@@ -97,10 +102,10 @@ function RegisterForm() {
   };
 
   const benefits = [
-    'Direct collaboration with lead software architects',
-    'Submit and track custom web & app inquiries',
-    'Publish verified client reviews and testimonials',
-    'Priority engineering response & SLA support',
+    t('auth.register.benefit1', 'Direct collaboration with lead software architects'),
+    t('auth.register.benefit2', 'Submit and track custom web & app inquiries'),
+    t('auth.register.benefit3', 'Publish verified client reviews and testimonials'),
+    t('auth.register.benefit4', 'Priority engineering response & SLA support'),
   ];
 
   return (
@@ -129,21 +134,21 @@ function RegisterForm() {
         <div className="relative z-10 my-auto py-10 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>MerxoDev Client Network</span>
+            <span>{t('auth.register.badge', 'MerxoDev Client Network')}</span>
           </div>
 
           <h1
             suppressHydrationWarning
             className="font-exo-medium text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
           >
-            Start Your{' '}
+            {t('auth.register.heroTitleStart', 'Start Your')}{' '}
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-              Digital Journey
+              {t('auth.register.heroTitleGradient', 'Digital Journey')}
             </span>
           </h1>
 
           <p className="text-zinc-400 text-base leading-relaxed font-exo-extralight mb-8">
-            Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.
+            {t('auth.register.heroDesc', 'Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.')}
           </p>
 
           {/* Benefits List */}
@@ -161,16 +166,16 @@ function RegisterForm() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 border-t border-zinc-800/80 pt-6">
             <div>
-              <p className="font-exo-medium text-xl text-white font-extrabold">100%</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Code Ownership</p>
+              <p className="font-exo-medium text-xl text-white font-extrabold">{t('auth.register.metric1Value', '100%')}</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric1Label', 'Code Ownership')}</p>
             </div>
             <div>
-              <p className="font-exo-medium text-xl text-cyan-400 font-extrabold">2–12h</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Response SLA</p>
+              <p className="font-exo-medium text-xl text-cyan-400 font-extrabold">{t('auth.register.metric2Value', '2–12h')}</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric2Label', 'Response SLA')}</p>
             </div>
             <div>
-              <p className="font-exo-medium text-xl text-amber-400 font-extrabold">Verified</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">Client Reviews</p>
+              <p className="font-exo-medium text-xl text-amber-400 font-extrabold">{t('auth.register.metric3Value', 'Verified')}</p>
+              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric3Label', 'Client Reviews')}</p>
             </div>
           </div>
         </div>
@@ -179,8 +184,8 @@ function RegisterForm() {
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('auth.register.privacy', 'Privacy Policy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('auth.register.terms', 'Terms of Service')}</Link>
           </div>
         </div>
       </div>
@@ -188,29 +193,15 @@ function RegisterForm() {
       {/* ── Right Registration Panel ── */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-zinc-50 dark:bg-[#060b19]">
         <div className="w-full max-w-md">
-          {/* Mobile Logo Header */}
-          {/* <div className="lg:hidden flex items-center justify-between mb-8">
-            <Link href="/">
-              <Logo />
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold font-exo-extralight text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
-            >
-              <FiHome size={13} />
-              <span>Home</span>
-            </Link>
-          </div> */}
-
           <div className="mb-8">
             <h2
               suppressHydrationWarning
               className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2"
             >
-              Create Account
+              {t('auth.register.title', 'Create Account')}
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm font-exo-extralight">
-              Fill in your details to set up your client account.
+              {t('auth.register.subtitle', 'Fill in your details to set up your client account.')}
             </p>
           </div>
 
@@ -226,14 +217,14 @@ function RegisterForm() {
             {/* Full Name */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                Full Name
+                {t('auth.register.fullName', 'Full Name')}
               </label>
               <div className="relative">
                 <FiUser size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
                 <input
                   type="text"
                   required
-                  placeholder="Enter Your Name"
+                  placeholder={t('auth.register.fullNamePlaceholder', 'Enter Your Name')}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
@@ -244,14 +235,14 @@ function RegisterForm() {
             {/* Email Field */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                Email Address
+                {t('auth.register.emailLabel', 'Email Address')}
               </label>
               <div className="relative">
                 <FiMail size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
                 <input
                   type="email"
                   required
-                  placeholder="Enter Your Email"
+                  placeholder={t('auth.register.emailPlaceholder', 'Enter Your Email')}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
@@ -262,14 +253,14 @@ function RegisterForm() {
             {/* Password Field */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-exo-extralight mb-1.5">
-                Password
+                {t('auth.register.passwordLabel', 'Password')}
               </label>
               <div className="relative">
                 <FiLock size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Create a strong password (min 6 chars)"
+                  placeholder={t('auth.register.passwordPlaceholder', 'Create a strong password (min 6 chars)')}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="w-full pl-11 pr-11 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-exo-extralight"
@@ -283,11 +274,11 @@ function RegisterForm() {
                 </button>
               </div>
 
-              {/* Password Strength Indicator (matching organic reference project) */}
+              {/* Password Strength Indicator */}
               {formData.password.length > 0 && (
                 <div className="mt-2.5">
                   <div className="flex items-center justify-between text-[11px] font-exo-extralight mb-1">
-                    <span className="text-zinc-500 dark:text-zinc-400">Password Strength:</span>
+                    <span className="text-zinc-500 dark:text-zinc-400">{t('auth.register.passwordStrength', 'Password Strength:')}</span>
                     <span className="font-bold text-zinc-700 dark:text-zinc-300">{strength.label}</span>
                   </div>
                   <div className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
@@ -310,13 +301,13 @@ function RegisterForm() {
                   className="mt-1 w-4 h-4 rounded border-zinc-300 text-violet-600 focus:ring-violet-500"
                 />
                 <span className="text-xs text-zinc-600 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-                  I agree to MerxoDev's{' '}
+                  {t('auth.register.agreeTerms', "I agree to MerxoDev's")}{' '}
                   <Link href="/terms" target="_blank" className="text-violet-600 dark:text-cyan-400 hover:underline">
-                    Terms of Service
+                    {t('auth.register.terms', 'Terms of Service')}
                   </Link>{' '}
-                  and{' '}
+                  {t('auth.register.and', 'and')}{' '}
                   <Link href="/privacy" target="_blank" className="text-violet-600 dark:text-cyan-400 hover:underline">
-                    Privacy Policy
+                    {t('auth.register.privacy', 'Privacy Policy')}
                   </Link>
                   .
                 </span>
@@ -333,7 +324,7 @@ function RegisterForm() {
                 <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <span>Create Account</span>
+                  <span>{t('auth.register.createBtn', 'Create Account')}</span>
                   <FiArrowRight size={17} />
                 </>
               )}
@@ -343,12 +334,12 @@ function RegisterForm() {
           {/* Login Prompt */}
           <div className="mt-8 text-center border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
             <p className="text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight">
-              Already have an account?{' '}
+              {t('auth.register.haveAccount', 'Already have an account?')}{' '}
               <Link
                 href={`/account/login${redirectUrl ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
                 className="font-bold text-violet-600 dark:text-cyan-400 hover:underline"
               >
-                Sign In
+                {t('auth.register.signIn', 'Sign In')}
               </Link>
             </p>
           </div>
