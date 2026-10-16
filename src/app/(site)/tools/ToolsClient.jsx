@@ -386,9 +386,10 @@ export default function ToolsClient() {
         {filteredTools.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {filteredTools.map((tool) => (
-              <div
+              <Link
                 key={tool.id}
-                className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50 dark:hover:border-blue-500/50 overflow-hidden"
+                href={tool.href}
+                className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50 dark:hover:border-blue-500/50 overflow-hidden cursor-pointer"
               >
                 {/* Ambient glow accent */}
                 <div
@@ -409,14 +410,13 @@ export default function ToolsClient() {
                 </div>
 
                 {/* Bottom: Open Tool Button */}
-                <Link
-                  href={tool.href}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 cursor-pointer"
+                <div
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30"
                 >
                   <span>Open Tool</span>
                   <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         ) : (
