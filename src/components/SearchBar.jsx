@@ -3,8 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 
 export default function SearchBar({ mobile = false }) {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -140,7 +143,11 @@ export default function SearchBar({ mobile = false }) {
               setIsOpen(true);
             }
           }}
-          placeholder={mobile ? "Search anything..." : "Search projects, services, technologies, solutions..."}
+          placeholder={
+            mobile
+              ? t('search.placeholderMobile', 'Search anything...')
+              : t('search.placeholder', 'Search projects, services, technologies, solutions...')
+          }
           className={`w-full rounded-sm transition-all duration-200 outline-none font-exo-extralight ${mobile
             ? 'py-2.5 pl-3 pr-16 text-xs font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
             : 'py-3 pl-3.5 pr-20 text-xs sm:text-sm font-medium bg-white dark:bg-[#0a1022] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 border border-violet-200/70 dark:border-blue-900/60 focus:border-violet-500 dark:focus:border-cyan-400 shadow-sm'
@@ -157,7 +164,7 @@ export default function SearchBar({ mobile = false }) {
               inputRef.current?.focus();
             }}
             className="absolute right-12 sm:right-14 top-1/2 -translate-y-1/2 p-1 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors cursor-pointer"
-            aria-label="Clear search"
+            aria-label={t('search.clear', 'Clear search')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +195,7 @@ export default function SearchBar({ mobile = false }) {
           }}
           className={`absolute inset-y-0 right-0 flex items-center justify-center rounded-r-sm bg-violet-50 hover:bg-violet-100/90 dark:bg-violet-950/60 dark:hover:bg-violet-900/70 text-violet-600 dark:text-cyan-400 border-l border-violet-200/70 dark:border-blue-900/60 transition-colors cursor-pointer select-none ${mobile ? 'w-10' : 'w-11 sm:w-12'
             }`}
-          aria-label="Search"
+          aria-label={t('search.title', 'Search')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -213,13 +220,13 @@ export default function SearchBar({ mobile = false }) {
           {loading && !hasResults && (
             <div className="flex items-center justify-center gap-2 py-6 text-xs text-zinc-500 font-exo-extralight font-semibold">
               <span className="w-3 h-3 border-2 border-violet-600 border-t-transparent rounded-full animate-spin" />
-              Searching...
+              {t('search.searching', 'Searching...')}
             </div>
           )}
 
           {!loading && !hasResults && (
             <div className="py-6 px-4 text-center text-xs text-zinc-500 font-exo-extralight">
-              No matches found for &ldquo;<span className="text-violet-600 font-semibold">{query}</span>&rdquo;
+              {t('search.noMatchesStart', 'No matches found for')} &ldquo;<span className="text-violet-600 font-semibold">{query}</span>&rdquo;
             </div>
           )}
 
@@ -228,7 +235,7 @@ export default function SearchBar({ mobile = false }) {
             <div className="mb-2">
               <div className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400 font-exo-extralight">
                 <span className="w-1.5 h-1.5 rounded-full bg-violet-600 animate-pulse" />
-                Found on this page (Jump to):
+                {t('search.foundOnPage', 'Found on this page (Jump to):')}
               </div>
               <div className="flex flex-col gap-0.5 mt-1">
                 {pageMatches.map((m, idx) => (
@@ -242,7 +249,7 @@ export default function SearchBar({ mobile = false }) {
                       {m.text}
                     </span>
                     <span className="text-[9px] px-1.5 py-0.5 rounded bg-violet-100 dark:bg-zinc-700 text-violet-700 dark:text-violet-300 uppercase tracking-wider font-semibold shrink-0 group-hover:bg-violet-600 group-hover:text-white transition-colors">
-                      Jump →
+                      {t('search.jump', 'Jump →')}
                     </span>
                   </button>
                 ))}
@@ -255,7 +262,7 @@ export default function SearchBar({ mobile = false }) {
             <div className="mb-2">
               <div className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 font-exo-extralight">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                Projects
+                {t('search.projects', 'Projects')}
               </div>
               <div className="flex flex-col gap-0.5 mt-1">
                 {dbResults.projects.map((p) => (
@@ -289,7 +296,7 @@ export default function SearchBar({ mobile = false }) {
             <div>
               <div className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400 font-exo-extralight">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                Pages & Services
+                {t('search.pagesServices', 'Pages & Services')}
               </div>
               <div className="flex flex-col gap-0.5 mt-1">
                 {dbResults.results.map((r, idx) => (

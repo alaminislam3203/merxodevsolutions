@@ -58,7 +58,7 @@ export default function Navbar() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(email).then(() => {
         setEmailCopied(true);
-        toast.success('Email copied!', { id: 'email-copy', duration: 2000 });
+        toast.success(t('navProfile.copiedAlert', 'Email copied!'), { id: 'email-copy', duration: 2000 });
         setTimeout(() => setEmailCopied(false), 2500);
       }).catch(() => {
         fallbackCopy(email);
@@ -80,10 +80,10 @@ export default function Navbar() {
       document.execCommand('copy');
       document.body.removeChild(el);
       setEmailCopied(true);
-      toast.success('Email copied!', { id: 'email-copy', duration: 2000 });
+      toast.success(t('navProfile.copiedAlert', 'Email copied!'), { id: 'email-copy', duration: 2000 });
       setTimeout(() => setEmailCopied(false), 2500);
     } catch {
-      toast.error('Failed to copy');
+      toast.error(t('navProfile.copyFailed', 'Failed to copy'));
     }
   };
 
@@ -121,7 +121,7 @@ export default function Navbar() {
     { label: t('journey'), href: '/our-journey' },
     { label: t('about'), href: '/about' },
     { label: t('team'), href: '/our-team' },
-    { label: t('tools'), href: '/tools' },
+    { label: t('tools', 'Tools'), href: '/tools' },
     { label: t('contact'), href: '/contact' },
     { label: t('projects'), href: '/our-projects' },
   ];
@@ -289,7 +289,7 @@ export default function Navbar() {
                   type="button"
                   onClick={() => setUserMenuOpen((prev) => !prev)}
                   className="p-1.5 sm:p-2 rounded-xl text-white hover:text-cyan-300 hover:bg-white/10 dark:hover:bg-white/5 transition-all relative flex items-center justify-center cursor-pointer"
-                  aria-label="Account"
+                  aria-label={t('navProfile.account', 'Account')}
                 >
                   {session?.user?.image ? (
                     <img
@@ -478,7 +478,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 shrink-0">
             <a
               href="tel:+8801313334279"
-              aria-label="Call MerxoDev Solutions"
+              aria-label={t('callUs', 'Call MerxoDev Solutions')}
               className="relative inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/40 active:scale-95 transition-all duration-200 animate-call-glow overflow-hidden select-none"
             >
               <span className="animate-phone-ring text-white">
@@ -515,7 +515,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-blue-950 hover:opacity-90 transition-opacity"
-              aria-label="Get In Touch"
+              aria-label={t('getInTouch', 'Get In Touch')}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -558,7 +558,7 @@ export default function Navbar() {
           <button
             onClick={() => setSidebarOpen(true)}
             className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-400 hover:text-violet-500 transition-colors font-exo-extralight"
-            aria-label="Open menu"
+            aria-label={t('openMenu', 'Open menu')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -602,7 +602,7 @@ export default function Navbar() {
                   href="/account"
                   onClick={() => setSidebarOpen(false)}
                   className="relative shrink-0 group"
-                  aria-label="View Profile"
+                  aria-label={t('navProfile.myProfile', 'View Profile')}
                 >
                   {session.user.image ? (
                     <img
@@ -669,7 +669,7 @@ export default function Navbar() {
             <button
               onClick={() => setSidebarOpen(false)}
               className="p-2 rounded-xl bg-violet-200/70 dark:bg-white/10 text-zinc-700 dark:text-white/80 hover:text-zinc-950 dark:hover:text-white hover:bg-violet-300/70 dark:hover:bg-white/20 transition-all border border-violet-300/60 dark:border-white/10 shrink-0"
-              aria-label="Close menu"
+              aria-label={t('closeMenu', 'Close menu')}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -795,7 +795,7 @@ export default function Navbar() {
               onClick={() => setSidebarOpen(false)}
               className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
             >
-              Privacy Policy
+              {t('privacyPolicy', 'Privacy Policy')}
             </Link>
             <span>•</span>
             <Link
@@ -803,7 +803,7 @@ export default function Navbar() {
               onClick={() => setSidebarOpen(false)}
               className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
             >
-              Terms of Service
+              {t('termsOfService', 'Terms of Service')}
             </Link>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const socials = [
   {
@@ -324,6 +325,9 @@ export default function Footer() {
               >
                 {t('footer.contact.email')}
               </a>
+            </li>
+            <li className='hidden'>
+              <LanguageSwitcher variant="menu" className="w-full" />
             </li>
           </ul>
         </div>
