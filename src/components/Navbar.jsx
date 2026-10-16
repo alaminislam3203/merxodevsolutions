@@ -119,7 +119,7 @@ export default function Navbar() {
     // { label: t('home'), href: '/' },
     { label: t('services'), href: '/services' },
     { label: t('journey'), href: '/our-journey' },
-    { label: t('about'), href: '/about' },
+    { label: t('about.nav', t('aboutNav', 'About')), href: '/about' },
     { label: t('team'), href: '/our-team' },
     { label: t('tools', 'Tools'), href: '/tools' },
     { label: t('contact.nav', t('contactNav', 'Contact')), href: '/contact' },

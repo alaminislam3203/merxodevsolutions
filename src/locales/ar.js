@@ -590,7 +590,7 @@ const ar = {
       home: 'الرئيسية',
       services: 'الخدمات',
       journey: 'رحلتنا',
-      about: 'من نحن',
+      aboutNav: 'من نحن',
       team: 'فريقنا',
       tools: 'الأدوات',
       contactNav: 'اتصل بنا',
@@ -1135,6 +1135,7 @@ const ar = {
       },
 
       about: {
+        nav: 'من نحن',
         heroBadge: 'من نحن',
         heroTitleStart: 'نبني حلولاً رقمية',
         heroTitleHighlight: 'تدوم طويلاً.',

@@ -451,7 +451,7 @@ export default function AIChatbot() {
           ) : (
             <div className="flex flex-col items-center justify-center">
               <IoChatbubbleEllipsesSharp className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
-              <span className="text-[8px] font-black uppercase tracking-tighter mt-0.5">AI CHAT</span>
+              <span className="text-[8px] font-black uppercase tracking-tighter mt-0.5">SUPPORT</span>
             </div>
           )}
         </button>

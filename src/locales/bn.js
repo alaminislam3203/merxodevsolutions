@@ -629,7 +629,7 @@ const bn = {
     home: 'হোম',
     services: 'সেবা',
     journey: 'যাত্রা',
-    about: 'আমাদের সম্পর্কে',
+    aboutNav: 'আমাদের সম্পর্কে',
     team: 'আমাদের টিম',
     tools: 'টুলস',
     contactNav: 'যোগাযোগ',
@@ -1235,6 +1235,7 @@ const bn = {
     },
 
     about: {
+      nav: 'আমাদের সম্পর্কে',
       heroBadge: 'আমরা কারা',
       heroTitleStart: 'আমরা এমন ডিজিটাল পণ্য গড়ি',
       heroTitleHighlight: 'যা দীর্ঘস্থায়ী হয়।',

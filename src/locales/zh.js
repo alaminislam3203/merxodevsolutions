@@ -551,7 +551,7 @@ const zh = {
       home: '首页',
       services: '服务',
       journey: '历程',
-      about: '关于我们',
+      aboutNav: '关于我们',
       team: '团队',
       tools: '实用工具',
       contactNav: '联系',
@@ -1094,6 +1094,7 @@ const zh = {
       },
 
       about: {
+        nav: '关于我们',
         heroBadge: '我们是谁',
         heroTitleStart: '我们构建经久耐用的',
         heroTitleHighlight: '数字化产品。',

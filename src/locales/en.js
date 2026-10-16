@@ -622,7 +622,7 @@ const en = {
       home: 'Home',
       services: 'Services',
       journey: 'Journey',
-      about: 'About',
+      aboutNav: 'About',
       team: 'Our Team',
       tools: 'Tools',
       contactNav: 'Contact',
@@ -1227,6 +1227,7 @@ const en = {
       },
 
       about: {
+        nav: 'About',
         heroBadge: 'Who We Are',
         heroTitleStart: 'We build digital things',
         heroTitleHighlight: 'that last.',
