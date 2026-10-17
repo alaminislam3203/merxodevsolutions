@@ -312,7 +312,7 @@ export default function JsonFormatterClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
             Home
           </Link>
@@ -342,7 +342,7 @@ export default function JsonFormatterClient() {
               </span>
             </div>
 
-            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               JSON{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
                 Formatter & Validator

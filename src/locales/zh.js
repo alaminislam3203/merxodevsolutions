@@ -846,6 +846,177 @@ const zh = {
         "btn": "立即订阅 SLA 技术保障"
       }
     },
+    "seoService": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务",
+        "current": "搜索引擎优化 (SEO)"
+      },
+      "badge": "锁定 Google 首页第一 & 驱动自然流量商业变现",
+      "hero": {
+        "titleStart": "专业搜索引擎 ",
+        "titleHighlight": "优化服务 (SEO)",
+        "desc": "依靠严谨的技术型 SEO、Core Web Vitals 极速性能调优、高权重外链拓展与 Schema 结构化微数据，全面领跑 Google 搜索结果。",
+        "ctaPrimary": "获取免费 SEO 诊断报告",
+        "ctaSecondary": "查看搜索排名案例"
+      },
+      "trust": {
+        "pagespeed": "Google 95+ PageSpeed 极速",
+        "snippets": "Schema.org 丰富摘要",
+        "whitehat": "100% 白帽合规技术",
+        "roi": "清晰可衡量的 ROI 报表"
+      },
+      "stats": [
+        { "value": "前 3 名", "label": "Google 核心词排名目标" },
+        { "value": "+350%", "label": "平均自然搜索流量跃升" },
+        { "value": "95+", "label": "Core Web Vitals 性能分" },
+        { "value": "100%", "label": "正规白帽合规手法" }
+      ],
+      "capabilities": {
+        "badge": "✦ 专为建立搜索统治力而构建",
+        "titleStart": "全方位立体化搜索引擎 ",
+        "titleHighlight": "优化能力",
+        "cardFooter": "Google 认证标准执行流程",
+        "items": [
+          {
+            "title": "Core Web Vitals 与极速性能优化",
+            "desc": "毫秒级首字节响应时间，极致调优 LCP、INP 与 CLS 核心指标，满足 Google 排名算法偏好。"
+          },
+          {
+            "title": "深度关键词发掘与搜索意图分析",
+            "desc": "精准锁定高搜索量、低竞争度的黄金商业词汇，洞悉买家商业搜索意图并挖掘长尾转化词。"
+          },
+          {
+            "title": "技术型 SEO 架构治理与站点地图",
+            "desc": "标准化 XML 站点地图、robots.txt 规范、规范化 canonical 标签、动态 OpenGraph 社交标签与 404 修复。"
+          },
+          {
+            "title": "Schema.org JSON-LD 结构化微数据",
+            "desc": "全站部署文章、常见问答、产品服务、本地企业及面包屑 Rich Snippets，垄断 Google SERP 版面。"
+          },
+          {
+            "title": "本地 SEO 与 Google 企业商家档案",
+            "desc": "深度优化本地搜索能见度、Google 地图排名、NAP 数据一致性与地域定制着陆页权重。"
+          },
+          {
+            "title": "页面内容语义与 H 标签架构",
+            "desc": "严谨构建 H1-H4 标题层级、元标题、描述文案、图片 Alt 属性与利于主题权威度凝聚的内链系统。"
+          },
+          {
+            "title": "高权重权威外链建设与数字公关",
+            "desc": "获取行业顶级权威上下文反向链接，执行数字公关与优质投稿，并主动排查清理有害垃圾链接。"
+          },
+          {
+            "title": "Google Search Console 与 GA4 埋点",
+            "desc": "全功能搜索追踪系统上线，实时监控页面抓取与索引状况，呈现深入的搜索词报表与转化看板。"
+          },
+          {
+            "title": "算法惩罚免疫防线",
+            "desc": "严格遵守 Google Search Essentials 与 Helpful Content 评估指南，确保长期稳健的自然流量增长。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 企业级审计技术栈",
+        "title": "数据与 SEO 工具生态",
+        "items": [
+          { "label": "Google Search Console", "category": "站长分析" },
+          { "label": "Google Analytics 4", "category": "行为追踪" },
+          { "label": "Ahrefs", "category": "外链审计" },
+          { "label": "Semrush", "category": "词库挖掘" },
+          { "label": "Schema.org JSON-LD", "category": "结构化数据" },
+          { "label": "Next.js Dynamic Sitemap", "category": "动态索引" },
+          { "label": "Lighthouse PageSpeed", "category": "性能测速" },
+          { "label": "OpenGraph Meta Engine", "category": "社交SEO" },
+          { "label": "Google Tag Manager", "category": "事件埋点" },
+          { "label": "Local Citation Networks", "category": "本地化引用" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ 透明的搜索增长方案",
+        "titleStart": "选择匹配您业务的 ",
+        "titleHighlight": "SEO 方案",
+        "topValue": "★ 最具性价比之选",
+        "oneTime": "/ 单次服务",
+        "plans": [
+          {
+            "name": "技术型 SEO 深度体检与修复",
+            "price": "BDT 1500",
+            "desc": "针对现有网站进行全面的技术型漏洞体检与站内源代码问题彻底修复。",
+            "features": [
+              "全站技术架构深度扫描与错误消除",
+              "PageSpeed 与 Core Web Vitals 提速",
+              "Schema.org 结构化数据全量部署",
+              "XML 站点地图与 Robots.txt 规范重构",
+              "Google Search Console 与 GA4 深度联调",
+              "交付详尽且专业的全套 PDF 诊断报告"
+            ],
+            "popular": false,
+            "cta": "获取技术修复"
+          },
+          {
+            "name": "高增长 SEO 与核心词排名",
+            "price": "BDT 2700",
+            "desc": "专为期望快速提升核心词搜索排名并在 Google 斩获询盘的成长型企业打造。",
+            "features": [
+              "锁定 15 组高商业价值与转化意向关键词",
+              "全方位站内技术代码与内容语义优化",
+              "获取行业顶级高质量权威反向链接",
+              "内容文案调优与 H 标签权威层级重构",
+              "Google 商家档案与本地地图 SEO",
+              "每两周提供透明清晰的关键词排名周报",
+              "全天候页面索引稳定性主动监控"
+            ],
+            "popular": true,
+            "cta": "启动搜索增长战役"
+          },
+          {
+            "name": "行业霸屏企业级全案",
+            "price": "BDT 3900",
+            "desc": "面向激烈竞争赛道与全球出海业务的一站式全渠道立体化搜索营销战役。",
+            "features": [
+              "覆盖 40+ 全国乃至全球重点行业关键词",
+              "深度竞争对手 SERP 关键词截流策略",
+              "顶级权威媒体 PR 与编辑级反向链接",
+              "程序化批量长尾 SEO 页面架构生成",
+              "全链路转化率提升优化 (CRO)",
+              "每周专属线上战略与排名复盘会议",
+              "指派资深首席 SEO 架构师专案负责"
+            ],
+            "popular": false,
+            "cta": "领跑行业搜索排行"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ 排名疑问答疑",
+        "title": "常见问题解答",
+        "items": [
+          {
+            "q": "通常需要多久才能在 Google 看到排名的实质性提升？",
+            "a": "技术层面的修复与索引效率的改善一般在 2–4 周内即可初见成效。而核心高竞争关键词排名的显著跃升与持续的自然流量爆发，通常在坚持 2–3 个月正规白帽优化后显现。"
+          },
+          {
+            "q": "你们的 SEO 操作是否完全符合 Google 白帽合规标准？",
+            "a": "是的，100% 纯正白帽。我们严格恪守 Google Search Essentials 官方指南，坚决杜绝群发外链农场、隐藏文本或关键词堆砌等黑帽违规手段，确保您的资产免受任何算法惩罚。"
+          },
+          {
+            "q": "你们既能做本地市场搜索，也能做海外国际市场吗？",
+            "a": "完全可以！我们既精通本地城市区域的 Google 商家档案与本地地图 SEO，也擅长面向国际出海获取海外客户的全球高标准技术型多语言 SEO。"
+          },
+          {
+            "q": "合作过程中我该如何透明掌握网站的排名进展？",
+            "a": "我们会为您全面配置并联调 Google Analytics 4 与 Google Search Console，定期交付数据真实透明的分析报表，清楚呈现关键词排名位次、点击量与曝光次数。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 准备好抢占 Google 搜索首页了吗？",
+        "title": "携手解锁您企业的最大自然流量商业潜力",
+        "desc": "立即申请免费深度网站 SEO 诊断，精准排查制约您线上排名的技术与关键词瓶颈。",
+        "btn": "立即申请免费 SEO 体检"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "首页",
       "breadcrumbServices": "服务",

@@ -862,6 +862,177 @@ const en = {
         "btn": "Subscribe to SLA Protection"
       }
     },
+    "seoService": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "SEO Optimization"
+      },
+      "badge": "Rank #1 on Google & Drive Organic Revenue",
+      "hero": {
+        "titleStart": "Search Engine ",
+        "titleHighlight": "Optimization",
+        "desc": "Dominate Google search results with our data-backed technical SEO, Core Web Vitals speed tuning, high-authority backlink outreach, and schema rich snippets.",
+        "ctaPrimary": "Get Free SEO Audit",
+        "ctaSecondary": "View Ranking Case Studies"
+      },
+      "trust": {
+        "pagespeed": "Google 95+ PageSpeed",
+        "snippets": "Schema.org Rich Snippets",
+        "whitehat": "100% White-Hat Only",
+        "roi": "Measurable ROI & Reports"
+      },
+      "stats": [
+        { "value": "Top 3", "label": "Google Search Ranking Goals" },
+        { "value": "+350%", "label": "Avg. Organic Traffic Lift" },
+        { "value": "95+", "label": "Core Web Vitals Score" },
+        { "value": "100%", "label": "White-Hat SEO Techniques" }
+      ],
+      "capabilities": {
+        "badge": "✦ Engineered for Search Dominance",
+        "titleStart": "Comprehensive Search Engine ",
+        "titleHighlight": "Optimization",
+        "cardFooter": "Google Certified Process",
+        "items": [
+          {
+            "title": "Core Web Vitals & Speed Optimization",
+            "desc": "Sub-second server response times, optimized LCP, INP, and CLS scores that Google algorithms prioritize for top rankings."
+          },
+          {
+            "title": "In-Depth Keyword & Intent Research",
+            "desc": "Identifying high-volume, low-competition keywords, commercial buyer intent phrases, and long-tail query opportunities."
+          },
+          {
+            "title": "Technical SEO Architecture & Sitemaps",
+            "desc": "Clean XML sitemaps, robots.txt, canonical tag implementation, dynamic OpenGraph meta cards, and 404 error mitigation."
+          },
+          {
+            "title": "Schema.org JSON-LD Structured Data",
+            "desc": "Rich snippets implementation for articles, FAQs, products, local businesses, and breadcrumbs to dominate Google SERP."
+          },
+          {
+            "title": "Local SEO & Google Business Profile",
+            "desc": "Optimizing local search presence, Google Maps rankings, NAP consistency, and geo-targeted landing page authority."
+          },
+          {
+            "title": "On-Page Content & Heading Strategy",
+            "desc": "Structuring semantic H1-H4 hierarchies, meta titles, descriptions, image alt tags, and internal link routing for topical authority."
+          },
+          {
+            "title": "Authority Link Building & Outreach",
+            "desc": "High-domain-authority contextual backlinks, digital PR outreach, guest publications, and toxic backlink disavowal."
+          },
+          {
+            "title": "Google Search Console & GA4 Setup",
+            "desc": "Complete tracking setup with real-time indexing monitoring, search query analytics, and custom conversion dashboards."
+          },
+          {
+            "title": "Algorithmic Penalty Protection",
+            "desc": "Strict adherence to Google Search Essentials and Helpful Content guidelines to ensure lifelong organic immunity and growth."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Enterprise Auditing Stack",
+        "title": "Data & SEO Toolchain",
+        "items": [
+          { "label": "Google Search Console", "category": "Analytics" },
+          { "label": "Google Analytics 4", "category": "Tracking" },
+          { "label": "Ahrefs", "category": "Auditing" },
+          { "label": "Semrush", "category": "Keywords" },
+          { "label": "Schema.org JSON-LD", "category": "Rich Snippets" },
+          { "label": "Next.js Dynamic Sitemap", "category": "Indexing" },
+          { "label": "Lighthouse PageSpeed", "category": "Performance" },
+          { "label": "OpenGraph Meta Engine", "category": "Social SEO" },
+          { "label": "Google Tag Manager", "category": "Events" },
+          { "label": "Local Citation Networks", "category": "Local SEO" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ Transparent Search Growth",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "SEO Package",
+        "topValue": "★ Top Value Growth",
+        "oneTime": "/ one-time",
+        "plans": [
+          {
+            "name": "Technical SEO Audit & Fix",
+            "price": "BDT 1500",
+            "desc": "Comprehensive technical audit and complete on-page code fixes for existing websites.",
+            "features": [
+              "Full Technical Audit & Error Fixing",
+              "PageSpeed & Core Web Vitals Optimization",
+              "Schema.org Structured Data Setup",
+              "XML Sitemap & Robots.txt Config",
+              "Google Search Console & GA4 Integration",
+              "Comprehensive Audit PDF Report"
+            ],
+            "popular": false,
+            "cta": "Get Technical Fix"
+          },
+          {
+            "name": "Growth SEO & Organic Ranking",
+            "price": "BDT 2700",
+            "desc": "Our most popular monthly growth package for businesses wanting top Google rankings.",
+            "features": [
+              "Targeted 15 High-Value Keyword Groups",
+              "Full Technical & On-Page Optimization",
+              "High-Authority Backlink Acquisition",
+              "Content Optimization & Heading Strategy",
+              "Google Business Profile & Local Maps SEO",
+              "Bi-Weekly Ranking Progress Reports",
+              "Continuous Indexing Monitoring"
+            ],
+            "popular": true,
+            "cta": "Start Growth Campaign"
+          },
+          {
+            "name": "Market Dominance Enterprise",
+            "price": "BDT 3900",
+            "desc": "All-inclusive multi-channel SEO campaign for competitive industries and global reach.",
+            "features": [
+              "Targeted 40+ National/Global Keywords",
+              "Competitor SERP Interception Strategy",
+              "Tier-1 PR & Editorial Link Building",
+              "Programmatic SEO Page Generation",
+              "Conversion Rate Optimization (CRO)",
+              "Weekly Live Strategy & Ranking Reviews",
+              "Dedicated Senior SEO Strategist"
+            ],
+            "popular": false,
+            "cta": "Dominate Search Rankings"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Organic Ranking FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "How long does it take to see tangible ranking results on Google?",
+            "a": "Technical SEO fixes and indexing improvements typically show effects within 2–4 weeks. Significant organic ranking jumps and consistent traffic growth usually manifest in 2–3 months of white-hat optimization."
+          },
+          {
+            "q": "Are your SEO practices strictly White-Hat?",
+            "a": "Yes, 100%. We strictly abide by Google Search Essentials guidelines. We never use spammy link farms, hidden text, or keyword stuffing that could risk algorithmic penalties."
+          },
+          {
+            "q": "Do you optimize for Bangladesh local search as well as international markets?",
+            "a": "Yes! We specialize in local SEO (Dhaka, Chittagong, Sylhet and all BD districts) with Google Business Profile optimization, as well as global technical SEO for international client acquisition."
+          },
+          {
+            "q": "How will I track my website ranking progress?",
+            "a": "We set up Google Analytics 4 and Google Search Console, and deliver clear, transparent ranking progress reports showing exact keyword positions, click-through rates, and organic impressions."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Ready to Rank on Page 1 of Google?",
+        "title": "Let's Unlock Your Maximum Organic Growth",
+        "desc": "Claim your free in-depth website audit today and discover the exact technical and keyword bottlenecks holding your rankings back.",
+        "btn": "Claim Free SEO Audit"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "Home",
       "breadcrumbServices": "Services",

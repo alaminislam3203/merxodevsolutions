@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -15,21 +17,27 @@ import {
   FiActivity,
   FiLink,
   FiChevronDown,
-  FiAward,
 } from 'react-icons/fi';
 import { FaGoogle, FaChartLine } from 'react-icons/fa';
 
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) && val.length > 0 ? val : null;
+}
+
 export default function ServicesSeoPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
-  const stats = [
+  const fallbackStats = [
     { value: 'Top 3', label: 'Google Search Ranking Goals' },
     { value: '+350%', label: 'Avg. Organic Traffic Lift' },
     { value: '95+', label: 'Core Web Vitals Score' },
     { value: '100%', label: 'White-Hat SEO Techniques' },
   ];
+  const stats = arr(t, 'seoService.stats') || fallbackStats;
 
-  const featureMeta = [
+  const featureStyling = [
     {
       icon: <FiZap size={24} />,
       title: 'Core Web Vitals & Speed Optimization',
@@ -104,7 +112,14 @@ export default function ServicesSeoPage() {
     },
   ];
 
-  const techStack = [
+  const translatedFeatures = arr(t, 'seoService.capabilities.items');
+  const features = featureStyling.map((item, idx) => ({
+    ...item,
+    title: translatedFeatures?.[idx]?.title || item.title,
+    desc: translatedFeatures?.[idx]?.desc || item.desc,
+  }));
+
+  const fallbackTechStack = [
     { label: 'Google Search Console', category: 'Analytics' },
     { label: 'Google Analytics 4', category: 'Tracking' },
     { label: 'Ahrefs', category: 'Auditing' },
@@ -116,8 +131,9 @@ export default function ServicesSeoPage() {
     { label: 'Google Tag Manager', category: 'Events' },
     { label: 'Local Citation Networks', category: 'Local SEO' },
   ];
+  const techStack = arr(t, 'seoService.techStack.items') || fallbackTechStack;
 
-  const plans = [
+  const fallbackPlans = [
     {
       name: 'Technical SEO Audit & Fix',
       price: 'BDT 1500',
@@ -167,7 +183,17 @@ export default function ServicesSeoPage() {
     },
   ];
 
-  const faqs = [
+  const translatedPlans = arr(t, 'seoService.pricing.plans');
+  const plans = fallbackPlans.map((plan, idx) => ({
+    ...plan,
+    name: translatedPlans?.[idx]?.name || plan.name,
+    price: translatedPlans?.[idx]?.price || plan.price,
+    desc: translatedPlans?.[idx]?.desc || plan.desc,
+    features: translatedPlans?.[idx]?.features || plan.features,
+    cta: translatedPlans?.[idx]?.cta || plan.cta,
+  }));
+
+  const fallbackFaqs = [
     {
       q: 'How long does it take to see tangible ranking results on Google?',
       a: 'Technical SEO fixes and indexing improvements typically show effects within 2–4 weeks. Significant organic ranking jumps and consistent traffic growth usually manifest in 2–3 months of white-hat optimization.',
@@ -185,6 +211,7 @@ export default function ServicesSeoPage() {
       a: 'We set up Google Analytics 4 and Google Search Console, and deliver clear, transparent ranking progress reports showing exact keyword positions, click-through rates, and organic impressions.',
     },
   ];
+  const faqs = arr(t, 'seoService.faq.items') || fallbackFaqs;
 
   return (
     <main className="text-[#27003B] dark:text-white transition-colors duration-300">
@@ -193,9 +220,6 @@ export default function ServicesSeoPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
-          style={{
-            // background: 'radial-gradient(circle, #10b981, #06b6d4, transparent 70%)',
-          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -204,32 +228,32 @@ export default function ServicesSeoPage() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-emerald-500 transition-colors">
-              Home
+              {t('seoService.breadcrumb.home', 'Home')}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-emerald-500 transition-colors">
-              Services
+              {t('seoService.breadcrumb.services', 'Services')}
             </Link>
             <span>/</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
-              SEO Optimization
+              {t('seoService.breadcrumb.current', 'SEO Optimization')}
             </span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            Rank #1 on Google & Drive Organic Revenue
+            {t('seoService.badge', 'Rank #1 on Google & Drive Organic Revenue')}
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Search Engine{' '}
+            {t('seoService.hero.titleStart', 'Search Engine ')}
             <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
-              Optimization
+              {t('seoService.hero.titleHighlight', 'Optimization')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            Dominate Google search results with our data-backed technical SEO, Core Web Vitals speed tuning, high-authority backlink outreach, and schema rich snippets.
+            {t('seoService.hero.desc', 'Dominate Google search results with our data-backed technical SEO, Core Web Vitals speed tuning, high-authority backlink outreach, and schema rich snippets.')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -237,14 +261,14 @@ export default function ServicesSeoPage() {
               href="/contact?service=SEO%20Optimization"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-emerald-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Get Free SEO Audit</span>
+              <span>{t('seoService.hero.ctaPrimary', 'Get Free SEO Audit')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300"
             >
-              View Ranking Case Studies
+              {t('seoService.hero.ctaSecondary', 'View Ranking Case Studies')}
             </Link>
           </div>
 
@@ -252,19 +276,19 @@ export default function ServicesSeoPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaGoogle className="text-emerald-500" />
-              <span>Google 95+ PageSpeed</span>
+              <span>{t('seoService.trust.pagespeed', 'Google 95+ PageSpeed')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiZap className="text-amber-500" />
-              <span>Schema.org Rich Snippets</span>
+              <span>{t('seoService.trust.snippets', 'Schema.org Rich Snippets')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-violet-500" />
-              <span>100% White-Hat Only</span>
+              <span>{t('seoService.trust.whitehat', '100% White-Hat Only')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FaChartLine className="text-cyan-500" />
-              <span>Measurable ROI & Reports</span>
+              <span>{t('seoService.trust.roi', 'Measurable ROI & Reports')}</span>
             </div>
           </div>
         </div>
@@ -294,21 +318,21 @@ export default function ServicesSeoPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Search Dominance
+              {t('seoService.capabilities.badge', '✦ Engineered for Search Dominance')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Comprehensive Search Engine{' '}
+              {t('seoService.capabilities.titleStart', 'Comprehensive Search Engine ')}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-                Optimization
+                {t('seoService.capabilities.titleHighlight', 'Optimization')}
               </span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featureMeta.map((feature, i) => (
+            {features.map((feature, i) => (
               <div
                 key={i}
                 className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${feature.borderGlow}`}
@@ -330,7 +354,7 @@ export default function ServicesSeoPage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                  <span>Google Certified Process</span>
+                  <span>{t('seoService.capabilities.cardFooter', 'Google Certified Process')}</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
               </div>
@@ -344,10 +368,10 @@ export default function ServicesSeoPage() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-emerald-50/50 via-white to-cyan-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Enterprise Auditing Stack
+              {t('seoService.techStack.badge', '✦ Enterprise Auditing Stack')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Data & SEO Toolchain
+              {t('seoService.techStack.title', 'Data & SEO Toolchain')}
             </h3>
           </div>
 
@@ -375,15 +399,15 @@ export default function ServicesSeoPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent Search Growth
+              {t('seoService.pricing.badge', '✦ Transparent Search Growth')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
+              {t('seoService.pricing.titleStart', 'Choose Your ')}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-                SEO Package
+                {t('seoService.pricing.titleHighlight', 'SEO Package')}
               </span>
             </h2>
           </div>
@@ -399,7 +423,7 @@ export default function ServicesSeoPage() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Top Value Growth
+                    {t('seoService.pricing.topValue', '★ Top Value Growth')}
                   </div>
                 )}
 
@@ -415,7 +439,9 @@ export default function ServicesSeoPage() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-emerald-600 dark:text-emerald-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('seoService.pricing.oneTime', '/ one-time')}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -448,13 +474,13 @@ export default function ServicesSeoPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Organic Ranking FAQs
+              {t('seoService.faq.badge', '✦ Organic Ranking FAQs')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('seoService.faq.title', 'Frequently Asked Questions')}
             </h2>
           </div>
 
@@ -497,19 +523,19 @@ export default function ServicesSeoPage() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#012419] via-[#021f24] to-[#0a182e] border border-emerald-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
-              ✦ Ready to Rank on Page 1 of Google?
+              {t('seoService.cta.badge', '✦ Ready to Rank on Page 1 of Google?')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Let's Unlock Your Maximum Organic Growth
+              {t('seoService.cta.title', "Let's Unlock Your Maximum Organic Growth")}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Claim your free in-depth website audit today and discover the exact technical and keyword bottlenecks holding your rankings back.
+              {t('seoService.cta.desc', 'Claim your free in-depth website audit today and discover the exact technical and keyword bottlenecks holding your rankings back.')}
             </p>
             <Link
               href="/contact?service=SEO%20Optimization"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300"
             >
-              <span>Claim Free SEO Audit</span>
+              <span>{t('seoService.cta.btn', 'Claim Free SEO Audit')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>
