@@ -101,57 +101,37 @@ function BangladeshGeoLayoutInner({ children }) {
                     <Link
                       key={tab.href}
                       href={tab.href}
-                      className={`group flex items-center justify-center lg:justify-between gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border shrink-0 lg:shrink flex-1 lg:flex-initial whitespace-nowrap ${isActive
+                      className={`group flex items-center gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl transition-all duration-200 border shrink-0 lg:shrink flex-1 lg:flex-initial whitespace-nowrap ${
+                        isActive
                           ? 'bg-emerald-600 text-white border-transparent shadow-md shadow-emerald-600/20'
                           : 'bg-zinc-50/60 dark:bg-zinc-800/40 text-zinc-700 dark:text-zinc-300 border-zinc-200/60 dark:border-zinc-800/80 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/30 hover:border-emerald-300 dark:hover:border-emerald-800 hover:text-emerald-700 dark:hover:text-emerald-300'
-                        }`}
+                      }`}
                     >
-                      <div className="flex items-center gap-2 lg:gap-3 min-w-0">
-                        <Icon
-                          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors ${isActive
-                              ? 'text-white'
-                              : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
-                            }`}
-                        />
-                        <span className="truncate">{lang === 'bn' ? tab.nameBn : tab.nameEn}</span>
-                      </div>
-
-                      <span
-                        className={`hidden sm:inline-block lg:inline-block text-[10px] px-2 py-0.5 rounded-full font-mono font-medium ${isActive
-                            ? 'bg-white/20 text-white'
-                            : 'bg-zinc-200/70 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                      <Icon
+                        className={`w-4 h-4 shrink-0 transition-colors ${
+                          isActive
+                            ? 'text-white'
+                            : 'text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
+                        }`}
+                      />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-xs sm:text-sm font-semibold truncate leading-tight">
+                          {lang === 'bn' ? tab.nameBn : tab.nameEn}
+                        </span>
+                        <span
+                          className={`text-[10px] font-mono leading-tight mt-0.5 ${
+                            isActive
+                              ? 'text-emerald-100 opacity-90'
+                              : 'text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'
                           }`}
-                      >
-                        {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
-                      </span>
+                        >
+                          {lang === 'bn' ? tab.badgeBn : tab.badgeEn}
+                        </span>
+                      </div>
                     </Link>
                   );
                 })}
               </nav>
-            </div>
-
-            {/* Quick Info & Copy Card in Sidebar - desktop only */}
-            <div className="hidden lg:block p-4 rounded-3xl bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-transparent border border-emerald-500/20 dark:border-emerald-500/20 space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-emerald-700 dark:text-emerald-400 font-bold">
-                  bangladesh-geojson
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-mono font-medium border border-emerald-300/60 dark:border-emerald-800/60">
-                  v1.0.0
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={handleCopyInstall}
-                className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-mono transition-all border border-zinc-800 cursor-pointer shadow-sm"
-              >
-                <span className="truncate">$ npm i bangladesh-geojson</span>
-                {copied ? (
-                  <FiCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 ml-1.5" />
-                ) : (
-                  <FiCopy className="w-3.5 h-3.5 text-zinc-400 shrink-0 ml-1.5" />
-                )}
-              </button>
             </div>
           </aside>
 
