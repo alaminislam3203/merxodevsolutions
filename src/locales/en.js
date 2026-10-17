@@ -889,6 +889,177 @@ const en = {
         "allServices": "Explore All Services"
       }
     },
+    "design": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "UI/UX Design"
+      },
+      "hero": {
+        "badge": "Figma & World-Class Product Design",
+        "titleStart": "UI/UX Design That ",
+        "titleHighlight": "Inspires & Converts",
+        "subtitle": "We craft visually breathtaking, user-obsessed digital experiences — from high-converting landing pages to complex SaaS dashboard architectures in Figma.",
+        "ctaPrimary": "Book Design Consultation",
+        "ctaSecondary": "View Design Showcase"
+      },
+      "trust": {
+        "autoLayout": "Figma Auto-Layout",
+        "prototypes": "Interactive Prototypes",
+        "tokens": "Design System Tokens",
+        "handover": "Developer-Ready Code Handover"
+      },
+      "stats": [
+        { "value": "100%", "label": "Pixel-Perfect Designs" },
+        { "value": "4.9/5", "label": "Design Satisfaction" },
+        { "value": "40+", "label": "Design Systems Built" },
+        { "value": "2x-3x", "label": "Higher Conversion UX" }
+      ],
+      "features": {
+        "badge": "✦ Human-Centered Craftsmanship",
+        "titleStart": "Comprehensive UI/UX ",
+        "titleHighlight": "Design Services",
+        "cardBadge": "Pixel-Perfect Fidelity",
+        "items": [
+          {
+            "title": "Interactive Figma Prototypes",
+            "desc": "Clickable, high-fidelity prototypes that let you test real user flows, animations, and interactions before writing code."
+          },
+          {
+            "title": "SaaS & Web App Dashboard UX",
+            "desc": "Intuitive data visualizations, clean tabular views, and modular widgets crafted for effortless user navigation."
+          },
+          {
+            "title": "Mobile App & Responsive UI",
+            "desc": "Ergonomic touch-first interfaces designed strictly around iOS and Android guidelines, adaptable to any screen width."
+          },
+          {
+            "title": "Design Systems & Component Tokens",
+            "desc": "Scalable UI libraries with reusable typography scales, color palettes, spacing tokens, and component states."
+          },
+          {
+            "title": "User Research & Wireframing",
+            "desc": "Deep persona mapping, competitor teardowns, low-fidelity wireframes, and user journey optimization."
+          },
+          {
+            "title": "Micro-Animations & Visual Physics",
+            "desc": "Smooth hover transitions, kinetic typography, glassmorphism overlays, and state-of-the-art visual accents."
+          },
+          {
+            "title": "Landing Page & Conversion Design",
+            "desc": "High-converting hero sections, trust signals, feature breakdowns, and CTA placements scientifically proven to drive sales."
+          },
+          {
+            "title": "E-Commerce UX & Checkout Optimization",
+            "desc": "Frictionless product browsing, smart filters, sticky add-to-cart, and one-page checkout experiences."
+          },
+          {
+            "title": "Developer-Ready Asset Handover",
+            "desc": "Complete auto-layout Figma source files, vector SVG assets, CSS variables, and design specs for instant coding."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Professional Design Stack",
+        "title": "Industry-Leading Design Tools",
+        "categories": {
+          "UI Tool": "UI Tool",
+          "System": "System",
+          "Code Prep": "Code Prep",
+          "Prototyping": "Prototyping",
+          "Motion": "Motion",
+          "Vectors": "Vectors",
+          "Graphics": "Graphics",
+          "Standard": "Standard",
+          "Layout": "Layout"
+        }
+      },
+      "pricing": {
+        "badge": "✦ Transparent Design Investment",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "Design Package",
+        "mostPopular": "★ Most Popular Choice",
+        "oneTime": "one-time",
+        "defaultCta": "Select Design Tier",
+        "plans": [
+          {
+            "name": "Landing Page UI",
+            "price": "BDT 1200",
+            "desc": "High-impact, conversion-optimized landing page design for your new product or campaign.",
+            "features": [
+              "Desktop & Mobile UI in Figma",
+              "Interactive Clickable Prototype",
+              "Custom Vector Graphics & Icons",
+              "Design System & Color Tokens",
+              "3 Rounds of Revisions",
+              "Developer-Ready Handover"
+            ],
+            "popular": false,
+            "cta": "Choose Landing UI"
+          },
+          {
+            "name": "Complete Website / App UX",
+            "price": "BDT 20000",
+            "desc": "Our most sought-after package for multi-page websites or full web application flows.",
+            "features": [
+              "Up to 10 Custom Screens/Pages",
+              "Full Figma Interactive Prototypes",
+              "User Journey & Wireframe Specs",
+              "Dark & Light Mode Variants",
+              "Component Library & Auto-Layout",
+              "Micro-Interactions Guidelines",
+              "Unlimited Revisions during Sprint"
+            ],
+            "popular": true,
+            "cta": "Get Full UX Package"
+          },
+          {
+            "name": "Enterprise Design System",
+            "price": "BDT 1200",
+            "desc": "Comprehensive multi-platform design architecture and tokens for scaling enterprises.",
+            "features": [
+              "Complete Product UI Suite (20+ Screens)",
+              "Full Design System & Token Library",
+              "iOS, Android & Web Variants",
+              "User Testing & Heuristic Evaluation",
+              "Interactive Motion / Lottie Specs",
+              "Developer Pair Programming Support",
+              "60 Days Design Maintenance"
+            ],
+            "popular": false,
+            "cta": "Consult Lead Designer"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Design FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "What deliverables will I receive upon project completion?",
+            "a": "You receive full access to the organized Figma source file with Auto-Layout, interactive prototypes, component library, exported SVG/PNG vector assets, and a developer design specification guide."
+          },
+          {
+            "q": "How many design revisions are included?",
+            "a": "We work iteratively with milestone reviews. Landing UI includes 3 revision rounds, while our Full UX and Enterprise packages include unlimited revisions during the design sprint until you are 100% satisfied."
+          },
+          {
+            "q": "Can your team also code the design into Next.js / React?",
+            "a": "Yes! As a full-stack digital solutions agency, we can seamlessly take your approved Figma design and build it into a lightning-fast Next.js application with zero design-to-code drift."
+          },
+          {
+            "q": "Do you design both Dark Mode and Light Mode?",
+            "a": "Yes, all our design systems incorporate tailored HSL color tokens for both sleek dark mode and radiant light mode themes."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Ready to Redefine Your Brand's Visual Identity?",
+        "title": "Let's Create Exceptional Design Together",
+        "desc": "Work directly with our senior product designers to craft a digital interface that elevates your brand and turns visitors into loyal customers.",
+        "btn": "Schedule Design Discovery"
+      }
+    },
     "home": "Home",
     "services": "Services",
     "journey": "Journey",
