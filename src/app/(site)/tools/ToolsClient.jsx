@@ -243,7 +243,7 @@ export default function ToolsClient() {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="pt-4 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+          className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
         >
           <Link
             href="/"

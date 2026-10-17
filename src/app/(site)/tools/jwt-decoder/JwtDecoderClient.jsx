@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import {
@@ -39,14 +39,12 @@ function base64UrlDecode(str) {
   }
 }
 
-// Generate realistic dynamic sample tokens
-function generateSampleTokens() {
-  const now = Math.floor(Date.now() / 1000);
-
+// Deterministic sample tokens for SSR consistency
+function getSampleTokens(nowTime = 1776518400) {
   const header = { alg: 'HS256', typ: 'JWT' };
   const headerB64 = btoa(JSON.stringify(header)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
-  // Active token (expires in 24 hours)
+  // Active token (valid for 30 days)
   const activePayload = {
     sub: 'usr_8492049102',
     name: 'Al Amin',
@@ -54,9 +52,9 @@ function generateSampleTokens() {
     role: 'super_admin',
     iss: 'https://auth.merxodevsolutions.pro.bd',
     aud: 'merxodev-api-gateway',
-    iat: now - 3600, // issued 1 hour ago
-    nbf: now - 3600,
-    exp: now + 86400, // expires in 24 hours
+    iat: nowTime - 3600,
+    nbf: nowTime - 3600,
+    exp: nowTime + 86400 * 30,
   };
   const activePayloadB64 = btoa(JSON.stringify(activePayload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
   const activeSig = 'c4dE_39FkL78w0_sample_signature_abc123';
@@ -68,8 +66,8 @@ function generateSampleTokens() {
     email: 'guest@example.com',
     role: 'tester',
     iss: 'https://auth.example.com',
-    iat: now - 259200, // 3 days ago
-    exp: now - 172800, // 2 days ago
+    iat: nowTime - 259200,
+    exp: nowTime - 172800,
   };
   const expiredPayloadB64 = btoa(JSON.stringify(expiredPayload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
@@ -79,10 +77,22 @@ function generateSampleTokens() {
   };
 }
 
+const STATIC_SAMPLES = getSampleTokens();
+
 export default function JwtDecoderClient() {
-  const samples = useMemo(() => generateSampleTokens(), []);
-  const [tokenInput, setTokenInput] = useState(samples.active);
+  const [mounted, setMounted] = useState(false);
+  const [tokenInput, setTokenInput] = useState(STATIC_SAMPLES.active);
   const [copiedPart, setCopiedPart] = useState(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const loadSample = (type) => {
+    const currentNow = Math.floor(Date.now() / 1000);
+    const dynamicSamples = getSampleTokens(currentNow);
+    setTokenInput(dynamicSamples[type]);
+  };
 
   // Decode JWT into parts
   const decodedResult = useMemo(() => {
@@ -129,7 +139,7 @@ export default function JwtDecoderClient() {
     // Parse Expiration Status
     let expStatus = null;
     if (payloadObj && typeof payloadObj.exp === 'number') {
-      const now = Math.floor(Date.now() / 1000);
+      const now = mounted ? Math.floor(Date.now() / 1000) : 1776518400;
       const diff = payloadObj.exp - now;
       const expDate = new Date(payloadObj.exp * 1000);
 
@@ -140,7 +150,7 @@ export default function JwtDecoderClient() {
           isExpired: false,
           label: 'Active & Valid',
           timeRemaining: `${hours}h ${minutes}m remaining`,
-          humanDate: expDate.toLocaleString(),
+          humanDate: mounted ? expDate.toLocaleString() : expDate.toUTCString(),
           utcDate: expDate.toUTCString(),
         };
       } else {
@@ -151,7 +161,7 @@ export default function JwtDecoderClient() {
           isExpired: true,
           label: 'Expired Token',
           timeRemaining: `Expired ${hours}h ${minutes}m ago`,
-          humanDate: expDate.toLocaleString(),
+          humanDate: mounted ? expDate.toLocaleString() : expDate.toUTCString(),
           utcDate: expDate.toUTCString(),
         };
       }
@@ -160,7 +170,8 @@ export default function JwtDecoderClient() {
     // Issued At (iat)
     let iatDate = null;
     if (payloadObj && typeof payloadObj.iat === 'number') {
-      iatDate = new Date(payloadObj.iat * 1000).toLocaleString();
+      const iatObj = new Date(payloadObj.iat * 1000);
+      iatDate = mounted ? iatObj.toLocaleString() : iatObj.toUTCString();
     }
 
     return {
@@ -176,7 +187,7 @@ export default function JwtDecoderClient() {
       expStatus,
       iatDate,
     };
-  }, [tokenInput]);
+  }, [tokenInput, mounted]);
 
   const handleCopy = (text, partName) => {
     if (!text) return;
@@ -205,7 +216,7 @@ export default function JwtDecoderClient() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-2 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
+        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
             Home
           </Link>
@@ -235,7 +246,7 @@ export default function JwtDecoderClient() {
               </span>
             </div>
 
-            <h1 className="font-exo-medium text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
+            <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
               JWT{' '}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
                 Debugger & Decoder
@@ -260,13 +271,13 @@ export default function JwtDecoderClient() {
           <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold text-zinc-600 dark:text-zinc-300">
             <span>Test with Samples:</span>
             <button
-              onClick={() => setTokenInput(samples.active)}
+              onClick={() => loadSample('active')}
               className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold transition-all border border-emerald-200 dark:border-emerald-800"
             >
               Active Token
             </button>
             <button
-              onClick={() => setTokenInput(samples.expired)}
+              onClick={() => loadSample('expired')}
               className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 text-xs font-bold transition-all border border-rose-200 dark:border-rose-800"
             >
               Expired Token
@@ -301,13 +312,22 @@ export default function JwtDecoderClient() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-sm font-exo-extralight">{decodedResult.expStatus.label}</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full font-mono font-semibold bg-white/70 dark:bg-black/40">
+                  <span suppressHydrationWarning className="font-bold text-sm font-exo-extralight">
+                    {decodedResult.expStatus.label}
+                  </span>
+                  <span
+                    suppressHydrationWarning
+                    className="text-xs px-2 py-0.5 rounded-full font-mono font-semibold bg-white/70 dark:bg-black/40"
+                  >
                     {decodedResult.expStatus.timeRemaining}
                   </span>
                 </div>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-exo-extralight">
-                  Expires on: <span className="font-semibold">{decodedResult.expStatus.humanDate}</span> ({decodedResult.expStatus.utcDate})
+                  Expires on:{' '}
+                  <span suppressHydrationWarning className="font-semibold">
+                    {decodedResult.expStatus.humanDate}
+                  </span>{' '}
+                  (<span suppressHydrationWarning>{decodedResult.expStatus.utcDate}</span>)
                 </p>
               </div>
             </div>
@@ -315,7 +335,9 @@ export default function JwtDecoderClient() {
             {decodedResult.iatDate && (
               <div className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight sm:text-right">
                 <span>Issued At (iat):</span>
-                <div className="font-semibold text-zinc-700 dark:text-zinc-300">{decodedResult.iatDate}</div>
+                <div suppressHydrationWarning className="font-semibold text-zinc-700 dark:text-zinc-300">
+                  {decodedResult.iatDate}
+                </div>
               </div>
             )}
           </div>
