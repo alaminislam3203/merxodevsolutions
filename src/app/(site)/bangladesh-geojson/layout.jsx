@@ -78,37 +78,14 @@ function BangladeshGeoLayoutInner({ children }) {
           {/* Left Sidebar Column - starts right under navbar, horizontal row on mobile */}
           <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 space-y-3 lg:space-y-4">
             <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-zinc-900/90 border border-zinc-200/90 dark:border-zinc-800 shadow-sm space-y-2.5 sm:space-y-3">
-              {/* Header with Title and Mobile-only compact Language Switcher */}
+              {/* Header with Title and active lang indicator */}
               <div className="flex items-center justify-between px-1 pt-0.5">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
                   {lang === 'bn' ? 'নেভিগেশন মেনু' : 'Navigation Menu'}
                 </span>
-
-                {/* Mobile-only compact EN/BN Switcher */}
-                <button
-                  type="button"
-                  onClick={toggleLang}
-                  className="lg:hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700 text-xs font-bold transition-all shadow-xs cursor-pointer"
-                  title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
-                >
-                  <span
-                    className={`text-[11px] font-mono ${lang === 'en'
-                        ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                        : 'text-zinc-400'
-                      }`}
-                  >
-                    EN
-                  </span>
-                  <span className="text-zinc-300 dark:text-zinc-600 text-[10px]">/</span>
-                  <span
-                    className={`text-[11px] ${lang === 'bn'
-                        ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
-                        : 'text-zinc-400'
-                      }`}
-                  >
-                    বাংলা
-                  </span>
-                </button>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200/60 dark:border-zinc-700/60">
+                  {lang === 'bn' ? 'বাংলা' : 'EN'}
+                </span>
               </div>
 
               {/* Navigation Menu: Horizontal ROW on mobile, Column on desktop */}
@@ -151,45 +128,6 @@ function BangladeshGeoLayoutInner({ children }) {
                   );
                 })}
               </nav>
-
-              {/* Desktop-only full Language Switcher */}
-              <div className="hidden lg:block">
-                <div className="my-2 border-t border-zinc-100 dark:border-zinc-800" />
-                <div className="space-y-2 pt-1">
-                  <div className="px-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono">
-                    {lang === 'bn' ? 'ভাষা নির্বাচন' : 'Language / ভাষা'}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={toggleLang}
-                    className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all border border-zinc-200/80 dark:border-zinc-700/80 cursor-pointer shadow-sm group"
-                    title={lang === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন' : 'Switch to English'}
-                  >
-                    <span className="text-zinc-600 dark:text-zinc-400 font-medium pl-1">
-                      {lang === 'bn' ? 'ভাষা:' : 'Language:'}
-                    </span>
-                    <div className="flex items-center gap-1.5 bg-white dark:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-xs">
-                      <span
-                        className={`text-xs font-mono transition-colors ${lang === 'en'
-                            ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                            : 'text-zinc-400'
-                          }`}
-                      >
-                        EN
-                      </span>
-                      <span className="text-zinc-300 dark:text-zinc-600">/</span>
-                      <span
-                        className={`text-xs transition-colors ${lang === 'bn'
-                            ? 'text-emerald-600 dark:text-emerald-400 font-extrabold font-bangla'
-                            : 'text-zinc-400'
-                          }`}
-                      >
-                        বাংলা
-                      </span>
-                    </div>
-                  </button>
-                </div>
-              </div>
             </div>
 
             {/* Quick Info & Copy Card in Sidebar - desktop only */}

@@ -279,9 +279,10 @@ export default function Navbar() {
               <SearchBar />
             </div>
 
-            {/* Unmasked: ThemeToggle + Account Menu + CTA */}
-            <div className="flex items-center gap-2.5 shrink-0">
+            {/* Unmasked: ThemeToggle + LanguageSwitcher + Account Menu + CTA */}
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
               <ThemeToggle iconOnly />
+              <LanguageSwitcher variant="navbar" />
 
               {/* User menu (Matching organic-e-commerce logic with MerxoDev theme) */}
               <div className="relative" ref={userMenuRef}>
@@ -476,6 +477,7 @@ export default function Navbar() {
           <SearchBar mobile />
 
           <div className="flex items-center gap-2 shrink-0">
+            <LanguageSwitcher variant="navbar-mobile" />
             <a
               href="tel:+8801313334279"
               aria-label={t('callUs', 'Call MerxoDev Solutions')}

@@ -22,7 +22,7 @@ const GlobeIcon = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="text-amber-400"
+    className="text-amber-400 shrink-0"
   >
     <circle cx="12" cy="12" r="10" />
     <line x1="2" y1="12" x2="22" y2="12" />
@@ -32,17 +32,33 @@ const GlobeIcon = () => (
 
 export default function LanguageSwitcher({ variant = 'default', className = '' }) {
   const { t, i18n } = useTranslation();
-  const [current, setCurrent] = useState('en');
+  const [current, setCurrent] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('lang') || 'en';
+    }
+    return 'en';
+  });
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('lang') || 'en';
-    i18n.changeLanguage(saved);
+    if (i18n.language !== saved) {
+      i18n.changeLanguage(saved);
+    }
     setCurrent(saved);
     document.documentElement.dir = saved === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = saved;
-  }, []);
+
+    const handleLanguageChanged = (newLng) => {
+      setCurrent(newLng);
+    };
+
+    i18n.on('languageChanged', handleLanguageChanged);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [i18n]);
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -63,7 +79,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
     setOpen(false);
   };
 
-  const currentLang = languages.find(l => l.code === current);
+  const currentLang = languages.find(l => l.code === current) || languages[0];
 
   // Variant for profile dropdown / compact menu
   if (variant === 'menu') {
@@ -105,13 +121,113 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
     );
   }
 
+  // Variant for Desktop Navbar top bar (next to ThemeToggle)
+  if (variant === 'navbar') {
+    return (
+      <div className={`relative ${className}`} ref={dropdownRef}>
+        <button
+          type="button"
+          onClick={() => setOpen(prev => !prev)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-white/20 dark:border-zinc-700 text-white dark:text-zinc-200 text-xs font-bold transition-all backdrop-blur-md cursor-pointer shadow-xs select-none"
+          title={`Language: ${currentLang?.full}`}
+          aria-label="Change Language"
+        >
+          <GlobeIcon />
+          <span className="text-[11px] font-mono font-bold tracking-wide">
+            {currentLang?.label}
+          </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`opacity-70 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+
+        {open && (
+          <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-[9999] animate-fade-in p-1">
+            {languages.map(({ code, label, full, activeColor }) => {
+              const isActive = current === code;
+              return (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => changeLanguage(code)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                    isActive
+                      ? `bg-zinc-100 dark:bg-zinc-800 font-extrabold ${activeColor}`
+                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span>{full}</span>
+                  <span className="text-[10px] font-mono opacity-50">{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Variant for Mobile top bar (compact pill beside phone button)
+  if (variant === 'navbar-mobile') {
+    return (
+      <div className={`relative ${className}`} ref={dropdownRef}>
+        <button
+          type="button"
+          onClick={() => setOpen(prev => !prev)}
+          className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/10 hover:bg-white/20 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-white/20 dark:border-zinc-700 text-white dark:text-zinc-200 text-xs font-bold transition-all backdrop-blur-md cursor-pointer select-none"
+          title={`Language: ${currentLang?.full}`}
+          aria-label="Change Language"
+        >
+          <GlobeIcon />
+          <span className="text-[10px] font-mono font-bold">
+            {currentLang?.label}
+          </span>
+        </button>
+
+        {open && (
+          <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-[9999] animate-fade-in p-1">
+            {languages.map(({ code, label, full, activeColor }) => {
+              const isActive = current === code;
+              return (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => changeLanguage(code)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                    isActive
+                      ? `bg-zinc-100 dark:bg-zinc-800 font-extrabold ${activeColor}`
+                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span>{full}</span>
+                  <span className="text-[10px] font-mono opacity-50">{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
       {/* ─── Desktop: Dropdown ─── */}
       <div className="hidden md:block relative" ref={dropdownRef}>
         <button
           onClick={() => setOpen(prev => !prev)}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
         >
           <GlobeIcon />
           <span
@@ -142,7 +258,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
               <button
                 key={code}
                 onClick={() => changeLanguage(code)}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 text-[11px] font-black uppercase tracking-widest transition-colors ${
+                className={`w-full flex items-center gap-3 px-4 py-2.5 text-[11px] font-black uppercase tracking-widest transition-colors cursor-pointer ${
                   current === code
                     ? `bg-zinc-50 dark:bg-zinc-800 ${activeColor}`
                     : 'text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300'
@@ -179,7 +295,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
           <button
             key={code}
             onClick={() => changeLanguage(code)}
-            className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+            className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
               current === code
                 ? `bg-white dark:bg-zinc-900 ${activeColor} shadow-sm ring-1 ring-zinc-100 dark:ring-zinc-700`
                 : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300'
