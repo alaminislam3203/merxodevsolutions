@@ -171,7 +171,7 @@ export default function BangladeshGeoOverviewPage() {
       </section>
 
       {/* Live Interactive Search Preview */}
-      <section className="p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 dark:from-zinc-900 dark:via-zinc-900/90 dark:to-emerald-950/20 border border-emerald-200/80 dark:border-emerald-900/40 shadow-xl shadow-emerald-500/5">
+      <section className="p-6 sm:p-10 rounded-3xl border border-emerald-200/80 dark:border-emerald-900/40 shadow-xl shadow-emerald-500/5">
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="text-center space-y-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 uppercase tracking-widest">

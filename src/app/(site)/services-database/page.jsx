@@ -376,7 +376,7 @@ export default function ServicesDatabasePage() {
 
       {/* Tech Pills */}
       <section className="px-4 sm:px-6 pb-24" aria-label="Database stack">
-        <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-blue-50/50 via-white to-teal-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
+        <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase font-exo-extralight mb-2 block">
               {t('databaseService.techStack.badge', '✦ Battle-Tested Database Engines')}

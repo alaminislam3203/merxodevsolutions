@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiShield,
   FiCopy,
@@ -177,6 +179,7 @@ async function shaHash(str, algo) {
 }
 
 export default function HashGeneratorClient() {
+  const { t } = useTranslation();
   const [inputText, setInputText] = useState('MerxoDevSolutions2026');
   const [salt, setSalt] = useState('');
   const [uppercase, setUppercase] = useState(false);
@@ -228,7 +231,7 @@ export default function HashGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(keyName);
-        toast.success(`Copied ${keyName}!`);
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedKey(null), 1500);
       });
     }
@@ -260,18 +263,18 @@ export default function HashGeneratorClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">Hash & Password Generator</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.hashGenerator.titleStart')} {t('devTools.hashGenerator.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -280,22 +283,22 @@ export default function HashGeneratorClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiShield className="w-3.5 h-3.5" />
-                Security & Cryptography
+                {t('devTools.common.securityAuth')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                WebCrypto Subtle API
+                {t('devTools.common.clientSidePrivacy')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              Hash & Password{' '}
+              {t('devTools.hashGenerator.titleStart')}{' '}
               <span className="bg-gradient-to-r from-violet-600 via-indigo-500 to-emerald-500 bg-clip-text text-transparent">
-                Generator
+                {t('devTools.hashGenerator.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Generate SHA-256, SHA-512, MD5, and SHA-1 hashes directly in your browser with real-time salt protection and zero server latency.
+              {t('devTools.hashGenerator.subtitle')}
             </p>
           </div>
 
@@ -304,7 +307,7 @@ export default function HashGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -313,20 +316,20 @@ export default function HashGeneratorClient() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-8">
               <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-1.5">
-                Plain Text / Password Input
+                {t('devTools.hashGenerator.textToHash')}
               </label>
               <input
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Type or paste text to hash..."
+                placeholder={t('devTools.hashGenerator.placeholder')}
                 className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500"
               />
             </div>
 
             <div className="md:col-span-4">
               <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-1.5">
-                Optional Salt
+                {t('devTools.hashGenerator.optionalSalt')}
               </label>
               <div className="relative">
                 <FiKey className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
@@ -334,7 +337,7 @@ export default function HashGeneratorClient() {
                   type="text"
                   value={salt}
                   onChange={(e) => setSalt(e.target.value)}
-                  placeholder="e.g. s@lt_secret"
+                  placeholder={t('devTools.hashGenerator.saltPlaceholder')}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
               </div>
@@ -349,7 +352,7 @@ export default function HashGeneratorClient() {
                 onChange={(e) => setUppercase(e.target.checked)}
                 className="rounded accent-violet-600"
               />
-              <span>Uppercase Hex Characters (A-F)</span>
+              <span>{t('devTools.hashGenerator.uppercaseHex')}</span>
             </label>
 
             <button
@@ -360,7 +363,7 @@ export default function HashGeneratorClient() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
-              Clear
+              {t('devTools.common.clear')}
             </button>
           </div>
         </div>
@@ -387,12 +390,12 @@ export default function HashGeneratorClient() {
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all disabled:opacity-40"
                 >
                   {copiedKey === item.name ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
-                  <span>{copiedKey === item.name ? 'Copied' : 'Copy'}</span>
+                  <span>{copiedKey === item.name ? t('devTools.common.copied') : t('devTools.common.copy')}</span>
                 </button>
               </div>
 
               <div className="p-3 rounded-xl bg-zinc-950 font-mono text-xs text-zinc-200 break-all select-all">
-                {item.value || <span className="text-zinc-600 font-sans italic">Enter text above to compute hash...</span>}
+                {item.value || <span className="text-zinc-600 font-sans italic">{t('devTools.hashGenerator.placeholder')}</span>}
               </div>
             </div>
           ))}
@@ -405,10 +408,10 @@ export default function HashGeneratorClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Cryptographic One-Way Hashes
+              {t('devTools.hashGenerator.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Hashes are one-way irreversible cryptographic mathematical digests, designed for passwords, verification checksums, and digital signatures.
+              {t('devTools.hashGenerator.card1Desc')}
             </p>
           </div>
 
@@ -417,10 +420,10 @@ export default function HashGeneratorClient() {
               <FiKey className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Salt Protection
+              {t('devTools.hashGenerator.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Adding a random salt string defends password hashes against pre-computed rainbow table lookups and dictionary cracking attacks.
+              {t('devTools.hashGenerator.card2Desc')}
             </p>
           </div>
 
@@ -429,10 +432,10 @@ export default function HashGeneratorClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Native Hardware Acceleration
+              {t('devTools.hashGenerator.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Calculated using the browser&apos;s Web Cryptography API, utilizing your CPU&apos;s native hardware AES/SHA instructions for instant computation.
+              {t('devTools.hashGenerator.card3Desc')}
             </p>
           </div>
         </div>

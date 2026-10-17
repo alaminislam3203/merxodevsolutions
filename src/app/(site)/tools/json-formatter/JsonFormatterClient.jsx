@@ -3,6 +3,8 @@
 import { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiCode,
   FiCopy,
@@ -158,6 +160,7 @@ function TreeNode({ keyName, value, isLast, depth = 0 }) {
 
 // ── Main Client Component ───────────────────────────────────────────────────────
 export default function JsonFormatterClient() {
+  const { t } = useTranslation();
   const [inputJson, setInputJson] = useState(SAMPLE_JSON);
   const [indentSize, setIndentSize] = useState(2);
   const [viewMode, setViewMode] = useState('code'); // 'code' | 'tree'
@@ -216,9 +219,9 @@ export default function JsonFormatterClient() {
   const handleFormat = () => {
     if (parseResult.isValid && parseResult.formatted) {
       setInputJson(parseResult.formatted);
-      toast.success('JSON formatted & beautified!');
+      toast.success(t('devTools.jsonFormatter.validJson'));
     } else if (!parseResult.isValid) {
-      toast.error('Invalid JSON. Fix syntax errors first.');
+      toast.error(t('devTools.jsonFormatter.invalidJson'));
     }
   };
 
@@ -226,9 +229,9 @@ export default function JsonFormatterClient() {
   const handleMinify = () => {
     if (parseResult.isValid && parseResult.minified) {
       setInputJson(parseResult.minified);
-      toast.success('JSON minified!');
+      toast.success(t('devTools.jsonFormatter.tabMinify'));
     } else if (!parseResult.isValid) {
-      toast.error('Invalid JSON. Fix syntax errors first.');
+      toast.error(t('devTools.jsonFormatter.invalidJson'));
     }
   };
 
@@ -244,9 +247,9 @@ export default function JsonFormatterClient() {
 
       JSON.parse(fixed); // Test if it parses
       setInputJson(fixed);
-      toast.success('Repaired common JSON syntax mistakes!');
+      toast.success(t('devTools.jsonFormatter.validJson'));
     } catch {
-      toast.error('Could not auto-repair. Please inspect the syntax error manually.');
+      toast.error(t('devTools.jsonFormatter.invalidJson'));
     }
   };
 
@@ -258,7 +261,7 @@ export default function JsonFormatterClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(content).then(() => {
         setCopied(true);
-        toast.success('Copied to clipboard!');
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopied(false), 2000);
       });
     }
@@ -277,7 +280,7 @@ export default function JsonFormatterClient() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('File downloaded!');
+    toast.success(t('devTools.common.download'));
   };
 
   // File Upload
@@ -314,18 +317,18 @@ export default function JsonFormatterClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">JSON Formatter</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.jsonFormatter.titleStart')} {t('devTools.jsonFormatter.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -334,22 +337,22 @@ export default function JsonFormatterClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiCode className="w-3.5 h-3.5" />
-                Formatting & Validation
+                {t('devTools.common.formattersConverters')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/70">
                 <FiLock className="w-3 h-3" />
-                100% Private (Client-side)
+                {t('devTools.common.clientSidePrivacy')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              JSON{' '}
+              {t('devTools.jsonFormatter.titleStart')}{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                Formatter & Validator
+                {t('devTools.jsonFormatter.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Beautify, inspect, validate, and minify your JSON data in real time. Zero server transmission.
+              {t('devTools.jsonFormatter.subtitle')}
             </p>
           </div>
 
@@ -358,7 +361,7 @@ export default function JsonFormatterClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -371,7 +374,7 @@ export default function JsonFormatterClient() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm shadow-violet-500/20 active:scale-95"
             >
               <FiCheck className="w-3.5 h-3.5" />
-              Beautify
+              {t('devTools.jsonFormatter.tabCode')}
             </button>
 
             <button
@@ -379,16 +382,7 @@ export default function JsonFormatterClient() {
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all active:scale-95"
             >
               <FiMinimize2 className="w-3.5 h-3.5" />
-              Minify
-            </button>
-
-            <button
-              onClick={handleAutoFix}
-              title="Automatically fix single quotes and trailing commas"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/80 text-xs font-bold font-exo-extralight transition-all"
-            >
-              <FiZap className="w-3.5 h-3.5" />
-              Fix Quotes/Commas
+              {t('devTools.jsonFormatter.tabMinify')}
             </button>
 
             {/* Indent Selector */}
@@ -399,8 +393,8 @@ export default function JsonFormatterClient() {
                 onChange={(e) => setIndentSize(e.target.value)}
                 className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-2.5 py-1.5 text-xs text-zinc-700 dark:text-zinc-200 font-semibold focus:outline-none focus:ring-1 focus:ring-violet-500"
               >
-                <option value={2}>2 Spaces</option>
-                <option value={4}>4 Spaces</option>
+                <option value={2}>{t('devTools.jsonFormatter.indent2')}</option>
+                <option value={4}>{t('devTools.jsonFormatter.indent4')}</option>
                 <option value="tab">Tab</option>
               </select>
             </div>
@@ -413,7 +407,7 @@ export default function JsonFormatterClient() {
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
-              Load Sample
+              {t('devTools.common.loadSample')}
             </button>
 
             <button
@@ -421,7 +415,7 @@ export default function JsonFormatterClient() {
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiUpload className="w-3.5 h-3.5" />
-              Upload .json
+              {t('devTools.jsonFormatter.uploadFile')}
             </button>
             <input
               type="file"
@@ -436,7 +430,7 @@ export default function JsonFormatterClient() {
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/60 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
-              Clear
+              {t('devTools.common.clear')}
             </button>
           </div>
         </div>
@@ -446,7 +440,7 @@ export default function JsonFormatterClient() {
           <div className="flex items-center justify-between gap-3 px-4 py-2.5 mb-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 text-xs font-medium">
             <div className="flex items-center gap-2">
               <FiCheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span className="font-semibold">Valid JSON</span>
+              <span className="font-semibold">{t('devTools.jsonFormatter.validJson')}</span>
               <span className="text-zinc-400">|</span>
               <span>{stats.lineCount} lines</span>
               <span className="text-zinc-400">|</span>
@@ -470,7 +464,7 @@ export default function JsonFormatterClient() {
           <div className="flex items-start gap-2.5 px-4 py-3 mb-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
             <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <span className="font-bold block mb-0.5">Invalid JSON Syntax</span>
+              <span className="font-bold block mb-0.5">{t('devTools.jsonFormatter.invalidJson')}</span>
               <code className="font-mono text-[11px] bg-rose-100 dark:bg-rose-900/50 px-2 py-0.5 rounded text-rose-900 dark:text-rose-200 break-all">
                 {parseResult.error}
               </code>
@@ -486,11 +480,11 @@ export default function JsonFormatterClient() {
               <div className="flex items-center gap-2">
                 <FiFileText className="w-4 h-4 text-violet-500" />
                 <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                  Raw JSON Input
+                  {t('devTools.jsonFormatter.tabCode')}
                 </span>
               </div>
               <span className="text-[11px] text-zinc-400 font-mono">
-                {inputJson.length} chars
+                {inputJson.length} {t('devTools.common.chars')}
               </span>
             </div>
 
@@ -498,7 +492,7 @@ export default function JsonFormatterClient() {
               <textarea
                 value={inputJson}
                 onChange={(e) => setInputJson(e.target.value)}
-                placeholder="Paste or write raw JSON here..."
+                placeholder={t('devTools.jsonFormatter.placeholder')}
                 spellCheck={false}
                 className="w-full h-full min-h-[460px] p-4 font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400"
               />
@@ -518,7 +512,7 @@ export default function JsonFormatterClient() {
                     }`}
                 >
                   <FiCode className="w-3.5 h-3.5" />
-                  Code
+                  {t('devTools.jsonFormatter.tabCode')}
                 </button>
                 <button
                   onClick={() => setViewMode('tree')}
@@ -529,7 +523,7 @@ export default function JsonFormatterClient() {
                     }`}
                 >
                   <FiLayers className="w-3.5 h-3.5" />
-                  Tree View
+                  {t('devTools.jsonFormatter.tabTree')}
                 </button>
               </div>
 
@@ -542,7 +536,7 @@ export default function JsonFormatterClient() {
                   title="Copy formatted JSON"
                 >
                   {copied ? <FiCheck className="w-3.5 h-3.5 text-emerald-400" /> : <FiCopy className="w-3.5 h-3.5" />}
-                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                  <span>{copied ? t('devTools.common.copied') : t('devTools.common.copy')}</span>
                 </button>
 
                 <button
@@ -552,7 +546,7 @@ export default function JsonFormatterClient() {
                   title="Download formatted.json"
                 >
                   <FiDownload className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Download</span>
+                  <span className="hidden sm:inline">{t('devTools.common.download')}</span>
                 </button>
               </div>
             </div>
@@ -585,10 +579,10 @@ export default function JsonFormatterClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              100% Client-Side Privacy
+              {t('devTools.jsonFormatter.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Your JSON data is parsed and formatted locally in your browser via native V8 JavaScript engines. No API requests, no tracking, and no external storage.
+              {t('devTools.jsonFormatter.card1Desc')}
             </p>
           </div>
 
@@ -597,10 +591,10 @@ export default function JsonFormatterClient() {
               <FiLayers className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Interactive Tree View
+              {t('devTools.jsonFormatter.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Easily navigate deep objects, arrays, and nested structures with collapsible nodes, color-coded types, and item counts.
+              {t('devTools.jsonFormatter.card2Desc')}
             </p>
           </div>
 
@@ -609,10 +603,10 @@ export default function JsonFormatterClient() {
               <FiZap className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Instant Minification
+              {t('devTools.jsonFormatter.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Strip all unnecessary whitespaces and indentation with a single click to optimize API response sizes and bandwidth usage.
+              {t('devTools.jsonFormatter.card3Desc')}
             </p>
           </div>
         </div>

@@ -73,7 +73,7 @@ function BangladeshGeoLayoutInner({ children }) {
 
   return (
     <div
-      className={`min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white relative transition-all duration-150 ${lang === 'bn' ? 'font-bangla lang-bn' : lang === 'ar' ? 'font-arabic' : 'font-exo'
+      className={`min-h-screen text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white relative transition-all duration-150 ${lang === 'bn' ? 'font-bangla lang-bn' : lang === 'ar' ? 'font-arabic' : 'font-exo'
         }`}
       dir={lang === 'ar' ? 'rtl' : 'ltr'}
       data-lang={lang}

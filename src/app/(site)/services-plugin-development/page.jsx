@@ -178,7 +178,7 @@ export default function ServicesPluginDevelopmentPage() {
       </section>
 
       {/* ── Stats Strip ── */}
-      <section className="relative px-6 py-12 border-y border-zinc-200/80 dark:border-zinc-800/80 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+      <section className="relative px-6 py-12">
         <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((item, idx) => (
             <div key={idx} className="flex flex-col gap-1">
@@ -197,7 +197,7 @@ export default function ServicesPluginDevelopmentPage() {
       <section className="relative px-6 py-20">
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md aspect-square rounded-3xl p-6 bg-gradient-to-b from-indigo-50/50 via-white to-purple-50/50 dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xl flex items-center justify-center">
+            <div className="relative w-full max-w-md aspect-square rounded-3xl p-6">
               <Image
                 src="/services/plugin.png"
                 alt={t('pluginDev.hero.badge', 'Plugin Development')}

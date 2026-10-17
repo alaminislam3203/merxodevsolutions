@@ -3,6 +3,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiKey,
   FiCopy,
@@ -80,6 +82,7 @@ function getSampleTokens(nowTime = 1776518400) {
 const STATIC_SAMPLES = getSampleTokens();
 
 export default function JwtDecoderClient() {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [tokenInput, setTokenInput] = useState(STATIC_SAMPLES.active);
   const [copiedPart, setCopiedPart] = useState(null);
@@ -148,8 +151,8 @@ export default function JwtDecoderClient() {
         const minutes = Math.floor((diff % 3600) / 60);
         expStatus = {
           isExpired: false,
-          label: 'Active & Valid',
-          timeRemaining: `${hours}h ${minutes}m remaining`,
+          label: t('devTools.jwtDecoder.activeValid'),
+          timeRemaining: `${hours}h ${minutes}m ${t('devTools.jwtDecoder.remaining')}`,
           humanDate: mounted ? expDate.toLocaleString() : expDate.toUTCString(),
           utcDate: expDate.toUTCString(),
         };
@@ -159,8 +162,8 @@ export default function JwtDecoderClient() {
         const minutes = Math.floor((absDiff % 3600) / 60);
         expStatus = {
           isExpired: true,
-          label: 'Expired Token',
-          timeRemaining: `Expired ${hours}h ${minutes}m ago`,
+          label: t('devTools.jwtDecoder.expiredTokenLabel'),
+          timeRemaining: `${hours}h ${minutes}m ${t('devTools.jwtDecoder.ago')}`,
           humanDate: mounted ? expDate.toLocaleString() : expDate.toUTCString(),
           utcDate: expDate.toUTCString(),
         };
@@ -187,14 +190,14 @@ export default function JwtDecoderClient() {
       expStatus,
       iatDate,
     };
-  }, [tokenInput, mounted]);
+  }, [tokenInput, mounted, t]);
 
   const handleCopy = (text, partName) => {
     if (!text) return;
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedPart(partName);
-        toast.success(`Copied ${partName}!`);
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedPart(null), 2000);
       });
     }
@@ -218,18 +221,18 @@ export default function JwtDecoderClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">JWT Decoder</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.jwtDecoder.titleStart')} {t('devTools.jwtDecoder.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -238,22 +241,22 @@ export default function JwtDecoderClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-exo-extralight uppercase tracking-widest">
                 <FiKey className="w-3.5 h-3.5" />
-                Security & Authentication
+                {t('devTools.common.securityAuth')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                100% Client-Side (No server logs)
+                {t('devTools.common.clientSideNoLogs')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              JWT{' '}
+              {t('devTools.jwtDecoder.titleStart')}{' '}
               <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-                Debugger & Decoder
+                {t('devTools.jwtDecoder.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Inspect JSON Web Tokens in real time. Decode header algorithms, inspect payload claims, and verify expiry dates locally.
+              {t('devTools.jwtDecoder.subtitle')}
             </p>
           </div>
 
@@ -262,25 +265,25 @@ export default function JwtDecoderClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
         {/* Quick Sample Selector Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 mb-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
           <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold text-zinc-600 dark:text-zinc-300">
-            <span>Test with Samples:</span>
+            <span>{t('devTools.jwtDecoder.testWithSamples')}</span>
             <button
               onClick={() => loadSample('active')}
               className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold transition-all border border-emerald-200 dark:border-emerald-800"
             >
-              Active Token
+              {t('devTools.jwtDecoder.activeToken')}
             </button>
             <button
               onClick={() => loadSample('expired')}
               className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 text-xs font-bold transition-all border border-rose-200 dark:border-rose-800"
             >
-              Expired Token
+              {t('devTools.jwtDecoder.expiredToken')}
             </button>
           </div>
 
@@ -289,7 +292,7 @@ export default function JwtDecoderClient() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-600 hover:text-rose-600 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
           >
             <FiTrash2 className="w-3.5 h-3.5" />
-            Clear
+            {t('devTools.common.clear')}
           </button>
         </div>
 
@@ -323,7 +326,7 @@ export default function JwtDecoderClient() {
                   </span>
                 </div>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-exo-extralight">
-                  Expires on:{' '}
+                  {t('devTools.jwtDecoder.expiresOn')}{' '}
                   <span suppressHydrationWarning className="font-semibold">
                     {decodedResult.expStatus.humanDate}
                   </span>{' '}
@@ -334,7 +337,7 @@ export default function JwtDecoderClient() {
 
             {decodedResult.iatDate && (
               <div className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight sm:text-right">
-                <span>Issued At (iat):</span>
+                <span>{t('devTools.jwtDecoder.issuedAt')}</span>
                 <div suppressHydrationWarning className="font-semibold text-zinc-700 dark:text-zinc-300">
                   {decodedResult.iatDate}
                 </div>
@@ -348,7 +351,7 @@ export default function JwtDecoderClient() {
           <div className="flex items-start gap-2.5 px-4 py-3 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
             <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <span className="font-bold block mb-0.5">Invalid JWT Format</span>
+              <span className="font-bold block mb-0.5">{t('devTools.jwtDecoder.invalidFormat')}</span>
               <p className="font-exo-extralight text-zinc-600 dark:text-zinc-400">{decodedResult.error}</p>
             </div>
           </div>
@@ -362,7 +365,7 @@ export default function JwtDecoderClient() {
               <div className="flex items-center gap-2">
                 <FiKey className="w-4 h-4 text-emerald-500" />
                 <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                  Encoded JWT Token
+                  {t('devTools.jwtDecoder.encodedToken')}
                 </span>
               </div>
               <button
@@ -371,7 +374,7 @@ export default function JwtDecoderClient() {
                 className="text-[11px] font-semibold text-zinc-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
               >
                 {copiedPart === 'Encoded Token' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                Copy Token
+                {t('devTools.jwtDecoder.copyToken')}
               </button>
             </div>
 
@@ -379,7 +382,7 @@ export default function JwtDecoderClient() {
               <textarea
                 value={tokenInput}
                 onChange={(e) => setTokenInput(e.target.value)}
-                placeholder="Paste encoded JWT token here (e.g. eyJhbGciOi...)..."
+                placeholder={t('devTools.jwtDecoder.placeholder')}
                 spellCheck={false}
                 className="w-full h-full min-h-[420px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 break-all leading-relaxed"
               />
@@ -388,13 +391,13 @@ export default function JwtDecoderClient() {
             {/* Token segment legend */}
             <div className="p-3 bg-zinc-50 dark:bg-zinc-800/40 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-3 text-[11px] font-mono">
               <span className="flex items-center gap-1.5 text-rose-500">
-                <span className="w-2 h-2 rounded-full bg-rose-500" /> Header
+                <span className="w-2 h-2 rounded-full bg-rose-500" /> {t('devTools.jwtDecoder.legendHeader')}
               </span>
               <span className="flex items-center gap-1.5 text-violet-500">
-                <span className="w-2 h-2 rounded-full bg-violet-500" /> Payload
+                <span className="w-2 h-2 rounded-full bg-violet-500" /> {t('devTools.jwtDecoder.legendPayload')}
               </span>
               <span className="flex items-center gap-1.5 text-cyan-500">
-                <span className="w-2 h-2 rounded-full bg-cyan-500" /> Signature
+                <span className="w-2 h-2 rounded-full bg-cyan-500" /> {t('devTools.jwtDecoder.legendSignature')}
               </span>
             </div>
           </div>
@@ -407,7 +410,7 @@ export default function JwtDecoderClient() {
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-rose-600 dark:text-rose-400">
-                    HEADER: Algorithm & Token Type
+                    {t('devTools.jwtDecoder.headerTitle')}
                   </span>
                 </div>
                 <button
@@ -416,14 +419,14 @@ export default function JwtDecoderClient() {
                   className="text-[11px] font-semibold text-zinc-500 hover:text-rose-600 flex items-center gap-1 transition-colors"
                 >
                   {copiedPart === 'Header JSON' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                  Copy Header
+                  {t('devTools.jwtDecoder.copyHeader')}
                 </button>
               </div>
 
               <div className="p-4 bg-zinc-950 font-mono text-xs text-rose-300">
                 <pre className="whitespace-pre overflow-x-auto">
                   {decodedResult.headerFormatted || (
-                    <span className="text-zinc-600 font-sans italic">Decoded header will appear here...</span>
+                    <span className="text-zinc-600 font-sans italic">{t('devTools.jwtDecoder.headerPlaceholder')}</span>
                   )}
                 </pre>
               </div>
@@ -435,7 +438,7 @@ export default function JwtDecoderClient() {
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-violet-600 dark:text-violet-400">
-                    PAYLOAD: Data Claims & Expiry
+                    {t('devTools.jwtDecoder.payloadTitle')}
                   </span>
                 </div>
                 <button
@@ -444,14 +447,14 @@ export default function JwtDecoderClient() {
                   className="text-[11px] font-semibold text-zinc-500 hover:text-violet-600 flex items-center gap-1 transition-colors"
                 >
                   {copiedPart === 'Payload JSON' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                  Copy Payload
+                  {t('devTools.jwtDecoder.copyPayload')}
                 </button>
               </div>
 
               <div className="p-4 bg-zinc-950 font-mono text-xs text-violet-200">
                 <pre className="whitespace-pre overflow-x-auto leading-relaxed">
                   {decodedResult.payloadFormatted || (
-                    <span className="text-zinc-600 font-sans italic">Decoded payload claims will appear here...</span>
+                    <span className="text-zinc-600 font-sans italic">{t('devTools.jwtDecoder.payloadPlaceholder')}</span>
                   )}
                 </pre>
               </div>
@@ -464,14 +467,14 @@ export default function JwtDecoderClient() {
               </div>
               <div className="text-xs font-exo-extralight flex-1">
                 <span className="font-bold text-zinc-800 dark:text-zinc-200 block mb-0.5">
-                  Cryptographic Signature Verified Locally
+                  {t('devTools.jwtDecoder.sigTitle')}
                 </span>
                 <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  Decoded without secret verification. To verify authenticity, your backend validates the signature using your private key or secret.
+                  {t('devTools.jwtDecoder.sigDesc')}
                 </p>
                 {decodedResult.signature && (
                   <div className="mt-2 font-mono text-[11px] text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-200 dark:border-cyan-800/60 break-all">
-                    Signature: {decodedResult.signature}
+                    {t('devTools.jwtDecoder.sigLabel')} {decodedResult.signature}
                   </div>
                 )}
               </div>
@@ -486,10 +489,10 @@ export default function JwtDecoderClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Zero Server Transmission
+              {t('devTools.jwtDecoder.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Unlike many online tools that send your authorization tokens to remote servers, this tool executes strictly in your browser using standard Base64Url decoders.
+              {t('devTools.jwtDecoder.card1Desc')}
             </p>
           </div>
 
@@ -498,10 +501,10 @@ export default function JwtDecoderClient() {
               <FiClock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Automatic Time Parsing
+              {t('devTools.jwtDecoder.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Unix timestamps like <code className="font-mono text-violet-500">exp</code> and <code className="font-mono text-violet-500">iat</code> are automatically translated into human-readable local time and UTC with active countdowns.
+              {t('devTools.jwtDecoder.card2Desc')}
             </p>
           </div>
 
@@ -510,10 +513,10 @@ export default function JwtDecoderClient() {
               <FiShield className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              RFC 7519 Standards
+              {t('devTools.jwtDecoder.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Full compliance with JSON Web Token specifications, ensuring reliable decoding for Auth0, Supabase, NextAuth, Firebase, and custom JWT servers.
+              {t('devTools.jwtDecoder.card3Desc')}
             </p>
           </div>
         </div>

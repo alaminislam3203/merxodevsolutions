@@ -3,6 +3,8 @@
 import { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiFileText,
   FiImage,
@@ -64,6 +66,7 @@ MerxoDev Solutions — Full Stack Web Engineering.
 Special symbols: @#$%^&*()_+={}:"<>?`;
 
 export default function Base64Client() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('text'); // 'text' | 'image'
 
   // Text Mode state
@@ -95,7 +98,7 @@ export default function Base64Client() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(keyName);
-        toast.success(`Copied ${keyName}!`);
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedKey(null), 2000);
       });
     }
@@ -113,7 +116,7 @@ export default function Base64Client() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('Downloaded text file!');
+    toast.success(t('devTools.common.download'));
   };
 
   // Handle Image Upload
@@ -161,7 +164,7 @@ export default function Base64Client() {
       type: 'image/png',
       rawBase64: raw.replace(/^data:image\/[a-z]+;base64,/, ''),
     });
-    toast.success('Decoded and rendered image preview!');
+    toast.success(t('devTools.common.preview'));
   };
 
   return (
@@ -182,18 +185,18 @@ export default function Base64Client() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">Base64 Encoder & Decoder</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.base64.titleStart')} {t('devTools.base64.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -202,22 +205,22 @@ export default function Base64Client() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight uppercase tracking-widest">
                 <FiFileText className="w-3.5 h-3.5" />
-                Formatters & Converters
+                {t('devTools.common.formattersConverters')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                100% Client-Side Privacy
+                {t('devTools.common.clientSidePrivacy')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              Base64{' '}
+              {t('devTools.base64.titleStart')}{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-violet-600 bg-clip-text text-transparent">
-                Encoder & Decoder
+                {t('devTools.base64.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Encode and decode plain text, UTF-8 strings, and image assets to Base64 and Data URIs with zero server upload.
+              {t('devTools.base64.subtitle')}
             </p>
           </div>
 
@@ -226,7 +229,7 @@ export default function Base64Client() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -240,7 +243,7 @@ export default function Base64Client() {
               }`}
           >
             <FiFileText className="w-4 h-4" />
-            Text Converter (UTF-8)
+            {t('devTools.base64.tabText')}
           </button>
 
           <button
@@ -251,7 +254,7 @@ export default function Base64Client() {
               }`}
           >
             <FiImage className="w-4 h-4" />
-            Image to Base64 & Data URI
+            {t('devTools.base64.tabImage')}
           </button>
         </div>
 
@@ -270,7 +273,7 @@ export default function Base64Client() {
                       : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                       }`}
                   >
-                    Text → Base64
+                    {t('devTools.base64.textToBase64')}
                   </button>
                   <button
                     onClick={() => setTextMode('decode')}
@@ -279,7 +282,7 @@ export default function Base64Client() {
                       : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                       }`}
                   >
-                    Base64 → Text
+                    {t('devTools.base64.base64ToText')}
                   </button>
                 </div>
 
@@ -292,7 +295,7 @@ export default function Base64Client() {
                       onChange={(e) => setIsUrlSafe(e.target.checked)}
                       className="rounded accent-cyan-500"
                     />
-                    <span>URL-Safe (- and _)</span>
+                    <span>{t('devTools.base64.urlSafe')}</span>
                   </label>
                 )}
               </div>
@@ -303,7 +306,7 @@ export default function Base64Client() {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
                 >
                   <FiRefreshCw className="w-3.5 h-3.5" />
-                  Load Sample
+                  {t('devTools.common.loadSample')}
                 </button>
 
                 <button
@@ -311,7 +314,7 @@ export default function Base64Client() {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-exo-extralight transition-all"
                 >
                   <FiTrash2 className="w-3.5 h-3.5" />
-                  Clear
+                  {t('devTools.common.clear')}
                 </button>
               </div>
             </div>
@@ -330,9 +333,9 @@ export default function Base64Client() {
               <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
                 <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                    {textMode === 'encode' ? 'Plain Text Input (UTF-8)' : 'Base64 Encoded Input'}
+                    {textMode === 'encode' ? t('devTools.base64.inputPlain') : t('devTools.base64.inputBase64')}
                   </span>
-                  <span className="text-[11px] text-zinc-400 font-mono">{textInput.length} chars</span>
+                  <span className="text-[11px] text-zinc-400 font-mono">{textInput.length} {t('devTools.common.chars')}</span>
                 </div>
                 <div className="p-4 flex-1 min-h-[380px]">
                   <textarea
@@ -340,8 +343,8 @@ export default function Base64Client() {
                     onChange={(e) => setTextInput(e.target.value)}
                     placeholder={
                       textMode === 'encode'
-                        ? 'Type or paste plain text here...'
-                        : 'Paste Base64 string here (e.g. SGVsbG8gV29ybGQh)...'
+                        ? t('devTools.base64.placeholderPlain')
+                        : t('devTools.base64.placeholderBase64')
                     }
                     className="w-full h-full min-h-[360px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
                   />
@@ -352,7 +355,7 @@ export default function Base64Client() {
               <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
                 <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                    {textMode === 'encode' ? 'Base64 Output' : 'Decoded Plain Text'}
+                    {textMode === 'encode' ? t('devTools.base64.outputBase64') : t('devTools.base64.outputPlain')}
                   </span>
                   <div className="flex items-center gap-1.5">
                     <button
@@ -361,7 +364,7 @@ export default function Base64Client() {
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-50 hover:bg-cyan-600 hover:text-white dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 text-xs font-bold transition-all disabled:opacity-40"
                     >
                       {copiedKey === 'Output' ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
-                      <span>Copy</span>
+                      <span>{t('devTools.common.copy')}</span>
                     </button>
                     <button
                       onClick={handleDownloadText}
@@ -369,7 +372,7 @@ export default function Base64Client() {
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all disabled:opacity-40"
                     >
                       <FiDownload />
-                      <span className="hidden sm:inline">Save</span>
+                      <span className="hidden sm:inline">{t('devTools.common.save')}</span>
                     </button>
                   </div>
                 </div>
@@ -377,7 +380,7 @@ export default function Base64Client() {
                 <div className="p-4 flex-1 min-h-[380px] bg-zinc-950 font-mono text-xs text-cyan-200">
                   <pre className="whitespace-pre-wrap break-all leading-relaxed">
                     {textOutput.result || (
-                      <span className="text-zinc-600 font-sans italic">Converted output will appear here...</span>
+                      <span className="text-zinc-600 font-sans italic">{t('devTools.base64.outputPlaceholder')}</span>
                     )}
                   </pre>
                 </div>
@@ -400,16 +403,16 @@ export default function Base64Client() {
                 <FiUpload className="w-8 h-8" />
               </div>
               <h3 className="font-exo-medium text-xl font-bold text-zinc-800 dark:text-white mb-1">
-                Drag & Drop Image Here or Click to Browse
+                {t('devTools.base64.dropTitle')}
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm mb-4">
-                Supports PNG, JPEG, SVG, WebP, GIF. Encodes directly into Data URIs and Base64 strings.
+                {t('devTools.base64.dropSubtitle')}
               </p>
               <button
                 type="button"
                 className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all"
               >
-                Choose Image File
+                {t('devTools.base64.chooseImage')}
               </button>
               <input
                 ref={fileInputRef}
@@ -426,14 +429,14 @@ export default function Base64Client() {
                 type="text"
                 value={customB64Input}
                 onChange={(e) => setCustomB64Input(e.target.value)}
-                placeholder="Or paste an existing Base64 Data URI string to decode and preview image..."
+                placeholder={t('devTools.base64.pasteDataUriPlaceholder')}
                 className="flex-1 px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
               <button
                 onClick={handlePreviewCustomB64}
                 className="px-4 py-2.5 rounded-xl bg-zinc-100 hover:bg-cyan-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-cyan-600 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shrink-0"
               >
-                Preview Image
+                {t('devTools.base64.previewImageBtn')}
               </button>
             </div>
 
@@ -453,19 +456,19 @@ export default function Base64Client() {
                   {imageDetails && (
                     <div className="w-full text-xs font-exo-extralight text-zinc-600 dark:text-zinc-400 space-y-1">
                       <div className="flex justify-between">
-                        <span>File:</span>
+                        <span>{t('devTools.base64.fileLabel')}</span>
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate max-w-[180px]">
                           {imageDetails.name}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Size:</span>
+                        <span>{t('devTools.base64.sizeLabel')}</span>
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200">
                           {(imageDetails.size / 1024).toFixed(1)} KB
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span>MIME:</span>
+                        <span>{t('devTools.base64.mimeLabel')}</span>
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200">{imageDetails.type}</span>
                       </div>
                     </div>
@@ -476,7 +479,7 @@ export default function Base64Client() {
                     className="w-full mt-4 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold uppercase tracking-wider transition-all"
                   >
                     <FiDownload className="w-4 h-4" />
-                    Download Image
+                    {t('devTools.base64.downloadImage')}
                   </a>
                 </div>
 
@@ -486,18 +489,18 @@ export default function Base64Client() {
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                        Full Data URI (with mime type)
+                        {t('devTools.base64.dataUriTitle')}
                       </span>
                       <button
                         onClick={() => handleCopy(imageDataUri, 'Data URI')}
                         className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'Data URI' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                        Copy Data URI
+                        {t('devTools.base64.copyDataUri')}
                       </button>
                     </div>
                     <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-[11px] max-h-24 overflow-auto break-all">
-                      {imageDataUri.slice(0, 300)}... ({imageDataUri.length} chars)
+                      {imageDataUri.slice(0, 300)}... ({imageDataUri.length} {t('devTools.common.chars')})
                     </pre>
                   </div>
 
@@ -505,7 +508,7 @@ export default function Base64Client() {
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                        HTML &lt;img&gt; Tag
+                        {t('devTools.base64.htmlTagTitle')}
                       </span>
                       <button
                         onClick={() =>
@@ -514,7 +517,7 @@ export default function Base64Client() {
                         className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'HTML img tag' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                        Copy HTML
+                        {t('devTools.base64.copyHtml')}
                       </button>
                     </div>
                     <pre className="p-3 rounded-xl bg-zinc-950 text-emerald-300 font-mono text-[11px] overflow-x-auto">
@@ -526,7 +529,7 @@ export default function Base64Client() {
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                        CSS background-image
+                        {t('devTools.base64.cssBgTitle')}
                       </span>
                       <button
                         onClick={() =>
@@ -535,7 +538,7 @@ export default function Base64Client() {
                         className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1 font-bold font-exo-extralight"
                       >
                         {copiedKey === 'CSS background-image' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                        Copy CSS
+                        {t('devTools.base64.copyCss')}
                       </button>
                     </div>
                     <pre className="p-3 rounded-xl bg-zinc-950 text-violet-300 font-mono text-[11px] overflow-x-auto">
@@ -555,10 +558,10 @@ export default function Base64Client() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              100% Local Conversion
+              {t('devTools.base64.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Your text, passwords, and images are processed using native Web API <code className="font-mono text-cyan-600">FileReader</code> and <code className="font-mono text-cyan-600">TextEncoder</code> with zero uploads.
+              {t('devTools.base64.card1Desc')}
             </p>
           </div>
 
@@ -567,10 +570,10 @@ export default function Base64Client() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Full UTF-8 Unicode
+              {t('devTools.base64.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Unlike default JavaScript <code className="font-mono text-emerald-600">btoa()</code>, our encoder natively supports non-ASCII characters including Bengali, Arabic, and emojis.
+              {t('devTools.base64.card2Desc')}
             </p>
           </div>
 
@@ -579,10 +582,10 @@ export default function Base64Client() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Ready-to-Use Snippets
+              {t('devTools.base64.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Instantly export HTML img tags, CSS background-image rules, or raw Data URIs for inline frontend icons, emails, and SVG embeds.
+              {t('devTools.base64.card3Desc')}
             </p>
           </div>
         </div>

@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiLink,
   FiCopy,
@@ -21,6 +23,7 @@ import {
 const SAMPLE_URL = 'https://merxodevsolutions.pro.bd/search?category=web & saas&query=বাংলা ফ্রন্টএন্ড&ref=facebook&utm_source=social #preview';
 
 export default function UrlEncoderClient() {
+  const { t } = useTranslation();
   const [inputVal, setInputVal] = useState(SAMPLE_URL);
   const [mode, setMode] = useState('encode'); // 'encode' | 'decode'
   const [scope, setScope] = useState('component'); // 'component' (encodeURIComponent) | 'full' (encodeURI)
@@ -43,7 +46,7 @@ export default function UrlEncoderClient() {
             : decodeURI(inputVal);
         return { success: true, result: decoded, error: null };
       }
-    } catch (err) {
+    } catch {
       return { success: false, result: '', error: 'Malformed URI sequence. Check percent-encoded sequences.' };
     }
   }, [inputVal, mode, scope]);
@@ -53,7 +56,7 @@ export default function UrlEncoderClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(outputResult.result).then(() => {
         setCopied(true);
-        toast.success('Copied to clipboard!');
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopied(false), 2000);
       });
     }
@@ -70,7 +73,7 @@ export default function UrlEncoderClient() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('Downloaded file!');
+    toast.success(t('devTools.common.download'));
   };
 
   return (
@@ -91,18 +94,18 @@ export default function UrlEncoderClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">URL Encoder & Decoder</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.urlEncoder.titleStart')} {t('devTools.urlEncoder.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -111,22 +114,22 @@ export default function UrlEncoderClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-exo-extralight uppercase tracking-widest">
                 <FiLink className="w-3.5 h-3.5" />
-                Formatters & Converters
+                {t('devTools.common.formattersConverters')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                100% Client-Side Privacy
+                {t('devTools.common.clientSidePrivacy')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              URL{' '}
+              {t('devTools.urlEncoder.titleStart')}{' '}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-600 bg-clip-text text-transparent">
-                Encoder & Decoder
+                {t('devTools.urlEncoder.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Safely encode and decode percent-encoded URLs, query string parameters, and URI components with RFC 3986 compliance.
+              {t('devTools.urlEncoder.subtitle')}
             </p>
           </div>
 
@@ -135,7 +138,7 @@ export default function UrlEncoderClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -151,7 +154,7 @@ export default function UrlEncoderClient() {
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
               >
-                Encode URL
+                {t('devTools.urlEncoder.encodeMode')}
               </button>
               <button
                 onClick={() => setMode('decode')}
@@ -160,20 +163,20 @@ export default function UrlEncoderClient() {
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
               >
-                Decode URL
+                {t('devTools.urlEncoder.decodeMode')}
               </button>
             </div>
 
             {/* Scope: Component vs Full */}
             <div className="flex items-center gap-1.5 text-xs font-exo-extralight text-zinc-600 dark:text-zinc-300 pl-2 border-l border-zinc-200 dark:border-zinc-800">
-              <span className="text-zinc-400 hidden sm:inline">Method:</span>
+              <span className="text-zinc-400 hidden sm:inline">{t('devTools.urlEncoder.method')}</span>
               <select
                 value={scope}
                 onChange={(e) => setScope(e.target.value)}
                 className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-2.5 py-1.5 text-xs text-zinc-700 dark:text-zinc-200 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
-                <option value="component">Component (encodeURIComponent - Strict)</option>
-                <option value="full">Full URL (encodeURI - Preserves ://?#)</option>
+                <option value="component">{t('devTools.urlEncoder.optComponent')}</option>
+                <option value="full">{t('devTools.urlEncoder.optFull')}</option>
               </select>
             </div>
           </div>
@@ -184,7 +187,7 @@ export default function UrlEncoderClient() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
-              Load Sample
+              {t('devTools.common.loadSample')}
             </button>
 
             <button
@@ -192,7 +195,7 @@ export default function UrlEncoderClient() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
-              Clear
+              {t('devTools.common.clear')}
             </button>
           </div>
         </div>
@@ -211,9 +214,9 @@ export default function UrlEncoderClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                {mode === 'encode' ? 'Raw URL / Query String Input' : 'Percent-Encoded URL Input'}
+                {mode === 'encode' ? t('devTools.urlEncoder.rawInput') : t('devTools.urlEncoder.encodedInput')}
               </span>
-              <span className="text-[11px] text-zinc-400 font-mono">{inputVal.length} chars</span>
+              <span className="text-[11px] text-zinc-400 font-mono">{inputVal.length} {t('devTools.common.chars')}</span>
             </div>
             <div className="p-4 flex-1 min-h-[380px]">
               <textarea
@@ -221,8 +224,8 @@ export default function UrlEncoderClient() {
                 onChange={(e) => setInputVal(e.target.value)}
                 placeholder={
                   mode === 'encode'
-                    ? 'Paste or type full URL or parameter string here...'
-                    : 'Paste percent-encoded string here (e.g. https%3A%2F%2F...)...'
+                    ? t('devTools.urlEncoder.rawPlaceholder')
+                    : t('devTools.urlEncoder.encodedPlaceholder')
                 }
                 className="w-full h-full min-h-[360px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
               />
@@ -233,7 +236,7 @@ export default function UrlEncoderClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                {mode === 'encode' ? 'Encoded URL Output' : 'Decoded URL Output'}
+                {mode === 'encode' ? t('devTools.urlEncoder.encodedOutput') : t('devTools.urlEncoder.decodedOutput')}
               </span>
               <div className="flex items-center gap-1.5">
                 <button
@@ -242,7 +245,7 @@ export default function UrlEncoderClient() {
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-600 hover:text-white dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs font-bold transition-all disabled:opacity-40"
                 >
                   {copied ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
-                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                  <span>{copied ? t('devTools.common.copied') : t('devTools.common.copy')}</span>
                 </button>
                 <button
                   onClick={handleDownload}
@@ -250,7 +253,7 @@ export default function UrlEncoderClient() {
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all disabled:opacity-40"
                 >
                   <FiDownload />
-                  <span className="hidden sm:inline">Save</span>
+                  <span className="hidden sm:inline">{t('devTools.common.save')}</span>
                 </button>
               </div>
             </div>
@@ -258,7 +261,7 @@ export default function UrlEncoderClient() {
             <div className="p-4 flex-1 min-h-[380px] bg-zinc-950 font-mono text-xs text-blue-200">
               <pre className="whitespace-pre-wrap break-all leading-relaxed">
                 {outputResult.result || (
-                  <span className="text-zinc-600 font-sans italic">Output will appear here...</span>
+                  <span className="text-zinc-600 font-sans italic">{t('devTools.urlEncoder.outputPlaceholder')}</span>
                 )}
               </pre>
             </div>
@@ -272,10 +275,10 @@ export default function UrlEncoderClient() {
               <FiGlobe className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              RFC 3986 Compliance
+              {t('devTools.urlEncoder.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Correctly encodes unsafe characters including spaces into <code className="font-mono text-blue-600">%20</code>, ampersands, slashes, hash symbols, and UTF-8 multibyte characters.
+              {t('devTools.urlEncoder.card1Desc')}
             </p>
           </div>
 
@@ -284,10 +287,10 @@ export default function UrlEncoderClient() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Component vs Full URL
+              {t('devTools.urlEncoder.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Use <strong>Component</strong> mode for single query values so delimiters like <code className="font-mono text-violet-500">&</code> or <code className="font-mono text-violet-500">=</code> are safely escaped without breaking queries.
+              {t('devTools.urlEncoder.card2Desc')}
             </p>
           </div>
 
@@ -296,10 +299,10 @@ export default function UrlEncoderClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Zero Latency & Private
+              {t('devTools.urlEncoder.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Everything happens directly on your machine. URLs with API keys, tokens, or personal identifiers are never transmitted across the network.
+              {t('devTools.urlEncoder.card3Desc')}
             </p>
           </div>
         </div>

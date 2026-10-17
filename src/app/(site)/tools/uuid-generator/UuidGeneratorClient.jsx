@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiHash,
   FiCopy,
@@ -34,6 +36,7 @@ function generateNanoId(size = 21, alphabet = 'use-standard') {
 }
 
 export default function UuidGeneratorClient() {
+  const { t } = useTranslation();
   const [type, setType] = useState('uuidv4'); // 'uuidv4' | 'nanoid'
   const [count, setCount] = useState(5);
   const [uppercase, setUppercase] = useState(false);
@@ -83,7 +86,7 @@ export default function UuidGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedIndex(index);
-        toast.success('Copied ID!');
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedIndex(null), 1500);
       });
     }
@@ -95,7 +98,7 @@ export default function UuidGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedAll(true);
-        toast.success(`Copied all ${generatedList.length} IDs!`);
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedAll(false), 2000);
       });
     }
@@ -113,7 +116,7 @@ export default function UuidGeneratorClient() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('Downloaded text list!');
+    toast.success(t('devTools.common.download'));
   };
 
   return (
@@ -134,18 +137,18 @@ export default function UuidGeneratorClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">UUID & NanoID Generator</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.uuidGenerator.titleStart')} {t('devTools.uuidGenerator.titleHighlight')}</span>
         </nav>
 
         {/* Header Section */}
@@ -154,22 +157,22 @@ export default function UuidGeneratorClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-exo-extralight uppercase tracking-widest">
                 <FiHash className="w-3.5 h-3.5" />
-                Generators & Identifiers
+                {t('devTools.common.generatorsIdentifiers')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                Crypto API CSPRNG
+                {t('devTools.uuidGenerator.csprngBadge')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              UUID & NanoID{' '}
+              {t('devTools.uuidGenerator.titleStart')}{' '}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">
-                Generator
+                {t('devTools.uuidGenerator.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Generate cryptographically secure UUID v4 (RFC 4122) and URL-friendly NanoIDs in bulk with custom casing and quotes.
+              {t('devTools.uuidGenerator.subtitle')}
             </p>
           </div>
 
@@ -178,7 +181,7 @@ export default function UuidGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -194,7 +197,7 @@ export default function UuidGeneratorClient() {
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
               >
-                UUID v4 (RFC 4122)
+                {t('devTools.uuidGenerator.uuidv4')}
               </button>
               <button
                 onClick={() => setType('nanoid')}
@@ -203,13 +206,13 @@ export default function UuidGeneratorClient() {
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
               >
-                NanoID
+                {t('devTools.uuidGenerator.nanoid')}
               </button>
             </div>
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold">
-              <span className="text-zinc-500 dark:text-zinc-400">Generate Quantity:</span>
+              <span className="text-zinc-500 dark:text-zinc-400">{t('devTools.uuidGenerator.quantity')}</span>
               {[1, 5, 10, 25, 50].map((n) => (
                 <button
                   key={n}
@@ -230,7 +233,7 @@ export default function UuidGeneratorClient() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-md shadow-amber-500/20 active:scale-95"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
-              Regenerate
+              {t('devTools.uuidGenerator.regenerate')}
             </button>
           </div>
 
@@ -243,7 +246,7 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setUppercase(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>Uppercase (A-F)</span>
+              <span>{t('devTools.uuidGenerator.uppercase')}</span>
             </label>
 
             {type === 'uuidv4' && (
@@ -254,7 +257,7 @@ export default function UuidGeneratorClient() {
                   onChange={(e) => setHyphens(e.target.checked)}
                   className="rounded accent-amber-500"
                 />
-                <span>Include Hyphens (-)</span>
+                <span>{t('devTools.uuidGenerator.hyphens')}</span>
               </label>
             )}
 
@@ -265,7 +268,7 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setWrapQuotes(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>Wrap in Quotes (&quot;...&quot;)</span>
+              <span>{t('devTools.uuidGenerator.quotes')}</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -275,12 +278,12 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setWrapBraces(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>Wrap in Braces ({'{...}'})</span>
+              <span>{t('devTools.uuidGenerator.braces')}</span>
             </label>
 
             {type === 'nanoid' && (
               <div className="flex items-center gap-2">
-                <span>Length:</span>
+                <span>{t('devTools.uuidGenerator.length')}</span>
                 <input
                   type="number"
                   min="6"
@@ -298,7 +301,7 @@ export default function UuidGeneratorClient() {
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
           <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
             <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-              Generated Identifiers ({generatedList.length})
+              {t('devTools.uuidGenerator.generatedIdentifiers')} ({generatedList.length})
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -306,14 +309,14 @@ export default function UuidGeneratorClient() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-exo-extralight transition-all shadow-sm"
               >
                 {copiedAll ? <FiCheck className="w-3.5 h-3.5" /> : <FiCopy className="w-3.5 h-3.5" />}
-                <span>{copiedAll ? 'Copied All' : 'Copy All'}</span>
+                <span>{copiedAll ? t('devTools.uuidGenerator.copiedAll') : t('devTools.uuidGenerator.copyAll')}</span>
               </button>
               <button
                 onClick={handleDownload}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
               >
                 <FiDownload className="w-3.5 h-3.5" />
-                <span>Save .txt</span>
+                <span>{t('devTools.uuidGenerator.saveTxt')}</span>
               </button>
             </div>
           </div>
@@ -335,7 +338,7 @@ export default function UuidGeneratorClient() {
                 <button
                   onClick={() => handleCopySingle(id, index)}
                   className="p-1.5 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all opacity-80 group-hover:opacity-100"
-                  title="Copy this ID"
+                  title={t('devTools.uuidGenerator.copyTooltip')}
                 >
                   {copiedIndex === index ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
                 </button>
@@ -351,10 +354,10 @@ export default function UuidGeneratorClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Cryptographically Secure
+              {t('devTools.uuidGenerator.card1Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Powered by native browser <code className="font-mono text-amber-600">crypto.getRandomValues</code> CSPRNG entropy sources to guarantee zero collision probability.
+              {t('devTools.uuidGenerator.card1Desc')}
             </p>
           </div>
 
@@ -363,10 +366,10 @@ export default function UuidGeneratorClient() {
               <FiZap className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              NanoID URL Safety
+              {t('devTools.uuidGenerator.card2Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              NanoIDs are smaller, faster, and URL-friendly without dangerous characters, making them ideal for shortlinks, primary keys, and public tokens.
+              {t('devTools.uuidGenerator.card2Desc')}
             </p>
           </div>
 
@@ -375,10 +378,10 @@ export default function UuidGeneratorClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              Bulk Export Ready
+              {t('devTools.uuidGenerator.card3Title')}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              Generate up to 500 identifiers at a time, format with SQL quotes or hyphens, and export directly as a plain text file for database seed scripts.
+              {t('devTools.uuidGenerator.card3Desc')}
             </p>
           </div>
         </div>

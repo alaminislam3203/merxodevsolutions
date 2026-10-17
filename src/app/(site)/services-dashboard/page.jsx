@@ -161,7 +161,7 @@ export default function ServicesDashboardPage() {
   ]);
 
   return (
-    <main className="bg-white dark:bg-zinc-950 text-[#27003B] dark:text-white transition-colors duration-300">
+    <main className="text-[#27003B] dark:text-white transition-colors duration-300">
       {/* ── Hero Section ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         {/* Ambient Glows */}
@@ -284,8 +284,8 @@ export default function ServicesDashboardPage() {
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === tab.id
-                          ? 'bg-white dark:bg-zinc-900 text-cyan-600 dark:text-cyan-400 shadow-sm'
-                          : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                        ? 'bg-white dark:bg-zinc-900 text-cyan-600 dark:text-cyan-400 shadow-sm'
+                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                         }`}
                     >
                       {tab.label}
@@ -531,7 +531,7 @@ export default function ServicesDashboardPage() {
       </section>
 
       {/* ── Tech Stack Section ── */}
-      <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-900" aria-labelledby="tech-heading">
+      <section className="px-6 py-20" aria-labelledby="tech-heading">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
             {t('dashboard.techStack.badge', '✦ Modern High-Performance Stack')}
@@ -598,7 +598,7 @@ export default function ServicesDashboardPage() {
       </section>
 
       {/* ── Transparent Pricing & Plans ── */}
-      <section className="px-6 py-20 bg-zinc-50/70 dark:bg-zinc-900/60" aria-labelledby="pricing-heading">
+      <section className="px-6 py-20" aria-labelledby="pricing-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-14">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
@@ -614,8 +614,8 @@ export default function ServicesDashboardPage() {
               <div
                 key={idx}
                 className={`rounded-2xl p-7 flex flex-col justify-between relative transition-all duration-300 ${plan.popular
-                    ? 'bg-white dark:bg-zinc-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/10 scale-100 lg:-translate-y-2'
-                    : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'
+                  ? 'bg-white dark:bg-zinc-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/10 scale-100 lg:-translate-y-2'
+                  : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'
                   }`}
               >
                 {plan.popular && (
@@ -653,8 +653,8 @@ export default function ServicesDashboardPage() {
                 <Link
                   href="/contact"
                   className={`w-full py-3 rounded-xl text-center text-sm font-bold font-exo-extralight transition-all cursor-pointer ${plan.popular
-                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:opacity-90 shadow-md shadow-cyan-500/20'
-                      : 'border border-zinc-200 dark:border-zinc-700 hover:border-cyan-400 dark:hover:border-cyan-600'
+                    ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:opacity-90 shadow-md shadow-cyan-500/20'
+                    : 'border border-zinc-200 dark:border-zinc-700 hover:border-cyan-400 dark:hover:border-cyan-600'
                     }`}
                 >
                   {plan.cta}
@@ -711,7 +711,7 @@ export default function ServicesDashboardPage() {
       </section>
 
       {/* ── Related Services ── */}
-      <section className="px-6 py-16 bg-zinc-50 dark:bg-zinc-900" aria-labelledby="related-heading">
+      <section className="px-6 py-16" aria-labelledby="related-heading">
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">

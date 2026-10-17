@@ -359,7 +359,7 @@ export default function ServicesAutomationPage() {
 
       {/* Tech Pills */}
       <section className="px-4 sm:px-6 pb-24" aria-label="Automation stack">
-        <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-orange-50/50 via-white to-purple-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
+        <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-2 block">
               {t('automationService.techStack.badge', '✦ Enterprise Automation Engines')}
@@ -410,11 +410,10 @@ export default function ServicesAutomationPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
                     ? 'border-2 border-orange-500 bg-gradient-to-b from-orange-50/80 via-white to-white dark:from-orange-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-orange-500/20 scale-105 z-10'
                     : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -451,11 +450,10 @@ export default function ServicesAutomationPage() {
 
                 <Link
                   href={`/contact?service=Business%20Automation&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${
-                    plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
                       ? 'bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white hover:opacity-95 shadow-lg shadow-orange-500/25'
                       : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -498,9 +496,8 @@ export default function ServicesAutomationPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (
