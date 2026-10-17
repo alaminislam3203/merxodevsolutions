@@ -29,27 +29,27 @@ export default function OurTeamClient({ team = [] }) {
   const principles = Array.isArray(rawPrinciples) && rawPrinciples.length === 4
     ? rawPrinciples.map((p, idx) => ({ ...p, icon: principleIcons[idx] }))
     : [
-        {
-          icon: principleIcons[0],
-          title: 'Code Craftsmanship',
-          desc: 'Clean architecture, maintainable codebases, and performance-first engineering.',
-        },
-        {
-          icon: principleIcons[1],
-          title: 'Agile Velocity',
-          desc: 'Fast iterations, rapid prototyping, and prompt client communication at every step.',
-        },
-        {
-          icon: principleIcons[2],
-          title: 'User-Centric Design',
-          desc: 'Intuitive UX and pixel-perfect aesthetics that elevate real-world conversions.',
-        },
-        {
-          icon: principleIcons[3],
-          title: 'Continuous Innovation',
-          desc: 'Adopting state-of-the-art tools, cloud microservices, and AI integrations.',
-        },
-      ];
+      {
+        icon: principleIcons[0],
+        title: 'Code Craftsmanship',
+        desc: 'Clean architecture, maintainable codebases, and performance-first engineering.',
+      },
+      {
+        icon: principleIcons[1],
+        title: 'Agile Velocity',
+        desc: 'Fast iterations, rapid prototyping, and prompt client communication at every step.',
+      },
+      {
+        icon: principleIcons[2],
+        title: 'User-Centric Design',
+        desc: 'Intuitive UX and pixel-perfect aesthetics that elevate real-world conversions.',
+      },
+      {
+        icon: principleIcons[3],
+        title: 'Continuous Innovation',
+        desc: 'Adopting state-of-the-art tools, cloud microservices, and AI integrations.',
+      },
+    ];
 
   return (
     <main className="text-[#27003B] dark:text-white min-h-screen">
@@ -65,7 +65,7 @@ export default function OurTeamClient({ team = [] }) {
             <span>{t('ourTeam.pill')}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-exo-extralight tracking-tight mb-6 leading-[1.15]">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-black font-exo-extralight tracking-tight mb-4 leading-[1.15]">
             {t('ourTeam.titleStart')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
               {t('ourTeam.titleHighlight')}

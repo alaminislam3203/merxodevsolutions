@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiGlobe,
   FiCopy,
@@ -15,6 +17,7 @@ import {
 } from 'react-icons/fi';
 
 export default function MetaPreviewerClient() {
+  const { t } = useTranslation();
   const [title, setTitle] = useState('MerxoDev Solutions — Full Stack Web Engineering & Software');
   const [description, setDescription] = useState('We build high-performance Next.js websites, SaaS platforms, and enterprise solutions for businesses in Bangladesh and worldwide.');
   const [url, setUrl] = useState('https://merxodevsolutions.pro.bd');
@@ -52,7 +55,7 @@ export default function MetaPreviewerClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(generatedHtml).then(() => {
         setCopied(true);
-        toast.success('Copied HTML meta tags!');
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopied(false), 2000);
       });
     }
@@ -84,18 +87,20 @@ export default function MetaPreviewerClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">Meta Tags & OG Previewer</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
+            {t('devTools.metaPreviewer.titleStart')} {t('devTools.metaPreviewer.titleHighlight')}
+          </span>
         </nav>
 
         {/* Header Section */}
@@ -104,22 +109,22 @@ export default function MetaPreviewerClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight uppercase tracking-widest">
                 <FiGlobe className="w-3.5 h-3.5" />
-                SEO & Open Graph
+                {t('devTools.common.seoMarketing')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiShare2 className="w-3 h-3 text-cyan-500" />
-                Social Card Previews
+                {t('devTools.metaPreviewer.previews')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              Meta Tags &{' '}
+              {t('devTools.metaPreviewer.titleStart')}{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
-                OG Previewer
+                {t('devTools.metaPreviewer.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Simulate Google, Facebook, Twitter/X, and LinkedIn social share cards in real time and copy ready-to-paste HTML meta tags.
+              {t('devTools.metaPreviewer.subtitle')}
             </p>
           </div>
 
@@ -128,7 +133,7 @@ export default function MetaPreviewerClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -137,15 +142,15 @@ export default function MetaPreviewerClient() {
           {/* Inputs Card */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-4">
             <h2 className="font-exo-medium text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
-              Page Metadata
+              {t('devTools.metaPreviewer.editMetadata')}
             </h2>
 
             {/* Title */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
-                <span>Page Title</span>
+                <span>{t('devTools.metaPreviewer.pageTitle')}</span>
                 <span className={`text-[11px] font-mono ${title.length > 60 ? 'text-amber-500' : 'text-zinc-400'}`}>
-                  {title.length}/60 chars
+                  {title.length}/60 {t('devTools.common.chars')}
                 </span>
               </div>
               <input
@@ -159,9 +164,9 @@ export default function MetaPreviewerClient() {
             {/* Description */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
-                <span>Description</span>
+                <span>{t('devTools.metaPreviewer.metaDesc')}</span>
                 <span className={`text-[11px] font-mono ${description.length > 160 ? 'text-amber-500' : 'text-zinc-400'}`}>
-                  {description.length}/160 chars
+                  {description.length}/160 {t('devTools.common.chars')}
                 </span>
               </div>
               <textarea
@@ -174,7 +179,9 @@ export default function MetaPreviewerClient() {
 
             {/* Canonical URL */}
             <div>
-              <label className="block text-xs font-exo-extralight font-semibold mb-1">Canonical URL</label>
+              <label className="block text-xs font-exo-extralight font-semibold mb-1">
+                {t('devTools.metaPreviewer.canonicalUrl')}
+              </label>
               <input
                 type="text"
                 value={url}
@@ -185,7 +192,9 @@ export default function MetaPreviewerClient() {
 
             {/* Image URL */}
             <div>
-              <label className="block text-xs font-exo-extralight font-semibold mb-1">OG Banner Image URL (1200x630)</label>
+              <label className="block text-xs font-exo-extralight font-semibold mb-1">
+                {t('devTools.metaPreviewer.ogImage')} (1200x630)
+              </label>
               <input
                 type="text"
                 value={image}
@@ -196,7 +205,9 @@ export default function MetaPreviewerClient() {
 
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="block text-xs font-exo-extralight font-semibold mb-1">Site Name</label>
+                <label className="block text-xs font-exo-extralight font-semibold mb-1">
+                  {t('devTools.metaPreviewer.siteName')}
+                </label>
                 <input
                   type="text"
                   value={siteName}
@@ -205,7 +216,9 @@ export default function MetaPreviewerClient() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-exo-extralight font-semibold mb-1">Twitter Handle</label>
+                <label className="block text-xs font-exo-extralight font-semibold mb-1">
+                  {t('devTools.metaPreviewer.twitterHandle')}
+                </label>
                 <input
                   type="text"
                   value={twitterUser}
@@ -221,9 +234,9 @@ export default function MetaPreviewerClient() {
             {/* Preview Selector Tabs */}
             <div className="flex items-center gap-2 p-1 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
               {[
-                { id: 'google', name: 'Google Search' },
-                { id: 'facebook', name: 'Facebook / LinkedIn' },
-                { id: 'twitter', name: 'Twitter / X' },
+                { id: 'google', name: t('devTools.metaPreviewer.googlePreview') },
+                { id: 'facebook', name: t('devTools.metaPreviewer.facebookPreview') },
+                { id: 'twitter', name: t('devTools.metaPreviewer.twitterPreview') },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -242,7 +255,7 @@ export default function MetaPreviewerClient() {
             {activePreview === 'google' && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-4">
-                  Google Search Result Preview
+                  {t('devTools.metaPreviewer.googlePreview')}
                 </span>
                 <div className="max-w-xl">
                   <div className="flex items-center gap-2 mb-1">
@@ -268,7 +281,7 @@ export default function MetaPreviewerClient() {
             {activePreview === 'facebook' && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
-                  Open Graph Social Card (Facebook, LinkedIn, Discord)
+                  {t('devTools.metaPreviewer.facebookPreview')}
                 </span>
                 <div className="relative w-full h-52 bg-zinc-800 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -300,7 +313,7 @@ export default function MetaPreviewerClient() {
             {activePreview === 'twitter' && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
-                  Twitter / X Large Image Card Preview
+                  {t('devTools.metaPreviewer.twitterPreview')}
                 </span>
                 <div className="p-4">
                   <div className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
@@ -334,14 +347,14 @@ export default function MetaPreviewerClient() {
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                  Ready-to-Use HTML Meta Tags
+                  {t('devTools.metaPreviewer.generatedHtml')}
                 </span>
                 <button
                   onClick={handleCopy}
                   className="text-xs font-bold font-exo-extralight text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
                 >
                   {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                  Copy Meta Tags
+                  {copied ? t('devTools.common.copied') : t('devTools.metaPreviewer.copyMetaTags')}
                 </button>
               </div>
               <pre className="p-3.5 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto whitespace-pre leading-relaxed">
@@ -350,7 +363,47 @@ export default function MetaPreviewerClient() {
             </div>
           </div>
         </div>
+
+        {/* Feature Highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
+              <FiEye className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.metaPreviewer.card1Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.metaPreviewer.card1Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
+              <FiGlobe className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.metaPreviewer.card2Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.metaPreviewer.card2Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
+              <FiCode className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.metaPreviewer.card3Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.metaPreviewer.card3Desc')}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+

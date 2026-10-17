@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiZap,
   FiSearch,
@@ -15,6 +17,9 @@ import {
   FiInfo,
   FiAlertTriangle,
   FiCheckCircle,
+  FiBookOpen,
+  FiTool,
+  FiFilter,
 } from 'react-icons/fi';
 
 const HTTP_CODES = [
@@ -64,10 +69,20 @@ const CATEGORY_COLORS = {
 };
 
 export default function HttpStatusClient() {
+  const { t } = useTranslation();
   const [activeCat, setActiveCat] = useState('All');
   const [search, setSearch] = useState('');
   const [expandedCode, setExpandedCode] = useState(null);
   const [copiedCode, setCopiedCode] = useState(null);
+
+  const categoryLabels = {
+    'All': t('devTools.httpStatus.allCodes'),
+    '1xx': t('devTools.httpStatus.info1xx'),
+    '2xx': t('devTools.httpStatus.success2xx'),
+    '3xx': t('devTools.httpStatus.redirect3xx'),
+    '4xx': t('devTools.httpStatus.clientError4xx'),
+    '5xx': t('devTools.httpStatus.serverError5xx'),
+  };
 
   const filteredCodes = useMemo(() => {
     return HTTP_CODES.filter((c) => {
@@ -88,7 +103,7 @@ export default function HttpStatusClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedCode(c.code);
-        toast.success(`Copied ${c.code} ${c.phrase}!`);
+        toast.success(t('devTools.common.copiedToClipboard'));
         setTimeout(() => setCopiedCode(null), 1500);
       });
     }
@@ -112,18 +127,20 @@ export default function HttpStatusClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">HTTP Status Codes Guide</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
+            {t('devTools.httpStatus.titleStart')} {t('devTools.httpStatus.titleHighlight')}
+          </span>
         </nav>
 
         {/* Header Section */}
@@ -132,22 +149,22 @@ export default function HttpStatusClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-exo-extralight uppercase tracking-widest">
                 <FiZap className="w-3.5 h-3.5" />
-                REST API & Web Protocols
+                {t('devTools.common.networkingWeb')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiInfo className="w-3 h-3 text-amber-500" />
-                Developer Troubleshooting Guide
+                {t('devTools.httpStatus.titleHighlight')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              HTTP Status Codes{' '}
+              {t('devTools.httpStatus.titleStart')}{' '}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 bg-clip-text text-transparent">
-                Reference
+                {t('devTools.httpStatus.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Comprehensive and searchable cheatsheet of HTTP response status codes with official specifications, common causes, and developer solutions.
+              {t('devTools.httpStatus.subtitle')}
             </p>
           </div>
 
@@ -156,7 +173,7 @@ export default function HttpStatusClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
@@ -168,7 +185,7 @@ export default function HttpStatusClient() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by code (404, 500) or keyword (auth, redirect)..."
+              placeholder={t('devTools.httpStatus.searchPlaceholder')}
               className="w-full pl-10 pr-9 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
             />
             {search && (
@@ -187,12 +204,12 @@ export default function HttpStatusClient() {
               <button
                 key={cat}
                 onClick={() => setActiveCat(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold font-exo-extralight uppercase transition-all ${activeCat === cat
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold font-exo-extralight uppercase transition-all whitespace-nowrap ${activeCat === cat
                   ? 'bg-amber-500 text-white shadow-sm'
                   : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                   }`}
               >
-                {cat}
+                {categoryLabels[cat] || cat}
               </button>
             ))}
           </div>
@@ -231,7 +248,7 @@ export default function HttpStatusClient() {
                   {isExpanded && (
                     <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-xs font-exo-extralight animate-fadeIn">
                       <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block mb-1">
-                        Developer Troubleshooting:
+                        {t('devTools.httpStatus.troubleshooting')}
                       </span>
                       <p className="text-zinc-500 dark:text-zinc-300 leading-relaxed bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-xl border border-zinc-100 dark:border-zinc-700/60">
                         {item.fix}
@@ -252,7 +269,7 @@ export default function HttpStatusClient() {
                   <button
                     onClick={() => handleCopy(item)}
                     className="p-1.5 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-                    title="Copy code details"
+                    title={t('devTools.common.copy')}
                   >
                     {copiedCode === item.code ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
                   </button>
@@ -261,7 +278,47 @@ export default function HttpStatusClient() {
             );
           })}
         </div>
+
+        {/* Feature Highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
+              <FiBookOpen className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.httpStatus.card1Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.httpStatus.card1Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-4">
+              <FiTool className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.httpStatus.card2Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.httpStatus.card2Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950 flex items-center justify-center text-rose-600 dark:text-rose-400 mb-4">
+              <FiFilter className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.httpStatus.card3Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.httpStatus.card3Desc')}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+

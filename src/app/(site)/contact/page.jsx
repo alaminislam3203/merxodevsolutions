@@ -320,7 +320,7 @@ export default function ContactPage() {
             {t('contact.badge', 'Available For New Projects • 2–12h Response')}
           </div>
 
-          <h1 className="font-exo-medium text-4xl sm:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
+          <h1 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
             {t('contact.headingStart', "Let's Build Something")}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               {t('contact.headingGradient', 'Exceptional')}
@@ -621,18 +621,16 @@ export default function ContactPage() {
                           key={s.id}
                           type="button"
                           onClick={() => setSelectedService(s.id)}
-                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center gap-3 ${
-                            isSelected
-                              ? 'bg-gradient-to-br from-violet-600/10 via-purple-600/5 to-cyan-500/10 border-violet-500 dark:border-violet-400 shadow-md shadow-violet-500/10 ring-1 ring-violet-500/30'
-                              : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-violet-300 dark:hover:border-violet-700/60 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
-                          }`}
+                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center gap-3 ${isSelected
+                            ? 'bg-gradient-to-br from-violet-600/10 via-purple-600/5 to-cyan-500/10 border-violet-500 dark:border-violet-400 shadow-md shadow-violet-500/10 ring-1 ring-violet-500/30'
+                            : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-violet-300 dark:hover:border-violet-700/60 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
+                            }`}
                         >
                           <div
-                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 ${
-                              isSelected
-                                ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white shadow-sm shadow-violet-500/40'
-                                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/40'
-                            }`}
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 ${isSelected
+                              ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white shadow-sm shadow-violet-500/40'
+                              : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/40'
+                              }`}
                           >
                             <IconComponent size={17} />
                           </div>
@@ -640,11 +638,10 @@ export default function ContactPage() {
                           <div className="flex-1 min-w-0 pr-1">
                             <div className="flex items-center justify-between gap-1">
                               <span
-                                className={`text-xs font-bold font-exo-extralight truncate leading-tight ${
-                                  isSelected
-                                    ? 'text-violet-950 dark:text-white'
-                                    : 'text-zinc-800 dark:text-zinc-200 group-hover:text-violet-700 dark:group-hover:text-violet-300'
-                                }`}
+                                className={`text-xs font-bold font-exo-extralight truncate leading-tight ${isSelected
+                                  ? 'text-violet-950 dark:text-white'
+                                  : 'text-zinc-800 dark:text-zinc-200 group-hover:text-violet-700 dark:group-hover:text-violet-300'
+                                  }`}
                               >
                                 {s.label}
                               </span>
@@ -708,19 +705,17 @@ export default function ContactPage() {
                           key={b.id}
                           type="button"
                           onClick={() => setSelectedBudget(b.id)}
-                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[68px] ${
-                            isSelected
-                              ? 'bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-orange-500/10 border-amber-500 dark:border-amber-400 shadow-md shadow-amber-500/10 ring-1 ring-amber-500/30'
-                              : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-amber-300 dark:hover:border-amber-600/50 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
-                          }`}
+                          className={`group relative text-left p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[68px] ${isSelected
+                            ? 'bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-orange-500/10 border-amber-500 dark:border-amber-400 shadow-md shadow-amber-500/10 ring-1 ring-amber-500/30'
+                            : 'bg-white/60 dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800/80 hover:border-amber-300 dark:hover:border-amber-600/50 hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
+                            }`}
                         >
                           <div className="flex items-center justify-between gap-1 w-full">
                             <span
-                              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full transition-colors ${
-                                isSelected
-                                  ? 'bg-amber-500 text-zinc-950 font-extrabold shadow-sm'
-                                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-amber-600 dark:group-hover:text-amber-400'
-                              }`}
+                              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full transition-colors ${isSelected
+                                ? 'bg-amber-500 text-zinc-950 font-extrabold shadow-sm'
+                                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-amber-600 dark:group-hover:text-amber-400'
+                                }`}
                             >
                               {b.badge}
                             </span>
@@ -731,11 +726,10 @@ export default function ContactPage() {
                             )}
                           </div>
                           <span
-                            className={`text-xs sm:text-sm font-bold font-exo-extralight mt-1.5 ${
-                              isSelected
-                                ? 'text-zinc-950 dark:text-white'
-                                : 'text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-950 dark:group-hover:text-white'
-                            }`}
+                            className={`text-xs sm:text-sm font-bold font-exo-extralight mt-1.5 ${isSelected
+                              ? 'text-zinc-950 dark:text-white'
+                              : 'text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-950 dark:group-hover:text-white'
+                              }`}
                           >
                             {b.label}
                           </span>

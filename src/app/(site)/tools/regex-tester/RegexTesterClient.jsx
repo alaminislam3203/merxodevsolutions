@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiLayers,
   FiCopy,
@@ -12,6 +14,9 @@ import {
   FiAlertCircle,
   FiHelpCircle,
   FiTrash2,
+  FiZap,
+  FiSliders,
+  FiBookOpen,
 } from 'react-icons/fi';
 
 const PRESETS = [
@@ -24,6 +29,7 @@ const PRESETS = [
 ];
 
 export default function RegexTesterClient() {
+  const { t } = useTranslation();
   const [pattern, setPattern] = useState('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}');
   const [flags, setFlags] = useState({ g: true, i: true, m: true, s: false, u: false });
   const [testText, setTestText] = useState('Contact developer team at hello@merxodevsolutions.pro.bd or support@example.com.\nInvalid email: no-at-symbol.domain.');
@@ -108,18 +114,20 @@ export default function RegexTesterClient() {
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Home
+            {t('devTools.common.home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            Tools
+            {t('devTools.common.tools')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">Regex Tester & Debugger</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
+            {t('devTools.regexTester.titleStart')} {t('devTools.regexTester.titleHighlight')}
+          </span>
         </nav>
 
         {/* Header Section */}
@@ -128,22 +136,22 @@ export default function RegexTesterClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiLayers className="w-3.5 h-3.5" />
-                Regular Expressions
+                {t('devTools.common.formattersConverters')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiCheckCircle className="w-3 h-3 text-emerald-500" />
-                Real-time JavaScript Engine
+                {t('devTools.common.clientSidePrivacy')}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              Regex Tester &{' '}
+              {t('devTools.regexTester.titleStart')}{' '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
-                Visualizer
+                {t('devTools.regexTester.titleHighlight')}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              Test and debug regular expressions with live match counter, capture group inspection, and common pattern presets.
+              {t('devTools.regexTester.subtitle')}
             </p>
           </div>
 
@@ -152,13 +160,15 @@ export default function RegexTesterClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            All Tools
+            {t('devTools.common.allTools')}
           </Link>
         </div>
 
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-          <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">Presets:</span>
+          <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">
+            {t('devTools.regexTester.presets')}
+          </span>
           {PRESETS.map((p) => (
             <button
               key={p.name}
@@ -173,7 +183,7 @@ export default function RegexTesterClient() {
             className="px-3.5 py-1.5 rounded-xl bg-violet-50 hover:bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 text-xs font-bold whitespace-nowrap transition-all border border-violet-200 dark:border-violet-800 flex items-center gap-1.5"
           >
             <FiHelpCircle className="w-3.5 h-3.5" />
-            Cheat Sheet
+            {t('devTools.regexTester.toggleCheatsheet')}
           </button>
         </div>
 
@@ -213,7 +223,7 @@ export default function RegexTesterClient() {
         <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-2">
-              Regular Expression Pattern
+              {t('devTools.regexTester.regularExpression')}
             </label>
             <div className="flex items-center gap-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 py-2">
               <span className="text-zinc-400 font-mono text-base">/</span>
@@ -233,7 +243,7 @@ export default function RegexTesterClient() {
 
           {/* Flag checkboxes */}
           <div className="flex flex-wrap items-center gap-4 text-xs font-exo-extralight pt-2 border-t border-zinc-100 dark:border-zinc-800">
-            <span className="text-zinc-400 font-bold">Flags:</span>
+            <span className="text-zinc-400 font-bold">{t('devTools.regexTester.flags')}</span>
             {[
               { id: 'g', label: 'g (global match)' },
               { id: 'i', label: 'i (case-insensitive)' },
@@ -259,7 +269,7 @@ export default function RegexTesterClient() {
           <div className="flex items-start gap-2.5 px-4 py-3 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
             <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold block mb-0.5">Regex Syntax Error</span>
+              <span className="font-bold block mb-0.5">{t('devTools.regexTester.invalidRegex')}</span>
               <p className="font-mono text-[11px] text-rose-700 dark:text-rose-200">{regexResult.error}</p>
             </div>
           </div>
@@ -271,12 +281,11 @@ export default function RegexTesterClient() {
             <div className="flex items-center gap-2">
               <FiCheckCircle className="w-4 h-4 text-violet-600 dark:text-violet-400" />
               <span>
-                Found <strong className="font-bold">{regexResult.matches.length}</strong> match
-                {regexResult.matches.length === 1 ? '' : 'es'}
+                {t('devTools.regexTester.matchesFound', { count: regexResult.matches.length })}
               </span>
             </div>
             <span className="text-[11px] font-mono text-zinc-500">
-              Evaluated via native V8 JavaScript RegExp
+              {t('devTools.common.clientSidePrivacy')}
             </span>
           </div>
         )}
@@ -287,21 +296,21 @@ export default function RegexTesterClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                Test String Input
+                {t('devTools.regexTester.testString')}
               </span>
               <button
                 onClick={() => setTestText('')}
                 className="text-xs text-rose-500 hover:text-rose-600 flex items-center gap-1 font-semibold"
               >
                 <FiTrash2 className="w-3.5 h-3.5" />
-                Clear
+                {t('devTools.common.clear')}
               </button>
             </div>
             <div className="p-4 flex-1 min-h-[360px]">
               <textarea
                 value={testText}
                 onChange={(e) => setTestText(e.target.value)}
-                placeholder="Write or paste sample text to test your regular expression pattern against..."
+                placeholder={t('devTools.regexTester.testPlaceholder')}
                 className="w-full h-full min-h-[340px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
               />
             </div>
@@ -311,10 +320,10 @@ export default function RegexTesterClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                Extracted Matches & Capture Groups
+                {t('devTools.regexTester.matchResults')}
               </span>
               <span className="text-[11px] font-mono text-zinc-400">
-                {regexResult.matches.length} matches
+                {regexResult.matches.length} {t('devTools.regexTester.match')}s
               </span>
             </div>
 
@@ -327,9 +336,9 @@ export default function RegexTesterClient() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-bold text-violet-400 uppercase tracking-wider">
-                        Match #{index + 1}
+                        {t('devTools.regexTester.match')} #{index + 1}
                       </span>
-                      <span className="text-[10px] text-zinc-500">at index {m.index}</span>
+                      <span className="text-[10px] text-zinc-500">{t('devTools.regexTester.index')} {m.index}</span>
                     </div>
 
                     <div className="p-2 rounded bg-zinc-950 text-emerald-300 break-all">
@@ -338,7 +347,7 @@ export default function RegexTesterClient() {
 
                     {m.groups.length > 0 && (
                       <div className="pt-1.5 border-t border-zinc-800/80">
-                        <span className="text-[10px] text-zinc-400 block mb-1">Capture Groups:</span>
+                        <span className="text-[10px] text-zinc-400 block mb-1">{t('devTools.regexTester.groups')}:</span>
                         <div className="flex flex-wrap gap-1.5">
                           {m.groups.map((g, gi) => (
                             <span
@@ -356,14 +365,54 @@ export default function RegexTesterClient() {
               ) : (
                 <div className="text-center py-12 text-zinc-500 font-sans italic">
                   {regexResult.isValid
-                    ? 'No matches found for the given pattern in test text.'
-                    : 'Fix regex syntax error above to calculate matches.'}
+                    ? t('devTools.regexTester.noMatches')
+                    : t('devTools.regexTester.invalidRegex')}
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Feature Highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4">
+              <FiZap className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.regexTester.card1Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.regexTester.card1Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-fuchsia-50 dark:bg-fuchsia-950 flex items-center justify-center text-fuchsia-600 dark:text-fuchsia-400 mb-4">
+              <FiSliders className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.regexTester.card2Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.regexTester.card2Desc')}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
+              <FiBookOpen className="w-5 h-5" />
+            </div>
+            <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
+              {t('devTools.regexTester.card3Title')}
+            </h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
+              {t('devTools.regexTester.card3Desc')}
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
