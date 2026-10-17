@@ -476,7 +476,6 @@ export default function Navbar() {
           <SearchBar mobile />
 
           <div className="flex items-center gap-2 shrink-0">
-            <LanguageSwitcher variant="navbar-mobile" />
             <a
               href="tel:+8801313334279"
               aria-label={t('callUs', 'Call MerxoDev Solutions')}

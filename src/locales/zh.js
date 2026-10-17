@@ -3729,6 +3729,14 @@ const zh = {
         "title": "业务自动化",
         "fullTitle": "企业流程自动化与 AI 赋能"
       },
+      "dashboard": {
+        "title": "数据仪表盘",
+        "fullTitle": "定制数据分析与管理仪表盘"
+      },
+      "plugin": {
+        "title": "插件开发",
+        "fullTitle": "定制插件与扩展程序开发"
+      },
       "allServices": {
         "title": "所有服务",
         "fullTitle": "浏览全部技术解决方案"

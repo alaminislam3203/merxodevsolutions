@@ -437,7 +437,123 @@ function AllServicesArt() {
   );
 }
 
-// ─── 12 Core Services Configuration ───────────────────────────────────────
+function DashboardArt() {
+  return (
+    <svg viewBox="0 0 120 90" className="w-full h-full max-h-[72px] sm:max-h-[82px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="dsh-win" x1="12" y1="12" x2="108" y2="78" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#0D9488" stopOpacity="0.22" />
+          <stop offset="1" stopColor="#0284C7" stopOpacity="0.12" />
+        </linearGradient>
+        <linearGradient id="dsh-area" x1="26" y1="36" x2="26" y2="68" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#14B8A6" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#14B8A6" stopOpacity="0.0" />
+        </linearGradient>
+        <linearGradient id="dsh-bar" x1="0" y1="0" x2="0" y2="1">
+          <stop stopColor="#2DD4BF" />
+          <stop offset="1" stopColor="#0D9488" />
+        </linearGradient>
+      </defs>
+      {/* Background Soft Glow */}
+      <circle cx="60" cy="45" r="32" fill="#14B8A6" fillOpacity="0.16" />
+      {/* Dashboard Window Frame */}
+      <rect x="14" y="14" width="92" height="62" rx="10" fill="url(#dsh-win)" stroke="#2DD4BF" strokeWidth="1.5" />
+      {/* Header Bar */}
+      <rect x="14" y="14" width="92" height="13" rx="10" fill="#042F2E" fillOpacity="0.4" />
+      <circle cx="22" cy="20.5" r="2.2" fill="#EF4444" />
+      <circle cx="28" cy="20.5" r="2.2" fill="#F59E0B" />
+      <circle cx="34" cy="20.5" r="2.2" fill="#10B981" />
+      <rect x="42" y="18" width="30" height="5" rx="2.5" fill="#14B8A6" fillOpacity="0.4" />
+
+      {/* Left KPI Mini Card */}
+      <rect x="20" y="32" width="22" height="16" rx="4" fill="#115E59" fillOpacity="0.35" stroke="#2DD4BF" strokeWidth="0.8" />
+      <line x1="24" y1="37" x2="36" y2="37" stroke="#5EEAD4" strokeWidth="1.8" strokeLinecap="round" />
+      <text x="24" y="45" fill="#2DD4BF" fontSize="6.5" fontWeight="900" fontFamily="sans-serif">+94%</text>
+
+      {/* Middle KPI Mini Card */}
+      <rect x="46" y="32" width="22" height="16" rx="4" fill="#0E7490" fillOpacity="0.35" stroke="#38BDF8" strokeWidth="0.8" />
+      <line x1="50" y1="37" x2="62" y2="37" stroke="#7DD3FC" strokeWidth="1.8" strokeLinecap="round" />
+      <text x="50" y="45" fill="#38BDF8" fontSize="6.5" fontWeight="900" fontFamily="sans-serif">$28K</text>
+
+      {/* Right Circular Gauge */}
+      <circle cx="86" cy="40" r="8" stroke="#134E4A" strokeWidth="2.5" />
+      <circle cx="86" cy="40" r="8" stroke="#2DD4BF" strokeWidth="2.5" strokeDasharray="50.2" strokeDashoffset="14" strokeLinecap="round" />
+      <circle cx="86" cy="40" r="2" fill="#5EEAD4" />
+
+      {/* Area Chart with smooth spline */}
+      <path
+        d="M20 68 L20 61 C28 58, 36 64, 46 56 C56 48, 66 54, 76 50 C86 46, 92 52, 98 48 L98 68 Z"
+        fill="url(#dsh-area)"
+      />
+      <path
+        d="M20 61 C28 58, 36 64, 46 56 C56 48, 66 54, 76 50 C86 46, 92 52, 98 48"
+        stroke="#2DD4BF"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+      <circle cx="76" cy="50" r="2.5" fill="#F0FDFA" stroke="#0D9488" strokeWidth="1.5" />
+      <circle cx="98" cy="48" r="2.5" fill="#2DD4BF" />
+
+      {/* Floating Sparkle */}
+      <circle cx="102" cy="22" r="2" fill="#5EEAD4" />
+    </svg>
+  );
+}
+
+function PluginArt() {
+  return (
+    <svg viewBox="0 0 120 90" className="w-full h-full max-h-[72px] sm:max-h-[82px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="plg-grad" x1="25" y1="20" x2="95" y2="70" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#D946EF" />
+          <stop offset="1" stopColor="#8B5CF6" />
+        </linearGradient>
+        <linearGradient id="plg-slot" x1="18" y1="24" x2="58" y2="68" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4A044E" stopOpacity="0.4" />
+          <stop offset="1" stopColor="#2E1065" stopOpacity="0.25" />
+        </linearGradient>
+        <filter id="plg-glow" x="40" y="20" width="60" height="58" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      {/* Background Glow */}
+      <circle cx="60" cy="45" r="32" fill="#D946EF" fillOpacity="0.16" />
+
+      {/* Base Platform / Core System Dock */}
+      <rect x="18" y="22" width="42" height="46" rx="8" fill="url(#plg-slot)" stroke="#A21CAF" strokeWidth="1.5" strokeDasharray="3 3" />
+      <circle cx="28" cy="32" r="3" fill="#F0ABFC" opacity="0.8" />
+      <line x1="36" y1="32" x2="52" y2="32" stroke="#E879F9" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      <line x1="28" y1="42" x2="48" y2="42" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+      <line x1="28" y1="52" x2="44" y2="52" stroke="#C084FC" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
+
+      {/* Connecting Lightning / Energy stream */}
+      <path d="M52 45 H64" stroke="#F472B6" strokeWidth="2" strokeDasharray="2 2" />
+
+      {/* Modular Plugin Block (Puzzle / Extension Brick) */}
+      <g filter="url(#plg-glow)">
+        <path
+          d="M62 26 C62 23 64 21 67 21 H89 C92 21 94 23 94 26 V37 C97 37 99 39 99 42 C99 45 97 47 94 47 V62 C94 65 92 67 89 67 H76 C76 70 74 72 71 72 C68 72 66 70 66 67 H67 C64 67 62 65 62 62 V51 C59 51 57 49 57 46 C57 43 59 41 62 41 Z"
+          fill="url(#plg-grad)"
+          stroke="#FDF4FF"
+          strokeWidth="1.4"
+        />
+        {/* Plug connection symbol */}
+        <path d="M73 40 L81 48 M81 40 L73 48" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="85" cy="34" r="1.5" fill="#FDE047" />
+      </g>
+
+      {/* Floating Badge */}
+      <g transform="translate(84, 16)">
+        <rect x="0" y="0" width="22" height="11" rx="3.5" fill="#701A75" stroke="#F472B6" strokeWidth="1" />
+        <text x="11" y="8" fill="#FDF4FF" fontSize="6.5" fontWeight="800" textAnchor="middle">EXT</text>
+      </g>
+      <circle cx="20" cy="68" r="2" fill="#F472B6" />
+    </svg>
+  );
+}
+
+// ─── 14 Core Services Configuration ───────────────────────────────────────
 
 const serviceCategories = [
   {
@@ -527,6 +643,22 @@ const serviceCategories = [
     href: '/services-automation',
     glowBg: 'bg-rose-500',
     illustration: <AutomationArt />,
+  },
+  {
+    id: 'dashboard',
+    defaultTitle: 'Dashboard',
+    defaultFullTitle: 'Analytics & Admin Dashboards',
+    href: '/services-dashboard',
+    glowBg: 'bg-teal-500',
+    illustration: <DashboardArt />,
+  },
+  {
+    id: 'plugin',
+    defaultTitle: 'Plugin Dev',
+    defaultFullTitle: 'Custom Plugins & Extensions',
+    href: '/services-plugin-development',
+    glowBg: 'bg-fuchsia-500',
+    illustration: <PluginArt />,
   },
   {
     id: 'allServices',

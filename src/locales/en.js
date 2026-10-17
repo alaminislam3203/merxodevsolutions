@@ -3744,6 +3744,14 @@ const en = {
         "title": "Automation",
         "fullTitle": "Business Automation & AI"
       },
+      "dashboard": {
+        "title": "Dashboard",
+        "fullTitle": "Analytics & Admin Dashboards"
+      },
+      "plugin": {
+        "title": "Plugin Dev",
+        "fullTitle": "Custom Plugins & Extensions"
+      },
       "allServices": {
         "title": "All Services",
         "fullTitle": "Explore All Solutions"
