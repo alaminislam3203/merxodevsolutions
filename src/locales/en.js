@@ -520,6 +520,226 @@ const en = {
         "allServices": "All Services"
       }
     },
+    "dashboard": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "Admin Dashboards"
+      },
+      "badge": "Admin & Analytics Portals",
+      "heroTitleStart": "High-Performance Admin Dashboards &",
+      "heroTitleHighlight": "Real-Time BI Portals",
+      "heroDesc": "Take total command of your operations with custom-engineered admin panels, multi-role RBAC, real-time analytics, and automated reporting designed specifically for your business workflow.",
+      "ctaGetDemo": "Request Custom Demo",
+      "ctaViewWork": "Explore Solutions",
+      "trust": {
+        "telemetry": "Real-time WebSocket & SSE Telemetry",
+        "rbac": "Granular Multi-Role Access Control",
+        "speed": "Sub-100ms Database Query Execution",
+        "exports": "One-Click Excel, CSV & PDF Exports"
+      },
+      "preview": {
+        "badge": "Live System Staging",
+        "title": "Unified Operations Command Center",
+        "metricRevenue": "Total Gross Volume",
+        "metricRevenueChange": "+28.4% vs last month",
+        "metricUsers": "Active Organizations",
+        "metricUsersChange": "+14.2% growth",
+        "metricQueries": "API Requests Handled",
+        "metricQueriesSpeed": "99.98% uptime",
+        "metricEfficiency": "Automation Rate",
+        "metricEfficiencyGain": "4.8x faster tasks",
+        "tabAnalytics": "Live Telemetry",
+        "tabUsers": "Role Permissions",
+        "tabOrders": "Transactions",
+        "tabHealth": "Server Health",
+        "healthStatus": "All Systems Nominal",
+        "recentActivity": "Live Audit Trail",
+        "activity1": "Admin updated role policy for Finance Team",
+        "activity2": "Automated daily settlement report generated",
+        "activity3": "Database indexing optimized (12ms query avg)"
+      },
+      "stats": [
+        { "value": "<100ms", "label": "Average Query Latency" },
+        { "value": "99.99%", "label": "Operational Availability" },
+        { "value": "100%", "label": "Role-Based Access Precision" },
+        { "value": "0%", "label": "Data Vulnerability / Leakage" }
+      ],
+      "features": {
+        "badge": "✦ Engineered For Scale",
+        "title": "Comprehensive Dashboard Capabilities",
+        "subtitle": "Everything you need to visualize metrics, manage users, automate recurring reports, and control business logic effortlessly.",
+        "items": [
+          {
+            "title": "Granular RBAC & Permission Matrix",
+            "desc": "Restrict access by department, role, or team. Protect sensitive financial data while giving team members the tools they need."
+          },
+          {
+            "title": "Real-Time Telemetry & BI Visualizations",
+            "desc": "Interactive dynamic charts, sales trend projections, conversion funnels, and KPI scorecards updated via WebSockets."
+          },
+          {
+            "title": "E-Commerce & Supply Chain Hub",
+            "desc": "Unified order workflows, real-time courier tracking (Pathao, Steadfast), inventory low-stock alerts, and batch returns."
+          },
+          {
+            "title": "SaaS Multi-Tenant Management",
+            "desc": "Manage client organizations, subscription tiers, seat limits, plan upgrades, and usage meters from one master control console."
+          },
+          {
+            "title": "Automated Report & Export Engine",
+            "desc": "Generate custom branded PDF receipts, scheduled accounting summaries, and one-click sanitized CSV/Excel exports."
+          },
+          {
+            "title": "CRM & Customer 360 Records",
+            "desc": "Consolidated customer dossiers with purchase timelines, support interactions, lifetime values, and communication notes."
+          },
+          {
+            "title": "Comprehensive Audit Trail & Logs",
+            "desc": "Track every change, edit, export, and login with IP timestamps, actor metadata, and immutable forensic logging."
+          },
+          {
+            "title": "API Keys & Webhook Orchestration",
+            "desc": "Generate secure developer API tokens, configure webhook endpoints, and inspect raw request payloads in real-time."
+          },
+          {
+            "title": "Mobile-Responsive Executive View",
+            "desc": "Full responsiveness with touch-optimized data grids and quick triage cards so executives can review KPIs anywhere."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Modern High-Performance Stack",
+        "title": "Built With Industrial-Grade Technologies",
+        "desc": "We build fast, secure dashboards that render instantaneously, handle massive datasets with ease, and never crash.",
+        "categories": {
+          "Frontend": "Frontend",
+          "Charting": "Data Visualization",
+          "Backend": "Backend API",
+          "Database": "Data Storage",
+          "Caching": "Cache & Real-Time",
+          "Hosting": "Cloud Infrastructure"
+        }
+      },
+      "process": {
+        "badge": "✦ Systematic Execution",
+        "title": "How We Build Your Dashboard",
+        "steps": [
+          {
+            "title": "Metric & Workflow Discovery",
+            "desc": "We map out your business KPIs, data schemas, user roles, external API integrations, and security constraints."
+          },
+          {
+            "title": "High-Fidelity Interactive Wireframing",
+            "desc": "We prototype your dashboard workflows in Figma, testing navigation, data density, and chart readability with your team."
+          },
+          {
+            "title": "Full-Stack Engineering & DB Optimization",
+            "desc": "We implement type-safe schemas, composite database indexing, caching layers, and responsive UI components."
+          },
+          {
+            "title": "Security Auditing & Turnkey Handover",
+            "desc": "Penetration checks, role privilege verification, automated backups setup, and complete admin walkthrough training."
+          }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ Tailored Investment",
+        "title": "Transparent Dashboard Packages",
+        "mostRecommended": "★ Most Popular",
+        "oneTime": "/ one-time investment",
+        "plans": [
+          {
+            "name": "Starter Operations Panel",
+            "price": "BDT 25,000",
+            "desc": "Essential admin panel for growing businesses needing central control over content, users, and basic transactions.",
+            "features": [
+              "Up to 3 Custom Data Models (CRUD)",
+              "Standard User & Role Management",
+              "Core KPI Cards & Revenue Trends",
+              "CSV & Excel Data Exporting",
+              "Fast Next.js & Tailwind CSS UI",
+              "30 Days Warranty & Technical Support"
+            ],
+            "popular": false,
+            "cta": "Choose Starter"
+          },
+          {
+            "name": "Professional BI & Operations Hub",
+            "price": "BDT 45,000",
+            "desc": "Comprehensive command center with real-time updates, advanced analytics, and custom multi-role access control.",
+            "features": [
+              "Unlimited Data Tables & Advanced Filters",
+              "Granular Role-Based Access Control (RBAC)",
+              "Real-Time Telemetry & Interactive Visual Charts",
+              "Courier & Payment Gateway API Sync",
+              "Automated Branded PDF Report Generator",
+              "Audit Trail Logs & Activity Tracking",
+              "60 Days Priority Support & Updates"
+            ],
+            "popular": true,
+            "cta": "Start Professional"
+          },
+          {
+            "name": "Enterprise SaaS Platform",
+            "price": "BDT 85,000",
+            "desc": "Full multi-tenant architecture with high-frequency telemetry, custom BI widgets, and industrial SLA support.",
+            "features": [
+              "Complete Multi-Tenant Architecture",
+              "Unlimited User Roles & Department Sub-Portals",
+              "High-Frequency Redis Cache & WebSocket Feeds",
+              "Custom API Key Management & Webhook Engine",
+              "Database Sharding & Query Optimization",
+              "Dedicated Account Manager & 90 Days SLA"
+            ],
+            "popular": false,
+            "cta": "Build Enterprise"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Frequently Asked Questions",
+        "title": "Everything You Need to Know",
+        "items": [
+          {
+            "q": "Why build a custom dashboard instead of using a ready-made template or CMS?",
+            "a": "Generic templates come bloated with unnecessary dependencies, rigid database structures, and high security vulnerabilities. A custom dashboard built with Next.js and Prisma matches your exact operational workflows, queries your database 10x faster, enforces strict custom role permissions, and scales cleanly as your business grows without recurring monthly template fees."
+          },
+          {
+            "q": "Can the dashboard integrate with our existing database or third-party APIs?",
+            "a": "Absolutely. Whether your data is stored in PostgreSQL, MySQL, MongoDB, Firebase, or accessed via REST and GraphQL APIs, we can securely integrate your existing data pipelines without any disruption to your live customer applications."
+          },
+          {
+            "q": "Is the dashboard secure enough for sensitive financial and customer data?",
+            "a": "Yes. We implement enterprise-grade security protocols including bcrypt/Argon2 password hashing, JWT/NextAuth session encryption, strict CORS, rate limiting, granular role-based access control (RBAC), and immutable audit logs that record every change."
+          },
+          {
+            "q": "Can I access the dashboard from a smartphone or tablet?",
+            "a": "Yes. Every dashboard we build is 100% responsive and touch-friendly, featuring collapsible sidebars, adaptive data grids, and mobile KPI scorecards so executives can oversee business operations on any device."
+          },
+          {
+            "q": "Do we own the full source code and data after handover?",
+            "a": "100% yes. You receive complete ownership of all source code, database migrations, deployment pipelines, and environment configurations with zero vendor lock-in or recurring software licensing fees to us."
+          }
+        ]
+      },
+      "related": {
+        "badge": "✦ Related Services",
+        "heading": "Frequently Built Together",
+        "items": [
+          { "label": "E-Commerce Solutions" },
+          { "label": "Custom Web Applications" },
+          { "label": "Database Architecture" }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Take Control Today",
+        "heading": "Ready to build your central operations dashboard?",
+        "desc": "Transform scattered spreadsheets and disjointed tools into a single, lightning-fast command center built for your team.",
+        "getQuote": "Book a Free Consultation",
+        "allServices": "Explore All Services"
+      }
+    },
     "home": "Home",
     "services": "Services",
     "journey": "Journey",
@@ -1674,7 +1894,7 @@ const en = {
             "User Management",
             "Custom Widgets"
           ],
-          "href": "/contact"
+          "href": "/services-dashboard"
         },
         {
           "title": "Security & Payment Gateways",
