@@ -292,6 +292,93 @@ const en = {
         "btn": "Schedule Discovery Call"
       }
     },
+    "pluginDev": {
+      "hero": {
+        "badge": "Plugin & Extension Engineering",
+        "titleStart": "Custom Plugins Built For ",
+        "titleHighlight": "Speed & Extensibility.",
+        "subtitle": "From bespoke WooCommerce features and Shopify apps to modular web hooks — we engineer clean, secure, and update-proof plugins tailored to your exact business logic.",
+        "ctaPrimary": "Request Plugin Scope",
+        "ctaSecondary": "Explore All Services"
+      },
+      "stats": [
+        { "value": "100%", "label": "Conflict-Free Code" },
+        { "value": "<50ms", "label": "Average Execution Overhead" },
+        { "value": "WordPress & Shopify", "label": "Ecosystem Standards" },
+        { "value": "Lifetime", "label": "Version Upgrade Compatibility" }
+      ],
+      "capability": {
+        "badge": "Modular Architecture",
+        "title": "Why Off-The-Shelf Plugins Fail & Custom Wins",
+        "desc": "Standard commercial plugins often pack bloated code, unnecessary database tables, and tracking scripts that hurt your Core Web Vitals and leave security vulnerabilities. We build dedicated plugins designed exclusively for your workflow:",
+        "points": [
+          "Zero bloat — only the code your site actually needs",
+          "Native hook integration with WordPress & WooCommerce",
+          "Custom admin settings panel with live previews",
+          "Comprehensive automated sanitization and nonce security",
+          "Scheduled cron handlers for off-peak processing",
+          "Detailed developer documentation and REST API endpoints"
+        ]
+      },
+      "features": {
+        "badge": "Core Capabilities",
+        "title": "Full-Spectrum Plugin Engineering",
+        "items": [
+          {
+            "title": "Custom WordPress & WooCommerce Plugins",
+            "desc": "Bespoke payment gateways, advanced product options, multi-vendor commission splits, dynamic shipping calculators, and custom post type workflows."
+          },
+          {
+            "title": "Shopify Apps & Theme Extensions",
+            "desc": "Custom private & public Shopify apps using Remix, Node.js, and Shopify Polaris. Seamless checkout customizations, inventory sync, and webhook automations."
+          },
+          {
+            "title": "API Hook & Webhook Bridges",
+            "desc": "Connect your CMS or custom web app to third-party ERPs, courier services (Steadfast, Pathao, RedX), CRM leads, and automated accounting systems."
+          },
+          {
+            "title": "Plugin Security Audit & Hardening",
+            "desc": "Comprehensive code audits, nonce verification, SQL sanitization, XSS/CSRF prevention, and permission checking to protect against zero-day exploits."
+          },
+          {
+            "title": "Speed & Database Query Optimization",
+            "desc": "High-speed object caching with Redis, optimized transients, lazy database queries, and minimal memory footprint ensuring zero site slowdown."
+          },
+          {
+            "title": "Legacy Plugin Refactoring & Upgrades",
+            "desc": "Modernize outdated PHP 7 plugins to PHP 8.3 standards, fix deprecated function calls, resolve fatal conflicts, and prepare for future CMS updates."
+          }
+        ]
+      },
+      "faq": {
+        "badge": "Questions & Answers",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "Can you develop a plugin that connects WooCommerce to local Bangladesh couriers or payment gateways?",
+            "a": "Yes! We specialize in custom WooCommerce integrations for bKash, Nagad, Rocket, Upay, SSLCommerz, and automated consignment generation with Steadfast, Pathao, and RedX couriers."
+          },
+          {
+            "q": "Will your custom plugin slow down my website?",
+            "a": "Never. We write lean, object-oriented code following official WordPress & Shopify engineering guidelines. Assets are conditionally loaded only on pages where needed, queries are indexed, and execution overhead remains under 50ms."
+          },
+          {
+            "q": "Will my custom plugin continue working when WordPress or WooCommerce updates?",
+            "a": "Yes. We strictly utilize official Action Hooks and Filter Hooks rather than modifying core files. This guarantees full compatibility through future CMS and theme version updates."
+          },
+          {
+            "q": "Can you convert an existing manual business workflow into a private plugin?",
+            "a": "Absolutely. Whether you need custom invoice generation, customer loyalty points, subscription billing, or automated inventory sync with Google Sheets, we engineer bespoke solutions tailored to your operational needs."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "Start Your Custom Plugin",
+        "title": "Have a custom feature or integration in mind?",
+        "desc": "Share your requirements, wireframe, or idea. We will architect a clean, robust plugin proposal within 24 hours.",
+        "btn": "Talk to a Plugin Engineer"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "Home",
       "breadcrumbServices": "Services",

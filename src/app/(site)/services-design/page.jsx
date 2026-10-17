@@ -251,7 +251,7 @@ export default function ServicesDesignPage() {
             {t('design.hero.badge', 'Figma & World-Class Product Design')}
           </div>
 
-          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             {t('design.hero.titleStart', 'UI/UX Design That ')}
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent animated-gradient-text">
               {t('design.hero.titleHighlight', 'Inspires & Converts')}
@@ -428,11 +428,10 @@ export default function ServicesDesignPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
-                  plan.popular
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
                     ? 'border-2 border-pink-500 bg-gradient-to-b from-pink-50/80 via-white to-white dark:from-pink-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-pink-500/20 scale-105 z-10'
                     : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
@@ -472,11 +471,10 @@ export default function ServicesDesignPage() {
 
                 <Link
                   href={`/contact?service=UI/UX%20Design&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${
-                    plan.popular
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
                       ? 'bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white hover:opacity-95 shadow-lg shadow-pink-500/25'
                       : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta || t('design.pricing.defaultCta', 'Select Design Tier')}
                 </Link>
@@ -519,9 +517,8 @@ export default function ServicesDesignPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-pink-600 dark:text-pink-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`text-pink-600 dark:text-pink-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

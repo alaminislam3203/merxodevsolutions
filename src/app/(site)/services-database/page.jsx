@@ -211,7 +211,7 @@ export default function ServicesDatabasePage() {
             PostgreSQL, MongoDB, Prisma & Redis
           </div>
 
-          <h1 className="font-exo-medium text-4xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
+          <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
             Database Design &{' '}
             <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 bg-clip-text text-transparent animated-gradient-text">
               Management
