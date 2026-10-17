@@ -2226,6 +2226,17 @@ const en = {
             "Compliance"
           ],
           "href": "/services-payment-gateway"
+        },
+        {
+          "title": "Plugin Development",
+          "desc": "Custom extensions, CMS plugins, and modular add-ons built for WordPress, WooCommerce, Shopify, or proprietary web platforms.",
+          "highlights": [
+            "WordPress & WooCommerce",
+            "Shopify Apps",
+            "Custom Extensions",
+            "Hook & Event APIs"
+          ],
+          "href": "/services-plugin-development"
         }
       ],
       "whyUs": [

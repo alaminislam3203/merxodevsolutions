@@ -2211,6 +2211,17 @@ const zh = {
             "合规与风控"
           ],
           "href": "/services-payment-gateway"
+        },
+        {
+          "title": "插件与扩展定制开发",
+          "desc": "专为 WordPress、WooCommerce、Shopify 及企业系统打造的高性能定制插件与可插拔扩展体系。",
+          "highlights": [
+            "WordPress 与 WooCommerce",
+            "Shopify 深度定制应用",
+            "企业可插拔模块",
+            "Hook 与事件接口"
+          ],
+          "href": "/services-plugin-development"
         }
       ],
       "whyUs": [

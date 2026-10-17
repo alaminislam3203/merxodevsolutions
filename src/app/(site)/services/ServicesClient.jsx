@@ -16,6 +16,7 @@ import {
   FiTrendingUp,
   FiCpu,
   FiMonitor,
+  FiPackage,
   FiArrowRight,
   FiCheckCircle,
 } from 'react-icons/fi';
@@ -114,12 +115,21 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiCreditCard size={18} />,
-    image: '/services/payment-gateway.svg',
+    image: '/services/payment-gateway.png',
     accent: 'from-violet-500 to-cyan-500',
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
     glowColor: 'hover:shadow-violet-500/20 hover:border-violet-400 dark:hover:border-violet-500',
     defaultHref: '/services-payment-gateway',
+  },
+  {
+    icon: <FiPackage size={18} />,
+    image: '/services/plugin.png',
+    accent: 'from-indigo-600 via-purple-600 to-pink-500',
+    lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
+    iconColor: 'text-indigo-600 dark:text-indigo-400',
+    glowColor: 'hover:shadow-indigo-500/20 hover:border-indigo-400 dark:hover:border-indigo-500',
+    defaultHref: '/services-plugin-development',
   },
 ];
 
@@ -135,6 +145,7 @@ const STYLE_MAP = {
   '/services-automation': SERVICE_STYLES[8],
   '/services-dashboard': SERVICE_STYLES[9],
   '/services-payment-gateway': SERVICE_STYLES[10],
+  '/services-plugin-development': SERVICE_STYLES[11],
 };
 
 export default function ServicesClient() {
