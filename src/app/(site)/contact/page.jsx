@@ -174,6 +174,7 @@ export default function ContactPage() {
   const activeFaqs = Array.isArray(localizedFaqs) && localizedFaqs.length > 0 ? localizedFaqs : defaultFaqs;
 
   const [selectedService, setSelectedService] = useState('webDev');
+  const [mobileServiceDropdownOpen, setMobileServiceDropdownOpen] = useState(false);
   const [customService, setCustomService] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('b500to1500');
   const [customBudget, setCustomBudget] = useState('');
@@ -622,7 +623,110 @@ export default function ContactPage() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  {/* Mobile Dropdown View (sm:hidden) */}
+                  <div className="sm:hidden relative">
+                    <button
+                      type="button"
+                      onClick={() => setMobileServiceDropdownOpen((prev) => !prev)}
+                      className={`w-full p-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left ${
+                        mobileServiceDropdownOpen
+                          ? 'border-violet-500 ring-2 ring-violet-500/20 bg-white dark:bg-zinc-900 shadow-md'
+                          : 'border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/80 hover:border-violet-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        {(() => {
+                          const curr = serviceOptions.find((s) => s.id === selectedService) || serviceOptions[0];
+                          const CurrIcon = curr.icon;
+                          return (
+                            <>
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-violet-500/30">
+                                <CurrIcon size={18} />
+                              </div>
+                              <div className="flex flex-col min-w-0">
+                                <span className="text-xs font-bold text-zinc-900 dark:text-white font-exo-extralight truncate">
+                                  {curr.label}
+                                </span>
+                                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 font-exo-extralight truncate">
+                                  {curr.desc}
+                                </span>
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </div>
+
+                      <div className="flex items-center gap-1.5 shrink-0 text-zinc-400 dark:text-zinc-500">
+                        <span className="text-[11px] font-semibold text-violet-600 dark:text-violet-400">
+                          {mobileServiceDropdownOpen ? t('common.close', 'Close') : t('common.change', 'Change')}
+                        </span>
+                        <FaChevronDown
+                          size={11}
+                          className={`transition-transform duration-200 ${
+                            mobileServiceDropdownOpen ? 'rotate-180 text-violet-600' : ''
+                          }`}
+                        />
+                      </div>
+                    </button>
+
+                    {/* Mobile Dropdown Menu */}
+                    {mobileServiceDropdownOpen && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-xs sm:hidden"
+                          onClick={() => setMobileServiceDropdownOpen(false)}
+                        />
+                        <div className="absolute left-0 right-0 top-full mt-2 z-50 p-2 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl max-h-[340px] overflow-y-auto space-y-1.5">
+                          {serviceOptions.map((s) => {
+                            const isSelected = selectedService === s.id;
+                            const IconComponent = s.icon;
+                            return (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedService(s.id);
+                                  setMobileServiceDropdownOpen(false);
+                                }}
+                                className={`w-full p-2.5 rounded-xl border text-left transition-all flex items-center justify-between gap-2.5 ${
+                                  isSelected
+                                    ? 'bg-violet-50 dark:bg-violet-950/50 border-violet-500 dark:border-violet-500/80 text-violet-900 dark:text-white'
+                                    : 'border-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <div
+                                    className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                                      isSelected
+                                        ? 'bg-violet-600 text-white'
+                                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                                    }`}
+                                  >
+                                    <IconComponent size={15} />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <div className="text-xs font-bold truncate leading-tight">{s.label}</div>
+                                    <div className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                                      {s.desc}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {isSelected && (
+                                  <span className="w-4 h-4 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] shrink-0">
+                                    <FiCheck size={11} strokeWidth={3} />
+                                  </span>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Desktop Grid View (hidden sm:grid) */}
+                  <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                     {serviceOptions.map((s) => {
                       const isSelected = selectedService === s.id;
                       const IconComponent = s.icon;
