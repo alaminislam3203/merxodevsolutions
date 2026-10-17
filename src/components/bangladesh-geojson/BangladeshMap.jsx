@@ -33,7 +33,7 @@ function bazarPopupHtml(p, lang) {
   const primary = lang === 'bn' ? p.bn_name || p.name || '' : p.name || '';
   const upa = p.upazila || '';
   const dist = p.district || '';
-  const tag = lang === 'bn' ? 'বাজার' : 'Bazar';
+  const tag = lang === 'bn' ? 'বাজার' : lang === 'ar' ? 'سوق' : lang === 'zh' ? '集市' : 'Bazar';
   const safe = (s) =>
     (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return `
@@ -411,14 +411,18 @@ export default function BangladeshMap({
 
 function Legend({ overlays, setOverlays, lang }) {
   const labels = {
-    boundary: { en: 'Upazilas', bn: 'উপজেলা', dot: 'bg-emerald-500' },
-    bazars: { en: 'Bazars', bn: 'বাজার', dot: 'bg-amber-500' },
-    routes: { en: 'Routes', bn: 'হাইওয়ে', dot: 'bg-rose-500' },
+    boundary: { en: 'Upazilas', bn: 'উপজেলা', ar: 'المراكز (أوبازيلا)', zh: '次区边界', dot: 'bg-emerald-500' },
+    bazars: { en: 'Bazars', bn: 'বাজার', ar: 'الأسواق', zh: '集市分布', dot: 'bg-amber-500' },
+    routes: { en: 'Routes', bn: 'হাইওয়ে', ar: 'الطرق السريعة', zh: '交通路线', dot: 'bg-rose-500' },
   };
   const order = ['boundary', 'bazars', 'routes'];
 
   return (
-    <div className="pointer-events-auto absolute left-3 top-3 flex flex-col gap-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 p-1.5 text-[11px] shadow-lg backdrop-blur z-10">
+    <div
+      className={`pointer-events-auto absolute ${
+        lang === 'ar' ? 'right-3' : 'left-3'
+      } top-3 flex flex-col gap-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 p-1.5 text-[11px] shadow-lg backdrop-blur z-10`}
+    >
       {order.map((k) => {
         const on = overlays[k];
         return (

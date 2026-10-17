@@ -26,30 +26,38 @@ const BangladeshMap = dynamic(
 
 // Translation helpers matching Demo.tsx
 const T = {
-  division: { en: 'Division', bn: 'বিভাগ' },
-  district: { en: 'District', bn: 'জেলা' },
-  upazila: { en: 'Upazila', bn: 'উপজেলা' },
-  postcode: { en: 'Postcode', bn: 'পোস্টকোড' },
+  division: { en: 'Division', bn: 'বিভাগ', ar: 'القسم', zh: '省/专区' },
+  district: { en: 'District', bn: 'জেলা', ar: 'المقاطعة', zh: '县/区' },
+  upazila: { en: 'Upazila', bn: 'উপজেলা', ar: 'المركز (أوبازيلا)', zh: '次区 (Upazila)' },
+  postcode: { en: 'Postcode', bn: 'পোস্টকোড', ar: 'الرمز البريدي', zh: '邮政编码' },
   searchPh: {
     en: "type a place — try 'sylhet' or 'ঢাকা'",
     bn: 'যেকোনো জায়গা লিখুন — যেমন ‘সিলেট’ বা ‘Dhaka’',
+    ar: 'اكتب اسم مكان — جرب "sylhet" أو "ঢাকা"',
+    zh: '输入地点名称 — 尝试 "sylhet" 或 "ঢাকা"',
   },
-  allDivisions: { en: 'All Divisions', bn: 'সব বিভাগ' },
-  allDistricts: { en: 'All Districts', bn: 'সব জেলা' },
-  allUpazilas: { en: 'All Upazilas', bn: 'সব উপজেলা' },
+  allDivisions: { en: 'All Divisions', bn: 'সব বিভাগ', ar: 'جميع الأقسام', zh: '所有专区' },
+  allDistricts: { en: 'All Districts', bn: 'সব জেলা', ar: 'جميع المقاطعات', zh: '所有县/区' },
+  allUpazilas: { en: 'All Upazilas', bn: 'সব উপজেলা', ar: 'جميع المراكز', zh: '所有次区' },
   empty: {
     en: 'click a place on the map, or pick one from the dropdowns. its details show up here.',
     bn: 'ম্যাপে কোনো জায়গায় ক্লিক করুন, অথবা ড্রপডাউন থেকে বাছুন। তার তথ্য এখানে দেখাবে।',
+    ar: 'انقر على مكان في الخريطة، أو اختر من القوائم المنسدلة لعرض تفاصيله هنا.',
+    zh: '在地图上点击地点，或从下拉菜单中选择，详细信息将在此显示。',
   },
-  copy: { en: 'copy json', bn: 'JSON কপি করুন' },
-  copied: { en: 'copied', bn: 'কপি হয়েছে' },
+  copy: { en: 'copy json', bn: 'JSON কপি করুন', ar: 'نسخ JSON', zh: '复制 JSON' },
+  copied: { en: 'copied', bn: 'কপি হয়েছে', ar: 'تم النسخ', zh: '已复制' },
   footerLeft: {
     en: 'made by ',
     bn: 'বানিয়েছেন ',
+    ar: 'تم التطوير بواسطة ',
+    zh: '开发者：',
   },
   footerRight: {
     en: 'map tiles by openfreemap',
     bn: 'ম্যাপ টাইলস: OpenFreeMap',
+    ar: 'بلاطات الخريطة بواسطة OpenFreeMap',
+    zh: '地图瓦片提供：OpenFreeMap',
   },
 };
 
@@ -202,12 +210,22 @@ export default function BangladeshGeoDemoPage() {
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl font-exo-medium">
-              {lang === 'en' ? 'play with the data' : 'ডেটা নিয়ে খেলুন'}
+              {lang === 'bn'
+                ? 'ডেটা নিয়ে খেলুন'
+                : lang === 'ar'
+                ? 'استكشف وتفاعل مع البيانات'
+                : lang === 'zh'
+                ? '探索与交互数据'
+                : 'play with the data'}
             </h1>
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-              {lang === 'en'
-                ? 'type a place, pick from the dropdowns, or click anywhere on the map.'
-                : 'যেকোনো জায়গা লিখুন, ড্রপডাউন থেকে বাছুন, বা ম্যাপে ক্লিক করুন।'}
+              {lang === 'bn'
+                ? 'যেকোনো জায়গা লিখুন, ড্রপডাউন থেকে বাছুন, বা ম্যাপে ক্লিক করুন।'
+                : lang === 'ar'
+                ? 'اكتب اسم مكان، أو اختر من القوائم المنسدلة، أو انقر في أي مكان على الخريطة.'
+                : lang === 'zh'
+                ? '输入地点名称、从下拉菜单中选择，或在地图上任意点击探索。'
+                : 'type a place, pick from the dropdowns, or click anywhere on the map.'}
             </p>
           </div>
         </div>
@@ -261,14 +279,14 @@ export default function BangladeshGeoDemoPage() {
       <footer className="mt-12 border-t border-zinc-200 dark:border-zinc-800/80 pt-6 pb-2">
         <div className="flex flex-col items-start justify-between gap-2 text-[11px] text-zinc-500 dark:text-zinc-400 sm:flex-row sm:items-center">
           <p>
-            {T.footerLeft[lang]}
+            {T.footerLeft[lang] || T.footerLeft.en}
             <a
               href="https://x.com/merxodev"
               target="_blank"
               rel="noreferrer"
               className="text-zinc-900 dark:text-white font-medium underline decoration-emerald-300 dark:decoration-emerald-500 underline-offset-2 hover:decoration-emerald-600"
             >
-              {lang === 'en' ? 'Alamin Islam' : 'আলামিন ইসলাম'}
+              {lang === 'bn' ? 'আলামিন ইসলাম' : lang === 'ar' ? 'الامين اسلام' : lang === 'zh' ? '阿拉明·伊斯兰' : 'Alamin Islam'}
             </a>{' '}
             ·{' '}
             <a

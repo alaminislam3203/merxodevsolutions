@@ -25,54 +25,78 @@ const RAW_DATASETS = [
     name: 'bd-divisions.json',
     recordsEn: '8 Divisions',
     recordsBn: '৮টি বিভাগ',
+    recordsAr: '8 أقسام إدارية',
+    recordsZh: '8 个行政专区',
     size: '1.2 KB',
     descEn: 'Division names in English & Bengali, center coordinates, IDs.',
     descBn: 'ইংরেজি ও বাংলা নাম, স্থানাঙ্ক (অক্ষাংশ/দ্রাঘিমাংশ) এবং আইডি।',
+    descAr: 'أسماء الأقسام بالإنجليزية والبنغالية، الإحداثيات الجغرافية والمعرفات.',
+    descZh: '孟加拉语与英语双语专区名称、中心经纬度坐标及唯一 ID。',
     importSnippet: "import divisions from 'bangladesh-geojson/divisions';",
   },
   {
     name: 'bd-districts.json',
     recordsEn: '64 Districts',
     recordsBn: '৬৪টি জেলা',
+    recordsAr: '64 مقاطعة',
+    recordsZh: '64 个县/区',
     size: '12 KB',
     descEn: 'All 64 districts mapped to division IDs with geographic coordinates.',
     descBn: 'বিভাগ আইডির সাথে ম্যাপ করা ৬৪টি জেলা ও ভৌগোলিক সেন্টার।',
+    descAr: 'جميع المقاطعات الـ 64 مرتبطة بالأقسام مع الإحداثيات الجغرافية.',
+    descZh: '所有 64 个县区，关联专区 ID 并包含地理中心坐标。',
     importSnippet: "import districts from 'bangladesh-geojson/districts';",
   },
   {
     name: 'bd-upazilas.json',
     recordsEn: '494 Upazilas',
     recordsBn: '৪৯৪টি উপজেলা',
+    recordsAr: '494+ مركز (أوبازيلا)',
+    recordsZh: '494+ 次区',
     size: '67 KB',
     descEn: 'Sub-districts / Thanas mapped with Bengali and English names.',
     descBn: 'জেলা আইডির সাথে ম্যাপ করা সকল উপজেলা ও থানা।',
+    descAr: 'المراكز الإدارية وأقسام الشرطة مربوطة بأسماء باللغتين الإنجليزية والبنغالية.',
+    descZh: '次区与管辖区，关联所属县区并支持英孟双语。',
     importSnippet: "import upazilas from 'bangladesh-geojson/upazilas';",
   },
   {
     name: 'bd-postcodes.json',
     recordsEn: '1,349 Postcodes',
     recordsBn: '১,৩৪৯টি পোস্টকোড',
+    recordsAr: '1,349+ رمز بريدي',
+    recordsZh: '1,349+ 邮政编码',
     size: '192 KB',
     descEn: 'Complete postal database for courier, e-commerce, and KYC validation.',
     descBn: 'কুরিয়ার, ই-কমার্স ও ডেলিভারি ঠিকানার জন্য পোস্টাল ডাটাবেজ।',
+    descAr: 'قاعدة بيانات بريدية كاملة لخدمات الشحن، التجارة الإلكترونية، والتحقق.',
+    descZh: '完整邮政数据库，用于电商配送、快递物流及地址验证。',
     importSnippet: "import postcodes from 'bangladesh-geojson/postcodes';",
   },
   {
     name: 'bangladesh.geojson',
     recordsEn: 'Boundary Polygons',
     recordsBn: 'বাউন্ডারি পলিগন',
+    recordsAr: 'مضلعات الحدود الجغرافية',
+    recordsZh: '边界矢量多边形',
     size: '3.6 MB',
     descEn: 'High-detail boundary polygon coordinates ready for MapLibre, Leaflet, D3.',
     descBn: 'ম্যাপলিব্রে ও লিফলেট উপযোগী ফুল ভেক্টর বাউন্ডারি পলিগন।',
+    descAr: 'إحداثيات مضلعات حدودية عالية الدقة جاهزة للاستخدام مع MapLibre و Leaflet و D3.',
+    descZh: '高精度行政边界多边形坐标，即插即用支持 MapLibre、Leaflet、D3。',
     importSnippet: "import boundary from 'bangladesh-geojson/boundary';",
   },
   {
     name: 'dhaka-city.json',
     recordsEn: 'City Zones & Wards',
     recordsBn: 'ঢাকা সিটি জোন ও ওয়ার্ড',
+    recordsAr: 'مناطق وأحياء مدينة دكا',
+    recordsZh: '达卡市区与社区分区',
     size: '32 KB',
     descEn: 'DNCC & DSCC municipal areas, wards, and neighborhood breakdowns.',
     descBn: 'ঢাকা উত্তর ও দক্ষিণ সিটি করপোরেশনের জোন ও এলাকা।',
+    descAr: 'مناطق بلديتي شمال وجنوب دكا (DNCC و DSCC) وتفاصيل الأحياء.',
+    descZh: '达卡北部及南部市政区（DNCC/DSCC）、分区与社区边界详情。',
     importSnippet: "import dhaka from 'bangladesh-geojson/dhaka-city';",
   },
 ];
@@ -292,10 +316,10 @@ export default function BangladeshGeoOverviewPage() {
                   </span>
                 </div>
                 <div className="text-sm font-bold text-zinc-900 dark:text-white mb-1">
-                  {lang === 'bn' ? data.recordsBn : data.recordsEn}
+                  {t(data.recordsEn, data.recordsBn, data.recordsAr, data.recordsZh)}
                 </div>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed mb-4">
-                  {lang === 'bn' ? data.descBn : data.descEn}
+                  {t(data.descEn, data.descBn, data.descAr, data.descZh)}
                 </p>
               </div>
 
@@ -346,7 +370,7 @@ export default function BangladeshGeoOverviewPage() {
             <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 flex items-center justify-between">
               <div>
                 <span className="text-emerald-400 select-none">
-                  {t('# Install via npm or pnpm', '# npm বা pnpm দিয়ে ইনস্টল করুন')}
+                  {t('# Install via npm or pnpm', '# npm বা pnpm দিয়ে ইনস্টল করুন', '# التثبيت عبر npm أو pnpm', '# 通过 npm 或 pnpm 安装')}
                 </span>
                 <div className="mt-1 text-sm text-white font-semibold">npm install bangladesh-geojson</div>
               </div>
@@ -361,7 +385,12 @@ export default function BangladeshGeoOverviewPage() {
 
             <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 overflow-x-auto space-y-2">
               <span className="text-zinc-500">
-                {t('// Example: TypeScript / JavaScript usage', '// উদাহরণ: TypeScript বা JavaScript-এ ব্যবহার')}
+                {t(
+                  '// Example: TypeScript / JavaScript usage',
+                  '// উদাহরণ: TypeScript বা JavaScript-এ ব্যবহার',
+                  '// مثال: الاستخدام في TypeScript / JavaScript',
+                  '// 示例：在 TypeScript / JavaScript 中使用'
+                )}
               </span>
               <pre className="text-emerald-300">
                 {lang === 'bn' ? `import bd from 'bangladesh-geojson';
@@ -376,6 +405,30 @@ const dhakaDistricts = bd.getDistrictsByDivision('3');
 const searchResults = bd.search('সিলেট');
 
 // ৪. কুরিয়ার চেকআউটের পোস্টকোড
+const postcodes = bd.getPostcodesByDistrict('1');` : lang === 'ar' ? `import bd from 'bangladesh-geojson';
+
+// 1. الحصول على جميع الأقسام الـ 8
+const divisions = bd.getDivisions();
+
+// 2. مقاطعات قسم دكا
+const dhakaDistricts = bd.getDistrictsByDivision('3');
+
+// 3. البحث باللغة الإنجليزية أو البنغالية
+const searchResults = bd.search('সিলেট');
+
+// 4. استرجاع الرموز البريدية للشحن
+const postcodes = bd.getPostcodesByDistrict('1');` : lang === 'zh' ? `import bd from 'bangladesh-geojson';
+
+// 1. 获取全部 8 个行政专区
+const divisions = bd.getDivisions();
+
+// 2. 达卡专区下辖县区列表
+const dhakaDistricts = bd.getDistrictsByDivision('3');
+
+// 3. 英文或孟加拉语双语搜索
+const searchResults = bd.search('সিলেট');
+
+// 4. 获取用于物流填写的邮政编码
 const postcodes = bd.getPostcodesByDistrict('1');` : `import bd from 'bangladesh-geojson';
 
 // 1. Get all 8 divisions
