@@ -279,10 +279,9 @@ export default function Navbar() {
               <SearchBar />
             </div>
 
-            {/* Unmasked: ThemeToggle + LanguageSwitcher + Account Menu + CTA */}
+            {/* Unmasked: ThemeToggle + Account Menu + CTA */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
               <ThemeToggle iconOnly />
-              <LanguageSwitcher variant="navbar" />
 
               {/* User menu (Matching organic-e-commerce logic with MerxoDev theme) */}
               <div className="relative" ref={userMenuRef}>
