@@ -137,6 +137,13 @@ const zh = {
       "heroSubtitle": "我们使用 Next.js 16、React 和云原生架构，打造极速、响应灵敏且深度优化 SEO 的商业官网与数字化门户。",
       "viewPricingBtn": "查看套餐与方案",
       "startProjectBtn": "启动您的网站项目",
+      "viewPortfolioBtn": "查看在线案例库",
+      "trust": {
+        "security": "企业级安全标准",
+        "speed": "95+ PageSpeed 极速",
+        "mobile": "100% 完美适配移动端",
+        "support": "免费提供 30 天售后技术支持"
+      },
       "stats": [
         {
           "value": "99.9%",
@@ -155,10 +162,140 @@ const zh = {
           "label": "客户满意度"
         }
       ],
+      "features": {
+        "badge": "✦ 专为卓越性能而打造",
+        "titleStart": "打造卓越官网所必需的 ",
+        "titleHighlight": "核心竞争优势",
+        "cardBadge": "企业级工业标准",
+        "items": [
+          {
+            "title": "极致性能的 Next.js 架构",
+            "desc": "由 SSR、SSG 和 ISR 强力驱动的 Web 应用，1 秒内完成加载，Google Lighthouse 得分 98+。"
+          },
+          {
+            "title": "定制 UI/UX 与 Figma 到代码交付",
+            "desc": "像素级还原设计稿，配备流畅微动效与暗黑模式支持的现代化 Tailwind CSS。"
+          },
+          {
+            "title": "100% 全端自适应响应式",
+            "desc": "完美适配智能手机、平板电脑、笔记本电脑以及超宽屏桌面显示器。"
+          },
+          {
+            "title": "企业级全方位安全保障",
+            "desc": "具备 SSL/TLS 加密传输、CSRF 防御、严格的 CSP 策略头和安全的身份验证体系。"
+          },
+          {
+            "title": "深度搜索引擎优化与社交分享卡片",
+            "desc": "配备 Schema.org JSON-LD 结构化数据、动态 OpenGraph 社交预览卡片与站点地图优化。"
+          },
+          {
+            "title": "整洁、高可维护的代码库",
+            "desc": "模块化 React 组件架构，搭配严格的 TypeScript 类型约束与详尽工程文档。"
+          },
+          {
+            "title": "Headless CMS 内容管理系统集成",
+            "desc": "轻松连接 Sanity、Strapi、WordPress REST API 或定制 PostgreSQL 后台管理面板。"
+          },
+          {
+            "title": "全链路数据分析与转化率监控",
+            "desc": "深度集成 Google Analytics 4、Meta Pixel 和 Google Tag Manager，把握每一位访客动向。"
+          },
+          {
+            "title": "全球 CDN 边缘加速与高可用性",
+            "desc": "在 Vercel 或 AWS Edge 全球边缘网络实现全自动 CI/CD 部署，保障 99.99% 在线率。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 现代化开发技术生态",
+        "title": "前沿尖端技术栈"
+      },
+      "pricing": {
+        "badge": "✦ 透明清晰的投资方案",
+        "mostRecommended": "★ 最受青睐推荐",
+        "oneTime": "/ 一次性费用",
+        "plans": [
+          {
+            "name": "初创起步官网",
+            "price": "BDT 1500",
+            "desc": "专为初创团队和本地商户打造快速、现代化的数字化品牌门面。",
+            "features": [
+              "最多 5 个专属定制页面",
+              "100% 移动端自适应设计",
+              "基础 SEO 与 Meta 标签优化",
+              "支持邮件即时提醒的在线留言表单",
+              "社交媒体平台无缝整合",
+              "上线后提供 15 天售后技术保障"
+            ],
+            "popular": false,
+            "cta": "选择初创方案"
+          },
+          {
+            "name": "企业成长专业版",
+            "price": "BDT 2800",
+            "desc": "专为追求高客户转化率与极速加载体验的成长型企业量身打造的明星套餐。",
+            "features": [
+              "最多 12 个高品质精美页面",
+              "专属 UI/UX 定制与 GSAP 微交互动效",
+              "动态新闻/博客 CMS 内容发布后台",
+              "配置 Google Analytics 4 与 Meta Pixel",
+              "Schema.org SEO 结构化数据深度标记",
+              "支持双语/多语言国际化切换",
+              "提供 30 天优先专属技术支持"
+            ],
+            "popular": true,
+            "cta": "获取专业方案"
+          },
+          {
+            "name": "大型企业定制版",
+            "price": "BDT 3800",
+            "desc": "针对超大并发流量、复杂业务接口及定制化业务流的高端企业级架构。",
+            "features": [
+              "不限页面数量与自定义路由",
+              "全栈 Node/Next.js 后端服务架构",
+              "PostgreSQL / Prisma 数据库支持",
+              "基于角色的权限控制管理系统",
+              "整合在线支付通道网关",
+              "定制 RESTful / GraphQL API 接口",
+              "提供 60 天专属专家 SLA 运维支持"
+            ],
+            "popular": false,
+            "cta": "选择企业定制"
+          }
+        ]
+      },
       "featuresTitle": "全栈 Web 工程技术架构",
       "pricingTitle": "透明清晰的网站开发套餐",
       "pricingSubtitle": "一口价无任何隐形消费，所有套餐均包含源码归属与专属质保。",
+      "faq": {
+        "badge": "✦ 还有其他疑问？",
+        "items": [
+          {
+            "q": "定制开发一个网站通常需要多长时间？",
+            "a": "标准的商业展示官网通常需要 7 至 14 天交付。复杂的 Web 应用或企业级门户系统通常根据详细需求需 3 至 5 周。"
+          },
+          {
+            "q": "开发出来的网站在手机端流畅且速度快吗？",
+            "a": "当然。我们使用 Next.js 和 Tailwind CSS 并严格遵循“移动端优先（Mobile-First）”原则，确保页面秒级加载且 Google PageSpeed 得分达到 95+。"
+          },
+          {
+            "q": "网站正式上线后，我们自己可以随时更新内容吗？",
+            "a": "完全可以！我们提供直观易用的后台管理系统，您无需掌握任何编程代码即可轻松编辑横幅、文案、图片、博客文章和项目案例。"
+          },
+          {
+            "q": "你们提供域名注册、服务器托管及 SSL 证书配置吗？",
+            "a": "是的，我们协助完成域名解析配置、免费 SSL 安全证书部署，以及基于 Vercel 或 AWS 全球 CDN 的云端上线部署。"
+          },
+          {
+            "q": "网站交付上线后，售后服务如何保障？",
+            "a": "每个项目均包含 15 至 60 天的免费专属技术支持、缺陷修复以及管理后台使用培训，确保您的业务稳定无忧运行。"
+          }
+        ]
+      },
       "faqTitle": "网站开发常见问题",
+      "cta": {
+        "badge": "✦ 准备好提升您的数字化品牌影响力了吗？"
+      },
       "ctaTitle": "准备好搭建您的下一代全新网站了吗？",
       "ctaDesc": "在 24 小时内获取定制确切报价和技术蓝图。",
       "ctaBtn": "即刻开启您的 Web 项目"

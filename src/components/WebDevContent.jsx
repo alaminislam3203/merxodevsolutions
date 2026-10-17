@@ -300,7 +300,7 @@ export default function WebDevContent() {
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-violet-500 hover:text-violet-600 transition-all duration-300"
             >
-              {t('featuredProjects.viewAllBtn') || 'View Live Portfolio'}
+              {t('webDev.viewPortfolioBtn') || t('featuredProjects.viewAllBtn') || 'View Live Portfolio'}
             </Link>
           </div>
 
@@ -308,19 +308,19 @@ export default function WebDevContent() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
-              <span>Enterprise Security</span>
+              <span>{t('webDev.trust.security') || 'Enterprise Security'}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiZap className="text-amber-500" />
-              <span>95+ PageSpeed</span>
+              <span>{t('webDev.trust.speed') || '95+ PageSpeed'}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiAward className="text-violet-500" />
-              <span>100% Mobile Ready</span>
+              <span>{t('webDev.trust.mobile') || '100% Mobile Ready'}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiCheckCircle className="text-cyan-500" />
-              <span>Free 30-Day Support</span>
+              <span>{t('webDev.trust.support') || 'Free 30-Day Support'}</span>
             </div>
           </div>
         </div>
@@ -350,15 +350,15 @@ export default function WebDevContent() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Performance
+              {t('webDev.features.badge') || '✦ Engineered for Performance'}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Everything Your Website{' '}
+              {t('webDev.features.titleStart') || 'Everything Your Website '}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                Needs to Dominate
+                {t('webDev.features.titleHighlight') || 'Needs to Dominate'}
               </span>
             </h2>
           </div>
@@ -389,7 +389,7 @@ export default function WebDevContent() {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-violet-600 dark:text-violet-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                    <span>Enterprise Standard</span>
+                    <span>{t('webDev.features.cardBadge') || 'Enterprise Standard'}</span>
                     <FiCheckCircle size={14} className="text-emerald-500" />
                   </div>
                 </div>
@@ -404,10 +404,10 @@ export default function WebDevContent() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Modern Development Ecosystem
+              {t('webDev.techStack.badge') || '✦ Modern Development Ecosystem'}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Cutting-Edge Tech Stack
+              {t('webDev.techStack.title') || 'Cutting-Edge Tech Stack'}
             </h3>
           </div>
 
@@ -435,7 +435,7 @@ export default function WebDevContent() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase font-exo-extralight mb-3">
-              ✦ Clear & Transparent Investment
+              {t('webDev.pricing.badge') || '✦ Clear & Transparent Investment'}
             </span>
             <h2
               id="pricing-heading"
@@ -456,7 +456,7 @@ export default function WebDevContent() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Most Recommended
+                    {t('webDev.pricing.mostRecommended') || '★ Most Recommended'}
                   </div>
                 )}
 
@@ -472,7 +472,9 @@ export default function WebDevContent() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-violet-600 dark:text-violet-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('webDev.pricing.oneTime') || '/ one-time'}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -505,7 +507,7 @@ export default function WebDevContent() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Have Questions?
+              {t('webDev.faq.badge') || '✦ Have Questions?'}
             </span>
             <h2
               id="faq-heading"
@@ -554,7 +556,7 @@ export default function WebDevContent() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-violet-950 via-[#1a0030] to-cyan-950 border border-violet-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
-              ✦ Ready to Elevate Your Online Presence?
+              {t('webDev.cta.badge') || '✦ Ready to Elevate Your Online Presence?'}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
               {t('webDev.ctaTitle')}

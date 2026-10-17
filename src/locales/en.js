@@ -153,6 +153,13 @@ const en = {
       "heroSubtitle": "We craft ultra-fast, responsive, and SEO-optimized business websites and web platforms using Next.js 16, React, and cloud-native architecture.",
       "viewPricingBtn": "View Pricing & Packages",
       "startProjectBtn": "Start Your Project",
+      "viewPortfolioBtn": "View Live Portfolio",
+      "trust": {
+        "security": "Enterprise Security",
+        "speed": "95+ PageSpeed",
+        "mobile": "100% Mobile Ready",
+        "support": "Free 30-Day Support"
+      },
       "stats": [
         {
           "value": "99.9%",
@@ -171,10 +178,140 @@ const en = {
           "label": "Client Satisfaction"
         }
       ],
+      "features": {
+        "badge": "✦ Engineered for Performance",
+        "titleStart": "Everything Your Website ",
+        "titleHighlight": "Needs to Dominate",
+        "cardBadge": "Enterprise Standard",
+        "items": [
+          {
+            "title": "High-Performance Next.js Architecture",
+            "desc": "SSR, SSG, and ISR powered web applications that load in under 1 second with 98+ Google Lighthouse scores."
+          },
+          {
+            "title": "Custom UI/UX & Figma-to-Code",
+            "desc": "Pixel-perfect translation of designs into sleek Tailwind CSS with smooth micro-interactions and dark mode."
+          },
+          {
+            "title": "100% Mobile Responsive",
+            "desc": "Flawlessly optimized for smartphones, tablets, laptops, and ultra-wide desktop monitors."
+          },
+          {
+            "title": "Enterprise-Grade Security",
+            "desc": "SSL/TLS encryption, CSRF protection, strict CSP headers, sanitized inputs, and secure authentication."
+          },
+          {
+            "title": "Advanced SEO & Social Sharing",
+            "desc": "Schema.org JSON-LD structured data, dynamic OpenGraph preview cards, sitemaps, and meta optimization."
+          },
+          {
+            "title": "Clean, Scalable Codebase",
+            "desc": "Modular React component architecture with strict TypeScript typing and thorough documentation."
+          },
+          {
+            "title": "Headless CMS Integration",
+            "desc": "Effortlessly manage content with Sanity, Strapi, WordPress REST API, or custom PostgreSQL admin portals."
+          },
+          {
+            "title": "Analytics & Conversion Tracking",
+            "desc": "Google Analytics 4, Meta Pixel, and Google Tag Manager integration for actionable visitor insights."
+          },
+          {
+            "title": "Global CDN & High Availability",
+            "desc": "Automated CI/CD deployments on Vercel or AWS Edge network with 99.99% uptime guarantee."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Modern Development Ecosystem",
+        "title": "Cutting-Edge Tech Stack"
+      },
+      "pricing": {
+        "badge": "✦ Clear & Transparent Investment",
+        "mostRecommended": "★ Most Recommended",
+        "oneTime": "/ one-time",
+        "plans": [
+          {
+            "name": "Starter Website",
+            "price": "BDT 1500",
+            "desc": "Perfect for startups and local businesses looking for a fast, modern digital footprint.",
+            "features": [
+              "Up to 5 Custom Pages",
+              "100% Responsive Mobile Design",
+              "Basic SEO & Meta Tags",
+              "Contact Form with Email Alerts",
+              "Social Media Integration",
+              "15 Days Post-Launch Support"
+            ],
+            "popular": false,
+            "cta": "Choose Starter"
+          },
+          {
+            "name": "Growth Business Pro",
+            "price": "BDT 2800",
+            "desc": "Our most popular package for growing companies that demand high conversion and speed.",
+            "features": [
+              "Up to 12 Premium Pages",
+              "Custom UI/UX & GSAP Micro-Animations",
+              "Dynamic Blog / News CMS Portal",
+              "Google Analytics 4 & Meta Pixel",
+              "Schema.org SEO Structured Data",
+              "Multilingual (Bangla & English)",
+              "30 Days Priority Support"
+            ],
+            "popular": true,
+            "cta": "Get Growth Pro"
+          },
+          {
+            "name": "Enterprise Custom",
+            "price": "BDT 3800",
+            "desc": "Tailored enterprise architecture for heavy traffic, custom APIs, and advanced integrations.",
+            "features": [
+              "Unlimited Pages & Custom Routes",
+              "Full-Stack Node/Next.js Backend",
+              "PostgreSQL / Prisma Database",
+              "Role-Based Admin Dashboard",
+              "Payment Gateway (bKash/Nagad/Cards)",
+              "Custom REST/GraphQL APIs",
+              "60 Days Dedicated Support & SLA"
+            ],
+            "popular": false,
+            "cta": "Choose Enterprise"
+          }
+        ]
+      },
       "featuresTitle": "Complete Web Engineering Stack",
       "pricingTitle": "Transparent Web Development Packages",
       "pricingSubtitle": "Fixed pricing, no surprises. All packages include source code ownership and warranty.",
+      "faq": {
+        "badge": "✦ Have Questions?",
+        "items": [
+          {
+            "q": "How long does it take to develop a custom website?",
+            "a": "A standard business website typically takes 7–14 days. Complex web applications or enterprise portals usually take 3–5 weeks depending on exact requirements."
+          },
+          {
+            "q": "Will my website be mobile-friendly and fast?",
+            "a": "Absolutely. We build all web projects mobile-first with Next.js and Tailwind CSS, guaranteeing sub-second load times and 95+ Google PageSpeed scores."
+          },
+          {
+            "q": "Can I update content on my own after launch?",
+            "a": "Yes! We provide an intuitive admin dashboard where you can easily update banners, text, images, blogs, and project portfolios without touching code."
+          },
+          {
+            "q": "Do you offer domain, hosting, and SSL support?",
+            "a": "Yes, we assist with domain setup (.com / .pro.bd / .bd), SSL certification, and cloud deployment on Vercel or AWS with global CDN."
+          },
+          {
+            "q": "What happens after the website is launched?",
+            "a": "Every project includes 15 to 60 days of free dedicated technical support, bug fixing, and training to ensure smooth operations."
+          }
+        ]
+      },
       "faqTitle": "Web Development FAQ",
+      "cta": {
+        "badge": "✦ Ready to Elevate Your Online Presence?"
+      },
       "ctaTitle": "Ready to build your next website?",
       "ctaDesc": "Get a fixed quote and technical blueprint within 24 hours.",
       "ctaBtn": "Start Your Web Project"
