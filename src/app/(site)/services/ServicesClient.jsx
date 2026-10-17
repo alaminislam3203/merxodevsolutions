@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import {
   FiGlobe,
@@ -22,7 +23,8 @@ import '@/components/i18n';
 
 const SERVICE_STYLES = [
   {
-    icon: <FiGlobe size={26} />,
+    icon: <FiGlobe size={18} />,
+    image: '/services/web.jpg',
     accent: 'from-violet-600 to-indigo-600',
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
@@ -30,7 +32,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-web',
   },
   {
-    icon: <FiShoppingCart size={26} />,
+    icon: <FiShoppingCart size={18} />,
+    image: '/services/ecommerce.png',
     accent: 'from-cyan-500 to-teal-500',
     lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
     iconColor: 'text-cyan-600 dark:text-cyan-400',
@@ -38,7 +41,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-ecommerce',
   },
   {
-    icon: <FiCode size={26} />,
+    icon: <FiCode size={18} />,
+    image: '/services/web-app.jpg',
     accent: 'from-indigo-500 to-violet-600',
     lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
     iconColor: 'text-indigo-600 dark:text-indigo-400',
@@ -46,7 +50,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-web-app',
   },
   {
-    icon: <FiLayout size={26} />,
+    icon: <FiLayout size={18} />,
+    image: '/services/design.jpg',
     accent: 'from-pink-500 to-rose-500',
     lightBg: 'bg-pink-50 dark:bg-pink-950/80',
     iconColor: 'text-pink-600 dark:text-pink-400',
@@ -54,7 +59,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-design',
   },
   {
-    icon: <FiLink size={26} />,
+    icon: <FiLink size={18} />,
+    image: '/services/api.jpg',
     accent: 'from-amber-500 to-orange-500',
     lightBg: 'bg-amber-50 dark:bg-amber-950/80',
     iconColor: 'text-amber-600 dark:text-amber-400',
@@ -62,7 +68,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-api-integration',
   },
   {
-    icon: <FiDatabase size={26} />,
+    icon: <FiDatabase size={18} />,
+    image: '/services/database.jpg',
     accent: 'from-blue-600 to-cyan-500',
     lightBg: 'bg-blue-50 dark:bg-blue-950/80',
     iconColor: 'text-blue-600 dark:text-blue-400',
@@ -70,7 +77,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-database',
   },
   {
-    icon: <FiTool size={26} />,
+    icon: <FiTool size={18} />,
+    image: '/services/maintenance.jpg',
     accent: 'from-slate-600 to-zinc-500',
     lightBg: 'bg-slate-50 dark:bg-slate-900/80',
     iconColor: 'text-slate-600 dark:text-slate-400',
@@ -78,7 +86,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-maintenance',
   },
   {
-    icon: <FiTrendingUp size={26} />,
+    icon: <FiTrendingUp size={18} />,
+    image: '/services/seo.jpg',
     accent: 'from-emerald-500 to-teal-500',
     lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
     iconColor: 'text-emerald-600 dark:text-emerald-400',
@@ -86,7 +95,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-seo',
   },
   {
-    icon: <FiCpu size={26} />,
+    icon: <FiCpu size={18} />,
+    image: '/services/automation.jpg',
     accent: 'from-orange-500 to-amber-500',
     lightBg: 'bg-orange-50 dark:bg-orange-950/80',
     iconColor: 'text-orange-600 dark:text-orange-400',
@@ -94,7 +104,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-automation',
   },
   {
-    icon: <FiMonitor size={26} />,
+    icon: <FiMonitor size={18} />,
+    image: '/services/dashboard.jpg',
     accent: 'from-cyan-600 to-violet-600',
     lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
     iconColor: 'text-cyan-600 dark:text-cyan-400',
@@ -102,7 +113,8 @@ const SERVICE_STYLES = [
     defaultHref: '/services-dashboard',
   },
   {
-    icon: <FiCreditCard size={26} />,
+    icon: <FiCreditCard size={18} />,
+    image: '/services/payment-gateway.svg',
     accent: 'from-violet-500 to-cyan-500',
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
@@ -110,6 +122,20 @@ const SERVICE_STYLES = [
     defaultHref: '/services-payment-gateway',
   },
 ];
+
+const STYLE_MAP = {
+  '/services-web': SERVICE_STYLES[0],
+  '/services-ecommerce': SERVICE_STYLES[1],
+  '/services-web-app': SERVICE_STYLES[2],
+  '/services-design': SERVICE_STYLES[3],
+  '/services-api-integration': SERVICE_STYLES[4],
+  '/services-database': SERVICE_STYLES[5],
+  '/services-maintenance': SERVICE_STYLES[6],
+  '/services-seo': SERVICE_STYLES[7],
+  '/services-automation': SERVICE_STYLES[8],
+  '/services-dashboard': SERVICE_STYLES[9],
+  '/services-payment-gateway': SERVICE_STYLES[10],
+};
 
 export default function ServicesClient() {
   const { t } = useTranslation();
@@ -170,14 +196,14 @@ export default function ServicesClient() {
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.isArray(servicesData) &&
             servicesData.map((service, index) => {
-              const style = SERVICE_STYLES[index] || SERVICE_STYLES[0];
-              const targetHref = service.href || style.defaultHref;
+              const targetHref = service.href || SERVICE_STYLES[index]?.defaultHref || '/services';
+              const style = STYLE_MAP[targetHref] || SERVICE_STYLES[index] || SERVICE_STYLES[0];
 
               return (
                 <Link
                   key={service.title || index}
                   href={targetHref}
-                  className={`group relative flex flex-col justify-between p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${style.glowColor} transition-all duration-300 overflow-hidden`}
+                  className={`group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${style.glowColor} transition-all duration-300 overflow-hidden`}
                   style={{
                     animationDelay: `${(index % 3) * 150}ms`,
                   }}
@@ -188,11 +214,28 @@ export default function ServicesClient() {
                   />
 
                   <div>
-                    {/* Icon Container with 3D Hover Float */}
-                    <div
-                      className={`w-14 h-14 rounded-2xl ${style.lightBg} flex items-center justify-center ${style.iconColor} mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-sm group-hover:shadow-md`}
-                    >
-                      {style.icon}
+                    {/* Illustration Showcase Card Header */}
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-b from-zinc-50 via-white to-zinc-50/50 dark:from-zinc-950/70 dark:via-zinc-900/60 dark:to-zinc-950/90 p-3 mb-6 border border-zinc-200/70 dark:border-zinc-800/70 flex items-center justify-center group-hover:border-violet-500/40 transition-all duration-300 shadow-sm">
+                      {/* Subtle hover gradient glow */}
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-tr ${style.accent} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                      />
+
+                      <Image
+                        src={style.image}
+                        alt={service.title}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-108 transition-transform duration-500 ease-out"
+                        priority={index < 3}
+                      />
+
+                      {/* Floating Mini Icon Badge */}
+                      <div
+                        className={`absolute top-3 left-3 w-8 h-8 rounded-xl ${style.lightBg} ${style.iconColor} flex items-center justify-center shadow-md backdrop-blur-md border border-white/60 dark:border-zinc-800/80 group-hover:scale-110 transition-transform`}
+                      >
+                        {style.icon}
+                      </div>
                     </div>
 
                     {/* Title & Desc with Hover Slide */}

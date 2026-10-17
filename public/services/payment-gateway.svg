@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Gradients & Filters -->
+    <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <filter id="badge-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="10" stdDeviation="8" flood-color="#091e42" flood-opacity="0.18" />
+    </filter>
+    <linearGradient id="monitor-frame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <feStop offset="0%" stop-color="#2ba8b5" />
+      <feStop offset="100%" stop-color="#1f7d87" />
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <feStop offset="0%" stop-color="#7c3aed" />
+      <feStop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="gold-coin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <feStop offset="0%" stop-color="#fbbf24" />
+      <feStop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="btn-pay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <feStop offset="0%" stop-color="#ef4444" />
+      <feStop offset="100%" stop-color="#dc2626" />
+    </linearGradient>
+    <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <feStop offset="0%" stop-color="#10b981" />
+      <feStop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+
+  <!-- Clean White Background -->
+  <rect width="1024" height="1024" fill="#ffffff" />
+
+  <!-- Outer Orbit Dashed Circles -->
+  <circle cx="512" cy="512" r="390" fill="none" stroke="#cbd5e1" stroke-width="2.5" stroke-dasharray="8 8" />
+  <circle cx="512" cy="512" r="340" fill="none" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="6 6" />
+
+  <!-- Decorative Orbit Dots & Mini Accents -->
+  <circle cx="360" cy="150" r="5" fill="#f59e0b" />
+  <circle cx="680" cy="160" r="4" fill="#06b6d4" />
+  <circle cx="890" cy="400" r="6" fill="#ef4444" />
+  <circle cx="150" cy="620" r="5" fill="#8b5cf6" />
+  <circle cx="780" cy="800" r="4" fill="#10b981" />
+  
+  <!-- Mini Floating Gears -->
+  <g transform="translate(690, 140) scale(0.6)" fill="#f59e0b" opacity="0.85">
+    <path d="M26 18a8 8 0 100 16 8 8 0 000-16zm18 9c0-.7-.1-1.4-.2-2l4.4-3.4-4-6.9-5.2 2.1c-1.1-.9-2.4-1.6-3.8-2.1L34 0h-8l-1.2 5.7c-1.4.5-2.7 1.2-3.8 2.1L15.8 5.7l-4 6.9 4.4 3.4c-.1.6-.2 1.3-.2 2s.1 1.4.2 2l-4.4 3.4 4 6.9 5.2-2.1c1.1.9 2.4 1.6 3.8 2.1L26 36h8l1.2-5.7c1.4-.5 2.7-1.2 3.8-2.1l5.2 2.1 4-6.9-4.4-3.4c.1-.6.2-1.3.2-2z"/>
+  </g>
+  <g transform="translate(190, 560) scale(0.55)" fill="#64748b" opacity="0.7">
+    <path d="M26 18a8 8 0 100 16 8 8 0 000-16zm18 9c0-.7-.1-1.4-.2-2l4.4-3.4-4-6.9-5.2 2.1c-1.1-.9-2.4-1.6-3.8-2.1L34 0h-8l-1.2 5.7c-1.4.5-2.7 1.2-3.8 2.1L15.8 5.7l-4 6.9 4.4 3.4c-.1.6-.2 1.3-.2 2s.1 1.4.2 2l-4.4 3.4 4 6.9 5.2-2.1c1.1.9 2.4 1.6 3.8 2.1L26 36h8l1.2-5.7c1.4-.5 2.7-1.2 3.8-2.1l5.2 2.1 4-6.9-4.4-3.4c.1-.6.2-1.3.2-2z"/>
+  </g>
+
+  <!-- ── CENTER COMPUTER MONITOR ── -->
+  <g filter="url(#soft-shadow)">
+    <!-- Monitor Stand Base -->
+    <path d="M430 680 L594 680 L560 620 L464 620 Z" fill="#1b6068" />
+    <ellipse cx="512" cy="685" rx="90" ry="14" fill="#0f444a" />
+
+    <!-- Monitor Outer Body -->
+    <rect x="320" y="370" width="384" height="250" rx="20" fill="url(#monitor-frame)" />
+    <!-- Web Camera Dot -->
+    <circle cx="512" cy="385" r="4.5" fill="#0f444a" />
+
+    <!-- Monitor Inner Screen -->
+    <rect x="338" y="400" width="348" height="204" rx="8" fill="#f8fafc" />
+
+    <!-- Screen Content: Checkout & Payment Modal -->
+    <!-- Screen Header Bar -->
+    <rect x="338" y="400" width="348" height="28" rx="8" fill="#e2e8f0" />
+    <circle cx="355" cy="414" r="4.5" fill="#ef4444" />
+    <circle cx="370" cy="414" r="4.5" fill="#f59e0b" />
+    <circle cx="385" cy="414" r="4.5" fill="#10b981" />
+    
+    <!-- SSL Green Lock in Address bar -->
+    <rect x="420" y="406" width="180" height="16" rx="8" fill="#ffffff" />
+    <path d="M435 413 v-2 a3 3 0 016 0 v2 h-6 z M433 413 h10 v6 h-10 z" fill="#10b981" />
+    <text x="448" y="418" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#059669">https://checkout.secure-pay.com</text>
+
+    <!-- Credit Card Inside Screen -->
+    <rect x="360" y="445" width="170" height="105" rx="10" fill="url(#card-grad)" filter="url(#soft-shadow)" />
+    <!-- Card Chip -->
+    <rect x="375" y="465" width="24" height="18" rx="3" fill="#fbbf24" />
+    <line x1="387" y1="465" x2="387" y2="483" stroke="#d97706" stroke-width="1" />
+    <line x1="375" y1="474" x2="399" y2="474" stroke="#d97706" stroke-width="1" />
+    <!-- Card contactless logo -->
+    <path d="M495 465 a8 8 0 010 12 M500 462 a14 14 0 010 18 M505 459 a20 20 0 010 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.85" />
+    <!-- Card Number Mockup -->
+    <text x="375" y="505" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff" letter-spacing="2">•••• •••• •••• 8842</text>
+    <text x="375" y="522" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#cbd5e1">CARDHOLDER</text>
+    <text x="375" y="534" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#ffffff">MERXODEV CLIENT</text>
+    <text x="475" y="522" font-family="system-ui, sans-serif" font-size="7" font-weight="600" fill="#cbd5e1">EXPIRES</text>
+    <text x="475" y="534" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#ffffff">12/28</text>
+
+    <!-- Payment Summary Box -->
+    <rect x="548" y="445" width="122" height="105" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <text x="558" y="464" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#1e293b">Order Summary</text>
+    <line x1="558" y1="472" x2="660" y2="472" stroke="#f1f5f9" stroke-width="1.5" />
+    <text x="558" y="488" font-family="system-ui, sans-serif" font-size="8" fill="#64748b">SSL Encrypted</text>
+    <text x="635" y="488" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#10b981">✓ Safe</text>
+    <text x="558" y="504" font-family="system-ui, sans-serif" font-size="8" fill="#64748b">Total Amount</text>
+    <text x="558" y="520" font-family="system-ui, sans-serif" font-size="13" font-weight="900" fill="#0f172a">BDT 15,000</text>
+    
+    <!-- PAY BUTTON -->
+    <rect x="558" y="528" width="102" height="18" rx="5" fill="url(#btn-pay)" />
+    <text x="609" y="541" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="800" fill="#ffffff" letter-spacing="1">PAY NOW</text>
+
+    <!-- Mouse Pointer Arrow -->
+    <g transform="translate(635, 538) scale(0.85)" filter="url(#soft-shadow)">
+      <polygon points="0,0 24,14 14,16 20,28 14,30 8,18 0,22" fill="#ffffff" stroke="#0f172a" stroke-width="2" />
+    </g>
+  </g>
+
+  <!-- ── ORBITING BADGES (7 Surrounding Circles) ── -->
+
+  <!-- Top Badge: Security Padlock & Shield (Teal) -->
+  <g transform="translate(512, 125)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="56" fill="#0284c7" />
+    <!-- Lock Graphic -->
+    <rect x="-18" y="-6" width="36" height="30" rx="6" fill="#fbbf24" />
+    <path d="M-12 -6 v-10 a12 12 0 0124 0 v10" fill="none" stroke="#f8fafc" stroke-width="5" stroke-linecap="round" />
+    <circle cx="0" cy="7" r="4" fill="#78350f" />
+    <line x1="0" y1="9" x2="0" y2="16" stroke="#78350f" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Top-Right Badge: Mobile Banking Phone / bKash Nagad (Dark Navy) -->
+  <g transform="translate(780, 240)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="54" fill="#0f172a" />
+    <!-- Smartphone with transaction checkmark -->
+    <rect x="-18" y="-30" width="36" height="60" rx="8" fill="#e2e8f0" />
+    <rect x="-14" y="-22" width="28" height="42" rx="3" fill="#0284c7" />
+    <circle cx="0" cy="24" r="3" fill="#64748b" />
+    <!-- Checkmark on screen -->
+    <path d="M-8 0 L-2 6 L8 -6" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Right Badge: Verified Trust Shield (Emerald Green) -->
+  <g transform="translate(860, 520)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="52" fill="url(#shield-grad)" />
+    <!-- Shield Icon -->
+    <path d="M0 -24 L18 -14 V4 C18 16 0 24 0 24 C0 24 -18 16 -18 4 V-14 Z" fill="#ffffff" />
+    <path d="M-6 4 L-2 8 L8 -4" fill="none" stroke="#059669" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Bottom-Right Badge: 24/7 Transaction Hotline (Navy Blue) -->
+  <g transform="translate(740, 770)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="56" fill="#1e293b" />
+    <path d="M0 -34 a34 34 0 100 68 a34 34 0 000-68" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-dasharray="16 6" />
+    <text x="0" y="-8" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#ffffff">24/7</text>
+    <path d="M-12 12 c4 6 12 10 18 6 l3 -3 c2 -2 5 -2 7 0 l5 5 c2 2 2 5 0 7 c-5 5 -14 4 -22 -4 c-8 -8 -9 -17 -4 -22 c2 -2 5 -2 7 0 l5 5 c2 2 2 5 0 7 l-3 3 c-4 6 0 14 6 18" fill="#ef4444" transform="scale(0.7) translate(-10, -5)" />
+  </g>
+
+  <!-- Bottom Badge: BDT / USD Currency Coins (Gold Amber) -->
+  <g transform="translate(512, 870)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="54" fill="url(#gold-coin)" />
+    <!-- Inner Coin Rim -->
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#fef3c7" stroke-width="2.5" />
+    <!-- Currency Symbol ৳ / $ -->
+    <text x="0" y="14" text-anchor="middle" font-family="system-ui, sans-serif" font-size="40" font-weight="900" fill="#78350f">৳</text>
+  </g>
+
+  <!-- Bottom-Left Badge: Point of Sale Terminal / Credit Card (Teal/Cyan) -->
+  <g transform="translate(260, 780)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="54" fill="#0d9488" />
+    <!-- Card Swiper / Credit Card -->
+    <rect x="-24" y="-16" width="48" height="32" rx="5" fill="#ffffff" />
+    <rect x="-24" y="-8" width="48" height="7" fill="#0f172a" />
+    <rect x="-18" y="4" width="12" height="6" rx="1.5" fill="#f59e0b" />
+  </g>
+
+  <!-- Left Badge: Invoice / Instant Receipt (Coral Red / Orange) -->
+  <g transform="translate(170, 480)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="54" fill="#e11d48" />
+    <!-- Receipt document -->
+    <path d="M-16 -22 h32 v44 l-8 -5 l-8 5 l-8 -5 l-8 5 Z" fill="#ffffff" />
+    <line x1="-10" y1="-12" x2="10" y2="-12" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-10" y1="-4" x2="6" y2="-4" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-10" y1="4" x2="10" y2="4" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="-10" y1="12" x2="2" y2="12" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Top-Left Badge: Handshake Partnership (Purple/Violet) -->
+  <g transform="translate(250, 240)" filter="url(#badge-shadow)">
+    <circle cx="0" cy="0" r="54" fill="#7c3aed" />
+    <!-- Handshake SVG -->
+    <path d="M-22 2 l10 -10 c3 -3 8 -3 11 0 l3 3 c2 2 5 2 7 0 l7 -7 c3 -3 8 -3 11 0 l5 5 c3 3 3 8 0 11 l-12 12 c-3 3 -8 3 -11 0 l-4 -4 c-2 -2 -5 -2 -7 0 l-6 6 c-3 3 -8 3 -11 0 Z" fill="#ffffff" />
+  </g>
+</svg>
