@@ -1033,6 +1033,332 @@ const en = {
         "btn": "Claim Free SEO Audit"
       }
     },
+    "paymentGatewayService": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "Payment Gateway Integration"
+      },
+      "badge": "bKash, Nagad, Stripe & SSLCommerz",
+      "hero": {
+        "titleStart": "Payment Gateway ",
+        "titleHighlight": "Integration",
+        "desc": "Accept payments seamlessly with bulletproof integrations for bKash, Nagad, Rocket, Stripe, and SSLCommerz with instant IPN verification and zero double-charge risk.",
+        "ctaPrimary": "Integrate Payments",
+        "ctaSecondary": "View Checkout Demos"
+      },
+      "trust": {
+        "mfs": "bKash & Nagad MFS",
+        "stripe": "Stripe Cards & Apple Pay",
+        "ipn": "Instant IPN Sync",
+        "pcidss": "PCI-DSS Compliant"
+      },
+      "stats": [
+        { "value": "100%", "label": "PCI-DSS Compliant" },
+        { "value": "0.2s", "label": "Instant IPN Verification" },
+        { "value": "10+", "label": "Gateways Supported" },
+        { "value": "Zero", "label": "Double Charge Incidents" }
+      ],
+      "capabilities": {
+        "badge": "✦ Engineered for Seamless Checkout",
+        "titleStart": "Payment Engineering ",
+        "titleHighlight": "Capabilities",
+        "cardFooter": "Zero-Drop Guarantee",
+        "items": [
+          {
+            "title": "bKash & Nagad Direct Merchant Checkout",
+            "desc": "Seamless direct API integration for bKash Tokenized Checkout and Nagad Payment Engine with one-tap payment confirmation."
+          },
+          {
+            "title": "Stripe Global Credit & Debit Cards",
+            "desc": "Accept Visa, Mastercard, American Express, Apple Pay, and Google Pay worldwide with 3D Secure 2 authentication."
+          },
+          {
+            "title": "SSLCommerz, Shurjopay & AamarPay",
+            "desc": "Multi-channel payment aggregators supporting internet banking, Rocket, Upay, Cellfin, and all major Bangladeshi bank cards."
+          },
+          {
+            "title": "Instant IPN & Webhook Verification",
+            "desc": "Bulletproof Instant Payment Notification (IPN) handlers with cryptographic hash matching to prevent forged orders."
+          },
+          {
+            "title": "Subscription & Recurring Billing Engine",
+            "desc": "Automated SaaS monthly/yearly billing cycles, invoice generation, pro-rated upgrades, and grace period handling."
+          },
+          {
+            "title": "Fraud Mitigation & Chargeback Shield",
+            "desc": "Card velocity checks, suspicious IP filtering, CVV verification, and automated refund & dispute management workflows."
+          },
+          {
+            "title": "PCI-DSS Zero-Card-Data Architecture",
+            "desc": "Client-side tokenization so sensitive card details never touch your server, keeping your platform 100% compliant."
+          },
+          {
+            "title": "Automated Invoice & Tax Calculation",
+            "desc": "Dynamic PDF receipt generator, automatic VAT/tax calculation, and instant SMS/email payment confirmation alerts."
+          },
+          {
+            "title": "Financial Reconciliation Dashboard",
+            "desc": "Real-time revenue metrics, successful vs failed transaction logs, payout tracking, and accountant-ready CSV exports."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Certified Payment Hub",
+        "title": "Supported Payment Networks",
+        "items": [
+          { "label": "bKash Tokenized API", "category": "Local MFS" },
+          { "label": "Nagad Direct API", "category": "Local MFS" },
+          { "label": "Stripe Payments", "category": "International" },
+          { "label": "SSLCommerz v4", "category": "Aggregator" },
+          { "label": "AamarPay API", "category": "Aggregator" },
+          { "label": "Shurjopay Engine", "category": "Aggregator" },
+          { "label": "Stripe Webhooks", "category": "IPN" },
+          { "label": "PayPal Checkout", "category": "Global" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ Transparent Payment Setup",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "Gateway Tier",
+        "bestSeller": "★ Best Seller",
+        "oneTime": "/ one-time",
+        "plans": [
+          {
+            "name": "Single Gateway Integration",
+            "price": "BDT 1200",
+            "desc": "Integration of any single payment method (bKash, Nagad, Stripe, or SSLCommerz) with live testing.",
+            "features": [
+              "Complete Gateway Checkout Setup",
+              "Instant Webhook / IPN Handler",
+              "Success & Failure Redirect Pages",
+              "Database Order Status Sync",
+              "Live Sandbox & Production Verification",
+              "15 Days Integration Guarantee"
+            ],
+            "popular": false,
+            "cta": "Integrate Single Gateway"
+          },
+          {
+            "name": "Dual Gateway (Local + Global)",
+            "price": "BDT 2500",
+            "desc": "Our most popular package offering Bangladeshi MFS (bKash/Nagad) plus international card processing (Stripe).",
+            "features": [
+              "bKash + Nagad Direct Checkout",
+              "Stripe International Card Gateway",
+              "Instant Auto-Invoice Generation",
+              "SMS & Email Payment Alerts",
+              "Refund & Dispute Admin Tools",
+              "30 Days Priority Technical Support"
+            ],
+            "popular": true,
+            "cta": "Get Dual Gateway"
+          },
+          {
+            "name": "All-In-One Enterprise Gateway",
+            "price": "BDT 3800",
+            "desc": "Multi-gateway dynamic switcher, recurring SaaS subscription billing, and accountant reconciliation tools.",
+            "features": [
+              "All Bangladesh Gateways + Stripe/PayPal",
+              "Dynamic Gateway Routing & Failover",
+              "Automated Subscription Recurring Billing",
+              "Custom Admin Accounting Dashboard",
+              "Automated VAT/Tax Calculation",
+              "60 Days Dedicated Support"
+            ],
+            "popular": false,
+            "cta": "Build Enterprise Gateway"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Payment FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "How does bKash Tokenized Checkout work for recurring customers?",
+            "a": "After the initial authorization, the user’s bKash wallet is securely tokenized, allowing frictionless 1-click repeat purchases without re-entering PIN/OTP every single time."
+          },
+          {
+            "q": "Do you handle the merchant account verification process?",
+            "a": "We guide you step-by-step through obtaining production API credentials and merchant agreements with bKash, Nagad, SSLCommerz, or Stripe."
+          },
+          {
+            "q": "What happens if a user’s network drops during payment?",
+            "a": "Our IPN and reconciliation listeners query the gateway backend directly to verify transaction status, ensuring no paid order is ever lost or double-charged."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Never Miss a Sale",
+        "title": "Start Accepting Payments Today",
+        "desc": "Enable your customers in Bangladesh and across the world to pay smoothly via bKash, Nagad, Cards, and online banking.",
+        "btn": "Request Payment Integration"
+      }
+    },
+    "automationService": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "Business Automation"
+      },
+      "badge": "Zero Manual Work, 100% Efficiency",
+      "hero": {
+        "titleStart": "Business ",
+        "titleHighlight": "Automation",
+        "desc": "Automate repetitive tasks, notifications, courier bookings, reports, and AI workflows so your team can focus purely on business growth and revenue.",
+        "ctaPrimary": "Automate Your Business",
+        "ctaSecondary": "Automation Demos"
+      },
+      "trust": {
+        "ai": "AI Process Agents",
+        "webhooks": "Event-Driven Webhooks",
+        "sync": "Google Sheets & CRM Sync",
+        "cron": "Scheduled Cron Jobs"
+      },
+      "stats": [
+        { "value": "80%", "label": "Manual Workload Reduced" },
+        { "value": "Zero", "label": "Human Data Entry Errors" },
+        { "value": "24/7", "label": "Autonomous Task Execution" },
+        { "value": "5x-10x", "label": "Operational Speed Multiplier" }
+      ],
+      "capabilities": {
+        "badge": "✦ Engineered for Autonomous Operations",
+        "titleStart": "Business Automation ",
+        "titleHighlight": "Capabilities",
+        "cardFooter": "Autonomous Execution",
+        "items": [
+          {
+            "title": "AI-Powered Business Workflow Automation",
+            "desc": "Integrating OpenAI LLMs, intelligent document parsing, auto-reply classification, and contextual CRM routing."
+          },
+          {
+            "title": "Automated Email & SMS Notification Triggers",
+            "desc": "Instant event-triggered customer alerts (order confirmations, delivery tracking, OTPs, appointment reminders, and lead follow-ups)."
+          },
+          {
+            "title": "Scheduled Cron Jobs & Background Tasks",
+            "desc": "Automated midnight database backups, daily financial reports, abandoned cart reminders, and inventory synchronization."
+          },
+          {
+            "title": "Google Sheets, Airtable & CRM Auto-Sync",
+            "desc": "Real-time two-way synchronization between your web app, Google Sheets, Airtable, Notion, HubSpot, and Slack."
+          },
+          {
+            "title": "Automated PDF Invoices & Report Generators",
+            "desc": "Dynamic serverless PDF rendering for branded invoices, certificates, monthly executive dashboards, and receipts."
+          },
+          {
+            "title": "E-Commerce Order & Inventory Automation",
+            "desc": "Auto-assigning delivery courier tracking (Pathao, Steadfast, RedX), stock deductions, and auto-printing shipping labels."
+          },
+          {
+            "title": "Web Scraping & Competitive Intelligence",
+            "desc": "Automated headless browsers (Playwright/Puppeteer) extracting competitor price movements, stock changes, and market trends."
+          },
+          {
+            "title": "Zapier, Make & n8n Enterprise Pipelines",
+            "desc": "Connecting disparate legacy systems with modern self-hosted n8n workflows for zero monthly subscription overhead."
+          },
+          {
+            "title": "Error Interception & Auto-Healing",
+            "desc": "Self-monitoring scripts that detect payment or data sync failures, retry automatically with exponential backoff, and notify admins."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Enterprise Automation Engines",
+        "title": "Automation Toolchain & Protocols",
+        "items": [
+          { "label": "n8n & Zapier", "category": "Workflows" },
+          { "label": "OpenAI API", "category": "AI Models" },
+          { "label": "Node.js & BullMQ", "category": "Job Queues" },
+          { "label": "Google Sheets API", "category": "Sync" },
+          { "label": "Playwright & Puppeteer", "category": "Scraping" },
+          { "label": "Resend & Twilio", "category": "Messaging" },
+          { "label": "Courier APIs (Pathao/Steadfast)", "category": "Logistics" },
+          { "label": "Puppeteer PDF Engine", "category": "Reports" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ Transparent Automation Setup",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "Automation Tier",
+        "bestValue": "★ Best Value",
+        "oneTime": "/ one-time",
+        "plans": [
+          {
+            "name": "Single Workflow Automation",
+            "price": "BDT 1200",
+            "desc": "Automate any single repetitive process (Auto-email triggers, Google Sheets sync, or Courier booking API).",
+            "features": [
+              "End-to-End Workflow Trigger Setup",
+              "Payload Validation & Error Handling",
+              "Google Sheets / CRM Integration",
+              "Instant Email/SMS Alerting",
+              "Live Workflow Testing & Handover",
+              "15 Days Warranty"
+            ],
+            "popular": false,
+            "cta": "Automate Single Flow"
+          },
+          {
+            "name": "Business Automation Suite",
+            "price": "BDT 2600",
+            "desc": "Our most popular package for e-commerce and scaling agencies wanting autonomous operations.",
+            "features": [
+              "Up to 4 Interconnected Workflows",
+              "Courier Booking & Tracking Sync (Steadfast/Pathao)",
+              "Automated PDF Invoice Generation",
+              "Scheduled Cron Reporting Pipelines",
+              "AI Text Parsing / Auto-Reply Engine",
+              "30 Days Dedicated Support"
+            ],
+            "popular": true,
+            "cta": "Build Automation Suite"
+          },
+          {
+            "name": "Enterprise Autonomous System",
+            "price": "BDT 3800",
+            "desc": "Full-scale custom n8n / BullMQ queue architecture, competitive scraping, and end-to-end operational automation.",
+            "features": [
+              "Self-Hosted n8n Workflow Server",
+              "Distributed BullMQ Task Processing",
+              "Automated Competitor Scraping Engine",
+              "Custom OpenAI Agent Embeddings",
+              "Multi-System CRM/ERP Synchronization",
+              "60 Days Priority Support"
+            ],
+            "popular": false,
+            "cta": "Consult Automation Architect"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Automation FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "How does automated courier booking work for Bangladeshi e-commerce?",
+            "a": "When an order is confirmed, our automation script pushes customer details to Pathao or Steadfast API, retrieves the consignment tracking number, and SMSes the customer automatically."
+          },
+          {
+            "q": "Do I have to pay high recurring fees for Zapier?",
+            "a": "We can build your automations using self-hosted open-source tools like n8n or direct Node.js microservices, eliminating recurring Zapier monthly subscription costs entirely."
+          },
+          {
+            "q": "Can automation notify my team on Slack or WhatsApp when high-priority leads arrive?",
+            "a": "Yes! Instant webhooks format customer inquiries and ping your designated WhatsApp group or Slack channel within seconds."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Put Your Business on Autopilot",
+        "title": "Stop Wasting Hours on Manual Tasks",
+        "desc": "Let us engineer custom business automation pipelines that save you hundreds of hours every month.",
+        "btn": "Build Automation Pipeline"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "Home",
       "breadcrumbServices": "Services",

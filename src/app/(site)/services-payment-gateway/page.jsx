@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -17,17 +19,24 @@ import {
 } from 'react-icons/fi';
 import { FaMoneyBillWave, FaStripeS } from 'react-icons/fa';
 
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) && val.length > 0 ? val : null;
+}
+
 export default function ServicesPaymentGatewayPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
-  const stats = [
+  const fallbackStats = [
     { value: '100%', label: 'PCI-DSS Compliant' },
     { value: '0.2s', label: 'Instant IPN Verification' },
     { value: '10+', label: 'Gateways Supported' },
     { value: 'Zero', label: 'Double Charge Incidents' },
   ];
+  const stats = arr(t, 'paymentGatewayService.stats') || fallbackStats;
 
-  const featureMeta = [
+  const featureStyling = [
     {
       icon: <FiCreditCard size={24} />,
       title: 'bKash & Nagad Direct Merchant Checkout',
@@ -101,8 +110,14 @@ export default function ServicesPaymentGatewayPage() {
       borderGlow: 'hover:border-purple-400 dark:hover:border-purple-600 hover:shadow-purple-500/15',
     },
   ];
+  const translatedFeatures = arr(t, 'paymentGatewayService.capabilities.items');
+  const featureMeta = featureStyling.map((f, i) => ({
+    ...f,
+    title: translatedFeatures?.[i]?.title || f.title,
+    desc: translatedFeatures?.[i]?.desc || f.desc,
+  }));
 
-  const techStack = [
+  const fallbackTechStack = [
     { label: 'bKash Tokenized API', category: 'Local MFS' },
     { label: 'Nagad Direct API', category: 'Local MFS' },
     { label: 'Stripe Payments', category: 'International' },
@@ -112,8 +127,9 @@ export default function ServicesPaymentGatewayPage() {
     { label: 'Stripe Webhooks', category: 'IPN' },
     { label: 'PayPal Checkout', category: 'Global' },
   ];
+  const techStack = arr(t, 'paymentGatewayService.techStack.items') || fallbackTechStack;
 
-  const plans = [
+  const fallbackPlans = [
     {
       name: 'Single Gateway Integration',
       price: 'BDT 1200',
@@ -160,8 +176,20 @@ export default function ServicesPaymentGatewayPage() {
       cta: 'Build Enterprise Gateway',
     },
   ];
+  const translatedPlans = arr(t, 'paymentGatewayService.pricing.plans');
+  const plans = fallbackPlans.map((plan, i) => ({
+    ...plan,
+    name: translatedPlans?.[i]?.name || plan.name,
+    price: translatedPlans?.[i]?.price || plan.price,
+    desc: translatedPlans?.[i]?.desc || plan.desc,
+    features:
+      Array.isArray(translatedPlans?.[i]?.features) && translatedPlans[i].features.length > 0
+        ? translatedPlans[i].features
+        : plan.features,
+    cta: translatedPlans?.[i]?.cta || plan.cta,
+  }));
 
-  const faqs = [
+  const fallbackFaqs = [
     {
       q: 'How does bKash Tokenized Checkout work for recurring customers?',
       a: 'After the initial authorization, the user’s bKash wallet is securely tokenized, allowing frictionless 1-click repeat purchases without re-entering PIN/OTP every single time.',
@@ -175,6 +203,7 @@ export default function ServicesPaymentGatewayPage() {
       a: 'Our IPN and reconciliation listeners query the gateway backend directly to verify transaction status, ensuring no paid order is ever lost or double-charged.',
     },
   ];
+  const faqs = arr(t, 'paymentGatewayService.faq.items') || fallbackFaqs;
 
   return (
     <main className="text-[#27003B] dark:text-white transition-colors duration-300">
@@ -183,9 +212,6 @@ export default function ServicesPaymentGatewayPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
-          style={{
-            // background: 'radial-gradient(circle, #ec4899, #6366f1, transparent 70%)',
-          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -194,32 +220,35 @@ export default function ServicesPaymentGatewayPage() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-pink-500 transition-colors">
-              Home
+              {t('paymentGatewayService.breadcrumb.home', 'Home')}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-pink-500 transition-colors">
-              Services
+              {t('paymentGatewayService.breadcrumb.services', 'Services')}
             </Link>
             <span>/</span>
             <span className="text-pink-600 dark:text-pink-400 font-semibold">
-              Payment Gateway Integration
+              {t('paymentGatewayService.breadcrumb.current', 'Payment Gateway Integration')}
             </span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-pink-100 dark:bg-pink-950/90 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping" />
-            bKash, Nagad, Stripe & SSLCommerz
+            {t('paymentGatewayService.badge', 'bKash, Nagad, Stripe & SSLCommerz')}
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Payment Gateway{' '}
+            {t('paymentGatewayService.hero.titleStart', 'Payment Gateway ')}
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent animated-gradient-text">
-              Integration
+              {t('paymentGatewayService.hero.titleHighlight', 'Integration')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            Accept payments seamlessly with bulletproof integrations for bKash, Nagad, Rocket, Stripe, and SSLCommerz with instant IPN verification and zero double-charge risk.
+            {t(
+              'paymentGatewayService.hero.desc',
+              'Accept payments seamlessly with bulletproof integrations for bKash, Nagad, Rocket, Stripe, and SSLCommerz with instant IPN verification and zero double-charge risk.'
+            )}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -227,33 +256,33 @@ export default function ServicesPaymentGatewayPage() {
               href="/contact?service=Payment%20Gateway%20Integration"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Integrate Payments</span>
+              <span>{t('paymentGatewayService.hero.ctaPrimary', 'Integrate Payments')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600 transition-all duration-300"
             >
-              View Checkout Demos
+              {t('paymentGatewayService.hero.ctaSecondary', 'View Checkout Demos')}
             </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FiCreditCard className="text-pink-500" />
-              <span>bKash & Nagad MFS</span>
+              <span>{t('paymentGatewayService.trust.mfs', 'bKash & Nagad MFS')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FaStripeS className="text-indigo-500" />
-              <span>Stripe Cards & Apple Pay</span>
+              <span>{t('paymentGatewayService.trust.stripe', 'Stripe Cards & Apple Pay')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiZap className="text-amber-500" />
-              <span>Instant IPN Sync</span>
+              <span>{t('paymentGatewayService.trust.ipn', 'Instant IPN Sync')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
-              <span>PCI-DSS Compliant</span>
+              <span>{t('paymentGatewayService.trust.pcidss', 'PCI-DSS Compliant')}</span>
             </div>
           </div>
         </div>
@@ -283,15 +312,15 @@ export default function ServicesPaymentGatewayPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Seamless Checkout
+              {t('paymentGatewayService.capabilities.badge', '✦ Engineered for Seamless Checkout')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Payment Engineering{' '}
+              {t('paymentGatewayService.capabilities.titleStart', 'Payment Engineering ')}
               <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
-                Capabilities
+                {t('paymentGatewayService.capabilities.titleHighlight', 'Capabilities')}
               </span>
             </h2>
           </div>
@@ -319,7 +348,7 @@ export default function ServicesPaymentGatewayPage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-pink-600 dark:text-pink-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                  <span>Zero-Drop Guarantee</span>
+                  <span>{t('paymentGatewayService.capabilities.cardFooter', 'Zero-Drop Guarantee')}</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
               </div>
@@ -333,10 +362,10 @@ export default function ServicesPaymentGatewayPage() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-pink-50/50 via-white to-indigo-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Certified Payment Hub
+              {t('paymentGatewayService.techStack.badge', '✦ Certified Payment Hub')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Supported Payment Networks
+              {t('paymentGatewayService.techStack.title', 'Supported Payment Networks')}
             </h3>
           </div>
 
@@ -364,15 +393,15 @@ export default function ServicesPaymentGatewayPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent Payment Setup
+              {t('paymentGatewayService.pricing.badge', '✦ Transparent Payment Setup')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
+              {t('paymentGatewayService.pricing.titleStart', 'Choose Your ')}
               <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
-                Gateway Tier
+                {t('paymentGatewayService.pricing.titleHighlight', 'Gateway Tier')}
               </span>
             </h2>
           </div>
@@ -381,14 +410,15 @@ export default function ServicesPaymentGatewayPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
-                  ? 'border-2 border-pink-500 bg-gradient-to-b from-pink-50/80 via-white to-white dark:from-pink-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-pink-500/20 scale-105 z-10'
-                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                  }`}
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
+                  plan.popular
+                    ? 'border-2 border-pink-500 bg-gradient-to-b from-pink-50/80 via-white to-white dark:from-pink-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-pink-500/20 scale-105 z-10'
+                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-pink-500 to-indigo-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Best Seller
+                    {t('paymentGatewayService.pricing.bestSeller', '★ Best Seller')}
                   </div>
                 )}
 
@@ -404,7 +434,9 @@ export default function ServicesPaymentGatewayPage() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-pink-600 dark:text-pink-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('paymentGatewayService.pricing.oneTime', '/ one-time')}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -419,10 +451,11 @@ export default function ServicesPaymentGatewayPage() {
 
                 <Link
                   href={`/contact?service=Payment%20Gateway%20Integration&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
-                    ? 'bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white hover:opacity-95 shadow-lg shadow-pink-500/25'
-                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600'
-                    }`}
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white hover:opacity-95 shadow-lg shadow-pink-500/25'
+                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-pink-500 hover:text-pink-600'
+                  }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -437,13 +470,13 @@ export default function ServicesPaymentGatewayPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-pink-600 dark:text-pink-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Payment FAQs
+              {t('paymentGatewayService.faq.badge', '✦ Payment FAQs')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('paymentGatewayService.faq.title', 'Frequently Asked Questions')}
             </h2>
           </div>
 
@@ -465,8 +498,9 @@ export default function ServicesPaymentGatewayPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-pink-600 dark:text-pink-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
-                        }`}
+                      className={`text-pink-600 dark:text-pink-400 shrink-0 transition-transform duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
                     />
                   </button>
                   {isOpen && (
@@ -486,19 +520,22 @@ export default function ServicesPaymentGatewayPage() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#290117] via-[#1a052e] to-[#02182b] border border-pink-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-pink-400 font-exo-extralight mb-4">
-              ✦ Never Miss a Sale
+              {t('paymentGatewayService.cta.badge', '✦ Never Miss a Sale')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Start Accepting Payments Today
+              {t('paymentGatewayService.cta.title', 'Start Accepting Payments Today')}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Enable your customers in Bangladesh and across the world to pay smoothly via bKash, Nagad, Cards, and online banking.
+              {t(
+                'paymentGatewayService.cta.desc',
+                'Enable your customers in Bangladesh and across the world to pay smoothly via bKash, Nagad, Cards, and online banking.'
+              )}
             </p>
             <Link
               href="/contact?service=Payment%20Gateway%20Integration"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
             >
-              <span>Request Payment Integration</span>
+              <span>{t('paymentGatewayService.cta.btn', 'Request Payment Integration')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>

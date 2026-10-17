@@ -133,7 +133,7 @@ export default function ServicesPluginDevelopmentPage() {
   const faqs = arr(t, 'pluginDev.faq.items') || fallbackFaqs;
 
   return (
-    <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+    <main className="min-h-screen text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
       {/* ── Hero Section ── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
         {/* Glow Gradients */}

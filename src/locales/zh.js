@@ -1017,6 +1017,332 @@ const zh = {
         "btn": "立即申请免费 SEO 体检"
       }
     },
+    "paymentGatewayService": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务",
+        "current": "支付网关集成"
+      },
+      "badge": "bKash、Nagad、Stripe 与 SSLCommerz",
+      "hero": {
+        "titleStart": "支付网关 ",
+        "titleHighlight": "技术集成",
+        "desc": "无缝接入 bKash、Nagad、Rocket、Stripe 和 SSLCommerz，具备即时 IPN 验证机制与零重复扣款风险保障。",
+        "ctaPrimary": "立即集成支付",
+        "ctaSecondary": "查看结账演示"
+      },
+      "trust": {
+        "mfs": "bKash 与 Nagad 移动支付",
+        "stripe": "Stripe 国际卡与 Apple Pay",
+        "ipn": "毫秒级 IPN 即时同步",
+        "pcidss": "符合 PCI-DSS 安全合规"
+      },
+      "stats": [
+        { "value": "100%", "label": "PCI-DSS 安全标准" },
+        { "value": "0.2秒", "label": "IPN 即时验证响应" },
+        { "value": "10+", "label": "支持的主流网关" },
+        { "value": "0起", "label": "重复扣款事故" }
+      ],
+      "capabilities": {
+        "badge": "✦ 专为极致结账转化率打造",
+        "titleStart": "支付工程 ",
+        "titleHighlight": "核心技术能力",
+        "cardFooter": "零掉单安全保障",
+        "items": [
+          {
+            "title": "bKash 与 Nagad 商户直连结账",
+            "desc": "无缝集成 bKash Tokenized Checkout 与 Nagad 支付核心 API，实现极速一键免密/快捷支付确认。"
+          },
+          {
+            "title": "Stripe 全球信用卡与借记卡集成",
+            "desc": "全球范围内安全受理 Visa、Mastercard、American Express、Apple Pay 与 Google Pay，集成 3D Secure 2 验证。"
+          },
+          {
+            "title": "SSLCommerz、Shurjopay 与 AamarPay 聚合网关",
+            "desc": "多通道聚合支付平台，支持孟加拉网银、Rocket、Upay、Cellfin 及所有主流银行卡。"
+          },
+          {
+            "title": "即时 IPN 与 Webhook 签名验证",
+            "desc": "军工级即时付款通知（IPN）处理器，配合加密哈希验签，彻底杜绝伪造订单与掉单。"
+          },
+          {
+            "title": "订阅制与自动周期扣费引擎",
+            "desc": "SaaS 月付/年付自动化账单引擎，支持自动发票开具、按比例升级与宽限期处理逻辑。"
+          },
+          {
+            "title": "风控防护与争议拒付防御体系",
+            "desc": "交易频次限制、可疑 IP 拦截、CVV 安全核验以及自动化退款与争议仲裁工单流程。"
+          },
+          {
+            "title": "PCI-DSS 零卡密触碰安全架构",
+            "desc": "纯客户端安全令牌化（Tokenization），敏感卡号不经商户服务器，100% 满足合规审计。"
+          },
+          {
+            "title": "自动化 PDF 发票与税率计算",
+            "desc": "动态无服务器 PDF 收据渲染、增值税（VAT）自动核算，以及即时短信/邮件支付通知。"
+          },
+          {
+            "title": "财务对账与收支统计仪表盘",
+            "desc": "实时营收看板、成功与失败交易日志明细、出账结算跟踪及一键导出标准会计 CSV 报表。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 官方认证支付中台",
+        "title": "支持的支付网络与协议",
+        "items": [
+          { "label": "bKash Tokenized API", "category": "本地移动钱包" },
+          { "label": "Nagad Direct API", "category": "本地移动钱包" },
+          { "label": "Stripe Payments", "category": "国际卡组织" },
+          { "label": "SSLCommerz v4", "category": "聚合平台" },
+          { "label": "AamarPay API", "category": "聚合平台" },
+          { "label": "Shurjopay Engine", "category": "聚合平台" },
+          { "label": "Stripe Webhooks", "category": "IPN 回调" },
+          { "label": "PayPal Checkout", "category": "全球结算" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ 透明高效的支付集成方案",
+        "titleStart": "选择适合您的 ",
+        "titleHighlight": "支付网关套餐",
+        "bestSeller": "★ 最畅销方案",
+        "oneTime": "/ 一次性费用",
+        "plans": [
+          {
+            "name": "单网关标准集成",
+            "price": "BDT 1200",
+            "desc": "快速接入任意单一支付渠道（bKash、Nagad、Stripe 或 SSLCommerz），含沙盒与生产环境全套联调。",
+            "features": [
+              "完整支付收银台对接",
+              "即时 Webhook / IPN 状态回调",
+              "支付成功与失败跳转页面定制",
+              "数据库订单状态同步",
+              "生产环境联调验证",
+              "15天集成质保"
+            ],
+            "popular": false,
+            "cta": "集成单支付网关"
+          },
+          {
+            "name": "双网关旗舰方案（本地 + 全球）",
+            "price": "BDT 2500",
+            "desc": "最受企业欢迎的组合：覆盖孟加拉主流移动钱包（bKash/Nagad）与全球国际信用卡通道（Stripe）。",
+            "features": [
+              "bKash + Nagad 快捷直连收银",
+              "Stripe 全球信用卡跨境通道",
+              "付款即时自动开具电子发票",
+              "SMS 短信与邮件付款到账提醒",
+              "后台退款与争议管理工具",
+              "30天优先技术保障支持"
+            ],
+            "popular": true,
+            "cta": "获取双网关方案"
+          },
+          {
+            "name": "企业级全渠道支付中台",
+            "price": "BDT 3800",
+            "desc": "多网关智能路由与故障自动切换、SaaS 自动续费周期账单及财务对账中台系统。",
+            "features": [
+              "全套孟加拉网关 + Stripe/PayPal",
+              "智能通道路由与故障自动降级",
+              "订阅制按月/按年循环扣款",
+              "定制化财务与对账管理看板",
+              "自动化增值税（VAT）与费率核算",
+              "60天专属工程师技术支持"
+            ],
+            "popular": false,
+            "cta": "构建企业级支付中台"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ 支付常见疑问",
+        "title": "常见问题解答",
+        "items": [
+          {
+            "q": "bKash Tokenized Checkout（令牌化支付）如何为老客户提供便捷体验？",
+            "a": "在用户完成首次授权后，其 bKash 钱包将通过安全令牌化绑定，后续消费即可享受一键免验证码极速复购，显著提升结账转化率。"
+          },
+          {
+            "q": "你们是否协助办理商户官方开户与接口申请？",
+            "a": "是的，我们将全程指导您与 bKash、Nagad、SSLCommerz 或 Stripe 签署商户协议并获取生产环境 API 密钥。"
+          },
+          {
+            "q": "如果用户在付款过程中网络中断，会导致掉单或重复扣款吗？",
+            "a": "不会。我们的 IPN 监听器与主动对账机制会直接向支付网关后端轮询验证真实交易状态，确保无单被漏、绝不重复扣款。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 绝不流失任何一笔订单",
+        "title": "今天就开始轻松接收全球款项",
+        "desc": "通过 bKash、Nagad、银行卡与在线网银，为国内外客户提供流畅可信赖的结账体验。",
+        "btn": "申请支付网关集成"
+      }
+    },
+    "automationService": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务",
+        "current": "业务流程自动化"
+      },
+      "badge": "告别繁琐人工，100% 自动化提效",
+      "hero": {
+        "titleStart": "企业业务流程 ",
+        "titleHighlight": "自动化",
+        "desc": "全面自动化重复性工作、系统通知、物流打单、财务报表与 AI 工作流，让您的团队专注于核心业务拓展与利润增长。",
+        "ctaPrimary": "开启业务自动化",
+        "ctaSecondary": "查看自动化演示"
+      },
+      "trust": {
+        "ai": "AI 智能流程代理",
+        "webhooks": "事件驱动 Webhooks",
+        "sync": "表格与 CRM 双向同步",
+        "cron": "定时计划任务 (Cron)"
+      },
+      "stats": [
+        { "value": "80%", "label": "人工日常工作量减少" },
+        { "value": "0次", "label": "手工录入数据失误" },
+        { "value": "24/7", "label": "全天候无人值守执行" },
+        { "value": "5-10倍", "label": "业务流转效率翻倍提升" }
+      ],
+      "capabilities": {
+        "badge": "✦ 专为无人值守自动化运营而设计",
+        "titleStart": "业务自动化 ",
+        "titleHighlight": "核心工程能力",
+        "cardFooter": "全自动执行",
+        "items": [
+          {
+            "title": "AI 驱动的智能化业务流引擎",
+            "desc": "集成 OpenAI 大语言模型，实现非结构化文档智能解析、自动回复意图分类与 CRM 客户线索智能分流。"
+          },
+          {
+            "title": "邮件与短信自动化事件触发器",
+            "desc": "毫秒级事件响应通知（订单确认、物流轨迹变更、OTP 验证码、预约提醒及潜在客户跟进）。"
+          },
+          {
+            "title": "计划定时任务（Cron）与后台批处理",
+            "desc": "深夜数据库自动备份、每日财务对账单生成、弃购购物车召回通知及全渠道库存定期同步。"
+          },
+          {
+            "title": "Google Sheets、Airtable 与 CRM 实时联动",
+            "desc": "在您的应用系统、Google 表格、Airtable、Notion、HubSpot 及 Slack 之间建立实时双向数据同步。"
+          },
+          {
+            "title": "动态 PDF 发票与管理报表自动化生成",
+            "desc": "无服务器端动态渲染品牌标准发票、结业证书、月度管理层经营大屏报表及电子收据。"
+          },
+          {
+            "title": "电商订单全链路与物流自动化打单",
+            "desc": "自动创建快递运单并获取跟踪号（Pathao、Steadfast、RedX）、库存自动扣减及面单批量打印。"
+          },
+          {
+            "title": "网络数据采集与竞品价格动态监测",
+            "desc": "基于 Playwright/Puppeteer 的无头浏览器集群，自动化监控竞品价格浮动、库存状态及行业趋势。"
+          },
+          {
+            "title": "基于 Zapier、Make 与私有化 n8n 的企业级数据管道",
+            "desc": "无缝打通各孤岛系统，部署自主掌控的开源 n8n 工作流服务器，彻底免除高昂的 SaaS 月费。"
+          },
+          {
+            "title": "异常自动拦截与容错自愈机制",
+            "desc": "内置健康监控脚本，实时捕获支付或数据同步异常，采用指数退避算法自动重试并即时向管理员告警。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 企业级流程引擎中台",
+        "title": "自动化工具链与数据协议",
+        "items": [
+          { "label": "n8n 与 Zapier", "category": "流程编排" },
+          { "label": "OpenAI API", "category": "AI 模型" },
+          { "label": "Node.js 与 BullMQ", "category": "异步任务队列" },
+          { "label": "Google Sheets API", "category": "数据同步" },
+          { "label": "Playwright 与 Puppeteer", "category": "自动化抓取" },
+          { "label": "Resend 与 Twilio", "category": "即时通讯" },
+          { "label": "快递物流 API（Pathao/Steadfast）", "category": "物流履约" },
+          { "label": "Puppeteer PDF 引擎", "category": "报表生成" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ 透明合理的自动化定制方案",
+        "titleStart": "选择适合您的 ",
+        "titleHighlight": "自动化套餐",
+        "bestValue": "★ 性价比之选",
+        "oneTime": "/ 一次性费用",
+        "plans": [
+          {
+            "name": "单项流程自动化",
+            "price": "BDT 1200",
+            "desc": "针对单一重复环节进行彻底自动化（自动邮件通知、表格同步或快递下单 API 对接）。",
+            "features": [
+              "端到端触发器及动作流搭建",
+              "数据负载有效性校验与异常捕获",
+              "Google Sheets / CRM 双向打通",
+              "邮件与短信即时通知",
+              "全链路联调与交付交接",
+              "15天工程质保"
+            ],
+            "popular": false,
+            "cta": "自动化单项流程"
+          },
+          {
+            "name": "企业业务流程自动化套件",
+            "price": "BDT 2600",
+            "desc": "专为电商团队与快速成长期企业打造的热门方案，实现日常运营的无人值守。",
+            "features": [
+              "支持最多 4 条跨系统联动工作流",
+              "快递自动预约与物流追踪同步（Steadfast/Pathao）",
+              "全自动电子发票 PDF 动态渲染",
+              "定时计划任务与日常经营简报",
+              "AI 文本分析与智能自动回复引擎",
+              "30天专属技术支持"
+            ],
+            "popular": true,
+            "cta": "构建自动化套件"
+          },
+          {
+            "name": "全自主企业级自动化系统",
+            "price": "BDT 3800",
+            "desc": "基于私有化 n8n 与 BullMQ 任务队列的深度定制架构，含竞品情报抓取与全业务链自动化。",
+            "features": [
+              "私有化独立部署 n8n 工作流服务器",
+              "分布式 BullMQ 高并发任务处理",
+              "自动化竞品行情监测与抓取集群",
+              "定制化 OpenAI 专属智能体嵌入",
+              "多系统 CRM / ERP 深度集成与同步",
+              "60天优先技术保障"
+            ],
+            "popular": false,
+            "cta": "咨询自动化架构师"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ 自动化常见疑问",
+        "title": "常见问题解答",
+        "items": [
+          {
+            "q": "针对孟加拉本土电商，自动化快递打单是如何运转的？",
+            "a": "当系统确认订单后，自动化脚本会自动调用 Pathao 或 Steadfast 的官方接口完成下单，获取物流跟踪单号，并自动向买家发送包含运单号的短信。"
+          },
+          {
+            "q": "使用自动化方案是否需要每月向 Zapier 支付昂贵的订阅费？",
+            "a": "完全不需要。我们可以基于开源的私有化部署工具（如 n8n）或直接编写 Node.js 微服务来构建系统，彻底帮您省去第三方工具的持续月费。"
+          },
+          {
+            "q": "当有高价值客户留言或线索时，系统能否立刻向团队的 Slack 或 WhatsApp 发送提醒？",
+            "a": "当然可以！即时 Webhook 会自动格式化客户咨询详情，并在几秒钟内推送到您指定的 WhatsApp 业务群或 Slack 频道中。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 让您的企业开启自动化巡航",
+        "title": "告别枯燥且耗时的人工重复操作",
+        "desc": "让我们为您量身定制企业级业务自动化流水线，每月为您节省数百小时宝贵时间与人力成本。",
+        "btn": "打造业务自动化系统"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "首页",
       "breadcrumbServices": "服务",

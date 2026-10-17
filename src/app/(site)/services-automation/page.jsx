@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -17,17 +19,24 @@ import {
 } from 'react-icons/fi';
 import { FaRobot, FaCogs } from 'react-icons/fa';
 
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) && val.length > 0 ? val : null;
+}
+
 export default function ServicesAutomationPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
-  const stats = [
+  const fallbackStats = [
     { value: '80%', label: 'Manual Workload Reduced' },
     { value: 'Zero', label: 'Human Data Entry Errors' },
     { value: '24/7', label: 'Autonomous Task Execution' },
     { value: '5x-10x', label: 'Operational Speed Multiplier' },
   ];
+  const stats = arr(t, 'automationService.stats') || fallbackStats;
 
-  const featureMeta = [
+  const featureStyling = [
     {
       icon: <FaRobot size={24} />,
       title: 'AI-Powered Business Workflow Automation',
@@ -101,8 +110,14 @@ export default function ServicesAutomationPage() {
       borderGlow: 'hover:border-teal-400 dark:hover:border-teal-600 hover:shadow-teal-500/15',
     },
   ];
+  const translatedFeatures = arr(t, 'automationService.capabilities.items');
+  const featureMeta = featureStyling.map((f, i) => ({
+    ...f,
+    title: translatedFeatures?.[i]?.title || f.title,
+    desc: translatedFeatures?.[i]?.desc || f.desc,
+  }));
 
-  const techStack = [
+  const fallbackTechStack = [
     { label: 'n8n & Zapier', category: 'Workflows' },
     { label: 'OpenAI API', category: 'AI Models' },
     { label: 'Node.js & BullMQ', category: 'Job Queues' },
@@ -112,8 +127,9 @@ export default function ServicesAutomationPage() {
     { label: 'Courier APIs (Pathao/Steadfast)', category: 'Logistics' },
     { label: 'Puppeteer PDF Engine', category: 'Reports' },
   ];
+  const techStack = arr(t, 'automationService.techStack.items') || fallbackTechStack;
 
-  const plans = [
+  const fallbackPlans = [
     {
       name: 'Single Workflow Automation',
       price: 'BDT 1200',
@@ -160,8 +176,20 @@ export default function ServicesAutomationPage() {
       cta: 'Consult Automation Architect',
     },
   ];
+  const translatedPlans = arr(t, 'automationService.pricing.plans');
+  const plans = fallbackPlans.map((plan, i) => ({
+    ...plan,
+    name: translatedPlans?.[i]?.name || plan.name,
+    price: translatedPlans?.[i]?.price || plan.price,
+    desc: translatedPlans?.[i]?.desc || plan.desc,
+    features:
+      Array.isArray(translatedPlans?.[i]?.features) && translatedPlans[i].features.length > 0
+        ? translatedPlans[i].features
+        : plan.features,
+    cta: translatedPlans?.[i]?.cta || plan.cta,
+  }));
 
-  const faqs = [
+  const fallbackFaqs = [
     {
       q: 'How does automated courier booking work for Bangladeshi e-commerce?',
       a: 'When an order is confirmed, our automation script pushes customer details to Pathao or Steadfast API, retrieves the consignment tracking number, and SMSes the customer automatically.',
@@ -175,6 +203,7 @@ export default function ServicesAutomationPage() {
       a: 'Yes! Instant webhooks format customer inquiries and ping your designated WhatsApp group or Slack channel within seconds.',
     },
   ];
+  const faqs = arr(t, 'automationService.faq.items') || fallbackFaqs;
 
   return (
     <main className="text-[#27003B] dark:text-white transition-colors duration-300">
@@ -183,9 +212,6 @@ export default function ServicesAutomationPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
-          style={{
-            // background: 'radial-gradient(circle, #f97316, #ec4899, transparent 70%)',
-          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -194,32 +220,35 @@ export default function ServicesAutomationPage() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-orange-500 transition-colors">
-              Home
+              {t('automationService.breadcrumb.home', 'Home')}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-orange-500 transition-colors">
-              Services
+              {t('automationService.breadcrumb.services', 'Services')}
             </Link>
             <span>/</span>
             <span className="text-orange-600 dark:text-orange-400 font-semibold">
-              Business Automation
+              {t('automationService.breadcrumb.current', 'Business Automation')}
             </span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-orange-100 dark:bg-orange-950/90 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
-            Zero Manual Work, 100% Efficiency
+            {t('automationService.badge', 'Zero Manual Work, 100% Efficiency')}
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Business{' '}
+            {t('automationService.hero.titleStart', 'Business ')}
             <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent animated-gradient-text">
-              Automation
+              {t('automationService.hero.titleHighlight', 'Automation')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            Automate repetitive tasks, notifications, courier bookings, reports, and AI workflows so your team can focus purely on business growth and revenue.
+            {t(
+              'automationService.hero.desc',
+              'Automate repetitive tasks, notifications, courier bookings, reports, and AI workflows so your team can focus purely on business growth and revenue.'
+            )}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -227,33 +256,33 @@ export default function ServicesAutomationPage() {
               href="/contact?service=Business%20Automation"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-orange-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Automate Your Business</span>
+              <span>{t('automationService.hero.ctaPrimary', 'Automate Your Business')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600 transition-all duration-300"
             >
-              Automation Demos
+              {t('automationService.hero.ctaSecondary', 'Automation Demos')}
             </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaRobot className="text-orange-500" />
-              <span>AI Process Agents</span>
+              <span>{t('automationService.trust.ai', 'AI Process Agents')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiZap className="text-pink-500" />
-              <span>Event-Driven Webhooks</span>
+              <span>{t('automationService.trust.webhooks', 'Event-Driven Webhooks')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiShare2 className="text-emerald-500" />
-              <span>Google Sheets & CRM Sync</span>
+              <span>{t('automationService.trust.sync', 'Google Sheets & CRM Sync')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiClock className="text-purple-500" />
-              <span>Scheduled Cron Jobs</span>
+              <span>{t('automationService.trust.cron', 'Scheduled Cron Jobs')}</span>
             </div>
           </div>
         </div>
@@ -283,15 +312,15 @@ export default function ServicesAutomationPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Autonomous Operations
+              {t('automationService.capabilities.badge', '✦ Engineered for Autonomous Operations')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Business Automation{' '}
+              {t('automationService.capabilities.titleStart', 'Business Automation ')}
               <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
-                Capabilities
+                {t('automationService.capabilities.titleHighlight', 'Capabilities')}
               </span>
             </h2>
           </div>
@@ -319,7 +348,7 @@ export default function ServicesAutomationPage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-orange-600 dark:text-orange-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                  <span>Autonomous Execution</span>
+                  <span>{t('automationService.capabilities.cardFooter', 'Autonomous Execution')}</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
               </div>
@@ -333,10 +362,10 @@ export default function ServicesAutomationPage() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-orange-50/50 via-white to-purple-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Enterprise Automation Engines
+              {t('automationService.techStack.badge', '✦ Enterprise Automation Engines')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Automation Toolchain & Protocols
+              {t('automationService.techStack.title', 'Automation Toolchain & Protocols')}
             </h3>
           </div>
 
@@ -364,15 +393,15 @@ export default function ServicesAutomationPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent Automation Setup
+              {t('automationService.pricing.badge', '✦ Transparent Automation Setup')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
+              {t('automationService.pricing.titleStart', 'Choose Your ')}
               <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
-                Automation Tier
+                {t('automationService.pricing.titleHighlight', 'Automation Tier')}
               </span>
             </h2>
           </div>
@@ -381,14 +410,15 @@ export default function ServicesAutomationPage() {
             {plans.map((plan, i) => (
               <div
                 key={i}
-                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${plan.popular
-                  ? 'border-2 border-orange-500 bg-gradient-to-b from-orange-50/80 via-white to-white dark:from-orange-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-orange-500/20 scale-105 z-10'
-                  : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
-                  }`}
+                className={`relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl transition-all duration-300 card-hover-lift ${
+                  plan.popular
+                    ? 'border-2 border-orange-500 bg-gradient-to-b from-orange-50/80 via-white to-white dark:from-orange-950/50 dark:via-zinc-900 dark:to-zinc-900 shadow-2xl shadow-orange-500/20 scale-105 z-10'
+                    : 'border border-zinc-200/80 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/80 shadow-lg'
+                }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Best Value
+                    {t('automationService.pricing.bestValue', '★ Best Value')}
                   </div>
                 )}
 
@@ -404,7 +434,9 @@ export default function ServicesAutomationPage() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-orange-600 dark:text-orange-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('automationService.pricing.oneTime', '/ one-time')}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -419,10 +451,11 @@ export default function ServicesAutomationPage() {
 
                 <Link
                   href={`/contact?service=Business%20Automation&package=${encodeURIComponent(plan.name)}`}
-                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${plan.popular
-                    ? 'bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white hover:opacity-95 shadow-lg shadow-orange-500/25'
-                    : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600'
-                    }`}
+                  className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-wider font-exo-extralight transition-all duration-200 ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white hover:opacity-95 shadow-lg shadow-orange-500/25'
+                      : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-orange-500 hover:text-orange-600'
+                  }`}
                 >
                   {plan.cta || 'Get Started Now'}
                 </Link>
@@ -437,13 +470,13 @@ export default function ServicesAutomationPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Automation FAQs
+              {t('automationService.faq.badge', '✦ Automation FAQs')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('automationService.faq.title', 'Frequently Asked Questions')}
             </h2>
           </div>
 
@@ -465,8 +498,9 @@ export default function ServicesAutomationPage() {
                     </span>
                     <FiChevronDown
                       size={20}
-                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''
-                        }`}
+                      className={`text-orange-600 dark:text-orange-400 shrink-0 transition-transform duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
                     />
                   </button>
                   {isOpen && (
@@ -486,19 +520,22 @@ export default function ServicesAutomationPage() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#291301] via-[#240317] to-[#12052b] border border-orange-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
-              ✦ Put Your Business on Autopilot
+              {t('automationService.cta.badge', '✦ Put Your Business on Autopilot')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Stop Wasting Hours on Manual Tasks
+              {t('automationService.cta.title', 'Stop Wasting Hours on Manual Tasks')}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Let us engineer custom business automation pipelines that save you hundreds of hours every month.
+              {t(
+                'automationService.cta.desc',
+                'Let us engineer custom business automation pipelines that save you hundreds of hours every month.'
+              )}
             </p>
             <Link
               href="/contact?service=Business%20Automation"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-pink-600 to-purple-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300"
             >
-              <span>Build Automation Pipeline</span>
+              <span>{t('automationService.cta.btn', 'Build Automation Pipeline')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>
