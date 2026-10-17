@@ -286,7 +286,7 @@ export default function ToolsClient() {
             </span>
           </div>
 
-          <h1 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
+          <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
             {t('toolsPage.heroTitleStart')}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               {t('toolsPage.heroTitleHighlight')}

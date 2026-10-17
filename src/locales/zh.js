@@ -518,6 +518,334 @@ const zh = {
         "btn": "预约 API 架构技术咨询"
       }
     },
+    "databaseService": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "技术服务",
+        "current": "数据库设计与管理"
+      },
+      "hero": {
+        "badge": "PostgreSQL、MongoDB、Prisma 与 Redis",
+        "titleStart": "数据库设计与 ",
+        "titleHighlight": "运维管理",
+        "desc": "高性能、类型安全的高可用数据库架构，具备亚毫秒级查询优化、全自动快照备份与严苛的关系完整性保障。",
+        "ctaPrimary": "优化您的数据库",
+        "ctaSecondary": "查看案例研究"
+      },
+      "trust": {
+        "relational": "PostgreSQL 与 Prisma",
+        "caching": "Redis 内存缓存",
+        "backups": "自动 S3 快照备份",
+        "safety": "ACID 事务与 RLS"
+      },
+      "stats": [
+        { "value": "10x", "label": "查询性能大幅提升" },
+        { "value": "99.999%", "label": "数据持久性与备份保障" },
+        { "value": "零宕机", "label": "平滑安全数据迁移" },
+        { "value": "ACID", "label": "严苛的事务安全级别" }
+      ],
+      "features": {
+        "badge": "✦ 专为严苛数据完整性打造",
+        "titleStart": "全面的企业级数据库 ",
+        "titleHighlight": "工程能力",
+        "cardTarget": "亚毫秒级响应指标",
+        "items": [
+          {
+            "title": "PostgreSQL 与 MySQL 关系型架构",
+            "desc": "规范化数据建模、外键约束、复合索引与分区表设计，专为高数据完整性与高并发业务打造。"
+          },
+          {
+            "title": "MongoDB 与文档数据库设计",
+            "desc": "灵活的 NoSQL 集合设计、Schema 数据校验规则、聚合管道优化以及内嵌与引用文档最佳实践。"
+          },
+          {
+            "title": "Redis 内存高速缓存与会话存储",
+            "desc": "基于 Redis 键值缓存、Pub/Sub 发布订阅频道、任务队列与 Session 持久化的亚毫秒级数据读取。"
+          },
+          {
+            "title": "Prisma ORM 与类型安全数据层",
+            "desc": "自动生成 TypeScript 强类型模型、无缝模式迁移、Prisma Studio 集成及批量查询优化。"
+          },
+          {
+            "title": "慢查询剖析与索引深度优化",
+            "desc": "EXPLAIN ANALYZE 执行计划深度分析、B-Tree 与 GIN 复合索引优化、连接池调优与 SQL 重构。"
+          },
+          {
+            "title": "自动化日常备份与灾难恢复",
+            "desc": "时间点恢复 (PITR)、异地加密 S3 快照存储、WAL 日志归档与零数据丢失故障转移策略。"
+          },
+          {
+            "title": "Serverless 云数据库 (Neon, Supabase, PlanetScale)",
+            "desc": "自动弹性伸缩无服务器数据库、基于分支的迁移流、PgBouncer 连接池与边缘低延迟查询。"
+          },
+          {
+            "title": "数据隐私与行级安全策略 (RLS)",
+            "desc": "数据库静态加密、安全 SSL 连接池配置、自动敏感列脱敏以及细粒度角色权限隔离。"
+          },
+          {
+            "title": "数据迁移与传统旧数据库平滑升级",
+            "desc": "零停机 ETL 数据管道、传统 SQL 数据清洗转储、去重与向现代关系型数据库的平滑升级。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 经受生产检验的核心数据库引擎",
+        "title": "数据库技术栈与核心引擎"
+      },
+      "techCategories": {
+        "relational": "关系型",
+        "dataLayer": "数据访问层",
+        "inMemory": "内存高速存储",
+        "noSql": "NoSQL 文档",
+        "cloudDb": "云原生数据库",
+        "pooling": "连接池技术",
+        "backups": "灾备快照"
+      },
+      "pricing": {
+        "badge": "✦ 透明清晰的数据库服务方案",
+        "titleStart": "选择适合您的 ",
+        "titleHighlight": "数据库服务阶梯",
+        "mostRequested": "★ 最受青睐",
+        "oneTime": "/ 一次性投资",
+        "defaultCta": "立即开启",
+        "plans": [
+          {
+            "name": "Schema 架构设计与初始搭建",
+            "price": "BDT 1300",
+            "desc": "面向新项目的专业数据库架构建模、关系外键、索引规划与 Prisma ORM 模型配置。",
+            "features": [
+              "完整关系型数据模型构建",
+              "Prisma / Mongoose ORM 全套配置",
+              "面向高并发的高速查询索引配置",
+              "Prisma 种子数据生成脚本 (Seed)",
+              "数据库架构详细文档 PDF",
+              "部署后 15 天专属技术保障"
+            ],
+            "popular": false,
+            "cta": "规划数据库架构"
+          },
+          {
+            "name": "慢查询优化与 Redis 缓存加速",
+            "price": "BDT 2600",
+            "desc": "针对数据库响应卡顿、添加 Redis 内存缓存、慢查询优化与连接池调优的热门方案。",
+            "features": [
+              "慢查询剖析与 EXPLAIN 计划调优",
+              "复合 B-Tree 与 GIN 专用索引优化",
+              "Redis 高速缓存与异步队列部署",
+              "云端 S3 自动化备份与快照管道",
+              "PgBouncer 数据库连接池配置",
+              "30 天核心性能监控与调优"
+            ],
+            "popular": true,
+            "cta": "立即优化数据库"
+          },
+          {
+            "name": "企业级高可用全量数据库架构",
+            "price": "BDT 3800",
+            "desc": "高可用集群搭建、零宕机 ETL 数据无缝迁移、多活主从复制与企业级灾备恢复机制。",
+            "features": [
+              "多区域副本与分片架构规范 (Sharding)",
+              "零停机无缝数据迁移 / ETL",
+              "PostgreSQL 行级安全策略 (RLS)",
+              "时间点精准恢复配置 (PITR)",
+              "定制 DBA 实时指标监控与报警",
+              "60 天高级 DBA 优先响应支持"
+            ],
+            "popular": false,
+            "cta": "构建企业级数据库"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ 常见技术疑问",
+        "title": "常见问题解答",
+        "items": [
+          {
+            "q": "为什么推荐使用 Prisma ORM 而不是手写原生 SQL？",
+            "a": "Prisma 在 TypeScript/JavaScript 环境下提供全流程类型安全，天然抵御 SQL 注入风险，自动生成强类型查询构造器，并极大简化了复杂的数据库多阶段迁移。"
+          },
+          {
+            "q": "Redis 缓存如何显著缩短网站响应时间？",
+            "a": "无需反复读取磁盘上的复杂 SQL 查询，Redis 从内存直接在 1–2 毫秒内提供热点数据，将后端数据库负载降低高达 90%。"
+          },
+          {
+            "q": "你们能否在不影响线上业务正常运行的前提下迁移数据？",
+            "a": "可以。我们采用双写 (Dual-write) 与变更数据捕获 (CDC) 实时同步技术，在无需暂停现有生产应用的前提下无缝转移并校验历史数据。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 坚如磐石的可扩展数据层",
+        "title": "全面提速您的数据查询与存储架构",
+        "desc": "与我们经验丰富的数据库架构师携手，为您量身设计、优化并扩展高性能数据基础设施。",
+        "btn": "预约数据库架构咨询"
+      }
+    },
+    "maintenanceService": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务",
+        "current": "网站运维与全天候支持"
+      },
+      "badge": "24/7 SLA 保障、安全补丁与健康巡检",
+      "hero": {
+        "titleStart": "网站技术运维与 ",
+        "titleHighlight": "24/7 全天候支持",
+        "desc": "借助我们专注的工程运维团队、每日备份与紧急 SLA 快速响应机制，让您的网站始终保持最新版本、固若金汤、极速响应且零缺陷运行。",
+        "ctaPrimary": "选择运维套餐",
+        "ctaSecondary": "查看 SLA 承诺"
+      },
+      "trust": {
+        "uptime": "24/7 在线告警",
+        "security": "定期安全补丁",
+        "backups": "每日云端备份",
+        "emergency": "1 小时内紧急响应"
+      },
+      "stats": [
+        { "value": "99.9%", "label": "保障在线率" },
+        { "value": "<1小时", "label": "关键紧急响应时间" },
+        { "value": "24/7/365", "label": "全天候健康监控" },
+        { "value": "每日", "label": "自动化云端备份" }
+      ],
+      "capabilities": {
+        "badge": "✦ 专为消除后顾之忧而设计",
+        "titleStart": "主动预防式运维 ",
+        "titleHighlight": "核心能力",
+        "cardFooter": "99.9% 正常运行时间承诺",
+        "items": [
+          {
+            "title": "24/7 实时运行状态与健康监控",
+            "desc": "自动化全球 Ping 监控节点，在 60 秒内快速捕捉服务器宕机、502 错误网关及 SSL 证书过期风险。"
+          },
+          {
+            "title": "Next.js 与依赖项安全升级",
+            "desc": "定期升级 React、Next.js、Node.js 核心依赖包与 Prisma 架构，配合严格的回归测试避免破坏性变更。"
+          },
+          {
+            "title": "缺陷修复与 UI 布局适配调整",
+            "desc": "快速修复前端界面样式错位、移动端适配异常、失效外链以及表单提交故障。"
+          },
+          {
+            "title": "安全漏洞主动排查与热修复",
+            "desc": "主动扫描并修补零日漏洞、CVE 安全隐患、SQL 注入风险以及存在隐患的过时第三方库。"
+          },
+          {
+            "title": "数据库与云端资源性能调优",
+            "desc": "清理孤立垃圾记录、归档日志文件、执行 Postgres 表整理优化，并监控 Vercel / AWS 无服务器额度。"
+          },
+          {
+            "title": "速度与网页性能深度审计",
+            "desc": "持续追踪 Core Web Vitals 核心指标、优化图片资源、更新边缘缓存并长期维持 Lighthouse 高分。"
+          },
+          {
+            "title": "自动化异地云端备份",
+            "desc": "每日定时快照备份数据库与代码资产，支持一键式任意历史时间点快速回滚与灾难恢复。"
+          },
+          {
+            "title": "内容更新与活动横幅替换",
+            "desc": "根据业务需求按需上传新案例、调整价格表、替换季节促销横幅与微调文案内容。"
+          },
+          {
+            "title": "专属 WhatsApp / 电话 SLA 支持",
+            "desc": "直连工程技术团队的高优先级沟通通道，享有合同明确保障的紧急 SLA 响应时限。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 运维基础设施",
+        "title": "监控与支持技术工具链",
+        "items": [
+          { "label": "Uptime Kuma / BetterStack", "category": "监控告警" },
+          { "label": "Sentry Error Tracker", "category": "错误追踪" },
+          { "label": "Vercel Analytics", "category": "性能分析" },
+          { "label": "Cloudflare Edge CDN", "category": "边缘缓存" },
+          { "label": "PostgreSQL Auto-Backups", "category": "数据备份" },
+          { "label": "GitHub Dependabot", "category": "代码安全" },
+          { "label": "SSL Auto-Renewals", "category": "证书续期" },
+          { "label": "Dedicated SLA Channel", "category": "专线支持" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ 透明 SLA 套餐",
+        "titleStart": "选择符合您业务的 ",
+        "titleHighlight": "SLA 服务级别",
+        "mostPopular": "★ 最受欢迎 SLA",
+        "perMonth": "/ 月",
+        "plans": [
+          {
+            "name": "基础运维方案 (Essential)",
+            "price": "BDT 1200",
+            "desc": "面向普通展示型网站的基础维护、安全补丁、运行监控与每周云端自动备份。",
+            "features": [
+              "24/7 全球在线率实时监控",
+              "每周自动化数据库加密备份",
+              "每月安全补丁与依赖项更新",
+              "每月最高支持 2 次常规问题微调",
+              "SSL 证书与域名到期自动预警",
+              "邮件技术支持 (24小时内 SLA 响应)"
+            ],
+            "popular": false,
+            "cta": "选择基础运维"
+          },
+          {
+            "name": "业务增长 SLA (Business)",
+            "price": "BDT 2500",
+            "desc": "专为活跃电商门户及高访问量业务系统打造的最畅销月度运维服务计划。",
+            "features": [
+              "全天候实时错误日志追踪与告警",
+              "每日加密数据库自动化异地备份",
+              "高优先级代码微调与 Bug 修复",
+              "每月 PageSpeed 与 Web Vitals 性能巡检",
+              "内容与横幅图文更新 (每月 4 次请求)",
+              "专属 WhatsApp 直连驻场工程师",
+              "承诺 2 小时内紧急快速响应"
+            ],
+            "popular": true,
+            "cta": "开通业务增长 SLA"
+          },
+          {
+            "name": "企业级专属技术支持 (Enterprise)",
+            "price": "BDT 3900",
+            "desc": "全套 DevOps 自动化、主动渗透测试、预发布测试环境及 24/7 资深工程师值守。",
+            "features": [
+              "指定资深技术专家 On-Call 专属支持",
+              "持续系统安全扫描与渗透排查",
+              "无限制次数的问题修复与常规优化",
+              "数据库深层调优与碎片整理",
+              "定制化 Staging 自动化部署流水线",
+              "承诺 30 分钟内紧急关键事件响应",
+              "每周技术架构与性能分析周报"
+            ],
+            "popular": false,
+            "cta": "申请企业级专属 SLA"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ 运维支持解答",
+        "title": "常见问题解答",
+        "items": [
+          {
+            "q": "为什么线上网站需要持续的月度维护？",
+            "a": "底层 Web 软件、浏览器规范、第三方 API 接口与网络安全威胁都在持续演变。定期的专业运维可确保您的网站永不崩溃、免遭黑客攻击并始终保持流畅体验。"
+          },
+          {
+            "q": "如果我的网站发生异常中断，你们多久可以介入？",
+            "a": "我们的自动化监控系统会在异常发生瞬间自动报警。针对业务版与企业版 SLA 客户，工程师将在 30 至 60 分钟内迅速开始紧急排查与处置。"
+          },
+          {
+            "q": "日常维护工时能否用于开发全新功能模块？",
+            "a": "日常维护套餐主要涵盖缺陷修复、日常升级与细微优化。若需开发全新独立业务模块，我们提供优惠的按工时或项目增值包服务。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 始终在线，时刻周全",
+        "title": "将技术运维放心托付给我们",
+        "desc": "告别网站崩溃、依赖过时与服务器报错的烦扰。立即与我们专注的资深技术工程团队建立长期伙伴关系。",
+        "btn": "立即订阅 SLA 技术保障"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "首页",
       "breadcrumbServices": "服务",

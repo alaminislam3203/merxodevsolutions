@@ -73,9 +73,8 @@ function BangladeshGeoLayoutInner({ children }) {
 
   return (
     <div
-      className={`min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white relative transition-all duration-150 ${
-        lang === 'bn' ? 'font-bangla lang-bn' : lang === 'ar' ? 'font-arabic' : 'font-exo'
-      }`}
+      className={`min-h-screen bg-white dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 selection:bg-emerald-500 selection:text-white relative transition-all duration-150 ${lang === 'bn' ? 'font-bangla lang-bn' : lang === 'ar' ? 'font-arabic' : 'font-exo'
+        }`}
       dir={lang === 'ar' ? 'rtl' : 'ltr'}
       data-lang={lang}
       lang={lang}
@@ -211,7 +210,7 @@ function BangladeshGeoLayoutInner({ children }) {
                       </span>
                     </div>
 
-                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-exo-medium text-zinc-900 dark:text-white leading-tight">
+                    <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight font-exo-medium text-zinc-900 dark:text-white leading-tight">
                       {t('Bangladesh GeoJSON & Data Suite', 'বাংলাদেশ জিওজেসন ও ডেটা স্যুট')}
                     </h1>
 

@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -15,19 +17,26 @@ import {
   FiServer,
   FiChevronDown,
 } from 'react-icons/fi';
-import { FaHeadset, FaTools } from 'react-icons/fa';
+import { FaHeadset } from 'react-icons/fa';
+
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) && val.length > 0 ? val : null;
+}
 
 export default function ServicesMaintenancePage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
-  const stats = [
+  const fallbackStats = [
     { value: '99.9%', label: 'Guaranteed Uptime' },
     { value: '<1hr', label: 'Critical Emergency Response' },
     { value: '24/7/365', label: 'Continuous Health Monitoring' },
     { value: 'Daily', label: 'Automated Cloud Backups' },
   ];
+  const stats = arr(t, 'maintenanceService.stats') || fallbackStats;
 
-  const featureMeta = [
+  const featureStyling = [
     {
       icon: <FiActivity size={24} />,
       title: '24/7 Real-Time Uptime & Health Monitoring',
@@ -102,7 +111,14 @@ export default function ServicesMaintenancePage() {
     },
   ];
 
-  const techStack = [
+  const translatedFeatures = arr(t, 'maintenanceService.capabilities.items');
+  const features = featureStyling.map((item, idx) => ({
+    ...item,
+    title: translatedFeatures?.[idx]?.title || item.title,
+    desc: translatedFeatures?.[idx]?.desc || item.desc,
+  }));
+
+  const fallbackTechStack = [
     { label: 'Uptime Kuma / BetterStack', category: 'Monitoring' },
     { label: 'Sentry Error Tracker', category: 'Debugging' },
     { label: 'Vercel Analytics', category: 'Performance' },
@@ -112,8 +128,9 @@ export default function ServicesMaintenancePage() {
     { label: 'SSL Auto-Renewals', category: 'Certificates' },
     { label: 'Dedicated SLA Channel', category: 'Support' },
   ];
+  const techStack = arr(t, 'maintenanceService.techStack.items') || fallbackTechStack;
 
-  const plans = [
+  const fallbackPlans = [
     {
       name: 'Essential Maintenance',
       price: 'BDT 1200',
@@ -163,7 +180,17 @@ export default function ServicesMaintenancePage() {
     },
   ];
 
-  const faqs = [
+  const translatedPlans = arr(t, 'maintenanceService.pricing.plans');
+  const plans = fallbackPlans.map((plan, idx) => ({
+    ...plan,
+    name: translatedPlans?.[idx]?.name || plan.name,
+    price: translatedPlans?.[idx]?.price || plan.price,
+    desc: translatedPlans?.[idx]?.desc || plan.desc,
+    features: translatedPlans?.[idx]?.features || plan.features,
+    cta: translatedPlans?.[idx]?.cta || plan.cta,
+  }));
+
+  const fallbackFaqs = [
     {
       q: 'Why does a website need monthly maintenance?',
       a: 'Web software, browsers, third-party APIs, and security vulnerabilities evolve continuously. Routine maintenance ensures your site never breaks, gets hacked, or suffers speed degradation.',
@@ -177,6 +204,7 @@ export default function ServicesMaintenancePage() {
       a: 'Maintenance plans cover bug fixes, tweaks, updates, and minor adjustments. For major new feature builds, we provide discounted hourly or project-based add-ons.',
     },
   ];
+  const faqs = arr(t, 'maintenanceService.faq.items') || fallbackFaqs;
 
   return (
     <main className="text-[#27003B] dark:text-white transition-colors duration-300">
@@ -185,9 +213,6 @@ export default function ServicesMaintenancePage() {
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
-          style={{
-            // background: 'radial-gradient(circle, #06b6d4, #6366f1, transparent 70%)',
-          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -196,32 +221,32 @@ export default function ServicesMaintenancePage() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-cyan-500 transition-colors">
-              Home
+              {t('maintenanceService.breadcrumb.home', 'Home')}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-cyan-500 transition-colors">
-              Services
+              {t('maintenanceService.breadcrumb.services', 'Services')}
             </Link>
             <span>/</span>
             <span className="text-cyan-600 dark:text-cyan-400 font-semibold">
-              Website Maintenance & Support
+              {t('maintenanceService.breadcrumb.current', 'Website Maintenance & Support')}
             </span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950/90 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
-            24/7 SLA, Security Patches & Health Checks
+            {t('maintenanceService.badge', '24/7 SLA, Security Patches & Health Checks')}
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            Website Maintenance &{' '}
+            {t('maintenanceService.hero.titleStart', 'Website Maintenance & ')}
             <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 bg-clip-text text-transparent animated-gradient-text">
-              24/7 Support
+              {t('maintenanceService.hero.titleHighlight', '24/7 Support')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            Keep your website updated, secure, lightning-fast, and bug-free with our dedicated engineering maintenance, daily backups, and emergency SLA response.
+            {t('maintenanceService.hero.desc', 'Keep your website updated, secure, lightning-fast, and bug-free with our dedicated engineering maintenance, daily backups, and emergency SLA response.')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -229,33 +254,33 @@ export default function ServicesMaintenancePage() {
               href="/contact?service=Website%20Maintenance%20%26%20Support"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-600 to-indigo-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Get Maintenance Plan</span>
+              <span>{t('maintenanceService.hero.ctaPrimary', 'Get Maintenance Plan')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600 transition-all duration-300"
             >
-              SLA Guarantees
+              {t('maintenanceService.hero.ctaSecondary', 'SLA Guarantees')}
             </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FiActivity className="text-cyan-500" />
-              <span>24/7 Uptime Alerts</span>
+              <span>{t('maintenanceService.trust.uptime', '24/7 Uptime Alerts')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
-              <span>Security Patches</span>
+              <span>{t('maintenanceService.trust.security', 'Security Patches')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiRefreshCw className="text-teal-500" />
-              <span>Daily Cloud Backups</span>
+              <span>{t('maintenanceService.trust.backups', 'Daily Cloud Backups')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FaHeadset className="text-indigo-500" />
-              <span>Under 1hr Emergency SLA</span>
+              <span>{t('maintenanceService.trust.emergency', 'Under 1hr Emergency SLA')}</span>
             </div>
           </div>
         </div>
@@ -285,21 +310,21 @@ export default function ServicesMaintenancePage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Total Peace of Mind
+              {t('maintenanceService.capabilities.badge', '✦ Engineered for Total Peace of Mind')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Proactive Maintenance{' '}
+              {t('maintenanceService.capabilities.titleStart', 'Proactive Maintenance ')}
               <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 bg-clip-text text-transparent">
-                Capabilities
+                {t('maintenanceService.capabilities.titleHighlight', 'Capabilities')}
               </span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featureMeta.map((feature, i) => (
+            {features.map((feature, i) => (
               <div
                 key={i}
                 className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${feature.borderGlow}`}
@@ -321,7 +346,7 @@ export default function ServicesMaintenancePage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                  <span>99.9% Uptime Commitment</span>
+                  <span>{t('maintenanceService.capabilities.cardFooter', '99.9% Uptime Commitment')}</span>
                   <FiCheckCircle size={14} className="text-emerald-500" />
                 </div>
               </div>
@@ -335,10 +360,10 @@ export default function ServicesMaintenancePage() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-cyan-50/50 via-white to-indigo-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Monitoring Infrastructure
+              {t('maintenanceService.techStack.badge', '✦ Monitoring Infrastructure')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Monitoring & Support Toolchain
+              {t('maintenanceService.techStack.title', 'Monitoring & Support Toolchain')}
             </h3>
           </div>
 
@@ -366,15 +391,15 @@ export default function ServicesMaintenancePage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent SLA Plans
+              {t('maintenanceService.pricing.badge', '✦ Transparent SLA Plans')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
+              {t('maintenanceService.pricing.titleStart', 'Choose Your ')}
               <span className="bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 bg-clip-text text-transparent">
-                SLA Tier
+                {t('maintenanceService.pricing.titleHighlight', 'SLA Tier')}
               </span>
             </h2>
           </div>
@@ -390,7 +415,7 @@ export default function ServicesMaintenancePage() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Most Popular SLA
+                    {t('maintenanceService.pricing.mostPopular', '★ Most Popular SLA')}
                   </div>
                 )}
 
@@ -406,7 +431,9 @@ export default function ServicesMaintenancePage() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-cyan-600 dark:text-cyan-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ month</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('maintenanceService.pricing.perMonth', '/ month')}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -439,13 +466,13 @@ export default function ServicesMaintenancePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Support FAQs
+              {t('maintenanceService.faq.badge', '✦ Support FAQs')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('maintenanceService.faq.title', 'Frequently Asked Questions')}
             </h2>
           </div>
 
@@ -488,19 +515,19 @@ export default function ServicesMaintenancePage() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#011e2b] via-[#041d26] to-[#12082b] border border-cyan-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-cyan-400 font-exo-extralight mb-4">
-              ✦ Always Online, Always Protected
+              {t('maintenanceService.cta.badge', '✦ Always Online, Always Protected')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Let Us Handle Your Tech Maintenance
+              {t('maintenanceService.cta.title', 'Let Us Handle Your Tech Maintenance')}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Never worry about website crashes, outdated packages, or server issues again. Partner with our dedicated engineering team today.
+              {t('maintenanceService.cta.desc', 'Never worry about website crashes, outdated packages, or server issues again. Partner with our dedicated engineering team today.')}
             </p>
             <Link
               href="/contact?service=Website%20Maintenance%20%26%20Support"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-600 to-indigo-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
             >
-              <span>Subscribe to SLA Protection</span>
+              <span>{t('maintenanceService.cta.btn', 'Subscribe to SLA Protection')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>

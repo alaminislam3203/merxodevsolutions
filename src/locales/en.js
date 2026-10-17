@@ -534,6 +534,334 @@ const en = {
         "btn": "Schedule API Architecture Call"
       }
     },
+    "databaseService": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "Database Design & Management"
+      },
+      "hero": {
+        "badge": "PostgreSQL, MongoDB, Prisma & Redis",
+        "titleStart": "Database Design & ",
+        "titleHighlight": "Management",
+        "desc": "High-performance, type-safe database architectures with sub-millisecond query optimization, automatic backups, and bulletproof relational integrity.",
+        "ctaPrimary": "Optimize Your Database",
+        "ctaSecondary": "Case Studies"
+      },
+      "trust": {
+        "relational": "PostgreSQL & Prisma",
+        "caching": "Redis Caching",
+        "backups": "Auto S3 Backups",
+        "safety": "ACID Safe & RLS"
+      },
+      "stats": [
+        { "value": "10x", "label": "Query Performance Boost" },
+        { "value": "99.999%", "label": "Data Durability & Backups" },
+        { "value": "Zero-Downtime", "label": "Safe Migrations" },
+        { "value": "ACID", "label": "Strict Transaction Safety" }
+      ],
+      "features": {
+        "badge": "✦ Engineered for Extreme Data Integrity",
+        "titleStart": "Comprehensive Database ",
+        "titleHighlight": "Capabilities",
+        "cardTarget": "Sub-Millisecond Target",
+        "items": [
+          {
+            "title": "PostgreSQL & MySQL Relational Architecture",
+            "desc": "Normalized schema modeling, foreign key constraints, composite indexing, and partition tables designed for high data integrity."
+          },
+          {
+            "title": "MongoDB & Document Store Design",
+            "desc": "Flexible NoSQL collections, schema validation, aggregation pipelines, and embedded versus referenced document patterns."
+          },
+          {
+            "title": "Redis In-Memory Caching & Session Storage",
+            "desc": "Sub-millisecond data retrieval with Redis key-value caching, Pub/Sub channels, queue processing, and session persistence."
+          },
+          {
+            "title": "Prisma ORM & Type-Safe Data Layer",
+            "desc": "Auto-generated TypeScript client models, seamless schema migrations, Prisma Studio integration, and query batching."
+          },
+          {
+            "title": "Slow Query Profiling & Index Optimization",
+            "desc": "EXPLAIN ANALYZE execution plan inspections, B-Tree and GIN indexes, connection pool tuning, and query refactoring."
+          },
+          {
+            "title": "Automated Daily Backups & Disaster Recovery",
+            "desc": "Point-in-time recovery (PITR), offsite encrypted S3 snapshots, WAL archiving, and zero-data-loss failover strategies."
+          },
+          {
+            "title": "Serverless Cloud DB (Neon, Supabase, PlanetScale)",
+            "desc": "Auto-scaling serverless databases, branch-based database migrations, connection pooling with PgBouncer, and edge querying."
+          },
+          {
+            "title": "Data Privacy & Row-Level Security (RLS)",
+            "desc": "Database-level encryption at rest, secure SSL connection pooling, automated column masking, and role isolation."
+          },
+          {
+            "title": "Data Migration & Legacy DB Transition",
+            "desc": "Zero-downtime ETL pipelines, sanitizing legacy SQL dumps, deduplication, and schema conversion to modern relational targets."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Battle-Tested Database Engines",
+        "title": "Database Technologies & Engines"
+      },
+      "techCategories": {
+        "relational": "Relational",
+        "dataLayer": "Data Layer",
+        "inMemory": "In-Memory",
+        "noSql": "NoSQL",
+        "cloudDb": "Cloud DB",
+        "pooling": "Pooling",
+        "backups": "Backups"
+      },
+      "pricing": {
+        "badge": "✦ Transparent Database Solutions",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "Database Tier",
+        "mostRequested": "★ Most Requested",
+        "oneTime": "/ one-time",
+        "defaultCta": "Get Started Now",
+        "plans": [
+          {
+            "name": "Schema Design & Setup",
+            "price": "BDT 1300",
+            "desc": "Professional database schema modeling, relational foreign keys, indexes, and Prisma models for new projects.",
+            "features": [
+              "Complete Relational Schema Modeling",
+              "Prisma / Mongoose ORM Setup",
+              "Indexes for High Query Speeds",
+              "Prisma Seed Scripts & Mock Data",
+              "Database Documentation PDF",
+              "15 Days Post-Setup Support"
+            ],
+            "popular": false,
+            "cta": "Design Schema"
+          },
+          {
+            "name": "Query Optimization & Caching",
+            "price": "BDT 2600",
+            "desc": "Our most sought-after package for fixing sluggish database responses, adding Redis caching, and optimizing queries.",
+            "features": [
+              "Slow Query Profiling & EXPLAIN Tuning",
+              "Composite B-Tree & GIN Index Tuning",
+              "Redis Caching & Queue Implementation",
+              "Automated Backup Pipeline to Cloud S3",
+              "Connection Pooling Setup (PgBouncer)",
+              "30 Days Performance Monitoring"
+            ],
+            "popular": true,
+            "cta": "Optimize Database"
+          },
+          {
+            "name": "Full Scale Database Architecture",
+            "price": "BDT 3800",
+            "desc": "High-availability database cluster, zero-downtime ETL migration, replication, and enterprise disaster recovery.",
+            "features": [
+              "Multi-Region Replica & Sharding Spec",
+              "Zero-Downtime Data Migration / ETL",
+              "PostgreSQL Row-Level Security (RLS)",
+              "Point-In-Time Recovery (PITR) Config",
+              "Custom DBA Monitoring & Alerts",
+              "60 Days Priority DBA Support"
+            ],
+            "popular": false,
+            "cta": "Architect Enterprise DB"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Database FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "Why should I use Prisma ORM instead of raw SQL queries?",
+            "a": "Prisma provides end-to-end type safety in TypeScript/JavaScript, prevents SQL injection automatically, auto-generates query builders, and simplifies multi-stage schema migrations."
+          },
+          {
+            "q": "How does Redis caching improve website loading times?",
+            "a": "Instead of hitting disk-bound SQL queries repeatedly, Redis serves cached data in-memory within 1–2 milliseconds, reducing server load by up to 90%."
+          },
+          {
+            "q": "Can you migrate data from an old database without downtime?",
+            "a": "Yes, we use dual-write and change-data-capture (CDC) sync techniques to transfer and verify historical records without taking your live production application offline."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Rock-Solid Scalable Data Layer",
+        "title": "Accelerate Your Data Queries & Storage",
+        "desc": "Work with our experienced database architects to design, optimize, and scale your data infrastructure.",
+        "btn": "Request Database Consultation"
+      }
+    },
+    "maintenanceService": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "Website Maintenance & Support"
+      },
+      "badge": "24/7 SLA, Security Patches & Health Checks",
+      "hero": {
+        "titleStart": "Website Maintenance & ",
+        "titleHighlight": "24/7 Support",
+        "desc": "Keep your website updated, secure, lightning-fast, and bug-free with our dedicated engineering maintenance, daily backups, and emergency SLA response.",
+        "ctaPrimary": "Get Maintenance Plan",
+        "ctaSecondary": "SLA Guarantees"
+      },
+      "trust": {
+        "uptime": "24/7 Uptime Alerts",
+        "security": "Security Patches",
+        "backups": "Daily Cloud Backups",
+        "emergency": "Under 1hr Emergency SLA"
+      },
+      "stats": [
+        { "value": "99.9%", "label": "Guaranteed Uptime" },
+        { "value": "<1hr", "label": "Critical Emergency Response" },
+        { "value": "24/7/365", "label": "Continuous Health Monitoring" },
+        { "value": "Daily", "label": "Automated Cloud Backups" }
+      ],
+      "capabilities": {
+        "badge": "✦ Engineered for Total Peace of Mind",
+        "titleStart": "Proactive Maintenance ",
+        "titleHighlight": "Capabilities",
+        "cardFooter": "99.9% Uptime Commitment",
+        "items": [
+          {
+            "title": "24/7 Real-Time Uptime & Health Monitoring",
+            "desc": "Automated global ping monitors that detect server hiccups, 502 bad gateways, and SSL expirations within 60 seconds."
+          },
+          {
+            "title": "Next.js & Dependency Security Upgrades",
+            "desc": "Regular updates for React, Next.js, Node.js packages, and Prisma schemas with regression testing to avoid breaking changes."
+          },
+          {
+            "title": "Bug Fixes & UI Layout Adjustments",
+            "desc": "Rapid resolution of front-end layout bugs, responsive glitches, broken links, and form submission errors."
+          },
+          {
+            "title": "Security Vulnerability Patching",
+            "desc": "Proactive scanning and patching of zero-day exploits, CVE vulnerabilities, SQL injections, and outdated dependencies."
+          },
+          {
+            "title": "Database & Cloud Resource Tuning",
+            "desc": "Cleaning orphaned records, clearing log files, vacuuming Postgres tables, and managing Vercel / AWS serverless limits."
+          },
+          {
+            "title": "Speed & Page Performance Auditing",
+            "desc": "Continuous Core Web Vitals checks, image optimization, edge cache invalidation, and lighthouse score maintenance."
+          },
+          {
+            "title": "Automated Off-Site Backups",
+            "desc": "Scheduled daily database snapshots and code asset archiving with 1-click instant point-in-time recovery."
+          },
+          {
+            "title": "Content & Banner Updates",
+            "desc": "Uploading new projects, changing pricing tables, updating seasonal banners, and tweaking copy on demand."
+          },
+          {
+            "title": "Dedicated WhatsApp / Phone SLA Support",
+            "desc": "Direct priority communications line to our engineering team with guaranteed emergency SLA response times."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Monitoring Infrastructure",
+        "title": "Monitoring & Support Toolchain",
+        "items": [
+          { "label": "Uptime Kuma / BetterStack", "category": "Monitoring" },
+          { "label": "Sentry Error Tracker", "category": "Debugging" },
+          { "label": "Vercel Analytics", "category": "Performance" },
+          { "label": "Cloudflare Edge CDN", "category": "Caching" },
+          { "label": "PostgreSQL Auto-Backups", "category": "Backups" },
+          { "label": "GitHub Dependabot", "category": "Security" },
+          { "label": "SSL Auto-Renewals", "category": "Certificates" },
+          { "label": "Dedicated SLA Channel", "category": "Support" }
+        ]
+      },
+      "pricing": {
+        "badge": "✦ Transparent SLA Plans",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "SLA Tier",
+        "mostPopular": "★ Most Popular SLA",
+        "perMonth": "/ month",
+        "plans": [
+          {
+            "name": "Essential Maintenance",
+            "price": "BDT 1200",
+            "desc": "Basic website upkeep, security patches, uptime monitoring, and weekly cloud backups.",
+            "features": [
+              "24/7 Global Uptime Monitoring",
+              "Weekly Automated Database Backups",
+              "Monthly Security & Dependency Updates",
+              "Up to 2 Minor Bug Fixes / mo",
+              "SSL & Domain Expiry Alerts",
+              "Email Support (24hr SLA)"
+            ],
+            "popular": false,
+            "cta": "Choose Essential"
+          },
+          {
+            "name": "Business Growth SLA",
+            "price": "BDT 2500",
+            "desc": "Our most popular monthly maintenance plan for active e-commerce and high-traffic portals.",
+            "features": [
+              "Continuous Real-Time Error Tracking",
+              "Daily Encrypted Database Backups",
+              "Priority Bug Fixes & Code Tweaks",
+              "Monthly PageSpeed & Core Web Vitals Audit",
+              "Content & Banner Updates (4 requests/mo)",
+              "Direct WhatsApp Engineer Access",
+              "Guaranteed <2hr Response SLA"
+            ],
+            "popular": true,
+            "cta": "Get Business SLA"
+          },
+          {
+            "name": "Enterprise Dedicated Support",
+            "price": "BDT 3900",
+            "desc": "Complete DevOps, proactive security management, staging environments, and 24/7 on-call engineers.",
+            "features": [
+              "Dedicated On-Call Senior Engineer",
+              "Continuous Security & Penetration Scans",
+              "Unlimited Bug Fixes & Routine Tweaks",
+              "Database Optimization & Vacuuming",
+              "Custom Staging Deployment Pipeline",
+              "Guaranteed <30min Critical SLA",
+              "Weekly Strategy & Performance Review"
+            ],
+            "popular": false,
+            "cta": "Request Enterprise SLA"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Support FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "Why does a website need monthly maintenance?",
+            "a": "Web software, browsers, third-party APIs, and security vulnerabilities evolve continuously. Routine maintenance ensures your site never breaks, gets hacked, or suffers speed degradation."
+          },
+          {
+            "q": "How fast do you respond if my website goes down?",
+            "a": "Our automated monitors notify us instantly. For Business and Enterprise SLA clients, an engineer begins emergency mitigation within 30 to 60 minutes."
+          },
+          {
+            "q": "Can maintenance hours be used for adding new features?",
+            "a": "Maintenance plans cover bug fixes, tweaks, updates, and minor adjustments. For major new feature builds, we provide discounted hourly or project-based add-ons."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Always Online, Always Protected",
+        "title": "Let Us Handle Your Tech Maintenance",
+        "desc": "Never worry about website crashes, outdated packages, or server issues again. Partner with our dedicated engineering team today.",
+        "btn": "Subscribe to SLA Protection"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "Home",
       "breadcrumbServices": "Services",
