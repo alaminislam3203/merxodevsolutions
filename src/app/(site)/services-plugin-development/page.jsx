@@ -145,14 +145,14 @@ export default function ServicesPluginDevelopmentPage() {
             <span>{t('pluginDev.hero.badge', 'Plugin & Extension Engineering')}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-[#27003B] dark:text-white mb-6">
+          <h1 className="text-xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#27003B] dark:text-white mb-6">
             {t('pluginDev.hero.titleStart', 'Custom Plugins Built For ')}
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
               {t('pluginDev.hero.titleHighlight', 'Speed & Extensibility.')}
             </span>
           </h1>
 
-          <p className="text-base sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-base sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto leading-relaxed mb-10">
             {t(
               'pluginDev.hero.subtitle',
               'From bespoke WooCommerce features and Shopify apps to modular web hooks — we engineer clean, secure, and update-proof plugins tailored to your exact business logic.'
@@ -299,9 +299,8 @@ export default function ServicesPluginDevelopmentPage() {
                   >
                     <span>{faq.q}</span>
                     <FiChevronDown
-                      className={`shrink-0 transition-transform duration-200 text-indigo-600 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`shrink-0 transition-transform duration-200 text-indigo-600 ${isOpen ? 'rotate-180' : ''
+                        }`}
                       size={18}
                     />
                   </button>

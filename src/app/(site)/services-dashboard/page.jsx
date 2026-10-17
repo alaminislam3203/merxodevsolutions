@@ -192,7 +192,7 @@ export default function ServicesDashboardPage() {
           </span>
 
           {/* Title */}
-          <h1 className="text-4xl md:text-6xl font-black uppercase font-exo-medium mb-6 leading-tight">
+          <h1 className="text-xl md:text-3xl font-black uppercase font-exo-medium mb-6 leading-tight">
             {t('dashboard.heroTitleStart', 'High-Performance Admin Dashboards &')}{' '}
             <span className="bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500 bg-clip-text text-transparent">
               {t('dashboard.heroTitleHighlight', 'Real-Time BI Portals')}
@@ -283,11 +283,10 @@ export default function ServicesDashboardPage() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
-                        activeTab === tab.id
+                      className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${activeTab === tab.id
                           ? 'bg-white dark:bg-zinc-900 text-cyan-600 dark:text-cyan-400 shadow-sm'
                           : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
-                      }`}
+                        }`}
                     >
                       {tab.label}
                     </button>
@@ -614,11 +613,10 @@ export default function ServicesDashboardPage() {
             {plans.map((plan, idx) => (
               <div
                 key={idx}
-                className={`rounded-2xl p-7 flex flex-col justify-between relative transition-all duration-300 ${
-                  plan.popular
+                className={`rounded-2xl p-7 flex flex-col justify-between relative transition-all duration-300 ${plan.popular
                     ? 'bg-white dark:bg-zinc-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/10 scale-100 lg:-translate-y-2'
                     : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
@@ -654,11 +652,10 @@ export default function ServicesDashboardPage() {
 
                 <Link
                   href="/contact"
-                  className={`w-full py-3 rounded-xl text-center text-sm font-bold font-exo-extralight transition-all cursor-pointer ${
-                    plan.popular
+                  className={`w-full py-3 rounded-xl text-center text-sm font-bold font-exo-extralight transition-all cursor-pointer ${plan.popular
                       ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:opacity-90 shadow-md shadow-cyan-500/20'
                       : 'border border-zinc-200 dark:border-zinc-700 hover:border-cyan-400 dark:hover:border-cyan-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta}
                 </Link>
@@ -697,9 +694,8 @@ export default function ServicesDashboardPage() {
                     </h3>
                     <FiChevronDown
                       size={20}
-                      className={`text-zinc-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180 text-cyan-500' : ''
-                      }`}
+                      className={`text-zinc-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-cyan-500' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

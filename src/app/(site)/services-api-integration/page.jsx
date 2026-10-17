@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -13,173 +15,204 @@ import {
   FiActivity,
   FiRefreshCw,
   FiCode,
-  FiSliders,
   FiChevronDown,
 } from 'react-icons/fi';
 import { FaNetworkWired, FaPlug } from 'react-icons/fa';
 
+const featureIcons = [
+  {
+    icon: <FiLink size={24} />,
+    lightBg: 'bg-amber-50 dark:bg-amber-950/80',
+    iconColor: 'text-amber-600 dark:text-amber-400',
+    borderGlow: 'hover:border-amber-400 dark:hover:border-amber-600 hover:shadow-amber-500/15',
+  },
+  {
+    icon: <FaPlug size={24} />,
+    lightBg: 'bg-violet-50 dark:bg-violet-950/80',
+    iconColor: 'text-violet-600 dark:text-violet-400',
+    borderGlow: 'hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-violet-500/15',
+  },
+  {
+    icon: <FiZap size={24} />,
+    lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+    borderGlow: 'hover:border-cyan-400 dark:hover:border-cyan-600 hover:shadow-cyan-500/15',
+  },
+  {
+    icon: <FiCpu size={24} />,
+    lightBg: 'bg-purple-50 dark:bg-purple-950/80',
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    borderGlow: 'hover:border-purple-400 dark:hover:border-purple-600 hover:shadow-purple-500/15',
+  },
+  {
+    icon: <FiShield size={24} />,
+    lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
+    iconColor: 'text-emerald-600 dark:text-emerald-400',
+    borderGlow: 'hover:border-emerald-400 dark:hover:border-emerald-600 hover:shadow-emerald-500/15',
+  },
+  {
+    icon: <FiActivity size={24} />,
+    lightBg: 'bg-blue-50 dark:bg-blue-950/80',
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    borderGlow: 'hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-blue-500/15',
+  },
+  {
+    icon: <FiServer size={24} />,
+    lightBg: 'bg-pink-50 dark:bg-pink-950/80',
+    iconColor: 'text-pink-600 dark:text-pink-400',
+    borderGlow: 'hover:border-pink-400 dark:hover:border-pink-600 hover:shadow-pink-500/15',
+  },
+  {
+    icon: <FiRefreshCw size={24} />,
+    lightBg: 'bg-teal-50 dark:bg-teal-950/80',
+    iconColor: 'text-teal-600 dark:text-teal-400',
+    borderGlow: 'hover:border-teal-400 dark:hover:border-teal-600 hover:shadow-teal-500/15',
+  },
+  {
+    icon: <FiCode size={24} />,
+    lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
+    iconColor: 'text-indigo-600 dark:text-indigo-400',
+    borderGlow: 'hover:border-indigo-400 dark:hover:border-indigo-600 hover:shadow-indigo-500/15',
+  },
+];
+
+const fallbackStats = [
+  { value: '99.99%', label: 'API Uptime SLA' },
+  { value: '<50ms', label: 'Average Latency' },
+  { value: '100+', label: 'APIs Integrated' },
+  { value: 'Bank-Grade', label: 'OAuth 2.0 Security' },
+];
+
+const fallbackFeatures = [
+  {
+    title: 'Custom RESTful & GraphQL API Design',
+    desc: 'Architecting robust, rate-limited, and self-documenting REST and GraphQL API services using Node.js, Express, and Next.js.',
+  },
+  {
+    title: 'Third-Party SaaS & CRM Connectors',
+    desc: 'Seamlessly synchronizing your application with HubSpot, Salesforce, Zoho, Google Workspace, Slack, and custom enterprise tools.',
+  },
+  {
+    title: 'Real-Time Webhooks & Event Listeners',
+    desc: 'Instant data synchronization via secure HMAC-verified webhooks, WebSocket subscriptions, and event-driven architecture.',
+  },
+  {
+    title: 'AI & OpenAI LLM Integration',
+    desc: 'Embedding ChatGPT, Claude, custom embeddings, intelligent chatbots, and AI workflow automation into your existing apps.',
+  },
+  {
+    title: 'API Authentication & Token Management',
+    desc: 'Hardened API keys, OAuth 2.0 PKCE, JWT tokens, IP whitelisting, and Redis-backed sliding window rate limiting.',
+  },
+  {
+    title: 'SMS & Email Gateway Integrations',
+    desc: 'Automated transactional SMS (BulkSMS BD, Twilio, Greenweb) and email dispatch (Resend, SendGrid, Amazon SES).',
+  },
+  {
+    title: 'Microservices & Gateway Proxy',
+    desc: 'API Gateway routing, reverse proxies, response caching, load balancing, and failover redundancy.',
+  },
+  {
+    title: 'Legacy System Modernization',
+    desc: 'Wrapping outdated databases, SOAP services, or desktop software into fast, modern REST/JSON micro-endpoints.',
+  },
+  {
+    title: 'Swagger / OpenAPI Documentation',
+    desc: 'Interactive Swagger UI and Postman collections with code snippets so any development team can integrate in minutes.',
+  },
+];
+
+const techStack = [
+  { label: 'REST APIs', category: 'Standard' },
+  { label: 'GraphQL', category: 'Query Engine' },
+  { label: 'Node.js', category: 'Backend' },
+  { label: 'Swagger/OpenAPI', category: 'Docs' },
+  { label: 'Redis Caching', category: 'Performance' },
+  { label: 'OpenAI API', category: 'AI' },
+  { label: 'Twilio / SMS Gateways', category: 'Messaging' },
+  { label: 'Resend / SendGrid', category: 'Email' },
+  { label: 'Postman Collections', category: 'Testing' },
+  { label: 'OAuth 2.0 & JWT', category: 'Security' },
+];
+
+const fallbackPlans = [
+  {
+    name: 'Single API Integration',
+    price: 'BDT 1200',
+    desc: 'Connect any single third-party API (Payment, SMS, CRM, or Maps) into your existing application.',
+    features: [
+      'Complete Endpoint Integration',
+      'Webhook & Error Handling Setup',
+      'Payload Sanitization & Security',
+      'Postman Collection Documentation',
+      'Live Production Testing',
+      '15 Days Integration Warranty',
+    ],
+    popular: false,
+    cta: 'Integrate Single API',
+  },
+  {
+    name: 'Multi-API Suite & Webhooks',
+    price: 'BDT 2600',
+    desc: 'Our most popular package for syncing multiple services, automated webhooks, and custom endpoints.',
+    features: [
+      'Up to 4 Complete API Integrations',
+      'Custom REST Endpoint Development',
+      'HMAC Secure Webhook Listeners',
+      'Redis Rate Limiting & Caching',
+      'Swagger Interactive Documentation',
+      'Real-time Error Alerting System',
+      '30 Days Dedicated Support',
+    ],
+    popular: true,
+    cta: 'Get API Suite',
+  },
+  {
+    name: 'Custom Enterprise Gateway',
+    price: 'BDT 3800',
+    desc: 'Full-scale microservices API gateway architecture with high concurrency and AI integrations.',
+    features: [
+      'Unlimited API Endpoints & Microservices',
+      'GraphQL & REST Hybrid Architecture',
+      'OpenAI / LLM Integration & Embeddings',
+      'High-Concurrency Load Balancing',
+      'OAuth 2.0 PKCE Auth Server',
+      'Complete Architecture Spec & SLA',
+      '60 Days Priority Support',
+    ],
+    popular: false,
+    cta: 'Consult API Architect',
+  },
+];
+
+const fallbackFaqs = [
+  {
+    q: 'How do you secure API keys and prevent data leakage?',
+    a: 'We store all credentials in encrypted environment variables, enforce HMAC signature verification for webhooks, implement strict CORS headers, and employ Redis sliding-window rate limiting.',
+  },
+  {
+    q: 'Can you integrate Bangladeshi local SMS and verification gateways?',
+    a: 'Yes! We regularly integrate Greenweb, BulkSMS BD, Alpha SMS, and OTP verification workflows with instant SMS delivery.',
+  },
+  {
+    q: 'Will you provide documentation for our internal developers?',
+    a: 'Yes, every project includes interactive Swagger/OpenAPI documentation and exported Postman collections with working request/response examples.',
+  },
+];
+
+function arr(t, key) {
+  const val = t(key, { returnObjects: true });
+  return Array.isArray(val) && val.length > 0 ? val : null;
+}
+
 export default function ServicesApiIntegrationPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
-  const stats = [
-    { value: '99.99%', label: 'API Uptime SLA' },
-    { value: '<50ms', label: 'Average Latency' },
-    { value: '100+', label: 'APIs Integrated' },
-    { value: 'Bank-Grade', label: 'OAuth 2.0 Security' },
-  ];
-
-  const featureMeta = [
-    {
-      icon: <FiLink size={24} />,
-      title: 'Custom RESTful & GraphQL API Design',
-      desc: 'Architecting robust, rate-limited, and self-documenting REST and GraphQL API services using Node.js, Express, and Next.js.',
-      lightBg: 'bg-amber-50 dark:bg-amber-950/80',
-      iconColor: 'text-amber-600 dark:text-amber-400',
-      borderGlow: 'hover:border-amber-400 dark:hover:border-amber-600 hover:shadow-amber-500/15',
-    },
-    {
-      icon: <FaPlug size={24} />,
-      title: 'Third-Party SaaS & CRM Connectors',
-      desc: 'Seamlessly synchronizing your application with HubSpot, Salesforce, Zoho, Google Workspace, Slack, and custom enterprise tools.',
-      lightBg: 'bg-violet-50 dark:bg-violet-950/80',
-      iconColor: 'text-violet-600 dark:text-violet-400',
-      borderGlow: 'hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-violet-500/15',
-    },
-    {
-      icon: <FiZap size={24} />,
-      title: 'Real-Time Webhooks & Event Listeners',
-      desc: 'Instant data synchronization via secure HMAC-verified webhooks, WebSocket subscriptions, and event-driven architecture.',
-      lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
-      iconColor: 'text-cyan-600 dark:text-cyan-400',
-      borderGlow: 'hover:border-cyan-400 dark:hover:border-cyan-600 hover:shadow-cyan-500/15',
-    },
-    {
-      icon: <FiCpu size={24} />,
-      title: 'AI & OpenAI LLM Integration',
-      desc: 'Embedding ChatGPT, Claude, custom embeddings, intelligent chatbots, and AI workflow automation into your existing apps.',
-      lightBg: 'bg-purple-50 dark:bg-purple-950/80',
-      iconColor: 'text-purple-600 dark:text-purple-400',
-      borderGlow: 'hover:border-purple-400 dark:hover:border-purple-600 hover:shadow-purple-500/15',
-    },
-    {
-      icon: <FiShield size={24} />,
-      title: 'API Authentication & Token Management',
-      desc: 'Hardened API keys, OAuth 2.0 PKCE, JWT tokens, IP whitelisting, and Redis-backed sliding window rate limiting.',
-      lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
-      iconColor: 'text-emerald-600 dark:text-emerald-400',
-      borderGlow: 'hover:border-emerald-400 dark:hover:border-emerald-600 hover:shadow-emerald-500/15',
-    },
-    {
-      icon: <FiActivity size={24} />,
-      title: 'SMS & Email Gateway Integrations',
-      desc: 'Automated transactional SMS (BulkSMS BD, Twilio, Greenweb) and email dispatch (Resend, SendGrid, Amazon SES).',
-      lightBg: 'bg-blue-50 dark:bg-blue-950/80',
-      iconColor: 'text-blue-600 dark:text-blue-400',
-      borderGlow: 'hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-blue-500/15',
-    },
-    {
-      icon: <FiServer size={24} />,
-      title: 'Microservices & Gateway Proxy',
-      desc: 'API Gateway routing, reverse proxies, response caching, load balancing, and failover redundancy.',
-      lightBg: 'bg-pink-50 dark:bg-pink-950/80',
-      iconColor: 'text-pink-600 dark:text-pink-400',
-      borderGlow: 'hover:border-pink-400 dark:hover:border-pink-600 hover:shadow-pink-500/15',
-    },
-    {
-      icon: <FiRefreshCw size={24} />,
-      title: 'Legacy System Modernization',
-      desc: 'Wrapping outdated databases, SOAP services, or desktop software into fast, modern REST/JSON micro-endpoints.',
-      lightBg: 'bg-teal-50 dark:bg-teal-950/80',
-      iconColor: 'text-teal-600 dark:text-teal-400',
-      borderGlow: 'hover:border-teal-400 dark:hover:border-teal-600 hover:shadow-teal-500/15',
-    },
-    {
-      icon: <FiCode size={24} />,
-      title: 'Swagger / OpenAPI Documentation',
-      desc: 'Interactive Swagger UI and Postman collections with code snippets so any development team can integrate in minutes.',
-      lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
-      iconColor: 'text-indigo-600 dark:text-indigo-400',
-      borderGlow: 'hover:border-indigo-400 dark:hover:border-indigo-600 hover:shadow-indigo-500/15',
-    },
-  ];
-
-  const techStack = [
-    { label: 'REST APIs', category: 'Standard' },
-    { label: 'GraphQL', category: 'Query Engine' },
-    { label: 'Node.js', category: 'Backend' },
-    { label: 'Swagger/OpenAPI', category: 'Docs' },
-    { label: 'Redis Caching', category: 'Performance' },
-    { label: 'OpenAI API', category: 'AI' },
-    { label: 'Twilio / SMS Gateways', category: 'Messaging' },
-    { label: 'Resend / SendGrid', category: 'Email' },
-    { label: 'Postman Collections', category: 'Testing' },
-    { label: 'OAuth 2.0 & JWT', category: 'Security' },
-  ];
-
-  const plans = [
-    {
-      name: 'Single API Integration',
-      price: 'BDT 1200',
-      desc: 'Connect any single third-party API (Payment, SMS, CRM, or Maps) into your existing application.',
-      features: [
-        'Complete Endpoint Integration',
-        'Webhook & Error Handling Setup',
-        'Payload Sanitization & Security',
-        'Postman Collection Documentation',
-        'Live Production Testing',
-        '15 Days Integration Warranty',
-      ],
-      popular: false,
-      cta: 'Integrate Single API',
-    },
-    {
-      name: 'Multi-API Suite & Webhooks',
-      price: 'BDT 2600',
-      desc: 'Our most popular package for syncing multiple services, automated webhooks, and custom endpoints.',
-      features: [
-        'Up to 4 Complete API Integrations',
-        'Custom REST Endpoint Development',
-        'HMAC Secure Webhook Listeners',
-        'Redis Rate Limiting & Caching',
-        'Swagger Interactive Documentation',
-        'Real-time Error Alerting System',
-        '30 Days Dedicated Support',
-      ],
-      popular: true,
-      cta: 'Get API Suite',
-    },
-    {
-      name: 'Custom Enterprise Gateway',
-      price: 'BDT 3800',
-      desc: 'Full-scale microservices API gateway architecture with high concurrency and AI integrations.',
-      features: [
-        'Unlimited API Endpoints & Microservices',
-        'GraphQL & REST Hybrid Architecture',
-        'OpenAI / LLM Integration & Embeddings',
-        'High-Concurrency Load Balancing',
-        'OAuth 2.0 PKCE Auth Server',
-        'Complete Architecture Spec & SLA',
-        '60 Days Priority Support',
-      ],
-      popular: false,
-      cta: 'Consult API Architect',
-    },
-  ];
-
-  const faqs = [
-    {
-      q: 'How do you secure API keys and prevent data leakage?',
-      a: 'We store all credentials in encrypted environment variables, enforce HMAC signature verification for webhooks, implement strict CORS headers, and employ Redis sliding-window rate limiting.',
-    },
-    {
-      q: 'Can you integrate Bangladeshi local SMS and verification gateways?',
-      a: 'Yes! We regularly integrate Greenweb, BulkSMS BD, Alpha SMS, and OTP verification workflows with instant SMS delivery.',
-    },
-    {
-      q: 'Will you provide documentation for our internal developers?',
-      a: 'Yes, every project includes interactive Swagger/OpenAPI documentation and exported Postman collections with working request/response examples.',
-    },
-  ];
+  const stats = arr(t, 'apiIntegration.stats') || fallbackStats;
+  const featureItems = arr(t, 'apiIntegration.features.items') || fallbackFeatures;
+  const plans = arr(t, 'apiIntegration.pricing.plans') || fallbackPlans;
+  const faqs = arr(t, 'apiIntegration.faq.items') || fallbackFaqs;
 
   return (
     <main className="text-[#27003B] dark:text-white transition-colors duration-300">
@@ -188,9 +221,6 @@ export default function ServicesApiIntegrationPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-pulse-glow"
-          style={{
-            // background: 'radial-gradient(circle, #f59e0b, #7c3aed, transparent 70%)',
-          }}
         />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -199,32 +229,35 @@ export default function ServicesApiIntegrationPage() {
             className="flex items-center justify-center gap-2 text-xs text-zinc-400 font-exo-extralight mb-6"
           >
             <Link href="/" className="hover:text-amber-500 transition-colors">
-              Home
+              {t('apiIntegration.breadcrumb.home', 'Home')}
             </Link>
             <span>/</span>
             <Link href="/services" className="hover:text-amber-500 transition-colors">
-              Services
+              {t('apiIntegration.breadcrumb.services', 'Services')}
             </Link>
             <span>/</span>
             <span className="text-amber-600 dark:text-amber-400 font-semibold">
-              API Integration
+              {t('apiIntegration.breadcrumb.current', 'API Integration')}
             </span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/90 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 uppercase tracking-widest font-exo-extralight mb-5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-            REST, GraphQL & Cloud Connectors
+            {t('apiIntegration.hero.badge', 'REST, GraphQL & Cloud Connectors')}
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-6 text-[#27003B] dark:text-white">
-            API Development &{' '}
+            {t('apiIntegration.hero.titleStart', 'API Development & ')}
             <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-violet-600 bg-clip-text text-transparent animated-gradient-text">
-              Integration
+              {t('apiIntegration.hero.titleHighlight', 'Integration')}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
-            Connect your applications to any payment gateway, CRM, AI model, or third-party service with sub-50ms latency, high-security OAuth 2.0, and automated webhooks.
+            {t(
+              'apiIntegration.hero.desc',
+              'Connect your applications to any payment gateway, CRM, AI model, or third-party service with sub-50ms latency, high-security OAuth 2.0, and automated webhooks.'
+            )}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -232,33 +265,33 @@ export default function ServicesApiIntegrationPage() {
               href="/contact?service=API%20Development%20%26%20Integration"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-600 to-violet-600 text-white text-sm font-black uppercase tracking-wider font-exo-extralight hover:shadow-xl hover:shadow-amber-500/25 hover:scale-105 transition-all duration-300"
             >
-              <span>Connect Your APIs</span>
+              <span>{t('apiIntegration.hero.ctaPrimary', 'Connect Your APIs')}</span>
               <FiArrowRight size={18} />
             </Link>
             <Link
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-amber-500 hover:text-amber-600 transition-all duration-300"
             >
-              Explore Solutions
+              {t('apiIntegration.hero.ctaSecondary', 'Explore Solutions')}
             </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FaNetworkWired className="text-amber-500" />
-              <span>Sub-50ms Latency</span>
+              <span>{t('apiIntegration.trust.latency', 'Sub-50ms Latency')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
-              <span>OAuth 2.0 & HMAC</span>
+              <span>{t('apiIntegration.trust.security', 'OAuth 2.0 & HMAC')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiZap className="text-violet-500" />
-              <span>Live Webhook Sync</span>
+              <span>{t('apiIntegration.trust.webhooks', 'Live Webhook Sync')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiCheckCircle className="text-cyan-500" />
-              <span>Swagger & Postman Specs</span>
+              <span>{t('apiIntegration.trust.docs', 'Swagger & Postman Specs')}</span>
             </div>
           </div>
         </div>
@@ -288,47 +321,50 @@ export default function ServicesApiIntegrationPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Seamless Data Flow
+              {t('apiIntegration.features.badge', '✦ Engineered for Seamless Data Flow')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Comprehensive API{' '}
+              {t('apiIntegration.features.titleStart', 'Comprehensive API ')}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-violet-600 bg-clip-text text-transparent">
-                Capabilities
+                {t('apiIntegration.features.titleHighlight', 'Capabilities')}
               </span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featureMeta.map((feature, i) => (
-              <div
-                key={i}
-                className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${feature.borderGlow}`}
-              >
-                <div>
-                  <div
-                    className={`w-14 h-14 rounded-2xl ${feature.lightBg} border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center ${feature.iconColor} shadow-md mb-6 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    {feature.icon}
+            {featureItems.map((feature, i) => {
+              const meta = featureIcons[i % featureIcons.length];
+              return (
+                <div
+                  key={i}
+                  className={`group relative flex flex-col justify-between p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl card-hover-lift transition-all duration-300 ${meta.borderGlow}`}
+                >
+                  <div>
+                    <div
+                      className={`w-14 h-14 rounded-2xl ${meta.lightBg} border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center ${meta.iconColor} shadow-md mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      {meta.icon}
+                    </div>
+
+                    <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                      {feature.title}
+                    </h3>
+
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
+                      {feature.desc}
+                    </p>
                   </div>
 
-                  <h3 className="font-exo-medium text-xl uppercase tracking-wide text-zinc-900 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                    {feature.title}
-                  </h3>
-
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight">
-                    {feature.desc}
-                  </p>
+                  <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
+                    <span>{t('apiIntegration.features.cardFooter', 'High Concurrency Standard')}</span>
+                    <FiCheckCircle size={14} className="text-emerald-500" />
+                  </div>
                 </div>
-
-                <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                  <span>High Concurrency Standard</span>
-                  <FiCheckCircle size={14} className="text-emerald-500" />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -338,10 +374,10 @@ export default function ServicesApiIntegrationPage() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-amber-50/50 via-white to-violet-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Production API Protocols
+              {t('apiIntegration.techStack.badge', '✦ Production API Protocols')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              API Protocols & Toolchain
+              {t('apiIntegration.techStack.title', 'API Protocols & Toolchain')}
             </h3>
           </div>
 
@@ -369,15 +405,15 @@ export default function ServicesApiIntegrationPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent API Packages
+              {t('apiIntegration.pricing.badge', '✦ Transparent API Packages')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Choose Your{' '}
+              {t('apiIntegration.pricing.titleStart', 'Choose Your ')}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-violet-600 bg-clip-text text-transparent">
-                Integration Tier
+                {t('apiIntegration.pricing.titleHighlight', 'Integration Tier')}
               </span>
             </h2>
           </div>
@@ -393,7 +429,7 @@ export default function ServicesApiIntegrationPage() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-violet-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Most Requested
+                    {t('apiIntegration.pricing.mostRequested', '★ Most Requested')}
                   </div>
                 )}
 
@@ -409,16 +445,19 @@ export default function ServicesApiIntegrationPage() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-amber-600 dark:text-amber-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">
+                      {t('apiIntegration.pricing.oneTime', '/ one-time')}
+                    </span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
-                    {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
-                        <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
+                    {Array.isArray(plan.features) &&
+                      plan.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
+                          <FiCheckCircle className="text-emerald-500 shrink-0 mt-0.5" size={16} />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
 
@@ -429,7 +468,7 @@ export default function ServicesApiIntegrationPage() {
                     : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-amber-500 hover:text-amber-600'
                     }`}
                 >
-                  {plan.cta || 'Get Started Now'}
+                  {plan.cta || t('apiIntegration.pricing.defaultCta', 'Get Started Now')}
                 </Link>
               </div>
             ))}
@@ -442,13 +481,13 @@ export default function ServicesApiIntegrationPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase font-exo-extralight mb-2 block">
-              ✦ API FAQs
+              {t('apiIntegration.faq.badge', '✦ API FAQs')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              Frequently Asked Questions
+              {t('apiIntegration.faq.title', 'Frequently Asked Questions')}
             </h2>
           </div>
 
@@ -491,19 +530,22 @@ export default function ServicesApiIntegrationPage() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#2a1702] via-[#1a0833] to-[#041a2e] border border-amber-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
-              ✦ Seamless Connectivity For Your Software
+              {t('apiIntegration.cta.badge', '✦ Seamless Connectivity For Your Software')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              Let's Build Your High-Speed API Backbone
+              {t('apiIntegration.cta.title', "Let's Build Your High-Speed API Backbone")}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              Consult directly with our senior backend engineers and build rock-solid, scalable API integrations.
+              {t(
+                'apiIntegration.cta.desc',
+                'Consult directly with our senior backend engineers and build rock-solid, scalable API integrations.'
+              )}
             </p>
             <Link
               href="/contact?service=API%20Development%20%26%20Integration"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-600 to-violet-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 transition-all duration-300"
             >
-              <span>Schedule API Architecture Call</span>
+              <span>{t('apiIntegration.cta.btn', 'Schedule API Architecture Call')}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>

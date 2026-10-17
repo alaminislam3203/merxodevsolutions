@@ -183,7 +183,7 @@ export default function ServicesClient() {
             </span>
           </h1>
 
-          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-5 font-exo-extralight">
+          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl mx-auto mb-5 font-exo-extralight">
             {t('servicesPage.heroSubtitle')}
           </p>
 

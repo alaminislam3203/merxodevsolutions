@@ -158,7 +158,7 @@ export default function EcommerceContent() {
           <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-4">
             {t('ecommerce.badge')}
           </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase font-exo-medium mb-6 leading-tight">
+          <h1 className="text-xl md:text-3xl font-black uppercase font-exo-medium mb-6 leading-tight">
             {t('ecommerce.heroTitleStart')}{' '}
             <span className="bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">
               {t('ecommerce.heroTitleHighlight')}

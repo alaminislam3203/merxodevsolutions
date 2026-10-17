@@ -363,6 +363,161 @@ const zh = {
         "btn": "与插件架构师交流"
       }
     },
+    "apiIntegration": {
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务",
+        "current": "API 接口开发与集成"
+      },
+      "hero": {
+        "badge": "REST、GraphQL 与企业云端连接器",
+        "titleStart": "API 接口开发与 ",
+        "titleHighlight": "深度集成",
+        "desc": "通过低于 50ms 的极速延迟、高安全级 OAuth 2.0 与自动化 Webhook，将您的系统连接至支付网关、CRM、大模型 AI 与各类第三方平台。",
+        "ctaPrimary": "立即接入您的 API",
+        "ctaSecondary": "探索解决方案"
+      },
+      "trust": {
+        "latency": "低于 50ms 超低延迟",
+        "security": "OAuth 2.0 与 HMAC",
+        "webhooks": "实时 Webhook 双向同步",
+        "docs": "Swagger 与 Postman 规范"
+      },
+      "stats": [
+        { "value": "99.99%", "label": "API 服务可用性 SLA" },
+        { "value": "<50ms", "label": "平均响应延迟" },
+        { "value": "100+", "label": "已集成第三方接口" },
+        { "value": "金融级", "label": "OAuth 2.0 安全标准" }
+      ],
+      "features": {
+        "badge": "✦ 专为无缝数据流转打造",
+        "titleStart": "全方位 API ",
+        "titleHighlight": "工程能力",
+        "cardFooter": "高并发系统交付标准",
+        "items": [
+          {
+            "title": "定制 RESTful 与 GraphQL API 架构",
+            "desc": "基于 Node.js、Express 和 Next.js 构建具有限流保护、自文档化特性的坚固 REST 与 GraphQL 接口体系。"
+          },
+          {
+            "title": "第三方 SaaS 与 CRM 系统连接器",
+            "desc": "实现应用系统与 HubSpot、Salesforce、Zoho、Google Workspace、Slack 及企业自建软件的无缝同步。"
+          },
+          {
+            "title": "实时 Webhooks 与事件驱动监听",
+            "desc": "借助高安全 HMAC 签名验证 Webhook、WebSocket 订阅和事件驱动架构，实现毫秒级数据同步。"
+          },
+          {
+            "title": "AI 与 OpenAI 大模型深度集成",
+            "desc": "将 ChatGPT、Claude、企业私有知识库向量嵌入、智能客服及自动化 AI 流水线深度嵌入您的应用。"
+          },
+          {
+            "title": "API 鉴权与安全 Token 治理体系",
+            "desc": "加固 API Key、OAuth 2.0 PKCE、JWT Token 机制、IP 白名单以及基于 Redis 的滑动窗口限流。"
+          },
+          {
+            "title": "短信通知与邮件网关服务集成",
+            "desc": "全自动事务性短信通知（Twilio、国际与本地短信网关）及邮件触达通道（Resend、SendGrid、Amazon SES）。"
+          },
+          {
+            "title": "微服务路由与 API 反向代理网关",
+            "desc": "专业 API Gateway 路由分发、反向代理、响应缓存、负载均衡及故障无缝转移机制。"
+          },
+          {
+            "title": "传统遗留旧系统现代化接口改造",
+            "desc": "将老旧数据库、SOAP 接口或桌面单机软件封装为高效现代的轻量化 REST/JSON 微端服务。"
+          },
+          {
+            "title": "Swagger 与 OpenAPI 交互式技术文档",
+            "desc": "交付带代码示例的交互式 Swagger UI 及可导入的 Postman 集合，让任何前端团队几分钟内即可完成对接。"
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ 生产级 API 协议标准",
+        "title": "API 协议规范与核心工具链"
+      },
+      "pricing": {
+        "badge": "✦ 透明标准的服务方案",
+        "titleStart": "选择最适合您的 ",
+        "titleHighlight": "API 集成方案",
+        "mostRequested": "★ 最受客户欢迎",
+        "oneTime": "/ 一次性费用",
+        "plans": [
+          {
+            "name": "单一 API 快速集成",
+            "price": "BDT 1200",
+            "desc": "为现有系统快速接入任意单一第三方接口（支付、短信、CRM 或地图服务）。",
+            "features": [
+              "完整端点打通与接口联调",
+              "Webhook 回调与异常错误捕获机制",
+              "载荷数据清洗与参数安全校验",
+              "Postman Collection 技术文档",
+              "真实生产环境联合测试",
+              "15 天专属技术质保支持"
+            ],
+            "popular": false,
+            "cta": "接入单一 API"
+          },
+          {
+            "name": "多系统 API 套件与 Webhooks",
+            "price": "BDT 2600",
+            "desc": "适用于多系统数据流转、全自动 Webhook 回调及自建 REST 接口的旗舰方案。",
+            "features": [
+              "最多支持 4 个完整 API 深度集成",
+              "专属定制 REST 端点开发",
+              "HMAC 安全 Webhook 监听机制",
+              "Redis 滑动窗口限流与数据缓存",
+              "Swagger 交互式接口文档",
+              "实时异常警报与追踪系统",
+              "30 天资深工程师专属保障"
+            ],
+            "popular": true,
+            "cta": "获取 API 套件方案"
+          },
+          {
+            "name": "企业级自定义微服务网关",
+            "price": "BDT 3800",
+            "desc": "支持高并发、企业高可用微服务 API 网关架构与 AI 大模型智能接入。",
+            "features": [
+              "无限量 API 端点与微服务解耦",
+              "GraphQL 与 REST 混合协议架构",
+              "OpenAI / LLM 大模型及向量嵌入集成",
+              "高并发弹性负载均衡配置",
+              "OAuth 2.0 PKCE 集中认证中心",
+              "完整系统架构设计白皮书与 SLA",
+              "60 天高优先级运维与技术支持"
+            ],
+            "popular": false,
+            "cta": "与 API 架构师深度交流"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ API 常见问题",
+        "title": "常见技术与业务问答",
+        "items": [
+          {
+            "q": "你们如何保障 API 密钥安全并防止数据泄露？",
+            "a": "我们始终在加密环境变量中保存凭据，强制对 Webhook 实施 HMAC 签名鉴权，配置严密的 CORS 策略，并结合 Redis 滑动窗口限流防止暴力破解。"
+          },
+          {
+            "q": "支持接入本地短信通道及验证码服务吗？",
+            "a": "当然支持！我们经常为电商与平台客户接入各大短信通道，实现毫秒级 OTP 验证码发送与模板消息触达。"
+          },
+          {
+            "q": "会向我们的内部开发团队交付接口文档吗？",
+            "a": "会的，每个项目均包含可在线调试的 Swagger/OpenAPI 文档以及包含丰富示例的 Postman Collection。"
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ 为您的系统构建极速数据枢纽",
+        "title": "打造坚固的高并发 API 核心骨干",
+        "desc": "直接与我们的资深后端架构师对话，构建高扩展、高可用的稳健 API 体系。",
+        "btn": "预约 API 架构技术咨询"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "首页",
       "breadcrumbServices": "服务",

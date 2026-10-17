@@ -379,6 +379,161 @@ const en = {
         "btn": "Talk to a Plugin Engineer"
       }
     },
+    "apiIntegration": {
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services",
+        "current": "API Integration"
+      },
+      "hero": {
+        "badge": "REST, GraphQL & Cloud Connectors",
+        "titleStart": "API Development & ",
+        "titleHighlight": "Integration",
+        "desc": "Connect your applications to any payment gateway, CRM, AI model, or third-party service with sub-50ms latency, high-security OAuth 2.0, and automated webhooks.",
+        "ctaPrimary": "Connect Your APIs",
+        "ctaSecondary": "Explore Solutions"
+      },
+      "trust": {
+        "latency": "Sub-50ms Latency",
+        "security": "OAuth 2.0 & HMAC",
+        "webhooks": "Live Webhook Sync",
+        "docs": "Swagger & Postman Specs"
+      },
+      "stats": [
+        { "value": "99.99%", "label": "API Uptime SLA" },
+        { "value": "<50ms", "label": "Average Latency" },
+        { "value": "100+", "label": "APIs Integrated" },
+        { "value": "Bank-Grade", "label": "OAuth 2.0 Security" }
+      ],
+      "features": {
+        "badge": "✦ Engineered for Seamless Data Flow",
+        "titleStart": "Comprehensive API ",
+        "titleHighlight": "Capabilities",
+        "cardFooter": "High Concurrency Standard",
+        "items": [
+          {
+            "title": "Custom RESTful & GraphQL API Design",
+            "desc": "Architecting robust, rate-limited, and self-documenting REST and GraphQL API services using Node.js, Express, and Next.js."
+          },
+          {
+            "title": "Third-Party SaaS & CRM Connectors",
+            "desc": "Seamlessly synchronizing your application with HubSpot, Salesforce, Zoho, Google Workspace, Slack, and custom enterprise tools."
+          },
+          {
+            "title": "Real-Time Webhooks & Event Listeners",
+            "desc": "Instant data synchronization via secure HMAC-verified webhooks, WebSocket subscriptions, and event-driven architecture."
+          },
+          {
+            "title": "AI & OpenAI LLM Integration",
+            "desc": "Embedding ChatGPT, Claude, custom embeddings, intelligent chatbots, and AI workflow automation into your existing apps."
+          },
+          {
+            "title": "API Authentication & Token Management",
+            "desc": "Hardened API keys, OAuth 2.0 PKCE, JWT tokens, IP whitelisting, and Redis-backed sliding window rate limiting."
+          },
+          {
+            "title": "SMS & Email Gateway Integrations",
+            "desc": "Automated transactional SMS (BulkSMS BD, Twilio, Greenweb) and email dispatch (Resend, SendGrid, Amazon SES)."
+          },
+          {
+            "title": "Microservices & Gateway Proxy",
+            "desc": "API Gateway routing, reverse proxies, response caching, load balancing, and failover redundancy."
+          },
+          {
+            "title": "Legacy System Modernization",
+            "desc": "Wrapping outdated databases, SOAP services, or desktop software into fast, modern REST/JSON micro-endpoints."
+          },
+          {
+            "title": "Swagger / OpenAPI Documentation",
+            "desc": "Interactive Swagger UI and Postman collections with code snippets so any development team can integrate in minutes."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Production API Protocols",
+        "title": "API Protocols & Toolchain"
+      },
+      "pricing": {
+        "badge": "✦ Transparent API Packages",
+        "titleStart": "Choose Your ",
+        "titleHighlight": "Integration Tier",
+        "mostRequested": "★ Most Requested",
+        "oneTime": "/ one-time",
+        "plans": [
+          {
+            "name": "Single API Integration",
+            "price": "BDT 1200",
+            "desc": "Connect any single third-party API (Payment, SMS, CRM, or Maps) into your existing application.",
+            "features": [
+              "Complete Endpoint Integration",
+              "Webhook & Error Handling Setup",
+              "Payload Sanitization & Security",
+              "Postman Collection Documentation",
+              "Live Production Testing",
+              "15 Days Integration Warranty"
+            ],
+            "popular": false,
+            "cta": "Integrate Single API"
+          },
+          {
+            "name": "Multi-API Suite & Webhooks",
+            "price": "BDT 2600",
+            "desc": "Our most popular package for syncing multiple services, automated webhooks, and custom endpoints.",
+            "features": [
+              "Up to 4 Complete API Integrations",
+              "Custom REST Endpoint Development",
+              "HMAC Secure Webhook Listeners",
+              "Redis Rate Limiting & Caching",
+              "Swagger Interactive Documentation",
+              "Real-time Error Alerting System",
+              "30 Days Dedicated Support"
+            ],
+            "popular": true,
+            "cta": "Get API Suite"
+          },
+          {
+            "name": "Custom Enterprise Gateway",
+            "price": "BDT 3800",
+            "desc": "Full-scale microservices API gateway architecture with high concurrency and AI integrations.",
+            "features": [
+              "Unlimited API Endpoints & Microservices",
+              "GraphQL & REST Hybrid Architecture",
+              "OpenAI / LLM Integration & Embeddings",
+              "High-Concurrency Load Balancing",
+              "OAuth 2.0 PKCE Auth Server",
+              "Complete Architecture Spec & SLA",
+              "60 Days Priority Support"
+            ],
+            "popular": false,
+            "cta": "Consult API Architect"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ API FAQs",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "q": "How do you secure API keys and prevent data leakage?",
+            "a": "We store all credentials in encrypted environment variables, enforce HMAC signature verification for webhooks, implement strict CORS headers, and employ Redis sliding-window rate limiting."
+          },
+          {
+            "q": "Can you integrate Bangladeshi local SMS and verification gateways?",
+            "a": "Yes! We regularly integrate Greenweb, BulkSMS BD, Alpha SMS, and OTP verification workflows with instant SMS delivery."
+          },
+          {
+            "q": "Will you provide documentation for our internal developers?",
+            "a": "Yes, every project includes interactive Swagger/OpenAPI documentation and exported Postman collections with working request/response examples."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Seamless Connectivity For Your Software",
+        "title": "Let's Build Your High-Speed API Backbone",
+        "desc": "Consult directly with our senior backend engineers and build rock-solid, scalable API integrations.",
+        "btn": "Schedule API Architecture Call"
+      }
+    },
     "webDev": {
       "breadcrumbHome": "Home",
       "breadcrumbServices": "Services",
