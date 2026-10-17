@@ -118,6 +118,13 @@ const en = {
       "heroSubtitle": "From high-growth SaaS MVPs to enterprise management portals, we build secure, scalable full-stack applications tailored to your business logic.",
       "viewPricingBtn": "View Pricing & Scopes",
       "bookDiscoveryBtn": "Book Technical Discovery",
+      "exploreWorkBtn": "Explore Live Apps",
+      "trust": {
+        "codeOwnership": "Full Source Code Ownership",
+        "architecture": "Cloud-Native Architecture",
+        "security": "OWASP Top 10 Security",
+        "scaling": "Auto-Scaling Infrastructure"
+      },
       "stats": [
         {
           "value": "99.99%",
@@ -136,12 +143,154 @@ const en = {
           "label": "Monitoring Ready"
         }
       ],
-      "featuresTitle": "Enterprise Web Application Architecture",
-      "pricingTitle": "SaaS & Custom Application Scopes",
-      "faqTitle": "Web Application FAQ",
-      "ctaTitle": "Have a SaaS or Web App idea?",
-      "ctaDesc": "Talk directly with our lead architects to plan your MVP roadmap.",
-      "ctaBtn": "Schedule Discovery Call"
+      "features": {
+        "badge": "✦ Engineered for Modern Scale",
+        "title": "Enterprise-Grade",
+        "titleHighlight": "Application Features",
+        "cardBadge": "Cloud Ready",
+        "items": [
+          {
+            "title": "Custom SaaS & Cloud Platforms",
+            "desc": "Multi-tenant software architecture with automated user onboarding, subscription billing, and isolated workspaces."
+          },
+          {
+            "title": "Interactive Real-Time Dashboards",
+            "desc": "Real-time metrics, live WebSocket updates, charting, and customizable role-based analytics views."
+          },
+          {
+            "title": "Scalable REST & GraphQL APIs",
+            "desc": "Robust Node.js and Next.js backend services with rate-limiting, Redis caching, and microservices architecture."
+          },
+          {
+            "title": "Role-Based Access Control (RBAC)",
+            "desc": "Granular admin, manager, and user permissions with OAuth 2.0, NextAuth JWT, and session management."
+          },
+          {
+            "title": "Relational & NoSQL Databases",
+            "desc": "High-speed data querying and indexing with PostgreSQL, Prisma, Neon DB, and MongoDB clusters."
+          },
+          {
+            "title": "Automated CI/CD & DevOps",
+            "desc": "Automated unit/integration testing pipelines and blue-green deployments on Vercel and AWS container fleets."
+          },
+          {
+            "title": "Payment Gateway & Invoicing",
+            "desc": "Seamless checkout with Stripe, SSLCommerz, bKash, and automated invoice PDF generation."
+          },
+          {
+            "title": "Export & Bulk Data Processing",
+            "desc": "Background job queues with BullMQ/Redis for Excel/CSV exports, scheduled reports, and batch processing."
+          },
+          {
+            "title": "Complete 30-Day SLA & Code Handover",
+            "desc": "Full repository ownership, environment documentation, and dedicated warranty support after deployment."
+          }
+        ]
+      },
+      "techStack": {
+        "badge": "✦ Robust & Resilient Infrastructure",
+        "title": "Full-Stack Application Stack",
+        "categories": {
+          "Frontend": "Frontend",
+          "Backend": "Backend",
+          "Language": "Language",
+          "Database": "Database",
+          "Caching": "Caching",
+          "Container": "Container",
+          "Storage": "Storage",
+          "Auth": "Auth",
+          "Styling": "Styling",
+          "Cloud": "Cloud"
+        }
+      },
+      "pricing": {
+        "badge": "✦ Transparent App Packages",
+        "title": "SaaS & Custom Application Scopes",
+        "mostRecommended": "★ Most Recommended",
+        "oneTime": "/ one-time",
+        "defaultCta": "Get Started Now",
+        "plans": [
+          {
+            "name": "MVP / Startup App",
+            "price": "BDT 3500",
+            "desc": "Launch your Minimum Viable Product quickly to validate ideas and onboard early users.",
+            "features": [
+              "Authentication & User Profiles",
+              "Core CRUD & Business Logic",
+              "Admin Management Dashboard",
+              "Database Schema & Migrations",
+              "Email Notifications Setup",
+              "30 Days Technical Warranty"
+            ],
+            "popular": false,
+            "cta": "Start MVP Build"
+          },
+          {
+            "name": "Full SaaS / Custom Portal",
+            "price": "BDT 1500",
+            "desc": "Complete production web application with multi-role permissions and automated workflows.",
+            "features": [
+              "Multi-Role Permissions (RBAC)",
+              "Real-Time Charts & Analytics",
+              "Payment Gateway (bKash/Nagad/Cards)",
+              "Background Task Queue & Exports",
+              "API Integration & Webhooks",
+              "Cloud Storage & CDN Setup",
+              "45 Days Priority Support"
+            ],
+            "popular": true,
+            "cta": "Build Custom App"
+          },
+          {
+            "name": "Enterprise Platform",
+            "price": "Custom Quote",
+            "desc": "High-concurrency systems, microservices, and dedicated engineering for enterprise operations.",
+            "features": [
+              "Microservices / Cloud Architecture",
+              "High-Concurrency Redis Caching",
+              "Custom Workflow Automations",
+              "End-to-End Encryption & Audit Logs",
+              "Dedicated CI/CD & DevOps Pipeline",
+              "Full Source Code & Architecture Spec",
+              "90 Days SLA Support & Training"
+            ],
+            "popular": false,
+            "cta": "Consult Enterprise Architect"
+          }
+        ]
+      },
+      "faq": {
+        "badge": "✦ Have Questions?",
+        "title": "Web Application FAQ",
+        "items": [
+          {
+            "q": "What is the typical development timeline for a custom web application?",
+            "a": "An MVP usually takes 3–4 weeks, while a comprehensive SaaS or enterprise portal typically takes 5–8 weeks. We deliver weekly demo milestones so you can track real progress."
+          },
+          {
+            "q": "Will our company own 100% of the source code and intellectual property?",
+            "a": "Yes, absolutely. You receive full ownership of the GitHub repository, database schemas, credentials, and all assets upon project completion."
+          },
+          {
+            "q": "Can the application scale as our user base grows to millions?",
+            "a": "Yes. We architect all applications on cloud-native serverless frameworks (Next.js & PostgreSQL/Redis) capable of auto-scaling seamlessly with zero performance degradation."
+          },
+          {
+            "q": "How is security and data protection handled?",
+            "a": "We implement industry best practices: JWT encryption, CSRF protection, SQL injection prevention via Prisma ORM, bcrypt password hashing, and encrypted backups."
+          },
+          {
+            "q": "Do you provide ongoing maintenance and post-launch updates?",
+            "a": "Yes, every project includes 30–90 days of free warranty support, and we also offer flexible monthly maintenance plans for feature iterations."
+          }
+        ]
+      },
+      "cta": {
+        "badge": "✦ Ready to Turn Your Vision into Reality?",
+        "title": "Have a SaaS or Web App idea?",
+        "desc": "Talk directly with our lead architects to plan your MVP roadmap.",
+        "btn": "Schedule Discovery Call"
+      }
     },
     "webDev": {
       "breadcrumbHome": "Home",

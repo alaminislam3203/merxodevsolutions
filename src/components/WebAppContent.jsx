@@ -297,7 +297,7 @@ export default function WebAppContent() {
               href="/our-projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-sm font-bold font-exo-extralight text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600 transition-all duration-300"
             >
-              {t('featuredProjects.viewAllBtn') || 'Explore Live Apps'}
+              {t('webApp.exploreWorkBtn', 'Explore Live Apps')}
             </Link>
           </div>
 
@@ -305,19 +305,19 @@ export default function WebAppContent() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-exo-extralight">
             <div className="flex items-center justify-center gap-1.5">
               <FiShield className="text-emerald-500" />
-              <span>Full Source Code Ownership</span>
+              <span>{t('webApp.trust.codeOwnership', 'Full Source Code Ownership')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiCpu className="text-cyan-500" />
-              <span>Cloud-Native Architecture</span>
+              <span>{t('webApp.trust.architecture', 'Cloud-Native Architecture')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiLock className="text-violet-500" />
-              <span>OWASP Top 10 Security</span>
+              <span>{t('webApp.trust.security', 'OWASP Top 10 Security')}</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <FiTrendingUp className="text-amber-500" />
-              <span>Auto-Scaling Infrastructure</span>
+              <span>{t('webApp.trust.scaling', 'Auto-Scaling Infrastructure')}</span>
             </div>
           </div>
         </div>
@@ -347,15 +347,15 @@ export default function WebAppContent() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
-              ✦ Engineered for Modern Scale
+              {t('webApp.features.badge', '✦ Engineered for Modern Scale')}
             </span>
             <h2
               id="features-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              Enterprise-Grade{' '}
+              {t('webApp.features.title', 'Enterprise-Grade')}{' '}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 bg-clip-text text-transparent">
-                Application Features
+                {t('webApp.features.titleHighlight', 'Application Features')}
               </span>
             </h2>
           </div>
@@ -386,7 +386,7 @@ export default function WebAppContent() {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 font-exo-extralight group-hover:translate-x-1 transition-transform">
-                    <span>Cloud Ready</span>
+                    <span>{t('webApp.features.cardBadge', 'Cloud Ready')}</span>
                     <FiCheckCircle size={14} className="text-emerald-500" />
                   </div>
                 </div>
@@ -401,10 +401,10 @@ export default function WebAppContent() {
         <div className="max-w-[1440px] mx-auto p-10 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-cyan-50/50 via-white to-violet-50/50 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-zinc-950 backdrop-blur-2xl">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Robust & Resilient Infrastructure
+              {t('webApp.techStack.badge', '✦ Robust & Resilient Infrastructure')}
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-4xl uppercase tracking-wide">
-              Full-Stack Application Stack
+              {t('webApp.techStack.title', 'Full-Stack Application Stack')}
             </h3>
           </div>
 
@@ -419,7 +419,7 @@ export default function WebAppContent() {
                   {tech.label}
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
-                  {tech.category}
+                  {t(`webApp.techStack.categories.${tech.category}`, tech.category)}
                 </span>
               </div>
             ))}
@@ -432,13 +432,13 @@ export default function WebAppContent() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-3">
-              ✦ Transparent App Packages
+              {t('webApp.pricing.badge', '✦ Transparent App Packages')}
             </span>
             <h2
               id="pricing-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide text-[#27003B] dark:text-white"
             >
-              {t('webApp.pricingTitle')}
+              {t('webApp.pricing.title', t('webApp.pricingTitle'))}
             </h2>
           </div>
 
@@ -453,7 +453,7 @@ export default function WebAppContent() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-xs font-black uppercase tracking-widest shadow-md">
-                    ★ Most Recommended
+                    {t('webApp.pricing.mostRecommended', '★ Most Recommended')}
                   </div>
                 )}
 
@@ -469,7 +469,7 @@ export default function WebAppContent() {
                     <span className="font-exo-medium text-4xl sm:text-5xl uppercase tracking-tight text-cyan-600 dark:text-cyan-400">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-zinc-400 font-exo-extralight">/ one-time</span>
+                    <span className="text-xs text-zinc-400 font-exo-extralight">/ {t('webApp.pricing.oneTime', 'one-time')}</span>
                   </div>
 
                   <ul className="space-y-3.5 mb-10">
@@ -489,7 +489,7 @@ export default function WebAppContent() {
                     : 'border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500 hover:text-cyan-600'
                     }`}
                 >
-                  {plan.cta || 'Get Started Now'}
+                  {plan.cta || t('webApp.pricing.defaultCta', 'Get Started Now')}
                 </Link>
               </div>
             ))}
@@ -502,13 +502,13 @@ export default function WebAppContent() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-exo-extralight mb-2 block">
-              ✦ Have Questions?
+              {t('webApp.faq.badge', '✦ Have Questions?')}
             </span>
             <h2
               id="faq-heading"
               className="font-exo-medium text-3xl sm:text-5xl uppercase tracking-wide"
             >
-              {t('webApp.faqTitle')}
+              {t('webApp.faq.title', t('webApp.faqTitle'))}
             </h2>
           </div>
 
@@ -551,19 +551,19 @@ export default function WebAppContent() {
         <div className="relative max-w-[1440px] mx-auto p-10 sm:p-16 rounded-3xl overflow-hidden bg-gradient-to-r from-[#031526] via-[#0b1736] to-[#1d0b38] border border-cyan-500/30 text-white text-center shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-amber-400 font-exo-extralight mb-4">
-              ✦ Ready to Turn Your Vision into Reality?
+              {t('webApp.cta.badge', '✦ Ready to Turn Your Vision into Reality?')}
             </span>
             <h2 className="font-exo-medium text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
-              {t('webApp.ctaTitle')}
+              {t('webApp.cta.title', t('webApp.ctaTitle'))}
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 font-exo-extralight leading-relaxed mb-8">
-              {t('webApp.ctaDesc')}
+              {t('webApp.cta.desc', t('webApp.ctaDesc'))}
             </p>
             <Link
               href="/contact?service=Web%20Application%20Development"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-black text-sm uppercase tracking-wider font-exo-extralight hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
             >
-              <span>{t('webApp.ctaBtn')}</span>
+              <span>{t('webApp.cta.btn', t('webApp.ctaBtn'))}</span>
               <FiArrowRight size={18} />
             </Link>
           </div>
