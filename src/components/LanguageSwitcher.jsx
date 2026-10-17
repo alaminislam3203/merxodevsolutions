@@ -32,16 +32,13 @@ const GlobeIcon = () => (
 
 export default function LanguageSwitcher({ variant = 'default', className = '' }) {
   const { t, i18n } = useTranslation();
-  const [current, setCurrent] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('lang') || 'en';
-    }
-    return 'en';
-  });
+  const [mounted, setMounted] = useState(false);
+  const [current, setCurrent] = useState('en');
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem('lang') || 'en';
     if (i18n.language !== saved) {
       i18n.changeLanguage(saved);
@@ -79,7 +76,8 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
     setOpen(false);
   };
 
-  const currentLang = languages.find(l => l.code === current) || languages[0];
+  const activeCode = mounted ? current : 'en';
+  const currentLang = languages.find(l => l.code === activeCode) || languages[0];
 
   // Variant for profile dropdown / compact menu
   if (variant === 'menu') {
@@ -96,7 +94,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
         </div>
         <div className="grid grid-cols-4 gap-1">
           {languages.map(({ code, label, full, activeColor }) => {
-            const isActive = current === code;
+            const isActive = activeCode === code;
             return (
               <button
                 key={code}
@@ -106,6 +104,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
                   changeLanguage(code);
                 }}
                 title={full}
+                suppressHydrationWarning
                 className={`py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-center transition-all cursor-pointer ${
                   isActive
                     ? `bg-white dark:bg-zinc-800 shadow-xs ring-1 ring-zinc-200 dark:ring-zinc-700 font-extrabold ${activeColor}`
@@ -131,9 +130,10 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-white/20 dark:border-zinc-700 text-white dark:text-zinc-200 text-xs font-bold transition-all backdrop-blur-md cursor-pointer shadow-xs select-none"
           title={`Language: ${currentLang?.full}`}
           aria-label="Change Language"
+          suppressHydrationWarning
         >
           <GlobeIcon />
-          <span className="text-[11px] font-mono font-bold tracking-wide">
+          <span suppressHydrationWarning className="text-[11px] font-mono font-bold tracking-wide">
             {currentLang?.label}
           </span>
           <svg
@@ -155,7 +155,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
         {open && (
           <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-[9999] animate-fade-in p-1">
             {languages.map(({ code, label, full, activeColor }) => {
-              const isActive = current === code;
+              const isActive = activeCode === code;
               return (
                 <button
                   key={code}
@@ -188,9 +188,10 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
           className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/10 hover:bg-white/20 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-white/20 dark:border-zinc-700 text-white dark:text-zinc-200 text-xs font-bold transition-all backdrop-blur-md cursor-pointer select-none"
           title={`Language: ${currentLang?.full}`}
           aria-label="Change Language"
+          suppressHydrationWarning
         >
           <GlobeIcon />
-          <span className="text-[10px] font-mono font-bold">
+          <span suppressHydrationWarning className="text-[10px] font-mono font-bold">
             {currentLang?.label}
           </span>
         </button>
@@ -198,7 +199,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
         {open && (
           <div className="absolute top-full mt-2 right-0 w-36 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-xl overflow-hidden z-[9999] animate-fade-in p-1">
             {languages.map(({ code, label, full, activeColor }) => {
-              const isActive = current === code;
+              const isActive = activeCode === code;
               return (
                 <button
                   key={code}
@@ -228,9 +229,11 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
         <button
           onClick={() => setOpen(prev => !prev)}
           className="flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+          suppressHydrationWarning
         >
           <GlobeIcon />
           <span
+            suppressHydrationWarning
             className={`text-[11px] font-black uppercase tracking-widest ${currentLang?.activeColor}`}
           >
             {currentLang?.label}
@@ -259,12 +262,12 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
                 key={code}
                 onClick={() => changeLanguage(code)}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-[11px] font-black uppercase tracking-widest transition-colors cursor-pointer ${
-                  current === code
+                  activeCode === code
                     ? `bg-zinc-50 dark:bg-zinc-800 ${activeColor}`
                     : 'text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-300'
                 }`}
               >
-                {current === code && (
+                {activeCode === code && (
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
                       code === 'en'
@@ -277,7 +280,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
                     }`}
                   />
                 )}
-                {!current === code && <span className="w-1.5" />}
+                {activeCode !== code && <span className="w-1.5" />}
                 <span>{full}</span>
                 <span className="ml-auto opacity-50">{label}</span>
               </button>
@@ -295,8 +298,9 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
           <button
             key={code}
             onClick={() => changeLanguage(code)}
+            suppressHydrationWarning
             className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
-              current === code
+              activeCode === code
                 ? `bg-white dark:bg-zinc-900 ${activeColor} shadow-sm ring-1 ring-zinc-100 dark:ring-zinc-700`
                 : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300'
             }`}
