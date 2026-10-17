@@ -370,28 +370,38 @@ export default function ContactPage() {
                 </span>
               </a>
 
-              {/* Email Card */}
+              {/* Email Card (Gmail) */}
               <a
                 href="mailto:merxodevsolutions@gmail.com"
-                className="group flex items-center justify-between p-4 rounded-2xl bg-violet-50/70 dark:bg-violet-950/30 border border-violet-200/80 dark:border-violet-800/50 hover:border-violet-400 dark:hover:border-violet-600 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-200"
+                className="group flex items-center justify-between p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-800/50 hover:border-rose-400 dark:hover:border-rose-600 hover:shadow-lg hover:shadow-rose-500/10 transition-all duration-200"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-violet-500/30 shrink-0 group-hover:scale-105 transition-transform">
-                    <FaEnvelope size={18} />
+                  <div className="w-11 h-11 rounded-xl bg-white dark:bg-zinc-900 border border-rose-100 dark:border-zinc-800 flex items-center justify-center shadow-md shadow-rose-500/10 shrink-0 group-hover:scale-105 transition-transform p-2.5">
+                    <svg
+                      viewBox="52 42 88 66"
+                      className="w-full h-full"
+                      aria-hidden="true"
+                    >
+                      <path fill="#4285F4" d="M58 108h14V74L52 59v43c0 3.32 2.69 6 6 6" />
+                      <path fill="#34A853" d="M120 108h14c3.32 0 6-2.69 6-6V59l-20 15" />
+                      <path fill="#FBBC04" d="M120 48v26l20-15v-8c0-7.42-8.47-11.65-14.4-7.2" />
+                      <path fill="#EA4335" d="M72 74V48l24 18 24-18v26L96 92" />
+                      <path fill="#C5221F" d="M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2" />
+                    </svg>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-bold tracking-widest text-violet-700 dark:text-violet-400 uppercase font-exo-extralight">
+                    <span className="text-[10px] font-bold tracking-widest text-rose-700 dark:text-rose-400 uppercase font-exo-extralight">
                       {t('contact.emailTitle', 'Official Email')}
                     </span>
                     <span className="text-sm font-bold text-zinc-900 dark:text-white font-exo-extralight break-all">
                       merxodevsolutions@gmail.com
                     </span>
-                    <span className="text-xs text-violet-600 dark:text-violet-400/80 font-medium">
+                    <span className="text-xs text-rose-600 dark:text-rose-400/80 font-medium">
                       {t('contact.emailSub', 'Detailed proposals & RFPs')}
                     </span>
                   </div>
                 </div>
-                <span className="text-violet-600 dark:text-violet-400 font-bold text-sm group-hover:translate-x-1 transition-transform">
+                <span className="text-rose-600 dark:text-rose-400 font-bold text-sm group-hover:translate-x-1 transition-transform">
                   →
                 </span>
               </a>
