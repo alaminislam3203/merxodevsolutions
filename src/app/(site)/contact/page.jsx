@@ -314,13 +314,13 @@ export default function ContactPage() {
 
       <div className="relative z-10 max-w-[1440px] mx-auto">
         {/* ── Page Header ── */}
-        <div className="flex flex-col items-center text-center gap-4 mb-16 max-w-3xl mx-auto">
+        <div className="flex flex-col items-center text-center gap-4 mb-12 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             {t('contact.badge', 'Available For New Projects • 2–12h Response')}
           </div>
 
-          <h1 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider leading-tight">
+          <h1 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wider">
             {t('contact.headingStart', "Let's Build Something")}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
               {t('contact.headingGradient', 'Exceptional')}
