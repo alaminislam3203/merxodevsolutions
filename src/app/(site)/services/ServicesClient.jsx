@@ -24,7 +24,7 @@ import '@/components/i18n';
 const SERVICE_STYLES = [
   {
     icon: <FiGlobe size={18} />,
-    image: '/services/web.jpg',
+    image: '/services/web.png',
     accent: 'from-violet-600 to-indigo-600',
     lightBg: 'bg-violet-50 dark:bg-violet-950/80',
     iconColor: 'text-violet-600 dark:text-violet-400',
@@ -42,7 +42,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiCode size={18} />,
-    image: '/services/web-app.jpg',
+    image: '/services/web-app.png',
     accent: 'from-indigo-500 to-violet-600',
     lightBg: 'bg-indigo-50 dark:bg-indigo-950/80',
     iconColor: 'text-indigo-600 dark:text-indigo-400',
@@ -51,7 +51,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiLayout size={18} />,
-    image: '/services/design.jpg',
+    image: '/services/design.png',
     accent: 'from-pink-500 to-rose-500',
     lightBg: 'bg-pink-50 dark:bg-pink-950/80',
     iconColor: 'text-pink-600 dark:text-pink-400',
@@ -60,7 +60,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiLink size={18} />,
-    image: '/services/api.jpg',
+    image: '/services/api.png',
     accent: 'from-amber-500 to-orange-500',
     lightBg: 'bg-amber-50 dark:bg-amber-950/80',
     iconColor: 'text-amber-600 dark:text-amber-400',
@@ -69,7 +69,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiDatabase size={18} />,
-    image: '/services/database.jpg',
+    image: '/services/database.png',
     accent: 'from-blue-600 to-cyan-500',
     lightBg: 'bg-blue-50 dark:bg-blue-950/80',
     iconColor: 'text-blue-600 dark:text-blue-400',
@@ -78,7 +78,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiTool size={18} />,
-    image: '/services/maintenance.jpg',
+    image: '/services/maintenance.png',
     accent: 'from-slate-600 to-zinc-500',
     lightBg: 'bg-slate-50 dark:bg-slate-900/80',
     iconColor: 'text-slate-600 dark:text-slate-400',
@@ -87,7 +87,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiTrendingUp size={18} />,
-    image: '/services/seo.jpg',
+    image: '/services/seo.png',
     accent: 'from-emerald-500 to-teal-500',
     lightBg: 'bg-emerald-50 dark:bg-emerald-950/80',
     iconColor: 'text-emerald-600 dark:text-emerald-400',
@@ -96,7 +96,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiCpu size={18} />,
-    image: '/services/automation.jpg',
+    image: '/services/automation.png',
     accent: 'from-orange-500 to-amber-500',
     lightBg: 'bg-orange-50 dark:bg-orange-950/80',
     iconColor: 'text-orange-600 dark:text-orange-400',
@@ -105,7 +105,7 @@ const SERVICE_STYLES = [
   },
   {
     icon: <FiMonitor size={18} />,
-    image: '/services/dashboard.jpg',
+    image: '/services/dashboard.png',
     accent: 'from-cyan-600 to-violet-600',
     lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
     iconColor: 'text-cyan-600 dark:text-cyan-400',
@@ -165,14 +165,14 @@ export default function ServicesClient() {
             {t('servicesPage.heroBadge')}
           </span>
 
-          <h1 className="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-wide font-exo-medium mb-6 leading-tight uppercase">
+          <h1 className="animate-fade-in-up text-xl sm:text-6xl lg:text-3xl font-extrabold tracking-wide font-exo-medium mb-0 leading-tight uppercase">
             {t('servicesPage.heroTitleStart')}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent animated-gradient-text">
               {t('servicesPage.heroTitleHighlight')}
             </span>
           </h1>
 
-          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10 font-exo-extralight">
+          <p className="animate-fade-in-up text-base sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-5 font-exo-extralight">
             {t('servicesPage.heroSubtitle')}
           </p>
 
@@ -192,8 +192,8 @@ export default function ServicesClient() {
       </section>
 
       {/* ── Services Grid ── */}
-      <section className="relative px-4 sm:px-6 pb-24 z-10">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="relative px-3 sm:px-6 pb-24 z-10">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
           {Array.isArray(servicesData) &&
             servicesData.map((service, index) => {
               const targetHref = service.href || SERVICE_STYLES[index]?.defaultHref || '/services';
@@ -203,9 +203,9 @@ export default function ServicesClient() {
                 <Link
                   key={service.title || index}
                   href={targetHref}
-                  className={`group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${style.glowColor} transition-all duration-300 overflow-hidden`}
+                  className={`group relative flex flex-col justify-between p-3.5 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm card-hover-lift hover:shadow-2xl ${style.glowColor} transition-all duration-300 overflow-hidden`}
                   style={{
-                    animationDelay: `${(index % 3) * 150}ms`,
+                    animationDelay: `${(index % 4) * 100}ms`,
                   }}
                 >
                   {/* Top Accent Gradient Bar on Hover */}
@@ -215,7 +215,7 @@ export default function ServicesClient() {
 
                   <div>
                     {/* Illustration Showcase Card Header */}
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-b from-zinc-50 via-white to-zinc-50/50 dark:from-zinc-950/70 dark:via-zinc-900/60 dark:to-zinc-950/90 p-3 mb-6 border border-zinc-200/70 dark:border-zinc-800/70 flex items-center justify-center group-hover:border-violet-500/40 transition-all duration-300 shadow-sm">
+                    <div className="relative w-full aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-gradient-to-b from-zinc-50 via-white to-zinc-50/50 dark:from-zinc-950/70 dark:via-zinc-900/60 dark:to-zinc-950/90 p-2 sm:p-3 mb-3 sm:mb-4 border border-zinc-200/70 dark:border-zinc-800/70 flex items-center justify-center group-hover:border-violet-500/40 transition-all duration-300 shadow-sm">
                       {/* Subtle hover gradient glow */}
                       <div
                         className={`absolute inset-0 bg-gradient-to-tr ${style.accent} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
@@ -227,39 +227,39 @@ export default function ServicesClient() {
                         width={400}
                         height={400}
                         className="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-108 transition-transform duration-500 ease-out"
-                        priority={index < 3}
+                        priority={index < 4}
                       />
 
                       {/* Floating Mini Icon Badge */}
                       <div
-                        className={`absolute top-3 left-3 w-8 h-8 rounded-xl ${style.lightBg} ${style.iconColor} flex items-center justify-center shadow-md backdrop-blur-md border border-white/60 dark:border-zinc-800/80 group-hover:scale-110 transition-transform`}
+                        className={`absolute top-2 left-2 sm:top-3 sm:left-3 w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl ${style.lightBg} ${style.iconColor} flex items-center justify-center shadow-md backdrop-blur-md border border-white/60 dark:border-zinc-800/80 group-hover:scale-110 transition-transform`}
                       >
-                        {style.icon}
+                        <span className="scale-75 sm:scale-100">{style.icon}</span>
                       </div>
                     </div>
 
                     {/* Title & Desc with Hover Slide */}
-                    <div className="flex flex-col gap-2.5">
-                      <h2 className="text-xl font-extrabold font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between">
+                    <div className="flex flex-col gap-1.5 sm:gap-2.5">
+                      <h2 className="text-sm sm:text-base lg:text-lg font-extrabold font-exo-extralight text-[#27003B] dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-0.5 sm:group-hover:translate-x-1 transition-all duration-200 flex items-center justify-between gap-1 leading-snug">
                         <span>{service.title}</span>
                         <FiArrowRight
-                          size={18}
-                          className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 shrink-0"
+                          size={16}
+                          className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 shrink-0 hidden sm:block"
                         />
                       </h2>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors">
+                      <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors line-clamp-2 sm:line-clamp-3">
                         {service.desc}
                       </p>
                     </div>
                   </div>
 
                   {/* Highlights Chips with Staggered Hover Effect */}
-                  <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800/80">
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-3 sm:mt-5 pt-3 sm:pt-4 border-t border-zinc-100 dark:border-zinc-800/80">
                     {Array.isArray(service.highlights) &&
                       service.highlights.map((h) => (
                         <span
                           key={h}
-                          className="text-[11px] font-bold font-exo-extralight px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
+                          className="text-[9px] sm:text-[11px] font-bold font-exo-extralight px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:bg-violet-50 dark:group-hover:bg-violet-950/60 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-all duration-200"
                         >
                           {h}
                         </span>
