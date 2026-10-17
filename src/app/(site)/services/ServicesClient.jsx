@@ -99,7 +99,7 @@ const SERVICE_STYLES = [
     lightBg: 'bg-cyan-50 dark:bg-cyan-950/80',
     iconColor: 'text-cyan-600 dark:text-cyan-400',
     glowColor: 'hover:shadow-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-500',
-    defaultHref: '/contact',
+    defaultHref: '/services-dashboard',
   },
   {
     icon: <FiCreditCard size={26} />,

@@ -88,6 +88,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/services-dashboard`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/our-projects`,
       lastModified: now,
       changeFrequency: 'weekly',
