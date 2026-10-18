@@ -9,7 +9,7 @@ import '@/components/i18n';
 
 export const DEFAULT_VIDEOS = [
   {
-    id: 'klanKf8ETno',
+    id: 'i7y-W-3dgOs',
     title: 'Bangladesh GeoJSON 🔥 সব District, Upazila & Postcode এক প্যাকেজে! | npm Package for Developers',
     channel: 'MerxoDev Solutions',
     badge: 'Video 01',
@@ -39,14 +39,6 @@ export const DEFAULT_VIDEOS = [
     badge: 'Video 04',
     duration: 'Engineering Demo',
     publishedAt: '2026-07-18T10:42:17+00:00',
-  },
-  {
-    id: 'N-2OwAPp1g8',
-    title: 'MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services',
-    channel: 'MerxoDev Solutions',
-    badge: 'Video 05',
-    duration: 'Brand Overview',
-    publishedAt: '2026-06-21T18:00:33+00:00',
   },
 ];
 
