@@ -30,12 +30,18 @@ const en = {
       "subscribeBtn": "Subscribe Channel",
       "nowPlaying": "Now Playing",
       "upNext": "Up Next",
-      "featuredPlaylistBtn": "Featured Playlist (3)",
+      "featuredPlaylistBtn": "Featured Playlist (4)",
+      "featuredTitle": "Featured Playlist (4 Videos)",
+      "allVideosTitle": "All Channel Videos ({{count}})",
       "hidePlaylistBtn": "Hide Playlist",
-      "autoPlayInfo": "Auto-plays next video",
-      "video1Title": "Custom Software & E-Commerce Architecture Walkthrough",
-      "video2Title": "Full-Stack Web App Development with Next.js & Cloud",
-      "video3Title": "Modern UI/UX Design & High Performance Engineering"
+      "autoPlayInfo": "Auto-plays next video in sequence",
+      "showMoreVideos": "Show All Videos",
+      "showLessVideos": "Show 4 Featured Only",
+      "video1Title": "Bangladesh GeoJSON 🔥 All Districts, Upazilas & Postcodes in One Package | npm Package for Developers",
+      "video2Title": "Professional Modern Website Development Services | MerxoDev Solutions",
+      "video3Title": "Build Modern & Professional Websites for Your Business | Full-Stack Architecture",
+      "video4Title": "Premium Custom Website Development • Fast Delivery & Modern Responsive UI",
+      "video5Title": "MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services"
     },
     "footer": {
       "brand": {

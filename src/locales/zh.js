@@ -4058,12 +4058,18 @@ const zh = {
       "subscribeBtn": "订阅频道",
       "nowPlaying": "正在播放",
       "upNext": "稍后播放",
-      "featuredPlaylistBtn": "精选播放列表 (3)",
+      "featuredPlaylistBtn": "精选播放列表 (4)",
+      "featuredTitle": "精选播放列表 (4 个视频)",
+      "allVideosTitle": "频道全部视频 ({{count}})",
       "hidePlaylistBtn": "隐藏播放列表",
-      "autoPlayInfo": "连续自动播放 3 个视频",
-      "video1Title": "定制软件与全渠道电商系统架构剖析",
-      "video2Title": "基于 Next.js 与云原生技术的全栈 Web 开发",
-      "video3Title": "现代 UI/UX 体验设计与高并发前端性能工程"
+      "autoPlayInfo": "按顺序自动播放下一个视频",
+      "showMoreVideos": "查看全部视频",
+      "showLessVideos": "仅看 4 个精选",
+      "video1Title": "Bangladesh GeoJSON 🔥 行政区与邮编一体化 npm 开源包开发演示",
+      "video2Title": "专业现代网站定制开发服务 | MerxoDev Solutions",
+      "video3Title": "🚀 为您的企业打造现代化、高转化的全功能企业网站",
+      "video4Title": "🚀 高端定制网站设计开发！极速交付与现代化极简设计",
+      "video5Title": "MerxoDev Solutions 🚀 | 专业全栈开发、定制软件与电商系统架构"
     }
   }
 };

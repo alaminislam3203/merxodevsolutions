@@ -30,12 +30,18 @@ const bn = {
       "subscribeBtn": "চ্যানেল সাবস্ক্রাইব করুন",
       "nowPlaying": "বর্তমানে চলছে",
       "upNext": "পরবর্তী ভিডিও",
-      "featuredPlaylistBtn": "ফিচার্ড প্লেলিস্ট (৩)",
+      "featuredPlaylistBtn": "ফিচার্ড প্লেলিস্ট (৪)",
+      "featuredTitle": "ফিচার্ড প্লেলিস্ট (৪টি ভিডিও)",
+      "allVideosTitle": "চ্যানেলের সকল ভিডিও ({{count}}টি)",
       "hidePlaylistBtn": "প্লেলিস্ট বন্ধ করুন",
-      "autoPlayInfo": "পরপর ৩টি ভিডিও অটো-প্লে হবে",
-      "video1Title": "কাস্টম সফটওয়্যার ও ই-কমার্স আর্কিটেকচার ওয়াকথ্রু",
-      "video2Title": "নেক্সট জেএস ও ক্লাউড দিয়ে ফুল-স্ট্যাক ওয়েব অ্যাপ ডেভেলপমেন্ট",
-      "video3Title": "মডার্ন ইউআই/ইউএক্স ডিজাইন ও হাই-পারফরম্যান্স ইঞ্জিনিয়ারিং"
+      "autoPlayInfo": "পরপর ভিডিওগুলো অটো-প্লে হবে",
+      "showMoreVideos": "সকল ভিডিও দেখুন",
+      "showLessVideos": "শুধু ৪টি ফিচার্ড দেখুন",
+      "video1Title": "Bangladesh GeoJSON 🔥 সব District, Upazila & Postcode এক প্যাকেজে! | npm Package for Developers",
+      "video2Title": "আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন | Website Development Services | MERXODEV Solutions",
+      "video3Title": "🚀 আপনার ব্যবসার জন্য আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন!",
+      "video4Title": "🚀 আপনার ব্যবসার জন্য প্রিমিয়াম কাস্টম ওয়েবসাইট!✨ দ্রুত ডেলিভারি • আধুনিক ডিজাইন",
+      "video5Title": "MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services"
     },
     "footer": {
       "brand": {

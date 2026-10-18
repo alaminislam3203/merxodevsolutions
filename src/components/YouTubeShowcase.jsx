@@ -2,61 +2,139 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaYoutube, FaPlay, FaCheckCircle, FaExternalLinkAlt, FaListOl, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaYoutube, FaPlay, FaCheckCircle, FaExternalLinkAlt, FaListOl, FaChevronDown } from 'react-icons/fa';
 import { BsStars } from 'react-icons/bs';
 import { RiLiveFill } from 'react-icons/ri';
 import '@/components/i18n';
 
-const VIDEOS = [
+export const DEFAULT_VIDEOS = [
   {
-    id: 'JnX8NPrIFGc',
+    id: 'klanKf8ETno',
     titleKey: 'videoShowcase.video1Title',
-    defaultTitle: 'Custom Software & E-Commerce Architecture Walkthrough',
+    defaultTitle: 'Bangladesh GeoJSON 🔥 সব District, Upazila & Postcode এক প্যাকেজে! | npm Package for Developers',
     channel: 'MerxoDev Solutions',
     badge: 'Video 01',
+    duration: 'Latest Release',
+    publishedAt: '2026-10-18T05:23:48+00:00',
+  },
+  {
+    id: 'JnX8NPrIFGc',
+    titleKey: 'videoShowcase.video2Title',
+    defaultTitle: 'আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন | Website Development Services | MERXODEV Solutions',
+    channel: 'MerxoDev Solutions',
+    badge: 'Video 02',
     duration: 'Full Showcase',
+    publishedAt: '2026-08-18T08:59:24+00:00',
   },
   {
     id: '2DZpXXgg0tY',
-    titleKey: 'videoShowcase.video2Title',
-    defaultTitle: 'Full-Stack Web App Development with Next.js & Cloud',
+    titleKey: 'videoShowcase.video3Title',
+    defaultTitle: '🚀 আপনার ব্যবসার জন্য আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন!',
     channel: 'MerxoDev Solutions',
-    badge: 'Video 02',
+    badge: 'Video 03',
     duration: 'Tech Architecture',
+    publishedAt: '2026-07-19T02:23:36+00:00',
   },
   {
     id: 'wHlBRzdR_AU',
-    titleKey: 'videoShowcase.video3Title',
-    defaultTitle: 'Modern UI/UX Design & High Performance Engineering',
+    titleKey: 'videoShowcase.video4Title',
+    defaultTitle: '🚀 আপনার ব্যবসার জন্য প্রিমিয়াম কাস্টম ওয়েবসাইট!✨ দ্রুত ডেলিভারি • আধুনিক ডিজাইন',
     channel: 'MerxoDev Solutions',
-    badge: 'Video 03',
+    badge: 'Video 04',
     duration: 'Engineering Demo',
+    publishedAt: '2026-07-18T10:42:17+00:00',
+  },
+  {
+    id: 'N-2OwAPp1g8',
+    titleKey: 'videoShowcase.video5Title',
+    defaultTitle: 'MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services',
+    channel: 'MerxoDev Solutions',
+    badge: 'Video 05',
+    duration: 'Brand Overview',
+    publishedAt: '2026-06-21T18:00:33+00:00',
   },
 ];
 
 const CHANNEL_URL = 'https://www.youtube.com/@merxodevsolutions';
+const FEATURED_LIMIT = 4;
 
 export default function YouTubeShowcase() {
   const { t } = useTranslation();
+  const [videos, setVideos] = useState(DEFAULT_VIDEOS);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(true);
   const [mobilePlaylistOpen, setMobilePlaylistOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+
   const playerRef = useRef(null);
   const activeIndexRef = useRef(0);
+  const videosRef = useRef(DEFAULT_VIDEOS);
   const hoverTimeoutRef = useRef(null);
 
-  // Keep activeIndexRef synced so YouTube callback always reads latest index
+  // Keep references synced so callbacks read the freshest values
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  useEffect(() => {
+    videosRef.current = videos;
+  }, [videos]);
+
+  // Optionally fetch the latest feed from our Next.js API route
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchLiveChannelVideos() {
+      try {
+        const res = await fetch('/api/youtube-videos');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.success && Array.isArray(data.videos) && data.videos.length > 0) {
+          if (!isMounted) return;
+          setVideos((prev) => {
+            return data.videos.map((lv, idx) => {
+              const existing = prev.find((p) => p.id === lv.id);
+              const num = String(idx + 1).padStart(2, '0');
+              return {
+                id: lv.id,
+                titleKey:
+                  existing?.titleKey ||
+                  (idx === 0
+                    ? 'videoShowcase.video1Title'
+                    : idx === 1
+                    ? 'videoShowcase.video2Title'
+                    : idx === 2
+                    ? 'videoShowcase.video3Title'
+                    : idx === 3
+                    ? 'videoShowcase.video4Title'
+                    : idx === 4
+                    ? 'videoShowcase.video5Title'
+                    : `videoShowcase.video${idx + 1}Title`),
+                defaultTitle: lv.title || existing?.defaultTitle || '',
+                channel: 'MerxoDev Solutions',
+                badge: `Video ${num}`,
+                duration: idx === 0 ? 'Latest Release' : existing?.duration || 'Showcase',
+                publishedAt: lv.publishedAt || existing?.publishedAt,
+              };
+            });
+          });
+        }
+      } catch {
+        // Fallback to DEFAULT_VIDEOS
+      }
+    }
+
+    fetchLiveChannelVideos();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleUserActivity = useCallback(() => {
     setIsHovered(true);
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
-    // Auto hide after 1 second (1000ms)
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovered(false);
     }, 1000);
@@ -78,10 +156,12 @@ export default function YouTubeShowcase() {
   }, []);
 
   const loadNextVideo = useCallback(() => {
-    const nextIndex = (activeIndexRef.current + 1) % VIDEOS.length;
+    const list = videosRef.current;
+    if (!list || list.length === 0) return;
+    const nextIndex = (activeIndexRef.current + 1) % list.length;
     setActiveIndex(nextIndex);
     if (playerRef.current && typeof playerRef.current.loadVideoById === 'function') {
-      playerRef.current.loadVideoById(VIDEOS[nextIndex].id);
+      playerRef.current.loadVideoById(list[nextIndex].id);
       setIsPlaying(true);
     }
   }, []);
@@ -90,7 +170,7 @@ export default function YouTubeShowcase() {
     if (index === activeIndex) return;
     setActiveIndex(index);
     if (playerRef.current && typeof playerRef.current.loadVideoById === 'function') {
-      playerRef.current.loadVideoById(VIDEOS[index].id);
+      playerRef.current.loadVideoById(videos[index].id);
       setIsPlaying(true);
     }
   };
@@ -100,8 +180,9 @@ export default function YouTubeShowcase() {
     const initPlayer = () => {
       if (window.YT && window.YT.Player) {
         if (!playerRef.current) {
+          const initialId = videosRef.current[0]?.id || DEFAULT_VIDEOS[0].id;
           playerRef.current = new window.YT.Player('youtube-player-iframe', {
-            videoId: VIDEOS[0].id,
+            videoId: initialId,
             playerVars: {
               autoplay: 0,
               rel: 0,
@@ -153,7 +234,8 @@ export default function YouTubeShowcase() {
     };
   }, [loadNextVideo]);
 
-  const currentVideo = VIDEOS[activeIndex];
+  const currentVideo = videos[activeIndex] || DEFAULT_VIDEOS[0];
+  const displayedVideos = showAll ? videos : videos.slice(0, FEATURED_LIMIT);
 
   return (
     <section
@@ -220,7 +302,7 @@ export default function YouTubeShowcase() {
                 <div id="youtube-player-iframe" className="w-full h-full" />
               </div>
 
-              {/* Status Bar Below Video Frame with 1-second Auto-fade on hover */}
+              {/* Status Bar Below Video Frame */}
               <div className="p-4 sm:p-5 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md border-t border-zinc-200/80 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-start sm:items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0 shadow-sm">
@@ -229,7 +311,7 @@ export default function YouTubeShowcase() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-red-50 dark:bg-red-950/70 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/60">
-                        {currentVideo.badge} • {t('videoShowcase.nowPlaying') || 'Now Playing'} ({activeIndex + 1}/3)
+                        {currentVideo.badge} • {t('videoShowcase.nowPlaying') || 'Now Playing'} ({activeIndex + 1}/{videos.length})
                       </span>
                     </div>
                     <h3 className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white mt-1 truncate">
@@ -241,7 +323,7 @@ export default function YouTubeShowcase() {
                 {/* Desktop: Auto-sequence badge */}
                 <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 font-medium shrink-0 border border-zinc-200 dark:border-zinc-700">
                   <BsStars className="text-amber-500" />
-                  <span>{t('videoShowcase.autoPlayInfo') || 'Auto-plays next video'}</span>
+                  <span>{t('videoShowcase.autoPlayInfo') || 'Auto-plays next video in sequence'}</span>
                 </div>
 
                 {/* Mobile: Interactive Featured Playlist Toggle Button */}
@@ -255,30 +337,38 @@ export default function YouTubeShowcase() {
                   <span>
                     {mobilePlaylistOpen
                       ? t('videoShowcase.hidePlaylistBtn') || 'Hide Playlist'
-                      : t('videoShowcase.featuredPlaylistBtn') || 'Featured Playlist (3)'}
+                      : t('videoShowcase.featuredPlaylistBtn') || 'Featured Playlist (4)'}
                   </span>
                   <FaChevronDown
                     size={11}
-                    className={`transition-transform duration-300 ease-out ${mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
-                      }`}
+                    className={`transition-transform duration-300 ease-out ${
+                      mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
+                    }`}
                   />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Playlist Column (4 Columns on Desktop, Smooth Accordion Animation on Mobile) */}
+          {/* Playlist Column (4 Columns on Desktop, Smooth Accordion on Mobile) */}
           <div
-            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${mobilePlaylistOpen
-              ? 'grid-rows-[1fr] opacity-100 mt-2'
-              : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
-              } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
+            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${
+              mobilePlaylistOpen
+                ? 'grid-rows-[1fr] opacity-100 mt-2'
+                : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
+            } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
           >
             <div className="overflow-hidden flex flex-col gap-3 min-h-0">
               <div className="flex items-center justify-between px-1 mb-1">
                 <div className="flex items-center gap-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
                   <FaListOl className="text-violet-600 dark:text-cyan-400" />
-                  <span>Featured Playlist (3 Videos)</span>
+                  <span>
+                    {showAll
+                      ? t('videoShowcase.allVideosTitle', `All Videos (${videos.length})`, {
+                          count: videos.length,
+                        })
+                      : t('videoShowcase.featuredTitle', 'Featured Playlist (4 Videos)')}
+                  </span>
                 </div>
                 <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                   <FaCheckCircle size={11} /> Auto Sequence
@@ -287,19 +377,21 @@ export default function YouTubeShowcase() {
 
               {/* Video Playlist Cards */}
               <div className="flex flex-col gap-3">
-                {VIDEOS.map((video, idx) => {
-                  const isActive = idx === activeIndex;
+                {displayedVideos.map((video, idx) => {
+                  const actualIndex = videos.findIndex((v) => v.id === video.id);
+                  const isActive = actualIndex === activeIndex;
                   const thumbnailUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
 
                   return (
                     <button
                       key={video.id}
                       type="button"
-                      onClick={() => handleSelectVideo(idx)}
-                      className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
-                        ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
-                        : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
-                        }`}
+                      onClick={() => handleSelectVideo(actualIndex >= 0 ? actualIndex : idx)}
+                      className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${
+                        isActive
+                          ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
+                          : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
+                      }`}
                     >
                       {/* Thumbnail with overlay icon */}
                       <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
@@ -310,16 +402,16 @@ export default function YouTubeShowcase() {
                           loading="lazy"
                         />
                         <div
-                          className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive
-                            ? 'bg-red-600/40'
-                            : 'bg-black/30 group-hover:bg-black/10'
-                            }`}
+                          className={`absolute inset-0 flex items-center justify-center transition-colors ${
+                            isActive ? 'bg-red-600/40' : 'bg-black/30 group-hover:bg-black/10'
+                          }`}
                         >
                           <div
-                            className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
-                              ? 'bg-red-600 text-white animate-pulse'
-                              : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
-                              }`}
+                            className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${
+                              isActive
+                                ? 'bg-red-600 text-white animate-pulse'
+                                : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
+                            }`}
                           >
                             <FaPlay size={10} className="ml-0.5" />
                           </div>
@@ -344,10 +436,11 @@ export default function YouTubeShowcase() {
                           )}
                         </div>
                         <h4
-                          className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
-                            ? 'text-red-600 dark:text-red-400'
-                            : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
-                            }`}
+                          className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${
+                            isActive
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
+                          }`}
                         >
                           {t(video.titleKey) || video.defaultTitle}
                         </h4>
@@ -359,6 +452,25 @@ export default function YouTubeShowcase() {
                   );
                 })}
               </div>
+
+              {/* Show All / Show Less Toggle Button when more than 4 videos exist */}
+              {videos.length > FEATURED_LIMIT && (
+                <button
+                  type="button"
+                  onClick={() => setShowAll((prev) => !prev)}
+                  className="w-full py-2.5 px-3 rounded-xl border border-dashed border-red-300 dark:border-red-900/60 hover:border-red-500 dark:hover:border-red-500 text-xs font-bold text-red-600 dark:text-red-400 bg-red-50/60 dark:bg-red-950/30 hover:bg-red-100/70 dark:hover:bg-red-950/50 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <span>
+                    {showAll
+                      ? t('videoShowcase.showLessVideos') || 'Show 4 Featured Only'
+                      : t('videoShowcase.showMoreVideos') || `Show All Videos (${videos.length})`}
+                  </span>
+                  <FaChevronDown
+                    className={`transition-transform duration-200 ${showAll ? 'rotate-180' : ''}`}
+                    size={10}
+                  />
+                </button>
+              )}
 
               {/* Subscribe Box in Sidebar (Desktop Only) */}
               <div className="hidden lg:block p-4 rounded-2xl bg-gradient-to-br from-red-500/10 via-rose-500/5 to-violet-500/10 border border-red-200/60 dark:border-red-900/40 text-center space-y-2 mt-1">
@@ -375,7 +487,7 @@ export default function YouTubeShowcase() {
                   className="inline-flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
                 >
                   <FaYoutube size={14} />
-                  <span>Visit Youtube</span>
+                  <span>Visit YouTube</span>
                 </a>
               </div>
             </div>
