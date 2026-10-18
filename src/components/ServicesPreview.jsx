@@ -804,11 +804,10 @@ export default function ServicesPreview() {
               aria-label={t('servicesPreview.goToSlide', `Go to slide ${index + 1}`, {
                 index: index + 1,
               })}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === selectedIndex
+              className={`h-1.5 rounded-full transition-all duration-300 ${index === selectedIndex
                   ? 'w-5 bg-gradient-to-r from-violet-600 to-cyan-400'
                   : 'w-1.5 bg-zinc-300 dark:bg-zinc-700/80 hover:bg-zinc-400 dark:hover:bg-zinc-600'
-              }`}
+                }`}
             />
           ))}
         </div>
