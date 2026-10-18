@@ -10,8 +10,7 @@ import '@/components/i18n';
 export const DEFAULT_VIDEOS = [
   {
     id: 'klanKf8ETno',
-    titleKey: 'videoShowcase.video1Title',
-    defaultTitle: 'Bangladesh GeoJSON 🔥 সব District, Upazila & Postcode এক প্যাকেজে! | npm Package for Developers',
+    title: 'Bangladesh GeoJSON 🔥 সব District, Upazila & Postcode এক প্যাকেজে! | npm Package for Developers',
     channel: 'MerxoDev Solutions',
     badge: 'Video 01',
     duration: 'Latest Release',
@@ -19,8 +18,7 @@ export const DEFAULT_VIDEOS = [
   },
   {
     id: 'JnX8NPrIFGc',
-    titleKey: 'videoShowcase.video2Title',
-    defaultTitle: 'আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন | Website Development Services | MERXODEV Solutions',
+    title: 'আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন | Website Development Services | MERXODEV Solutions',
     channel: 'MerxoDev Solutions',
     badge: 'Video 02',
     duration: 'Full Showcase',
@@ -28,8 +26,7 @@ export const DEFAULT_VIDEOS = [
   },
   {
     id: '2DZpXXgg0tY',
-    titleKey: 'videoShowcase.video3Title',
-    defaultTitle: '🚀 আপনার ব্যবসার জন্য আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন!',
+    title: '🚀 আপনার ব্যবসার জন্য আধুনিক ও প্রফেশনাল ওয়েবসাইট তৈরি করুন!',
     channel: 'MerxoDev Solutions',
     badge: 'Video 03',
     duration: 'Tech Architecture',
@@ -37,8 +34,7 @@ export const DEFAULT_VIDEOS = [
   },
   {
     id: 'wHlBRzdR_AU',
-    titleKey: 'videoShowcase.video4Title',
-    defaultTitle: '🚀 আপনার ব্যবসার জন্য প্রিমিয়াম কাস্টম ওয়েবসাইট!✨ দ্রুত ডেলিভারি • আধুনিক ডিজাইন',
+    title: '🚀 আপনার ব্যবসার জন্য প্রিমিয়াম কাস্টম ওয়েবসাইট!✨ দ্রুত ডেলিভারি • আধুনিক ডিজাইন',
     channel: 'MerxoDev Solutions',
     badge: 'Video 04',
     duration: 'Engineering Demo',
@@ -46,8 +42,7 @@ export const DEFAULT_VIDEOS = [
   },
   {
     id: 'N-2OwAPp1g8',
-    titleKey: 'videoShowcase.video5Title',
-    defaultTitle: 'MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services',
+    title: 'MerxoDev Solutions 🚀 | Professional Web Development, Software & E-Commerce Services',
     channel: 'MerxoDev Solutions',
     badge: 'Video 05',
     duration: 'Brand Overview',
@@ -58,9 +53,11 @@ export const DEFAULT_VIDEOS = [
 const CHANNEL_URL = 'https://www.youtube.com/@merxodevsolutions';
 const FEATURED_LIMIT = 4;
 
-export default function YouTubeShowcase() {
+export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
   const { t } = useTranslation();
-  const [videos, setVideos] = useState(DEFAULT_VIDEOS);
+  const [videos, setVideos] = useState(
+    initialVideos && initialVideos.length > 0 ? initialVideos : DEFAULT_VIDEOS
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(true);
@@ -69,10 +66,10 @@ export default function YouTubeShowcase() {
 
   const playerRef = useRef(null);
   const activeIndexRef = useRef(0);
-  const videosRef = useRef(DEFAULT_VIDEOS);
+  const videosRef = useRef(videos);
   const hoverTimeoutRef = useRef(null);
 
-  // Keep references synced so callbacks read the freshest values
+  // Sync ref with state
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
@@ -81,52 +78,39 @@ export default function YouTubeShowcase() {
     videosRef.current = videos;
   }, [videos]);
 
-  // Optionally fetch the latest feed from our Next.js API route
+  // Sync initialVideos if server passes updated list
+  useEffect(() => {
+    if (initialVideos && initialVideos.length > 0) {
+      setVideos(initialVideos);
+    }
+  }, [initialVideos]);
+
+  // Client-side live polling: checks YouTube feed every 2 minutes for new video uploads
   useEffect(() => {
     let isMounted = true;
     async function fetchLiveChannelVideos() {
       try {
-        const res = await fetch('/api/youtube-videos');
+        const res = await fetch(`/api/youtube-videos?t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
+        });
         if (!res.ok) return;
         const data = await res.json();
         if (data.success && Array.isArray(data.videos) && data.videos.length > 0) {
           if (!isMounted) return;
-          setVideos((prev) => {
-            return data.videos.map((lv, idx) => {
-              const existing = prev.find((p) => p.id === lv.id);
-              const num = String(idx + 1).padStart(2, '0');
-              return {
-                id: lv.id,
-                titleKey:
-                  existing?.titleKey ||
-                  (idx === 0
-                    ? 'videoShowcase.video1Title'
-                    : idx === 1
-                    ? 'videoShowcase.video2Title'
-                    : idx === 2
-                    ? 'videoShowcase.video3Title'
-                    : idx === 3
-                    ? 'videoShowcase.video4Title'
-                    : idx === 4
-                    ? 'videoShowcase.video5Title'
-                    : `videoShowcase.video${idx + 1}Title`),
-                defaultTitle: lv.title || existing?.defaultTitle || '',
-                channel: 'MerxoDev Solutions',
-                badge: `Video ${num}`,
-                duration: idx === 0 ? 'Latest Release' : existing?.duration || 'Showcase',
-                publishedAt: lv.publishedAt || existing?.publishedAt,
-              };
-            });
-          });
+          setVideos(data.videos);
         }
-      } catch {
-        // Fallback to DEFAULT_VIDEOS
+      } catch (err) {
+        console.warn('[YouTubeShowcase] Live feed check error:', err?.message);
       }
     }
 
     fetchLiveChannelVideos();
+    const pollInterval = setInterval(fetchLiveChannelVideos, 120000); // 2 minutes
+
     return () => {
       isMounted = false;
+      clearInterval(pollInterval);
     };
   }, []);
 
@@ -202,10 +186,8 @@ export default function YouTubeShowcase() {
                 if (event.data === 0) {
                   loadNextVideo();
                 } else if (event.data === 1) {
-                  // Playing
                   setIsPlaying(true);
                 } else if (event.data === 2) {
-                  // Paused
                   setIsPlaying(false);
                 }
               },
@@ -216,7 +198,6 @@ export default function YouTubeShowcase() {
     };
 
     if (!window.YT) {
-      // Load YouTube API script once
       const scriptTag = document.createElement('script');
       scriptTag.src = 'https://www.youtube.com/iframe_api';
       scriptTag.async = true;
@@ -314,8 +295,8 @@ export default function YouTubeShowcase() {
                         {currentVideo.badge} • {t('videoShowcase.nowPlaying') || 'Now Playing'} ({activeIndex + 1}/{videos.length})
                       </span>
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white mt-1 truncate">
-                      {t(currentVideo.titleKey) || currentVideo.defaultTitle}
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white mt-1 truncate" title={currentVideo.title}>
+                      {currentVideo.title}
                     </h3>
                   </div>
                 </div>
@@ -397,7 +378,7 @@ export default function YouTubeShowcase() {
                       <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
                         <img
                           src={thumbnailUrl}
-                          alt={video.defaultTitle}
+                          alt={video.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
@@ -441,8 +422,9 @@ export default function YouTubeShowcase() {
                               ? 'text-red-600 dark:text-red-400'
                               : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
                           }`}
+                          title={video.title}
                         >
-                          {t(video.titleKey) || video.defaultTitle}
+                          {video.title}
                         </h4>
                         <p className="text-[10px] text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-1">
                           <span>{video.channel}</span>

@@ -14,6 +14,7 @@ import CompanyDeck from '@/components/CompanyDeck';
 import HomepageFAQ from '@/components/HomepageFAQ';
 import DiscoveryCall from '@/components/DiscoveryCall';
 import { getAllProjects } from '@/app/lib/projects';
+import { getLatestYouTubeVideos } from '@/app/lib/youtube';
 
 export const metadata = {
   title: 'MerxoDev Solutions – Custom Web & App Development Agency Bangladesh',
@@ -83,7 +84,10 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function Home() {
-  const projects = await getAllProjects();
+  const [projects, youtubeVideos] = await Promise.all([
+    getAllProjects(),
+    getLatestYouTubeVideos(),
+  ]);
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',
@@ -141,7 +145,7 @@ export default async function Home() {
       <FeaturedProjects projects={projects} />
       <QuadPromoSection />
       <TechCaseStudies />
-      <YouTubeShowcase />
+      <YouTubeShowcase initialVideos={youtubeVideos} />
       <TechStack />
       <Testimonials />
       <CompanyDeck />
