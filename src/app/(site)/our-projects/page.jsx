@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects } from '@/app/lib/projects';
@@ -61,7 +62,9 @@ export const metadata = {
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export default async function OurProjectsPage() {
+export default async function OurProjectsPage({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
+  const initialCategory = resolvedSearchParams?.category || '';
   const projects = await getAllProjects();
 
   const collectionSchema = {
@@ -85,7 +88,15 @@ export default async function OurProjectsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      <ProjectsGrid projects={projects} />
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center pt-20">
+            <span className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        }
+      >
+        <ProjectsGrid projects={projects} initialCategory={initialCategory} />
+      </Suspense>
     </>
   );
 }

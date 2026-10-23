@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState, useRef, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import { truncateWords } from '@/lib/utils';
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
@@ -52,8 +53,8 @@ const accentMap = {
 };
 
 // ─── Project Card ─────────────────────────────────────────────────────────────
-function ProjectCard({ project, index, visible }) {
-  const { t } = useTranslation();
+function ProjectCard({ project, index, visible, tr }) {
+  const getLabel = tr || ((k, d) => d);
   const router = useRouter();
   const a = accentMap[project.accent] || accentMap.violet;
   const details = project.details || {};
@@ -139,7 +140,7 @@ function ProjectCard({ project, index, visible }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            {t('projectsPage.detailsBtn', 'Details')}
+            {getLabel('projectsPage.detailsBtn', 'Details')}
           </Link>
           {project.liveUrl && (
             <a
@@ -150,7 +151,7 @@ function ProjectCard({ project, index, visible }) {
               aria-label={`View live project: ${project.title}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
-              {t('projectsPage.viewLiveBtn', 'View Live')}
+              {getLabel('projectsPage.viewLiveBtn', 'View Live')}
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
@@ -163,15 +164,82 @@ function ProjectCard({ project, index, visible }) {
   );
 }
 
+// ─── Helpers for Category URL Sync ──────────────────────────────────────────
+export function slugifyTag(tag) {
+  if (!tag) return '';
+  return tag
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '');
+}
+
+export function findMatchingTag(param, tags = []) {
+  if (!param) return 'All';
+  const clean = param.toString().trim().toLowerCase();
+  if (clean === 'all') return 'All';
+
+  // 1. Direct case-insensitive match (e.g. "SaaS" === "saas")
+  const directMatch = tags.find(t => t.toLowerCase() === clean);
+  if (directMatch) return directMatch;
+
+  // 2. Slug match (e.g. "e-commerce" matching "E-Commerce")
+  const slugParam = slugifyTag(clean);
+  const slugMatch = tags.find(t => slugifyTag(t) === slugParam);
+  if (slugMatch) return slugMatch;
+
+  // 3. Normalized alphanumeric match (e.g. "ecommerce" matching "E-Commerce")
+  const alphaParam = clean.replace(/[^a-z0-9]/g, '');
+  if (alphaParam) {
+    const alphaMatch = tags.find(
+      t => t.toLowerCase().replace(/[^a-z0-9]/g, '') === alphaParam
+    );
+    if (alphaMatch) return alphaMatch;
+  }
+
+  return 'All';
+}
+
 // ─── Main Grid (Client Component) ────────────────────────────────────────────
-export default function ProjectsGrid({ projects }) {
+export default function ProjectsGrid({ projects, initialCategory = '' }) {
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('All');
 
-  const allLabel = t('projectsPage.filterAll', 'All');
-  const tags = ['All', ...Array.from(new Set(projects.map(p => p.tag)))];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Safe translation helper: matches server render until mounted to prevent hydration mismatch
+  const tr = (key, fallback) => (mounted ? t(key, fallback) : fallback);
+
+  const tags = useMemo(() => {
+    return ['All', ...Array.from(new Set(projects.map(p => p.tag).filter(Boolean)))];
+  }, [projects]);
+
+  // Determine active category from searchParams or fallback to initialCategory
+  const rawCategoryParam = searchParams?.get('category') ?? initialCategory;
+  const currentCategory = useMemo(() => {
+    return findMatchingTag(rawCategoryParam, tags);
+  }, [rawCategoryParam, tags]);
+
+  const [activeFilter, setActiveFilter] = useState(currentCategory);
+
+  // Sync state when URL searchParams change (e.g. browser back/forward buttons)
+  useEffect(() => {
+    const matched = findMatchingTag(searchParams?.get('category'), tags);
+    if (matched !== activeFilter) {
+      setVisible(false);
+      setActiveFilter(matched);
+      setTimeout(() => setVisible(true), 50);
+    }
+  }, [searchParams, tags, activeFilter]);
+
+  const allLabel = tr('projectsPage.filterAll', 'All');
   const filtered = activeFilter === 'All' ? projects : projects.filter(p => p.tag === activeFilter);
 
   useEffect(() => {
@@ -184,13 +252,21 @@ export default function ProjectsGrid({ projects }) {
   }, []);
 
   const handleFilter = tag => {
+    if (tag === activeFilter) return;
+
     setVisible(false);
     setActiveFilter(tag);
     setTimeout(() => setVisible(true), 50);
+
+    const targetUrl = tag === 'All'
+      ? '/our-projects'
+      : `/our-projects?category=${slugifyTag(tag)}`;
+
+    router.push(targetUrl, { scroll: false });
   };
 
   return (
-    <main ref={sectionRef} className="min-h-screen pb-24 overflow-hidden mt-2">
+    <main ref={sectionRef} suppressHydrationWarning className="min-h-screen pb-24 overflow-hidden mt-2">
       {/* Background glows */}
       <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
         style={{}} />
@@ -198,36 +274,36 @@ export default function ProjectsGrid({ projects }) {
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-          <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {t('projectsPage.breadcrumbHome', 'Home')}
+        <nav aria-label="Breadcrumb" suppressHydrationWarning className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+          <Link href="/" suppressHydrationWarning className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+            {tr('projectsPage.breadcrumbHome', 'Home')}
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polyline points="9 18 15 12 9 6" /></svg>
-          <span className="text-zinc-600 dark:text-zinc-400 font-semibold">
-            {t('projectsPage.breadcrumbCurrent', 'Our Projects')}
+          <span suppressHydrationWarning className="text-zinc-600 dark:text-zinc-400 font-semibold">
+            {tr('projectsPage.breadcrumbCurrent', 'Our Projects')}
           </span>
         </nav>
 
         {/* Hero Header */}
-        <div className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div suppressHydrationWarning className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" aria-hidden />
-            {t('projectsPage.badge', 'Portfolio')}
+            {tr('projectsPage.badge', 'Portfolio')}
           </span>
           <h1 className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
-            {t('projectsPage.titleStart', 'Our')}{' '}
+            {tr('projectsPage.titleStart', 'Our')}{' '}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              {t('projectsPage.titleHighlight', 'Projects')}
+              {tr('projectsPage.titleHighlight', 'Projects')}
             </span>
           </h1>
           <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
-            {t('projectsPage.desc', 'Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.')}
+            {tr('projectsPage.desc', 'Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.')}
           </p>
           <div className="flex flex-wrap gap-6 mt-2">
             {[
-              { value: `${projects.length}+`, label: t('projectsPage.statProjects', 'Projects Delivered') },
-              { value: '100%', label: t('projectsPage.statSatisfaction', 'Client Satisfaction') },
-              { value: '5★', label: t('projectsPage.statRating', 'Average Rating') },
+              { value: `${projects.length}+`, label: tr('projectsPage.statProjects', 'Projects Delivered') },
+              { value: '100%', label: tr('projectsPage.statSatisfaction', 'Client Satisfaction') },
+              { value: '5★', label: tr('projectsPage.statRating', 'Average Rating') },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <span className="font-exo-medium text-2xl font-extrabold text-[#27003B] dark:text-white">{value}</span>
@@ -239,30 +315,41 @@ export default function ProjectsGrid({ projects }) {
 
         {/* Filter Tabs */}
         <div className={`flex flex-wrap gap-2 mb-10 transition-all duration-700 delay-100 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} role="tablist" aria-label="Filter projects by category">
-          {tags.map(tag => (
-            <button
-              key={tag}
-              role="tab"
-              aria-selected={activeFilter === tag}
-              onClick={() => handleFilter(tag)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-exo-extralight transition-all duration-200 border ${activeFilter === tag
-                ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
-                : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
-                }`}
-            >
-              {tag === 'All' ? allLabel : tag}
-              {tag !== 'All' && (
-                <span className="ml-1.5 opacity-60">({projects.filter(p => p.tag === tag).length})</span>
-              )}
-            </button>
-          ))}
+          {tags.map(tag => {
+            const isSelected = activeFilter === tag;
+            const href = tag === 'All' ? '/our-projects' : `/our-projects?category=${slugifyTag(tag)}`;
+            return (
+              <Link
+                key={tag}
+                href={href}
+                scroll={false}
+                role="tab"
+                aria-selected={isSelected}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                    e.preventDefault();
+                    handleFilter(tag);
+                  }
+                }}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-exo-extralight transition-all duration-200 border ${isSelected
+                  ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
+                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
+                  }`}
+              >
+                {tag === 'All' ? allLabel : tag}
+                {tag !== 'All' && (
+                  <span className="ml-1.5 opacity-60">({projects.filter(p => p.tag === tag).length})</span>
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Projects Grid */}
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} visible={visible} />
+              <ProjectCard key={project.slug} project={project} index={i} visible={visible} tr={tr} />
             ))}
           </div>
         ) : (
@@ -273,23 +360,23 @@ export default function ProjectsGrid({ projects }) {
               </svg>
             </div>
             <p className="text-zinc-500 dark:text-zinc-400 font-exo-extralight text-sm">
-              {t('projectsPage.emptyTitle', 'No projects found in this category.')}
+              {tr('projectsPage.emptyTitle', 'No projects found in this category.')}
             </p>
           </div>
         )}
 
         {/* Bottom CTA */}
-        <div className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div suppressHydrationWarning className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-col gap-2 text-center sm:text-left">
             <h2 className="font-exo-medium text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              {t('projectsPage.ctaTitle', 'Have a Project in Mind?')}
+              {tr('projectsPage.ctaTitle', 'Have a Project in Mind?')}
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm">
-              {t('projectsPage.ctaDesc', "We turn ideas into polished digital products. Let's talk about what we can build together.")}
+              {tr('projectsPage.ctaDesc', "We turn ideas into polished digital products. Let's talk about what we can build together.")}
             </p>
           </div>
           <Link href="/contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0">
-            {t('projectsPage.ctaBtn', 'Start a Project')}
+            {tr('projectsPage.ctaBtn', 'Start a Project')}
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>

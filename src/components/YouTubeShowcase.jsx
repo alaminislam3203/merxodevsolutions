@@ -314,9 +314,8 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                   </span>
                   <FaChevronDown
                     size={11}
-                    className={`transition-transform duration-300 ease-out ${
-                      mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
-                    }`}
+                    className={`transition-transform duration-300 ease-out ${mobilePlaylistOpen ? 'rotate-180' : 'rotate-0'
+                      }`}
                   />
                 </button>
               </div>
@@ -325,11 +324,10 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
 
           {/* Playlist Column (4 Columns on Desktop, Smooth Accordion on Mobile) */}
           <div
-            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${
-              mobilePlaylistOpen
+            className={`lg:col-span-4 grid transition-all duration-500 ease-in-out ${mobilePlaylistOpen
                 ? 'grid-rows-[1fr] opacity-100 mt-2'
                 : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none lg:pointer-events-auto'
-            } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
+              } lg:grid-rows-[1fr] lg:opacity-100 lg:mt-0`}
           >
             <div className="overflow-hidden flex flex-col gap-3 min-h-0">
               <div className="flex items-center justify-between px-1 mb-1">
@@ -338,8 +336,8 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                   <span>
                     {showAll
                       ? t('videoShowcase.allVideosTitle', `All Videos (${videos.length})`, {
-                          count: videos.length,
-                        })
+                        count: videos.length,
+                      })
                       : t('videoShowcase.featuredTitle', 'Featured Playlist (4 Videos)')}
                   </span>
                 </div>
@@ -360,11 +358,10 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                       key={video.id}
                       type="button"
                       onClick={() => handleSelectVideo(actualIndex >= 0 ? actualIndex : idx)}
-                      className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${
-                        isActive
+                      className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-300 flex gap-3.5 items-center group cursor-pointer ${isActive
                           ? 'bg-red-500/10 dark:bg-red-950/40 border-red-500/60 dark:border-red-600 shadow-md shadow-red-500/10 ring-2 ring-red-500/20'
                           : 'bg-white/80 dark:bg-zinc-900/70 border-zinc-200/80 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-700 hover:bg-white dark:hover:bg-zinc-900'
-                      }`}
+                        }`}
                     >
                       {/* Thumbnail with overlay icon */}
                       <div className="relative w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
@@ -375,16 +372,14 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                           loading="lazy"
                         />
                         <div
-                          className={`absolute inset-0 flex items-center justify-center transition-colors ${
-                            isActive ? 'bg-red-600/40' : 'bg-black/30 group-hover:bg-black/10'
-                          }`}
+                          className={`absolute inset-0 flex items-center justify-center transition-colors ${isActive ? 'bg-red-600/40' : 'bg-black/30 group-hover:bg-black/10'
+                            }`}
                         >
                           <div
-                            className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${
-                              isActive
+                            className={`w-7 h-7 rounded-full flex items-center justify-center shadow-md ${isActive
                                 ? 'bg-red-600 text-white animate-pulse'
                                 : 'bg-white/90 text-zinc-900 group-hover:scale-110 transition-transform'
-                            }`}
+                              }`}
                           >
                             <FaPlay size={10} className="ml-0.5" />
                           </div>
@@ -409,11 +404,10 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                           )}
                         </div>
                         <h4
-                          className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${
-                            isActive
+                          className={`text-xs sm:text-[13px] font-bold line-clamp-2 leading-snug transition-colors ${isActive
                               ? 'text-red-600 dark:text-red-400'
                               : 'text-zinc-900 dark:text-white group-hover:text-red-500 dark:group-hover:text-red-400'
-                          }`}
+                            }`}
                           title={video.title}
                         >
                           {video.title}
@@ -452,7 +446,7 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                   More Tutorials & Case Studies
                 </p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Subscribe to our YouTube channel for weekly tech insights, Next.js tips & project builds.
+                  Subscribe for weekly tech & dev insights.
                 </p>
                 <a
                   href={CHANNEL_URL}
