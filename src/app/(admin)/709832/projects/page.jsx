@@ -745,6 +745,27 @@ export default function ProjectsPage() {
     }
   };
 
+  const handleApproveProject = async (proj) => {
+    const targetId = proj.id || proj.slug;
+    if (!targetId) return;
+    try {
+      const res = await fetch(`/api/admin/projects/${targetId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ approveProject: true }),
+      });
+      if (res.ok) {
+        showToast(`Approved "${proj.title}"! It is now live on the website.`);
+        fetchProjects();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        showToast(data.error || "Failed to approve project", "error");
+      }
+    } catch {
+      showToast("Network error", "error");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.slug) { showToast("Slug is required.", "error"); return; }
@@ -760,7 +781,13 @@ export default function ProjectsPage() {
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const data = await res.json();
       if (res.ok) {
-        showToast(editProject ? "Project updated!" : "Project added!");
+        showToast(
+          editProject
+            ? "Project updated!"
+            : isTeamMember
+              ? "Project submitted! Waiting for Admin approval to go live."
+              : "Project added!"
+        );
         closeModal();
         fetchProjects();
       } else {
@@ -895,6 +922,35 @@ export default function ProjectsPage() {
                     </div>
                     <h3 className="project-row-title">{p.title}</h3>
                     <span className="admin-badge admin-badge-purple">{p.tag}</span>
+                    {det.approvalStatus === "PENDING" ? (
+                      <span
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: 999,
+                          background: "rgba(245, 158, 11, 0.16)",
+                          color: "#fbbf24",
+                          border: "1px solid rgba(245, 158, 11, 0.35)",
+                        }}
+                      >
+                        Pending Approval{det.submittedBy ? ` • by ${det.submittedBy}` : ""}
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: 10.5,
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: 999,
+                          background: "rgba(16, 185, 129, 0.14)",
+                          color: "#34d399",
+                          border: "1px solid rgba(16, 185, 129, 0.3)",
+                        }}
+                      >
+                        Approved / Live
+                      </span>
+                    )}
                   </div>
                   <p className="project-row-slug">/{p.slug}</p>
                   <p className="project-row-desc">{p.description?.slice(0, 100)}{(p.description?.length || 0) > 100 ? "..." : ""}</p>
@@ -905,6 +961,21 @@ export default function ProjectsPage() {
                   )}
                 </div>
                 <div className="project-row-actions">
+                  {!isTeamMember && det.approvalStatus === "PENDING" && (
+                    <button
+                      type="button"
+                      className="admin-btn admin-btn-primary"
+                      style={{
+                        padding: "8px 14px",
+                        background: "linear-gradient(135deg, #10b981, #059669)",
+                        border: "none",
+                      }}
+                      onClick={() => handleApproveProject(p)}
+                      title="Approve & publish this project on the live website"
+                    >
+                      ✓ Approve
+                    </button>
+                  )}
                   <a
                     href={`/our-projects/${p.slug}`}
                     target="_blank"

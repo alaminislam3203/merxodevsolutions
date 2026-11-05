@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+import { logActivity } from "@/lib/workspaceStore";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +33,7 @@ export async function GET(request, { params }) {
 
 // PUT /api/admin/projects/[id]
 export async function PUT(request, { params }) {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, session, response } = await requireAdmin();
   if (!authorized) return response;
 
   try {
@@ -80,6 +81,21 @@ export async function PUT(request, { params }) {
       }
     }
 
+    const existingDetails =
+      existing.details && typeof existing.details === "object"
+        ? existing.details
+        : {};
+    const incomingDetails =
+      body.details !== undefined && typeof body.details === "object"
+        ? { ...existingDetails, ...body.details }
+        : { ...existingDetails };
+
+    if (body.approveProject === true) {
+      incomingDetails.approvalStatus = "APPROVED";
+      incomingDetails.approvedBy = session?.user?.name || session?.user?.email || "Admin";
+      incomingDetails.approvedAt = new Date().toISOString();
+    }
+
     // 3. Prepare sanitized update data
     const updateData = {
       slug: targetSlug,
@@ -90,7 +106,7 @@ export async function PUT(request, { params }) {
       image: body.image !== undefined ? (body.image || null) : existing.image,
       images: body.images !== undefined ? body.images : existing.images,
       liveUrl: body.liveUrl !== undefined ? (body.liveUrl || null) : existing.liveUrl,
-      details: body.details !== undefined ? body.details : existing.details,
+      details: incomingDetails,
       order: body.order !== undefined && body.order !== null && !isNaN(Number(body.order)) ? Number(body.order) : existing.order,
     };
 
@@ -118,6 +134,15 @@ export async function PUT(request, { params }) {
       } else {
         throw updateErr;
       }
+    }
+
+    if (body.approveProject === true) {
+      await logActivity({
+        user: session?.user,
+        action: "PROJECT_APPROVED",
+        target: project.title,
+        details: `Approved and published project "${project.title}"`,
+      });
     }
 
     // Invalidate site cache so changes immediately show on Vercel

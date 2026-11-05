@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+import { logActivity } from "@/lib/workspaceStore";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,7 @@ export async function GET() {
 
 // POST /api/admin/projects
 export async function POST(request) {
-  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
+  const { authorized, session, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
@@ -42,7 +43,19 @@ export async function POST(request) {
       return NextResponse.json({ error: "slug, title, tag and accent are required" }, { status: 400 });
     }
 
+    const isTeamMember = session?.user?.role === "TEAM_MEMBER";
     const projectOrder = order !== undefined && order !== null && !isNaN(Number(order)) ? Number(order) : 0;
+    const baseDetails = details && typeof details === "object"
+      ? details
+      : { client: "", duration: "", tech: [], features: [] };
+
+    const enrichedDetails = {
+      ...baseDetails,
+      approvalStatus: isTeamMember ? "PENDING" : "APPROVED",
+      submittedBy: session?.user?.name || session?.user?.email || "Admin",
+      submittedByEmail: session?.user?.email || "",
+      submittedByRole: session?.user?.role || "ADMIN",
+    };
 
     let project;
     try {
@@ -56,7 +69,7 @@ export async function POST(request) {
           images: images || { mobile: [], desktop: [] },
           liveUrl: liveUrl || null,
           accent,
-          details: details || { client: "", duration: "", tech: [], features: [] },
+          details: enrichedDetails,
           order: projectOrder,
         },
       });
@@ -71,7 +84,7 @@ export async function POST(request) {
           images: images || { mobile: [], desktop: [] },
           liveUrl: liveUrl || null,
           accent,
-          details: details || { client: "", duration: "", tech: [], features: [] },
+          details: enrichedDetails,
         },
       });
       try {
@@ -82,6 +95,15 @@ export async function POST(request) {
         console.warn("Failed to set raw order on Project:", rawErr);
       }
     }
+
+    await logActivity({
+      user: session?.user,
+      action: isTeamMember ? "PROJECT_SUBMITTED" : "PROJECT_CREATED",
+      target: title,
+      details: isTeamMember
+        ? `Submitted project "${title}" for Admin approval`
+        : `Created and published project "${title}"`,
+    });
 
     // Invalidate site cache so changes immediately show on Vercel
     try {

@@ -5,16 +5,22 @@ import prisma from "@/lib/prisma";
  */
 export async function getAllProjects() {
   try {
+    let rows = [];
     try {
-      return await prisma.project.findMany({
+      rows = await prisma.project.findMany({
         orderBy: [{ order: "asc" }, { createdAt: "desc" }],
       });
     } catch (orderErr) {
       console.warn("Fallback query without order sort:", orderErr?.message);
-      return await prisma.project.findMany({
+      rows = await prisma.project.findMany({
         orderBy: { createdAt: "desc" },
       });
     }
+    // Filter out projects pending admin approval
+    return (rows || []).filter((p) => {
+      const status = p?.details?.approvalStatus;
+      return status !== "PENDING";
+    });
   } catch (err) {
     console.error("Error fetching all projects from DB:", err.message);
     return [];
