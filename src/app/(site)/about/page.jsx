@@ -2,12 +2,25 @@ import { getTeamMembers } from '@/app/lib/team';
 import AboutClient from './AboutClient';
 
 export const metadata = {
-  title: 'About Us — MerxoDev Solutions | Tech & Web Agency Bangladesh',
+  title: 'About Us — MerxoDev Solutions (Merxo Dev) | Tech & Web Agency Bangladesh',
   description:
-    'Discover MerxoDev Solutions: A passionate team of engineers and designers building modern web applications, e-commerce systems, and scalable software in Bangladesh.',
+    'Discover MerxoDev Solutions (Merxo Dev Solutions / Merxo Dev Solution / Merxo Dev): A passionate team of engineers and designers building modern web applications, e-commerce systems, and scalable software in Bangladesh. Contact: merxodevsolutions@gmail.com | +8801313334279.',
   keywords: [
+    // Brand & Contact Variations
+    'MerxoDev Solutions',
+    'Merxo Dev Solutions',
+    'Merxo Dev Solution',
+    'MerxoDev Solution',
+    'Merxo Dev',
+    'MerxoDev',
+    'merxodevsolutions@gmail.com',
+    '+8801313334279',
+    '01313334279',
+    '+8809697634279',
+    '09697634279',
     // English
     'about MerxoDev Solutions',
+    'about Merxo Dev',
     'software development company Bangladesh',
     'web development agency Rangpur',
     'full stack development team',

@@ -17,10 +17,25 @@ import { getAllProjects } from '@/app/lib/projects';
 import { getLatestYouTubeVideos } from '@/app/lib/youtube';
 
 export const metadata = {
-  title: 'MerxoDev Solutions – Custom Web & App Development Agency Bangladesh',
+  title: 'MerxoDev Solutions (Merxo Dev) – Custom Web & App Development Agency Bangladesh',
   description:
-    'Top-rated custom web & app development agency in Bangladesh. We build ultra-fast Next.js websites, SaaS platforms, e-commerce stores, and high-converting digital products.',
+    'MerxoDev Solutions (also known as Merxo Dev Solutions, Merxo Dev Solution & Merxo Dev) is a top-rated custom web & app development agency in Bangladesh. Contact us at merxodevsolutions@gmail.com or call +8801313334279 (01313334279) / +8809697634279.',
   keywords: [
+    // Brand & Contact Variations
+    'MerxoDev Solutions',
+    'Merxo Dev Solutions',
+    'Merxo Dev Solution',
+    'MerxoDev Solution',
+    'Merxo Dev',
+    'MerxoDev',
+    'merxodevsolutions@gmail.com',
+    '+8801313334279',
+    '01313334279',
+    '+880 1313-334279',
+    '+880 1313 334279',
+    '+8809697634279',
+    '09697634279',
+    '+880 9697-634279',
     // English
     'web development company Bangladesh',
     'Next.js development agency',
@@ -93,10 +108,18 @@ export default async function Home() {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'MerxoDev Solutions',
+    alternateName: [
+      'Merxo Dev Solutions',
+      'Merxo Dev Solution',
+      'MerxoDev Solution',
+      'Merxo Dev',
+      'MerxoDev',
+    ],
     image: 'https://merxodevsolutions.pro.bd/logo.png',
     '@id': 'https://merxodevsolutions.pro.bd/#business',
     url: 'https://merxodevsolutions.pro.bd',
     telephone: '+8801313334279',
+    email: 'merxodevsolutions@gmail.com',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
@@ -104,6 +127,22 @@ export default async function Home() {
       addressRegion: 'Rangpur Division',
       addressCountry: 'BD',
     },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+8801313334279',
+        email: 'merxodevsolutions@gmail.com',
+        contactType: 'customer service',
+        availableLanguage: ['English', 'Bengali'],
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: '+8809697634279',
+        email: 'merxodevsolutions@gmail.com',
+        contactType: 'sales',
+        availableLanguage: ['English', 'Bengali'],
+      },
+    ],
     geo: {
       '@type': 'GeoCoordinates',
       latitude: 25.7439,
@@ -125,8 +164,10 @@ export default async function Home() {
     sameAs: [
       'https://www.facebook.com/merxodevsolutions',
       'https://twitter.com/merxodevsolutions',
+      'https://www.linkedin.com/in/merxodevsolutions',
       'https://linkedin.com/company/merxodevsolutions',
-      'https://github.com/merxodevsolutions',
+      'https://github.com/MerxoDev-Solutions',
+      'https://www.youtube.com/@merxodevsolutions',
     ],
   };
 
@@ -136,6 +177,14 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
+      <div className="sr-only">
+        <h2>MerxoDev Solutions | Merxo Dev Solutions | Merxo Dev Solution | Merxo Dev</h2>
+        <p>
+          Official Website of MerxoDev Solutions (also searched as Merxo Dev Solutions, Merxo Dev Solution, MerxoDev Solution, and Merxo Dev).
+          Official Email: merxodevsolutions@gmail.com.
+          Official Phone & WhatsApp Numbers: +8801313334279, +880 1313-334279, +880 1313 334279, 01313334279, 01313-334279, +8809697634279, +880 9697-634279, 09697634279.
+        </p>
+      </div>
       <HeroCarousel />
       <ServicesPreview />
       <Hero />
