@@ -165,9 +165,9 @@ export async function POST(request) {
     if (wantsHuman) {
       const humanReply =
         lang === 'bn'
-          ? '🔔 আমি আমাদের **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট সাউন্ড নোটিফিকেশন** পাঠিয়ে দিয়েছি! অ্যাডমিন যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
+          ? '🔔 আমি আমাদের **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন** পাঠিয়ে দিয়েছি! অ্যাডমিন যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
           : lang === 'banglish'
-          ? '🔔 Ami amader **Live Admin ke instant sound notification** pathiye diyechi! Admin ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
+          ? '🔔 Ami amader **Live Admin ke instant notification** pathiye diyechi! Admin ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
           : '🔔 I have alerted our **Live Admin** with an instant notification! An admin can join this chat live at any moment.\n\nIn the meantime, please share your **Name & WhatsApp number** or ask me anything about MerxoDev Solutions!';
 
       const botMsg = await addChatMessage(sessionId, {
