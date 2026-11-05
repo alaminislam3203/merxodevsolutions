@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useSession } from "next-auth/react";
 import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers, FiPlus, FiTrash2, FiList, FiCheck, FiEye, FiExternalLink } from "react-icons/fi";
 import { showToast } from "@/lib/toast";
 
@@ -538,6 +539,11 @@ export default function ProjectsPage() {
   const [tagOptions, setTagOptions] = useState(DEFAULT_TAGS);
   const [showNewTag, setShowNewTag] = useState(false);
   const [newTagInput, setNewTagInput] = useState("");
+  const { data: session } = useSession();
+  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
+  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
+  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
   const fetchProjects = useCallback(async () => {
     setLoading(true);
@@ -584,6 +590,10 @@ export default function ProjectsPage() {
   };
 
   const openEdit = (p) => {
+    if (isTeamMember) {
+      showToast("Team members can only add new projects, not edit existing ones.", "error");
+      return;
+    }
     setEditProject(p);
     const det = p.details || {};
     const imgs = p.images || {};
@@ -849,33 +859,39 @@ export default function ProjectsPage() {
                       title="Display Order (1 = first). Change and press Enter or click away to save."
                     >
                       <span style={{ fontSize: 11, color: "#a5b4fc", fontWeight: 700, fontFamily: "monospace" }}>#</span>
-                      <input
-                        type="number"
-                        defaultValue={p.order ?? 0}
-                        key={`${p.id}-${p.order}`}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.currentTarget.blur();
-                          }
-                        }}
-                        onBlur={(e) => {
-                          const val = parseInt(e.target.value, 10);
-                          if (!isNaN(val) && val !== (p.order ?? 0)) {
-                            handleQuickOrder(p, val);
-                          }
-                        }}
-                        style={{
-                          width: 44,
-                          background: "rgba(0, 0, 0, 0.35)",
-                          border: "1px solid rgba(255, 255, 255, 0.15)",
-                          borderRadius: 4,
-                          color: "#fff",
-                          fontSize: 11,
-                          fontWeight: 700,
-                          textAlign: "center",
-                          padding: "1px 2px",
-                        }}
-                      />
+                      {isTeamMember ? (
+                        <span style={{ fontSize: 11, color: "#fff", fontWeight: 700, padding: "1px 4px" }}>
+                          {p.order ?? 0}
+                        </span>
+                      ) : (
+                        <input
+                          type="number"
+                          defaultValue={p.order ?? 0}
+                          key={`${p.id}-${p.order}`}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.currentTarget.blur();
+                            }
+                          }}
+                          onBlur={(e) => {
+                            const val = parseInt(e.target.value, 10);
+                            if (!isNaN(val) && val !== (p.order ?? 0)) {
+                              handleQuickOrder(p, val);
+                            }
+                          }}
+                          style={{
+                            width: 44,
+                            background: "rgba(0, 0, 0, 0.35)",
+                            border: "1px solid rgba(255, 255, 255, 0.15)",
+                            borderRadius: 4,
+                            color: "#fff",
+                            fontSize: 11,
+                            fontWeight: 700,
+                            textAlign: "center",
+                            padding: "1px 2px",
+                          }}
+                        />
+                      )}
                     </div>
                     <h3 className="project-row-title">{p.title}</h3>
                     <span className="admin-badge admin-badge-purple">{p.tag}</span>
@@ -908,21 +924,25 @@ export default function ProjectsPage() {
                       Live
                     </a>
                   )}
-                  <button className="admin-btn admin-btn-secondary" style={{ padding: "8px 12px" }} onClick={() => openEdit(p)}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                    </svg>
-                    Edit
-                  </button>
-                  <button className="admin-btn admin-btn-danger" style={{ padding: "8px 12px" }} onClick={() => handleDelete(p)} disabled={deleting === p.id || deleting === p.slug}>
-                    {(deleting === p.id || deleting === p.slug) ? <div className="admin-spinner-btn"></div> : (
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                      </svg>
-                    )}
-                    Delete
-                  </button>
+                  {!isTeamMember && (
+                    <>
+                      <button className="admin-btn admin-btn-secondary" style={{ padding: "8px 12px" }} onClick={() => openEdit(p)}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                        Edit
+                      </button>
+                      <button className="admin-btn admin-btn-danger" style={{ padding: "8px 12px" }} onClick={() => handleDelete(p)} disabled={deleting === p.id || deleting === p.slug}>
+                        {(deleting === p.id || deleting === p.slug) ? <div className="admin-spinner-btn"></div> : (
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                          </svg>
+                        )}
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             );
