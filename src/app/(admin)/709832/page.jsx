@@ -176,6 +176,14 @@ function DashboardView({ isTeamMember = false }) {
             bg: "rgba(245,158,11,0.12)",
             icon: <FiCheckCircle size={22} />,
           },
+          {
+            href: "/709832/team",
+            title: "Team Members",
+            desc: "View team directory & edit your own profile",
+            color: "#8b5cf6",
+            bg: "rgba(139,92,246,0.12)",
+            icon: <FiUsers size={22} />,
+          },
         ]
       : [
           {

@@ -271,7 +271,7 @@ function AdminSidebar() {
     {
       href: "/709832/team",
       label: "Team",
-      teamAllowed: false,
+      teamAllowed: true,
       icon: <HiUserGroup size={20} />,
     },
     {
@@ -488,6 +488,7 @@ function AdminLayoutShell({ children }) {
         "/709832/projects",
         "/709832/images",
         "/709832/reviews",
+        "/709832/team",
       ];
       const isAllowed = allowedTeamPrefixes.some((prefix) =>
         pathname.startsWith(prefix)
