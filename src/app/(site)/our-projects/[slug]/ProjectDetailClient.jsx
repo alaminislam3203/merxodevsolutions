@@ -1,14 +1,20 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
-import BrowserScrollCard from '@/components/BrowserScrollCard';
-import { truncateWords } from '@/lib/utils';
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
+import BrowserScrollCard from "@/components/BrowserScrollCard";
+import { truncateWords } from "@/lib/utils";
 
-export default function ProjectDetailClient({ project, related, card1Image, card2Image, a }) {
+export default function ProjectDetailClient({
+  project,
+  related,
+  card1Image,
+  card2Image,
+  a,
+}) {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
@@ -20,13 +26,20 @@ export default function ProjectDetailClient({ project, related, card1Image, card
   const details = project.details || {};
 
   return (
-    <main suppressHydrationWarning className="min-h-screen pb-24 pt-20 sm:pt-24">
+    <main
+      suppressHydrationWarning
+      className="min-h-screen pb-24 pt-20 sm:pt-24"
+    >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-4">
         {/* ── Back button ── */}
         <div>
           <Link
-            href={project.tag ? `/our-projects?category=${encodeURIComponent(project.tag.toLowerCase().replace(/\s+/g, '-'))}` : '/our-projects'}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold font-exo-extralight uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow hover:-translate-x-0.5 ${a.border} ${a.back}`}
+            href={
+              project.tag
+                ? `/our-projects?category=${encodeURIComponent(project.tag.toLowerCase().replace(/\s+/g, "-"))}`
+                : "/our-projects"
+            }
+            className={`mt-6 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold font-exo-extralight uppercase tracking-widest transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow hover:-translate-x-0.5 ${a.border} ${a.back}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +55,7 @@ export default function ProjectDetailClient({ project, related, card1Image, card
             >
               <polyline points="15 18 9 12 15 6" />
             </svg>
-            {tr('projectDetail.back', 'Back')}
+            {tr("projectDetail.back", "Back")}
           </Link>
         </div>
 
@@ -50,7 +63,7 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         <div className="flex flex-col gap-3">
           {project.tag ? (
             <Link
-              href={`/our-projects?category=${encodeURIComponent(project.tag.toLowerCase().replace(/\s+/g, '-'))}`}
+              href={`/our-projects?category=${encodeURIComponent(project.tag.toLowerCase().replace(/\s+/g, "-"))}`}
               className={`inline-block w-fit text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight transition-all hover:scale-105 ${a.tag}`}
             >
               {project.tag}
@@ -88,7 +101,8 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
           <div className="max-w-2xl flex flex-col gap-3">
             <h2 className="font-exo-medium text-lg sm:text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              {details.descriptionTitle || tr('projectDetail.aboutProject', 'About The Project')}
+              {details.descriptionTitle ||
+                tr("projectDetail.aboutProject", "About The Project")}
             </h2>
             <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight whitespace-pre-line">
               {project.description}
@@ -101,7 +115,7 @@ export default function ProjectDetailClient({ project, related, card1Image, card
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
             >
-              {tr('projectDetail.viewLive', 'View Live')}
+              {tr("projectDetail.viewLive", "View Live")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -128,10 +142,22 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         {/* Meta Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[
-            { label: tr('projectDetail.client', 'Client'), value: details.client || '-' },
-            { label: tr('projectDetail.duration', 'Duration'), value: details.duration || '-' },
-            { label: tr('projectDetail.category', 'Category'), value: project.tag },
-            { label: tr('projectDetail.stack', 'Stack'), value: `${(details.tech || []).length} ${tr('projectDetail.technologies', 'technologies')}` },
+            {
+              label: tr("projectDetail.client", "Client"),
+              value: details.client || "-",
+            },
+            {
+              label: tr("projectDetail.duration", "Duration"),
+              value: details.duration || "-",
+            },
+            {
+              label: tr("projectDetail.category", "Category"),
+              value: project.tag,
+            },
+            {
+              label: tr("projectDetail.stack", "Stack"),
+              value: `${(details.tech || []).length} ${tr("projectDetail.technologies", "technologies")}`,
+            },
           ].map(({ label, value }) => (
             <div key={label} className="flex flex-col gap-1">
               <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-exo-extralight">
@@ -150,10 +176,10 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         {/* Tech Stack */}
         <div className="flex flex-col gap-4">
           <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-            {tr('projectDetail.techStack', 'Tech Stack')}
+            {tr("projectDetail.techStack", "Tech Stack")}
           </h2>
           <div className="flex flex-wrap gap-2">
-            {(details.tech || []).map(tItem => (
+            {(details.tech || []).map((tItem) => (
               <span
                 key={tItem}
                 className={`text-xs font-bold px-4 py-1.5 rounded-full font-exo-extralight tracking-wide ${a.badge}`}
@@ -171,43 +197,49 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              {tr('projectDetail.keyFeatures', 'Key Features')}
+              {tr("projectDetail.keyFeatures", "Key Features")}
             </h2>
             {details.features && details.features.length > 0 && (
               <span className="text-xs font-semibold px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                {details.features.length} {tr('projectDetail.highlights', 'Highlights')}
+                {details.features.length}{" "}
+                {tr("projectDetail.highlights", "Highlights")}
               </span>
             )}
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {(details.features || []).map((f, i) => {
-              let title = '';
-              let fStyle = details.featureStyle || 'dot';
+              let title = "";
+              let fStyle = details.featureStyle || "dot";
               let subtitles = [];
 
-              if (typeof f === 'object' && f !== null) {
-                title = f.title || '';
-                fStyle = f.style || details.featureStyle || 'dot';
+              if (typeof f === "object" && f !== null) {
+                title = f.title || "";
+                fStyle = f.style || details.featureStyle || "dot";
                 if (Array.isArray(f.subtitles)) {
-                  subtitles = f.subtitles.map(s => {
-                    if (typeof s === 'string') return { text: s, style: 'dot' };
-                    return { text: s?.text || '', style: s?.style || 'dot' };
-                  }).filter(s => s.text);
+                  subtitles = f.subtitles
+                    .map((s) => {
+                      if (typeof s === "string")
+                        return { text: s, style: "dot" };
+                      return { text: s?.text || "", style: s?.style || "dot" };
+                    })
+                    .filter((s) => s.text);
                 } else if (f.subtitle) {
-                  subtitles = [{ text: f.subtitle, style: 'dot' }];
+                  subtitles = [{ text: f.subtitle, style: "dot" }];
                 }
-              } else if (typeof f === 'string') {
-                const parts = f.split(' — ');
+              } else if (typeof f === "string") {
+                const parts = f.split(" — ");
                 title = parts[0].trim();
-                fStyle = details.featureStyle || 'dot';
+                fStyle = details.featureStyle || "dot";
                 if (parts.length > 1) {
-                  subtitles = [{ text: parts.slice(1).join(' — ').trim(), style: 'dot' }];
+                  subtitles = [
+                    { text: parts.slice(1).join(" — ").trim(), style: "dot" },
+                  ];
                 }
               }
 
               if (!title && subtitles.length === 0) return null;
 
-              const isNumberStyle = fStyle === 'number';
+              const isNumberStyle = fStyle === "number";
 
               return (
                 <li
@@ -219,7 +251,7 @@ export default function ProjectDetailClient({ project, related, card1Image, card
                     <span
                       className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 font-dm shadow-sm ${a.badge} border ${a.border}`}
                     >
-                      {String(i + 1).padStart(2, '0')}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                   ) : (
                     <span
@@ -240,7 +272,7 @@ export default function ProjectDetailClient({ project, related, card1Image, card
                     {subtitles.length > 0 && (
                       <div className="flex flex-col gap-1.5">
                         {subtitles.map((sub, sIdx) => {
-                          const isSubNumber = sub.style === 'number';
+                          const isSubNumber = sub.style === "number";
                           return (
                             <div key={sIdx} className="flex items-start gap-2">
                               {isSubNumber ? (
@@ -273,10 +305,10 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         {/* Related Projects */}
         <div className="flex flex-col gap-5">
           <h2 className="font-exo-medium text-lg font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-            {tr('projectDetail.otherProjects', 'Other Projects')}
+            {tr("projectDetail.otherProjects", "Other Projects")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {related.map(rp => {
+            {related.map((rp) => {
               const ra = a;
               return (
                 <Link
@@ -333,17 +365,20 @@ export default function ProjectDetailClient({ project, related, card1Image, card
         >
           <div className="flex flex-col gap-1 text-center sm:text-left">
             <h3 className="font-exo-medium text-base font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              {tr('projectDetail.likeWhatYouSee', 'Like What You See?')}
+              {tr("projectDetail.likeWhatYouSee", "Like What You See?")}
             </h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-              {tr('projectDetail.buildTogether', "Let's build something amazing together.")}
+              {tr(
+                "projectDetail.buildTogether",
+                "Let's build something amazing together.",
+              )}
             </p>
           </div>
           <Link
             href="/contact"
             className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0 ${a.btn}`}
           >
-            {tr('projectDetail.startProject', 'Start a Project')}
+            {tr("projectDetail.startProject", "Start a Project")}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
