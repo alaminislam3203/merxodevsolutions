@@ -242,6 +242,9 @@ export default function AIChatbot() {
         body: JSON.stringify({
           sessionId,
           action: "request_human",
+          visitorName: loggedInName || undefined,
+          visitorEmail: loggedInEmail || undefined,
+          visitorImage: loggedInImage || undefined,
         }),
       });
       const data = await res.json();
@@ -295,6 +298,9 @@ export default function AIChatbot() {
         body: JSON.stringify({
           sessionId,
           message: query,
+          visitorName: loggedInName || undefined,
+          visitorEmail: loggedInEmail || undefined,
+          visitorImage: loggedInImage || undefined,
         }),
       });
 
@@ -693,21 +699,23 @@ export default function AIChatbot() {
                   <div
                     className={`flex flex-col max-w-[82%] ${isUser ? "items-end" : "items-start"}`}
                   >
-                    {/* Sender Label for Admin or AI */}
-                    {!isUser && (
-                      <div className="flex items-center gap-1.5 mb-1 px-1">
-                        {isAdmin ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
-                            Live Admin (MerxoDev Team)
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
-                            <MdSupportAgent className="w-3 h-3" />
-                            MerxoDev AI Support
-                          </span>
-                        )}
-                      </div>
-                    )}
+                    {/* Sender Label for User, Admin, or AI */}
+                    <div className="flex items-center gap-1.5 mb-1 px-1">
+                      {isUser ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-700 dark:text-cyan-300">
+                          {loggedInName || "Visitor"}
+                        </span>
+                      ) : isAdmin ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
+                          Live Admin (MerxoDev Team)
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
+                          <MdSupportAgent className="w-3 h-3" />
+                          MerxoDev AI Support
+                        </span>
+                      )}
+                    </div>
 
                     <div
                       className={`w-full rounded-2xl px-4 py-3 shadow-sm ${
@@ -756,6 +764,29 @@ export default function AIChatbot() {
                       {formatTime(msg.createdAt || msg.timestamp)}
                     </span>
                   </div>
+
+                  {/* Side Avatar for User (User Photo like favicon.png when logged in, or User icon) */}
+                  {isUser && (
+                    <div className="shrink-0 mb-4">
+                      {loggedInImage ? (
+                        <div className="w-7 h-7 rounded-xl bg-white dark:bg-zinc-900 border border-violet-300 dark:border-cyan-500/50 overflow-hidden flex items-center justify-center shadow-sm">
+                          <img
+                            src={loggedInImage}
+                            alt={loggedInName || "User"}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center shadow-sm text-[11px] font-extrabold">
+                          {loggedInName ? (
+                            loggedInName.charAt(0).toUpperCase()
+                          ) : (
+                            <FaUser className="w-3.5 h-3.5" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}
