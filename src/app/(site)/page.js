@@ -17,17 +17,30 @@ import { getAllProjects } from '@/app/lib/projects';
 import { getLatestYouTubeVideos } from '@/app/lib/youtube';
 
 export const metadata = {
-  title: 'MerxoDev Solutions (Merxo Dev) – Custom Web & App Development Agency Bangladesh',
+  title: 'MerxoDev Solutions (merxodev / মারক্সোডেভ সলিউশনস) – Web & App Development Bangladesh',
   description:
-    'MerxoDev Solutions (also known as Merxo Dev Solutions, Merxo Dev Solution & Merxo Dev) is a top-rated custom web & app development agency in Bangladesh. Contact us at merxodevsolutions@gmail.com or call +8801313334279 (01313334279) / +8809697634279.',
+    'MerxoDev Solutions (merxodev, merxodev solution, Merxo Dev, মারক্সোডেভ সলিউশনস, মেরক্সোডেভ সলিউশন) is a top-rated custom web & app development agency in Bangladesh. Contact: merxodevsolutions@gmail.com | +8801313334279 (01313334279) | +8809697634279.',
   keywords: [
-    // Brand & Contact Variations
+    // Brand & Contact Variations (English & Bengali)
+    'merxodev',
+    'merxodev solution',
+    'merxodev solutions',
     'MerxoDev Solutions',
     'Merxo Dev Solutions',
     'Merxo Dev Solution',
     'MerxoDev Solution',
     'Merxo Dev',
     'MerxoDev',
+    'মারক্সোডেভ',
+    'মারক্সোডেভ সলিউশন',
+    'মারক্সোডেভ সলিউশনস',
+    'মারক্সো ডেভ',
+    'মারক্সো ডেভ সলিউশন',
+    'মারক্সো ডেভ সলিউশনস',
+    'মেরক্সোডেভ',
+    'মেরক্সোডেভ সলিউশন',
+    'মেরক্সোডেভ সলিউশনস',
+    'মেরক্সো ডেভ',
     'merxodevsolutions@gmail.com',
     '+8801313334279',
     '01313334279',
@@ -50,12 +63,14 @@ export const metadata = {
     // Bengali (বাংলা)
     'ওয়েবসাইট বানানোর খরচ',
     'সফটওয়্যার কোম্পানি বাংলাদেশ',
+    'সেরা ওয়েব ডেভেলপমেন্ট কোম্পানি বাংলাদেশ',
     'ওয়েব ডেভেলপমেন্ট সার্ভিস রংপুর',
     'ই-কমার্স ওয়েবসাইট তৈরি',
     'ওয়েবসাইট তৈরির খরচ কত',
     'কাস্টম ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট',
     'প্রফেশনাল ওয়েবসাইট তৈরি রংপুর ঢাকা',
     'মোবাইল অ্যাপ ও ওয়েবসাইট ডেভেলপমেন্ট',
+    'বাংলাদেশের সেরা সফটওয়্যার কোম্পানি',
     // Banglish (বাংলিশ)
     'website banate koto taka lage',
     'website bananor company bangladesh',
