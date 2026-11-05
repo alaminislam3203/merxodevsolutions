@@ -258,20 +258,11 @@ export default function Navbar() {
                 alt="MerxoDev Icon"
                 width={40}
                 height={40}
-                className="h-8 sm:h-9 md:h-10 w-auto object-contain"
+                className="h-11 sm:h-12 md:h-14 w-auto object-contain"
                 priority
                 unoptimized
               />
-              {/* Text Logo */}
-              <Image
-                src="/logo.png"
-                alt="MerxoDev Solutions"
-                width={120}
-                height={20}
-                className="h-5 sm:h-6 md:h-7 w-auto object-contain"
-                priority
-                unoptimized
-              />
+            
             </Link>
 
             {/* Search Bar on Desktop (Wider / Expanded) */}
