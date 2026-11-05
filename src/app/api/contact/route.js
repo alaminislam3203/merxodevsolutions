@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
+import { getBrandEmailAttachments } from '@/lib/templates/brandEmailLayout';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 function createNodemailerTransporter() {
@@ -21,7 +22,7 @@ function createNodemailerTransporter() {
  * Tries Resend first, if Resend is unavailable or fails (e.g. unverified test domain),
  * smoothly falls back to Gmail SMTP so admin always receives inquiry emails.
  */
-async function dispatchEmail({ to, subject, html, text, replyTo }) {
+async function dispatchEmail({ to, subject, htmlCid, htmlPublic, text, replyTo }) {
   let resendSuccess = false;
 
   // 1. Attempt Resend
@@ -35,7 +36,7 @@ async function dispatchEmail({ to, subject, html, text, replyTo }) {
         replyTo,
         subject,
         text,
-        html,
+        html: htmlPublic || htmlCid,
       });
 
       if (!res.error) {
@@ -49,7 +50,7 @@ async function dispatchEmail({ to, subject, html, text, replyTo }) {
     }
   }
 
-  // 2. Fallback to Gmail SMTP via Nodemailer
+  // 2. Fallback to Gmail SMTP via Nodemailer (with inline logo.png & favicon.png attachments)
   const transporter = createNodemailerTransporter();
   if (transporter) {
     try {
@@ -59,7 +60,8 @@ async function dispatchEmail({ to, subject, html, text, replyTo }) {
         replyTo: replyTo || process.env.GMAIL_USER,
         subject,
         text,
-        html,
+        html: htmlCid,
+        attachments: getBrandEmailAttachments(),
         headers: {
           'X-Priority': '3',
           'X-MSMail-Priority': 'Normal',
@@ -133,7 +135,7 @@ Message:
 ${message}
 Received: ${now.toLocaleString()}`;
 
-    const adminHtml = emailTemplate({
+    const adminHtmlCid = emailTemplate({
       name,
       email,
       phone,
@@ -141,13 +143,26 @@ Received: ${now.toLocaleString()}`;
       budget,
       message,
       createdAt: now,
+      useCid: true,
+    });
+
+    const adminHtmlPublic = emailTemplate({
+      name,
+      email,
+      phone,
+      service,
+      budget,
+      message,
+      createdAt: now,
+      useCid: false,
     });
 
     // Send Admin Notification email only (no auto-reply sent to client)
     const adminResult = await dispatchEmail({
       to: adminInbox,
       subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
-      html: adminHtml,
+      htmlCid: adminHtmlCid,
+      htmlPublic: adminHtmlPublic,
       text: adminPlainText,
       replyTo: email,
     });
