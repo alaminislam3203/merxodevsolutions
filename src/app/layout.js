@@ -163,9 +163,14 @@ export const metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: [
+      { url: '/favicon.png?v=2', type: 'image/png', sizes: '512x512' },
+      { url: '/favicon.ico?v=2', sizes: 'any' },
+    ],
+    shortcut: '/favicon.png?v=2',
+    apple: [
+      { url: '/favicon.png?v=2', sizes: '180x180', type: 'image/png' },
+    ],
   },
   category: 'technology',
   classification: 'Web Development Agency',

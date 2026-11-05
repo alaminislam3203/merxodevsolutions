@@ -18,6 +18,8 @@ export default function robots() {
       {
         userAgent: [
           'Googlebot',
+          'Googlebot-Image',
+          'Google-Favicon',
           'Google-Extended',
           'Bingbot',
           'GPTBot',
