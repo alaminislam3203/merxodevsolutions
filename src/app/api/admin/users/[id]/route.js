@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { requireAdmin } from "@/lib/adminAuth";
+import { sendBrandEmail } from "@/lib/templates/brandEmailLayout";
+import { roleUpgradeTemplate } from "@/lib/templates/agencyEmailTemplates";
 
 export const dynamic = "force-dynamic";
 
@@ -67,6 +69,30 @@ export async function PUT(request, { params }) {
           updatedAt: true,
         },
       });
+
+      // Send Role Upgrade / Team Invitation Email when promoted to TEAM_MEMBER or ADMIN
+      if (
+        updateData.role &&
+        updateData.role !== user.role &&
+        (updateData.role === "TEAM_MEMBER" || updateData.role === "ADMIN")
+      ) {
+        try {
+          await sendBrandEmail({
+            to: updated.email,
+            subject: `Welcome to the MerxoDev Solutions Team! (${updateData.role.replace("_", " ")})`,
+            buildHtml: (useCid) =>
+              roleUpgradeTemplate({
+                name: updated.name,
+                email: updated.email,
+                role: updateData.role,
+                useCid,
+              }),
+            text: `Congratulations ${updated.name}! Your account (${updated.email}) has been granted ${updateData.role} access at MerxoDev Solutions.`,
+          });
+        } catch (mailErr) {
+          console.warn("Role upgrade email warning:", mailErr.message);
+        }
+      }
 
       return NextResponse.json({
         success: true,

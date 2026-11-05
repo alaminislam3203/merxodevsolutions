@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { sendBrandEmail } from '@/lib/templates/brandEmailLayout';
+import { welcomeUserTemplate } from '@/lib/templates/agencyEmailTemplates';
 
 export async function POST(request) {
   try {
@@ -52,6 +54,23 @@ export async function POST(request) {
         createdAt: true,
       },
     });
+
+    // Send White-Background Welcome Email with logo.png & favicon.png
+    try {
+      await sendBrandEmail({
+        to: newUser.email,
+        subject: `Welcome to MerxoDev Solutions, ${newUser.name}! 🎉`,
+        buildHtml: (useCid) =>
+          welcomeUserTemplate({
+            name: newUser.name,
+            email: newUser.email,
+            useCid,
+          }),
+        text: `Welcome to MerxoDev Solutions, ${newUser.name}! Your account (${newUser.email}) is now active.`,
+      });
+    } catch (mailErr) {
+      console.warn('Welcome email warning:', mailErr.message);
+    }
 
     return NextResponse.json(
       {
