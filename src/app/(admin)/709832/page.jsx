@@ -24,8 +24,8 @@ import {
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
-function DashboardView() {
-  const [stats, setStats] = useState({ projects: 0, images: 0, content: 0, users: 0 });
+function DashboardView({ isTeamMember = false }) {
+  const [stats, setStats] = useState({ projects: 0, images: 0, content: 0, users: 0, reviews: 0 });
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
   const [analyticsDays, setAnalyticsDays] = useState(14);
@@ -35,29 +35,50 @@ function DashboardView() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [pr, im, co, us] = await Promise.all([
-          fetch("/api/admin/projects"),
-          fetch("/api/admin/images"),
-          fetch("/api/admin/content"),
-          fetch("/api/admin/users"),
-        ]);
-        const [projects, images, content, usersData] = await Promise.all([
-          pr.json(),
-          im.json(),
-          co.json(),
-          us.json(),
-        ]);
-        setStats({
-          projects: Array.isArray(projects) ? projects.length : 0,
-          images: Array.isArray(images) ? images.length : 0,
-          content: Array.isArray(content) ? content.length : 0,
-          users: usersData?.stats?.total || (Array.isArray(usersData?.users) ? usersData.users.length : 0),
-        });
+        if (isTeamMember) {
+          const [pr, im, rv] = await Promise.all([
+            fetch("/api/admin/projects"),
+            fetch("/api/admin/images"),
+            fetch("/api/admin/reviews"),
+          ]);
+          const [projects, images, reviewsData] = await Promise.all([
+            pr.json(),
+            im.json(),
+            rv.json(),
+          ]);
+          setStats({
+            projects: Array.isArray(projects) ? projects.length : 0,
+            images: Array.isArray(images) ? images.length : 0,
+            content: 0,
+            users: 0,
+            reviews: reviewsData?.stats?.total || (Array.isArray(reviewsData?.reviews) ? reviewsData.reviews.length : 0),
+          });
+        } else {
+          const [pr, im, co, us] = await Promise.all([
+            fetch("/api/admin/projects"),
+            fetch("/api/admin/images"),
+            fetch("/api/admin/content"),
+            fetch("/api/admin/users"),
+          ]);
+          const [projects, images, content, usersData] = await Promise.all([
+            pr.json(),
+            im.json(),
+            co.json(),
+            us.json(),
+          ]);
+          setStats({
+            projects: Array.isArray(projects) ? projects.length : 0,
+            images: Array.isArray(images) ? images.length : 0,
+            content: Array.isArray(content) ? content.length : 0,
+            users: usersData?.stats?.total || (Array.isArray(usersData?.users) ? usersData.users.length : 0),
+            reviews: 0,
+          });
+        }
       } catch (e) {}
       setLoading(false);
     }
     fetchStats();
-  }, []);
+  }, [isTeamMember]);
 
   useEffect(() => {
     async function fetchAnalytics() {
@@ -81,19 +102,29 @@ function DashboardView() {
       subValue: `${analytics?.today?.pageViews || 0} pageviews`,
       color: "#10b981",
       bg: "rgba(16,185,129,0.12)",
-      href: "/709832/visitors",
+      href: isTeamMember ? "#analytics-section" : "/709832/visitors",
       isLive: true,
       icon: <FiActivity size={22} />,
     },
-    {
-      label: "Registered Users",
-      value: stats.users,
-      subValue: "Manage clients & staff",
-      color: "#8b5cf6",
-      bg: "rgba(139,92,246,0.12)",
-      href: "/709832/users",
-      icon: <FiUsers size={22} />,
-    },
+    isTeamMember
+      ? {
+          label: "Client Reviews",
+          value: stats.reviews,
+          subValue: "Manage testimonials",
+          color: "#f59e0b",
+          bg: "rgba(245,158,11,0.12)",
+          href: "/709832/reviews",
+          icon: <FiCheckCircle size={22} />,
+        }
+      : {
+          label: "Registered Users",
+          value: stats.users,
+          subValue: "Manage clients & staff",
+          color: "#8b5cf6",
+          bg: "rgba(139,92,246,0.12)",
+          href: "/709832/users",
+          icon: <FiUsers size={22} />,
+        },
     {
       label: "Total Projects",
       value: stats.projects,
@@ -127,14 +158,35 @@ function DashboardView() {
   ];
 
   const quickActions = [
-    {
-      href: "/709832/users",
-      title: "Manage Users",
-      desc: "Control user accounts, roles & status",
-      color: "#8b5cf6",
-      bg: "rgba(139,92,246,0.12)",
-      icon: <FiUsers size={22} />,
-    },
+    ...(isTeamMember
+      ? [
+          {
+            href: "/709832/live-chat",
+            title: "Live Chat & AI",
+            desc: "Reply to visitors and live chat requests",
+            color: "#10b981",
+            bg: "rgba(16,185,129,0.12)",
+            icon: <FiActivity size={22} />,
+          },
+          {
+            href: "/709832/reviews",
+            title: "Manage Reviews",
+            desc: "Approve, feature, and manage client reviews",
+            color: "#f59e0b",
+            bg: "rgba(245,158,11,0.12)",
+            icon: <FiCheckCircle size={22} />,
+          },
+        ]
+      : [
+          {
+            href: "/709832/users",
+            title: "Manage Users",
+            desc: "Control user accounts, roles & status",
+            color: "#8b5cf6",
+            bg: "rgba(139,92,246,0.12)",
+            icon: <FiUsers size={22} />,
+          },
+        ]),
     {
       href: "/709832/projects",
       title: "Add Project",
@@ -151,7 +203,7 @@ function DashboardView() {
     {
       href: "/709832/images",
       title: "Upload Image",
-      desc: "Add images to your media library",
+      desc: "Add images & copy URLs in media library",
       color: "#a78bfa",
       bg: "rgba(139,92,246,0.12)",
       icon: (
@@ -162,19 +214,23 @@ function DashboardView() {
         </svg>
       ),
     },
-    {
-      href: "/709832/content",
-      title: "Edit Content",
-      desc: "Update website texts and descriptions",
-      color: "#22d3ee",
-      bg: "rgba(6,182,212,0.12)",
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-        </svg>
-      ),
-    },
+    ...(!isTeamMember
+      ? [
+          {
+            href: "/709832/content",
+            title: "Edit Content",
+            desc: "Update website texts and descriptions",
+            color: "#22d3ee",
+            bg: "rgba(6,182,212,0.12)",
+            icon: (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            ),
+          },
+        ]
+      : []),
   ];
 
   // Calculate highest count for proportional chart bars
@@ -277,24 +333,26 @@ function DashboardView() {
 
           {/* Days Switcher & Full IP Tracker Link */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <Link
-              href="/709832/visitors"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                background: "rgba(56, 189, 248, 0.12)",
-                border: "1px solid rgba(56, 189, 248, 0.3)",
-                color: "#38bdf8",
-                padding: "7px 14px",
-                borderRadius: 10,
-                fontSize: 12,
-                fontWeight: 700,
-                textDecoration: "none",
-              }}
-            >
-              <FiGlobe size={14} /> Live Visitors & IP Tracker
-            </Link>
+            {!isTeamMember && (
+              <Link
+                href="/709832/visitors"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "rgba(56, 189, 248, 0.12)",
+                  border: "1px solid rgba(56, 189, 248, 0.3)",
+                  color: "#38bdf8",
+                  padding: "7px 14px",
+                  borderRadius: 10,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                <FiGlobe size={14} /> Live Visitors & IP Tracker
+              </Link>
+            )}
 
             <div
               style={{
@@ -988,7 +1046,12 @@ export default function AdminPage() {
   }
 
   if (status === "authenticated") {
-    if (session?.user?.role !== "ADMIN") {
+    const emailLower = String(session?.user?.email || "").toLowerCase().trim();
+    const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
+    const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+    const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
+
+    if (!isAdmin && !isTeamMember) {
       return (
         <div style={{ textAlign: "center", padding: "80px 20px" }}>
           <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "12px", color: "#ef4444" }}>Access Denied</h2>
@@ -997,7 +1060,7 @@ export default function AdminPage() {
         </div>
       );
     }
-    return <DashboardView />;
+    return <DashboardView isTeamMember={isTeamMember} />;
   }
 
   return <LoginView />;
