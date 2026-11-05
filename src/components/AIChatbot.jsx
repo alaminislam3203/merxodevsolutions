@@ -477,15 +477,21 @@ export default function AIChatbot() {
               </button>
 
               <div className="relative">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-orange-500 dark:bg-white/10 backdrop-blur-md p-1.5 flex items-center justify-center shadow-md border border-white/20">
-                  <Image
-                    src="/favicon.png"
-                    alt="MerxoDev Solutions Logo"
-                    width={32}
-                    height={32}
-                    className="w-full h-full object-contain drop-shadow-sm"
-                  />
-                </div>
+                {sessionMode === 'live' ? (
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-orange-500 dark:bg-white/10 backdrop-blur-md p-1.5 flex items-center justify-center shadow-md border border-white/20">
+                    <Image
+                      src="/favicon.png"
+                      alt="MerxoDev Admin"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-contain drop-shadow-sm"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center shadow-md border border-white/25 text-cyan-300">
+                    <MdSupportAgent className="w-6 h-6 text-white drop-shadow-sm" />
+                  </div>
+                )}
                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400 border-2 border-violet-900 dark:border-[#091124] animate-pulse" />
               </div>
 
@@ -606,69 +612,91 @@ export default function AIChatbot() {
               return (
                 <div
                   key={msg.id}
-                  className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}
+                  className={`flex items-end gap-2 ${isUser ? 'justify-end' : 'justify-start'}`}
                 >
-                  {/* Sender Label for Admin or AI */}
+                  {/* Side Avatar for MerxoDev AI (Support Icon) vs Live Admin (favicon.png) */}
                   {!isUser && (
-                    <div className="flex items-center gap-1.5 mb-1 px-1">
+                    <div className="shrink-0 mb-4">
                       {isAdmin ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
-                          <FaUserTie className="w-2.5 h-2.5" />
-                          Live Admin (MerxoDev Team)
-                        </span>
+                        <div className="w-7 h-7 rounded-xl bg-orange-500 dark:bg-zinc-900 border border-orange-400 dark:border-emerald-500/50 p-1 flex items-center justify-center shadow-sm">
+                          <Image
+                            src="/favicon.png"
+                            alt="Admin"
+                            width={22}
+                            height={22}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
-                          <RiRobot2Line className="w-3 h-3" />
-                          MerxoDev AI
-                        </span>
+                        <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white flex items-center justify-center shadow-sm">
+                          <MdSupportAgent className="w-4 h-4" />
+                        </div>
                       )}
                     </div>
                   )}
 
-                  <div
-                    className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-sm ${
-                      isUser
-                        ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-br-sm shadow-violet-500/10'
-                        : isAdmin
-                        ? 'bg-emerald-50/90 dark:bg-emerald-950/40 text-zinc-900 dark:text-zinc-100 border-2 border-emerald-500/40 rounded-bl-sm shadow-sm'
-                        : 'bg-white dark:bg-[#0f1b38] text-zinc-800 dark:text-zinc-100 border border-zinc-200/70 dark:border-blue-900/40 rounded-bl-sm shadow-xs'
-                    }`}
-                  >
-                    <div>{renderFormattedText(displayContent)}</div>
-
-                    {/* Action Link Buttons inside Bot Response */}
-                    {msg.actions && msg.actions.length > 0 && streamingMsgId !== msg.id && (
-                      <div className="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-zinc-200/50 dark:border-white/10">
-                        {msg.actions.map((act, i) =>
-                          act.type === 'external' ? (
-                            <a
-                              key={i}
-                              href={act.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-sm group"
-                            >
-                              <FaWhatsapp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" />
-                              <span>{act.label}</span>
-                            </a>
-                          ) : (
-                            <Link
-                              key={i}
-                              href={act.href}
-                              onClick={() => setIsOpen(false)}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-500/15 text-violet-800 dark:text-cyan-300 border border-violet-500/30 text-[11px] font-bold hover:bg-violet-600 hover:text-white transition-all shadow-sm group"
-                            >
-                              <FaArrowRight className="w-2.5 h-2.5 text-violet-600 dark:text-cyan-400 group-hover:text-white transition-colors" />
-                              <span>{act.label}</span>
-                            </Link>
-                          )
+                  <div className={`flex flex-col max-w-[82%] ${isUser ? 'items-end' : 'items-start'}`}>
+                    {/* Sender Label for Admin or AI */}
+                    {!isUser && (
+                      <div className="flex items-center gap-1.5 mb-1 px-1">
+                        {isAdmin ? (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
+                            Live Admin (MerxoDev Team)
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
+                            <MdSupportAgent className="w-3 h-3" />
+                            MerxoDev AI Support
+                          </span>
                         )}
                       </div>
                     )}
+
+                    <div
+                      className={`w-full rounded-2xl px-4 py-3 shadow-sm ${
+                        isUser
+                          ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-br-sm shadow-violet-500/10'
+                          : isAdmin
+                          ? 'bg-emerald-50/90 dark:bg-emerald-950/40 text-zinc-900 dark:text-zinc-100 border-2 border-emerald-500/40 rounded-bl-sm shadow-sm'
+                          : 'bg-white dark:bg-[#0f1b38] text-zinc-800 dark:text-zinc-100 border border-zinc-200/70 dark:border-blue-900/40 rounded-bl-sm shadow-xs'
+                      }`}
+                    >
+                      <div>{renderFormattedText(displayContent)}</div>
+
+                      {/* Action Link Buttons inside Bot Response */}
+                      {msg.actions && msg.actions.length > 0 && streamingMsgId !== msg.id && (
+                        <div className="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-zinc-200/50 dark:border-white/10">
+                          {msg.actions.map((act, i) =>
+                            act.type === 'external' ? (
+                              <a
+                                key={i}
+                                href={act.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-sm group"
+                              >
+                                <FaWhatsapp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" />
+                                <span>{act.label}</span>
+                              </a>
+                            ) : (
+                              <Link
+                                key={i}
+                                href={act.href}
+                                onClick={() => setIsOpen(false)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-500/15 text-violet-800 dark:text-cyan-300 border border-violet-500/30 text-[11px] font-bold hover:bg-violet-600 hover:text-white transition-all shadow-sm group"
+                              >
+                                <FaArrowRight className="w-2.5 h-2.5 text-violet-600 dark:text-cyan-400 group-hover:text-white transition-colors" />
+                                <span>{act.label}</span>
+                              </Link>
+                            )
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-zinc-400 dark:text-zinc-500 px-1 mt-1 font-medium">
+                      {formatTime(msg.createdAt || msg.timestamp)}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 dark:text-zinc-500 px-1 mt-1 font-medium">
-                    {formatTime(msg.createdAt || msg.timestamp)}
-                  </span>
                 </div>
               );
             })}
