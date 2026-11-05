@@ -44,6 +44,138 @@ export async function getDynamicWebsiteContext() {
   return cachedDbContext;
 }
 
+/**
+ * Extracts normalized features list, tech stack, client, duration, and description
+ * from a project record (same data rendered on /our-projects/[slug] details page).
+ */
+export function extractProjectDetailsData(project) {
+  if (!project) return null;
+  const det =
+    project.details && typeof project.details === 'object' ? project.details : {};
+
+  const techList = Array.isArray(det.tech)
+    ? det.tech.filter(Boolean)
+    : typeof det.tech === 'string' && det.tech.trim()
+    ? det.tech.split(',').map((s) => s.trim()).filter(Boolean)
+    : [];
+
+  const featureItems = [];
+  if (Array.isArray(det.features)) {
+    for (const f of det.features) {
+      if (typeof f === 'string' && f.trim()) {
+        featureItems.push({ title: f.trim(), subtitles: [] });
+      } else if (f && typeof f === 'object') {
+        const title = String(f.title || '').trim();
+        const subs = [];
+        if (Array.isArray(f.subtitles)) {
+          for (const s of f.subtitles) {
+            const txt = typeof s === 'string' ? s.trim() : String(s?.text || '').trim();
+            if (txt) subs.push(txt);
+          }
+        } else if (f.subtitle && String(f.subtitle).trim()) {
+          subs.push(String(f.subtitle).trim());
+        }
+        if (title || subs.length > 0) {
+          featureItems.push({ title: title || subs[0], subtitles: title ? subs : subs.slice(1) });
+        }
+      }
+    }
+  }
+
+  return {
+    id: project.id,
+    title: project.title || 'Project',
+    slug: project.slug || '',
+    tag: project.tag || 'Web Application',
+    descriptionTitle: det.descriptionTitle || 'About The Project',
+    description: project.description || '',
+    client: det.client || '',
+    duration: det.duration || '',
+    tech: techList,
+    features: featureItems,
+    liveUrl: project.liveUrl || '',
+    detailsUrl: project.slug ? `/our-projects/${project.slug}` : '/our-projects',
+  };
+}
+
+/**
+ * Finds a specific project from the database when the user asks about it by name/slug/keywords
+ * (e.g., "NickHo Motorsports project er feature gulo bolo..?")
+ */
+export function findMatchingProject(userMessage = '', projects = [], history = []) {
+  if (!userMessage || !Array.isArray(projects) || projects.length === 0) return null;
+  const cleanMsg = userMessage.toLowerCase().trim();
+  const normalizedMsg = cleanMsg.replace(/[^a-z0-9\u0980-\u09ff]+/g, ' ');
+
+  const stopWords = new Set([
+    'project', 'projects', 'er', 'ar', 'feature', 'features', 'gulo', 'gula',
+    'bolo', 'bolun', 'dekhao', 'dekhan', 'about', 'details', 'detail', 'what',
+    'is', 'the', 'of', 'in', 'for', 'and', 'ki', 'kiki', 'somporke', 'shomporke',
+    'tell', 'me', 'show', 'website', 'app', 'site', 'live', 'demo', 'page',
+  ]);
+
+  let bestMatch = null;
+  let bestScore = 0;
+
+  for (const p of projects) {
+    const titleLower = String(p.title || '').toLowerCase().trim();
+    const slugLower = String(p.slug || '').toLowerCase().trim();
+    const slugSpaced = slugLower.replace(/-/g, ' ');
+
+    if (!titleLower) continue;
+
+    // Exact substring match of full title or slug
+    if (
+      cleanMsg.includes(titleLower) ||
+      (slugLower && cleanMsg.includes(slugLower)) ||
+      (slugSpaced && normalizedMsg.includes(slugSpaced))
+    ) {
+      return p;
+    }
+
+    // Token-level matching for partial project names (e.g. "NickHo" or "Motorsports")
+    const titleTokens = titleLower
+      .replace(/[^a-z0-9\u0980-\u09ff]+/g, ' ')
+      .split(/\s+/)
+      .filter((t) => t.length >= 3 && !stopWords.has(t));
+
+    let score = 0;
+    for (const token of titleTokens) {
+      if (normalizedMsg.includes(token)) {
+        score += token.length >= 5 ? 3 : 2;
+      }
+    }
+
+    if (score > bestScore && score >= 2) {
+      bestScore = score;
+      bestMatch = p;
+    }
+  }
+
+  if (bestMatch) return bestMatch;
+
+  // If the user asks a follow-up like "ei project er feature ki?" or "live link dao", check the last 2 messages in history
+  if (
+    Array.isArray(history) &&
+    history.length > 0 &&
+    /\b(feature|features|tech|stack|live|link|url|client|duration|detail|details|ফিচার|লিংক|ডিটেইলস)\b/i.test(
+      cleanMsg
+    )
+  ) {
+    for (let i = history.length - 1; i >= Math.max(0, history.length - 3); i--) {
+      const prevText = String(history[i]?.text || '').toLowerCase();
+      for (const p of projects) {
+        const titleLower = String(p.title || '').toLowerCase().trim();
+        if (titleLower && prevText.includes(titleLower)) {
+          return p;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 export function buildSystemPrompt({
   projects = [],
   team = [],
@@ -52,19 +184,74 @@ export function buildSystemPrompt({
   preferredLang = 'en',
   targetLang = 'en',
   isFirstMessage = false,
+  matchedProject = null,
 }) {
   const projectLines =
     projects.length > 0
       ? projects
-          .slice(0, 12)
-          .map(
-            (p, i) =>
-              `${i + 1}. "${p.title}" (${p.tag || 'Web App'}) — ${
-                p.description ? p.description.slice(0, 140) : 'Custom digital solution'
-              } | Page: /our-projects/${p.slug}${p.liveUrl ? ` | Live: ${p.liveUrl}` : ''}`
-          )
-          .join('\n')
+          .slice(0, 20)
+          .map((p, i) => {
+            const info = extractProjectDetailsData(p);
+            const featSummary =
+              info.features.length > 0
+                ? ` | Key Features: ${info.features
+                    .map(
+                      (f) =>
+                        `${f.title}${
+                          f.subtitles.length > 0 ? ` (${f.subtitles.join('; ')})` : ''
+                        }`
+                    )
+                    .join(' • ')}`
+                : '';
+            const techSummary =
+              info.tech.length > 0 ? ` | Tech Stack: ${info.tech.join(', ')}` : '';
+            const metaSummary = [
+              info.client ? `Client: ${info.client}` : '',
+              info.duration ? `Duration: ${info.duration}` : '',
+            ]
+              .filter(Boolean)
+              .join(', ');
+
+            return `${i + 1}. "${info.title}" (${info.tag}) — ${
+              info.description || 'Custom digital solution'
+            }${metaSummary ? ` | ${metaSummary}` : ''}${techSummary}${featSummary} | Details Page: ${info.detailsUrl}${
+              info.liveUrl ? ` | Live URL: ${info.liveUrl}` : ''
+            }`;
+          })
+          .join('\n\n')
       : 'Custom Full-Stack Web Applications, SaaS Platforms, E-Commerce Stores, and Enterprise Dashboards (view at /our-projects).';
+
+  let focusedProjectBlock = '';
+  if (matchedProject) {
+    const d = extractProjectDetailsData(matchedProject);
+    const formattedFeatures =
+      d.features.length > 0
+        ? d.features
+            .map(
+              (f, idx) =>
+                `  ${idx + 1}. **${f.title}**${
+                  f.subtitles.length > 0
+                    ? `\n     - ${f.subtitles.join('\n     - ')}`
+                    : ''
+                }`
+            )
+            .join('\n')
+        : '  - Custom high-performance architecture, responsive UI/UX, and full-stack integration.';
+
+    focusedProjectBlock = `
+=== DEEP DETAILS FROM PROJECT DETAILS PAGE (${d.detailsUrl}) FOR "${d.title}" ===
+• **Project Title:** ${d.title}
+• **Category / Tag:** ${d.tag}
+${d.client ? `• **Client:** ${d.client}\n` : ''}${d.duration ? `• **Duration:** ${d.duration}\n` : ''}${
+      d.tech.length > 0 ? `• **Technologies Used:** ${d.tech.join(', ')}\n` : ''
+    }• **Overview (${d.descriptionTitle}):** ${d.description}
+• **Complete Features List (from Project Details Page):**
+${formattedFeatures}
+• **Project Details Page:** ${d.detailsUrl}
+${d.liveUrl ? `• **Live Website URL:** ${d.liveUrl}` : ''}
+INSTRUCTION: The user is asking specifically about "${d.title}". Answer thoroughly using the exact Overview, Features, Sub-points, Tech Stack, Client, Duration, and Links above in **${targetLang}**!
+`;
+  }
 
   const teamLines =
     team.length > 0
@@ -138,7 +325,7 @@ Website: ${WEBSITE_URL}
 
 === LIVE PORTFOLIO PROJECTS IN DATABASE (/our-projects) ===
 ${projectLines}
-
+${focusedProjectBlock}
 === OUR TEAM MEMBERS (/our-team) ===
 ${teamLines}
 
@@ -378,14 +565,33 @@ async function callExternalLLM({ systemPrompt, history = [], userMessage, aiConf
 /**
  * Contextual Actions & Quick Suggestions Builder based on message & reply
  */
-export function buildContextualActionsAndSuggestions(userMessage, replyText, lang, projects = []) {
+export function buildContextualActionsAndSuggestions(userMessage, replyText, lang, projects = [], matchedProject = null) {
   const combined = `${userMessage} ${replyText}`.toLowerCase();
   const actions = [];
 
   const lbl = (enTxt, bnTxt, arTxt, zhTxt) =>
     lang === 'bn' ? bnTxt : lang === 'ar' ? arTxt : lang === 'zh' ? zhTxt : enTxt;
 
-  if (/project|portfolio|work|demo|sample|প্রজেক্ট|কাজ|পোর্টফোলিও|مشاريع|مشروع|项目|案例/i.test(combined)) {
+  if (matchedProject) {
+    actions.push({
+      label: `${matchedProject.title.slice(0, 20)} Details`,
+      href: `/our-projects/${matchedProject.slug}`,
+      type: 'link',
+    });
+    if (matchedProject.liveUrl) {
+      actions.push({
+        label: lbl('Live Preview', 'লাইভ ওয়েবসাইট দেখুন', 'معاينة حية', '查看在线演示'),
+        href: matchedProject.liveUrl,
+        type: 'external',
+      });
+    } else {
+      actions.push({
+        label: lbl('All Projects', 'সকল প্রজেক্ট', 'جميع المشاريع', '所有项目'),
+        href: '/our-projects',
+        type: 'link',
+      });
+    }
+  } else if (/project|portfolio|work|demo|sample|প্রজেক্ট|কাজ|পোর্টফোলিও|مشاريع|مشروع|项目|案例/i.test(combined)) {
     actions.push({
       label: lbl('View Our Projects', 'আমাদের প্রজেক্ট দেখুন', 'عرض مشاريعنا', '查看我们的项目'),
       href: '/our-projects',
@@ -480,7 +686,14 @@ export function buildContextualActionsAndSuggestions(userMessage, replyText, lan
 /**
  * Built-in Intelligent Conversational Engine (works with 0 external API keys, using live DB data)
  */
-export function generateBuiltInIntelligentReply({ userMessage, lang, projects = [], team = [], leadCaptured = {} }) {
+export function generateBuiltInIntelligentReply({
+  userMessage,
+  lang,
+  projects = [],
+  team = [],
+  leadCaptured = {},
+  matchedProject = null,
+}) {
   const lower = userMessage.toLowerCase().trim();
 
   // 0. If the user just shared their phone number or email (Smart Lead Capture)
@@ -536,6 +749,58 @@ export function generateBuiltInIntelligentReply({ userMessage, lang, projects = 
       return `Hello & Assalamu Alaikum! Ami **MerxoDev AI Assistant**. Alhamdulillah valo achi!\n\nApni ki apnar business er jonno **Website, Ecommerce Store, naki Custom Web App** banate chaccen? Amake bolun!`;
     }
     return `Hello and welcome to **MerxoDev Solutions**! I am your **MerxoDev AI Assistant**.\n\nAre you looking to build a **modern website, e-commerce store, or custom SaaS web application**? Ask me anything about our services, projects, or pricing!`;
+  }
+
+  // 2.5 Specific Project Details Lookup (when user asks about a specific project like "NickHo Motorsports project er feature gulo bolo..?")
+  const matchedProj = matchedProject || findMatchingProject(userMessage, projects);
+  if (matchedProj) {
+    const d = extractProjectDetailsData(matchedProj);
+    const featureLines =
+      d.features.length > 0
+        ? d.features
+            .map((f, idx) => {
+              const subTxt =
+                f.subtitles.length > 0
+                  ? `\n  ${f.subtitles.map((s) => `• ${s}`).join('\n  ')}`
+                  : '';
+              return `${idx + 1}. **${f.title}**${subTxt}`;
+            })
+            .join('\n')
+        : `• **Modern Responsive UI/UX & Fast Performance**\n• **Full-Stack Custom Architecture**`;
+
+    const techLine = d.tech.length > 0 ? d.tech.join(', ') : 'Next.js, React, Tailwind CSS';
+    const metaParts = [
+      d.client ? `**Client:** ${d.client}` : '',
+      d.duration ? `**Duration:** ${d.duration}` : '',
+    ].filter(Boolean);
+
+    if (lang === 'bn') {
+      return `**${d.title}** (${d.tag}) প্রজেক্টের বিস্তারিত তথ্য ও ফিচারসমূহ নিচে দেওয়া হলো:\n\n${
+        d.description ? `${d.description}\n\n` : ''
+      }**প্রধান ফিচারসমূহ (Key Features):**\n${featureLines}\n\n**ব্যবহৃত টেকনোলজি:** ${techLine}${
+        metaParts.length > 0 ? `\n${metaParts.join(' | ')}` : ''
+      }\n**প্রজেক্ট ডিটেইলস পেজ:** ${d.detailsUrl}${
+        d.liveUrl ? `\n**লাইভ লিংক:** ${d.liveUrl}` : ''
+      }`;
+    }
+
+    if (lang === 'banglish') {
+      return `**${d.title}** (${d.tag}) project er complete details ebong feature gulo নিচে dewa holo:\n\n${
+        d.description ? `${d.description}\n\n` : ''
+      }**Key Features:**\n${featureLines}\n\n**Tech Stack:** ${techLine}${
+        metaParts.length > 0 ? `\n${metaParts.join(' | ')}` : ''
+      }\n**Details Page:** ${d.detailsUrl}${
+        d.liveUrl ? `\n**Live Website:** ${d.liveUrl}` : ''
+      }`;
+    }
+
+    return `Here are the complete details and features of **${d.title}** (${d.tag}) from its project details page:\n\n${
+      d.description ? `${d.description}\n\n` : ''
+    }**Key Features:**\n${featureLines}\n\n**Tech Stack:** ${techLine}${
+      metaParts.length > 0 ? `\n${metaParts.join(' | ')}` : ''
+    }\n**Project Details Page:** ${d.detailsUrl}${
+      d.liveUrl ? `\n**Live Website:** ${d.liveUrl}` : ''
+    }`;
   }
 
   // 3. Portfolio / Projects inquiry (uses live DB projects!)
@@ -733,6 +998,8 @@ export async function generateAiResponse({
     getAiConfig(),
   ]);
 
+  const matchedProject = findMatchingProject(userMessage, projects, history);
+
   const systemPrompt = buildSystemPrompt({
     projects,
     team,
@@ -741,6 +1008,7 @@ export async function generateAiResponse({
     preferredLang: preferredLang || previousLang,
     targetLang: lang,
     isFirstMessage,
+    matchedProject,
   });
 
   // 1. Try External LLM (Gemini / Groq / OpenAI) if configured
@@ -759,10 +1027,17 @@ export async function generateAiResponse({
       projects,
       team,
       leadCaptured,
+      matchedProject,
     });
   }
 
-  const { actions, suggestions } = buildContextualActionsAndSuggestions(userMessage, reply, lang, projects);
+  const { actions, suggestions } = buildContextualActionsAndSuggestions(
+    userMessage,
+    reply,
+    lang,
+    projects,
+    matchedProject
+  );
 
   return {
     reply,
