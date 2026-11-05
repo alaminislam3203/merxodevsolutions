@@ -676,6 +676,16 @@ function AccountContent() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeamMember, setIsTeamMember] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [inquiries, setInquiries] = useState([]);
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [newInquiry, setNewInquiry] = useState({
+    projectTitle: '',
+    serviceType: 'Custom Web Application',
+    budget: '',
+    clientPhone: '',
+    notes: '',
+  });
+  const [submittingInquiry, setSubmittingInquiry] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [twoFactorModalOpen, setTwoFactorModalOpen] = useState(false);
@@ -733,8 +743,49 @@ function AccountContent() {
           setLoading(false);
         })
         .catch(() => setLoading(false));
+
+      fetch('/api/account/inquiries')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (Array.isArray(data?.inquiries)) {
+            setInquiries(data.inquiries);
+          }
+        })
+        .catch(() => {});
     }
   }, [status, router]);
+
+  const handleSubmitInquiry = async (e) => {
+    e.preventDefault();
+    if (!newInquiry.projectTitle.trim()) return;
+    setSubmittingInquiry(true);
+    try {
+      const res = await fetch('/api/account/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newInquiry),
+      });
+      if (res.ok) {
+        showToast.success('Project request submitted! Our team will update your tracker shortly.');
+        setInquiryModalOpen(false);
+        setNewInquiry({
+          projectTitle: '',
+          serviceType: 'Custom Web Application',
+          budget: '',
+          clientPhone: '',
+          notes: '',
+        });
+        const refreshed = await fetch('/api/account/inquiries').then((r) => (r.ok ? r.json() : null));
+        if (Array.isArray(refreshed?.inquiries)) setInquiries(refreshed.inquiries);
+      } else {
+        showToast.error('Failed to submit project request.');
+      }
+    } catch {
+      showToast.error('Network error.');
+    } finally {
+      setSubmittingInquiry(false);
+    }
+  };
 
   const setTab = (tab) => {
     router.push(`/account?tab=${tab}`);
@@ -1043,45 +1094,142 @@ function AccountContent() {
                         {t('accountPage.inquiriesTab.subtitle', 'Inquiries, scopes, and proposals submitted under your account.')}
                       </p>
                     </div>
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all"
+                    <button
+                      type="button"
+                      onClick={() => setInquiryModalOpen(true)}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold font-exo-extralight uppercase shadow-md hover:scale-105 transition-all cursor-pointer"
                     >
                       <FiPlus size={14} />
                       <span>{t('accountPage.inquiriesTab.requestNew', 'Request New Project')}</span>
-                    </Link>
+                    </button>
                   </div>
 
-                  {/* Sample Mock Activity / Inquiries List */}
-                  <div className="space-y-4">
-                    <div className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300">
-                            {t('accountPage.inquiriesTab.customApp', 'Custom Web Application')}
-                          </span>
-                          <span className="text-xs text-zinc-400 font-exo-extralight">• #MD-8201</span>
-                        </div>
-                        <h4 className="font-bold text-sm text-zinc-900 dark:text-white font-exo-extralight">
-                          {t('accountPage.inquiriesTab.sampleTitle', 'High-Concurrency Next.js & PostgreSQL SaaS Portal')}
-                        </h4>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
-                          {t('accountPage.inquiriesTab.sampleDesc', 'Architectural roadmap & server blueprint prepared.')}
-                        </p>
-                      </div>
+                  {/* Live Client Projects & Invoices List */}
+                  <div className="space-y-5">
+                    {(inquiries.length > 0
+                      ? inquiries
+                      : [
+                          {
+                            id: 'MD-8201',
+                            projectTitle: t(
+                              'accountPage.inquiriesTab.sampleTitle',
+                              'High-Concurrency Next.js & PostgreSQL SaaS Portal'
+                            ),
+                            serviceType: t(
+                              'accountPage.inquiriesTab.customApp',
+                              'Custom Web Application'
+                            ),
+                            status: 'IN_PROGRESS',
+                            progress: 65,
+                            milestones: {
+                              uiDesign: 100,
+                              frontend: 80,
+                              backend: 60,
+                              deployment: 20,
+                            },
+                            invoiceAmount: '$1,200',
+                            invoiceStatus: 'PARTIAL',
+                            liveDemoUrl: '',
+                            notes: t(
+                              'accountPage.inquiriesTab.sampleDesc',
+                              'Architectural roadmap & server blueprint prepared.'
+                            ),
+                          },
+                        ]
+                    ).map((proj) => (
+                      <div
+                        key={proj.id}
+                        className="p-5 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 space-y-4"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                              <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300">
+                                {proj.serviceType}
+                              </span>
+                              <span className="text-xs text-zinc-400 font-mono">
+                                • #{proj.id}
+                              </span>
+                              <span
+                                className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                                  proj.invoiceStatus === 'PAID'
+                                    ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+                                    : proj.invoiceStatus === 'PARTIAL'
+                                      ? 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300'
+                                      : 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300'
+                                }`}
+                              >
+                                Invoice: {proj.invoiceStatus}
+                                {proj.invoiceAmount ? ` (${proj.invoiceAmount})` : ''}
+                              </span>
+                            </div>
+                            <h4 className="font-bold text-base text-zinc-900 dark:text-white font-exo-extralight">
+                              {proj.projectTitle}
+                            </h4>
+                            {proj.notes && (
+                              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight mt-0.5">
+                                {proj.notes}
+                              </p>
+                            )}
+                          </div>
 
-                      <div className="flex items-center gap-3 self-end sm:self-center">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80 font-exo-extralight">
-                          <FiCheckCircle size={13} /> {t('accountPage.inquiriesTab.proposalReady', 'Proposal Ready')}
-                        </span>
-                        <Link
-                          href="/contact?ref=MD-8201"
-                          className="text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
-                        >
-                          {t('accountPage.inquiriesTab.details', 'Details')}
-                        </Link>
+                          <div className="flex items-center gap-3 self-start sm:self-center">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80 font-exo-extralight">
+                              <FiCheckCircle size={13} /> {proj.status}
+                            </span>
+                            {proj.liveDemoUrl && (
+                              <a
+                                href={proj.liveDemoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline font-exo-extralight"
+                              >
+                                <span>Live Demo</span>
+                                <FiExternalLink size={12} />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Overall Progress Bar */}
+                        <div>
+                          <div className="flex justify-between text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1.5">
+                            <span>Overall Project Completion</span>
+                            <span className="text-violet-600 dark:text-cyan-400">
+                              {proj.progress ?? 0}%
+                            </span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 transition-all duration-500"
+                              style={{ width: `${proj.progress ?? 0}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* 4-Stage Milestones */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                          {[
+                            { label: 'UI/UX Design', val: proj.milestones?.uiDesign ?? 0 },
+                            { label: 'Frontend Dev', val: proj.milestones?.frontend ?? 0 },
+                            { label: 'Backend & DB', val: proj.milestones?.backend ?? 0 },
+                            { label: 'Deployment', val: proj.milestones?.deployment ?? 0 },
+                          ].map((m) => (
+                            <div
+                              key={m.label}
+                              className="p-2.5 rounded-xl bg-white dark:bg-zinc-900/70 border border-zinc-200/70 dark:border-zinc-800 flex items-center justify-between text-xs"
+                            >
+                              <span className="text-zinc-500 dark:text-zinc-400 font-exo-extralight">
+                                {m.label}
+                              </span>
+                              <span className="font-bold text-zinc-900 dark:text-white">
+                                {m.val}%
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -1310,6 +1458,98 @@ function AccountContent() {
             setUserData((prev) => ({ ...(prev || {}), twoFactorEnabled: true }));
           }}
         />
+      )}
+
+      {inquiryModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 shadow-2xl">
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-exo-medium text-xl uppercase text-zinc-900 dark:text-white">
+                Request New Project Blueprint
+              </h3>
+              <button
+                type="button"
+                onClick={() => setInquiryModalOpen(false)}
+                className="p-2 rounded-xl text-zinc-400 hover:text-zinc-700 dark:hover:text-white cursor-pointer"
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+            <form onSubmit={handleSubmitInquiry} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">
+                  Project Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={newInquiry.projectTitle}
+                  onChange={(e) => setNewInquiry({ ...newInquiry, projectTitle: e.target.value })}
+                  placeholder="e.g. Custom E-Commerce & Mobile App"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white"
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">
+                    Service Category
+                  </label>
+                  <select
+                    value={newInquiry.serviceType}
+                    onChange={(e) => setNewInquiry({ ...newInquiry, serviceType: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white"
+                  >
+                    <option value="Custom Web Application">Custom Web Application</option>
+                    <option value="E-Commerce Platform">E-Commerce Platform</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="AI & SaaS Integration">AI & SaaS Integration</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">
+                    WhatsApp / Phone
+                  </label>
+                  <input
+                    type="text"
+                    value={newInquiry.clientPhone}
+                    onChange={(e) => setNewInquiry({ ...newInquiry, clientPhone: e.target.value })}
+                    placeholder="+8801..."
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">
+                  Project Requirements / Notes
+                </label>
+                <textarea
+                  rows={3}
+                  value={newInquiry.notes}
+                  onChange={(e) => setNewInquiry({ ...newInquiry, notes: e.target.value })}
+                  placeholder="Briefly describe your goals, timeline, or features..."
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm text-zinc-900 dark:text-white"
+                />
+              </div>
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setInquiryModalOpen(false)}
+                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-600 dark:text-zinc-300 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingInquiry}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold uppercase shadow-md cursor-pointer"
+                >
+                  {submittingInquiry ? 'Submitting...' : 'Submit Project Request'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
