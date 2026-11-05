@@ -151,21 +151,75 @@ model DailyVisitor {
 }
 
 model VisitorLog {
-  id          String   @id @default(cuid())
-  visitorHash String
-  ip          String?
-  path        String   @default("/")
-  userAgent   String?
-  device      String?
-  browser     String?
-  country     String?
-  referrer    String?
-  date        String   // "YYYY-MM-DD"
-  createdAt   DateTime @default(now())
+  id            String   @id @default(cuid())
+  visitorHash   String
+  visitorId     String?
+  ip            String?
+  isp           String?
+  path          String   @default("/")
+  userAgent     String?
+  device        String?
+  os            String?
+  browser       String?
+  country       String?
+  city          String?
+  region        String?
+  referrer      String?
+  trafficSource String?
+  date          String   // "YYYY-MM-DD"
+  createdAt     DateTime @default(now())
 
   @@index([date])
   @@index([visitorHash])
   @@index([createdAt])
+}
+
+model VisitorSession {
+  id               String   @id
+  chatSessionId    String?
+  ip               String?
+  isp              String?
+  country          String   @default("BD")
+  countryName      String   @default("Bangladesh")
+  city             String?
+  region           String?
+  timezone         String?
+  latitude         String?
+  longitude        String?
+  device           String   @default("Desktop")
+  os               String?
+  deviceBrand      String?
+  browser          String?
+  screen           String?
+  language         String?
+  referrer         String?
+  trafficSource    String   @default("Direct")
+  utmSource        String?
+  utmMedium        String?
+  utmCampaign      String?
+  currentPage      String   @default("/")
+  pagesVisited     Json     @default("[]")
+  pageViews        Int      @default(1)
+  visitCount       Int      @default(1)
+  totalDurationSec Int      @default(0)
+  userName         String?
+  userEmail        String?
+  userImage        String?
+  lastVisitDate    String?
+  firstSeenAt      DateTime @default(now())
+  lastSeenAt       DateTime @default(now())
+
+  @@index([lastSeenAt])
+  @@index([ip])
+  @@index([chatSessionId])
+}
+
+model BlockedIp {
+  ip        String   @id
+  reason    String?
+  visitorId String?
+  location  String?
+  createdAt DateTime @default(now())
 }
 
 model EnvVault {
