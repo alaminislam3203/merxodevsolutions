@@ -1,8 +1,11 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import emailTemplate from '@/lib/templates/emailTemplate';
+import autoReplyTemplate from '@/lib/templates/autoReplyTemplate';
 import { getBrandEmailAttachments } from '@/lib/templates/brandEmailLayout';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import prisma from '@/lib/prisma';
+import { ensureWorkspaceTables } from '@/lib/workspaceStore';
 
 function createNodemailerTransporter() {
   if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -157,7 +160,7 @@ Received: ${now.toLocaleString()}`;
       useCid: false,
     });
 
-    // Send Admin Notification email only (no auto-reply sent to client)
+    // 1. Send Admin Notification email
     const adminResult = await dispatchEmail({
       to: adminInbox,
       subject: `New Project Inquiry: ${name} — ${service || 'General Inquiry'}`,
@@ -167,9 +170,82 @@ Received: ${now.toLocaleString()}`;
       replyTo: email,
     });
 
+    // 2. Send Auto-Reply Confirmation email to the Client (White BG + logo.png & favicon.png)
+    const clientAutoReplyText = `Hi ${name},\n\nThank you for reaching out to MerxoDev Solutions! We have received your inquiry regarding "${service || 'Custom Web & Digital Solutions'}" and our engineering team will review your requirements and respond within 2–6 business hours.\n\nWarm regards,\nMerxoDev Solutions Team\nhttps://www.merxodev.com`;
+
+    const clientHtmlCid = autoReplyTemplate({
+      name,
+      email,
+      phone,
+      service,
+      budget,
+      message,
+      createdAt: now,
+      useCid: true,
+    });
+
+    const clientHtmlPublic = autoReplyTemplate({
+      name,
+      email,
+      phone,
+      service,
+      budget,
+      message,
+      createdAt: now,
+      useCid: false,
+    });
+
+    let autoReplySent = false;
+    try {
+      await dispatchEmail({
+        to: email,
+        subject: `We've Received Your Inquiry — MerxoDev Solutions`,
+        htmlCid: clientHtmlCid,
+        htmlPublic: clientHtmlPublic,
+        text: clientAutoReplyText,
+        replyTo: adminInbox,
+      });
+      autoReplySent = true;
+    } catch (autoReplyErr) {
+      console.warn('Auto-reply email could not be delivered to client:', autoReplyErr.message);
+    }
+
+    // 3. Also store inquiry inside PostgreSQL CRM ("ClientLead") so Admin & Client Portal can track it
+    try {
+      await ensureWorkspaceTables();
+      const leadId =
+        'MD-' +
+        Math.floor(1000 + Math.random() * 9000) +
+        '-' +
+        Date.now().toString(36).slice(-3).toUpperCase();
+      const defaultMilestones = JSON.stringify({
+        uiDesign: 20,
+        frontend: 0,
+        backend: 0,
+        deployment: 0,
+      });
+      await prisma.$executeRaw`
+        INSERT INTO "ClientLead" (
+          "id", "clientName", "clientEmail", "clientPhone",
+          "projectTitle", "serviceType", "budget", "notes",
+          "status", "progress", "milestones", "invoiceStatus",
+          "createdAt", "updatedAt"
+        )
+        VALUES (
+          ${leadId}, ${name.trim()}, ${email.toLowerCase().trim()}, ${phone || null},
+          ${service ? `${service} Project` : 'Website Contact Inquiry'}, ${service || 'General Inquiry'}, ${budget || null}, ${message.trim()},
+          'NEW', 10, ${defaultMilestones}::jsonb, 'UNPAID',
+          NOW(), NOW()
+        )
+      `;
+    } catch (crmErr) {
+      console.warn('Could not log contact inquiry into ClientLead table:', crmErr.message);
+    }
+
     return Response.json({
       success: true,
-      message: 'Inquiry successfully delivered to admin',
+      message: 'Inquiry successfully delivered to admin and auto-reply sent to client',
+      autoReplySent,
       provider: adminResult?.provider || 'default',
     });
   } catch (error) {

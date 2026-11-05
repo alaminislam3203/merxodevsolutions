@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { ensureWorkspaceTables } from "@/lib/workspaceStore";
+import autoReplyTemplate from "@/lib/templates/autoReplyTemplate";
+import { getBrandEmailAttachments } from "@/lib/templates/brandEmailLayout";
 
 export const dynamic = "force-dynamic";
 
@@ -92,6 +95,40 @@ export async function POST(request) {
         NOW(), NOW()
       )
     `;
+
+    // Send White-BG Auto-Reply Confirmation Email with logo.png & favicon.png to the client
+    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
+          },
+        });
+
+        const htmlCid = autoReplyTemplate({
+          name: clientName,
+          email: clientEmail,
+          phone: clientPhone,
+          service: `${projectTitle} (${serviceType})`,
+          budget: budget || "Flexible / To be discussed",
+          message: notes || `Project inquiry submitted for "${projectTitle}" via Client Portal.`,
+          createdAt: new Date(),
+          useCid: true,
+        });
+
+        await transporter.sendMail({
+          from: `"MerxoDev Solutions" <${process.env.GMAIL_USER}>`,
+          to: clientEmail,
+          subject: `We've Received Your Project Inquiry (${id}) — MerxoDev Solutions`,
+          html: htmlCid,
+          attachments: getBrandEmailAttachments(),
+        });
+      } catch (mailErr) {
+        console.warn("Account inquiry auto-reply email warning:", mailErr.message);
+      }
+    }
 
     return NextResponse.json({ success: true, id });
   } catch (error) {
