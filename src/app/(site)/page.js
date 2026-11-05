@@ -124,11 +124,23 @@ export default async function Home() {
     '@type': 'ProfessionalService',
     name: 'MerxoDev Solutions',
     alternateName: [
-      'Merxo Dev Solutions',
-      'Merxo Dev Solution',
+      'merxodev',
+      'merxodev solution',
+      'merxodev solutions',
+      'MerxoDev',
       'MerxoDev Solution',
       'Merxo Dev',
-      'MerxoDev',
+      'Merxo Dev Solution',
+      'Merxo Dev Solutions',
+      'মারক্সোডেভ',
+      'মারক্সোডেভ সলিউশন',
+      'মারক্সোডেভ সলিউশনস',
+      'মারক্সো ডেভ',
+      'মারক্সো ডেভ সলিউশন',
+      'মারক্সো ডেভ সলিউশনস',
+      'মেরক্সোডেভ',
+      'মেরক্সোডেভ সলিউশন',
+      'মেরক্সোডেভ সলিউশনস',
     ],
     image: 'https://merxodevsolutions.pro.bd/logo.png',
     '@id': 'https://merxodevsolutions.pro.bd/#business',
@@ -186,16 +198,54 @@ export default async function Home() {
     ],
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is MerxoDev / MerxoDev Solution (MerxoDev Solutions)?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'MerxoDev Solutions (also searched as merxodev, merxodev solution, Merxo Dev, and মারক্সোডেভ সলিউশনস) is a custom web, mobile app, e-commerce, and SaaS development agency based in Rangpur, Bangladesh, serving clients globally. Official website: https://merxodevsolutions.pro.bd | Email: merxodevsolutions@gmail.com | Phone/WhatsApp: +8801313334279 (01313334279) & +8809697634279.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'মারক্সোডেভ সলিউশনস (MerxoDev Solutions / merxodev) কী এবং কীভাবে যোগাযোগ করব?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'মারক্সোডেভ সলিউশনস (MerxoDev Solutions / মেরক্সোডেভ সলিউশন / merxodev) বাংলাদেশের একটি শীর্ষস্থানীয় কাস্টম ওয়েব ডেভেলপমেন্ট, ই-কমার্স এবং সফটওয়্যার ডেভেলপমেন্ট কোম্পানি। যোগাযোগের অফিশিয়াল ওয়েবসাইট: https://merxodevsolutions.pro.bd, ইমেইল: merxodevsolutions@gmail.com, এবং ফোন/হোয়াটসঅ্যাপ নম্বর: +8801313334279 (01313334279) ও +8809697634279 (09697634279)।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What services does MerxoDev (merxodev solution) provide?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'MerxoDev Solutions provides custom Next.js & React website development, full-stack web apps, SaaS platforms, e-commerce stores, bKash/Nagad/SSLCommerz/Stripe payment gateway integration, UI/UX design, API integration, AI automation, and technical SEO.',
+        },
+      },
+    ],
+  };
+
   return (
     <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="sr-only">
-        <h2>MerxoDev Solutions | Merxo Dev Solutions | Merxo Dev Solution | Merxo Dev</h2>
+        <h2>
+          MerxoDev Solutions | merxodev | merxodev solution | Merxo Dev Solutions | Merxo Dev Solution | Merxo Dev | মারক্সোডেভ সলিউশনস | মারক্সোডেভ সলিউশন | মেরক্সোডেভ সলিউশনস
+        </h2>
         <p>
-          Official Website of MerxoDev Solutions (also searched as Merxo Dev Solutions, Merxo Dev Solution, MerxoDev Solution, and Merxo Dev).
+          Official Website of MerxoDev Solutions (also known and searched as merxodev, merxodev solution, merxodev solutions, Merxo Dev Solutions, Merxo Dev Solution, MerxoDev Solution, and Merxo Dev).
+          বাংলা নাম ও পরিচিতি: মারক্সোডেভ সলিউশনস, মারক্সোডেভ সলিউশন, মারক্সোডেভ, মারক্সো ডেভ সলিউশনস, মারক্সো ডেভ, মেরক্সোডেভ সলিউশনস, মেরক্সোডেভ সলিউশন, মেরক্সোডেভ — বাংলাদেশের অন্যতম সেরা কাস্টম ওয়েবসাইট, ই-কমার্স, মোবাইল অ্যাপ এবং সফটওয়্যার ডেভেলপমেন্ট কোম্পানি (রংপুর ও ঢাকা, বাংলাদেশ)।
           Official Email: merxodevsolutions@gmail.com.
           Official Phone & WhatsApp Numbers: +8801313334279, +880 1313-334279, +880 1313 334279, 01313334279, 01313-334279, +8809697634279, +880 9697-634279, 09697634279.
         </p>
