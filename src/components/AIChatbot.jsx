@@ -515,7 +515,9 @@ export default function AIChatbot() {
 
       if (
         trimmed.includes("Phone / WhatsApp") ||
-        trimmed.includes("ফোন / হোয়াটসঅ্যাপ")
+        trimmed.includes("ফোন / হোয়াটসঅ্যাপ") ||
+        trimmed.includes("الهاتف / واتساب") ||
+        trimmed.includes("电话 / WhatsApp")
       ) {
         return (
           <div
@@ -528,7 +530,12 @@ export default function AIChatbot() {
         );
       }
 
-      if (trimmed.includes("Email:") || trimmed.includes("ইমেইল:")) {
+      if (
+        trimmed.includes("Email:") ||
+        trimmed.includes("ইমেইল:") ||
+        trimmed.includes("البريد الإلكتروني:") ||
+        trimmed.includes("邮箱:")
+      ) {
         return (
           <div
             key={idx}
@@ -540,7 +547,12 @@ export default function AIChatbot() {
         );
       }
 
-      if (trimmed.includes("Location:") || trimmed.includes("ঠিকানা:")) {
+      if (
+        trimmed.includes("Location:") ||
+        trimmed.includes("ঠিকানা:") ||
+        trimmed.includes("الموقع:") ||
+        trimmed.includes("地址:")
+      ) {
         return (
           <div
             key={idx}
@@ -555,7 +567,9 @@ export default function AIChatbot() {
       if (
         trimmed.includes("Availability:") ||
         trimmed.includes("সার্ভিস টাইম:") ||
-        trimmed.includes("Available:")
+        trimmed.includes("Available:") ||
+        trimmed.includes("التوفر:") ||
+        trimmed.includes("服务时间:")
       ) {
         return (
           <div
@@ -571,9 +585,13 @@ export default function AIChatbot() {
       if (
         trimmed.startsWith("✅") ||
         trimmed.startsWith("🔔") ||
-        trimmed.includes("Instant Alert Sent to Live Team") ||
+        trimmed.includes("Instant Alert Sent to Live") ||
         trimmed.includes("লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন") ||
-        trimmed.includes("Live Team ke instant notification")
+        trimmed.includes("লাইভ টিমকে ইনস্ট্যান্ট নোটিফিকেশন") ||
+        trimmed.includes("Live Team ke instant notification") ||
+        trimmed.includes("Live Admin ke instant notification") ||
+        trimmed.includes("تم إرسال تنبيه فوري") ||
+        trimmed.includes("已向人工客服发送即时通知")
       ) {
         const cleanAlert = trimmed.replace(/^[✅🔔\s]+/, "");
         return (
@@ -611,7 +629,7 @@ export default function AIChatbot() {
               <button
                 onClick={handleToggle}
                 className="sm:hidden p-1.5 -ml-1 text-white/90 hover:text-white rounded-lg active:bg-white/10"
-                aria-label="Back"
+                aria-label={tr("aiChat.back", "Back")}
               >
                 <IoArrowBack className="w-5 h-5" />
               </button>
@@ -638,8 +656,8 @@ export default function AIChatbot() {
               <div>
                 <h3 className="text-xs sm:text-sm font-extrabold tracking-wide flex items-center gap-1.5">
                   {sessionMode === "live"
-                    ? "MerxoDev Live Team"
-                    : "MerxoDev AI"}
+                    ? tr("aiChat.headerTitleLive", "MerxoDev Live Team")
+                    : tr("aiChat.headerTitleAi", "MerxoDev AI")}
                   <span
                     className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${
                       sessionMode === "live"
@@ -648,14 +666,16 @@ export default function AIChatbot() {
                     }`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    {sessionMode === "live" ? "Live Human" : "Online"}
+                    {sessionMode === "live"
+                      ? tr("aiChat.badgeLive", "Live Human")
+                      : tr("aiChat.badgeOnline", "Online")}
                   </span>
                 </h3>
                 <p className="text-[10px] sm:text-[11px] text-white/80 dark:text-cyan-300 flex items-center gap-1">
                   <BsStars className="w-2.5 h-2.5 text-amber-300" />
                   {sessionMode === "live"
-                    ? "Direct Admin Conversation"
-                    : "AI + Live Team Support"}
+                    ? tr("aiChat.subtitleLive", "Direct Team Conversation")
+                    : tr("aiChat.subtitleAi", "AI + Live Team Support")}
                 </p>
               </div>
             </div>
@@ -667,7 +687,7 @@ export default function AIChatbot() {
                   type="button"
                   onClick={handleRequestLiveAdmin}
                   disabled={requestingHuman || needsHuman}
-                  title="Request Live Human Admin"
+                  title={tr("aiChat.requestLiveAdminTitle", "Request Live Team")}
                   className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer border ${
                     needsHuman
                       ? "bg-amber-500/25 text-amber-200 border-amber-400/40"
@@ -675,7 +695,11 @@ export default function AIChatbot() {
                   }`}
                 >
                   <MdSupportAgent className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>{needsHuman ? "Alerted" : "Live Team"}</span>
+                  <span>
+                    {needsHuman
+                      ? tr("aiChat.adminAlertedBtn", "Alerted")
+                      : tr("aiChat.liveAdminBtn", "Live Team")}
+                  </span>
                 </button>
               )}
 
@@ -685,8 +709,8 @@ export default function AIChatbot() {
                 onClick={toggleSound}
                 title={
                   soundEnabled
-                    ? "Mute Notification Sound"
-                    : "Unmute Notification Sound"
+                    ? tr("aiChat.muteSound", "Mute Notification Sound")
+                    : tr("aiChat.unmuteSound", "Unmute Notification Sound")
                 }
                 className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 aria-label="Toggle Sound"
@@ -702,7 +726,7 @@ export default function AIChatbot() {
               <button
                 type="button"
                 onClick={handleClearChat}
-                title="New Chat"
+                title={tr("aiChat.newChat", "New Chat")}
                 className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <BsTrash3 className="w-3.5 h-3.5" />
@@ -713,7 +737,7 @@ export default function AIChatbot() {
                 type="button"
                 onClick={handleToggle}
                 className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                aria-label="Close Chat"
+                aria-label={tr("aiChat.closeChat", "Close Chat")}
               >
                 <IoClose className="w-5 h-5" />
               </button>
@@ -742,8 +766,14 @@ export default function AIChatbot() {
                 )}
                 <span>
                   {sessionMode === "live"
-                    ? "You are chatting live with a MerxoDev Team"
-                    : "Live Team notified! AI will assist until Team joins."}
+                    ? tr(
+                        "aiChat.statusLive",
+                        "You are chatting live with a MerxoDev Team",
+                      )
+                    : tr(
+                        "aiChat.statusNotified",
+                        "Live Team notified! AI will assist until Team joins.",
+                      )}
                 </span>
               </span>
             </div>
@@ -776,8 +806,30 @@ export default function AIChatbot() {
 
               const isUser = msg.sender === "user";
               const isAdmin = msg.sender === "admin";
+              const isWelcome = msg.id === "welcome";
+              const rawText = isWelcome
+                ? tr("aiChat.welcomeText", INITIAL_WELCOME.text)
+                : msg.text;
               const displayContent =
-                streamingMsgId === msg.id ? streamedText : msg.text;
+                streamingMsgId === msg.id ? streamedText : rawText;
+
+              const messageActions = isWelcome
+                ? [
+                    {
+                      label: tr(
+                        "aiChat.viewServices",
+                        "View Services & Pricing",
+                      ),
+                      href: "/services",
+                      type: "link",
+                    },
+                    {
+                      label: tr("aiChat.chatWhatsapp", "Chat on WhatsApp"),
+                      href: "https://wa.me/8801313334279",
+                      type: "external",
+                    },
+                  ]
+                : msg.actions;
 
               return (
                 <div
@@ -812,16 +864,19 @@ export default function AIChatbot() {
                     <div className="flex items-center gap-1.5 mb-1 px-1">
                       {isUser ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-700 dark:text-cyan-300">
-                          {loggedInName || "Visitor"}
+                          {loggedInName || tr("aiChat.visitorLabel", "Visitor")}
                         </span>
                       ) : isAdmin ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
-                          Live Team (MerxoDev Team)
+                          {tr(
+                            "aiChat.liveAdminLabel",
+                            "Live Team (MerxoDev Team)",
+                          )}
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
                           <MdSupportAgent className="w-3 h-3" />
-                          MerxoDev AI Support
+                          {tr("aiChat.aiSupportLabel", "MerxoDev AI Support")}
                         </span>
                       )}
                     </div>
@@ -838,11 +893,11 @@ export default function AIChatbot() {
                       <div>{renderFormattedText(displayContent)}</div>
 
                       {/* Action Link Buttons inside Bot Response */}
-                      {msg.actions &&
-                        msg.actions.length > 0 &&
+                      {messageActions &&
+                        messageActions.length > 0 &&
                         streamingMsgId !== msg.id && (
                           <div className="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-zinc-200/50 dark:border-white/10">
-                            {msg.actions.map((act, i) =>
+                            {messageActions.map((act, i) =>
                               act.type === "external" ? (
                                 <a
                                   key={i}
@@ -902,10 +957,12 @@ export default function AIChatbot() {
 
             {/* Typing Animation */}
             {loading && (
-              <div className="flex items-center gap-2 p-3 rounded-2xl bg-white dark:bg-[#0f1b38] border border-zinc-200/70 dark:border-blue-900/40 w-32 shadow-xs">
+              <div className="flex items-center gap-2 p-3 rounded-2xl bg-white dark:bg-[#0f1b38] border border-zinc-200/70 dark:border-blue-900/40 w-36 shadow-xs">
                 <RiRobot2Line className="w-4 h-4 text-violet-600 dark:text-cyan-400 animate-spin" />
                 <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-                  {sessionMode === "live" ? "Sending..." : "AI Thinking..."}
+                  {sessionMode === "live"
+                    ? tr("aiChat.sending", "Sending...")
+                    : tr("aiChat.aiThinking", "AI Thinking...")}
                 </span>
               </div>
             )}
@@ -940,8 +997,14 @@ export default function AIChatbot() {
                 onKeyDown={handleKeyDown}
                 placeholder={
                   sessionMode === "live"
-                    ? "Write a message to Live Team..."
-                    : "Ask in বাংলা, Banglish or English..."
+                    ? tr(
+                        "aiChat.placeholderLive",
+                        "Write a message to Live Team...",
+                      )
+                    : tr(
+                        "aiChat.placeholderAi",
+                        "Ask anything about MerxoDev Solutions...",
+                      )
                 }
                 className="flex-1 bg-transparent text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 outline-none"
               />
@@ -950,7 +1013,7 @@ export default function AIChatbot() {
                 onClick={() => handleSend()}
                 disabled={!input.trim() || loading}
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white flex items-center justify-center hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md shrink-0 cursor-pointer"
-                aria-label="Send message"
+                aria-label={tr("aiChat.sendMessageAria", "Send message")}
               >
                 <RiSendPlaneFill className="w-4 h-4" />
               </button>
@@ -959,12 +1022,12 @@ export default function AIChatbot() {
               <span className="flex items-center gap-1">
                 <BsShieldCheck className="w-3 h-3 text-cyan-500" />
                 {sessionMode === "live"
-                  ? "MerxoDev Live Agent"
-                  : "MerxoDev AI + Live Support"}
+                  ? tr("aiChat.footerLiveAgent", "MerxoDev Live Agent")
+                  : tr("aiChat.footerAiSupport", "MerxoDev AI + Live Support")}
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                24/7 Instant Reply
+                {tr("aiChat.footerInstantReply", "24/7 Instant Reply")}
               </span>
             </div>
           </div>
@@ -978,7 +1041,7 @@ export default function AIChatbot() {
           className={`pointer-events-auto relative group items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 text-white shadow-2xl shadow-violet-600/40 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/20 cursor-pointer ${
             isOpen ? "hidden sm:flex" : "flex"
           }`}
-          aria-label="Open AI Chat Assistant"
+          aria-label={tr("aiChat.launcherOpenAria", "Open AI Chat Assistant")}
         >
           <span className="absolute inset-0 rounded-full bg-cyan-400 opacity-30 animate-ping pointer-events-none" />
 
@@ -994,7 +1057,9 @@ export default function AIChatbot() {
             <div className="flex flex-col items-center justify-center">
               <IoChatbubbleEllipsesSharp className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
               <span className="text-[8px] font-black uppercase tracking-tighter mt-0.5">
-                {sessionMode === "live" ? "LIVE" : "AI CHAT"}
+                {sessionMode === "live"
+                  ? tr("aiChat.launcherLive", "LIVE")
+                  : tr("aiChat.launcherAi", "AI CHAT")}
               </span>
             </div>
           )}
