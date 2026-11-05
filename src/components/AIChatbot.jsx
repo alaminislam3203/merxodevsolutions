@@ -1,91 +1,87 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState, useEffect, useRef, useCallback } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import {
   IoClose,
   IoChatbubbleEllipsesSharp,
   IoArrowBack,
   IoVolumeHigh,
   IoVolumeMute,
-} from 'react-icons/io5';
-import {
-  FaWhatsapp,
-  FaArrowRight,
-  FaUserTie,
-} from 'react-icons/fa6';
-import {
-  BsStars,
-  BsTrash3,
-  BsShieldCheck,
-  BsClock,
-} from 'react-icons/bs';
-import {
-  RiRobot2Line,
-  RiSendPlaneFill,
-} from 'react-icons/ri';
+} from "react-icons/io5";
+import { FaWhatsapp, FaArrowRight, FaUserTie } from "react-icons/fa6";
+import { BsStars, BsTrash3, BsShieldCheck, BsClock } from "react-icons/bs";
+import { RiRobot2Line, RiSendPlaneFill } from "react-icons/ri";
 import {
   MdPhoneInTalk,
   MdAlternateEmail,
   MdLocationOn,
   MdSupportAgent,
-} from 'react-icons/md';
-import { playVisitorMessageSound } from '@/lib/chatSound';
+} from "react-icons/md";
+import { playVisitorMessageSound } from "@/lib/chatSound";
 
 const INITIAL_WELCOME = {
-  id: 'welcome',
-  sender: 'bot',
+  id: "welcome",
+  sender: "bot",
   text: "**Welcome to MerxoDev Solutions! (মারক্সোডেভ সলিউশনস-এ স্বাগতম)**\n\nI am your **MerxoDev AI Assistant**. Ask me anything in **বাংলা, Banglish, or English** about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Admin** above to chat directly with a human!",
   actions: [
-    { label: 'View Services & Pricing', href: '/services', type: 'link' },
-    { label: 'Chat on WhatsApp', href: 'https://wa.me/8801313334279', type: 'external' },
+    { label: "View Services & Pricing", href: "/services", type: "link" },
+    {
+      label: "Chat on WhatsApp",
+      href: "https://wa.me/8801313334279",
+      type: "external",
+    },
   ],
   createdAt: null,
 };
 
 const QUICK_SUGGESTIONS = [
-  'Website pricing & packages?',
-  'আপনাদের করা প্রজেক্টগুলো দেখান',
-  'E-commerce & bKash/Nagad gateway',
-  'বাংলায় কথা বলুন',
-  'Talk to Live Admin',
+  "Website pricing & packages?",
+  "আপনাদের করা প্রজেক্টগুলো দেখান",
+  "E-commerce & bKash/Nagad gateway",
+  "বাংলায় কথা বলুন",
+  "Talk to Live Admin",
 ];
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionId, setSessionId] = useState('');
-  const [sessionMode, setSessionMode] = useState('ai'); // 'ai' | 'live'
+  const [sessionId, setSessionId] = useState("");
+  const [sessionMode, setSessionMode] = useState("ai"); // 'ai' | 'live'
   const [needsHuman, setNeedsHuman] = useState(false);
   const [messages, setMessages] = useState([INITIAL_WELCOME]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [requestingHuman, setRequestingHuman] = useState(false);
   const [suggestions, setSuggestions] = useState(QUICK_SUGGESTIONS);
   const [hasUnread, setHasUnread] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [streamingMsgId, setStreamingMsgId] = useState(null);
-  const [streamedText, setStreamedText] = useState('');
+  const [streamedText, setStreamedText] = useState("");
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
-  const knownMessageIdsRef = useRef(new Set(['welcome']));
+  const knownMessageIdsRef = useRef(new Set(["welcome"]));
   const streamIntervalRef = useRef(null);
 
   // Initialize persistent sessionId and sound preference from localStorage
   useEffect(() => {
     try {
-      let storedId = localStorage.getItem('merxodev_chat_session_id');
+      let storedId = localStorage.getItem("merxodev_chat_session_id");
       if (!storedId) {
-        storedId = 'mx_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
-        localStorage.setItem('merxodev_chat_session_id', storedId);
+        storedId =
+          "mx_" +
+          Date.now().toString(36) +
+          "_" +
+          Math.random().toString(36).slice(2, 8);
+        localStorage.setItem("merxodev_chat_session_id", storedId);
       }
       setSessionId(storedId);
 
-      const savedSound = localStorage.getItem('merxodev_chat_sound');
-      if (savedSound === 'off') setSoundEnabled(false);
+      const savedSound = localStorage.getItem("merxodev_chat_sound");
+      if (savedSound === "off") setSoundEnabled(false);
     } catch {
-      setSessionId('mx_' + Date.now().toString(36));
+      setSessionId("mx_" + Date.now().toString(36));
     }
   }, []);
 
@@ -93,7 +89,7 @@ export default function AIChatbot() {
     setSoundEnabled((prev) => {
       const next = !prev;
       try {
-        localStorage.setItem('merxodev_chat_sound', next ? 'on' : 'off');
+        localStorage.setItem("merxodev_chat_sound", next ? "on" : "off");
       } catch {}
       if (next) playVisitorMessageSound();
       return next;
@@ -103,14 +99,14 @@ export default function AIChatbot() {
   // Word-by-word streaming animation for newly arrived AI replies (ChatGPT / Gemini style)
   const triggerStreamAnimation = useCallback((msgId, fullText) => {
     if (streamIntervalRef.current) clearInterval(streamIntervalRef.current);
-    const words = String(fullText || '').split(' ');
+    const words = String(fullText || "").split(" ");
     if (words.length <= 4) {
       setStreamingMsgId(null);
       return;
     }
     setStreamingMsgId(msgId);
     let idx = 3;
-    setStreamedText(words.slice(0, idx).join(' '));
+    setStreamedText(words.slice(0, idx).join(" "));
 
     streamIntervalRef.current = setInterval(() => {
       idx += 3;
@@ -118,9 +114,9 @@ export default function AIChatbot() {
         clearInterval(streamIntervalRef.current);
         streamIntervalRef.current = null;
         setStreamingMsgId(null);
-        setStreamedText('');
+        setStreamedText("");
       } else {
-        setStreamedText(words.slice(0, idx).join(' '));
+        setStreamedText(words.slice(0, idx).join(" "));
       }
     }, 28);
   }, []);
@@ -136,14 +132,17 @@ export default function AIChatbot() {
     async (isInitial = false) => {
       if (!sessionId) return;
       try {
-        const res = await fetch(`/api/chat?sessionId=${encodeURIComponent(sessionId)}`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(
+          `/api/chat?sessionId=${encodeURIComponent(sessionId)}`,
+          {
+            cache: "no-store",
+          },
+        );
         if (!res.ok) return;
         const data = await res.json();
 
         if (data?.session) {
-          setSessionMode(data.session.mode || 'ai');
+          setSessionMode(data.session.mode || "ai");
           setNeedsHuman(Boolean(data.session.needsHuman));
         }
 
@@ -153,7 +152,10 @@ export default function AIChatbot() {
           data.messages.forEach((m) => {
             if (!knownMessageIdsRef.current.has(m.id)) {
               knownMessageIdsRef.current.add(m.id);
-              if (!isInitial && (m.sender === 'admin' || m.sender === 'system')) {
+              if (
+                !isInitial &&
+                (m.sender === "admin" || m.sender === "system")
+              ) {
                 newIncomingFromAdminOrBot = true;
               }
             }
@@ -170,7 +172,7 @@ export default function AIChatbot() {
         // Ignore transient network errors during background poll
       }
     },
-    [sessionId, soundEnabled, isOpen]
+    [sessionId, soundEnabled, isOpen],
   );
 
   // Initial load once sessionId is ready
@@ -183,9 +185,9 @@ export default function AIChatbot() {
   // Real-time polling when chat is open OR when in Live Admin / Needs Human mode
   useEffect(() => {
     if (!sessionId) return;
-    if (!isOpen && sessionMode !== 'live' && !needsHuman) return;
+    if (!isOpen && sessionMode !== "live" && !needsHuman) return;
 
-    const intervalMs = sessionMode === 'live' || needsHuman ? 2500 : 4000;
+    const intervalMs = sessionMode === "live" || needsHuman ? 2500 : 4000;
     const timer = setInterval(() => {
       syncSession(false);
     }, intervalMs);
@@ -197,19 +199,19 @@ export default function AIChatbot() {
   useEffect(() => {
     if (isOpen) {
       if (window.innerWidth < 640) {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
       }
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   // Auto-scroll chat body
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -228,17 +230,17 @@ export default function AIChatbot() {
     if (requestingHuman || loading || !sessionId) return;
     setRequestingHuman(true);
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId,
-          action: 'request_human',
+          action: "request_human",
         }),
       });
       const data = await res.json();
       if (data?.session) {
-        setSessionMode(data.session.mode || 'ai');
+        setSessionMode(data.session.mode || "ai");
         setNeedsHuman(Boolean(data.session.needsHuman));
       }
       if (Array.isArray(data?.messages) && data.messages.length > 0) {
@@ -258,29 +260,32 @@ export default function AIChatbot() {
     if (!query || loading) return;
 
     // If user clicked the "Talk to Live Admin" suggestion chip
-    if (query.toLowerCase() === 'talk to live admin' || query === 'লাইভ অ্যাডমিনের সাথে কথা বলতে চাই') {
-      setInput('');
+    if (
+      query.toLowerCase() === "talk to live admin" ||
+      query === "লাইভ অ্যাডমিনের সাথে কথা বলতে চাই"
+    ) {
+      setInput("");
       await handleRequestLiveAdmin();
       return;
     }
 
-    const tempId = 'temp_' + Date.now();
+    const tempId = "temp_" + Date.now();
     const optimisticUserMsg = {
       id: tempId,
-      sender: 'user',
+      sender: "user",
       text: query,
       createdAt: new Date().toISOString(),
     };
 
     knownMessageIdsRef.current.add(tempId);
     setMessages((prev) => [...prev, optimisticUserMsg]);
-    setInput('');
+    setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId,
           message: query,
@@ -290,7 +295,7 @@ export default function AIChatbot() {
       const data = await res.json();
 
       if (data?.session) {
-        setSessionMode(data.session.mode || 'ai');
+        setSessionMode(data.session.mode || "ai");
         setNeedsHuman(Boolean(data.session.needsHuman));
       }
 
@@ -299,16 +304,16 @@ export default function AIChatbot() {
         setMessages([INITIAL_WELCOME, ...data.messages]);
 
         const lastMsg = data.messages[data.messages.length - 1];
-        if (lastMsg && lastMsg.sender === 'bot') {
+        if (lastMsg && lastMsg.sender === "bot") {
           if (soundEnabled) playVisitorMessageSound();
           triggerStreamAnimation(lastMsg.id, lastMsg.text);
         }
       } else if (data?.reply) {
-        const botId = 'bot_' + Date.now();
+        const botId = "bot_" + Date.now();
         knownMessageIdsRef.current.add(botId);
         const fallbackBotMsg = {
           id: botId,
-          sender: 'bot',
+          sender: "bot",
           text: data.reply,
           actions: data.actions || [],
           createdAt: new Date().toISOString(),
@@ -322,15 +327,19 @@ export default function AIChatbot() {
         setSuggestions(data.suggestions);
       }
     } catch (err) {
-      console.error('Chat error:', err);
+      console.error("Chat error:", err);
       setMessages((prev) => [
         ...prev,
         {
-          id: 'err_' + Date.now(),
-          sender: 'bot',
-          text: 'I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1313-334279)**.',
+          id: "err_" + Date.now(),
+          sender: "bot",
+          text: "I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1313-334279)**.",
           actions: [
-            { label: 'Direct WhatsApp', href: 'https://wa.me/8801313334279', type: 'external' },
+            {
+              label: "Direct WhatsApp",
+              href: "https://wa.me/8801313334279",
+              type: "external",
+            },
           ],
           createdAt: new Date().toISOString(),
         },
@@ -341,45 +350,55 @@ export default function AIChatbot() {
   };
 
   const handleClearChat = () => {
-    const newId = 'mx_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+    const newId =
+      "mx_" +
+      Date.now().toString(36) +
+      "_" +
+      Math.random().toString(36).slice(2, 8);
     try {
-      localStorage.setItem('merxodev_chat_session_id', newId);
+      localStorage.setItem("merxodev_chat_session_id", newId);
     } catch {}
-    knownMessageIdsRef.current = new Set(['welcome']);
+    knownMessageIdsRef.current = new Set(["welcome"]);
     setSessionId(newId);
-    setSessionMode('ai');
+    setSessionMode("ai");
     setNeedsHuman(false);
     setMessages([INITIAL_WELCOME]);
     setSuggestions(QUICK_SUGGESTIONS);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
 
   const formatTime = (iso) => {
-    if (!iso) return 'Just now';
+    if (!iso) return "Just now";
     try {
-      return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return new Date(iso).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     } catch {
-      return 'Just now';
+      return "Just now";
     }
   };
 
   // Clean Markdown Renderer for bold, list bullet points, icons, contact tags
   const renderFormattedText = (content) => {
-    const lines = String(content || '').split('\n');
+    const lines = String(content || "").split("\n");
     return lines.map((line, idx) => {
       let trimmed = line.trim();
 
       const formatParts = (textStr) => {
         return textStr.split(/(\*\*.*?\*\*)/g).map((part, pIdx) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
+          if (part.startsWith("**") && part.endsWith("**")) {
             return (
-              <strong key={pIdx} className="font-bold text-violet-950 dark:text-cyan-300">
+              <strong
+                key={pIdx}
+                className="font-bold text-violet-950 dark:text-cyan-300"
+              >
                 {part.slice(2, -2)}
               </strong>
             );
@@ -388,8 +407,8 @@ export default function AIChatbot() {
         });
       };
 
-      if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
-        const itemText = trimmed.replace(/^[•\-]\s*/, '');
+      if (trimmed.startsWith("•") || trimmed.startsWith("-")) {
+        const itemText = trimmed.replace(/^[•\-]\s*/, "");
         return (
           <div key={idx} className="flex items-start gap-2 my-1 ml-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 mt-2 shrink-0 shadow-xs" />
@@ -400,7 +419,7 @@ export default function AIChatbot() {
 
       if (/^\d+[\.\)]\s+/.test(trimmed)) {
         const number = trimmed.match(/^(\d+)[\.\)]\s+/)[1];
-        const itemText = trimmed.replace(/^\d+[\.\)]\s+/, '');
+        const itemText = trimmed.replace(/^\d+[\.\)]\s+/, "");
         return (
           <div key={idx} className="flex items-start gap-2 my-1 ml-0.5">
             <span className="w-4 h-4 rounded-md bg-violet-100 dark:bg-blue-950/80 text-violet-700 dark:text-cyan-400 text-[10px] font-black flex items-center justify-center shrink-0 border border-violet-200 dark:border-blue-900/60 mt-0.5">
@@ -411,43 +430,62 @@ export default function AIChatbot() {
         );
       }
 
-      if (trimmed.includes('Phone / WhatsApp') || trimmed.includes('ফোন / হোয়াটসঅ্যাপ')) {
+      if (
+        trimmed.includes("Phone / WhatsApp") ||
+        trimmed.includes("ফোন / হোয়াটসঅ্যাপ")
+      ) {
         return (
-          <div key={idx} className="flex items-start gap-2 my-1.5 text-emerald-700 dark:text-emerald-400 font-medium">
+          <div
+            key={idx}
+            className="flex items-start gap-2 my-1.5 text-emerald-700 dark:text-emerald-400 font-medium"
+          >
             <MdPhoneInTalk className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{formatParts(trimmed.replace(/^[📞\s]+/, ''))}</span>
+            <span>{formatParts(trimmed.replace(/^[📞\s]+/, ""))}</span>
           </div>
         );
       }
 
-      if (trimmed.includes('Email:') || trimmed.includes('ইমেইল:')) {
+      if (trimmed.includes("Email:") || trimmed.includes("ইমেইল:")) {
         return (
-          <div key={idx} className="flex items-start gap-2 my-1.5 text-blue-700 dark:text-cyan-400 font-medium">
+          <div
+            key={idx}
+            className="flex items-start gap-2 my-1.5 text-blue-700 dark:text-cyan-400 font-medium"
+          >
             <MdAlternateEmail className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{formatParts(trimmed.replace(/^[✉️\s]+/, ''))}</span>
+            <span>{formatParts(trimmed.replace(/^[✉️\s]+/, ""))}</span>
           </div>
         );
       }
 
-      if (trimmed.includes('Location:') || trimmed.includes('ঠিকানা:')) {
+      if (trimmed.includes("Location:") || trimmed.includes("ঠিকানা:")) {
         return (
-          <div key={idx} className="flex items-start gap-2 my-1.5 text-rose-700 dark:text-rose-400 font-medium">
+          <div
+            key={idx}
+            className="flex items-start gap-2 my-1.5 text-rose-700 dark:text-rose-400 font-medium"
+          >
             <MdLocationOn className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{formatParts(trimmed.replace(/^[📍\s]+/, ''))}</span>
+            <span>{formatParts(trimmed.replace(/^[📍\s]+/, ""))}</span>
           </div>
         );
       }
 
-      if (trimmed.includes('Availability:') || trimmed.includes('সার্ভিস টাইম:') || trimmed.includes('Available:')) {
+      if (
+        trimmed.includes("Availability:") ||
+        trimmed.includes("সার্ভিস টাইম:") ||
+        trimmed.includes("Available:")
+      ) {
         return (
-          <div key={idx} className="flex items-start gap-2 my-1.5 text-amber-700 dark:text-amber-400 font-medium">
+          <div
+            key={idx}
+            className="flex items-start gap-2 my-1.5 text-amber-700 dark:text-amber-400 font-medium"
+          >
             <BsClock className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{formatParts(trimmed.replace(/^[⏱️\s]+/, ''))}</span>
+            <span>{formatParts(trimmed.replace(/^[⏱️\s]+/, ""))}</span>
           </div>
         );
       }
 
-      if (trimmed === '') {
+      if (trimmed === "") {
         return <div key={idx} className="h-2" />;
       }
 
@@ -477,7 +515,7 @@ export default function AIChatbot() {
               </button>
 
               <div className="relative">
-                {sessionMode === 'live' ? (
+                {sessionMode === "live" ? (
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-orange-500 dark:bg-white/10 backdrop-blur-md p-1.5 flex items-center justify-center shadow-md border border-white/20">
                     <Image
                       src="/favicon.png"
@@ -497,30 +535,32 @@ export default function AIChatbot() {
 
               <div>
                 <h3 className="text-xs sm:text-sm font-extrabold tracking-wide flex items-center gap-1.5">
-                  {sessionMode === 'live' ? 'MerxoDev Live Admin' : 'MerxoDev AI'}
+                  {sessionMode === "live"
+                    ? "MerxoDev Live Admin"
+                    : "MerxoDev AI"}
                   <span
                     className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${
-                      sessionMode === 'live'
-                        ? 'bg-emerald-500/30 text-emerald-200 border-emerald-400/50'
-                        : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                      sessionMode === "live"
+                        ? "bg-emerald-500/30 text-emerald-200 border-emerald-400/50"
+                        : "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
                     }`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    {sessionMode === 'live' ? 'Live Human' : 'Online'}
+                    {sessionMode === "live" ? "Live Human" : "Online"}
                   </span>
                 </h3>
                 <p className="text-[10px] sm:text-[11px] text-white/80 dark:text-cyan-300 flex items-center gap-1">
                   <BsStars className="w-2.5 h-2.5 text-amber-300" />
-                  {sessionMode === 'live'
-                    ? 'Direct Admin Conversation'
-                    : 'AI + Live Admin Support (বাংলা / EN)'}
+                  {sessionMode === "live"
+                    ? "Direct Admin Conversation"
+                    : "AI + Live Admin Support"}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
               {/* Request Live Admin Button */}
-              {sessionMode !== 'live' && (
+              {sessionMode !== "live" && (
                 <button
                   type="button"
                   onClick={handleRequestLiveAdmin}
@@ -528,12 +568,12 @@ export default function AIChatbot() {
                   title="Request Live Human Admin"
                   className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer border ${
                     needsHuman
-                      ? 'bg-amber-500/25 text-amber-200 border-amber-400/40'
-                      : 'bg-white/15 hover:bg-emerald-500/30 text-white border-white/20'
+                      ? "bg-amber-500/25 text-amber-200 border-amber-400/40"
+                      : "bg-white/15 hover:bg-emerald-500/30 text-white border-white/20"
                   }`}
                 >
                   <MdSupportAgent className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>{needsHuman ? 'Admin Alerted' : 'Live Admin'}</span>
+                  <span>{needsHuman ? "Admin Alerted" : "Live Admin"}</span>
                 </button>
               )}
 
@@ -541,11 +581,19 @@ export default function AIChatbot() {
               <button
                 type="button"
                 onClick={toggleSound}
-                title={soundEnabled ? 'Mute Notification Sound' : 'Unmute Notification Sound'}
+                title={
+                  soundEnabled
+                    ? "Mute Notification Sound"
+                    : "Unmute Notification Sound"
+                }
                 className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 aria-label="Toggle Sound"
               >
-                {soundEnabled ? <IoVolumeHigh className="w-4 h-4 text-emerald-300" /> : <IoVolumeMute className="w-4 h-4 text-white/50" />}
+                {soundEnabled ? (
+                  <IoVolumeHigh className="w-4 h-4 text-emerald-300" />
+                ) : (
+                  <IoVolumeMute className="w-4 h-4 text-white/50" />
+                )}
               </button>
 
               {/* Clear Chat */}
@@ -571,23 +619,23 @@ export default function AIChatbot() {
           </div>
 
           {/* Live Admin Status Bar when in Live Mode or Needs Human */}
-          {(sessionMode === 'live' || needsHuman) && (
+          {(sessionMode === "live" || needsHuman) && (
             <div
               className={`px-4 py-1.5 text-[11px] font-semibold flex items-center justify-between border-b shrink-0 ${
-                sessionMode === 'live'
-                  ? 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border-emerald-500/30'
-                  : 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30'
+                sessionMode === "live"
+                  ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border-emerald-500/30"
+                  : "bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30"
               }`}
             >
               <span className="flex items-center gap-1.5">
                 <span
                   className={`w-2 h-2 rounded-full animate-pulse ${
-                    sessionMode === 'live' ? 'bg-emerald-500' : 'bg-amber-500'
+                    sessionMode === "live" ? "bg-emerald-500" : "bg-amber-500"
                   }`}
                 />
-                {sessionMode === 'live'
-                  ? '👨‍💻 You are chatting live with a MerxoDev Admin'
-                  : '🔔 Live Admin notified! AI will assist until Admin joins.'}
+                {sessionMode === "live"
+                  ? "👨‍💻 You are chatting live with a MerxoDev Admin"
+                  : "🔔 Live Admin notified! AI will assist until Admin joins."}
               </span>
             </div>
           )}
@@ -595,24 +643,25 @@ export default function AIChatbot() {
           {/* Messages Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs sm:text-[13px] bg-zinc-50/50 dark:bg-[#060b19]/60">
             {messages.map((msg) => {
-              if (msg.sender === 'system') {
+              if (msg.sender === "system") {
                 return (
                   <div key={msg.id} className="flex justify-center my-2">
                     <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-center">
-                      {msg.text.replace(/\*\*/g, '')}
+                      {msg.text.replace(/\*\*/g, "")}
                     </span>
                   </div>
                 );
               }
 
-              const isUser = msg.sender === 'user';
-              const isAdmin = msg.sender === 'admin';
-              const displayContent = streamingMsgId === msg.id ? streamedText : msg.text;
+              const isUser = msg.sender === "user";
+              const isAdmin = msg.sender === "admin";
+              const displayContent =
+                streamingMsgId === msg.id ? streamedText : msg.text;
 
               return (
                 <div
                   key={msg.id}
-                  className={`flex items-end gap-2 ${isUser ? 'justify-end' : 'justify-start'}`}
+                  className={`flex items-end gap-2 ${isUser ? "justify-end" : "justify-start"}`}
                 >
                   {/* Side Avatar for MerxoDev AI (Support Icon) vs Live Admin (favicon.png) */}
                   {!isUser && (
@@ -635,7 +684,9 @@ export default function AIChatbot() {
                     </div>
                   )}
 
-                  <div className={`flex flex-col max-w-[82%] ${isUser ? 'items-end' : 'items-start'}`}>
+                  <div
+                    className={`flex flex-col max-w-[82%] ${isUser ? "items-end" : "items-start"}`}
+                  >
                     {/* Sender Label for Admin or AI */}
                     {!isUser && (
                       <div className="flex items-center gap-1.5 mb-1 px-1">
@@ -655,43 +706,45 @@ export default function AIChatbot() {
                     <div
                       className={`w-full rounded-2xl px-4 py-3 shadow-sm ${
                         isUser
-                          ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-br-sm shadow-violet-500/10'
+                          ? "bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-br-sm shadow-violet-500/10"
                           : isAdmin
-                          ? 'bg-emerald-50/90 dark:bg-emerald-950/40 text-zinc-900 dark:text-zinc-100 border-2 border-emerald-500/40 rounded-bl-sm shadow-sm'
-                          : 'bg-white dark:bg-[#0f1b38] text-zinc-800 dark:text-zinc-100 border border-zinc-200/70 dark:border-blue-900/40 rounded-bl-sm shadow-xs'
+                            ? "bg-emerald-50/90 dark:bg-emerald-950/40 text-zinc-900 dark:text-zinc-100 border-2 border-emerald-500/40 rounded-bl-sm shadow-sm"
+                            : "bg-white dark:bg-[#0f1b38] text-zinc-800 dark:text-zinc-100 border border-zinc-200/70 dark:border-blue-900/40 rounded-bl-sm shadow-xs"
                       }`}
                     >
                       <div>{renderFormattedText(displayContent)}</div>
 
                       {/* Action Link Buttons inside Bot Response */}
-                      {msg.actions && msg.actions.length > 0 && streamingMsgId !== msg.id && (
-                        <div className="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-zinc-200/50 dark:border-white/10">
-                          {msg.actions.map((act, i) =>
-                            act.type === 'external' ? (
-                              <a
-                                key={i}
-                                href={act.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-sm group"
-                              >
-                                <FaWhatsapp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" />
-                                <span>{act.label}</span>
-                              </a>
-                            ) : (
-                              <Link
-                                key={i}
-                                href={act.href}
-                                onClick={() => setIsOpen(false)}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-500/15 text-violet-800 dark:text-cyan-300 border border-violet-500/30 text-[11px] font-bold hover:bg-violet-600 hover:text-white transition-all shadow-sm group"
-                              >
-                                <FaArrowRight className="w-2.5 h-2.5 text-violet-600 dark:text-cyan-400 group-hover:text-white transition-colors" />
-                                <span>{act.label}</span>
-                              </Link>
-                            )
-                          )}
-                        </div>
-                      )}
+                      {msg.actions &&
+                        msg.actions.length > 0 &&
+                        streamingMsgId !== msg.id && (
+                          <div className="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-zinc-200/50 dark:border-white/10">
+                            {msg.actions.map((act, i) =>
+                              act.type === "external" ? (
+                                <a
+                                  key={i}
+                                  href={act.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-sm group"
+                                >
+                                  <FaWhatsapp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" />
+                                  <span>{act.label}</span>
+                                </a>
+                              ) : (
+                                <Link
+                                  key={i}
+                                  href={act.href}
+                                  onClick={() => setIsOpen(false)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-500/15 text-violet-800 dark:text-cyan-300 border border-violet-500/30 text-[11px] font-bold hover:bg-violet-600 hover:text-white transition-all shadow-sm group"
+                                >
+                                  <FaArrowRight className="w-2.5 h-2.5 text-violet-600 dark:text-cyan-400 group-hover:text-white transition-colors" />
+                                  <span>{act.label}</span>
+                                </Link>
+                              ),
+                            )}
+                          </div>
+                        )}
                     </div>
                     <span className="text-[10px] text-zinc-400 dark:text-zinc-500 px-1 mt-1 font-medium">
                       {formatTime(msg.createdAt || msg.timestamp)}
@@ -706,7 +759,7 @@ export default function AIChatbot() {
               <div className="flex items-center gap-2 p-3 rounded-2xl bg-white dark:bg-[#0f1b38] border border-zinc-200/70 dark:border-blue-900/40 w-32 shadow-xs">
                 <RiRobot2Line className="w-4 h-4 text-violet-600 dark:text-cyan-400 animate-spin" />
                 <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-                  {sessionMode === 'live' ? 'Sending...' : 'AI Thinking...'}
+                  {sessionMode === "live" ? "Sending..." : "AI Thinking..."}
                 </span>
               </div>
             )}
@@ -740,9 +793,9 @@ export default function AIChatbot() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={
-                  sessionMode === 'live'
-                    ? 'Write a message to Live Admin...'
-                    : 'Ask in বাংলা, Banglish or English...'
+                  sessionMode === "live"
+                    ? "Write a message to Live Admin..."
+                    : "Ask in বাংলা, Banglish or English..."
                 }
                 className="flex-1 bg-transparent text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 outline-none"
               />
@@ -759,7 +812,9 @@ export default function AIChatbot() {
             <div className="flex items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500 px-1 mt-1.5">
               <span className="flex items-center gap-1">
                 <BsShieldCheck className="w-3 h-3 text-cyan-500" />
-                {sessionMode === 'live' ? 'MerxoDev Live Agent' : 'MerxoDev AI + Live Support'}
+                {sessionMode === "live"
+                  ? "MerxoDev Live Agent"
+                  : "MerxoDev AI + Live Support"}
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -775,7 +830,7 @@ export default function AIChatbot() {
         <button
           onClick={handleToggle}
           className={`pointer-events-auto relative group items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 text-white shadow-2xl shadow-violet-600/40 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/20 cursor-pointer ${
-            isOpen ? 'hidden sm:flex' : 'flex'
+            isOpen ? "hidden sm:flex" : "flex"
           }`}
           aria-label="Open AI Chat Assistant"
         >
@@ -793,7 +848,7 @@ export default function AIChatbot() {
             <div className="flex flex-col items-center justify-center">
               <IoChatbubbleEllipsesSharp className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
               <span className="text-[8px] font-black uppercase tracking-tighter mt-0.5">
-                {sessionMode === 'live' ? 'LIVE' : 'AI CHAT'}
+                {sessionMode === "live" ? "LIVE" : "AI CHAT"}
               </span>
             </div>
           )}
