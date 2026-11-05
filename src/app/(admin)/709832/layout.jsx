@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import "./admin.css";
 
-function AdminSidebar() {
+function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [signingOut, setSigningOut] = useState(false);
@@ -451,7 +451,58 @@ function AdminSidebar() {
         ))}
       </nav>
 
-      <div className="admin-sidebar-bottom">
+      <div className="admin-sidebar-bottom" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <button
+          type="button"
+          onClick={onToggleFullscreen}
+          className="admin-sidebar-signout"
+          title={collapsed ? (isFullscreen ? "Exit Fullscreen (Esc)" : "Full Screen Mode") : ""}
+          style={{
+            color: isFullscreen ? "#38bdf8" : "#94a3b8",
+            background: isFullscreen ? "rgba(56, 189, 248, 0.1)" : "rgba(255, 255, 255, 0.03)",
+            border: isFullscreen
+              ? "1px solid rgba(56, 189, 248, 0.25)"
+              : "1px solid rgba(255, 255, 255, 0.06)",
+          }}
+        >
+          {isFullscreen ? (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M8 3v3a2 2 0 0 1-2 2H3" />
+              <path d="M21 8h-3a2 2 0 0 1-2-2V3" />
+              <path d="M3 16h3a2 2 0 0 1 2 2v3" />
+              <path d="M16 21v-3a2 2 0 0 1 2-2h3" />
+            </svg>
+          ) : (
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+              <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+              <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+              <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+            </svg>
+          )}
+          {!collapsed && (
+            <span>{isFullscreen ? "Exit Fullscreen (Esc)" : "Full Screen"}</span>
+          )}
+        </button>
+
         <button
           onClick={handleSignOut}
           disabled={signingOut}
@@ -489,12 +540,83 @@ function AdminLayoutShell({ children }) {
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const router = useRouter();
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const isLoginRoot = pathname === "/709832";
   const emailLower = String(session?.user?.email || "").toLowerCase().trim();
   const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
   const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
   const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
+
+  // Sync browser Fullscreen API state & handle Esc key exit
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const fsElement =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement;
+      setIsFullscreen(Boolean(fsElement));
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        const fsElement =
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.msFullscreenElement;
+        if (fsElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+        setIsFullscreen(false);
+      }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      const fsElement =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement;
+
+      if (!fsElement && !isFullscreen) {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          await docEl.requestFullscreen();
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        }
+        setIsFullscreen(true);
+        toast.success("Full Screen enabled — Press Esc to exit", {
+          duration: 2200,
+        });
+      } else {
+        if (fsElement) {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+        setIsFullscreen(false);
+      }
+    } catch {
+      setIsFullscreen((prev) => !prev);
+    }
+  };
 
   useEffect(() => {
     if (status === "unauthenticated" && !isLoginRoot) {
@@ -603,8 +725,109 @@ function AdminLayoutShell({ children }) {
           },
         }}
       />
-      <AdminSidebar />
-      <main className="admin-main">{children}</main>
+      <AdminSidebar
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={toggleFullscreen}
+      />
+      <main className="admin-main" style={{ position: "relative" }}>
+        {/* Top-Right Quick Fullscreen Toggle Pill */}
+        <div
+          style={{
+            position: "fixed",
+            top: 16,
+            right: 22,
+            zIndex: 90,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            title={
+              isFullscreen
+                ? "Press Esc or click to exit Full Screen"
+                : "Enter Full Screen Mode"
+            }
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 7,
+              padding: "7px 13px",
+              borderRadius: 999,
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              color: isFullscreen ? "#38bdf8" : "#cbd5e1",
+              background: isFullscreen
+                ? "rgba(15, 23, 42, 0.92)"
+                : "rgba(15, 23, 42, 0.78)",
+              border: isFullscreen
+                ? "1px solid rgba(56, 189, 248, 0.4)"
+                : "1px solid rgba(255, 255, 255, 0.12)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              boxShadow: "0 8px 20px rgba(0, 0, 0, 0.35)",
+              transition: "all 0.2s ease",
+            }}
+          >
+            {isFullscreen ? (
+              <>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 3v3a2 2 0 0 1-2 2H3" />
+                  <path d="M21 8h-3a2 2 0 0 1-2-2V3" />
+                  <path d="M3 16h3a2 2 0 0 1 2 2v3" />
+                  <path d="M16 21v-3a2 2 0 0 1 2-2h3" />
+                </svg>
+                <span>Exit Full Screen</span>
+                <kbd
+                  style={{
+                    fontSize: 10,
+                    padding: "1px 5px",
+                    borderRadius: 4,
+                    background: "rgba(56, 189, 248, 0.15)",
+                    color: "#7dd3fc",
+                    border: "1px solid rgba(56, 189, 248, 0.3)",
+                  }}
+                >
+                  Esc
+                </kbd>
+              </>
+            ) : (
+              <>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+                  <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+                  <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+                  <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+                </svg>
+                <span>Full Screen</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {children}
+      </main>
     </div>
   );
 }
