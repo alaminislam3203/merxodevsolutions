@@ -620,6 +620,11 @@ function DashboardView() {
                         <span style={{ color: "#cbd5e1", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
                           {log.path}
                         </span>
+                        {log.ip && (
+                          <span style={{ fontSize: 10.5, color: "#38bdf8", fontFamily: "monospace", flexShrink: 0 }}>
+                            ({log.ip}{log.city ? ` • ${log.city}` : ""})
+                          </span>
+                        )}
                       </div>
 
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>

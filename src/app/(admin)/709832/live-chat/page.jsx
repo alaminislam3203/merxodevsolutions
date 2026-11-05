@@ -20,6 +20,9 @@ import {
   FiUserCheck,
   FiZap,
   FiX,
+  FiMapPin,
+  FiGlobe,
+  FiMonitor,
 } from "react-icons/fi";
 import { MdSupportAgent } from "react-icons/md";
 import { FaWhatsapp, FaRobot } from "react-icons/fa";
@@ -42,6 +45,7 @@ export default function AdminLiveChatPage() {
   });
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const [activeSession, setActiveSession] = useState(null);
+  const [visitorIntel, setVisitorIntel] = useState(null);
   const [messages, setMessages] = useState([]);
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
@@ -161,8 +165,17 @@ export default function AdminLiveChatPage() {
   useEffect(() => {
     if (selectedSessionId) {
       fetchActiveMessages(selectedSessionId);
+      fetch(
+        `/api/admin/visitors?chatSessionId=${encodeURIComponent(selectedSessionId)}&ip=${encodeURIComponent(activeSession?.visitorIp || "")}`,
+        { cache: "no-store" }
+      )
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => setVisitorIntel(d?.visitor || null))
+        .catch(() => setVisitorIntel(null));
+    } else {
+      setVisitorIntel(null);
     }
-  }, [selectedSessionId, fetchActiveMessages]);
+  }, [selectedSessionId, activeSession?.visitorIp, fetchActiveMessages]);
 
   // Poll every 2.5 seconds for real-time live chat experience
   useEffect(() => {
@@ -1012,6 +1025,57 @@ export default function AdminLiveChatPage() {
                       </a>
                     )}
                     <span>Session: {activeSession.id.slice(0, 14)}</span>
+                    {(visitorIntel?.ip || activeSession?.visitorIp) && (
+                      <span
+                        style={{
+                          color: "#38bdf8",
+                          fontFamily: "monospace",
+                          fontWeight: 600,
+                        }}
+                      >
+                        IP: {visitorIntel?.ip || activeSession?.visitorIp}
+                      </span>
+                    )}
+                    {visitorIntel?.city && (
+                      <span
+                        style={{
+                          color: "#fbbf24",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 3,
+                        }}
+                      >
+                        <FiMapPin size={11} />
+                        {visitorIntel.city}, {visitorIntel.countryName || visitorIntel.country}
+                      </span>
+                    )}
+                    {visitorIntel?.os && (
+                      <span
+                        style={{
+                          color: "#cbd5e1",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 3,
+                        }}
+                      >
+                        <FiMonitor size={11} />
+                        {visitorIntel.deviceBrand || visitorIntel.device} ({visitorIntel.os} • {visitorIntel.browser})
+                      </span>
+                    )}
+                    {visitorIntel?.currentPage && (
+                      <span
+                        style={{
+                          color: "#10b981",
+                          fontFamily: "monospace",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 3,
+                        }}
+                      >
+                        <FiGlobe size={11} />
+                        Page: {visitorIntel.currentPage} ({visitorIntel.pageViews || 1} views)
+                      </span>
+                    )}
                   </div>
                 </div>
 
