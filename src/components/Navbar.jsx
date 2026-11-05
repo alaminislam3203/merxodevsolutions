@@ -256,8 +256,8 @@ export default function Navbar() {
               <Image
                 src="/favicon.png"
                 alt="MerxoDev Icon"
-                width={56}
-                height={56}
+                width={52}
+                height={52}
                 className="h-11 sm:h-12 md:h-14 w-auto object-contain"
                 priority
                 unoptimized
