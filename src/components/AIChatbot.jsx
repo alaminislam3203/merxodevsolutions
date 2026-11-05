@@ -249,6 +249,19 @@ export default function AIChatbot() {
     }
   }, [sessionId, syncSession]);
 
+  // Listen for Proactive Live Chat messages triggered by Admin from Visitor Tracker
+  useEffect(() => {
+    const handleProactiveChat = () => {
+      setIsOpen(true);
+      setSessionMode("live");
+      syncSession(false);
+    };
+    window.addEventListener("merxodev:proactive-chat", handleProactiveChat);
+    return () => {
+      window.removeEventListener("merxodev:proactive-chat", handleProactiveChat);
+    };
+  }, [syncSession]);
+
   // Real-time polling when chat is open OR when in Live Team / Needs Human mode
   useEffect(() => {
     if (!sessionId) return;
