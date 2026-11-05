@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 // PATCH: Approve, Reject, Feature, or Edit a review
 export async function PATCH(request, { params }) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const { id } = await params;

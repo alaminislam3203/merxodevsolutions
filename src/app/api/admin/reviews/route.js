@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // GET: Fetch all reviews for admin panel
 export async function GET(request) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     // Auto-seed default reviews if the table is empty so admin can manage them immediately
@@ -62,7 +62,7 @@ export async function GET(request) {
 // POST: Admin manually creates a review
 export async function POST(request) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const body = await request.json();

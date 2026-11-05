@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const { searchParams } = new URL(request.url);
@@ -68,13 +68,16 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response, isAdmin } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const body = await request.json();
     const { action, sessionId, text, mode, visitorName, config } = body || {};
 
     if (action === 'save_config' && config) {
+      if (!isAdmin) {
+        return NextResponse.json({ error: 'Only Admin can modify AI API configuration' }, { status: 403 });
+      }
       await saveAiConfig(config);
       const updated = await getAiConfig();
       return NextResponse.json({
