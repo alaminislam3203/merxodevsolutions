@@ -3,6 +3,10 @@ import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import nodemailer from 'nodemailer';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import {
+  renderOtpSecurityEmail,
+  getBrandEmailAttachments,
+} from '@/lib/templates/brandEmailLayout';
 
 function createTransporter() {
   if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -120,55 +124,18 @@ export async function POST(request) {
         );
       }
 
-      const emailHtml = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>2FA Setup Verification</title>
-        </head>
-        <body style="margin: 0; padding: 0; background-color: #060b19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #ffffff;">
-          <div style="max-width: 560px; margin: 30px auto; padding: 32px 24px; background: #0c1328; border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
-            <div style="text-align: center; margin-bottom: 24px;">
-              <h1 style="margin: 0; font-size: 24px; font-weight: 800;">
-                MerxoDev Solutions
-              </h1>
-              <p style="margin: 6px 0 0 0; font-size: 12px; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase;">
-                Two-Factor Authentication Setup
-              </p>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
-              <p style="margin: 0 0 12px 0; font-size: 15px; color: #e2e8f0;">
-                Hello <strong>${session.user.name || 'Valued Client'}</strong>,
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 14px; color: #94a3b8; line-height: 1.6;">
-                You requested to enable Two-Factor Authentication (2FA) for your MerxoDev account. Use the 6-digit confirmation code below to activate 2FA:
-              </p>
-
-              <div style="text-align: center; margin: 28px 0;">
-                <div style="display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(6, 182, 212, 0.2)); border: 2px dashed #7c3aed; border-radius: 14px; letter-spacing: 8px; font-size: 32px; font-weight: 800; color: #38bdf8; font-family: monospace;">
-                  ${otp}
-                </div>
-                <p style="margin: 10px 0 0 0; font-size: 12px; color: #f59e0b;">
-                  ⚠️ This code will expire in <strong>2 minutes</strong>.
-                </p>
-              </div>
-
-              <p style="margin: 0; font-size: 13px; color: #64748b; line-height: 1.5;">
-                If you did not request to enable 2FA, please immediately review your account security settings.
-              </p>
-            </div>
-
-            <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 18px; font-size: 11px; color: #64748b;">
-              <p style="margin: 0 0 6px 0;">© ${new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</p>
-              <p style="margin: 0;">Nilphamari Sadar, Rangpur, Bangladesh • <a href="https://merxodevsolutions.pro.bd/" style="color: #38bdf8; text-decoration: none;">merxodevsolutions.pro.bd</a></p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `;
+      const emailHtml = renderOtpSecurityEmail({
+        title: 'Two-Factor Authentication Setup',
+        badgeText: '2FA Activation',
+        recipientName: session.user.name || 'Valued Client',
+        introText:
+          'You requested to enable Two-Factor Authentication (2FA) for your MerxoDev account. Use the 6-digit confirmation code below to activate 2FA:',
+        code: otp,
+        expiryMinutes: 2,
+        footerWarning:
+          'If you did not request to enable 2FA, please immediately review your account security settings.',
+        useCid: true,
+      });
 
       await transporter.sendMail({
         from: `"MerxoDev Security" <${process.env.GMAIL_USER}>`,
@@ -176,6 +143,7 @@ export async function POST(request) {
         subject: `${otp} is your MerxoDev 2FA activation code`,
         html: emailHtml,
         text: `Your MerxoDev 2FA activation code is: ${otp} (Valid for 2 minutes).`,
+        attachments: getBrandEmailAttachments(),
       });
 
       return NextResponse.json({
