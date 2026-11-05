@@ -139,7 +139,7 @@ export default function DiscoveryCall() {
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/80 p-2 flex items-center justify-center shadow-lg shadow-violet-500/10 shrink-0">
                     <Image
-                      src="/favicon.png"
+                      src="/favicon-meet.png"
                       alt="MerxoDev Solutions"
                       width={44}
                       height={44}
