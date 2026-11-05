@@ -375,6 +375,7 @@ export default function AdminTeamPage() {
   const totalMembers = members.length;
   const activeMembers = members.filter((m) => m.isActive).length;
   const inactiveMembers = totalMembers - activeMembers;
+  const myOwnMember = members.find((m) => isOwnProfile(m));
 
   return (
     <div style={{ maxWidth: 1240, margin: "0 auto" }}>
@@ -393,7 +394,9 @@ export default function AdminTeamPage() {
         <div>
           <h1 className="admin-page-title">Team Members</h1>
           <p className="admin-page-subtitle">
-            Manage your agency leaders, engineers, designers, and public profiles displayed on the website (/our-team & /about)
+            {isTeamMember
+              ? "View all MerxoDev team members and edit your own public profile displayed on /our-team & /about"
+              : "Manage your agency leaders, engineers, designers, and public profiles displayed on the website (/our-team & /about)"}
           </p>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
@@ -406,9 +409,17 @@ export default function AdminTeamPage() {
           >
             <FaGlobe size={12} /> View /our-team
           </a>
-          <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
-            <FaPlus size={12} /> Add Team Member
-          </button>
+          {isAdmin ? (
+            <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
+              <FaPlus size={12} /> Add Team Member
+            </button>
+          ) : (
+            myOwnMember && (
+              <button onClick={() => handleOpenEdit(myOwnMember)} className="admin-btn admin-btn-primary">
+                <FaEdit size={12} /> Edit My Profile
+              </button>
+            )
+          )}
         </div>
       </div>
 
@@ -522,9 +533,11 @@ export default function AdminTeamPage() {
               ? "No members match your search criteria. Try a different search query."
               : "You haven't added any team members in this tab yet."}
           </p>
-          <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
-            <FaPlus size={12} /> Add Team Member
-          </button>
+          {isAdmin && (
+            <button onClick={handleOpenAdd} className="admin-btn admin-btn-primary">
+              <FaPlus size={12} /> Add Team Member
+            </button>
+          )}
         </div>
       ) : (
         <div
@@ -534,7 +547,9 @@ export default function AdminTeamPage() {
             gap: 18,
           }}
         >
-          {filteredMembers.map((member) => (
+          {filteredMembers.map((member) => {
+            const own = isOwnProfile(member);
+            return (
             <div
               key={member.id}
               className="admin-card"
@@ -543,8 +558,16 @@ export default function AdminTeamPage() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 gap: 16,
-                borderColor: member.isActive ? "rgba(255, 255, 255, 0.07)" : "rgba(239, 68, 68, 0.25)",
-                background: member.isActive ? "rgba(255, 255, 255, 0.025)" : "rgba(239, 68, 68, 0.02)",
+                borderColor: own && isTeamMember
+                  ? "rgba(99, 102, 241, 0.55)"
+                  : member.isActive
+                    ? "rgba(255, 255, 255, 0.07)"
+                    : "rgba(239, 68, 68, 0.25)",
+                background: own && isTeamMember
+                  ? "rgba(99, 102, 241, 0.06)"
+                  : member.isActive
+                    ? "rgba(255, 255, 255, 0.025)"
+                    : "rgba(239, 68, 68, 0.02)",
                 transition: "all 0.2s ease",
                 padding: "20px 22px",
               }}
@@ -608,15 +631,32 @@ export default function AdminTeamPage() {
                       </h3>
 
                       {/* Status Badge */}
-                      {member.isActive ? (
-                        <span className="admin-badge admin-badge-green" style={{ fontSize: 11, gap: 4, padding: "2px 8px" }}>
-                          <FaCheck size={9} /> Active
-                        </span>
-                      ) : (
-                        <span className="admin-badge admin-badge-gray" style={{ fontSize: 11, gap: 4, padding: "2px 8px" }}>
-                          <FaEyeSlash size={9} /> Hidden
-                        </span>
-                      )}
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+                        {own && (
+                          <span
+                            style={{
+                              fontSize: 10.5,
+                              fontWeight: 700,
+                              padding: "2px 8px",
+                              borderRadius: 999,
+                              background: "rgba(99, 102, 241, 0.2)",
+                              color: "#a5b4fc",
+                              border: "1px solid rgba(99, 102, 241, 0.4)",
+                            }}
+                          >
+                            Your Profile
+                          </span>
+                        )}
+                        {member.isActive ? (
+                          <span className="admin-badge admin-badge-green" style={{ fontSize: 11, gap: 4, padding: "2px 8px" }}>
+                            <FaCheck size={9} /> Active
+                          </span>
+                        ) : (
+                          <span className="admin-badge admin-badge-gray" style={{ fontSize: 11, gap: 4, padding: "2px 8px" }}>
+                            <FaEyeSlash size={9} /> Hidden
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <p
@@ -774,55 +814,78 @@ export default function AdminTeamPage() {
                   marginTop: 10,
                 }}
               >
-                <button
-                  type="button"
-                  onClick={() => handleToggleActive(member)}
-                  disabled={actionLoading === member.id}
-                  className="admin-btn admin-btn-secondary"
-                  style={{
-                    fontSize: 12,
-                    padding: "6px 12px",
-                    background: member.isActive ? "rgba(255, 255, 255, 0.05)" : "rgba(34, 197, 94, 0.15)",
-                    color: member.isActive ? "#94a3b8" : "#86efac",
-                    borderColor: member.isActive ? "rgba(255, 255, 255, 0.08)" : "rgba(34, 197, 94, 0.3)",
-                  }}
-                  title={member.isActive ? "Hide from public website" : "Show on public website"}
-                >
-                  {member.isActive ? (
-                    <>
-                      <FaEyeSlash size={12} /> Hide
-                    </>
-                  ) : (
-                    <>
-                      <FaEye size={12} /> Show Live
-                    </>
-                  )}
-                </button>
+                {isAdmin ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleToggleActive(member)}
+                      disabled={actionLoading === member.id}
+                      className="admin-btn admin-btn-secondary"
+                      style={{
+                        fontSize: 12,
+                        padding: "6px 12px",
+                        background: member.isActive ? "rgba(255, 255, 255, 0.05)" : "rgba(34, 197, 94, 0.15)",
+                        color: member.isActive ? "#94a3b8" : "#86efac",
+                        borderColor: member.isActive ? "rgba(255, 255, 255, 0.08)" : "rgba(34, 197, 94, 0.3)",
+                      }}
+                      title={member.isActive ? "Hide from public website" : "Show on public website"}
+                    >
+                      {member.isActive ? (
+                        <>
+                          <FaEyeSlash size={12} /> Hide
+                        </>
+                      ) : (
+                        <>
+                          <FaEye size={12} /> Show Live
+                        </>
+                      )}
+                    </button>
 
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button
-                    type="button"
-                    onClick={() => handleOpenEdit(member)}
-                    className="admin-btn admin-btn-secondary"
-                    style={{ fontSize: 12, padding: "6px 10px" }}
-                    title="Edit Member"
-                  >
-                    <FaEdit size={12} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(member)}
-                    disabled={actionLoading === member.id}
-                    className="admin-btn admin-btn-danger"
-                    style={{ fontSize: 12, padding: "6px 10px" }}
-                    title="Delete Member"
-                  >
-                    <FaTrash size={12} />
-                  </button>
-                </div>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(member)}
+                        className="admin-btn admin-btn-secondary"
+                        style={{ fontSize: 12, padding: "6px 10px" }}
+                        title="Edit Member"
+                      >
+                        <FaEdit size={12} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(member)}
+                        disabled={actionLoading === member.id}
+                        className="admin-btn admin-btn-danger"
+                        style={{ fontSize: 12, padding: "6px 10px" }}
+                        title="Delete Member"
+                      >
+                        <FaTrash size={12} />
+                      </button>
+                    </div>
+                  </>
+                ) : own ? (
+                  <>
+                    <span style={{ fontSize: 11.5, color: "#a5b4fc", fontWeight: 600 }}>
+                      Your Team Profile
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenEdit(member)}
+                      className="admin-btn admin-btn-primary"
+                      style={{ fontSize: 12, padding: "6px 14px" }}
+                    >
+                      <FaEdit size={12} /> Edit My Profile
+                    </button>
+                  </>
+                ) : (
+                  <span style={{ fontSize: 11.5, color: "#64748b", fontWeight: 500 }}>
+                    Team Member Profile (View Only)
+                  </span>
+                )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -1039,30 +1102,32 @@ export default function AdminTeamPage() {
                 </div>
 
                 {/* Order and Gradient in 2 columns */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                  <div className="admin-field-group">
-                    <label className="admin-label">
-                      <FaSortNumericDown style={{ display: "inline", marginRight: 4 }} />
-                      Display Order
-                    </label>
-                    <input
-                      key="input-member-order"
-                      type="number"
-                      className="admin-input"
-                      placeholder="0"
-                      value={formData.order ?? 0}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          order: e.target.value === "" ? 0 : Number(e.target.value),
-                        })
-                      }
-                      min="0"
-                    />
-                    <span style={{ fontSize: 11, color: "#64748b", marginTop: 4, display: "block" }}>
-                      Lower number appears first (0, 1, 2...)
-                    </span>
-                  </div>
+                <div style={{ display: "grid", gridTemplateColumns: isAdmin ? "1fr 1fr" : "1fr", gap: 14 }}>
+                  {isAdmin && (
+                    <div className="admin-field-group">
+                      <label className="admin-label">
+                        <FaSortNumericDown style={{ display: "inline", marginRight: 4 }} />
+                        Display Order
+                      </label>
+                      <input
+                        key="input-member-order"
+                        type="number"
+                        className="admin-input"
+                        placeholder="0"
+                        value={formData.order ?? 0}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            order: e.target.value === "" ? 0 : Number(e.target.value),
+                          })
+                        }
+                        min="0"
+                      />
+                      <span style={{ fontSize: 11, color: "#64748b", marginTop: 4, display: "block" }}>
+                        Lower number appears first (0, 1, 2...)
+                      </span>
+                    </div>
+                  )}
 
                   <div className="admin-field-group">
                     <label className="admin-label">
@@ -1083,6 +1148,32 @@ export default function AdminTeamPage() {
                     </select>
                   </div>
                 </div>
+
+                {/* Account Email for linking team-member login (Admin only) */}
+                {isAdmin && (
+                  <div className="admin-field-group">
+                    <label className="admin-label">
+                      <FaEnvelope style={{ display: "inline", marginRight: 5 }} />
+                      Linked Account Email (for Team Member Self-Edit)
+                    </label>
+                    <input
+                      key="input-member-email"
+                      type="email"
+                      className="admin-input"
+                      placeholder="e.g. member@example.com (matches their login email)"
+                      value={formData.socialLinks?.email ?? ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          socialLinks: { ...(formData.socialLinks || {}), email: e.target.value },
+                        })
+                      }
+                    />
+                    <span style={{ fontSize: 11, color: "#64748b", marginTop: 4, display: "block" }}>
+                      Optional: Link this team card to a team-member user&apos;s login email (also matches automatically by name).
+                    </span>
+                  </div>
+                )}
 
                 {/* Social Links */}
                 <div className="admin-field-group">
@@ -1162,7 +1253,8 @@ export default function AdminTeamPage() {
                   </div>
                 </div>
 
-                {/* Active Toggle Switch */}
+                {/* Active Toggle Switch (Admin Only) */}
+                {isAdmin && (
                 <div
                   style={{
                     display: "flex",
@@ -1233,6 +1325,7 @@ export default function AdminTeamPage() {
                     </span>
                   </label>
                 </div>
+                )}
               </div>
 
               {/* Modal Actions */}
