@@ -15,6 +15,7 @@ export async function ensureChatTables() {
         "visitorName" TEXT NOT NULL DEFAULT 'Visitor',
         "visitorEmail" TEXT,
         "visitorPhone" TEXT,
+        "visitorImage" TEXT,
         "visitorIp" TEXT,
         "language" TEXT NOT NULL DEFAULT 'en',
         "mode" TEXT NOT NULL DEFAULT 'ai',
@@ -25,6 +26,10 @@ export async function ensureChatTables() {
         "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
         "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+
+    await prisma.$executeRawUnsafe(`
+      ALTER TABLE "ChatSession" ADD COLUMN IF NOT EXISTS "visitorImage" TEXT;
     `);
 
     await prisma.$executeRawUnsafe(`
