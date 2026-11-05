@@ -138,12 +138,14 @@ export default function AIChatbot() {
     async (isInitial = false) => {
       if (!sessionId) return;
       try {
-        const res = await fetch(
-          `/api/chat?sessionId=${encodeURIComponent(sessionId)}`,
-          {
-            cache: "no-store",
-          },
-        );
+        const params = new URLSearchParams({ sessionId });
+        if (loggedInName) params.set("visitorName", loggedInName);
+        if (loggedInEmail) params.set("visitorEmail", loggedInEmail);
+        if (loggedInImage) params.set("visitorImage", loggedInImage);
+
+        const res = await fetch(`/api/chat?${params.toString()}`, {
+          cache: "no-store",
+        });
         if (!res.ok) return;
         const data = await res.json();
 

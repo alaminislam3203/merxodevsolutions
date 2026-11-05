@@ -24,6 +24,18 @@ export async function GET(request) {
       return NextResponse.json({ session: null, messages: [] });
     }
 
+    const visitorName = searchParams.get('visitorName') || undefined;
+    const visitorEmail = searchParams.get('visitorEmail') || undefined;
+    const visitorImage = searchParams.get('visitorImage') || undefined;
+
+    if (visitorName || visitorEmail || visitorImage) {
+      await getOrCreateSession(sessionId, {
+        visitorName,
+        visitorEmail,
+        visitorImage,
+      });
+    }
+
     const data = await getSessionMessages(sessionId, 'visitor');
     return NextResponse.json({
       session: data.session,
