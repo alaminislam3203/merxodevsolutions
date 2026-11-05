@@ -1,8 +1,15 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useSession } from "next-auth/react";
 import { showToast, confirmToast } from "@/lib/toast";
 
 export default function ImagesPage() {
+  const { data: session } = useSession();
+  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
+  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
+  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
+
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -49,6 +56,10 @@ export default function ImagesPage() {
   };
 
   const handleDelete = async (img) => {
+    if (isTeamMember) {
+      showToast("Team members can copy image URLs, but cannot delete images.", "error");
+      return;
+    }
     const confirmed = await confirmToast("Delete this image? This cannot be undone.", {
       confirmText: "Delete Image",
       cancelText: "Cancel",
@@ -141,13 +152,15 @@ export default function ImagesPage() {
                       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                     </svg>
                   </button>
-                  <button className="image-action-btn image-action-delete" onClick={(e) => { e.stopPropagation(); handleDelete(img); }} disabled={deleting === img.id}>
-                    {deleting === img.id ? <span className="admin-spinner-btn"></span> : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                      </svg>
-                    )}
-                  </button>
+                  {!isTeamMember && (
+                    <button className="image-action-btn image-action-delete" onClick={(e) => { e.stopPropagation(); handleDelete(img); }} disabled={deleting === img.id}>
+                      {deleting === img.id ? <span className="admin-spinner-btn"></span> : (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                        </svg>
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
               {img.altText && <p className="image-card-alt">{img.altText}</p>}
@@ -172,7 +185,9 @@ export default function ImagesPage() {
             <div className="admin-modal-actions">
               <button className="admin-btn admin-btn-secondary" onClick={() => setSelectedImage(null)}>Close</button>
               <button className="admin-btn admin-btn-primary" onClick={() => copyUrl(selectedImage.url)}>Copy URL</button>
-              <button className="admin-btn admin-btn-danger" onClick={() => handleDelete(selectedImage)} disabled={deleting === selectedImage.id}>Delete</button>
+              {!isTeamMember && (
+                <button className="admin-btn admin-btn-danger" onClick={() => handleDelete(selectedImage)} disabled={deleting === selectedImage.id}>Delete</button>
+              )}
             </div>
           </div>
         </div>
