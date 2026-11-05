@@ -137,7 +137,7 @@ export default function DiscoveryCall() {
             <div className="lg:col-span-5 flex flex-col gap-4">
               <div className="p-6 sm:p-7 rounded-2xl bg-zinc-50/80 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-zinc-700/80 space-y-5">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-orange dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/80 p-2 flex items-center justify-center shadow-lg shadow-violet-500/10 shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-orange-500 dark:bg-zinc-900 border border-orange-400 dark:border-zinc-700/80 p-2 flex items-center justify-center shadow-lg shadow-orange-500/20 dark:shadow-violet-500/10 shrink-0">
                     <Image
                       src="/favicon.png"
                       alt="MerxoDev Solutions"
