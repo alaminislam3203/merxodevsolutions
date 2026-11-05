@@ -186,7 +186,10 @@ export default function AIChatbot() {
     async (isInitial = false) => {
       if (!sessionId) return;
       try {
-        const params = new URLSearchParams({ sessionId });
+        const params = new URLSearchParams({
+          sessionId,
+          preferredLang: getActiveLanguage(),
+        });
         if (loggedInName) params.set("visitorName", loggedInName);
         if (loggedInEmail) params.set("visitorEmail", loggedInEmail);
         if (loggedInImage) params.set("visitorImage", loggedInImage);
@@ -235,6 +238,7 @@ export default function AIChatbot() {
       loggedInName,
       loggedInEmail,
       loggedInImage,
+      getActiveLanguage,
     ],
   );
 
@@ -299,6 +303,7 @@ export default function AIChatbot() {
         body: JSON.stringify({
           sessionId,
           action: "request_human",
+          preferredLang: getActiveLanguage(),
           visitorName: loggedInName || undefined,
           visitorEmail: loggedInEmail || undefined,
           visitorImage: loggedInImage || undefined,
@@ -325,10 +330,15 @@ export default function AIChatbot() {
     const query = (textToSend ?? input).trim();
     if (!query || loading) return;
 
-    // If user clicked the "Talk to Live Team" suggestion chip
+    // If user clicked the "Talk to Live Team" suggestion chip in any language
+    const lowerQuery = query.toLowerCase();
     if (
-      query.toLowerCase() === "talk to Live Team" ||
-      query === "লাইভ অ্যাডমিনের সাথে কথা বলতে চাই"
+      lowerQuery === "talk to live team" ||
+      lowerQuery === "talk to live admin" ||
+      query === "লাইভ টিমের সাথে কথা বলতে চাই" ||
+      query === "লাইভ অ্যাডমিনের সাথে কথা বলতে চাই" ||
+      query === "التحدث مع مسؤول مباشر" ||
+      query === "联系人工客服"
     ) {
       setInput("");
       await handleRequestLiveAdmin();
@@ -355,6 +365,7 @@ export default function AIChatbot() {
         body: JSON.stringify({
           sessionId,
           message: query,
+          preferredLang: getActiveLanguage(),
           visitorName: loggedInName || undefined,
           visitorEmail: loggedInEmail || undefined,
           visitorImage: loggedInImage || undefined,
@@ -393,7 +404,7 @@ export default function AIChatbot() {
       }
 
       if (data?.suggestions && data.suggestions.length > 0) {
-        setSuggestions(data.suggestions);
+        setCustomSuggestions(data.suggestions);
       }
     } catch (err) {
       console.error("Chat error:", err);
@@ -402,10 +413,13 @@ export default function AIChatbot() {
         {
           id: "err_" + Date.now(),
           sender: "bot",
-          text: "I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1313-334279)**.",
+          text: tr(
+            "aiChat.networkError",
+            "I am experiencing a slight network delay. Please feel free to reach our developer directly on **WhatsApp (+880 1313-334279)**.",
+          ),
           actions: [
             {
-              label: "Direct WhatsApp",
+              label: tr("aiChat.directWhatsapp", "Direct WhatsApp"),
               href: "https://wa.me/8801313334279",
               type: "external",
             },
@@ -432,7 +446,7 @@ export default function AIChatbot() {
     setSessionMode("ai");
     setNeedsHuman(false);
     setMessages([INITIAL_WELCOME]);
-    setSuggestions(QUICK_SUGGESTIONS);
+    setCustomSuggestions(null);
   };
 
   const handleKeyDown = (e) => {
@@ -443,14 +457,14 @@ export default function AIChatbot() {
   };
 
   const formatTime = (iso) => {
-    if (!iso) return "Just now";
+    if (!iso) return tr("aiChat.justNow", "Just now");
     try {
       return new Date(iso).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
     } catch {
-      return "Just now";
+      return tr("aiChat.justNow", "Just now");
     }
   };
 
@@ -607,7 +621,7 @@ export default function AIChatbot() {
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-orange-500 dark:bg-white/10 backdrop-blur-md p-1.5 flex items-center justify-center shadow-md border border-white/20">
                     <Image
                       src="/favicon.png"
-                      alt="MerxoDev Admin"
+                      alt="MerxoDev Team"
                       width={32}
                       height={32}
                       className="w-full h-full object-contain drop-shadow-sm"
