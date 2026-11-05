@@ -55,18 +55,31 @@ const raleway = Raleway({
 
 export const metadata = {
   title: {
-    default: 'MerxoDev Solutions (Merxo Dev) – Custom Web & App Development Bangladesh',
-    template: '%s | MerxoDev Solutions',
+    default: 'MerxoDev Solutions (merxodev / মারক্সোডেভ সলিউশনস) – Web & App Development Bangladesh',
+    template: '%s | MerxoDev Solutions (merxodev)',
   },
   description:
-    'MerxoDev Solutions (Merxo Dev Solutions / Merxo Dev) builds high-performance websites, web apps, and digital products in Bangladesh. Contact: merxodevsolutions@gmail.com | +8801313334279 (01313334279) | +8809697634279.',
+    'MerxoDev Solutions (merxodev, merxodev solution, Merxo Dev, মারক্সোডেভ সলিউশনস, মেরক্সোডেভ) builds high-performance websites, web apps & e-commerce in Bangladesh. Contact: merxodevsolutions@gmail.com | +8801313334279 (01313334279) | +8809697634279.',
   keywords: [
+    'merxodev',
+    'merxodev solution',
+    'merxodev solutions',
     'MerxoDev Solutions',
     'Merxo Dev Solutions',
     'Merxo Dev Solution',
     'MerxoDev Solution',
     'Merxo Dev',
     'MerxoDev',
+    'মারক্সোডেভ',
+    'মারক্সোডেভ সলিউশন',
+    'মারক্সোডেভ সলিউশনস',
+    'মারক্সো ডেভ',
+    'মারক্সো ডেভ সলিউশন',
+    'মারক্সো ডেভ সলিউশনস',
+    'মেরক্সোডেভ',
+    'মেরক্সোডেভ সলিউশন',
+    'মেরক্সোডেভ সলিউশনস',
+    'মেরক্সো ডেভ',
     'merxodevsolutions@gmail.com',
     '+8801313334279',
     '01313334279',
@@ -89,8 +102,10 @@ export const metadata = {
     'E-commerce website development Bangladesh',
     'ওয়েবসাইট বানানোর খরচ',
     'সফটওয়্যার কোম্পানি বাংলাদেশ',
+    'সেরা ওয়েব ডেভেলপমেন্ট কোম্পানি বাংলাদেশ',
     'ওয়েব ডেভেলপমেন্ট সার্ভিস রংপুর',
     'ই-কমার্স ওয়েবসাইট তৈরি',
+    'ওয়েবসাইট তৈরি করার প্রতিষ্ঠান',
     'website bananor agency bangladesh',
     'website banate koto taka lage',
     'ecommerce store development price bd',
@@ -174,6 +189,12 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="https://merxodevsolutions.pro.bd/llms.txt"
+          title="LLM & AI Context for MerxoDev Solutions"
+        />
         {/* Organization Structured Data */}
         <script
           type="application/ld+json"
@@ -184,12 +205,25 @@ export default function RootLayout({ children }) {
               name: 'MerxoDev Solutions',
               legalName: 'MerxoDev Solutions',
               alternateName: [
-                'Merxo Dev Solutions',
-                'Merxo Dev Solution',
+                'merxodev',
+                'merxodev solution',
+                'merxodev solutions',
+                'MerxoDev',
                 'MerxoDev Solution',
                 'Merxo Dev',
-                'MerxoDev',
+                'Merxo Dev Solution',
+                'Merxo Dev Solutions',
                 'MerxoDevSolutions',
+                'মারক্সোডেভ',
+                'মারক্সোডেভ সলিউশন',
+                'মারক্সোডেভ সলিউশনস',
+                'মারক্সো ডেভ',
+                'মারক্সো ডেভ সলিউশন',
+                'মারক্সো ডেভ সলিউশনস',
+                'মেরক্সোডেভ',
+                'মেরক্সোডেভ সলিউশন',
+                'মেরক্সোডেভ সলিউশনস',
+                'মেরক্সো ডেভ',
               ],
               url: 'https://merxodevsolutions.pro.bd',
               logo: {
@@ -199,7 +233,7 @@ export default function RootLayout({ children }) {
                 height: 200,
               },
               description:
-                'MerxoDev Solutions (also known as Merxo Dev Solutions, Merxo Dev Solution, and Merxo Dev) crafts custom websites, web apps & digital solutions for startups and growing businesses in Bangladesh and worldwide.',
+                'MerxoDev Solutions (merxodev, merxodev solution, Merxo Dev, মারক্সোডেভ সলিউশনস, মেরক্সোডেভ) crafts custom websites, web apps, e-commerce & digital solutions for startups and growing businesses in Bangladesh and worldwide.',
               foundingDate: '2023',
               telephone: '+8801313334279',
               email: 'merxodevsolutions@gmail.com',
@@ -288,12 +322,22 @@ export default function RootLayout({ children }) {
               '@type': 'WebSite',
               name: 'MerxoDev Solutions',
               alternateName: [
-                'Merxo Dev Solutions',
-                'Merxo Dev Solution',
+                'merxodev',
+                'merxodev solution',
+                'merxodev solutions',
+                'MerxoDev',
                 'MerxoDev Solution',
                 'Merxo Dev',
-                'MerxoDev',
+                'Merxo Dev Solution',
+                'Merxo Dev Solutions',
+                'মারক্সোডেভ',
+                'মারক্সোডেভ সলিউশন',
+                'মারক্সোডেভ সলিউশনস',
+                'মেরক্সোডেভ',
+                'মেরক্সোডেভ সলিউশন',
+                'মেরক্সোডেভ সলিউশনস',
               ],
+              inLanguage: ['en', 'bn'],
               url: 'https://merxodevsolutions.pro.bd',
               potentialAction: {
                 '@type': 'SearchAction',
