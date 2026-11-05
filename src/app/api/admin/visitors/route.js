@@ -12,14 +12,17 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
-    const { authorized, response } = await requireAdmin();
-    if (!authorized) return response;
-
-    await ensureVisitorTables();
-
     const { searchParams } = new URL(request.url);
     const chatSessionId = searchParams.get("chatSessionId");
     const ipQuery = searchParams.get("ip");
+
+    // Allow TEAM_MEMBER when querying single visitor context for Live Chat
+    const { authorized, response } = await requireAdmin({
+      allowTeamMember: Boolean(chatSessionId || ipQuery),
+    });
+    if (!authorized) return response;
+
+    await ensureVisitorTables();
 
     // If querying a single visitor for Live Chat context
     if (chatSessionId || ipQuery) {

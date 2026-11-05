@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import {
   FiMessageSquare,
@@ -36,6 +37,8 @@ const QUICK_ADMIN_REPLIES = [
 ];
 
 export default function AdminLiveChatPage() {
+  const { data: session } = useSession();
+  const isTeamMember = session?.user?.role === "TEAM_MEMBER";
   const [sessions, setSessions] = useState([]);
   const [stats, setStats] = useState({
     totalSessions: 0,
@@ -420,27 +423,29 @@ export default function AdminLiveChatPage() {
             <span>Test Sound</span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setConfigModalOpen(true)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              padding: "9px 15px",
-              borderRadius: 12,
-              fontSize: 12.5,
-              fontWeight: 600,
-              cursor: "pointer",
-              background: "linear-gradient(135deg, #6366f1, #06b6d4)",
-              color: "#fff",
-              border: "none",
-              boxShadow: "0 8px 20px -6px rgba(99, 102, 241, 0.5)",
-            }}
-          >
-            <FiSettings size={15} />
-            <span>AI Brain Settings</span>
-          </button>
+          {!isTeamMember && (
+            <button
+              type="button"
+              onClick={() => setConfigModalOpen(true)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "9px 15px",
+                borderRadius: 12,
+                fontSize: 12.5,
+                fontWeight: 600,
+                cursor: "pointer",
+                background: "linear-gradient(135deg, #6366f1, #06b6d4)",
+                color: "#fff",
+                border: "none",
+                boxShadow: "0 8px 20px -6px rgba(99, 102, 241, 0.5)",
+              }}
+            >
+              <FiSettings size={15} />
+              <span>AI Brain Settings</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -1126,21 +1131,23 @@ export default function AdminLiveChatPage() {
                     </button>
                   )}
 
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteSession(activeSession.id)}
-                    title="Delete Chat"
-                    style={{
-                      padding: "8px 10px",
-                      borderRadius: 10,
-                      background: "rgba(239, 68, 68, 0.12)",
-                      color: "#f87171",
-                      border: "1px solid rgba(239, 68, 68, 0.25)",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <FiTrash2 size={15} />
-                  </button>
+                  {!isTeamMember && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteSession(activeSession.id)}
+                      title="Delete Chat"
+                      style={{
+                        padding: "8px 10px",
+                        borderRadius: 10,
+                        background: "rgba(239, 68, 68, 0.12)",
+                        color: "#f87171",
+                        border: "1px solid rgba(239, 68, 68, 0.25)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FiTrash2 size={15} />
+                    </button>
+                  )}
                 </div>
               </div>
 
