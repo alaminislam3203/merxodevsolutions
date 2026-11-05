@@ -80,7 +80,13 @@ export async function GET() {
     }
 
     if (user) {
-      return NextResponse.json({ user, isAdmin: user.role === 'ADMIN' });
+      const normalizedRole = String(user.role || 'USER').toUpperCase().replace(/-/g, '_');
+      return NextResponse.json({
+        user: { ...user, role: normalizedRole },
+        isAdmin: normalizedRole === 'ADMIN',
+        isTeamMember: normalizedRole === 'TEAM_MEMBER',
+        canAccessAdminPanel: normalizedRole === 'ADMIN' || normalizedRole === 'TEAM_MEMBER',
+      });
     }
 
     // Try finding admin user
