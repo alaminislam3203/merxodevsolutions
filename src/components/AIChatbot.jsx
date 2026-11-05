@@ -180,7 +180,7 @@ export default function AIChatbot() {
         // Ignore transient network errors during background poll
       }
     },
-    [sessionId, soundEnabled, isOpen],
+    [sessionId, soundEnabled, isOpen, loggedInName, loggedInEmail, loggedInImage],
   );
 
   // Initial load once sessionId is ready
