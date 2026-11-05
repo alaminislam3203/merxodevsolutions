@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     await ensureVisitorTables();

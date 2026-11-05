@@ -5,7 +5,7 @@ import { uploadImage } from "@/lib/cloudinary";
 
 // GET /api/admin/images
 export async function GET() {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   const images = await prisma.mediaFile.findMany({
@@ -16,7 +16,7 @@ export async function GET() {
 
 // POST /api/admin/images - Upload image
 export async function POST(request) {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {

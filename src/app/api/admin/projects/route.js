@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 // GET /api/admin/projects
 export async function GET() {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
@@ -31,7 +31,7 @@ export async function GET() {
 
 // POST /api/admin/projects
 export async function POST(request) {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
