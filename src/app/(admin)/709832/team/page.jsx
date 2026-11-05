@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useSession } from "next-auth/react";
 import {
   FaPlus,
   FaEdit,
@@ -20,6 +21,7 @@ import {
   FaEyeSlash,
   FaPalette,
   FaLink,
+  FaEnvelope,
 } from "react-icons/fa";
 import { showToast, confirmToast } from "@/lib/toast";
 
@@ -43,6 +45,7 @@ const EMPTY_FORM = {
   order: 0,
   isActive: true,
   socialLinks: {
+    email: "",
     linkedin: "",
     github: "",
     twitter: "",
@@ -50,7 +53,58 @@ const EMPTY_FORM = {
   },
 };
 
+function normalizePersonName(str) {
+  return String(str || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u0980-\u09FF]+/g, " ")
+    .trim();
+}
+
 export default function AdminTeamPage() {
+  const { data: session } = useSession();
+  const isTeamMember = session?.user?.role === "TEAM_MEMBER";
+  const isAdmin = !isTeamMember;
+
+  const isOwnProfile = useCallback(
+    (member) => {
+      if (!member || !session?.user) return false;
+      const userEmail = String(session.user.email || "").toLowerCase().trim();
+      const userName = normalizePersonName(session.user.name);
+      const memberName = normalizePersonName(member.name);
+
+      let social = {};
+      if (typeof member.socialLinks === "string") {
+        try {
+          social = JSON.parse(member.socialLinks);
+        } catch {
+          social = {};
+        }
+      } else if (member.socialLinks && typeof member.socialLinks === "object") {
+        social = member.socialLinks;
+      }
+
+      const linkedEmail = String(social?.email || "").toLowerCase().trim();
+      if (linkedEmail) {
+        return linkedEmail === userEmail;
+      }
+
+      if (userName && memberName && userName === memberName) {
+        return true;
+      }
+
+      if (
+        userName.length >= 3 &&
+        memberName.length >= 3 &&
+        (memberName.includes(userName) || userName.includes(memberName))
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    [session?.user]
+  );
+
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -101,7 +155,7 @@ export default function AdminTeamPage() {
       color: "from-violet-600 to-cyan-500",
       order: members.length,
       isActive: true,
-      socialLinks: { linkedin: "", github: "", twitter: "", website: "" },
+      socialLinks: { email: "", linkedin: "", github: "", twitter: "", website: "" },
     });
     setImageUploadMode("upload");
     setShowModal(true);
@@ -109,6 +163,10 @@ export default function AdminTeamPage() {
 
   // Open modal for edit
   const handleOpenEdit = (member) => {
+    if (isTeamMember && !isOwnProfile(member)) {
+      showToast("You can only edit your own team profile.", "error");
+      return;
+    }
     setEditingMember(member);
     let parsedSocial = {};
     if (typeof member?.socialLinks === "string") {
@@ -132,6 +190,7 @@ export default function AdminTeamPage() {
       order: member?.order ?? 0,
       isActive: member?.isActive !== false,
       socialLinks: {
+        email: parsedSocial?.email ?? (isTeamMember ? session?.user?.email ?? "" : ""),
         linkedin: parsedSocial?.linkedin ?? "",
         github: parsedSocial?.github ?? "",
         twitter: parsedSocial?.twitter ?? "",
@@ -209,6 +268,7 @@ export default function AdminTeamPage() {
         order: Number(formData.order) || 0,
         isActive: Boolean(formData.isActive),
         socialLinks: {
+          email: formData.socialLinks?.email?.trim()?.toLowerCase() || undefined,
           linkedin: formData.socialLinks?.linkedin?.trim() || undefined,
           github: formData.socialLinks?.github?.trim() || undefined,
           twitter: formData.socialLinks?.twitter?.trim() || undefined,
