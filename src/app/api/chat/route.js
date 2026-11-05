@@ -27,12 +27,14 @@ export async function GET(request) {
     const visitorName = searchParams.get('visitorName') || undefined;
     const visitorEmail = searchParams.get('visitorEmail') || undefined;
     const visitorImage = searchParams.get('visitorImage') || undefined;
+    const preferredLang = searchParams.get('preferredLang') || undefined;
 
-    if (visitorName || visitorEmail || visitorImage) {
+    if (visitorName || visitorEmail || visitorImage || preferredLang) {
       await getOrCreateSession(sessionId, {
         visitorName,
         visitorEmail,
         visitorImage,
+        language: preferredLang,
       });
     }
 
@@ -66,26 +68,35 @@ export async function POST(request) {
       sessionId: rawSessionId,
       message,
       action,
+      preferredLang: rawPreferredLang,
       visitorName,
       visitorEmail,
       visitorImage,
     } = body || {};
     const sessionId = String(rawSessionId || 'sess_' + Date.now()).slice(0, 80);
+    const preferredLang = ['en', 'bn', 'ar', 'zh'].includes(rawPreferredLang)
+      ? rawPreferredLang
+      : undefined;
 
     const session = await getOrCreateSession(sessionId, {
       ip: clientIp,
       visitorName,
       visitorEmail,
       visitorImage,
+      language: preferredLang,
     });
 
     // Action 1: Visitor clicked "Talk to Live Team" button
     if (action === 'request_human') {
+      const lang = preferredLang || session?.language || 'en';
       await updateSessionState(sessionId, { needsHuman: true });
-      const lang = session?.language || 'en';
       const userReqText =
         lang === 'bn'
-          ? 'আমি একজন লাইভ অ্যাডমিনের সাথে কথা বলতে চাই।'
+          ? 'আমি একজন লাইভ টিমের সাথে কথা বলতে চাই।'
+          : lang === 'ar'
+          ? 'أود التحدث مع فريق الدعم المباشر.'
+          : lang === 'zh'
+          ? '我想与人工客服团队直接沟通。'
           : 'I would like to speak with a Live Team.';
 
       await addChatMessage(sessionId, {
@@ -97,10 +108,14 @@ export async function POST(request) {
 
       const botAckText =
         lang === 'bn'
-          ? '**লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন পাঠানো হয়েছে!** আমাদের অ্যাডমিন এখনই চ্যাটে জয়েন করবেন।\n\nআপনি চাইলে এখানে আপনার **নাম ও WhatsApp নাম্বার** এবং প্রজেক্টের বিস্তারিত লিখে রাখতে পারেন।'
+          ? '**লাইভ টিমকে ইনস্ট্যান্ট নোটিফিকেশন পাঠানো হয়েছে!** আমাদের টিম এখনই চ্যাটে জয়েন করবেন।\n\nআপনি চাইলে এখানে আপনার **নাম ও WhatsApp নাম্বার** এবং প্রজেক্টের বিস্তারিত লিখে রাখতে পারেন।'
+          : lang === 'ar'
+          ? '**تم إرسال تنبيه فوري إلى الفريق المباشر!** سينضم إليك أحد أعضاء فريقنا في هذه المحادثة قريباً.\n\nيمكنك ترك **اسمك ورقم واتساب أو بريدك الإلكتروني** وتفاصيل مشروعك هنا!'
+          : lang === 'zh'
+          ? '**已向人工客服发送即时通知！** 我们的团队成员将很快加入此对话。\n\n您可以先在这里留下您的**姓名、WhatsApp 号码/邮箱**以及项目需求！'
           : lang === 'banglish'
-          ? '**Live Team ke instant notification pathano hoyeche!** Amader admin ekhoni chat e join korben.\n\nApni chaile apnar **nam o WhatsApp number** ebong ki dhoroner website lagbe ekhane likhe rakhte paren.'
-          : '**Instant Alert Sent to Live Team!** An admin has been notified with a sound alert and will join this chat shortly.\n\nFeel free to drop your **Name, WhatsApp number/Email**, and project details right here!';
+          ? '**Live Team ke instant notification pathano hoyeche!** Amader team ekhoni chat e join korben.\n\nApni chaile apnar **nam o WhatsApp number** ebong ki dhoroner website lagbe ekhane likhe rakhte paren.'
+          : '**Instant Alert Sent to Live Team!** Our team has been notified with a sound alert and will join this chat shortly.\n\nFeel free to drop your **Name, WhatsApp number/Email**, and project details right here!';
 
       const botMsg = await addChatMessage(sessionId, {
         sender: 'bot',
@@ -130,7 +145,15 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid message length' }, { status: 400 });
     }
 
-    const lang = detectLanguage(trimmed, session?.language || 'en');
+    // Check existing messages before adding the current message to know if this is the first message
+    const beforeData = await getSessionMessages(sessionId, 'visitor');
+    const priorUserMessages = (beforeData.messages || []).filter((m) => m.sender === 'user');
+    const isFirstMessage = priorUserMessages.length === 0;
+
+    const lang = detectLanguage(trimmed, preferredLang || session?.language || 'en', {
+      preferredLang,
+      isFirstMessage,
+    });
     const wantsHuman = detectHumanRequest(trimmed);
     const leadCaptured = extractLeadInfo(trimmed);
 
@@ -165,10 +188,14 @@ export async function POST(request) {
     if (wantsHuman) {
       const humanReply =
         lang === 'bn'
-          ? 'আমি আমাদের **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন** পাঠিয়ে দিয়েছি! অ্যাডমিন যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
+          ? 'আমি আমাদের **লাইভ টিমকে ইনস্ট্যান্ট নোটিফিকেশন** পাঠিয়ে দিয়েছি! আমাদের টিম যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
+          : lang === 'ar'
+          ? 'لقد أرسلت **تنبيهاً فورياً إلى الفريق المباشر**! سينضم أحد أعضاء فريقنا إلى المحادثة في أي لحظة.\n\nفي هذه الأثناء، يرجى مشاركة **اسمك ورقم واتساب** أو سؤالي عن أي شيء يخص MerxoDev Solutions!'
+          : lang === 'zh'
+          ? '我已向我们的**人工客服团队发送即时通知**！团队成员随时会接入此对话。\n\n在此期间，欢迎留下您的**姓名和 WhatsApp 号码**，或向我咨询关于 MerxoDev Solutions 的任何问题！'
           : lang === 'banglish'
-          ? 'Ami amader **Live Team ke instant notification** pathiye diyechi! Admin ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
-          : 'I have alerted our **Live Team** with an instant notification! An admin can join this chat live at any moment.\n\nIn the meantime, please share your **Name & WhatsApp number** or ask me anything about MerxoDev Solutions!';
+          ? 'Ami amader **Live Team ke instant notification** pathiye diyechi! Team ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
+          : 'I have alerted our **Live Team** with an instant notification! A team member can join this chat live at any moment.\n\nIn the meantime, please share your **Name & WhatsApp number** or ask me anything about MerxoDev Solutions!';
 
       const botMsg = await addChatMessage(sessionId, {
         sender: 'bot',
@@ -196,6 +223,8 @@ export async function POST(request) {
       history: historyWithoutCurrent,
       session: activeSession,
       leadCaptured,
+      preferredLang,
+      isFirstMessage,
     });
 
     await addChatMessage(sessionId, {
