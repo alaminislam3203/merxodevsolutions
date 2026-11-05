@@ -602,3 +602,4 @@ export async function generateAiResponse({ userMessage, history = [], session = 
     suggestions,
   };
 }
+

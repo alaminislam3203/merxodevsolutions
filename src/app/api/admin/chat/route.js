@@ -183,3 +183,4 @@ export async function DELETE(request) {
     return NextResponse.json({ error: 'Failed to delete session' }, { status: 500 });
   }
 }
+

@@ -1,16 +1,64 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
 import { HiUserGroup } from "react-icons/hi";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import "./admin.css";
 
 function AdminSidebar() {
   const pathname = usePathname();
   const [signingOut, setSigningOut] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [chatUnread, setChatUnread] = useState(0);
+  const [chatNeedsHuman, setChatNeedsHuman] = useState(0);
+  const prevUnreadRef = useRef(0);
+  const prevHumanRef = useRef(0);
+  const initializedRef = useRef(false);
+
+  // Global background poller for Live Chat & AI instant notifications across all admin pages
+  useEffect(() => {
+    let active = true;
+    const pollChatAlerts = async () => {
+      try {
+        const res = await fetch("/api/admin/chat", { cache: "no-store" });
+        if (!res.ok || !active) return;
+        const data = await res.json();
+        const unread = Number(data?.stats?.totalUnread || 0);
+        const human = Number(data?.stats?.needsHumanCount || 0);
+
+        // Only play sound from layout if not already on /709832/live-chat (which handles its own sound)
+        const onLiveChatPage = pathname.startsWith("/709832/live-chat");
+        const soundPref = typeof window !== "undefined" ? localStorage.getItem("merxodev_admin_sound") : "on";
+        const soundOn = soundPref !== "off";
+
+        if (initializedRef.current && !onLiveChatPage) {
+          if (human > prevHumanRef.current) {
+            if (soundOn) playUrgentAdminRing();
+            toast("🚨 Visitor requested a Live Admin in Chat!", { duration: 5000 });
+          } else if (unread > prevUnreadRef.current) {
+            if (soundOn) playAdminAlertSound();
+            toast("💬 New visitor message in MerxoDev AI Chat", { duration: 4000 });
+          }
+        }
+
+        prevUnreadRef.current = unread;
+        prevHumanRef.current = human;
+        initializedRef.current = true;
+        setChatUnread(unread);
+        setChatNeedsHuman(human);
+      } catch {}
+    };
+
+    pollChatAlerts();
+    const timer = setInterval(pollChatAlerts, 4000);
+    return () => {
+      active = false;
+      clearInterval(timer);
+    };
+  }, [pathname]);
 
   const navItems = [
     {
@@ -21,6 +69,17 @@ function AdminSidebar() {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
           <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+        </svg>
+      ),
+    },
+    {
+      href: "/709832/live-chat",
+      label: "Live Chat & AI",
+      badge: chatUnread + chatNeedsHuman,
+      urgent: chatNeedsHuman > 0,
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
       ),
     },
@@ -156,10 +215,32 @@ function AdminSidebar() {
             href={item.href}
             title={collapsed ? item.label : ""}
             className={"admin-sidebar-item" + (isActive(item) ? " admin-sidebar-item-active" : "")}
+            style={{ position: "relative" }}
           >
             <span className="admin-sidebar-item-icon">{item.icon}</span>
             {!collapsed && <span className="admin-sidebar-item-label">{item.label}</span>}
-            {!collapsed && isActive(item) && <span className="admin-sidebar-active-dot"></span>}
+            {item.badge > 0 && (
+              <span
+                style={{
+                  marginLeft: "auto",
+                  minWidth: 18,
+                  height: 18,
+                  padding: "0 6px",
+                  borderRadius: 999,
+                  fontSize: 10,
+                  fontWeight: 800,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: item.urgent ? "#f59e0b" : "#ef4444",
+                  color: item.urgent ? "#090d16" : "#fff",
+                  boxShadow: "0 0 10px rgba(239, 68, 68, 0.5)",
+                }}
+              >
+                {item.badge}
+              </span>
+            )}
+            {!collapsed && isActive(item) && !item.badge && <span className="admin-sidebar-active-dot"></span>}
           </Link>
         ))}
       </nav>
