@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { showToast, confirmToast } from "@/lib/toast";
 import {
   FiUsers,
   FiShield,
@@ -78,17 +79,26 @@ export default function UsersManagementPage() {
     return () => clearTimeout(timer);
   }, [search, roleFilter, statusFilter]);
 
-  // Toggle user role USER <-> ADMIN
-  const handleToggleRole = async (user) => {
+  // Change user role between USER, TEAM_MEMBER (team-member), and ADMIN
+  const handleChangeRole = async (user, nextRole) => {
     if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
       toast.error("Main Admin role cannot be modified.");
       return;
     }
 
-    const newRole = user.role === "ADMIN" ? "USER" : "ADMIN";
-    const confirmMsg = `Are you sure you want to change ${user.name}'s role to ${newRole}?`;
+    const newRole = nextRole || (user.role === "ADMIN" ? "USER" : "ADMIN");
+    if (newRole === user.role) return;
+
+    const roleDisplay =
+      newRole === "TEAM_MEMBER"
+        ? "team-member"
+        : newRole === "ADMIN"
+          ? "admin"
+          : "user";
+
+    const confirmMsg = `Are you sure you want to change ${user.name}'s role to "${roleDisplay}"?`;
     const confirmed = await confirmToast(confirmMsg, {
-      confirmText: `Change to ${newRole}`,
+      confirmText: `Set as ${roleDisplay}`,
       cancelText: "Cancel",
       danger: false,
     });
@@ -102,13 +112,13 @@ export default function UsersManagementPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        showToast.success(data.message || `Role changed to ${newRole}`);
+        toast.success(data.message || `Role changed to ${roleDisplay}`);
         fetchUsers();
       } else {
-        showToast.error(data.error || "Failed to update role");
+        toast.error(data.error || "Failed to update role");
       }
     } catch (_) {
-      showToast.error("Failed to update user role");
+      toast.error("Failed to update user role");
     }
   };
 
@@ -391,6 +401,40 @@ export default function UsersManagementPage() {
               width: 48,
               height: 48,
               borderRadius: 12,
+              background: "rgba(6, 182, 212, 0.15)",
+              color: "#22d3ee",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 22,
+            }}
+          >
+            <FiUserCheck />
+          </div>
+          <div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+              {stats.teamMembers || 0}
+            </div>
+            <div style={{ fontSize: 13, color: "#94a3b8" }}>Team Members</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: "rgba(255, 255, 255, 0.03)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: 14,
+            padding: "18px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+          }}
+        >
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 12,
               background: "rgba(16, 185, 129, 0.15)",
               color: "#34d399",
               display: "flex",
@@ -491,13 +535,18 @@ export default function UsersManagementPage() {
         {/* Filter buttons */}
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
           <div style={{ display: "flex", background: "rgba(255,255,255,0.04)", padding: 3, borderRadius: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
-            {["ALL", "USER", "ADMIN"].map((role) => (
+            {[
+              { id: "ALL", label: "All Roles" },
+              { id: "USER", label: "Users" },
+              { id: "TEAM_MEMBER", label: "Team Members" },
+              { id: "ADMIN", label: "Admins" },
+            ].map((rItem) => (
               <button
-                key={role}
-                onClick={() => setRoleFilter(role)}
+                key={rItem.id}
+                onClick={() => setRoleFilter(rItem.id)}
                 style={{
-                  background: roleFilter === role ? "#6366f1" : "transparent",
-                  color: roleFilter === role ? "#fff" : "#94a3b8",
+                  background: roleFilter === rItem.id ? "#6366f1" : "transparent",
+                  color: roleFilter === rItem.id ? "#fff" : "#94a3b8",
                   border: "none",
                   padding: "6px 14px",
                   borderRadius: 8,
@@ -507,7 +556,7 @@ export default function UsersManagementPage() {
                   transition: "all 0.2s",
                 }}
               >
-                {role === "ALL" ? "All Roles" : role === "ADMIN" ? "Admins" : "Clients"}
+                {rItem.label}
               </button>
             ))}
           </div>
@@ -709,6 +758,24 @@ export default function UsersManagementPage() {
                           >
                             Main Admin
                           </span>
+                        ) : user.role === "TEAM_MEMBER" ? (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 5,
+                              padding: "4px 10px",
+                              borderRadius: 6,
+                              fontSize: 12,
+                              fontWeight: 700,
+                              background: "rgba(6, 182, 212, 0.15)",
+                              color: "#22d3ee",
+                              border: "1px solid rgba(6, 182, 212, 0.35)",
+                            }}
+                          >
+                            <FiUserCheck size={12} />
+                            team-member
+                          </span>
                         ) : (
                           <span
                             style={{
@@ -725,7 +792,7 @@ export default function UsersManagementPage() {
                             }}
                           >
                             {isAdmin ? <FiShield size={12} /> : <FiUsers size={12} />}
-                            {user.role}
+                            {isAdmin ? "admin" : "user"}
                           </span>
                         )}
                       </td>
@@ -822,28 +889,28 @@ export default function UsersManagementPage() {
                             <span>Protected Account</span>
                           </div>
                         ) : (
-                          <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-                            {/* Toggle Role */}
-                            <button
-                              onClick={() => handleToggleRole(user)}
-                              title={isAdmin ? "Demote to Client (USER)" : "Promote to Admin (ADMIN)"}
+                          <div style={{ display: "flex", gap: 6, justifyContent: "flex-end", alignItems: "center" }}>
+                            {/* Select Role (user / team-member / admin) */}
+                            <select
+                              value={user.role || "USER"}
+                              onChange={(e) => handleChangeRole(user, e.target.value)}
+                              title="Change Account Role"
                               style={{
-                                background: "rgba(255,255,255,0.05)",
-                                border: "1px solid rgba(255,255,255,0.1)",
+                                background: "#0f172a",
+                                border: "1px solid rgba(255,255,255,0.14)",
                                 color: "#e2e8f0",
                                 padding: "6px 10px",
                                 borderRadius: 8,
                                 cursor: "pointer",
                                 fontSize: 12,
                                 fontWeight: 600,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 4,
+                                outline: "none",
                               }}
                             >
-                              <FiShield size={12} style={{ color: isAdmin ? "#f87171" : "#34d399" }} />
-                              {isAdmin ? "Make User" : "Make Admin"}
-                            </button>
+                              <option value="USER">Role: user</option>
+                              <option value="TEAM_MEMBER">Role: team-member</option>
+                              <option value="ADMIN">Role: admin</option>
+                            </select>
 
                             {/* Suspend / Activate */}
                             <button
@@ -1026,8 +1093,9 @@ export default function UsersManagementPage() {
                     outline: "none",
                   }}
                 >
-                  <option value="USER">Client (USER)</option>
-                  <option value="ADMIN">Administrator (ADMIN)</option>
+                  <option value="USER">Client (user)</option>
+                  <option value="TEAM_MEMBER">Team Member (team-member)</option>
+                  <option value="ADMIN">Administrator (admin)</option>
                 </select>
               </div>
 
