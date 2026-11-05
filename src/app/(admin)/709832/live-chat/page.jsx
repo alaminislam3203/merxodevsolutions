@@ -359,7 +359,7 @@ export default function AdminLiveChatPage() {
           </h1>
           <p className="admin-page-subtitle">
             Monitor AI conversations in real time, receive instant sound alerts,
-            and take over any chat live.
+            and take over any chat live. (All conversations auto-delete after 3 days)
           </p>
         </div>
 

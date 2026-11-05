@@ -121,14 +121,22 @@ export default function AIChatbot() {
         i18n.changeLanguage(savedLang);
       }
 
+      const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
       let storedId = localStorage.getItem("merxodev_chat_session_id");
-      if (!storedId) {
+      const storedTs = Number(
+        localStorage.getItem("merxodev_chat_session_ts") || 0
+      );
+
+      if (!storedId || (storedTs && Date.now() - storedTs > THREE_DAYS_MS)) {
         storedId =
           "mx_" +
           Date.now().toString(36) +
           "_" +
           Math.random().toString(36).slice(2, 8);
         localStorage.setItem("merxodev_chat_session_id", storedId);
+        localStorage.setItem("merxodev_chat_session_ts", String(Date.now()));
+      } else if (!storedTs) {
+        localStorage.setItem("merxodev_chat_session_ts", String(Date.now()));
       }
       setSessionId(storedId);
 
@@ -370,6 +378,9 @@ export default function AIChatbot() {
     setMessages((prev) => [...prev, optimisticUserMsg]);
     setInput("");
     setLoading(true);
+    try {
+      localStorage.setItem("merxodev_chat_session_ts", String(Date.now()));
+    } catch {}
 
     try {
       const res = await fetch("/api/chat", {

@@ -1,10 +1,46 @@
 import prisma from '@/lib/prisma';
 
 let tablesInitialized = false;
+let lastCleanupAt = 0;
+const CHAT_RETENTION_DAYS = 3;
+const CHAT_RETENTION_MS = CHAT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
 // In-memory backup store in case DB connection has a transient hiccup
 const memorySessions = new Map();
 const memoryMessages = new Map();
+
+/**
+ * Automatically delete all AI & Live Chat conversations older than 3 days
+ */
+export async function cleanupExpiredChatSessions(force = false) {
+  const now = Date.now();
+  if (!force && now - lastCleanupAt < 60 * 1000) return;
+  lastCleanupAt = now;
+
+  try {
+    // Delete expired sessions (ChatMessage rows cascade automatically)
+    await prisma.$executeRaw`
+      DELETE FROM "ChatSession"
+      WHERE "updatedAt" < NOW() - INTERVAL '3 days'
+    `;
+    // Also clean up any messages older than 3 days
+    await prisma.$executeRaw`
+      DELETE FROM "ChatMessage"
+      WHERE "createdAt" < NOW() - INTERVAL '3 days'
+    `;
+  } catch {
+    // Ignore transient DB errors
+  }
+
+  // Clean up fallback memory store
+  for (const [id, sess] of memorySessions.entries()) {
+    const updatedMs = sess?.updatedAt ? new Date(sess.updatedAt).getTime() : 0;
+    if (updatedMs && now - updatedMs > CHAT_RETENTION_MS) {
+      memorySessions.delete(id);
+      memoryMessages.delete(id);
+    }
+  }
+}
 
 export async function ensureChatTables() {
   if (tablesInitialized) return;
@@ -95,6 +131,7 @@ export function extractLeadInfo(text) {
 
 export async function getOrCreateSession(sessionId, meta = {}) {
   await ensureChatTables();
+  await cleanupExpiredChatSessions();
   const cleanId = String(sessionId || 'sess_' + Date.now()).slice(0, 80);
 
   try {
@@ -241,6 +278,7 @@ export async function addChatMessage(sessionId, { sender, text, actions = [], la
 
 export async function getSessionMessages(sessionId, reader = 'visitor') {
   await ensureChatTables();
+  await cleanupExpiredChatSessions();
   try {
     const sessions = await prisma.$queryRaw`
       SELECT * FROM "ChatSession" WHERE "id" = ${sessionId} LIMIT 1
@@ -284,6 +322,7 @@ export async function getSessionMessages(sessionId, reader = 'visitor') {
 
 export async function listAllChatSessions() {
   await ensureChatTables();
+  await cleanupExpiredChatSessions(true);
   try {
     const sessions = await prisma.$queryRaw`
       SELECT * FROM "ChatSession"
