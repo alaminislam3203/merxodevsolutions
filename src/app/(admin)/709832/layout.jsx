@@ -11,6 +11,7 @@ import "./admin.css";
 
 function AdminSidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [signingOut, setSigningOut] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [chatUnread, setChatUnread] = useState(0);
@@ -18,6 +19,11 @@ function AdminSidebar() {
   const prevUnreadRef = useRef(0);
   const prevHumanRef = useRef(0);
   const initializedRef = useRef(false);
+
+  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
+  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
+  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
   // Global background poller for Live Chat & AI instant notifications across all admin pages
   useEffect(() => {
@@ -70,11 +76,12 @@ function AdminSidebar() {
     };
   }, [pathname]);
 
-  const navItems = [
+  const allNavItems = [
     {
       href: "/709832",
       label: "Dashboard",
       exact: true,
+      teamAllowed: true,
       icon: (
         <svg
           width="20"
@@ -98,6 +105,7 @@ function AdminSidebar() {
       label: "Live Chat & AI",
       badge: chatUnread + chatNeedsHuman,
       urgent: chatNeedsHuman > 0,
+      teamAllowed: true,
       icon: (
         <svg
           width="20"
@@ -116,6 +124,7 @@ function AdminSidebar() {
     {
       href: "/709832/visitors",
       label: "Visitors & IP Track",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -136,6 +145,7 @@ function AdminSidebar() {
     {
       href: "/709832/projects",
       label: "Projects",
+      teamAllowed: true,
       icon: (
         <svg
           width="20"
@@ -156,6 +166,7 @@ function AdminSidebar() {
     {
       href: "/709832/images",
       label: "Images",
+      teamAllowed: true,
       icon: (
         <svg
           width="20"
@@ -176,6 +187,7 @@ function AdminSidebar() {
     {
       href: "/709832/content",
       label: "Content",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -197,6 +209,7 @@ function AdminSidebar() {
     {
       href: "/709832/banners",
       label: "Banners",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -217,6 +230,7 @@ function AdminSidebar() {
     {
       href: "/709832/showcase",
       label: "Promo Grid",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -238,6 +252,7 @@ function AdminSidebar() {
     {
       href: "/709832/reviews",
       label: "Reviews",
+      teamAllowed: true,
       icon: (
         <svg
           width="20"
@@ -256,11 +271,13 @@ function AdminSidebar() {
     {
       href: "/709832/team",
       label: "Team",
+      teamAllowed: false,
       icon: <HiUserGroup size={20} />,
     },
     {
       href: "/709832/users",
       label: "Users",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -282,6 +299,7 @@ function AdminSidebar() {
     {
       href: "/709832/env-vault",
       label: "Env Vault",
+      teamAllowed: false,
       icon: (
         <svg
           width="20"
@@ -299,6 +317,10 @@ function AdminSidebar() {
       ),
     },
   ];
+
+  const navItems = isTeamMember
+    ? allNavItems.filter((item) => item.teamAllowed)
+    : allNavItems;
 
   const isActive = (item) =>
     item.exact ? pathname === item.href : pathname.startsWith(item.href);
@@ -444,17 +466,38 @@ function AdminSidebar() {
 }
 
 function AdminLayoutShell({ children }) {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const pathname = usePathname();
   const router = useRouter();
 
   const isLoginRoot = pathname === "/709832";
+  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
+  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
+  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
   useEffect(() => {
     if (status === "unauthenticated" && !isLoginRoot) {
       router.replace("/709832");
+      return;
     }
-  }, [status, isLoginRoot, router]);
+
+    if (status === "authenticated" && isTeamMember && !isLoginRoot) {
+      const allowedTeamPrefixes = [
+        "/709832/live-chat",
+        "/709832/projects",
+        "/709832/images",
+        "/709832/reviews",
+      ];
+      const isAllowed = allowedTeamPrefixes.some((prefix) =>
+        pathname.startsWith(prefix)
+      );
+      if (!isAllowed) {
+        toast.error("Only Administrators can access that section.");
+        router.replace("/709832");
+      }
+    }
+  }, [status, isLoginRoot, isTeamMember, pathname, router]);
 
   // If on the /709832 login page and not logged in, show full-screen login without sidebar
   if (status !== "authenticated" && isLoginRoot) {
