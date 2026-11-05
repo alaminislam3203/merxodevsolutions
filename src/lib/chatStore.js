@@ -103,14 +103,15 @@ export async function getOrCreateSession(sessionId, meta = {}) {
     `;
     if (existing && existing[0]) {
       const curr = existing[0];
-      // If user is now logged in, sync their name, email, and profile image onto the session
-      if (meta.visitorName || meta.visitorEmail || meta.visitorImage) {
+      // Sync logged-in user profile and/or active language switcher selection onto the session
+      if (meta.visitorName || meta.visitorEmail || meta.visitorImage || meta.language) {
         const updated = await prisma.$queryRaw`
           UPDATE "ChatSession"
           SET
             "visitorName" = COALESCE(${meta.visitorName || null}, "visitorName"),
             "visitorEmail" = COALESCE(${meta.visitorEmail || null}, "visitorEmail"),
-            "visitorImage" = COALESCE(${meta.visitorImage || null}, "visitorImage")
+            "visitorImage" = COALESCE(${meta.visitorImage || null}, "visitorImage"),
+            "language" = COALESCE(${meta.language || null}, "language")
           WHERE "id" = ${cleanId}
           RETURNING *
         `;
