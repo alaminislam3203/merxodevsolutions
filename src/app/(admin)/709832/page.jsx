@@ -81,7 +81,7 @@ function DashboardView() {
       subValue: `${analytics?.today?.pageViews || 0} pageviews`,
       color: "#10b981",
       bg: "rgba(16,185,129,0.12)",
-      href: "#analytics-section",
+      href: "/709832/visitors",
       isLive: true,
       icon: <FiActivity size={22} />,
     },
@@ -275,39 +275,60 @@ function DashboardView() {
             </p>
           </div>
 
-          {/* Days Switcher */}
-          <div
-            style={{
-              display: "flex",
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              borderRadius: 10,
-              padding: 3,
-            }}
-          >
-            {[
-              { days: 7, label: "7 Days" },
-              { days: 14, label: "14 Days" },
-              { days: 30, label: "30 Days" },
-            ].map((tab) => (
-              <button
-                key={tab.days}
-                onClick={() => setAnalyticsDays(tab.days)}
-                style={{
-                  background: analyticsDays === tab.days ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "transparent",
-                  color: analyticsDays === tab.days ? "#ffffff" : "#94a3b8",
-                  border: "none",
-                  padding: "6px 14px",
-                  borderRadius: 8,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
+          {/* Days Switcher & Full IP Tracker Link */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <Link
+              href="/709832/visitors"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                background: "rgba(56, 189, 248, 0.12)",
+                border: "1px solid rgba(56, 189, 248, 0.3)",
+                color: "#38bdf8",
+                padding: "7px 14px",
+                borderRadius: 10,
+                fontSize: 12,
+                fontWeight: 700,
+                textDecoration: "none",
+              }}
+            >
+              <FiGlobe size={14} /> Live Visitors & IP Tracker
+            </Link>
+
+            <div
+              style={{
+                display: "flex",
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                borderRadius: 10,
+                padding: 3,
+              }}
+            >
+              {[
+                { days: 7, label: "7 Days" },
+                { days: 14, label: "14 Days" },
+                { days: 30, label: "30 Days" },
+              ].map((tab) => (
+                <button
+                  key={tab.days}
+                  onClick={() => setAnalyticsDays(tab.days)}
+                  style={{
+                    background: analyticsDays === tab.days ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "transparent",
+                    color: analyticsDays === tab.days ? "#ffffff" : "#94a3b8",
+                    border: "none",
+                    padding: "6px 14px",
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
