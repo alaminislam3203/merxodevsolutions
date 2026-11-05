@@ -12,7 +12,14 @@ import {
   IoVolumeMute,
 } from "react-icons/io5";
 import { FaWhatsapp, FaArrowRight, FaUserTie, FaUser } from "react-icons/fa6";
-import { BsStars, BsTrash3, BsShieldCheck, BsClock } from "react-icons/bs";
+import {
+  BsStars,
+  BsTrash3,
+  BsShieldCheck,
+  BsClock,
+  BsBellFill,
+  BsCheckCircleFill,
+} from "react-icons/bs";
 import { RiRobot2Line, RiSendPlaneFill } from "react-icons/ri";
 import {
   MdPhoneInTalk,
@@ -180,7 +187,14 @@ export default function AIChatbot() {
         // Ignore transient network errors during background poll
       }
     },
-    [sessionId, soundEnabled, isOpen, loggedInName, loggedInEmail, loggedInImage],
+    [
+      sessionId,
+      soundEnabled,
+      isOpen,
+      loggedInName,
+      loggedInEmail,
+      loggedInImage,
+    ],
   );
 
   // Initial load once sessionId is ready
@@ -499,6 +513,25 @@ export default function AIChatbot() {
         );
       }
 
+      if (
+        trimmed.startsWith("✅") ||
+        trimmed.startsWith("🔔") ||
+        trimmed.includes("Instant Alert Sent to Live Admin") ||
+        trimmed.includes("লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন") ||
+        trimmed.includes("Live Admin ke instant notification")
+      ) {
+        const cleanAlert = trimmed.replace(/^[✅🔔\s]+/, "");
+        return (
+          <div
+            key={idx}
+            className="flex items-start gap-2 my-1.5 text-emerald-700 dark:text-emerald-400 font-medium"
+          >
+            <BsCheckCircleFill className="w-4 h-4 shrink-0 mt-0.5 text-emerald-500" />
+            <span>{formatParts(cleanAlert)}</span>
+          </div>
+        );
+      }
+
       if (trimmed === "") {
         return <div key={idx} className="h-2" />;
       }
@@ -641,15 +674,22 @@ export default function AIChatbot() {
                   : "bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30"
               }`}
             >
-              <span className="flex items-center gap-1.5">
+              <span className="flex items-center gap-2">
                 <span
-                  className={`w-2 h-2 rounded-full animate-pulse ${
+                  className={`w-2 h-2 rounded-full animate-pulse shrink-0 ${
                     sessionMode === "live" ? "bg-emerald-500" : "bg-amber-500"
                   }`}
                 />
-                {sessionMode === "live"
-                  ? "👨‍💻 You are chatting live with a MerxoDev Admin"
-                  : "🔔 Live Admin notified! AI will assist until Admin joins."}
+                {sessionMode === "live" ? (
+                  <FaUserTie className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                ) : (
+                  <BsBellFill className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                )}
+                <span>
+                  {sessionMode === "live"
+                    ? "You are chatting live with a MerxoDev Team"
+                    : "Live Team notified! AI will assist until Team joins."}
+                </span>
               </span>
             </div>
           )}
@@ -658,10 +698,19 @@ export default function AIChatbot() {
           <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs sm:text-[13px] bg-zinc-50/50 dark:bg-[#060b19]/60">
             {messages.map((msg) => {
               if (msg.sender === "system") {
+                const cleanSysText = String(msg.text || "")
+                  .replace(/\*\*/g, "")
+                  .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u, "");
+                const isLiveJoin = cleanSysText.toLowerCase().includes("live");
                 return (
                   <div key={msg.id} className="flex justify-center my-2">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-center">
-                      {msg.text.replace(/\*\*/g, "")}
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-center">
+                      {isLiveJoin ? (
+                        <FaUserTie className="w-3 h-3 shrink-0" />
+                      ) : (
+                        <MdSupportAgent className="w-3.5 h-3.5 shrink-0" />
+                      )}
+                      <span>{cleanSysText}</span>
                     </span>
                   </div>
                 );
