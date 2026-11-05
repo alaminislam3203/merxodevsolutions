@@ -187,6 +187,7 @@ model ChatSession {
   visitorName   String        @default("Visitor")
   visitorEmail  String?
   visitorPhone  String?
+  visitorImage  String?
   visitorIp     String?
   language      String        @default("en")
   mode          String        @default("ai") // "ai" | "live"
