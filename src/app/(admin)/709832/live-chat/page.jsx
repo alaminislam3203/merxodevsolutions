@@ -18,8 +18,10 @@ import {
   FiBell,
   FiCpu,
   FiUserCheck,
+  FiZap,
   FiX,
 } from 'react-icons/fi';
+import { MdSupportAgent } from 'react-icons/md';
 import { FaWhatsapp, FaRobot } from 'react-icons/fa';
 import { playAdminAlertSound, playUrgentAdminRing } from '@/lib/chatSound';
 
@@ -99,8 +101,8 @@ export default function AdminLiveChatPage() {
         if (initializedRef.current) {
           if (nextStats.needsHumanCount > prevNeedsHumanRef.current) {
             if (soundEnabled) playUrgentAdminRing();
-            toast('🔔 A visitor requested a Live Admin!', {
-              icon: '🚨',
+            toast('A visitor requested a Live Admin!', {
+              icon: <FiAlertCircle color="#f59e0b" size={18} />,
               duration: 5000,
             });
           } else if (nextStats.totalUnread > prevUnreadRef.current) {
@@ -361,7 +363,7 @@ export default function AdminLiveChatPage() {
             type="button"
             onClick={() => {
               playUrgentAdminRing();
-              toast.success('🔔 Notification sound tested!');
+              toast.success('Notification sound tested!');
             }}
             style={{
               display: 'inline-flex',
@@ -808,8 +810,11 @@ export default function AdminLiveChatPage() {
                       style={{
                         fontSize: 10.5,
                         fontWeight: 700,
-                        padding: '2px 8px',
+                        padding: '3px 9px',
                         borderRadius: 999,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
                         background:
                           activeSession.mode === 'live'
                             ? 'rgba(16, 185, 129, 0.2)'
@@ -817,7 +822,17 @@ export default function AdminLiveChatPage() {
                         color: activeSession.mode === 'live' ? '#34d399' : '#a5b4fc',
                       }}
                     >
-                      {activeSession.mode === 'live' ? '🟢 LIVE ADMIN ACTIVE' : '🤖 AI AUTO-REPLYING'}
+                      {activeSession.mode === 'live' ? (
+                        <>
+                          <FiUserCheck size={12} />
+                          <span>LIVE ADMIN ACTIVE</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaRobot size={12} />
+                          <span>AI AUTO-REPLYING</span>
+                        </>
+                      )}
                     </span>
                   </div>
 
@@ -924,6 +939,9 @@ export default function AdminLiveChatPage() {
               >
                 {messages.map((m) => {
                   if (m.sender === 'system') {
+                    const cleanSys = String(m.text || '')
+                      .replace(/\*\*/g, '')
+                      .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u, '');
                     return (
                       <div key={m.id} style={{ textAlign: 'center', margin: '4px 0' }}>
                         <span
@@ -931,12 +949,16 @@ export default function AdminLiveChatPage() {
                             fontSize: 11,
                             padding: '4px 12px',
                             borderRadius: 999,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 6,
                             background: 'rgba(16, 185, 129, 0.12)',
                             color: '#34d399',
                             border: '1px solid rgba(16, 185, 129, 0.25)',
                           }}
                         >
-                          {m.text.replace(/\*\*/g, '')}
+                          <FiCheckCircle size={12} />
+                          <span>{cleanSys}</span>
                         </span>
                       </div>
                     );
@@ -979,12 +1001,13 @@ export default function AdminLiveChatPage() {
                             style={{ width: 18, height: 18, borderRadius: 5, objectFit: 'contain', background: '#f97316', padding: 2 }}
                           />
                         )}
+                        {!isVisitor && !isAdmin && <MdSupportAgent size={15} />}
                         <span>
                           {isVisitor
                             ? activeSession.visitorName
                             : isAdmin
                             ? 'You (Live Admin)'
-                            : '🤖 MerxoDev AI'}
+                            : 'MerxoDev AI'}
                         </span>
                       </span>
 
@@ -1046,9 +1069,13 @@ export default function AdminLiveChatPage() {
                       color: '#cbd5e1',
                       border: '1px solid rgba(255, 255, 255, 0.1)',
                       cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
                     }}
                   >
-                    ⚡ {qr.slice(0, 42)}...
+                    <FiZap size={11} style={{ color: '#fbbf24', flexShrink: 0 }} />
+                    <span>{qr.slice(0, 42)}...</span>
                   </button>
                 ))}
               </div>

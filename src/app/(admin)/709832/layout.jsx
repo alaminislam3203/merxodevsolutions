@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
 import { HiUserGroup } from "react-icons/hi";
+import { FiAlertCircle, FiMessageSquare } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import "./admin.css";
@@ -37,10 +38,16 @@ function AdminSidebar() {
         if (initializedRef.current && !onLiveChatPage) {
           if (human > prevHumanRef.current) {
             if (soundOn) playUrgentAdminRing();
-            toast("🚨 Visitor requested a Live Admin in Chat!", { duration: 5000 });
+            toast("Visitor requested a Live Admin in Chat!", {
+              icon: <FiAlertCircle color="#f59e0b" size={18} />,
+              duration: 5000,
+            });
           } else if (unread > prevUnreadRef.current) {
             if (soundOn) playAdminAlertSound();
-            toast("💬 New visitor message in MerxoDev AI Chat", { duration: 4000 });
+            toast("New visitor message in MerxoDev AI Chat", {
+              icon: <FiMessageSquare color="#38bdf8" size={18} />,
+              duration: 4000,
+            });
           }
         }
 
