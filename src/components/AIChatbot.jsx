@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   IoClose,
   IoChatbubbleEllipsesSharp,
@@ -32,7 +34,7 @@ import { playVisitorMessageSound } from "@/lib/chatSound";
 const INITIAL_WELCOME = {
   id: "welcome",
   sender: "bot",
-  text: "**Welcome to MerxoDev Solutions! (মারক্সোডেভ সলিউশনস-এ স্বাগতম)**\n\nI am your **MerxoDev AI Assistant**. Ask me anything in **বাংলা, Banglish, or English** about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Team** above to chat directly with a human!",
+  text: "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Team** above to chat directly with our team!",
   actions: [
     { label: "View Services & Pricing", href: "/services", type: "link" },
     {
@@ -44,15 +46,17 @@ const INITIAL_WELCOME = {
   createdAt: null,
 };
 
-const QUICK_SUGGESTIONS = [
+const DEFAULT_SUGGESTIONS_EN = [
   "Website pricing & packages?",
-  "আপনাদের করা প্রজেক্টগুলো দেখান",
+  "Show your recent projects",
   "E-commerce & bKash/Nagad gateway",
-  "বাংলায় কথা বলুন",
+  "How long does delivery take?",
   "Talk to Live Team",
 ];
 
 export default function AIChatbot() {
+  const { t, i18n } = useTranslation();
+  const [mounted, setMounted] = useState(false);
   const { data: authSession } = useSession();
   const loggedInName = authSession?.user?.name || "";
   const loggedInEmail = authSession?.user?.email || "";
@@ -66,7 +70,7 @@ export default function AIChatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [requestingHuman, setRequestingHuman] = useState(false);
-  const [suggestions, setSuggestions] = useState(QUICK_SUGGESTIONS);
+  const [customSuggestions, setCustomSuggestions] = useState(null);
   const [hasUnread, setHasUnread] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [streamingMsgId, setStreamingMsgId] = useState(null);
@@ -77,9 +81,46 @@ export default function AIChatbot() {
   const knownMessageIdsRef = useRef(new Set(["welcome"]));
   const streamIntervalRef = useRef(null);
 
+  const tr = useCallback(
+    (key, fallback) => (mounted ? t(key, fallback) : fallback),
+    [mounted, t],
+  );
+
+  const getActiveLanguage = useCallback(() => {
+    if (typeof window !== "undefined") {
+      return i18n?.language || localStorage.getItem("lang") || "en";
+    }
+    return i18n?.language || "en";
+  }, [i18n?.language]);
+
+  const localizedDefaultSuggestions = mounted
+    ? t("aiChat.suggestions", {
+        returnObjects: true,
+        defaultValue: DEFAULT_SUGGESTIONS_EN,
+      })
+    : DEFAULT_SUGGESTIONS_EN;
+
+  const suggestions =
+    Array.isArray(customSuggestions) && customSuggestions.length > 0
+      ? customSuggestions
+      : Array.isArray(localizedDefaultSuggestions)
+        ? localizedDefaultSuggestions
+        : DEFAULT_SUGGESTIONS_EN;
+
+  // Reset contextual suggestions when user switches language in LanguageSwitcher so chips match selected language
+  useEffect(() => {
+    setCustomSuggestions(null);
+  }, [i18n?.language]);
+
   // Initialize persistent sessionId and sound preference from localStorage
   useEffect(() => {
+    setMounted(true);
     try {
+      const savedLang = localStorage.getItem("lang") || "en";
+      if (i18n && i18n.language !== savedLang) {
+        i18n.changeLanguage(savedLang);
+      }
+
       let storedId = localStorage.getItem("merxodev_chat_session_id");
       if (!storedId) {
         storedId =
@@ -96,7 +137,7 @@ export default function AIChatbot() {
     } catch {
       setSessionId("mx_" + Date.now().toString(36));
     }
-  }, []);
+  }, [i18n]);
 
   const toggleSound = () => {
     setSoundEnabled((prev) => {
