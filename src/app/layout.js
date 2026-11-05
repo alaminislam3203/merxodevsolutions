@@ -164,12 +164,11 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.png?v=2', type: 'image/png', sizes: '512x512' },
-      { url: '/favicon.ico?v=2', sizes: 'any' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/favicon.png?v=2',
+    shortcut: '/favicon.ico',
     apple: [
-      { url: '/favicon.png?v=2', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon.ico' },
     ],
   },
   category: 'technology',
