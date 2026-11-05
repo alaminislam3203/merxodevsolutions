@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import nodemailer from 'nodemailer';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import {
+  renderOtpSecurityEmail,
+  getBrandEmailAttachments,
+} from '@/lib/templates/brandEmailLayout';
 
 function createTransporter() {
   if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -75,28 +79,18 @@ export async function POST(request) {
     }
 
     const recipientName = account.name || 'Valued Client';
-    const emailHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8" />
-        <title>2FA Verification Code</title>
-      </head>
-      <body style="margin: 0; padding: 0; background-color: #060b19; font-family: sans-serif; color: #ffffff;">
-        <div style="max-width: 560px; margin: 30px auto; padding: 32px 24px; background: #0c1328; border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 20px;">
-          <h2 style="color: #38bdf8; text-align: center;">MerxoDev Solutions</h2>
-          <p>Hello <strong>${recipientName}</strong>,</p>
-          <p>Your requested 2FA verification code is:</p>
-          <div style="text-align: center; margin: 24px 0;">
-            <span style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #38bdf8; font-family: monospace; background: rgba(124, 58, 237, 0.2); padding: 12px 24px; border: 2px dashed #7c3aed; border-radius: 12px;">
-              ${otp}
-            </span>
-            <p style="color: #f59e0b; font-size: 12px; margin-top: 10px;">⚠️ Valid for 2 minutes.</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `;
+    const emailHtml = renderOtpSecurityEmail({
+      title: 'New 2FA Verification Code',
+      badgeText: '2FA Resend Request',
+      recipientName,
+      introText:
+        'Here is your newly requested 6-digit Two-Factor Authentication verification code:',
+      code: otp,
+      expiryMinutes: 2,
+      footerWarning:
+        'If you did not request this verification code, please secure your account immediately.',
+      useCid: true,
+    });
 
     await transporter.sendMail({
       from: `"MerxoDev Security" <${process.env.GMAIL_USER}>`,
@@ -104,6 +98,7 @@ export async function POST(request) {
       subject: `${otp} is your new MerxoDev 2FA code`,
       html: emailHtml,
       text: `Your new MerxoDev 2FA code is: ${otp} (Valid for 2 minutes).`,
+      attachments: getBrandEmailAttachments(),
     });
 
     return NextResponse.json({ message: 'A fresh 2FA code has been sent to your email.' });
