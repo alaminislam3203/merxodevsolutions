@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { requireAdmin } from "@/lib/adminAuth";
 import { ensureWorkspaceTables, logActivity } from "@/lib/workspaceStore";
+import { sendBrandEmail } from "@/lib/templates/brandEmailLayout";
+import {
+  taskAssignedTemplate,
+  projectMilestoneUpdateTemplate,
+  invoiceReceiptTemplate,
+  clientReviewCompletedTemplate,
+} from "@/lib/templates/agencyEmailTemplates";
 
 export const dynamic = "force-dynamic";
 
@@ -148,6 +155,29 @@ export async function POST(request) {
         target: assignedToName,
         details: `Assigned task "${title}" to ${assignedToName}`,
       });
+
+      // Send Task Assigned Email to the team member (if specific email)
+      if (assignedToEmail && assignedToEmail !== "all" && assignedToEmail.includes("@")) {
+        try {
+          await sendBrandEmail({
+            to: assignedToEmail,
+            subject: `New Task Assigned: ${title} (${priority}) — MerxoDev Workspace`,
+            buildHtml: (useCid) =>
+              taskAssignedTemplate({
+                assignedToName,
+                title,
+                description,
+                priority,
+                dueDate,
+                assignedBy: createdBy,
+                useCid,
+              }),
+            text: `Hi ${assignedToName}, a new task "${title}" (${priority}) has been assigned to you by ${createdBy}.`,
+          });
+        } catch (mailErr) {
+          console.warn("Task assigned email warning:", mailErr.message);
+        }
+      }
 
       return NextResponse.json({ success: true, id });
     }
@@ -361,6 +391,94 @@ export async function POST(request) {
         target: `${clientName} (${projectTitle})`,
         details: `Updated #${id}: Status=${status}, Progress=${progress}%, Invoice=${invoiceStatus}`,
       });
+
+      // Automatically send Client Emails when Progress, Completion, or Invoice Status changes
+      if (clientEmail && clientEmail.includes("@")) {
+        let parsedMilestones = {};
+        try {
+          parsedMilestones = JSON.parse(milestones);
+        } catch {}
+
+        // A. Project marked COMPLETED -> Send Completion + Review Request Email
+        if (status === "COMPLETED" && existing.status !== "COMPLETED") {
+          try {
+            await sendBrandEmail({
+              to: clientEmail,
+              subject: `Your Project "${projectTitle}" (#${id}) is 100% Completed! 🎉`,
+              buildHtml: (useCid) =>
+                clientReviewCompletedTemplate({
+                  clientName,
+                  projectTitle,
+                  projectId: id,
+                  liveDemoUrl,
+                  useCid,
+                }),
+              text: `Dear ${clientName}, your project "${projectTitle}" (#${id}) is now 100% completed!`,
+            });
+          } catch (err) {
+            console.warn("Project completion email warning:", err.message);
+          }
+        }
+        // B. Progress or Status updated -> Send Milestone Progress Update Email
+        else if (
+          Number(progress) !== Number(existing.progress || 0) ||
+          status !== existing.status ||
+          body.milestones !== undefined
+        ) {
+          try {
+            await sendBrandEmail({
+              to: clientEmail,
+              subject: `Project Progress Update (${progress}%): ${projectTitle} (#${id})`,
+              buildHtml: (useCid) =>
+                projectMilestoneUpdateTemplate({
+                  clientName,
+                  projectId: id,
+                  projectTitle,
+                  serviceType,
+                  status,
+                  progress,
+                  milestones: parsedMilestones,
+                  liveDemoUrl,
+                  notes,
+                  useCid,
+                }),
+              text: `Hello ${clientName}, your project "${projectTitle}" (#${id}) is now at ${progress}% completion (${status}).`,
+            });
+          } catch (err) {
+            console.warn("Milestone update email warning:", err.message);
+          }
+        }
+
+        // C. Invoice Status or Amount changed -> Send Official Invoice / Payment Receipt Email
+        if (
+          invoiceStatus !== existing.invoiceStatus ||
+          (invoiceAmount && invoiceAmount !== existing.invoiceAmount)
+        ) {
+          try {
+            await sendBrandEmail({
+              to: clientEmail,
+              subject:
+                invoiceStatus === "PAID"
+                  ? `Official Payment Receipt Confirmed (#${id}) — MerxoDev Solutions`
+                  : `Invoice Statement Updated (#${id}) — MerxoDev Solutions`,
+              buildHtml: (useCid) =>
+                invoiceReceiptTemplate({
+                  clientName,
+                  projectId: id,
+                  projectTitle,
+                  serviceType,
+                  invoiceAmount,
+                  invoiceStatus,
+                  budget,
+                  useCid,
+                }),
+              text: `Dear ${clientName}, invoice #${id} for "${projectTitle}" is now marked as ${invoiceStatus}.`,
+            });
+          } catch (err) {
+            console.warn("Invoice email warning:", err.message);
+          }
+        }
+      }
 
       return NextResponse.json({ success: true });
     }

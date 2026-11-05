@@ -3,6 +3,8 @@ import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { requireAdmin } from '@/lib/adminAuth';
 import { logActivity } from '@/lib/workspaceStore';
+import { sendBrandEmail } from '@/lib/templates/brandEmailLayout';
+import { reviewPublishedTemplate } from '@/lib/templates/agencyEmailTemplates';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,6 +57,32 @@ export async function PATCH(request, { params }) {
           ? `${body.isApproved ? 'Approved' : 'Unapproved'} review by ${updated.userName}`
           : `Updated review by ${updated.userName}`,
     });
+
+    // If review was just approved, send Thank You Email to the reviewer (if linked to a user account)
+    if (body.isApproved === true && !existingReview.isApproved && updated.userId) {
+      try {
+        const reviewerUser = await prisma.user.findUnique({
+          where: { id: updated.userId },
+          select: { email: true, name: true },
+        });
+        if (reviewerUser?.email) {
+          await sendBrandEmail({
+            to: reviewerUser.email,
+            subject: `Thank You for Your Review, ${updated.userName}! 🌟`,
+            buildHtml: (useCid) =>
+              reviewPublishedTemplate({
+                userName: updated.userName || reviewerUser.name,
+                rating: updated.rating,
+                comment: updated.comment,
+                useCid,
+              }),
+            text: `Thank you ${updated.userName}! Your ${updated.rating}-star review is now live on MerxoDev Solutions.`,
+          });
+        }
+      } catch (revMailErr) {
+        console.warn('Review published email warning:', revMailErr.message);
+      }
+    }
 
     return NextResponse.json({
       message: 'Review updated successfully',

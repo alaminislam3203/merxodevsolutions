@@ -3,6 +3,8 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 import { logActivity } from "@/lib/workspaceStore";
+import { sendBrandEmail } from "@/lib/templates/brandEmailLayout";
+import { projectApprovedTemplate } from "@/lib/templates/agencyEmailTemplates";
 
 export const dynamic = "force-dynamic";
 
@@ -143,6 +145,29 @@ export async function PUT(request, { params }) {
         target: project.title,
         details: `Approved and published project "${project.title}"`,
       });
+
+      // Notify the team member who submitted the project
+      const authorEmail = existingDetails?.submittedByEmail;
+      if (authorEmail && String(authorEmail).includes("@")) {
+        try {
+          await sendBrandEmail({
+            to: authorEmail,
+            subject: `Project Approved & Published: "${project.title}" 🚀`,
+            buildHtml: (useCid) =>
+              projectApprovedTemplate({
+                authorName: existingDetails?.submittedByName || "Team Member",
+                projectTitle: project.title,
+                projectSlug: project.slug,
+                tag: project.tag,
+                approvedBy: session?.user?.name || "Admin",
+                useCid,
+              }),
+            text: `Great news! Your project "${project.title}" has been approved and is now live on MerxoDev Solutions.`,
+          });
+        } catch (mailErr) {
+          console.warn("Project approved email warning:", mailErr.message);
+        }
+      }
     }
 
     // Invalidate site cache so changes immediately show on Vercel

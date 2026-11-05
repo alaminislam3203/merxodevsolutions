@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/adminAuth';
 import { logActivity } from '@/lib/workspaceStore';
+import { sendBrandEmail } from '@/lib/templates/brandEmailLayout';
+import { liveChatReplyTemplate } from '@/lib/templates/agencyEmailTemplates';
 import {
   listAllChatSessions,
   getSessionMessages,
@@ -132,6 +134,36 @@ export async function POST(request) {
         target: updated?.session?.visitorName || sessionId,
         details: `Replied in Live Chat: "${text.trim().slice(0, 70)}"`,
       });
+
+      // If the chat visitor provided an email (in visitorEmail or visitorName), send Live Chat Reply Email
+      const maybeEmail =
+        updated?.session?.visitorEmail ||
+        (String(updated?.session?.visitorName || '').includes('@')
+          ? String(updated.session.visitorName).trim()
+          : null);
+      if (maybeEmail && maybeEmail.includes('@')) {
+        try {
+          await sendBrandEmail({
+            to: maybeEmail,
+            subject: `New Reply from ${session?.user?.name || 'MerxoDev Team'} — Live Support`,
+            buildHtml: (useCid) =>
+              liveChatReplyTemplate({
+                visitorName: updated?.session?.visitorName || 'Valued Client',
+                replyText: text.trim(),
+                senderName: session?.user?.name || 'MerxoDev Support Team',
+                senderRole:
+                  String(session?.user?.role || '').toUpperCase() === 'TEAM_MEMBER'
+                    ? 'Team Member'
+                    : 'Lead Engineer',
+                useCid,
+              }),
+            text: `${session?.user?.name || 'MerxoDev Support Team'} replied to your chat: "${text.trim()}"`,
+          });
+        } catch (chatMailErr) {
+          console.warn('Live chat email notification warning:', chatMailErr.message);
+        }
+      }
+
       return NextResponse.json({
         success: true,
         session: updated.session,
