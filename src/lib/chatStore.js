@@ -4,13 +4,17 @@ let tablesInitialized = false;
 let lastCleanupAt = 0;
 const CHAT_RETENTION_DAYS = 3;
 const CHAT_RETENTION_MS = CHAT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+const VISITOR_RETENTION_HOURS = 6;
+const VISITOR_RETENTION_MS = VISITOR_RETENTION_HOURS * 60 * 60 * 1000;
 
 // In-memory backup store in case DB connection has a transient hiccup
 const memorySessions = new Map();
 const memoryMessages = new Map();
 
 /**
- * Automatically delete all AI & Live Chat conversations older than 3 days
+ * Automatically delete:
+ * 1) Anonymous "Visitor" chat sessions older than 6 hours
+ * 2) Logged-in / named user chat sessions older than 3 days
  */
 export async function cleanupExpiredChatSessions(force = false) {
   const now = Date.now();
@@ -18,12 +22,25 @@ export async function cleanupExpiredChatSessions(force = false) {
   lastCleanupAt = now;
 
   try {
-    // Delete expired sessions (ChatMessage rows cascade automatically)
+    // 1. Delete anonymous Visitor sessions older than 6 hours (ChatMessage rows cascade automatically)
+    await prisma.$executeRaw`
+      DELETE FROM "ChatSession"
+      WHERE "updatedAt" < NOW() - INTERVAL '6 hours'
+        AND (
+          "visitorName" = 'Visitor'
+          OR "visitorName" LIKE 'Visitor #%'
+        )
+        AND ("visitorEmail" IS NULL OR "visitorEmail" = '')
+        AND ("visitorPhone" IS NULL OR "visitorPhone" = '')
+    `;
+
+    // 2. Delete all remaining sessions older than 3 days
     await prisma.$executeRaw`
       DELETE FROM "ChatSession"
       WHERE "updatedAt" < NOW() - INTERVAL '3 days'
     `;
-    // Also clean up any messages older than 3 days
+
+    // 3. Also clean up any orphaned messages older than 3 days
     await prisma.$executeRaw`
       DELETE FROM "ChatMessage"
       WHERE "createdAt" < NOW() - INTERVAL '3 days'
@@ -35,7 +52,11 @@ export async function cleanupExpiredChatSessions(force = false) {
   // Clean up fallback memory store
   for (const [id, sess] of memorySessions.entries()) {
     const updatedMs = sess?.updatedAt ? new Date(sess.updatedAt).getTime() : 0;
-    if (updatedMs && now - updatedMs > CHAT_RETENTION_MS) {
+    const isAnonVisitor =
+      (!sess?.visitorEmail && !sess?.visitorPhone) &&
+      (sess?.visitorName === 'Visitor' || String(sess?.visitorName || '').startsWith('Visitor #'));
+    const maxAge = isAnonVisitor ? VISITOR_RETENTION_MS : CHAT_RETENTION_MS;
+    if (updatedMs && now - updatedMs > maxAge) {
       memorySessions.delete(id);
       memoryMessages.delete(id);
     }

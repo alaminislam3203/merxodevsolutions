@@ -121,13 +121,16 @@ export default function AIChatbot() {
         i18n.changeLanguage(savedLang);
       }
 
+      const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
       const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
+      const expiryMs = loggedInEmail ? THREE_DAYS_MS : SIX_HOURS_MS;
+
       let storedId = localStorage.getItem("merxodev_chat_session_id");
       const storedTs = Number(
         localStorage.getItem("merxodev_chat_session_ts") || 0
       );
 
-      if (!storedId || (storedTs && Date.now() - storedTs > THREE_DAYS_MS)) {
+      if (!storedId || (storedTs && Date.now() - storedTs > expiryMs)) {
         storedId =
           "mx_" +
           Date.now().toString(36) +
