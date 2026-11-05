@@ -58,7 +58,7 @@ export async function PATCH(request, { params }) {
 // DELETE: Delete a review by ID
 export async function DELETE(request, { params }) {
   try {
-    const { authorized, response } = await requireAdmin();
+    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const { id } = await params;
