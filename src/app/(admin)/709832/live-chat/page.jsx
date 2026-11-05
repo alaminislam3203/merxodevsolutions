@@ -563,9 +563,43 @@ export default function AdminLiveChatPage() {
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>
-                        {s.visitorName || 'Visitor'}
-                      </span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                        {s.visitorImage ? (
+                          <img
+                            src={s.visitorImage}
+                            alt={s.visitorName || 'User'}
+                            style={{
+                              width: 28,
+                              height: 28,
+                              borderRadius: 9,
+                              objectFit: 'cover',
+                              border: '1px solid rgba(139, 92, 246, 0.5)',
+                              flexShrink: 0,
+                            }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: 28,
+                              height: 28,
+                              borderRadius: 9,
+                              background: 'rgba(99, 102, 241, 0.2)',
+                              color: '#a5b4fc',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 12,
+                              fontWeight: 800,
+                              flexShrink: 0,
+                            }}
+                          >
+                            {(s.visitorName || 'V').charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {s.visitorName || 'Visitor'}
+                        </span>
+                      </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                         {s.needsHuman && (
                           <span
@@ -737,6 +771,36 @@ export default function AdminLiveChatPage() {
               >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {activeSession.visitorImage ? (
+                      <img
+                        src={activeSession.visitorImage}
+                        alt={activeSession.visitorName}
+                        style={{
+                          width: 34,
+                          height: 34,
+                          borderRadius: 10,
+                          objectFit: 'cover',
+                          border: '1px solid rgba(139, 92, 246, 0.5)',
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: 34,
+                          height: 34,
+                          borderRadius: 10,
+                          background: 'rgba(99, 102, 241, 0.2)',
+                          color: '#a5b4fc',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 14,
+                          fontWeight: 800,
+                        }}
+                      >
+                        {(activeSession.visitorName || 'V').charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <span style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc' }}>
                       {activeSession.visitorName}
                     </span>
@@ -895,14 +959,33 @@ export default function AdminLiveChatPage() {
                           fontSize: 10.5,
                           fontWeight: 700,
                           marginBottom: 4,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
                           color: isVisitor ? '#fbbf24' : isAdmin ? '#34d399' : '#818cf8',
                         }}
                       >
-                        {isVisitor
-                          ? `👤 ${activeSession.visitorName}`
-                          : isAdmin
-                          ? '👨‍💻 You (Live Admin)'
-                          : '🤖 MerxoDev AI'}
+                        {isVisitor && activeSession.visitorImage && (
+                          <img
+                            src={activeSession.visitorImage}
+                            alt={activeSession.visitorName}
+                            style={{ width: 18, height: 18, borderRadius: 6, objectFit: 'cover' }}
+                          />
+                        )}
+                        {isAdmin && (
+                          <img
+                            src="/favicon.png"
+                            alt="Admin"
+                            style={{ width: 18, height: 18, borderRadius: 5, objectFit: 'contain', background: '#f97316', padding: 2 }}
+                          />
+                        )}
+                        <span>
+                          {isVisitor
+                            ? activeSession.visitorName
+                            : isAdmin
+                            ? 'You (Live Admin)'
+                            : '🤖 MerxoDev AI'}
+                        </span>
                       </span>
 
                       <div
