@@ -392,14 +392,14 @@ export default function Navbar() {
                             <span>{t('navProfile.reviews', 'My Reviews')}</span>
                           </Link>
 
-                          {session.user.role === 'ADMIN' && (
+                          {(session.user.role === 'ADMIN' || session.user.role === 'TEAM_MEMBER') && (
                             <Link
                               href="/709832"
                               onClick={() => setUserMenuOpen(false)}
                               className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-violet-600 dark:text-violet-300 hover:bg-violet-100/70 dark:hover:bg-violet-900/40 transition-colors"
                             >
                               <FiShield size={14} className="text-violet-500" />
-                              <span>{t('navProfile.adminPanel', 'Admin Panel')}</span>
+                              <span>{session.user.role === 'TEAM_MEMBER' ? t('navProfile.teamPanel', 'Team Workspace') : t('navProfile.adminPanel', 'Admin Panel')}</span>
                             </Link>
                           )}
 
