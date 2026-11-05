@@ -41,8 +41,11 @@ export async function PUT(request, { params }) {
       }
 
       const updateData = {};
-      if (role && (role === "USER" || role === "ADMIN")) {
-        updateData.role = role;
+      if (role) {
+        const rawRole = String(role).toUpperCase().replace(/-/g, "_");
+        if (rawRole === "USER" || rawRole === "ADMIN" || rawRole === "TEAM_MEMBER") {
+          updateData.role = rawRole;
+        }
       }
       if (typeof isActive === "boolean") {
         updateData.isActive = isActive;

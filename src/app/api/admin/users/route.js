@@ -144,11 +144,19 @@ export async function GET(request) {
     let allAccounts = [...users, ...adminAsUsers].map((u) => {
       const emailLower = String(u.email || "").toLowerCase().trim();
       const isMainAdmin = emailLower === "merxodevsolutions@gmail.com";
+      const rawRole = String(u.role || "USER").toUpperCase().replace(/-/g, "_");
+      const normalizedRole = isMainAdmin
+        ? "ADMIN"
+        : rawRole === "ADMIN"
+          ? "ADMIN"
+          : rawRole === "TEAM_MEMBER"
+            ? "TEAM_MEMBER"
+            : "USER";
       return {
         ...u,
         name: u.name || "User",
         email: u.email || "",
-        role: isMainAdmin ? "ADMIN" : (u.role || "USER"),
+        role: normalizedRole,
         isActive: isMainAdmin ? true : (u.isActive !== false),
         twoFactorEnabled: Boolean(u.twoFactorEnabled),
         isMainAdmin,
@@ -165,6 +173,7 @@ export async function GET(request) {
     // Compute metrics
     const totalUsers = allAccounts.length;
     const adminCount = allAccounts.filter((u) => u.role === "ADMIN").length;
+    const teamMemberCount = allAccounts.filter((u) => u.role === "TEAM_MEMBER").length;
     const twoFactorCount = allAccounts.filter((u) => u.twoFactorEnabled).length;
     const suspendedCount = allAccounts.filter((u) => u.isActive === false).length;
     const activeCount = totalUsers - suspendedCount;
@@ -179,7 +188,8 @@ export async function GET(request) {
     }
 
     if (roleFilter !== "ALL") {
-      allAccounts = allAccounts.filter((u) => u.role === roleFilter);
+      const normalizedFilter = roleFilter.replace(/-/g, "_");
+      allAccounts = allAccounts.filter((u) => u.role === normalizedFilter);
     }
 
     if (statusFilter === "ACTIVE") {
@@ -193,6 +203,7 @@ export async function GET(request) {
       stats: {
         total: totalUsers,
         admins: adminCount,
+        teamMembers: teamMemberCount,
         twoFactorCount,
         activeCount,
         suspendedCount,
@@ -239,7 +250,13 @@ export async function POST(request) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const assignedRole = role === "ADMIN" ? "ADMIN" : "USER";
+    const rawRole = String(role || "USER").toUpperCase().replace(/-/g, "_");
+    const assignedRole =
+      rawRole === "ADMIN"
+        ? "ADMIN"
+        : rawRole === "TEAM_MEMBER"
+          ? "TEAM_MEMBER"
+          : "USER";
 
     const newUser = await prisma.user.create({
       data: {

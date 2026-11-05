@@ -134,6 +134,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.name = user.name;
         token.role = user.role || "USER";
         token.image = user.image || null;
+      } else if (token?.email) {
+        // Keep role synced with PostgreSQL if Admin updated user's role
+        try {
+          const emailLower = String(token.email).toLowerCase().trim();
+          if (emailLower === "merxodevsolutions@gmail.com") {
+            token.role = "ADMIN";
+          } else {
+            const dbUser = await prisma.user.findUnique({
+              where: { email: emailLower },
+              select: { role: true, isActive: true, name: true, image: true },
+            });
+            if (dbUser) {
+              const r = String(dbUser.role || "USER").toUpperCase().replace(/-/g, "_");
+              token.role = r === "ADMIN" ? "ADMIN" : r === "TEAM_MEMBER" ? "TEAM_MEMBER" : "USER";
+              if (dbUser.name) token.name = dbUser.name;
+              if (dbUser.image !== undefined) token.image = dbUser.image;
+            }
+          }
+        } catch (_) {}
       }
       if (trigger === "update" && session) {
         if (session.name) token.name = session.name;
