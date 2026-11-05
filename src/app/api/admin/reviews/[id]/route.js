@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { requireAdmin } from '@/lib/adminAuth';
+import { logActivity } from '@/lib/workspaceStore';
 
 export const dynamic = 'force-dynamic';
 
 // PATCH: Approve, Reject, Feature, or Edit a review
 export async function PATCH(request, { params }) {
   try {
-    const { authorized, response } = await requireAdmin({ allowTeamMember: true });
+    const { authorized, session, response } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const { id } = await params;
@@ -44,6 +45,16 @@ export async function PATCH(request, { params }) {
     } catch (revalErr) {
       console.error('Revalidation error:', revalErr);
     }
+
+    await logActivity({
+      user: session?.user,
+      action: 'REVIEW_UPDATED',
+      target: updated.userName,
+      details:
+        body.isApproved !== undefined
+          ? `${body.isApproved ? 'Approved' : 'Unapproved'} review by ${updated.userName}`
+          : `Updated review by ${updated.userName}`,
+    });
 
     return NextResponse.json({
       message: 'Review updated successfully',

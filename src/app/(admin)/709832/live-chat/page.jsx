@@ -1236,15 +1236,15 @@ export default function AdminLiveChatPage() {
                         )}
                         {isAdmin && (
                           <img
-                            src="/favicon.png"
+                            src={m.senderImage || "/favicon.png"}
                             alt="Admin"
                             style={{
                               width: 18,
                               height: 18,
                               borderRadius: 5,
-                              objectFit: "contain",
+                              objectFit: m.senderImage ? "cover" : "contain",
                               background: "#f97316",
-                              padding: 2,
+                              padding: m.senderImage ? 0 : 2,
                             }}
                           />
                         )}
@@ -1253,7 +1253,9 @@ export default function AdminLiveChatPage() {
                           {isVisitor
                             ? activeSession.visitorName
                             : isAdmin
-                              ? "You (Live Team)"
+                              ? m.senderName
+                                ? `${m.senderName} (${m.senderRole === "TEAM_MEMBER" ? "team-member" : "Admin"})`
+                                : "You (Live Team)"
                               : "MerxoDev AI"}
                         </span>
                       </span>

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 import { uploadImage } from "@/lib/cloudinary";
+import { logActivity } from "@/lib/workspaceStore";
 
 // GET /api/admin/images
 export async function GET() {
@@ -16,7 +17,7 @@ export async function GET() {
 
 // POST /api/admin/images - Upload image
 export async function POST(request) {
-  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
+  const { authorized, session, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
@@ -39,6 +40,13 @@ export async function POST(request) {
         width: uploaded.width || null,
         height: uploaded.height || null,
       },
+    });
+
+    await logActivity({
+      user: session?.user,
+      action: "IMAGE_UPLOADED",
+      target: altText || uploaded.publicId || "Media Image",
+      details: `Uploaded image to Cloudinary (${uploaded.url.slice(0, 60)}...)`,
     });
 
     return NextResponse.json(mediaFile, { status: 201 });

@@ -73,10 +73,23 @@ export async function ensureChatTables() {
         "id" TEXT NOT NULL PRIMARY KEY,
         "sessionId" TEXT NOT NULL REFERENCES "ChatSession"("id") ON DELETE CASCADE,
         "sender" TEXT NOT NULL,
+        "senderName" TEXT,
+        "senderImage" TEXT,
+        "senderRole" TEXT,
         "text" TEXT NOT NULL,
         "actions" JSONB,
         "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+
+    await prisma.$executeRawUnsafe(`
+      ALTER TABLE "ChatMessage" ADD COLUMN IF NOT EXISTS "senderName" TEXT;
+    `);
+    await prisma.$executeRawUnsafe(`
+      ALTER TABLE "ChatMessage" ADD COLUMN IF NOT EXISTS "senderImage" TEXT;
+    `);
+    await prisma.$executeRawUnsafe(`
+      ALTER TABLE "ChatMessage" ADD COLUMN IF NOT EXISTS "senderRole" TEXT;
     `);
 
     await prisma.$executeRawUnsafe(`
@@ -197,10 +210,13 @@ export async function getOrCreateSession(sessionId, meta = {}) {
   }
 }
 
-export async function addChatMessage(sessionId, { sender, text, actions = [], language, needsHuman, leadInfo = {} }) {
+export async function addChatMessage(sessionId, { sender, text, actions = [], language, needsHuman, leadInfo = {}, senderMeta = {} }) {
   await ensureChatTables();
   const msgId = 'msg_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
   const actionsJson = JSON.stringify(Array.isArray(actions) ? actions : []);
+  const sName = senderMeta?.name || null;
+  const sImage = senderMeta?.image || null;
+  const sRole = senderMeta?.role || null;
 
   const extracted = sender === 'user' ? extractLeadInfo(text) : {};
   const finalName = leadInfo.name || extracted.name || null;
@@ -212,8 +228,8 @@ export async function addChatMessage(sessionId, { sender, text, actions = [], la
     await getOrCreateSession(sessionId, { language });
 
     await prisma.$executeRaw`
-      INSERT INTO "ChatMessage" ("id", "sessionId", "sender", "text", "actions", "createdAt")
-      VALUES (${msgId}, ${sessionId}, ${sender}, ${text}, ${actionsJson}::jsonb, NOW())
+      INSERT INTO "ChatMessage" ("id", "sessionId", "sender", "senderName", "senderImage", "senderRole", "text", "actions", "createdAt")
+      VALUES (${msgId}, ${sessionId}, ${sender}, ${sName}, ${sImage}, ${sRole}, ${text}, ${actionsJson}::jsonb, NOW())
     `;
 
     const incAdmin = sender === 'user' ? 1 : 0;

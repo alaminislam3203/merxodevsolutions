@@ -892,10 +892,12 @@ export default function AIChatbot() {
                         </span>
                       ) : isAdmin ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
-                          {tr(
-                            "aiChat.liveAdminLabel",
-                            "Live Team (MerxoDev Team)",
-                          )}
+                          {msg.senderName
+                            ? `${msg.senderName} • MerxoDev Team`
+                            : tr(
+                                "aiChat.liveAdminLabel",
+                                "Live Team (MerxoDev Team)",
+                              )}
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">

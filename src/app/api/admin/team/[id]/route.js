@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+import { logActivity } from "@/lib/workspaceStore";
 
 export const dynamic = "force-dynamic";
 
@@ -122,6 +123,13 @@ export async function PUT(request, { params }) {
     } catch (revalErr) {
       console.error("Revalidation error:", revalErr);
     }
+
+    await logActivity({
+      user: session?.user,
+      action: "TEAM_PROFILE_UPDATED",
+      target: member.name,
+      details: `${isAdmin ? "Admin updated" : "Updated own"} team profile for ${member.name}`,
+    });
 
     return NextResponse.json(member);
   } catch (error) {

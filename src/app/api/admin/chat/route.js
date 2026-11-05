@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/adminAuth';
+import { logActivity } from '@/lib/workspaceStore';
 import {
   listAllChatSessions,
   getSessionMessages,
@@ -68,7 +69,7 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const { authorized, response, isAdmin } = await requireAdmin({ allowTeamMember: true });
+    const { authorized, session, response, isAdmin } = await requireAdmin({ allowTeamMember: true });
     if (!authorized) return response;
 
     const body = await request.json();
@@ -117,9 +118,20 @@ export async function POST(request) {
         sender: 'admin',
         text: text.trim(),
         needsHuman: false,
+        senderMeta: {
+          name: session?.user?.name || 'MerxoDev Team',
+          image: session?.user?.image || null,
+          role: session?.user?.role || 'ADMIN',
+        },
       });
 
       const updated = await getSessionMessages(sessionId, 'admin');
+      await logActivity({
+        user: session?.user,
+        action: 'CHAT_REPLY',
+        target: updated?.session?.visitorName || sessionId,
+        details: `Replied in Live Chat: "${text.trim().slice(0, 70)}"`,
+      });
       return NextResponse.json({
         success: true,
         session: updated.session,
