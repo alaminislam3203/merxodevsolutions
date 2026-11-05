@@ -80,7 +80,10 @@ function LoginForm() {
       const profileRes = await fetch('/api/account/profile');
       if (profileRes.ok) {
         const data = await profileRes.json();
-        if (data?.isAdmin && (redirectUrl === '/account' || redirectUrl === '/admin')) {
+        if (
+          (data?.isAdmin || data?.isTeamMember || data?.canAccessAdminPanel) &&
+          (redirectUrl === '/account' || redirectUrl === '/admin')
+        ) {
           window.location.href = '/709832';
           return;
         }

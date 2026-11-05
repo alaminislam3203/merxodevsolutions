@@ -674,6 +674,7 @@ function AccountContent() {
 
   const [userData, setUserData] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isTeamMember, setIsTeamMember] = useState(false);
   const [loading, setLoading] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
@@ -727,6 +728,7 @@ function AccountContent() {
           if (data?.user) {
             setUserData(data.user);
             setIsAdmin(data.isAdmin || data.user.role === 'ADMIN');
+            setIsTeamMember(data.isTeamMember || data.user.role === 'TEAM_MEMBER');
           }
           setLoading(false);
         })
@@ -834,6 +836,10 @@ function AccountContent() {
                     <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 font-exo-extralight flex items-center gap-1">
                       <FiShield size={11} /> {t('accountPage.adminBadge', 'Admin')}
                     </span>
+                  ) : isTeamMember ? (
+                    <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-exo-extralight flex items-center gap-1">
+                      <FiShield size={11} /> {t('accountPage.teamMemberBadge', 'team-member')}
+                    </span>
                   ) : (
                     <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight flex items-center gap-1">
                       <FiCheckCircle size={11} /> {t('accountPage.clientBadge', 'Client')}
@@ -861,13 +867,17 @@ function AccountContent() {
                 <span>{t('accountPage.editProfile', 'Edit Profile')}</span>
               </button>
 
-              {isAdmin && (
+              {(isAdmin || isTeamMember) && (
                 <Link
                   href="/709832"
                   className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-bold font-exo-extralight uppercase shadow-md shadow-violet-600/25 hover:scale-105 transition-all"
                 >
                   <FiShield size={14} />
-                  <span>{t('navProfile.adminPanel', 'Admin Panel')}</span>
+                  <span>
+                    {isTeamMember
+                      ? t('navProfile.teamPanel', 'Team Workspace')
+                      : t('navProfile.adminPanel', 'Admin Panel')}
+                  </span>
                 </Link>
               )}
 
@@ -910,7 +920,7 @@ function AccountContent() {
               );
             })}
 
-            {isAdmin && (
+            {(isAdmin || isTeamMember) && (
               <div className="pt-2 mt-2 border-t border-zinc-100 dark:border-zinc-800 hidden lg:block">
                 <Link
                   href="/709832"
@@ -918,7 +928,11 @@ function AccountContent() {
                 >
                   <div className="flex items-center gap-3">
                     <FiShield size={16} />
-                    <span>{t('accountPage.adminDashboard', 'Admin Dashboard')}</span>
+                    <span>
+                      {isTeamMember
+                        ? t('accountPage.teamDashboard', 'Team Workspace')
+                        : t('accountPage.adminDashboard', 'Admin Dashboard')}
+                    </span>
                   </div>
                   <FiExternalLink size={14} />
                 </Link>
