@@ -90,3 +90,4 @@ export async function logActivity({ user, action, target = "", details = "" }) {
     console.warn("ActivityLog insert skipped:", err?.message);
   }
 }
+
