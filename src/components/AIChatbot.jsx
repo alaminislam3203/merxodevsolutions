@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import {
   IoClose,
   IoChatbubbleEllipsesSharp,
@@ -10,7 +11,7 @@ import {
   IoVolumeHigh,
   IoVolumeMute,
 } from "react-icons/io5";
-import { FaWhatsapp, FaArrowRight, FaUserTie } from "react-icons/fa6";
+import { FaWhatsapp, FaArrowRight, FaUserTie, FaUser } from "react-icons/fa6";
 import { BsStars, BsTrash3, BsShieldCheck, BsClock } from "react-icons/bs";
 import { RiRobot2Line, RiSendPlaneFill } from "react-icons/ri";
 import {
@@ -45,6 +46,11 @@ const QUICK_SUGGESTIONS = [
 ];
 
 export default function AIChatbot() {
+  const { data: authSession } = useSession();
+  const loggedInName = authSession?.user?.name || "";
+  const loggedInEmail = authSession?.user?.email || "";
+  const loggedInImage = authSession?.user?.image || "";
+
   const [isOpen, setIsOpen] = useState(false);
   const [sessionId, setSessionId] = useState("");
   const [sessionMode, setSessionMode] = useState("ai"); // 'ai' | 'live'

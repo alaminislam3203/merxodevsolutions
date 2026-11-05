@@ -50,12 +50,21 @@ export async function POST(request) {
     }
 
     const body = await request.json();
-    const { sessionId: rawSessionId, message, action, visitorName } = body || {};
+    const {
+      sessionId: rawSessionId,
+      message,
+      action,
+      visitorName,
+      visitorEmail,
+      visitorImage,
+    } = body || {};
     const sessionId = String(rawSessionId || 'sess_' + Date.now()).slice(0, 80);
 
     const session = await getOrCreateSession(sessionId, {
       ip: clientIp,
       visitorName,
+      visitorEmail,
+      visitorImage,
     });
 
     // Action 1: Visitor clicked "Talk to Live Admin" button
@@ -119,7 +128,12 @@ export async function POST(request) {
       text: trimmed,
       language: lang,
       needsHuman: wantsHuman ? true : undefined,
-      leadInfo: leadCaptured,
+      leadInfo: {
+        ...leadCaptured,
+        name: visitorName || leadCaptured.name,
+        email: visitorEmail || leadCaptured.email,
+        image: visitorImage || null,
+      },
     });
 
     const currentData = await getSessionMessages(sessionId, 'visitor');

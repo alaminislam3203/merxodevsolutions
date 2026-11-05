@@ -102,19 +102,35 @@ export async function getOrCreateSession(sessionId, meta = {}) {
       SELECT * FROM "ChatSession" WHERE "id" = ${cleanId} LIMIT 1
     `;
     if (existing && existing[0]) {
-      return existing[0];
+      const curr = existing[0];
+      // If user is now logged in, sync their name, email, and profile image onto the session
+      if (meta.visitorName || meta.visitorEmail || meta.visitorImage) {
+        const updated = await prisma.$queryRaw`
+          UPDATE "ChatSession"
+          SET
+            "visitorName" = COALESCE(${meta.visitorName || null}, "visitorName"),
+            "visitorEmail" = COALESCE(${meta.visitorEmail || null}, "visitorEmail"),
+            "visitorImage" = COALESCE(${meta.visitorImage || null}, "visitorImage")
+          WHERE "id" = ${cleanId}
+          RETURNING *
+        `;
+        return updated?.[0] || curr;
+      }
+      return curr;
     }
 
     const visitorName = meta.visitorName || `Visitor #${cleanId.slice(-4).toUpperCase()}`;
+    const visitorEmail = meta.visitorEmail || null;
+    const visitorImage = meta.visitorImage || null;
     const visitorIp = meta.ip || null;
     const language = meta.language || 'en';
 
     const created = await prisma.$queryRaw`
       INSERT INTO "ChatSession" (
-        "id", "visitorName", "visitorIp", "language", "mode", "needsHuman", "unreadAdmin", "unreadVisitor", "createdAt", "updatedAt"
+        "id", "visitorName", "visitorEmail", "visitorImage", "visitorIp", "language", "mode", "needsHuman", "unreadAdmin", "unreadVisitor", "createdAt", "updatedAt"
       )
       VALUES (
-        ${cleanId}, ${visitorName}, ${visitorIp}, ${language}, 'ai', false, 0, 0, NOW(), NOW()
+        ${cleanId}, ${visitorName}, ${visitorEmail}, ${visitorImage}, ${visitorIp}, ${language}, 'ai', false, 0, 0, NOW(), NOW()
       )
       ON CONFLICT ("id") DO UPDATE SET "updatedAt" = NOW()
       RETURNING *
@@ -125,8 +141,9 @@ export async function getOrCreateSession(sessionId, meta = {}) {
       memorySessions.set(cleanId, {
         id: cleanId,
         visitorName: meta.visitorName || `Visitor #${cleanId.slice(-4).toUpperCase()}`,
-        visitorEmail: null,
+        visitorEmail: meta.visitorEmail || null,
         visitorPhone: null,
+        visitorImage: meta.visitorImage || null,
         visitorIp: meta.ip || null,
         language: meta.language || 'en',
         mode: 'ai',
@@ -151,6 +168,7 @@ export async function addChatMessage(sessionId, { sender, text, actions = [], la
   const finalName = leadInfo.name || extracted.name || null;
   const finalEmail = leadInfo.email || extracted.email || null;
   const finalPhone = leadInfo.phone || extracted.phone || null;
+  const finalImage = leadInfo.image || null;
 
   try {
     await getOrCreateSession(sessionId, { language });
@@ -175,6 +193,7 @@ export async function addChatMessage(sessionId, { sender, text, actions = [], la
           "visitorName" = COALESCE(${finalName}, "visitorName"),
           "visitorEmail" = COALESCE(${finalEmail}, "visitorEmail"),
           "visitorPhone" = COALESCE(${finalPhone}, "visitorPhone"),
+          "visitorImage" = COALESCE(${finalImage}, "visitorImage"),
           "updatedAt" = NOW()
         WHERE "id" = ${sessionId}
       `;
@@ -189,6 +208,7 @@ export async function addChatMessage(sessionId, { sender, text, actions = [], la
           "visitorName" = COALESCE(${finalName}, "visitorName"),
           "visitorEmail" = COALESCE(${finalEmail}, "visitorEmail"),
           "visitorPhone" = COALESCE(${finalPhone}, "visitorPhone"),
+          "visitorImage" = COALESCE(${finalImage}, "visitorImage"),
           "updatedAt" = NOW()
         WHERE "id" = ${sessionId}
       `;
