@@ -85,8 +85,8 @@ export async function POST(request) {
       const lang = session?.language || 'en';
       const userReqText =
         lang === 'bn'
-          ? '🔔 আমি একজন লাইভ অ্যাডমিনের সাথে কথা বলতে চাই।'
-          : '🔔 I would like to speak with a Live Admin.';
+          ? 'আমি একজন লাইভ অ্যাডমিনের সাথে কথা বলতে চাই।'
+          : 'I would like to speak with a Live Admin.';
 
       await addChatMessage(sessionId, {
         sender: 'user',
@@ -97,10 +97,10 @@ export async function POST(request) {
 
       const botAckText =
         lang === 'bn'
-          ? '✅ **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন পাঠানো হয়েছে!** আমাদের অ্যাডমিন এখনই চ্যাটে জয়েন করবেন।\n\nআপনি চাইলে এখানে আপনার **নাম ও WhatsApp নাম্বার** এবং প্রজেক্টের বিস্তারিত লিখে রাখতে পারেন।'
+          ? '**লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন পাঠানো হয়েছে!** আমাদের অ্যাডমিন এখনই চ্যাটে জয়েন করবেন।\n\nআপনি চাইলে এখানে আপনার **নাম ও WhatsApp নাম্বার** এবং প্রজেক্টের বিস্তারিত লিখে রাখতে পারেন।'
           : lang === 'banglish'
-          ? '✅ **Live Admin ke instant notification pathano hoyeche!** Amader admin ekhoni chat e join korben.\n\nApni chaile apnar **nam o WhatsApp number** ebong ki dhoroner website lagbe ekhane likhe rakhte paren.'
-          : '✅ **Instant Alert Sent to Live Admin!** An admin has been notified with a sound alert and will join this chat shortly.\n\nFeel free to drop your **Name, WhatsApp number/Email**, and project details right here!';
+          ? '**Live Admin ke instant notification pathano hoyeche!** Amader admin ekhoni chat e join korben.\n\nApni chaile apnar **nam o WhatsApp number** ebong ki dhoroner website lagbe ekhane likhe rakhte paren.'
+          : '**Instant Alert Sent to Live Admin!** An admin has been notified with a sound alert and will join this chat shortly.\n\nFeel free to drop your **Name, WhatsApp number/Email**, and project details right here!';
 
       const botMsg = await addChatMessage(sessionId, {
         sender: 'bot',
@@ -165,10 +165,10 @@ export async function POST(request) {
     if (wantsHuman) {
       const humanReply =
         lang === 'bn'
-          ? '🔔 আমি আমাদের **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন** পাঠিয়ে দিয়েছি! অ্যাডমিন যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
+          ? 'আমি আমাদের **লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন** পাঠিয়ে দিয়েছি! অ্যাডমিন যেকোনো মুহূর্তে এই চ্যাটে যুক্ত হয়ে আপনার সাথে সরাসরি কথা বলবেন।\n\nআপনার **WhatsApp নাম্বারটি** কি এখানে শেয়ার করবেন?'
           : lang === 'banglish'
-          ? '🔔 Ami amader **Live Admin ke instant notification** pathiye diyechi! Admin ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
-          : '🔔 I have alerted our **Live Admin** with an instant notification! An admin can join this chat live at any moment.\n\nIn the meantime, please share your **Name & WhatsApp number** or ask me anything about MerxoDev Solutions!';
+          ? 'Ami amader **Live Admin ke instant notification** pathiye diyechi! Admin ekhoni ei chat e join kore apnar sathe direct kotha bolben.\n\nApnar **WhatsApp number** ta ki ekhane diben?'
+          : 'I have alerted our **Live Admin** with an instant notification! An admin can join this chat live at any moment.\n\nIn the meantime, please share your **Name & WhatsApp number** or ask me anything about MerxoDev Solutions!';
 
       const botMsg = await addChatMessage(sessionId, {
         sender: 'bot',

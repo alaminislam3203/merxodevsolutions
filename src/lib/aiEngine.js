@@ -77,6 +77,7 @@ Website: ${WEBSITE_URL}
 3. CONVERSATIONAL & CONCISE STYLE:
    - Reply like a smart, warm, helpful senior product consultant at MerxoDev Solutions (like ChatGPT / Gemini).
    - Use clean formatting with **bold** highlights and bullet points (•) when listing items. Keep answers concise (typically 3–8 lines) so it reads great inside a chat widget.
+   - Do NOT use emojis in your responses; the chat UI automatically renders clean React icons.
 4. SMART LEAD CAPTURE:
    - When a user shows interest in building a project, getting a quote, or hiring, warmly invite them to share their **Name and WhatsApp/Phone number or Email** right in the chat (or click the WhatsApp button) so our lead engineer can reach out directly.
 5. LIVE ADMIN HANDOFF:
@@ -511,12 +512,12 @@ export function generateBuiltInIntelligentReply({ userMessage, lang, projects = 
   // 8. Contact / Phone / Email / Location / Discovery Call
   if (/\b(contact|hire|phone|number|call|whatsapp|email|address|location|meet|meeting|যোগাযোগ|ফোন|নাম্বার|ঠিকানা|ইমেইল|লোকেশন|jogajog|thikana)\b/i.test(lower)) {
     if (lang === 'bn') {
-      return `আমাদের সাথে সরাসরি যোগাযোগ করার মাধ্যম:\n\n📞 **ফোন / হোয়াটসঅ্যাপ:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n✉️ **ইমেইল:** ${EMAIL}\n📍 **ঠিকানা:** ${LOCATION}\n⏱️ **সার্ভিস টাইম:** ২৪/৭ অনলাইন সাপোর্ট (১৫ মিনিটের ফ্রি Google Meet কনসালটেশন বুক করতে পারেন!)`;
+      return `আমাদের সাথে সরাসরি যোগাযোগ করার মাধ্যম:\n\n**ফোন / হোয়াটসঅ্যাপ:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n**ইমেইল:** ${EMAIL}\n**ঠিকানা:** ${LOCATION}\n**সার্ভিস টাইম:** ২৪/৭ অনলাইন সাপোর্ট (১৫ মিনিটের ফ্রি Google Meet কনসালটেশন বুক করতে পারেন!)`;
     }
     if (lang === 'banglish') {
-      return `Amader sathe direct jogajog korar maddhom:\n\n📞 **Phone / WhatsApp:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n✉️ **Email:** ${EMAIL}\n📍 **Location:** ${LOCATION}\n⏱️ **Available:** 24/7 Online Support & Free 15-Min Google Meet Consultation!`;
+      return `Amader sathe direct jogajog korar maddhom:\n\n**Phone / WhatsApp:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n**Email:** ${EMAIL}\n**Location:** ${LOCATION}\n**Available:** 24/7 Online Support & Free 15-Min Google Meet Consultation!`;
     }
-    return `You can reach **MerxoDev Solutions** directly anytime:\n\n📞 **Phone / WhatsApp:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n✉️ **Email:** ${EMAIL}\n📍 **Location:** ${LOCATION}\n⏱️ **Availability:** 24/7 Client Consultation & Free 15-Minute Google Meet Discovery Call!`;
+    return `You can reach **MerxoDev Solutions** directly anytime:\n\n**Phone / WhatsApp:** ${WHATSAPP_DISPLAY} | ${SECONDARY_PHONE}\n**Email:** ${EMAIL}\n**Location:** ${LOCATION}\n**Availability:** 24/7 Client Consultation & Free 15-Minute Google Meet Discovery Call!`;
   }
 
   // 9. Delivery Timeline
