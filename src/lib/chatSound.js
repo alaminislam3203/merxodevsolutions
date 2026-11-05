@@ -19,7 +19,7 @@ function getAudioContext() {
 }
 
 /**
- * Soft, pleasant 2-tone pop sound for visitors when AI or Live Admin replies
+ * Soft, pleasant 2-tone pop sound for visitors when AI or Live Team replies
  */
 export function playVisitorMessageSound() {
   try {
@@ -83,7 +83,7 @@ export function playAdminAlertSound() {
 }
 
 /**
- * Urgent 3-note bell chime when a visitor clicks "Talk to Live Admin" / requests human help
+ * Urgent 3-note bell chime when a visitor clicks "Talk to Live Team" / requests human help
  */
 export function playUrgentAdminRing() {
   try {

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import toast from 'react-hot-toast';
+import { useState, useEffect, useRef, useCallback } from "react";
+import toast from "react-hot-toast";
 import {
   FiMessageSquare,
   FiSend,
@@ -20,16 +20,16 @@ import {
   FiUserCheck,
   FiZap,
   FiX,
-} from 'react-icons/fi';
-import { MdSupportAgent } from 'react-icons/md';
-import { FaWhatsapp, FaRobot } from 'react-icons/fa';
-import { playAdminAlertSound, playUrgentAdminRing } from '@/lib/chatSound';
+} from "react-icons/fi";
+import { MdSupportAgent } from "react-icons/md";
+import { FaWhatsapp, FaRobot } from "react-icons/fa";
+import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 
 const QUICK_ADMIN_REPLIES = [
-  'আসসালামু আলাইকুম! আমি লাইভে আছি, আপনার প্রজেক্ট সম্পর্কে কীভাবে সাহায্য করতে পারি?',
-  'আপনার WhatsApp নাম্বারটি দিন, আমাদের লিড ডেভেলপার এখনই যোগাযোগ করবেন।',
-  'Hello! I am live on the chat. Tell me about the website or app you want to build!',
-  'Could you share your WhatsApp number or email so we can send you a detailed quote?',
+  "আসসালামু আলাইকুম! আমি লাইভে আছি, আপনার প্রজেক্ট সম্পর্কে কীভাবে সাহায্য করতে পারি?",
+  "আপনার WhatsApp নাম্বারটি দিন, আমাদের লিড ডেভেলপার এখনই যোগাযোগ করবেন।",
+  "Hello! I am live on the chat. Tell me about the website or app you want to build!",
+  "Could you share your WhatsApp number or email so we can send you a detailed quote?",
 ];
 
 export default function AdminLiveChatPage() {
@@ -43,7 +43,7 @@ export default function AdminLiveChatPage() {
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const [activeSession, setActiveSession] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [replyText, setReplyText] = useState('');
+  const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
   const [loadingList, setLoadingList] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -51,9 +51,9 @@ export default function AdminLiveChatPage() {
   // AI Brain Settings Modal state
   const [configModalOpen, setConfigModalOpen] = useState(false);
   const [aiConfigStatus, setAiConfigStatus] = useState(null);
-  const [geminiKeyInput, setGeminiKeyInput] = useState('');
-  const [groqKeyInput, setGroqKeyInput] = useState('');
-  const [customInstructionsInput, setCustomInstructionsInput] = useState('');
+  const [geminiKeyInput, setGeminiKeyInput] = useState("");
+  const [groqKeyInput, setGroqKeyInput] = useState("");
+  const [customInstructionsInput, setCustomInstructionsInput] = useState("");
   const [savingConfig, setSavingConfig] = useState(false);
 
   const messagesEndRef = useRef(null);
@@ -63,8 +63,8 @@ export default function AdminLiveChatPage() {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('merxodev_admin_sound');
-      if (saved === 'off') setSoundEnabled(false);
+      const saved = localStorage.getItem("merxodev_admin_sound");
+      if (saved === "off") setSoundEnabled(false);
     } catch {}
   }, []);
 
@@ -72,7 +72,7 @@ export default function AdminLiveChatPage() {
     setSoundEnabled((prev) => {
       const next = !prev;
       try {
-        localStorage.setItem('merxodev_admin_sound', next ? 'on' : 'off');
+        localStorage.setItem("merxodev_admin_sound", next ? "on" : "off");
       } catch {}
       if (next) playAdminAlertSound();
       return next;
@@ -83,9 +83,12 @@ export default function AdminLiveChatPage() {
   const fetchSessions = useCallback(
     async (withConfig = false) => {
       try {
-        const res = await fetch(`/api/admin/chat${withConfig ? '?config=1' : ''}`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(
+          `/api/admin/chat${withConfig ? "?config=1" : ""}`,
+          {
+            cache: "no-store",
+          },
+        );
         if (!res.ok) return;
         const data = await res.json();
 
@@ -101,7 +104,7 @@ export default function AdminLiveChatPage() {
         if (initializedRef.current) {
           if (nextStats.needsHumanCount > prevNeedsHumanRef.current) {
             if (soundEnabled) playUrgentAdminRing();
-            toast('A visitor requested a Live Admin!', {
+            toast("A visitor requested a Live Team!", {
               icon: <FiAlertCircle color="#f59e0b" size={18} />,
               duration: 5000,
             });
@@ -119,28 +122,31 @@ export default function AdminLiveChatPage() {
 
         if (data.aiConfig) {
           setAiConfigStatus(data.aiConfig);
-          setCustomInstructionsInput(data.aiConfig.customInstructions || '');
+          setCustomInstructionsInput(data.aiConfig.customInstructions || "");
         }
 
         if (!selectedSessionId && nextSessions.length > 0) {
           setSelectedSessionId(nextSessions[0].id);
         }
       } catch (err) {
-        console.error('Failed to load sessions:', err);
+        console.error("Failed to load sessions:", err);
       } finally {
         setLoadingList(false);
       }
     },
-    [selectedSessionId, soundEnabled]
+    [selectedSessionId, soundEnabled],
   );
 
   // Fetch active session messages
   const fetchActiveMessages = useCallback(async (sessId) => {
     if (!sessId) return;
     try {
-      const res = await fetch(`/api/admin/chat?sessionId=${encodeURIComponent(sessId)}`, {
-        cache: 'no-store',
-      });
+      const res = await fetch(
+        `/api/admin/chat?sessionId=${encodeURIComponent(sessId)}`,
+        {
+          cache: "no-store",
+        },
+      );
       if (!res.ok) return;
       const data = await res.json();
       if (data.session) setActiveSession(data.session);
@@ -170,7 +176,7 @@ export default function AdminLiveChatPage() {
   }, [selectedSessionId, fetchSessions, fetchActiveMessages]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length, selectedSessionId]);
 
   const handleSendAdminReply = async (customText) => {
@@ -178,14 +184,14 @@ export default function AdminLiveChatPage() {
     if (!textToSend || !selectedSessionId || sending) return;
 
     setSending(true);
-    if (!customText) setReplyText('');
+    if (!customText) setReplyText("");
 
     try {
-      const res = await fetch('/api/admin/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/admin/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          action: 'reply',
+          action: "reply",
           sessionId: selectedSessionId,
           text: textToSend,
         }),
@@ -196,10 +202,10 @@ export default function AdminLiveChatPage() {
         setMessages(data.messages || []);
         fetchSessions(false);
       } else {
-        toast.error(data.error || 'Failed to send reply');
+        toast.error(data.error || "Failed to send reply");
       }
     } catch {
-      toast.error('Network error while sending reply');
+      toast.error("Network error while sending reply");
     } finally {
       setSending(false);
     }
@@ -208,11 +214,11 @@ export default function AdminLiveChatPage() {
   const handleToggleMode = async (targetMode) => {
     if (!selectedSessionId) return;
     try {
-      const res = await fetch('/api/admin/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/admin/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          action: 'toggle_mode',
+          action: "toggle_mode",
           sessionId: selectedSessionId,
           mode: targetMode,
         }),
@@ -223,24 +229,27 @@ export default function AdminLiveChatPage() {
         setMessages(data.messages || []);
         fetchSessions(false);
         toast.success(
-          targetMode === 'live'
-            ? 'Switched to Live Admin Mode! AI is paused for this visitor.'
-            : 'Handed back to MerxoDev AI Assistant!'
+          targetMode === "live"
+            ? "Switched to Live Team Mode! AI is paused for this visitor."
+            : "Handed back to MerxoDev AI Assistant!",
         );
       }
     } catch {
-      toast.error('Failed to switch chat mode');
+      toast.error("Failed to switch chat mode");
     }
   };
 
   const handleDeleteSession = async (sessId) => {
     if (!sessId) return;
     try {
-      const res = await fetch(`/api/admin/chat?sessionId=${encodeURIComponent(sessId)}`, {
-        method: 'DELETE',
-      });
+      const res = await fetch(
+        `/api/admin/chat?sessionId=${encodeURIComponent(sessId)}`,
+        {
+          method: "DELETE",
+        },
+      );
       if (res.ok) {
-        toast.success('Conversation deleted');
+        toast.success("Conversation deleted");
         const remaining = sessions.filter((s) => s.id !== sessId);
         setSessions(remaining);
         if (selectedSessionId === sessId) {
@@ -250,7 +259,7 @@ export default function AdminLiveChatPage() {
         }
       }
     } catch {
-      toast.error('Failed to delete conversation');
+      toast.error("Failed to delete conversation");
     }
   };
 
@@ -264,38 +273,38 @@ export default function AdminLiveChatPage() {
       if (geminiKeyInput.trim()) payload.geminiApiKey = geminiKeyInput.trim();
       if (groqKeyInput.trim()) payload.groqApiKey = groqKeyInput.trim();
 
-      const res = await fetch('/api/admin/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/admin/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          action: 'save_config',
+          action: "save_config",
           config: payload,
         }),
       });
       const data = await res.json();
       if (res.ok && data.success) {
         setAiConfigStatus(data.aiConfig);
-        setGeminiKeyInput('');
-        setGroqKeyInput('');
+        setGeminiKeyInput("");
+        setGroqKeyInput("");
         setConfigModalOpen(false);
-        toast.success('AI Brain configuration saved!');
+        toast.success("AI Brain configuration saved!");
       } else {
-        toast.error(data.error || 'Failed to save configuration');
+        toast.error(data.error || "Failed to save configuration");
       }
     } catch {
-      toast.error('Error saving configuration');
+      toast.error("Error saving configuration");
     } finally {
       setSavingConfig(false);
     }
   };
 
   const formatTime = (iso) => {
-    if (!iso) return '';
+    if (!iso) return "";
     try {
       const d = new Date(iso);
-      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     } catch {
-      return '';
+      return "";
     }
   };
 
@@ -304,79 +313,94 @@ export default function AdminLiveChatPage() {
       {/* Top Page Header */}
       <div
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
           gap: 16,
           marginBottom: 22,
         }}
       >
         <div>
-          <h1 className="admin-page-title" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h1
+            className="admin-page-title"
+            style={{ display: "flex", alignItems: "center", gap: 10 }}
+          >
             <span>Live Chat &amp; MerxoDev AI Center</span>
             <span
               style={{
                 fontSize: 11,
                 fontWeight: 700,
-                padding: '3px 10px',
+                padding: "3px 10px",
                 borderRadius: 999,
-                background: 'rgba(16, 185, 129, 0.15)',
-                color: '#10b981',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+                background: "rgba(16, 185, 129, 0.15)",
+                color: "#10b981",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
               }}
             >
               REAL-TIME
             </span>
           </h1>
           <p className="admin-page-subtitle">
-            Monitor AI conversations in real time, receive instant sound alerts, and take over any chat live.
+            Monitor AI conversations in real time, receive instant sound alerts,
+            and take over any chat live.
           </p>
         </div>
 
         {/* Action Toolbar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexWrap: "wrap",
+          }}
+        >
           <button
             type="button"
             onClick={toggleSound}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              display: "inline-flex",
+              alignItems: "center",
               gap: 8,
-              padding: '9px 14px',
+              padding: "9px 14px",
               borderRadius: 12,
               fontSize: 12.5,
               fontWeight: 600,
-              cursor: 'pointer',
-              background: soundEnabled ? 'rgba(16, 185, 129, 0.14)' : 'rgba(255, 255, 255, 0.05)',
-              color: soundEnabled ? '#34d399' : '#94a3b8',
+              cursor: "pointer",
+              background: soundEnabled
+                ? "rgba(16, 185, 129, 0.14)"
+                : "rgba(255, 255, 255, 0.05)",
+              color: soundEnabled ? "#34d399" : "#94a3b8",
               border: soundEnabled
-                ? '1px solid rgba(16, 185, 129, 0.35)'
-                : '1px solid rgba(255, 255, 255, 0.1)',
+                ? "1px solid rgba(16, 185, 129, 0.35)"
+                : "1px solid rgba(255, 255, 255, 0.1)",
             }}
           >
             {soundEnabled ? <FiVolume2 size={16} /> : <FiVolumeX size={16} />}
-            <span>{soundEnabled ? 'Sound Alerts: ON' : 'Sound Alerts: MUTED'}</span>
+            <span>
+              {soundEnabled ? "Sound Alerts: ON" : "Sound Alerts: MUTED"}
+            </span>
           </button>
 
           <button
             type="button"
             onClick={() => {
               playUrgentAdminRing();
-              toast.success('Notification sound tested!');
+              toast.success("Notification sound tested!");
             }}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              display: "inline-flex",
+              alignItems: "center",
               gap: 6,
-              padding: '9px 14px',
+              padding: "9px 14px",
               borderRadius: 12,
               fontSize: 12.5,
               fontWeight: 600,
-              cursor: 'pointer',
-              background: 'rgba(245, 158, 11, 0.14)',
-              color: '#fbbf24',
-              border: '1px solid rgba(245, 158, 11, 0.3)',
+              cursor: "pointer",
+              background: "rgba(245, 158, 11, 0.14)",
+              color: "#fbbf24",
+              border: "1px solid rgba(245, 158, 11, 0.3)",
             }}
           >
             <FiBell size={15} />
@@ -387,18 +411,18 @@ export default function AdminLiveChatPage() {
             type="button"
             onClick={() => setConfigModalOpen(true)}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              display: "inline-flex",
+              alignItems: "center",
               gap: 7,
-              padding: '9px 15px',
+              padding: "9px 15px",
               borderRadius: 12,
               fontSize: 12.5,
               fontWeight: 600,
-              cursor: 'pointer',
-              background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-              color: '#fff',
-              border: 'none',
-              boxShadow: '0 8px 20px -6px rgba(99, 102, 241, 0.5)',
+              cursor: "pointer",
+              background: "linear-gradient(135deg, #6366f1, #06b6d4)",
+              color: "#fff",
+              border: "none",
+              boxShadow: "0 8px 20px -6px rgba(99, 102, 241, 0.5)",
             }}
           >
             <FiSettings size={15} />
@@ -410,71 +434,110 @@ export default function AdminLiveChatPage() {
       {/* Top Mini Stats Row */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
           gap: 14,
           marginBottom: 20,
         }}
       >
         <div
           style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: 14,
-            padding: '14px 18px',
+            padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600 }}>TOTAL CONVERSATIONS</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>
+            TOTAL CONVERSATIONS
+          </div>
+          <div
+            style={{
+              fontSize: 24,
+              fontWeight: 800,
+              color: "#f8fafc",
+              marginTop: 4,
+            }}
+          >
             {stats.totalSessions}
           </div>
         </div>
 
         <div
           style={{
-            background: 'rgba(245, 158, 11, 0.08)',
-            border: '1px solid rgba(245, 158, 11, 0.25)',
+            background: "rgba(245, 158, 11, 0.08)",
+            border: "1px solid rgba(245, 158, 11, 0.25)",
             borderRadius: 14,
-            padding: '14px 18px',
+            padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: '#fbbf24', fontWeight: 700 }}>WAITING FOR LIVE ADMIN</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#fbbf24', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: "#fbbf24", fontWeight: 700 }}>
+            WAITING FOR Live Team
+          </div>
+          <div
+            style={{
+              fontSize: 24,
+              fontWeight: 800,
+              color: "#fbbf24",
+              marginTop: 4,
+            }}
+          >
             {stats.needsHumanCount}
           </div>
         </div>
 
         <div
           style={{
-            background: 'rgba(16, 185, 129, 0.08)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
+            background: "rgba(16, 185, 129, 0.08)",
+            border: "1px solid rgba(16, 185, 129, 0.25)",
             borderRadius: 14,
-            padding: '14px 18px',
+            padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: '#34d399', fontWeight: 700 }}>ACTIVE LIVE ADMIN CHATS</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#34d399', marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: "#34d399", fontWeight: 700 }}>
+            ACTIVE Live Team CHATS
+          </div>
+          <div
+            style={{
+              fontSize: 24,
+              fontWeight: 800,
+              color: "#34d399",
+              marginTop: 4,
+            }}
+          >
             {stats.liveCount}
           </div>
         </div>
 
         <div
           style={{
-            background: 'rgba(99, 102, 241, 0.08)',
-            border: '1px solid rgba(99, 102, 241, 0.25)',
+            background: "rgba(99, 102, 241, 0.08)",
+            border: "1px solid rgba(99, 102, 241, 0.25)",
             borderRadius: 14,
-            padding: '14px 18px',
+            padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: '#818cf8', fontWeight: 700 }}>AI ENGINE STATUS</div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#e2e8f0', marginTop: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 11, color: "#818cf8", fontWeight: 700 }}>
+            AI ENGINE STATUS
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: "#e2e8f0",
+              marginTop: 8,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
             <FiCheckCircle color="#10b981" />
             <span>
               {aiConfigStatus?.hasGemini
-                ? 'Gemini LLM + Website DB'
+                ? "Gemini LLM + Website DB"
                 : aiConfigStatus?.hasGroq
-                ? 'Groq Llama-3.3 + Website DB'
-                : 'Built-in Smart AI + Website DB'}
+                  ? "Groq Llama-3.3 + Website DB"
+                  : "Built-in Smart AI + Website DB"}
             </span>
           </div>
         </div>
@@ -483,34 +546,34 @@ export default function AdminLiveChatPage() {
       {/* Main Split Inbox Container */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(270px, 340px) 1fr',
+          display: "grid",
+          gridTemplateColumns: "minmax(270px, 340px) 1fr",
           gap: 18,
-          height: 'calc(100vh - 280px)',
+          height: "calc(100vh - 280px)",
           minHeight: 520,
         }}
       >
         {/* Left Column: Visitor Sessions List */}
         <div
           style={{
-            background: 'rgba(15, 23, 42, 0.7)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
+            background: "rgba(15, 23, 42, 0.7)",
+            border: "1px solid rgba(255, 255, 255, 0.09)",
             borderRadius: 18,
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
           }}
         >
           <div
             style={{
-              padding: '14px 16px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              padding: "14px 16px",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc' }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc" }}>
               Visitor Inbox ({sessions.length})
             </span>
             <button
@@ -518,64 +581,96 @@ export default function AdminLiveChatPage() {
               onClick={() => fetchSessions(false)}
               title="Refresh"
               style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#94a3b8',
-                cursor: 'pointer',
+                background: "transparent",
+                border: "none",
+                color: "#94a3b8",
+                cursor: "pointer",
               }}
             >
               <FiRefreshCw size={15} />
             </button>
           </div>
 
-          <div style={{ flex: 1, overflowY: 'auto', padding: 10 }}>
+          <div style={{ flex: 1, overflowY: "auto", padding: 10 }}>
             {loadingList ? (
-              <div style={{ padding: 24, textAlign: 'center', color: '#64748b', fontSize: 13 }}>
+              <div
+                style={{
+                  padding: 24,
+                  textAlign: "center",
+                  color: "#64748b",
+                  fontSize: 13,
+                }}
+              >
                 Loading conversations...
               </div>
             ) : sessions.length === 0 ? (
-              <div style={{ padding: 32, textAlign: 'center', color: '#64748b', fontSize: 13 }}>
-                <FiMessageSquare size={28} style={{ margin: '0 auto 10px', opacity: 0.4 }} />
-                No visitor chats yet. When someone messages MerxoDev AI on the website, it will appear here live!
+              <div
+                style={{
+                  padding: 32,
+                  textAlign: "center",
+                  color: "#64748b",
+                  fontSize: 13,
+                }}
+              >
+                <FiMessageSquare
+                  size={28}
+                  style={{ margin: "0 auto 10px", opacity: 0.4 }}
+                />
+                No visitor chats yet. When someone messages MerxoDev AI on the
+                website, it will appear here live!
               </div>
             ) : (
               sessions.map((s) => {
                 const isSelected = s.id === selectedSessionId;
-                const isLive = s.mode === 'live';
+                const isLive = s.mode === "live";
                 return (
                   <div
                     key={s.id}
                     onClick={() => setSelectedSessionId(s.id)}
                     style={{
-                      padding: '12px 14px',
+                      padding: "12px 14px",
                       borderRadius: 14,
                       marginBottom: 8,
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
+                      cursor: "pointer",
+                      transition: "all 0.15s ease",
                       background: isSelected
-                        ? 'rgba(99, 102, 241, 0.18)'
+                        ? "rgba(99, 102, 241, 0.18)"
                         : s.needsHuman
-                        ? 'rgba(245, 158, 11, 0.1)'
-                        : 'rgba(255, 255, 255, 0.025)',
+                          ? "rgba(245, 158, 11, 0.1)"
+                          : "rgba(255, 255, 255, 0.025)",
                       border: isSelected
-                        ? '1px solid rgba(99, 102, 241, 0.5)'
+                        ? "1px solid rgba(99, 102, 241, 0.5)"
                         : s.needsHuman
-                        ? '1px solid rgba(245, 158, 11, 0.4)'
-                        : '1px solid rgba(255, 255, 255, 0.06)',
+                          ? "1px solid rgba(245, 158, 11, 0.4)"
+                          : "1px solid rgba(255, 255, 255, 0.06)",
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 6,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          minWidth: 0,
+                        }}
+                      >
                         {s.visitorImage ? (
                           <img
                             src={s.visitorImage}
-                            alt={s.visitorName || 'User'}
+                            alt={s.visitorName || "User"}
                             style={{
                               width: 28,
                               height: 28,
                               borderRadius: 9,
-                              objectFit: 'cover',
-                              border: '1px solid rgba(139, 92, 246, 0.5)',
+                              objectFit: "cover",
+                              border: "1px solid rgba(139, 92, 246, 0.5)",
                               flexShrink: 0,
                             }}
                           />
@@ -585,33 +680,48 @@ export default function AdminLiveChatPage() {
                               width: 28,
                               height: 28,
                               borderRadius: 9,
-                              background: 'rgba(99, 102, 241, 0.2)',
-                              color: '#a5b4fc',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
+                              background: "rgba(99, 102, 241, 0.2)",
+                              color: "#a5b4fc",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                               fontSize: 12,
                               fontWeight: 800,
                               flexShrink: 0,
                             }}
                           >
-                            {(s.visitorName || 'V').charAt(0).toUpperCase()}
+                            {(s.visitorName || "V").charAt(0).toUpperCase()}
                           </div>
                         )}
-                        <span style={{ fontSize: 13, fontWeight: 700, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {s.visitorName || 'Visitor'}
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 700,
+                            color: "#f8fafc",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {s.visitorName || "Visitor"}
                         </span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
                         {s.needsHuman && (
                           <span
                             style={{
                               fontSize: 9.5,
                               fontWeight: 800,
-                              padding: '2px 6px',
+                              padding: "2px 6px",
                               borderRadius: 6,
-                              background: '#f59e0b',
-                              color: '#090d16',
+                              background: "#f59e0b",
+                              color: "#090d16",
                             }}
                           >
                             NEEDS ADMIN
@@ -621,13 +731,15 @@ export default function AdminLiveChatPage() {
                           style={{
                             fontSize: 9.5,
                             fontWeight: 700,
-                            padding: '2px 6px',
+                            padding: "2px 6px",
                             borderRadius: 6,
-                            background: isLive ? 'rgba(16, 185, 129, 0.2)' : 'rgba(99, 102, 241, 0.2)',
-                            color: isLive ? '#34d399' : '#a5b4fc',
+                            background: isLive
+                              ? "rgba(16, 185, 129, 0.2)"
+                              : "rgba(99, 102, 241, 0.2)",
+                            color: isLive ? "#34d399" : "#a5b4fc",
                           }}
                         >
-                          {isLive ? 'LIVE ADMIN' : 'AI MODE'}
+                          {isLive ? "Live Team" : "AI MODE"}
                         </span>
                         {s.unreadAdmin > 0 && (
                           <span
@@ -635,14 +747,14 @@ export default function AdminLiveChatPage() {
                               minWidth: 18,
                               height: 18,
                               borderRadius: 999,
-                              background: '#ef4444',
-                              color: '#fff',
+                              background: "#ef4444",
+                              color: "#fff",
                               fontSize: 10,
                               fontWeight: 800,
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              padding: '0 5px',
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: "0 5px",
                             }}
                           >
                             {s.unreadAdmin}
@@ -653,17 +765,24 @@ export default function AdminLiveChatPage() {
 
                     {/* Captured Lead Info Badges */}
                     {(s.visitorPhone || s.visitorEmail) && (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: 6,
+                          marginTop: 6,
+                        }}
+                      >
                         {s.visitorPhone && (
                           <span
                             style={{
                               fontSize: 10.5,
-                              color: '#34d399',
-                              background: 'rgba(16, 185, 129, 0.12)',
-                              padding: '1px 7px',
+                              color: "#34d399",
+                              background: "rgba(16, 185, 129, 0.12)",
+                              padding: "1px 7px",
                               borderRadius: 6,
-                              display: 'inline-flex',
-                              alignItems: 'center',
+                              display: "inline-flex",
+                              alignItems: "center",
                               gap: 4,
                             }}
                           >
@@ -675,12 +794,12 @@ export default function AdminLiveChatPage() {
                           <span
                             style={{
                               fontSize: 10.5,
-                              color: '#38bdf8',
-                              background: 'rgba(56, 189, 248, 0.12)',
-                              padding: '1px 7px',
+                              color: "#38bdf8",
+                              background: "rgba(56, 189, 248, 0.12)",
+                              padding: "1px 7px",
                               borderRadius: 6,
-                              display: 'inline-flex',
-                              alignItems: 'center',
+                              display: "inline-flex",
+                              alignItems: "center",
                               gap: 4,
                             }}
                           >
@@ -694,27 +813,27 @@ export default function AdminLiveChatPage() {
                     <p
                       style={{
                         fontSize: 11.5,
-                        color: '#94a3b8',
+                        color: "#94a3b8",
                         marginTop: 6,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      {s.lastMessage || 'Started conversation'}
+                      {s.lastMessage || "Started conversation"}
                     </p>
 
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                         marginTop: 6,
                         fontSize: 10,
-                        color: '#64748b',
+                        color: "#64748b",
                       }}
                     >
-                      <span>Lang: {(s.language || 'en').toUpperCase()}</span>
+                      <span>Lang: {(s.language || "en").toUpperCase()}</span>
                       <span>{formatTime(s.updatedAt)}</span>
                     </div>
                   </div>
@@ -724,36 +843,38 @@ export default function AdminLiveChatPage() {
           </div>
         </div>
 
-        {/* Right Column: Active Conversation & Live Admin Controls */}
+        {/* Right Column: Active Conversation & Live Team Controls */}
         <div
           style={{
-            background: 'rgba(15, 23, 42, 0.7)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
+            background: "rgba(15, 23, 42, 0.7)",
+            border: "1px solid rgba(255, 255, 255, 0.09)",
             borderRadius: 18,
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
           }}
         >
           {!selectedSessionId || !activeSession ? (
             <div
               style={{
                 flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#64748b',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#64748b",
                 padding: 32,
-                textAlign: 'center',
+                textAlign: "center",
               }}
             >
               <FaRobot size={40} style={{ marginBottom: 12, opacity: 0.35 }} />
-              <div style={{ fontSize: 15, fontWeight: 700, color: '#cbd5e1' }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#cbd5e1" }}>
                 Select a Visitor Conversation
               </div>
               <p style={{ fontSize: 12.5, maxWidth: 380, marginTop: 6 }}>
-                Click any visitor on the left to view what they are asking MerxoDev AI, or click &ldquo;Take Over&rdquo; to reply live as Admin.
+                Click any visitor on the left to view what they are asking
+                MerxoDev AI, or click &ldquo;Take Over&rdquo; to reply live as
+                Admin.
               </p>
             </div>
           ) : (
@@ -761,18 +882,20 @@ export default function AdminLiveChatPage() {
               {/* Conversation Top Bar */}
               <div
                 style={{
-                  padding: '14px 18px',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  padding: "14px 18px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                   gap: 12,
-                  background: 'rgba(255, 255, 255, 0.02)',
+                  background: "rgba(255, 255, 255, 0.02)",
                 }}
               >
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 10 }}
+                  >
                     {activeSession.visitorImage ? (
                       <img
                         src={activeSession.visitorImage}
@@ -781,8 +904,8 @@ export default function AdminLiveChatPage() {
                           width: 34,
                           height: 34,
                           borderRadius: 10,
-                          objectFit: 'cover',
-                          border: '1px solid rgba(139, 92, 246, 0.5)',
+                          objectFit: "cover",
+                          border: "1px solid rgba(139, 92, 246, 0.5)",
                         }}
                       />
                     ) : (
@@ -791,41 +914,50 @@ export default function AdminLiveChatPage() {
                           width: 34,
                           height: 34,
                           borderRadius: 10,
-                          background: 'rgba(99, 102, 241, 0.2)',
-                          color: '#a5b4fc',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          background: "rgba(99, 102, 241, 0.2)",
+                          color: "#a5b4fc",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                           fontSize: 14,
                           fontWeight: 800,
                         }}
                       >
-                        {(activeSession.visitorName || 'V').charAt(0).toUpperCase()}
+                        {(activeSession.visitorName || "V")
+                          .charAt(0)
+                          .toUpperCase()}
                       </div>
                     )}
-                    <span style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc' }}>
+                    <span
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 800,
+                        color: "#f8fafc",
+                      }}
+                    >
                       {activeSession.visitorName}
                     </span>
                     <span
                       style={{
                         fontSize: 10.5,
                         fontWeight: 700,
-                        padding: '3px 9px',
+                        padding: "3px 9px",
                         borderRadius: 999,
-                        display: 'inline-flex',
-                        alignItems: 'center',
+                        display: "inline-flex",
+                        alignItems: "center",
                         gap: 5,
                         background:
-                          activeSession.mode === 'live'
-                            ? 'rgba(16, 185, 129, 0.2)'
-                            : 'rgba(99, 102, 241, 0.2)',
-                        color: activeSession.mode === 'live' ? '#34d399' : '#a5b4fc',
+                          activeSession.mode === "live"
+                            ? "rgba(16, 185, 129, 0.2)"
+                            : "rgba(99, 102, 241, 0.2)",
+                        color:
+                          activeSession.mode === "live" ? "#34d399" : "#a5b4fc",
                       }}
                     >
-                      {activeSession.mode === 'live' ? (
+                      {activeSession.mode === "live" ? (
                         <>
                           <FiUserCheck size={12} />
-                          <span>LIVE ADMIN ACTIVE</span>
+                          <span>Live Team ACTIVE</span>
                         </>
                       ) : (
                         <>
@@ -836,13 +968,29 @@ export default function AdminLiveChatPage() {
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, fontSize: 11.5, color: '#94a3b8' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      marginTop: 4,
+                      fontSize: 11.5,
+                      color: "#94a3b8",
+                    }}
+                  >
                     {activeSession.visitorPhone && (
                       <a
-                        href={`https://wa.me/${activeSession.visitorPhone.replace(/[^0-9]/g, '')}`}
+                        href={`https://wa.me/${activeSession.visitorPhone.replace(/[^0-9]/g, "")}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: 4, textDecoration: 'none', fontWeight: 600 }}
+                        style={{
+                          color: "#34d399",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 4,
+                          textDecoration: "none",
+                          fontWeight: 600,
+                        }}
                       >
                         <FaWhatsapp size={13} />
                         {activeSession.visitorPhone}
@@ -851,7 +999,13 @@ export default function AdminLiveChatPage() {
                     {activeSession.visitorEmail && (
                       <a
                         href={`mailto:${activeSession.visitorEmail}`}
-                        style={{ color: '#38bdf8', display: 'inline-flex', alignItems: 'center', gap: 4, textDecoration: 'none' }}
+                        style={{
+                          color: "#38bdf8",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 4,
+                          textDecoration: "none",
+                        }}
                       >
                         <FiMail size={12} />
                         {activeSession.visitorEmail}
@@ -862,23 +1016,23 @@ export default function AdminLiveChatPage() {
                 </div>
 
                 {/* Takeover / Hand Back to AI Buttons */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  {activeSession.mode === 'live' ? (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  {activeSession.mode === "live" ? (
                     <button
                       type="button"
-                      onClick={() => handleToggleMode('ai')}
+                      onClick={() => handleToggleMode("ai")}
                       style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
+                        display: "inline-flex",
+                        alignItems: "center",
                         gap: 6,
-                        padding: '8px 14px',
+                        padding: "8px 14px",
                         borderRadius: 10,
                         fontSize: 12,
                         fontWeight: 700,
-                        cursor: 'pointer',
-                        background: 'rgba(99, 102, 241, 0.2)',
-                        color: '#a5b4fc',
-                        border: '1px solid rgba(99, 102, 241, 0.4)',
+                        cursor: "pointer",
+                        background: "rgba(99, 102, 241, 0.2)",
+                        color: "#a5b4fc",
+                        border: "1px solid rgba(99, 102, 241, 0.4)",
                       }}
                     >
                       <FiCpu size={14} />
@@ -887,20 +1041,20 @@ export default function AdminLiveChatPage() {
                   ) : (
                     <button
                       type="button"
-                      onClick={() => handleToggleMode('live')}
+                      onClick={() => handleToggleMode("live")}
                       style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
+                        display: "inline-flex",
+                        alignItems: "center",
                         gap: 6,
-                        padding: '8px 14px',
+                        padding: "8px 14px",
                         borderRadius: 10,
                         fontSize: 12,
                         fontWeight: 700,
-                        cursor: 'pointer',
-                        background: 'linear-gradient(135deg, #10b981, #059669)',
-                        color: '#fff',
-                        border: 'none',
-                        boxShadow: '0 6px 16px -4px rgba(16, 185, 129, 0.5)',
+                        cursor: "pointer",
+                        background: "linear-gradient(135deg, #10b981, #059669)",
+                        color: "#fff",
+                        border: "none",
+                        boxShadow: "0 6px 16px -4px rgba(16, 185, 129, 0.5)",
                       }}
                     >
                       <FiUserCheck size={14} />
@@ -913,12 +1067,12 @@ export default function AdminLiveChatPage() {
                     onClick={() => handleDeleteSession(activeSession.id)}
                     title="Delete Chat"
                     style={{
-                      padding: '8px 10px',
+                      padding: "8px 10px",
                       borderRadius: 10,
-                      background: 'rgba(239, 68, 68, 0.12)',
-                      color: '#f87171',
-                      border: '1px solid rgba(239, 68, 68, 0.25)',
-                      cursor: 'pointer',
+                      background: "rgba(239, 68, 68, 0.12)",
+                      color: "#f87171",
+                      border: "1px solid rgba(239, 68, 68, 0.25)",
+                      cursor: "pointer",
                     }}
                   >
                     <FiTrash2 size={15} />
@@ -930,31 +1084,37 @@ export default function AdminLiveChatPage() {
               <div
                 style={{
                   flex: 1,
-                  overflowY: 'auto',
+                  overflowY: "auto",
                   padding: 18,
-                  display: 'flex',
-                  flexDirection: 'column',
+                  display: "flex",
+                  flexDirection: "column",
                   gap: 12,
                 }}
               >
                 {messages.map((m) => {
-                  if (m.sender === 'system') {
-                    const cleanSys = String(m.text || '')
-                      .replace(/\*\*/g, '')
-                      .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u, '');
+                  if (m.sender === "system") {
+                    const cleanSys = String(m.text || "")
+                      .replace(/\*\*/g, "")
+                      .replace(
+                        /^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u,
+                        "",
+                      );
                     return (
-                      <div key={m.id} style={{ textAlign: 'center', margin: '4px 0' }}>
+                      <div
+                        key={m.id}
+                        style={{ textAlign: "center", margin: "4px 0" }}
+                      >
                         <span
                           style={{
                             fontSize: 11,
-                            padding: '4px 12px',
+                            padding: "4px 12px",
                             borderRadius: 999,
-                            display: 'inline-flex',
-                            alignItems: 'center',
+                            display: "inline-flex",
+                            alignItems: "center",
                             gap: 6,
-                            background: 'rgba(16, 185, 129, 0.12)',
-                            color: '#34d399',
-                            border: '1px solid rgba(16, 185, 129, 0.25)',
+                            background: "rgba(16, 185, 129, 0.12)",
+                            color: "#34d399",
+                            border: "1px solid rgba(16, 185, 129, 0.25)",
                           }}
                         >
                           <FiCheckCircle size={12} />
@@ -964,16 +1124,16 @@ export default function AdminLiveChatPage() {
                     );
                   }
 
-                  const isVisitor = m.sender === 'user';
-                  const isAdmin = m.sender === 'admin';
+                  const isVisitor = m.sender === "user";
+                  const isAdmin = m.sender === "admin";
 
                   return (
                     <div
                       key={m.id}
                       style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: isVisitor ? 'flex-start' : 'flex-end',
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: isVisitor ? "flex-start" : "flex-end",
                       }}
                     >
                       <span
@@ -981,24 +1141,40 @@ export default function AdminLiveChatPage() {
                           fontSize: 10.5,
                           fontWeight: 700,
                           marginBottom: 4,
-                          display: 'inline-flex',
-                          alignItems: 'center',
+                          display: "inline-flex",
+                          alignItems: "center",
                           gap: 6,
-                          color: isVisitor ? '#fbbf24' : isAdmin ? '#34d399' : '#818cf8',
+                          color: isVisitor
+                            ? "#fbbf24"
+                            : isAdmin
+                              ? "#34d399"
+                              : "#818cf8",
                         }}
                       >
                         {isVisitor && activeSession.visitorImage && (
                           <img
                             src={activeSession.visitorImage}
                             alt={activeSession.visitorName}
-                            style={{ width: 18, height: 18, borderRadius: 6, objectFit: 'cover' }}
+                            style={{
+                              width: 18,
+                              height: 18,
+                              borderRadius: 6,
+                              objectFit: "cover",
+                            }}
                           />
                         )}
                         {isAdmin && (
                           <img
                             src="/favicon.png"
                             alt="Admin"
-                            style={{ width: 18, height: 18, borderRadius: 5, objectFit: 'contain', background: '#f97316', padding: 2 }}
+                            style={{
+                              width: 18,
+                              height: 18,
+                              borderRadius: 5,
+                              objectFit: "contain",
+                              background: "#f97316",
+                              padding: 2,
+                            }}
                           />
                         )}
                         {!isVisitor && !isAdmin && <MdSupportAgent size={15} />}
@@ -1006,36 +1182,38 @@ export default function AdminLiveChatPage() {
                           {isVisitor
                             ? activeSession.visitorName
                             : isAdmin
-                            ? 'You (Live Admin)'
-                            : 'MerxoDev AI'}
+                              ? "You (Live Team)"
+                              : "MerxoDev AI"}
                         </span>
                       </span>
 
                       <div
                         style={{
-                          maxWidth: '78%',
-                          padding: '11px 15px',
+                          maxWidth: "78%",
+                          padding: "11px 15px",
                           borderRadius: 16,
                           fontSize: 13,
                           lineHeight: 1.55,
-                          whiteSpace: 'pre-wrap',
+                          whiteSpace: "pre-wrap",
                           background: isVisitor
-                            ? 'rgba(255, 255, 255, 0.07)'
+                            ? "rgba(255, 255, 255, 0.07)"
                             : isAdmin
-                            ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))'
-                            : 'rgba(99, 102, 241, 0.16)',
-                          color: '#f8fafc',
+                              ? "linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))"
+                              : "rgba(99, 102, 241, 0.16)",
+                          color: "#f8fafc",
                           border: isVisitor
-                            ? '1px solid rgba(255, 255, 255, 0.12)'
+                            ? "1px solid rgba(255, 255, 255, 0.12)"
                             : isAdmin
-                            ? '1px solid rgba(16, 185, 129, 0.45)'
-                            : '1px solid rgba(99, 102, 241, 0.35)',
+                              ? "1px solid rgba(16, 185, 129, 0.45)"
+                              : "1px solid rgba(99, 102, 241, 0.35)",
                         }}
                       >
                         {m.text}
                       </div>
 
-                      <span style={{ fontSize: 10, color: '#64748b', marginTop: 3 }}>
+                      <span
+                        style={{ fontSize: 10, color: "#64748b", marginTop: 3 }}
+                      >
                         {formatTime(m.createdAt)}
                       </span>
                     </div>
@@ -1047,12 +1225,12 @@ export default function AdminLiveChatPage() {
               {/* Quick Canned Replies */}
               <div
                 style={{
-                  padding: '8px 14px',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                  display: 'flex',
+                  padding: "8px 14px",
+                  borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                  display: "flex",
                   gap: 6,
-                  overflowX: 'auto',
-                  background: 'rgba(0, 0, 0, 0.2)',
+                  overflowX: "auto",
+                  background: "rgba(0, 0, 0, 0.2)",
                 }}
               >
                 {QUICK_ADMIN_REPLIES.map((qr, i) => (
@@ -1061,26 +1239,29 @@ export default function AdminLiveChatPage() {
                     type="button"
                     onClick={() => handleSendAdminReply(qr)}
                     style={{
-                      whiteSpace: 'nowrap',
+                      whiteSpace: "nowrap",
                       fontSize: 11,
-                      padding: '5px 10px',
+                      padding: "5px 10px",
                       borderRadius: 999,
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      color: '#cbd5e1',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
+                      background: "rgba(255, 255, 255, 0.05)",
+                      color: "#cbd5e1",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
                       gap: 5,
                     }}
                   >
-                    <FiZap size={11} style={{ color: '#fbbf24', flexShrink: 0 }} />
+                    <FiZap
+                      size={11}
+                      style={{ color: "#fbbf24", flexShrink: 0 }}
+                    />
                     <span>{qr.slice(0, 42)}...</span>
                   </button>
                 ))}
               </div>
 
-              {/* Live Admin Reply Input Box */}
+              {/* Live Team Reply Input Box */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1088,48 +1269,48 @@ export default function AdminLiveChatPage() {
                 }}
                 style={{
                   padding: 14,
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
+                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                  display: "flex",
                   gap: 10,
-                  background: 'rgba(15, 23, 42, 0.95)',
+                  background: "rgba(15, 23, 42, 0.95)",
                 }}
               >
                 <input
                   type="text"
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
-                  placeholder="Type a live reply to this visitor (automatically switches to Live Admin mode)..."
+                  placeholder="Type a live reply to this visitor (automatically switches to Live Team mode)..."
                   style={{
                     flex: 1,
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.14)',
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.14)",
                     borderRadius: 12,
-                    padding: '11px 15px',
-                    color: '#fff',
+                    padding: "11px 15px",
+                    color: "#fff",
                     fontSize: 13,
-                    outline: 'none',
+                    outline: "none",
                   }}
                 />
                 <button
                   type="submit"
                   disabled={!replyText.trim() || sending}
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
+                    display: "inline-flex",
+                    alignItems: "center",
                     gap: 7,
-                    padding: '0 20px',
+                    padding: "0 20px",
                     borderRadius: 12,
-                    background: 'linear-gradient(135deg, #10b981, #059669)',
-                    color: '#fff',
+                    background: "linear-gradient(135deg, #10b981, #059669)",
+                    color: "#fff",
                     fontWeight: 700,
                     fontSize: 13,
-                    border: 'none',
-                    cursor: 'pointer',
+                    border: "none",
+                    cursor: "pointer",
                     opacity: !replyText.trim() || sending ? 0.5 : 1,
                   }}
                 >
                   <FiSend size={15} />
-                  <span>{sending ? 'Sending...' : 'Send Live'}</span>
+                  <span>{sending ? "Sending..." : "Send Live"}</span>
                 </button>
               </form>
             </>
@@ -1141,92 +1322,161 @@ export default function AdminLiveChatPage() {
       {configModalOpen && (
         <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(8px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            background: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             padding: 16,
           }}
         >
           <div
             style={{
-              width: '100%',
+              width: "100%",
               maxWidth: 540,
-              background: '#0f172a',
-              border: '1px solid rgba(255, 255, 255, 0.14)',
+              background: "#0f172a",
+              border: "1px solid rgba(255, 255, 255, 0.14)",
               borderRadius: 20,
               padding: 24,
-              color: '#f8fafc',
+              color: "#f8fafc",
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-              <h3 style={{ fontSize: 17, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 16,
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: 17,
+                  fontWeight: 800,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
                 <FiCpu color="#818cf8" />
                 <span>MerxoDev AI Brain Settings</span>
               </h3>
               <button
                 type="button"
                 onClick={() => setConfigModalOpen(false)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#94a3b8",
+                  cursor: "pointer",
+                }}
               >
                 <FiX size={20} />
               </button>
             </div>
 
-            <p style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.5, marginBottom: 16 }}>
-              MerxoDev AI already knows your website&apos;s live projects, team, services, and pricing out of the box.
-              To unlock full **Google Gemini** or **Groq Llama-3.3** generative intelligence, paste a free API key below (or set <code>GEMINI_API_KEY</code> in <code>.env</code>).
+            <p
+              style={{
+                fontSize: 12.5,
+                color: "#94a3b8",
+                lineHeight: 1.5,
+                marginBottom: 16,
+              }}
+            >
+              MerxoDev AI already knows your website&apos;s live projects, team,
+              services, and pricing out of the box. To unlock full **Google
+              Gemini** or **Groq Llama-3.3** generative intelligence, paste a
+              free API key below (or set <code>GEMINI_API_KEY</code> in{" "}
+              <code>.env</code>).
             </p>
 
-            <form onSubmit={handleSaveAiConfig} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <form
+              onSubmit={handleSaveAiConfig}
+              style={{ display: "flex", flexDirection: "column", gap: 14 }}
+            >
               <div>
-                <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', display: 'block', marginBottom: 6 }}>
-                  Google Gemini API Key {aiConfigStatus?.hasGemini && `(Active: ${aiConfigStatus.geminiKeyPreview})`}
+                <label
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#cbd5e1",
+                    display: "block",
+                    marginBottom: 6,
+                  }}
+                >
+                  Google Gemini API Key{" "}
+                  {aiConfigStatus?.hasGemini &&
+                    `(Active: ${aiConfigStatus.geminiKeyPreview})`}
                 </label>
                 <input
                   type="password"
                   value={geminiKeyInput}
                   onChange={(e) => setGeminiKeyInput(e.target.value)}
-                  placeholder={aiConfigStatus?.hasGemini ? '•••••••••••••••• (Leave blank to keep existing)' : 'Paste AIzaSy... key from Google AI Studio'}
+                  placeholder={
+                    aiConfigStatus?.hasGemini
+                      ? "•••••••••••••••• (Leave blank to keep existing)"
+                      : "Paste AIzaSy... key from Google AI Studio"
+                  }
                   style={{
-                    width: '100%',
-                    padding: '10px 13px',
+                    width: "100%",
+                    padding: "10px 13px",
                     borderRadius: 10,
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.14)',
-                    color: '#fff',
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "#fff",
                     fontSize: 13,
                   }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', display: 'block', marginBottom: 6 }}>
-                  Groq API Key (Optional Alternative) {aiConfigStatus?.hasGroq && `(Active: ${aiConfigStatus.groqKeyPreview})`}
+                <label
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#cbd5e1",
+                    display: "block",
+                    marginBottom: 6,
+                  }}
+                >
+                  Groq API Key (Optional Alternative){" "}
+                  {aiConfigStatus?.hasGroq &&
+                    `(Active: ${aiConfigStatus.groqKeyPreview})`}
                 </label>
                 <input
                   type="password"
                   value={groqKeyInput}
                   onChange={(e) => setGroqKeyInput(e.target.value)}
-                  placeholder={aiConfigStatus?.hasGroq ? '•••••••••••••••• (Leave blank to keep existing)' : 'Paste gsk_... key from console.groq.com'}
+                  placeholder={
+                    aiConfigStatus?.hasGroq
+                      ? "•••••••••••••••• (Leave blank to keep existing)"
+                      : "Paste gsk_... key from console.groq.com"
+                  }
                   style={{
-                    width: '100%',
-                    padding: '10px 13px',
+                    width: "100%",
+                    padding: "10px 13px",
                     borderRadius: 10,
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.14)',
-                    color: '#fff',
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "#fff",
                     fontSize: 13,
                   }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: 12, fontWeight: 700, color: '#cbd5e1', display: 'block', marginBottom: 6 }}>
+                <label
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#cbd5e1",
+                    display: "block",
+                    marginBottom: 6,
+                  }}
+                >
                   Custom AI Instructions / Special Offers (Optional)
                 </label>
                 <textarea
@@ -1235,28 +1485,35 @@ export default function AdminLiveChatPage() {
                   onChange={(e) => setCustomInstructionsInput(e.target.value)}
                   placeholder="e.g., Currently offering 20% discount on E-Commerce packages this month..."
                   style={{
-                    width: '100%',
-                    padding: '10px 13px',
+                    width: "100%",
+                    padding: "10px 13px",
                     borderRadius: 10,
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.14)',
-                    color: '#fff',
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "#fff",
                     fontSize: 13,
                   }}
                 />
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 8 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: 10,
+                  marginTop: 8,
+                }}
+              >
                 <button
                   type="button"
                   onClick={() => setConfigModalOpen(false)}
                   style={{
-                    padding: '9px 16px',
+                    padding: "9px 16px",
                     borderRadius: 10,
-                    background: 'rgba(255,255,255,0.08)',
-                    color: '#cbd5e1',
-                    border: 'none',
-                    cursor: 'pointer',
+                    background: "rgba(255,255,255,0.08)",
+                    color: "#cbd5e1",
+                    border: "none",
+                    cursor: "pointer",
                     fontSize: 13,
                   }}
                 >
@@ -1266,17 +1523,17 @@ export default function AdminLiveChatPage() {
                   type="submit"
                   disabled={savingConfig}
                   style={{
-                    padding: '9px 18px',
+                    padding: "9px 18px",
                     borderRadius: 10,
-                    background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-                    color: '#fff',
+                    background: "linear-gradient(135deg, #6366f1, #06b6d4)",
+                    color: "#fff",
                     fontWeight: 700,
-                    border: 'none',
-                    cursor: 'pointer',
+                    border: "none",
+                    cursor: "pointer",
                     fontSize: 13,
                   }}
                 >
-                  {savingConfig ? 'Saving...' : 'Save AI Settings'}
+                  {savingConfig ? "Saving..." : "Save AI Settings"}
                 </button>
               </div>
             </form>
@@ -1286,4 +1543,3 @@ export default function AdminLiveChatPage() {
     </div>
   );
 }
-

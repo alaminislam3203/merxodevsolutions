@@ -134,7 +134,7 @@ export async function POST(request) {
 
       const sysMsg =
         targetMode === 'live'
-          ? '**Live Admin joined the chat!** You are now speaking directly with a MerxoDev Solutions team member.'
+          ? '**Live Team joined the chat!** You are now speaking directly with a MerxoDev Solutions team member.'
           : '**MerxoDev AI Assistant is back online** to assist you instantly.';
 
       await addChatMessage(sessionId, {

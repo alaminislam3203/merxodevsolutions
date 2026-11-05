@@ -80,8 +80,8 @@ Website: ${WEBSITE_URL}
    - Do NOT use emojis in your responses; the chat UI automatically renders clean React icons.
 4. SMART LEAD CAPTURE:
    - When a user shows interest in building a project, getting a quote, or hiring, warmly invite them to share their **Name and WhatsApp/Phone number or Email** right in the chat (or click the WhatsApp button) so our lead engineer can reach out directly.
-5. LIVE ADMIN HANDOFF:
-   - If the user asks to talk to a real human / live admin, tell them that you have notified the Live Admin team with an instant alert and they can also message directly on WhatsApp (${WHATSAPP_DISPLAY}).
+5. Live Team HANDOFF:
+   - If the user asks to talk to a real human / Live Team, tell them that you have notified the Live Team team with an instant alert and they can also message directly on WhatsApp (${WHATSAPP_DISPLAY}).
 
 === OFFICIAL MERXODEV SOLUTIONS KNOWLEDGE BASE ===
 • **Company Name:** MerxoDev Solutions (মারক্সোডেভ সলিউশনস)
@@ -130,13 +130,13 @@ ${customInstructions ? `\n=== ADDITIONAL ADMIN INSTRUCTIONS ===\n${customInstruc
 }
 
 /**
- * Detect if the user is explicitly asking to talk to a human / live admin
+ * Detect if the user is explicitly asking to talk to a human / Live Team
  */
 export function detectHumanRequest(text) {
   if (!text) return false;
   const lower = text.toLowerCase();
   const patterns = [
-    /\b(human|live agent|live admin|real person|talk to admin|speak to admin|customer care|live support|operator)\b/i,
+    /\b(human|live agent|Live Team|real person|talk to admin|speak to admin|customer care|live support|operator)\b/i,
     /\b(manush|manusher sathe|admin er sathe|live chat|live কথা|সরাসরি কথা|অ্যাডমিন|মানুষের সাথে)\b/i,
   ];
   return patterns.some((p) => p.test(lower));
@@ -384,13 +384,13 @@ export function buildContextualActionsAndSuggestions(userMessage, replyText, lan
       'Website package o dam koto?',
       'Apnader kora project gulo dekhan',
       'Ecommerce website banate chai',
-      'Live Admin er sathe kotha bolbo',
+      'Live Team er sathe kotha bolbo',
     ],
     en: [
       'Website pricing & packages?',
       'Show your recent projects',
       'E-commerce & Payment Gateway',
-      'Talk to Live Admin',
+      'Talk to Live Team',
     ],
   };
 
@@ -542,12 +542,12 @@ export function generateBuiltInIntelligentReply({ userMessage, lang, projects = 
   // 11. Website / Web App general inquiry
   if (/\b(web|website|app|software|build|make|create|need|want|ওয়েবসাইট|অ্যাপ|সফটওয়্যার|বানাতে|তৈরি|banate|banabo|dorkar)\b/i.test(lower)) {
     if (lang === 'bn') {
-      return `আমরা আপনার প্রয়োজন অনুযায়ী **কাস্টম ওয়েবসাইট, ই-কমার্স স্টোর অথবা ওয়েব অ্যাপ্লিকেশন** তৈরি করে দিতে পারি!\n\n• **বাজেট:** সাধারণত ১,০০০ টাকা থেকে ৪,০০০ টাকার মধ্যে (প্রজেক্টের পরিধি অনুযায়ী)।\n• **টেকনোলজি:** Next.js 16, React, Node.js ও PostgreSQL।\n\nআপনি কী ধরনের ওয়েবসাইট বানাতে চাচ্ছেন? চাইলে আপনার **WhatsApp নাম্বারটি** চ্যাটে দিন অথবা উপরে **Live Admin** বাটনে ক্লিক করে সরাসরি অ্যাডমিনের সাথে কথা বলুন!`;
+      return `আমরা আপনার প্রয়োজন অনুযায়ী **কাস্টম ওয়েবসাইট, ই-কমার্স স্টোর অথবা ওয়েব অ্যাপ্লিকেশন** তৈরি করে দিতে পারি!\n\n• **বাজেট:** সাধারণত ১,০০০ টাকা থেকে ৪,০০০ টাকার মধ্যে (প্রজেক্টের পরিধি অনুযায়ী)।\n• **টেকনোলজি:** Next.js 16, React, Node.js ও PostgreSQL।\n\nআপনি কী ধরনের ওয়েবসাইট বানাতে চাচ্ছেন? চাইলে আপনার **WhatsApp নাম্বারটি** চ্যাটে দিন অথবা উপরে **Live Team** বাটনে ক্লিক করে সরাসরি অ্যাডমিনের সাথে কথা বলুন!`;
     }
     if (lang === 'banglish') {
-      return `Amra apnar requirement onujayi **Custom Website, Ecommerce Store ba Web Application** toiri kore dite parbo!\n\n• **Budget:** 1,000 Taka theke 4,000 Taka (project onujayi).\n• **Tech Stack:** Next.js 16, React, Tailwind CSS, Node.js & PostgreSQL.\n\nApni ki dhoroner site banate chan? Chaile apnar **WhatsApp number** ekhane din ba **Live Admin** button e click kore direct kotha bolun!`;
+      return `Amra apnar requirement onujayi **Custom Website, Ecommerce Store ba Web Application** toiri kore dite parbo!\n\n• **Budget:** 1,000 Taka theke 4,000 Taka (project onujayi).\n• **Tech Stack:** Next.js 16, React, Tailwind CSS, Node.js & PostgreSQL.\n\nApni ki dhoroner site banate chan? Chaile apnar **WhatsApp number** ekhane din ba **Live Team** button e click kore direct kotha bolun!`;
     }
-    return `We would love to build your **custom website, e-commerce store, or web application**!\n\n• **Packages:** BDT 1,000 – BDT 4,000 (or custom enterprise milestones)\n• **Stack:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nTell me a bit about your project idea, share your **WhatsApp number**, or click **Live Admin** above to chat directly with our team!`;
+    return `We would love to build your **custom website, e-commerce store, or web application**!\n\n• **Packages:** BDT 1,000 – BDT 4,000 (or custom enterprise milestones)\n• **Stack:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nTell me a bit about your project idea, share your **WhatsApp number**, or click **Live Team** above to chat directly with our team!`;
   }
 
   // 12. Smart Conversational Default (Domain-restricted to MerxoDev Solutions)
@@ -555,9 +555,9 @@ export function generateBuiltInIntelligentReply({ userMessage, lang, projects = 
     return `আমি **MerxoDev AI Assistant** — আমি শুধুমাত্র **MerxoDev Solutions**-এর ওয়েবসাইট ডেভেলপমেন্ট, ই-কমার্স, কাস্টম সফটওয়্যার, আমাদের প্রজেক্টসমূহ এবং প্রাইসিং (**১,০০০ – ৪,০০০ টাকা**) সম্পর্কে সব তথ্য দিতে পারি।\n\nআপনি কি কোনো ওয়েবসাইট বা অ্যাপ তৈরি করতে চাচ্ছেন, নাকি আমাদের লাইভ অ্যাডমিনের সাথে সরাসরি কথা বলতে চান?`;
   }
   if (lang === 'banglish') {
-    return `Ami **MerxoDev AI Assistant** — ami **MerxoDev Solutions** er website development, ecommerce, SaaS app, amader portfolio project ebong pricing (**1,000 – 4,000 Taka**) niye apnake shob tottho dite pari.\n\nApni ki kono website ba software banate chaccen, naki amader **Live Admin** er sathe direct kotha bolte chan?`;
+    return `Ami **MerxoDev AI Assistant** — ami **MerxoDev Solutions** er website development, ecommerce, SaaS app, amader portfolio project ebong pricing (**1,000 – 4,000 Taka**) niye apnake shob tottho dite pari.\n\nApni ki kono website ba software banate chaccen, naki amader **Live Team** er sathe direct kotha bolte chan?`;
   }
-  return `I am **MerxoDev AI**, dedicated to **MerxoDev Solutions**. I can answer anything about our custom web & app development services, e-commerce solutions, portfolio projects, team, and pricing (**BDT 1,000 – BDT 4,000**).\n\nHow can we help build your next website or software project? You can also click **Live Admin** anytime to chat with a real person!`;
+  return `I am **MerxoDev AI**, dedicated to **MerxoDev Solutions**. I can answer anything about our custom web & app development services, e-commerce solutions, portfolio projects, team, and pricing (**BDT 1,000 – BDT 4,000**).\n\nHow can we help build your next website or software project? You can also click **Live Team** anytime to chat with a real person!`;
 }
 
 export async function generateAiResponse({ userMessage, history = [], session = null, leadCaptured = {} }) {

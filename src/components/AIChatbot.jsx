@@ -32,7 +32,7 @@ import { playVisitorMessageSound } from "@/lib/chatSound";
 const INITIAL_WELCOME = {
   id: "welcome",
   sender: "bot",
-  text: "**Welcome to MerxoDev Solutions! (মারক্সোডেভ সলিউশনস-এ স্বাগতম)**\n\nI am your **MerxoDev AI Assistant**. Ask me anything in **বাংলা, Banglish, or English** about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Admin** above to chat directly with a human!",
+  text: "**Welcome to MerxoDev Solutions! (মারক্সোডেভ সলিউশনস-এ স্বাগতম)**\n\nI am your **MerxoDev AI Assistant**. Ask me anything in **বাংলা, Banglish, or English** about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Team** above to chat directly with a human!",
   actions: [
     { label: "View Services & Pricing", href: "/services", type: "link" },
     {
@@ -49,7 +49,7 @@ const QUICK_SUGGESTIONS = [
   "আপনাদের করা প্রজেক্টগুলো দেখান",
   "E-commerce & bKash/Nagad gateway",
   "বাংলায় কথা বলুন",
-  "Talk to Live Admin",
+  "Talk to Live Team",
 ];
 
 export default function AIChatbot() {
@@ -140,7 +140,7 @@ export default function AIChatbot() {
     };
   }, []);
 
-  // Poll session messages from server (loads initial history + receives Live Admin replies in real time)
+  // Poll session messages from server (loads initial history + receives Live Team replies in real time)
   const syncSession = useCallback(
     async (isInitial = false) => {
       if (!sessionId) return;
@@ -204,7 +204,7 @@ export default function AIChatbot() {
     }
   }, [sessionId, syncSession]);
 
-  // Real-time polling when chat is open OR when in Live Admin / Needs Human mode
+  // Real-time polling when chat is open OR when in Live Team / Needs Human mode
   useEffect(() => {
     if (!sessionId) return;
     if (!isOpen && sessionMode !== "live" && !needsHuman) return;
@@ -284,9 +284,9 @@ export default function AIChatbot() {
     const query = (textToSend ?? input).trim();
     if (!query || loading) return;
 
-    // If user clicked the "Talk to Live Admin" suggestion chip
+    // If user clicked the "Talk to Live Team" suggestion chip
     if (
-      query.toLowerCase() === "talk to live admin" ||
+      query.toLowerCase() === "talk to Live Team" ||
       query === "লাইভ অ্যাডমিনের সাথে কথা বলতে চাই"
     ) {
       setInput("");
@@ -516,9 +516,9 @@ export default function AIChatbot() {
       if (
         trimmed.startsWith("✅") ||
         trimmed.startsWith("🔔") ||
-        trimmed.includes("Instant Alert Sent to Live Admin") ||
+        trimmed.includes("Instant Alert Sent to Live Team") ||
         trimmed.includes("লাইভ অ্যাডমিনকে ইনস্ট্যান্ট নোটিফিকেশন") ||
-        trimmed.includes("Live Admin ke instant notification")
+        trimmed.includes("Live Team ke instant notification")
       ) {
         const cleanAlert = trimmed.replace(/^[✅🔔\s]+/, "");
         return (
@@ -583,7 +583,7 @@ export default function AIChatbot() {
               <div>
                 <h3 className="text-xs sm:text-sm font-extrabold tracking-wide flex items-center gap-1.5">
                   {sessionMode === "live"
-                    ? "MerxoDev Live Admin"
+                    ? "MerxoDev Live Team"
                     : "MerxoDev AI"}
                   <span
                     className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${
@@ -600,13 +600,13 @@ export default function AIChatbot() {
                   <BsStars className="w-2.5 h-2.5 text-amber-300" />
                   {sessionMode === "live"
                     ? "Direct Admin Conversation"
-                    : "AI + Live Admin Support"}
+                    : "AI + Live Team Support"}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
-              {/* Request Live Admin Button */}
+              {/* Request Live Team Button */}
               {sessionMode !== "live" && (
                 <button
                   type="button"
@@ -620,7 +620,7 @@ export default function AIChatbot() {
                   }`}
                 >
                   <MdSupportAgent className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>{needsHuman ? "Admin Alerted" : "Live Admin"}</span>
+                  <span>{needsHuman ? "Alerted" : "Live Team"}</span>
                 </button>
               )}
 
@@ -665,7 +665,7 @@ export default function AIChatbot() {
             </div>
           </div>
 
-          {/* Live Admin Status Bar when in Live Mode or Needs Human */}
+          {/* Live Team Status Bar when in Live Mode or Needs Human */}
           {(sessionMode === "live" || needsHuman) && (
             <div
               className={`px-4 py-1.5 text-[11px] font-semibold flex items-center justify-between border-b shrink-0 ${
@@ -700,7 +700,10 @@ export default function AIChatbot() {
               if (msg.sender === "system") {
                 const cleanSysText = String(msg.text || "")
                   .replace(/\*\*/g, "")
-                  .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u, "");
+                  .replace(
+                    /^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{200D}\u{FE0F}\s]+/u,
+                    "",
+                  );
                 const isLiveJoin = cleanSysText.toLowerCase().includes("live");
                 return (
                   <div key={msg.id} className="flex justify-center my-2">
@@ -726,7 +729,7 @@ export default function AIChatbot() {
                   key={msg.id}
                   className={`flex items-end gap-2 ${isUser ? "justify-end" : "justify-start"}`}
                 >
-                  {/* Side Avatar for MerxoDev AI (Support Icon) vs Live Admin (favicon.png) */}
+                  {/* Side Avatar for MerxoDev AI (Support Icon) vs Live Team (favicon.png) */}
                   {!isUser && (
                     <div className="shrink-0 mb-4">
                       {isAdmin ? (
@@ -758,7 +761,7 @@ export default function AIChatbot() {
                         </span>
                       ) : isAdmin ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400">
-                          Live Admin (MerxoDev Team)
+                          Live Team (MerxoDev Team)
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold text-violet-600 dark:text-cyan-400">
@@ -882,7 +885,7 @@ export default function AIChatbot() {
                 onKeyDown={handleKeyDown}
                 placeholder={
                   sessionMode === "live"
-                    ? "Write a message to Live Admin..."
+                    ? "Write a message to Live Team..."
                     : "Ask in বাংলা, Banglish or English..."
                 }
                 className="flex-1 bg-transparent text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 outline-none"
