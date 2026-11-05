@@ -161,6 +161,14 @@ function DashboardView({ isTeamMember = false }) {
     ...(isTeamMember
       ? [
           {
+            href: "/709832/workspace",
+            title: "CRM, Tasks & Activity",
+            desc: "View assigned tasks, client project progress & logs",
+            color: "#06b6d4",
+            bg: "rgba(6,182,212,0.12)",
+            icon: <FiActivity size={22} />,
+          },
+          {
             href: "/709832/live-chat",
             title: "Live Chat & AI",
             desc: "Reply to visitors and live chat requests",
@@ -186,6 +194,14 @@ function DashboardView({ isTeamMember = false }) {
           },
         ]
       : [
+          {
+            href: "/709832/workspace",
+            title: "CRM, Tasks & Audit Log",
+            desc: "Assign team tasks, track client progress & staff logs",
+            color: "#10b981",
+            bg: "rgba(16,185,129,0.12)",
+            icon: <FiActivity size={22} />,
+          },
           {
             href: "/709832/users",
             title: "Manage Users",
