@@ -5,15 +5,85 @@ import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-// PUT /api/admin/team/[id] — update a team member
+function normalizePersonName(str) {
+  return String(str || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u0980-\u09FF]+/g, " ")
+    .trim();
+}
+
+function isMemberOwnedByUser(member, user) {
+  if (!member || !user) return false;
+  const userEmail = String(user.email || "").toLowerCase().trim();
+  const userName = normalizePersonName(user.name);
+  const memberName = normalizePersonName(member.name);
+
+  let social = {};
+  if (typeof member.socialLinks === "string") {
+    try {
+      social = JSON.parse(member.socialLinks);
+    } catch {
+      social = {};
+    }
+  } else if (member.socialLinks && typeof member.socialLinks === "object") {
+    social = member.socialLinks;
+  }
+
+  const linkedEmail = String(social?.email || "").toLowerCase().trim();
+  if (linkedEmail) {
+    return linkedEmail === userEmail;
+  }
+
+  if (userName && memberName && userName === memberName) {
+    return true;
+  }
+
+  // Also match if user's full name is contained in member name or vice versa (at least 3 chars)
+  if (
+    userName.length >= 3 &&
+    memberName.length >= 3 &&
+    (memberName.includes(userName) || userName.includes(memberName))
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+// PUT /api/admin/team/[id] — update a team member (Admin can update any; Team Member can update only their own profile)
 export async function PUT(request, { params }) {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, session, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
     const { id } = await params;
+    const isAdmin = session?.user?.role === "ADMIN";
+
+    const existing = await prisma.teamMember.findUnique({ where: { id } });
+    if (!existing) {
+      return NextResponse.json({ error: "Team member not found" }, { status: 404 });
+    }
+
+    if (!isAdmin && !isMemberOwnedByUser(existing, session?.user)) {
+      return NextResponse.json(
+        { error: "Forbidden — You can only edit your own team profile" },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const { name, role, image, bio, color, order, isActive, socialLinks } = body;
+
+    let existingSocial = {};
+    if (typeof existing.socialLinks === "string") {
+      try {
+        existingSocial = JSON.parse(existing.socialLinks);
+      } catch {
+        existingSocial = {};
+      }
+    } else if (existing.socialLinks && typeof existing.socialLinks === "object") {
+      existingSocial = existing.socialLinks;
+    }
 
     const dataToUpdate = {};
     if (name !== undefined) dataToUpdate.name = name.trim();
@@ -21,9 +91,24 @@ export async function PUT(request, { params }) {
     if (image !== undefined) dataToUpdate.image = image || null;
     if (bio !== undefined) dataToUpdate.bio = bio ? bio.trim() : null;
     if (color !== undefined) dataToUpdate.color = color;
-    if (order !== undefined) dataToUpdate.order = Number(order);
-    if (isActive !== undefined) dataToUpdate.isActive = Boolean(isActive);
-    if (socialLinks !== undefined) dataToUpdate.socialLinks = socialLinks;
+
+    // Only ADMIN can change display order or active visibility status
+    if (isAdmin) {
+      if (order !== undefined) dataToUpdate.order = Number(order);
+      if (isActive !== undefined) dataToUpdate.isActive = Boolean(isActive);
+    }
+
+    if (socialLinks !== undefined) {
+      const mergedSocial = {
+        ...existingSocial,
+        ...socialLinks,
+      };
+      // If edited by team-member, bind their account email so future name edits stay linked
+      if (!isAdmin && session?.user?.email) {
+        mergedSocial.email = String(session.user.email).toLowerCase().trim();
+      }
+      dataToUpdate.socialLinks = mergedSocial;
+    }
 
     const member = await prisma.teamMember.update({
       where: { id },
@@ -32,6 +117,7 @@ export async function PUT(request, { params }) {
 
     try {
       revalidatePath("/about");
+      revalidatePath("/our-team");
       revalidatePath("/", "layout");
     } catch (revalErr) {
       console.error("Revalidation error:", revalErr);

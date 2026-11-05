@@ -6,9 +6,9 @@ import { defaultTeam } from "@/app/lib/team";
 
 export const dynamic = "force-dynamic";
 
-// GET /api/admin/team — list all team members (admin only)
+// GET /api/admin/team — list all team members (admin + team-member)
 export async function GET() {
-  const { authorized, response } = await requireAdmin();
+  const { authorized, response } = await requireAdmin({ allowTeamMember: true });
   if (!authorized) return response;
 
   try {
