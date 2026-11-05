@@ -353,6 +353,10 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      {/* Semantic SEO indexable brand & contact aliases */}
+      <p className="sr-only">
+        MerxoDev Solutions | Merxo Dev Solutions | Merxo Dev Solution | MerxoDev Solution | Merxo Dev — Custom Web &amp; App Development Agency in Bangladesh. Email: merxodevsolutions@gmail.com | Phone &amp; WhatsApp: +8801313334279, +880 1313-334279, 01313334279, +8809697634279, +880 9697-634279, 09697634279.
+      </p>
     </footer>
   );
 }
