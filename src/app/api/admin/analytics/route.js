@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { requireAdmin } from "@/lib/adminAuth";
+import { ensureVisitorTables } from "@/lib/visitorStore";
 
 export const dynamic = "force-dynamic";
 
@@ -8,6 +9,8 @@ export async function GET(request) {
   try {
     const { authorized, response } = await requireAdmin();
     if (!authorized) return response;
+
+    await ensureVisitorTables();
 
     const { searchParams } = new URL(request.url);
     const rangeDays = Math.min(Math.max(parseInt(searchParams.get("days") || "14", 10), 7), 60);
