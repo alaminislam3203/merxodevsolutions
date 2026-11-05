@@ -541,6 +541,8 @@ function AdminLayoutShell({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [hideTopPill, setHideTopPill] = useState(false);
+  const mainRef = useRef(null);
 
   const isLoginRoot = pathname === "/709832";
   const emailLower = String(session?.user?.email || "").toLowerCase().trim();
@@ -584,6 +586,35 @@ function AdminLayoutShell({ children }) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  // Hide Full Screen button when scrolling down, show again when back at the top
+  useEffect(() => {
+    setHideTopPill(false);
+
+    const handleScroll = (e) => {
+      const winTop =
+        window.scrollY ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      const mainTop = mainRef.current ? mainRef.current.scrollTop : 0;
+      const targetTop =
+        e?.target && typeof e.target.scrollTop === "number"
+          ? e.target.scrollTop
+          : 0;
+
+      const currentScroll = Math.max(winTop, mainTop, targetTop);
+      setHideTopPill(currentScroll > 24);
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+      capture: true,
+    });
+    return () => {
+      window.removeEventListener("scroll", handleScroll, { capture: true });
+    };
+  }, [pathname]);
 
   const toggleFullscreen = async () => {
     try {
@@ -729,8 +760,8 @@ function AdminLayoutShell({ children }) {
         isFullscreen={isFullscreen}
         onToggleFullscreen={toggleFullscreen}
       />
-      <main className="admin-main" style={{ position: "relative" }}>
-        {/* Top-Right Quick Fullscreen Toggle Pill */}
+      <main ref={mainRef} className="admin-main" style={{ position: "relative" }}>
+        {/* Top-Right Quick Fullscreen Toggle Pill (Auto-hides on scroll down, shows at top) */}
         <div
           style={{
             position: "fixed",
@@ -740,6 +771,12 @@ function AdminLayoutShell({ children }) {
             display: "flex",
             alignItems: "center",
             gap: 8,
+            opacity: hideTopPill ? 0 : 1,
+            transform: hideTopPill
+              ? "translateY(-16px) scale(0.95)"
+              : "translateY(0) scale(1)",
+            pointerEvents: hideTopPill ? "none" : "auto",
+            transition: "opacity 0.25s ease, transform 0.25s ease",
           }}
         >
           <button
