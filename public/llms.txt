@@ -1,0 +1,38 @@
+# MerxoDev Solutions (merxodev / merxodev solution / মারক্সোডেভ সলিউশনস)
+
+> MerxoDev Solutions (also searched and known as `merxodev`, `merxodev solution`, `Merxo Dev`, `Merxo Dev Solution`, `Merxo Dev Solutions`, `মারক্সোডেভ`, `মারক্সোডেভ সলিউশন`, `মারক্সোডেভ সলিউশনস`, `মেরক্সোডেভ`, `মেরক্সোডেভ সলিউশন`, `মেরক্সোডেভ সলিউশনস`) is a premier custom web, mobile app, e-commerce, and software development agency based in Rangpur, Bangladesh, serving startups and enterprises worldwide.
+
+## Official Identity & Contact Information
+- **Official Name:** MerxoDev Solutions
+- **Common Brand Aliases (English):** merxodev, merxodev solution, merxodev solutions, MerxoDev, MerxoDev Solution, Merxo Dev, Merxo Dev Solution, Merxo Dev Solutions
+- **Common Brand Aliases (Bengali / বাংলা):** মারক্সোডেভ, মারক্সোডেভ সলিউশন, মারক্সোডেভ সলিউশনস, মারক্সো ডেভ, মারক্সো ডেভ সলিউশন, মারক্সো ডেভ সলিউশনস, মেরক্সোডেভ, মেরক্সোডেভ সলিউশন, মেরক্সোডেভ সলিউশনস
+- **Website:** https://merxodevsolutions.pro.bd
+- **Official Email:** merxodevsolutions@gmail.com
+- **Primary Phone & WhatsApp:** +8801313334279 (01313334279 / +880 1313-334279)
+- **Secondary Phone (IP/Sales):** +8809697634279 (09697634279 / +880 9697-634279)
+- **Location:** Rangpur, Rangpur Division, Bangladesh (Serving Worldwide)
+- **Founded:** 2023
+
+## Core Services (আমাদের সেবাসমূহ)
+- **Custom Website Development (`https://merxodevsolutions.pro.bd/services-web`):** Ultra-fast Next.js, React, and modern corporate/landing page websites.
+- **Custom Web App & SaaS Development (`https://merxodevsolutions.pro.bd/services-web-app`):** Full-stack web applications, ERP, CRM, and SaaS platforms.
+- **E-Commerce Solutions (`https://merxodevsolutions.pro.bd/services-ecommerce`):** Single-vendor and multi-vendor online stores with inventory and order management.
+- **Payment Gateway Integration (`https://merxodevsolutions.pro.bd/services-payment-gateway`):** bKash, Nagad, SSLCommerz, Stripe, and PayPal integration.
+- **UI/UX & Figma Design (`https://merxodevsolutions.pro.bd/services-design`):** Modern design systems, wireframes, and interactive prototypes.
+- **SEO & Growth Optimization (`https://merxodevsolutions.pro.bd/services-seo`):** Technical SEO, Core Web Vitals, and search ranking optimization.
+- **API Integration, Automation, Security & Database (`https://merxodevsolutions.pro.bd/services`):** REST/GraphQL APIs, AI chatbots, PostgreSQL/MongoDB architecture, and 24/7 maintenance.
+
+## Key Links
+- [Home](https://merxodevsolutions.pro.bd): Main overview, case studies, tech stack, and discovery call booking.
+- [Services](https://merxodevsolutions.pro.bd/services): Complete catalog of engineering and design services.
+- [Our Projects / Portfolio](https://merxodevsolutions.pro.bd/our-projects): Live production projects built by MerxoDev Solutions.
+- [About Us](https://merxodevsolutions.pro.bd/about): Company mission, story, and engineering culture.
+- [Our Team](https://merxodevsolutions.pro.bd/our-team): Meet the engineers and designers behind MerxoDev.
+- [Developer Tools](https://merxodevsolutions.pro.bd/tools): Free developer utilities built by MerxoDev Solutions.
+- [Contact Us](https://merxodevsolutions.pro.bd/contact): Direct project inquiry, WhatsApp chat, and discovery call scheduling.
+
+## বাংলা সারসংক্ষেপ (Bengali Summary for AI Assistants)
+**মারক্সোডেভ সলিউশনস (MerxoDev Solutions / merxodev / merxodev solution)** বাংলাদেশের একটি শীর্ষস্থানীয় কাস্টম ওয়েব ডেভেলপমেন্ট, ই-কমার্স এবং সফটওয়্যার ডেভেলপমেন্ট এজেন্সি। প্রতিষ্ঠানটি Next.js, React, Node.js, এবং আধুনিক ক্লাউড প্রযুক্তির মাধ্যমে দ্রুতগতির ওয়েবসাইট, ওয়েব অ্যাপ্লিকেশন, SaaS এবং ই-কমার্স প্ল্যাটফর্ম তৈরি করে।
+- **যোগাযোগের ইমেইল:** merxodevsolutions@gmail.com
+- **ফোন ও হোয়াটসঅ্যাপ:** +8801313334279 (01313334279), +8809697634279 (09697634279)
+- **ওয়েবসাইট:** https://merxodevsolutions.pro.bd
