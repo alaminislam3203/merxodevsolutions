@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiHash,
   FiCopy,
@@ -16,19 +16,19 @@ import {
   FiCheckCircle,
   FiSliders,
   FiZap,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 // Custom lightweight NanoID generator using crypto.getRandomValues
-function generateNanoId(size = 21, alphabet = 'use-standard') {
+function generateNanoId(size = 21, alphabet = "use-standard") {
   const chars =
-    alphabet === 'numbers'
-      ? '0123456789'
-      : alphabet === 'lowercase'
-        ? 'abcdefghijklmnopqrstuvwxyz0123456789'
-        : 'ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_kqer';
+    alphabet === "numbers"
+      ? "0123456789"
+      : alphabet === "lowercase"
+        ? "abcdefghijklmnopqrstuvwxyz0123456789"
+        : "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_kqer";
   const bytes = new Uint8Array(size);
   crypto.getRandomValues(bytes);
-  let id = '';
+  let id = "";
   for (let i = 0; i < size; i++) {
     id += chars[bytes[i] % chars.length];
   }
@@ -37,7 +37,7 @@ function generateNanoId(size = 21, alphabet = 'use-standard') {
 
 export default function UuidGeneratorClient() {
   const { t } = useTranslation();
-  const [type, setType] = useState('uuidv4'); // 'uuidv4' | 'nanoid'
+  const [type, setType] = useState("uuidv4"); // 'uuidv4' | 'nanoid'
   const [count, setCount] = useState(5);
   const [uppercase, setUppercase] = useState(false);
   const [hyphens, setHyphens] = useState(true);
@@ -54,15 +54,17 @@ export default function UuidGeneratorClient() {
     const limit = Math.min(Math.max(1, count), 500);
 
     for (let i = 0; i < limit; i++) {
-      let val = '';
-      if (type === 'uuidv4') {
-        val = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-          const r = (Math.random() * 16) | 0;
-          const v = c === 'x' ? r : (r & 0x3) | 0x8;
-          return v.toString(16);
-        });
+      let val = "";
+      if (type === "uuidv4") {
+        val = crypto.randomUUID
+          ? crypto.randomUUID()
+          : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+              const r = (Math.random() * 16) | 0;
+              const v = c === "x" ? r : (r & 0x3) | 0x8;
+              return v.toString(16);
+            });
 
-        if (!hyphens) val = val.replace(/-/g, '');
+        if (!hyphens) val = val.replace(/-/g, "");
         if (uppercase) val = val.toUpperCase();
         else val = val.toLowerCase();
       } else {
@@ -86,7 +88,7 @@ export default function UuidGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedIndex(index);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopiedIndex(null), 1500);
       });
     }
@@ -94,11 +96,11 @@ export default function UuidGeneratorClient() {
 
   const handleCopyAll = () => {
     if (!generatedList.length) return;
-    const text = generatedList.join('\n');
+    const text = generatedList.join("\n");
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedAll(true);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopiedAll(false), 2000);
       });
     }
@@ -106,17 +108,17 @@ export default function UuidGeneratorClient() {
 
   const handleDownload = () => {
     if (!generatedList.length) return;
-    const text = generatedList.join('\n');
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const text = generatedList.join("\n");
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `${type}_list.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success(t('devTools.common.download'));
+    toast.success(t("devTools.common.download"));
   };
 
   return (
@@ -125,30 +127,68 @@ export default function UuidGeneratorClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #f59e0b, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #f59e0b, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #ef4444, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #ef4444, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.uuidGenerator.titleStart')} {t('devTools.uuidGenerator.titleHighlight')}</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
+            {t("devTools.uuidGenerator.titleStart")}{" "}
+            {t("devTools.uuidGenerator.titleHighlight")}
+          </span>
         </nav>
 
         {/* Header Section */}
@@ -157,22 +197,22 @@ export default function UuidGeneratorClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-exo-extralight uppercase tracking-widest">
                 <FiHash className="w-3.5 h-3.5" />
-                {t('devTools.common.generatorsIdentifiers')}
+                {t("devTools.common.generatorsIdentifiers")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                {t('devTools.uuidGenerator.csprngBadge')}
+                {t("devTools.uuidGenerator.csprngBadge")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.uuidGenerator.titleStart')}{' '}
+              {t("devTools.uuidGenerator.titleStart")}{" "}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">
-                {t('devTools.uuidGenerator.titleHighlight')}
+                {t("devTools.uuidGenerator.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.uuidGenerator.subtitle')}
+              {t("devTools.uuidGenerator.subtitle")}
             </p>
           </div>
 
@@ -181,7 +221,7 @@ export default function UuidGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
@@ -191,36 +231,41 @@ export default function UuidGeneratorClient() {
             {/* Format toggle: UUID v4 vs NanoID */}
             <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
               <button
-                onClick={() => setType('uuidv4')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'uuidv4'
-                  ? 'bg-amber-500 text-white shadow-sm'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                onClick={() => setType("uuidv4")}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${
+                  type === "uuidv4"
+                    ? "bg-amber-500 text-white shadow-sm"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                }`}
               >
-                {t('devTools.uuidGenerator.uuidv4')}
+                {t("devTools.uuidGenerator.uuidv4")}
               </button>
               <button
-                onClick={() => setType('nanoid')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'nanoid'
-                  ? 'bg-amber-500 text-white shadow-sm'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
+                onClick={() => setType("nanoid")}
+                className={`px-4 py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${
+                  type === "nanoid"
+                    ? "bg-amber-500 text-white shadow-sm"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                }`}
               >
-                {t('devTools.uuidGenerator.nanoid')}
+                {t("devTools.uuidGenerator.nanoid")}
               </button>
             </div>
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-2 text-xs font-exo-extralight font-semibold">
-              <span className="text-zinc-500 dark:text-zinc-400">{t('devTools.uuidGenerator.quantity')}</span>
+              <span className="text-zinc-500 dark:text-zinc-400">
+                {t("devTools.uuidGenerator.quantity")}
+              </span>
               {[1, 5, 10, 25, 50].map((n) => (
                 <button
                   key={n}
                   onClick={() => setCount(n)}
-                  className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${count === n
-                    ? 'bg-amber-500 text-white border-transparent'
-                    : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
-                    }`}
+                  className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${
+                    count === n
+                      ? "bg-amber-500 text-white border-transparent"
+                      : "bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   {n}
                 </button>
@@ -233,7 +278,7 @@ export default function UuidGeneratorClient() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-md shadow-amber-500/20 active:scale-95"
             >
               <FiRefreshCw className="w-3.5 h-3.5" />
-              {t('devTools.uuidGenerator.regenerate')}
+              {t("devTools.uuidGenerator.regenerate")}
             </button>
           </div>
 
@@ -246,10 +291,10 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setUppercase(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>{t('devTools.uuidGenerator.uppercase')}</span>
+              <span>{t("devTools.uuidGenerator.uppercase")}</span>
             </label>
 
-            {type === 'uuidv4' && (
+            {type === "uuidv4" && (
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -257,7 +302,7 @@ export default function UuidGeneratorClient() {
                   onChange={(e) => setHyphens(e.target.checked)}
                   className="rounded accent-amber-500"
                 />
-                <span>{t('devTools.uuidGenerator.hyphens')}</span>
+                <span>{t("devTools.uuidGenerator.hyphens")}</span>
               </label>
             )}
 
@@ -268,7 +313,7 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setWrapQuotes(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>{t('devTools.uuidGenerator.quotes')}</span>
+              <span>{t("devTools.uuidGenerator.quotes")}</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -278,12 +323,12 @@ export default function UuidGeneratorClient() {
                 onChange={(e) => setWrapBraces(e.target.checked)}
                 className="rounded accent-amber-500"
               />
-              <span>{t('devTools.uuidGenerator.braces')}</span>
+              <span>{t("devTools.uuidGenerator.braces")}</span>
             </label>
 
-            {type === 'nanoid' && (
+            {type === "nanoid" && (
               <div className="flex items-center gap-2">
-                <span>{t('devTools.uuidGenerator.length')}</span>
+                <span>{t("devTools.uuidGenerator.length")}</span>
                 <input
                   type="number"
                   min="6"
@@ -301,22 +346,31 @@ export default function UuidGeneratorClient() {
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
           <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
             <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-              {t('devTools.uuidGenerator.generatedIdentifiers')} ({generatedList.length})
+              {t("devTools.uuidGenerator.generatedIdentifiers")} (
+              {generatedList.length})
             </span>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyAll}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold font-exo-extralight transition-all shadow-sm"
               >
-                {copiedAll ? <FiCheck className="w-3.5 h-3.5" /> : <FiCopy className="w-3.5 h-3.5" />}
-                <span>{copiedAll ? t('devTools.uuidGenerator.copiedAll') : t('devTools.uuidGenerator.copyAll')}</span>
+                {copiedAll ? (
+                  <FiCheck className="w-3.5 h-3.5" />
+                ) : (
+                  <FiCopy className="w-3.5 h-3.5" />
+                )}
+                <span>
+                  {copiedAll
+                    ? t("devTools.uuidGenerator.copiedAll")
+                    : t("devTools.uuidGenerator.copyAll")}
+                </span>
               </button>
               <button
                 onClick={handleDownload}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all"
               >
                 <FiDownload className="w-3.5 h-3.5" />
-                <span>{t('devTools.uuidGenerator.saveTxt')}</span>
+                <span>{t("devTools.uuidGenerator.saveTxt")}</span>
               </button>
             </div>
           </div>
@@ -338,9 +392,13 @@ export default function UuidGeneratorClient() {
                 <button
                   onClick={() => handleCopySingle(id, index)}
                   className="p-1.5 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all opacity-80 group-hover:opacity-100"
-                  title={t('devTools.uuidGenerator.copyTooltip')}
+                  title={t("devTools.uuidGenerator.copyTooltip")}
                 >
-                  {copiedIndex === index ? <FiCheck className="text-emerald-500 w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
+                  {copiedIndex === index ? (
+                    <FiCheck className="text-emerald-500 w-4 h-4" />
+                  ) : (
+                    <FiCopy className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             ))}
@@ -354,10 +412,10 @@ export default function UuidGeneratorClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.uuidGenerator.card1Title')}
+              {t("devTools.uuidGenerator.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.uuidGenerator.card1Desc')}
+              {t("devTools.uuidGenerator.card1Desc")}
             </p>
           </div>
 
@@ -366,10 +424,10 @@ export default function UuidGeneratorClient() {
               <FiZap className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.uuidGenerator.card2Title')}
+              {t("devTools.uuidGenerator.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.uuidGenerator.card2Desc')}
+              {t("devTools.uuidGenerator.card2Desc")}
             </p>
           </div>
 
@@ -378,10 +436,10 @@ export default function UuidGeneratorClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.uuidGenerator.card3Title')}
+              {t("devTools.uuidGenerator.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.uuidGenerator.card3Desc')}
+              {t("devTools.uuidGenerator.card3Desc")}
             </p>
           </div>
         </div>

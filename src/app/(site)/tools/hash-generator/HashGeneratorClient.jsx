@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiShield,
   FiCopy,
@@ -15,7 +15,7 @@ import {
   FiLock,
   FiCheckCircle,
   FiKey,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 // Lightweight pure-JS MD5 Implementation
 function md5(string) {
@@ -35,31 +35,52 @@ function md5(string) {
     }
     return lResult ^ lX8 ^ lY8;
   }
-  function md5_F(x, y, z) { return (x & y) | (~x & z); }
-  function md5_G(x, y, z) { return (x & z) | (y & ~z); }
-  function md5_H(x, y, z) { return x ^ y ^ z; }
-  function md5_I(x, y, z) { return y ^ (x | ~z); }
+  function md5_F(x, y, z) {
+    return (x & y) | (~x & z);
+  }
+  function md5_G(x, y, z) {
+    return (x & z) | (y & ~z);
+  }
+  function md5_H(x, y, z) {
+    return x ^ y ^ z;
+  }
+  function md5_I(x, y, z) {
+    return y ^ (x | ~z);
+  }
   function md5_FF(a, b, c, d, x, s, ac) {
-    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_F(b, c, d), x), ac));
+    a = md5_AddUnsigned(
+      a,
+      md5_AddUnsigned(md5_AddUnsigned(md5_F(b, c, d), x), ac),
+    );
     return md5_AddUnsigned(md5_RotateLeft(a, s), b);
   }
   function md5_GG(a, b, c, d, x, s, ac) {
-    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_G(b, c, d), x), ac));
+    a = md5_AddUnsigned(
+      a,
+      md5_AddUnsigned(md5_AddUnsigned(md5_G(b, c, d), x), ac),
+    );
     return md5_AddUnsigned(md5_RotateLeft(a, s), b);
   }
   function md5_HH(a, b, c, d, x, s, ac) {
-    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_H(b, c, d), x), ac));
+    a = md5_AddUnsigned(
+      a,
+      md5_AddUnsigned(md5_AddUnsigned(md5_H(b, c, d), x), ac),
+    );
     return md5_AddUnsigned(md5_RotateLeft(a, s), b);
   }
   function md5_II(a, b, c, d, x, s, ac) {
-    a = md5_AddUnsigned(a, md5_AddUnsigned(md5_AddUnsigned(md5_I(b, c, d), x), ac));
+    a = md5_AddUnsigned(
+      a,
+      md5_AddUnsigned(md5_AddUnsigned(md5_I(b, c, d), x), ac),
+    );
     return md5_AddUnsigned(md5_RotateLeft(a, s), b);
   }
   function md5_ConvertToWordArray(string) {
     let lWordCount;
     const lMessageLength = string.length;
     const lNumberOfWords_temp1 = lMessageLength + 8;
-    const lNumberOfWords_temp2 = (lNumberOfWords_temp1 - (lNumberOfWords_temp1 % 64)) / 64;
+    const lNumberOfWords_temp2 =
+      (lNumberOfWords_temp1 - (lNumberOfWords_temp1 % 64)) / 64;
     const lNumberOfWords = (lNumberOfWords_temp2 + 1) * 16;
     const lWordArray = Array(lNumberOfWords - 1);
     let lBytePosition = 0;
@@ -67,7 +88,9 @@ function md5(string) {
     while (lByteCount < lMessageLength) {
       lWordCount = (lByteCount - (lByteCount % 4)) / 4;
       lBytePosition = (lByteCount % 4) * 8;
-      lWordArray[lWordCount] = lWordArray[lWordCount] | (string.charCodeAt(lByteCount) << lBytePosition);
+      lWordArray[lWordCount] =
+        lWordArray[lWordCount] |
+        (string.charCodeAt(lByteCount) << lBytePosition);
       lByteCount++;
     }
     lWordCount = (lByteCount - (lByteCount % 4)) / 4;
@@ -78,23 +101,46 @@ function md5(string) {
     return lWordArray;
   }
   function md5_WordToHex(lValue) {
-    let WordToHexValue = '', WordToHexValue_temp = '', lByte, lCount;
+    let WordToHexValue = "",
+      WordToHexValue_temp = "",
+      lByte,
+      lCount;
     for (lCount = 0; lCount <= 3; lCount++) {
       lByte = (lValue >>> (lCount * 8)) & 255;
-      WordToHexValue_temp = '0' + lByte.toString(16);
-      WordToHexValue = WordToHexValue + WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
+      WordToHexValue_temp = "0" + lByte.toString(16);
+      WordToHexValue =
+        WordToHexValue +
+        WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
     }
     return WordToHexValue;
   }
   const x = md5_ConvertToWordArray(string);
-  let a = 0x67452301, b = 0xefcdab89, c = 0x98badcfe, d = 0x10325476;
-  const S11 = 7, S12 = 12, S13 = 17, S14 = 22;
-  const S21 = 5, S22 = 9, S23 = 14, S24 = 20;
-  const S31 = 4, S32 = 11, S33 = 16, S34 = 23;
-  const S41 = 6, S42 = 10, S43 = 15, S44 = 21;
+  let a = 0x67452301,
+    b = 0xefcdab89,
+    c = 0x98badcfe,
+    d = 0x10325476;
+  const S11 = 7,
+    S12 = 12,
+    S13 = 17,
+    S14 = 22;
+  const S21 = 5,
+    S22 = 9,
+    S23 = 14,
+    S24 = 20;
+  const S31 = 4,
+    S32 = 11,
+    S33 = 16,
+    S34 = 23;
+  const S41 = 6,
+    S42 = 10,
+    S43 = 15,
+    S44 = 21;
 
   for (let k = 0; k < x.length; k += 16) {
-    const AA = a, BB = b, CC = c, DD = d;
+    const AA = a,
+      BB = b,
+      CC = c,
+      DD = d;
     a = md5_FF(a, b, c, d, x[k + 0], S11, 0xd76aa478);
     d = md5_FF(d, a, b, c, x[k + 1], S12, 0xe8c7b756);
     c = md5_FF(c, d, a, b, x[k + 2], S13, 0x242070db);
@@ -168,43 +214,48 @@ function md5(string) {
     c = md5_AddUnsigned(c, CC);
     d = md5_AddUnsigned(d, DD);
   }
-  return (md5_WordToHex(a) + md5_WordToHex(b) + md5_WordToHex(c) + md5_WordToHex(d)).toLowerCase();
+  return (
+    md5_WordToHex(a) +
+    md5_WordToHex(b) +
+    md5_WordToHex(c) +
+    md5_WordToHex(d)
+  ).toLowerCase();
 }
 
 async function shaHash(str, algo) {
   const msgBuffer = new TextEncoder().encode(str);
   const hashBuffer = await crypto.subtle.digest(algo, msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 export default function HashGeneratorClient() {
   const { t } = useTranslation();
-  const [inputText, setInputText] = useState('MerxoDevSolutions2026');
-  const [salt, setSalt] = useState('');
+  const [inputText, setInputText] = useState("MerxoDevSolutions2026");
+  const [salt, setSalt] = useState("");
   const [uppercase, setUppercase] = useState(false);
   const [copiedKey, setCopiedKey] = useState(null);
   const [hashes, setHashes] = useState({
-    md5: '',
-    sha1: '',
-    sha256: '',
-    sha384: '',
-    sha512: '',
+    md5: "",
+    sha1: "",
+    sha256: "",
+    sha384: "",
+    sha512: "",
   });
 
   const computeHashes = useCallback(async () => {
     const raw = inputText + salt;
     if (!raw) {
-      setHashes({ md5: '', sha1: '', sha256: '', sha384: '', sha512: '' });
+      setHashes({ md5: "", sha1: "", sha256: "", sha384: "", sha512: "" });
       return;
     }
 
     try {
       const [s1, s256, s384, s512] = await Promise.all([
-        shaHash(raw, 'SHA-1'),
-        shaHash(raw, 'SHA-256'),
-        shaHash(raw, 'SHA-384'),
-        shaHash(raw, 'SHA-512'),
+        shaHash(raw, "SHA-1"),
+        shaHash(raw, "SHA-256"),
+        shaHash(raw, "SHA-384"),
+        shaHash(raw, "SHA-512"),
       ]);
       const m = md5(raw);
 
@@ -231,18 +282,48 @@ export default function HashGeneratorClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(keyName);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopiedKey(null), 1500);
       });
     }
   };
 
   const hashItems = [
-    { key: 'sha256', name: 'SHA-256 (Recommended)', length: '256 bits (64 hex chars)', color: 'text-violet-500', value: hashes.sha256 },
-    { key: 'sha512', name: 'SHA-512 (Ultra Secure)', length: '512 bits (128 hex chars)', color: 'text-emerald-500', value: hashes.sha512 },
-    { key: 'md5', name: 'MD5 (Checksums & Legacy)', length: '128 bits (32 hex chars)', color: 'text-amber-500', value: hashes.md5 },
-    { key: 'sha1', name: 'SHA-1 (Git Commit Hashes)', length: '160 bits (40 hex chars)', color: 'text-cyan-500', value: hashes.sha1 },
-    { key: 'sha384', name: 'SHA-384', length: '384 bits (96 hex chars)', color: 'text-indigo-500', value: hashes.sha384 },
+    {
+      key: "sha256",
+      name: "SHA-256 (Recommended)",
+      length: "256 bits (64 hex chars)",
+      color: "text-violet-500",
+      value: hashes.sha256,
+    },
+    {
+      key: "sha512",
+      name: "SHA-512 (Ultra Secure)",
+      length: "512 bits (128 hex chars)",
+      color: "text-emerald-500",
+      value: hashes.sha512,
+    },
+    {
+      key: "md5",
+      name: "MD5 (Checksums & Legacy)",
+      length: "128 bits (32 hex chars)",
+      color: "text-amber-500",
+      value: hashes.md5,
+    },
+    {
+      key: "sha1",
+      name: "SHA-1 (Git Commit Hashes)",
+      length: "160 bits (40 hex chars)",
+      color: "text-cyan-500",
+      value: hashes.sha1,
+    },
+    {
+      key: "sha384",
+      name: "SHA-384",
+      length: "384 bits (96 hex chars)",
+      color: "text-indigo-500",
+      value: hashes.sha384,
+    },
   ];
 
   return (
@@ -251,30 +332,68 @@ export default function HashGeneratorClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #8b5cf6, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #10b981, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #10b981, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{t('devTools.hashGenerator.titleStart')} {t('devTools.hashGenerator.titleHighlight')}</span>
+          <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
+            {t("devTools.hashGenerator.titleStart")}{" "}
+            {t("devTools.hashGenerator.titleHighlight")}
+          </span>
         </nav>
 
         {/* Header Section */}
@@ -283,22 +402,22 @@ export default function HashGeneratorClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiShield className="w-3.5 h-3.5" />
-                {t('devTools.common.securityAuth')}
+                {t("devTools.common.securityAuth")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiLock className="w-3 h-3 text-emerald-500" />
-                {t('devTools.common.clientSidePrivacy')}
+                {t("devTools.common.clientSidePrivacy")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.hashGenerator.titleStart')}{' '}
+              {t("devTools.hashGenerator.titleStart")}{" "}
               <span className="bg-gradient-to-r from-violet-600 via-indigo-500 to-emerald-500 bg-clip-text text-transparent">
-                {t('devTools.hashGenerator.titleHighlight')}
+                {t("devTools.hashGenerator.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.hashGenerator.subtitle')}
+              {t("devTools.hashGenerator.subtitle")}
             </p>
           </div>
 
@@ -307,7 +426,7 @@ export default function HashGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
@@ -316,20 +435,20 @@ export default function HashGeneratorClient() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-8">
               <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-1.5">
-                {t('devTools.hashGenerator.textToHash')}
+                {t("devTools.hashGenerator.textToHash")}
               </label>
               <input
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder={t('devTools.hashGenerator.placeholder')}
+                placeholder={t("devTools.hashGenerator.placeholder")}
                 className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500"
               />
             </div>
 
             <div className="md:col-span-4">
               <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-1.5">
-                {t('devTools.hashGenerator.optionalSalt')}
+                {t("devTools.hashGenerator.optionalSalt")}
               </label>
               <div className="relative">
                 <FiKey className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
@@ -337,7 +456,7 @@ export default function HashGeneratorClient() {
                   type="text"
                   value={salt}
                   onChange={(e) => setSalt(e.target.value)}
-                  placeholder={t('devTools.hashGenerator.saltPlaceholder')}
+                  placeholder={t("devTools.hashGenerator.saltPlaceholder")}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-sm font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
               </div>
@@ -352,18 +471,18 @@ export default function HashGeneratorClient() {
                 onChange={(e) => setUppercase(e.target.checked)}
                 className="rounded accent-violet-600"
               />
-              <span>{t('devTools.hashGenerator.uppercaseHex')}</span>
+              <span>{t("devTools.hashGenerator.uppercaseHex")}</span>
             </label>
 
             <button
               onClick={() => {
-                setInputText('');
-                setSalt('');
+                setInputText("");
+                setSalt("");
               }}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold font-exo-extralight transition-all"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
-              {t('devTools.common.clear')}
+              {t("devTools.common.clear")}
             </button>
           </div>
         </div>
@@ -377,7 +496,9 @@ export default function HashGeneratorClient() {
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold uppercase tracking-wider font-exo-extralight ${item.color}`}>
+                  <span
+                    className={`text-xs font-bold uppercase tracking-wider font-exo-extralight ${item.color}`}
+                  >
                     {item.name}
                   </span>
                   <span className="text-[11px] text-zinc-400 font-mono hidden sm:inline">
@@ -389,13 +510,25 @@ export default function HashGeneratorClient() {
                   disabled={!item.value}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-100 hover:bg-violet-600 hover:text-white dark:bg-zinc-800 dark:hover:bg-violet-600 text-zinc-700 dark:text-zinc-300 text-xs font-bold font-exo-extralight transition-all disabled:opacity-40"
                 >
-                  {copiedKey === item.name ? <FiCheck className="text-emerald-400" /> : <FiCopy />}
-                  <span>{copiedKey === item.name ? t('devTools.common.copied') : t('devTools.common.copy')}</span>
+                  {copiedKey === item.name ? (
+                    <FiCheck className="text-emerald-400" />
+                  ) : (
+                    <FiCopy />
+                  )}
+                  <span>
+                    {copiedKey === item.name
+                      ? t("devTools.common.copied")
+                      : t("devTools.common.copy")}
+                  </span>
                 </button>
               </div>
 
               <div className="p-3 rounded-xl bg-zinc-950 font-mono text-xs text-zinc-200 break-all select-all">
-                {item.value || <span className="text-zinc-600 font-sans italic">{t('devTools.hashGenerator.placeholder')}</span>}
+                {item.value || (
+                  <span className="text-zinc-600 font-sans italic">
+                    {t("devTools.hashGenerator.placeholder")}
+                  </span>
+                )}
               </div>
             </div>
           ))}
@@ -408,10 +541,10 @@ export default function HashGeneratorClient() {
               <FiLock className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.hashGenerator.card1Title')}
+              {t("devTools.hashGenerator.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.hashGenerator.card1Desc')}
+              {t("devTools.hashGenerator.card1Desc")}
             </p>
           </div>
 
@@ -420,10 +553,10 @@ export default function HashGeneratorClient() {
               <FiKey className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.hashGenerator.card2Title')}
+              {t("devTools.hashGenerator.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.hashGenerator.card2Desc')}
+              {t("devTools.hashGenerator.card2Desc")}
             </p>
           </div>
 
@@ -432,10 +565,10 @@ export default function HashGeneratorClient() {
               <FiCheckCircle className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.hashGenerator.card3Title')}
+              {t("devTools.hashGenerator.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.hashGenerator.card3Desc')}
+              {t("devTools.hashGenerator.card3Desc")}
             </p>
           </div>
         </div>

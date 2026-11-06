@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiCode,
   FiKey,
@@ -24,219 +24,217 @@ import {
   FiLock,
   FiCpu,
   FiZap,
-} from 'react-icons/fi';
-import ToolIllustration from '@/components/tools/ToolIllustration';
+} from "react-icons/fi";
+import ToolIllustration from "@/components/tools/ToolIllustration";
 
 const TOOLS_DATA = [
   {
-    id: 'website-auditor',
-    title: 'Live Website SEO & Speed Auditor',
+    id: "website-auditor",
+    title: "Live Website SEO & Speed Auditor",
     description:
-      'Analyze any website URL for TTFB response speed, HTTPS SSL, Meta tags, OpenGraph cards, H1 hierarchy, and Schema data.',
-    category: 'SEO & Web',
-    badge: 'New & Free',
-    badgeColor: 'emerald',
+      "Analyze any website URL for TTFB response speed, HTTPS SSL, Meta tags, OpenGraph cards, H1 hierarchy, and Schema data.",
+    category: "SEO & Web",
+    badge: "New & Free",
+    badgeColor: "emerald",
     icon: FiZap,
-    href: '/tools/website-auditor',
-    tags: ['SEO Score', 'TTFB Speed', 'Meta Audit'],
+    href: "/tools/website-auditor",
+    tags: ["SEO Score", "TTFB Speed", "Meta Audit"],
     clientSide: false,
   },
   {
-    id: 'cost-calculator',
-    title: 'Project Cost & Timeline Calculator',
+    id: "cost-calculator",
+    title: "Project Cost & Timeline Calculator",
     description:
-      'Calculate instant BDT & USD pricing for custom websites, e-commerce stores, payment gateways, and SaaS applications.',
-    category: 'BD Devs',
-    badge: 'Popular',
-    badgeColor: 'amber',
+      "Calculate instant BDT & USD pricing for custom websites, e-commerce stores, payment gateways, and SaaS applications.",
+    category: "BD Devs",
+    badge: "Popular",
+    badgeColor: "amber",
     icon: FiSliders,
-    href: '/cost-calculator',
-    tags: ['Instant Quote', 'BDT/USD', 'Timeline'],
+    href: "/cost-calculator",
+    tags: ["Instant Quote", "BDT/USD", "Timeline"],
     clientSide: true,
   },
   {
-    id: 'bangladesh-geojson',
-    title: 'Bangladesh Postcode & Geo Data',
+    id: "bangladesh-geojson",
+    title: "Bangladesh Postcode & Geo Data",
     description:
-      'Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.',
-    category: 'BD Devs',
-    badge: 'Local Special',
-    badgeColor: 'emerald',
+      "Instant lookup for Bangladesh divisions, districts, upazilas, and post codes with copyable JSON dataset.",
+    category: "BD Devs",
+    badge: "Local Special",
+    badgeColor: "emerald",
     icon: FiMapPin,
-    href: '/bangladesh-geojson',
-    tags: ['Districts', 'Postcodes', 'JSON Data'],
+    href: "/bangladesh-geojson",
+    tags: ["Districts", "Postcodes", "JSON Data"],
     clientSide: true,
   },
   {
-    id: 'jwt-decoder',
-    title: 'JWT Debugger & Decoder',
+    id: "jwt-decoder",
+    title: "JWT Debugger & Decoder",
     description:
-      'Inspect JSON Web Tokens in real time. Decode header, payload claims, and verify token expiration securely.',
-    category: 'Security',
-    badge: 'Essential',
-    badgeColor: 'emerald',
+      "Inspect JSON Web Tokens in real time. Decode header, payload claims, and verify token expiration securely.",
+    category: "Security",
+    badge: "Essential",
+    badgeColor: "emerald",
     icon: FiKey,
-    href: '/tools/jwt-decoder',
-    tags: ['JWT', 'Bearer', 'Auth'],
+    href: "/tools/jwt-decoder",
+    tags: ["JWT", "Bearer", "Auth"],
     clientSide: true,
   },
   {
-    id: 'base64',
-    title: 'Base64 Encoder & Decoder',
+    id: "base64",
+    title: "Base64 Encoder & Decoder",
     description:
-      'Instantly convert plain text, binary strings, and image assets to and from clean Base64 strings.',
-    category: 'Formatters',
-    badge: 'Fast',
-    badgeColor: 'cyan',
+      "Instantly convert plain text, binary strings, and image assets to and from clean Base64 strings.",
+    category: "Formatters",
+    badge: "Fast",
+    badgeColor: "cyan",
     icon: FiFileText,
-    href: '/tools/base64',
-    tags: ['Encode', 'Decode', 'Data URI'],
+    href: "/tools/base64",
+    tags: ["Encode", "Decode", "Data URI"],
     clientSide: true,
   },
   {
-    id: 'url-encoder',
-    title: 'URL & Query Encoder',
+    id: "url-encoder",
+    title: "URL & Query Encoder",
     description:
-      'Safely encode and decode URL query parameters, escaped characters, and UTF-8 strings.',
-    category: 'Formatters',
+      "Safely encode and decode URL query parameters, escaped characters, and UTF-8 strings.",
+    category: "Formatters",
     icon: FiLink,
-    href: '/tools/url-encoder',
-    tags: ['RFC3986', 'URI Component'],
+    href: "/tools/url-encoder",
+    tags: ["RFC3986", "URI Component"],
     clientSide: true,
   },
   {
-    id: 'uuid-generator',
-    title: 'UUID & NanoID Generator',
+    id: "uuid-generator",
+    title: "UUID & NanoID Generator",
     description:
-      'Generate cryptographically safe UUID v4, v1, and customizable NanoIDs in single or bulk quantities.',
-    category: 'Generators',
-    badge: 'Fast',
-    badgeColor: 'amber',
+      "Generate cryptographically safe UUID v4, v1, and customizable NanoIDs in single or bulk quantities.",
+    category: "Generators",
+    badge: "Fast",
+    badgeColor: "amber",
     icon: FiHash,
-    href: '/tools/uuid-generator',
-    tags: ['UUID v4', 'NanoID', 'Bulk'],
+    href: "/tools/uuid-generator",
+    tags: ["UUID v4", "NanoID", "Bulk"],
     clientSide: true,
   },
   {
-    id: 'hash-generator',
-    title: 'Hash & Password Generator',
+    id: "hash-generator",
+    title: "Hash & Password Generator",
     description:
-      'Generate secure MD5, SHA-1, SHA-256, SHA-512, and salted password hashes directly inside your browser.',
-    category: 'Security',
+      "Generate secure MD5, SHA-1, SHA-256, SHA-512, and salted password hashes directly inside your browser.",
+    category: "Security",
     icon: FiShield,
-    href: '/tools/hash-generator',
-    tags: ['SHA-256', 'MD5', 'Crypto'],
+    href: "/tools/hash-generator",
+    tags: ["SHA-256", "MD5", "Crypto"],
     clientSide: true,
   },
   {
-    id: 'css-shadow',
-    title: 'CSS Shadow & Glass Builder',
+    id: "css-shadow",
+    title: "CSS Shadow & Glass Builder",
     description:
-      'Visual drop-shadow and glassmorphism designer with real-time preview and one-click CSS code export.',
-    category: 'CSS & UI',
-    badge: 'Creative',
-    badgeColor: 'rose',
+      "Visual drop-shadow and glassmorphism designer with real-time preview and one-click CSS code export.",
+    category: "CSS & UI",
+    badge: "Creative",
+    badgeColor: "rose",
     icon: FiBox,
-    href: '/tools/css-shadow',
-    tags: ['Box Shadow', 'Glassmorphism', 'Tailwind'],
+    href: "/tools/css-shadow",
+    tags: ["Box Shadow", "Glassmorphism", "Tailwind"],
     clientSide: true,
   },
   {
-    id: 'gradient-generator',
-    title: 'CSS Gradient Maker',
+    id: "gradient-generator",
+    title: "CSS Gradient Maker",
     description:
-      'Create high-contrast linear, radial, and mesh CSS gradients with color stop controls and CSS/Tailwind export.',
-    category: 'CSS & UI',
+      "Create high-contrast linear, radial, and mesh CSS gradients with color stop controls and CSS/Tailwind export.",
+    category: "CSS & UI",
     icon: FiSliders,
-    href: '/tools/gradient-generator',
-    tags: ['Linear', 'Radial', 'CSS Gradients'],
+    href: "/tools/gradient-generator",
+    tags: ["Linear", "Radial", "CSS Gradients"],
     clientSide: true,
   },
   {
-    id: 'regex-tester',
-    title: 'Regex Tester & Visualizer',
+    id: "regex-tester",
+    title: "Regex Tester & Visualizer",
     description:
-      'Test and debug regular expressions with real-time match highlighting, capture groups, and flag toggles.',
-    category: 'Utilities',
-    badge: 'Popular',
-    badgeColor: 'violet',
+      "Test and debug regular expressions with real-time match highlighting, capture groups, and flag toggles.",
+    category: "Utilities",
+    badge: "Popular",
+    badgeColor: "violet",
     icon: FiLayers,
-    href: '/tools/regex-tester',
-    tags: ['Regex', 'Match', 'Flags'],
+    href: "/tools/regex-tester",
+    tags: ["Regex", "Match", "Flags"],
     clientSide: true,
   },
   {
-    id: 'meta-previewer',
-    title: 'Meta Tags & OG Previewer',
+    id: "meta-previewer",
+    title: "Meta Tags & OG Previewer",
     description:
-      'Preview social share cards for Facebook, Twitter/X, and LinkedIn, plus copy ready-to-use HTML meta tags.',
-    category: 'Web & SEO',
-    badge: 'SEO',
-    badgeColor: 'cyan',
+      "Preview social share cards for Facebook, Twitter/X, and LinkedIn, plus copy ready-to-use HTML meta tags.",
+    category: "Web & SEO",
+    badge: "SEO",
+    badgeColor: "cyan",
     icon: FiGlobe,
-    href: '/tools/meta-previewer',
-    tags: ['Open Graph', 'Twitter Cards', 'SEO'],
+    href: "/tools/meta-previewer",
+    tags: ["Open Graph", "Twitter Cards", "SEO"],
     clientSide: true,
   },
   {
-    id: 'http-status',
-    title: 'HTTP Status Codes Reference',
+    id: "http-status",
+    title: "HTTP Status Codes Reference",
     description:
-      'Fast, searchable cheat sheet of all HTTP response codes (1xx - 5xx) with troubleshooting advice.',
-    category: 'Utilities',
+      "Fast, searchable cheat sheet of all HTTP response codes (1xx - 5xx) with troubleshooting advice.",
+    category: "Utilities",
     icon: FiZap,
-    href: '/tools/http-status',
-    tags: ['REST API', 'HTTP Codes', 'Cheatsheet'],
+    href: "/tools/http-status",
+    tags: ["REST API", "HTTP Codes", "Cheatsheet"],
     clientSide: true,
   },
   {
-    id: 'json-formatter',
-    title: 'JSON Formatter & Validator',
+    id: "json-formatter",
+    title: "JSON Formatter & Validator",
     description:
-      'Clean, beautify, and validate complex JSON payloads with instant error detection and minification.',
-    category: 'Formatters',
-    badge: 'Popular',
-    badgeColor: 'violet',
+      "Clean, beautify, and validate complex JSON payloads with instant error detection and minification.",
+    category: "Formatters",
+    badge: "Popular",
+    badgeColor: "violet",
     icon: FiCode,
-    href: '/tools/json-formatter',
-    tags: ['Beautify', 'Minify', 'Validate'],
+    href: "/tools/json-formatter",
+    tags: ["Beautify", "Minify", "Validate"],
     clientSide: true,
   },
 ];
 
 const CATEGORIES = [
-  'All',
-  'Formatters',
-  'Security',
-  'CSS & UI',
-  'Generators',
-  'Web & SEO',
-  'Utilities',
-  'BD Devs',
+  "All",
+  "Formatters",
+  "Security",
+  "CSS & UI",
+  "Generators",
+  "Web & SEO",
+  "Utilities",
+  "BD Devs",
 ];
 
 const BADGE_STYLES = {
   violet:
-    'bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800',
+    "bg-violet-100 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800",
   emerald:
-    'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
-  cyan:
-    'bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
+    "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+  cyan: "bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800",
   amber:
-    'bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  rose:
-    'bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
+    "bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+  rose: "bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800",
 };
 
 export default function ToolsClient() {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTools = useMemo(() => {
     return TOOLS_DATA.filter((tool) => {
       const matchCategory =
-        activeCategory === 'All' || tool.category === activeCategory;
+        activeCategory === "All" || tool.category === activeCategory;
       const q = searchQuery.toLowerCase().trim();
       const matchSearch =
         !q ||
@@ -254,14 +252,14 @@ export default function ToolsClient() {
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          background: "radial-gradient(circle, #7c3aed, transparent 70%)",
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[520px] h-[520px] rounded-full opacity-15 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+          background: "radial-gradient(circle, #06b6d4, transparent 70%)",
         }}
       />
 
@@ -269,7 +267,7 @@ export default function ToolsClient() {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
         >
           <Link
             href="/"
@@ -304,23 +302,23 @@ export default function ToolsClient() {
                 className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                 aria-hidden
               />
-              {t('toolsPage.badge')}
+              {t("toolsPage.badge")}
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
               <FiLock className="w-3.5 h-3.5 text-emerald-500" />
-              {t('toolsPage.clientSideOnly')}
+              {t("toolsPage.clientSideOnly")}
             </span>
           </div>
 
           <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight leading-tight">
-            {t('toolsPage.heroTitleStart')}
+            {t("toolsPage.heroTitleStart")}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              {t('toolsPage.heroTitleHighlight')}
+              {t("toolsPage.heroTitleHighlight")}
             </span>
           </h1>
 
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed font-exo-extralight">
-            {t('toolsPage.heroSubtitle')}
+            {t("toolsPage.heroSubtitle")}
           </p>
 
           {/* Quick Stats Banner */}
@@ -349,12 +347,15 @@ export default function ToolsClient() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('toolsPage.searchPlaceholder') || "Search tools by name, keyword, or tag..."}
+              placeholder={
+                t("toolsPage.searchPlaceholder") ||
+                "Search tools by name, keyword, or tag..."
+              }
               className="w-full pl-10 pr-9 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
             />
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-0.5"
                 aria-label="Clear search"
               >
@@ -365,10 +366,10 @@ export default function ToolsClient() {
 
           {/* Result Count */}
           <div className="text-xs font-exo-extralight text-zinc-500 dark:text-zinc-400">
-            Showing{' '}
+            Showing{" "}
             <span className="text-violet-600 dark:text-violet-400 font-semibold">
               {filteredTools.length}
-            </span>{' '}
+            </span>{" "}
             of {TOOLS_DATA.length} Tools
           </div>
         </div>
@@ -380,7 +381,7 @@ export default function ToolsClient() {
         >
           {CATEGORIES.map((category) => {
             const count =
-              category === 'All'
+              category === "All"
                 ? TOOLS_DATA.length
                 : TOOLS_DATA.filter((t) => t.category === category).length;
             const isActive = activeCategory === category;
@@ -390,17 +391,19 @@ export default function ToolsClient() {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setActiveCategory(category)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all duration-200 border cursor-pointer ${isActive
-                  ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-md shadow-violet-500/25'
-                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
-                  }`}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all duration-200 border cursor-pointer ${
+                  isActive
+                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-md shadow-violet-500/25"
+                    : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400"
+                }`}
               >
                 {category}
                 <span
-                  className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${isActive
-                    ? 'bg-white/20 text-white'
-                    : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
-                    }`}
+                  className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
+                  }`}
                 >
                   {count}
                 </span>
@@ -437,10 +440,8 @@ export default function ToolsClient() {
                 </div>
 
                 {/* Bottom: Open Tool Button */}
-                <div
-                  className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 lg:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-[10px] sm:text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30"
-                >
-                  <span>{t('toolsPage.openTool') || 'Open Tool'}</span>
+                <div className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 lg:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl bg-blue-600 group-hover:bg-blue-500 active:scale-[0.99] text-white font-semibold text-[10px] sm:text-xs uppercase tracking-wider font-exo transition-all duration-200 shadow-md shadow-blue-500/20 group-hover:shadow-lg group-hover:shadow-blue-500/30">
+                  <span>{t("toolsPage.openTool") || "Open Tool"}</span>
                   <FiArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
@@ -456,13 +457,13 @@ export default function ToolsClient() {
               No matching tools found
             </h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto mb-6">
-              We couldn&apos;t find any tool matching &quot;{searchQuery}&quot;. Try
-              searching with another term or clear the filter.
+              We couldn&apos;t find any tool matching &quot;{searchQuery}&quot;.
+              Try searching with another term or clear the filter.
             </p>
             <button
               onClick={() => {
-                setSearchQuery('');
-                setActiveCategory('All');
+                setSearchQuery("");
+                setActiveCategory("All");
               }}
               className="px-5 py-2.5 rounded-xl bg-violet-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-violet-700 transition-colors"
             >
@@ -478,17 +479,17 @@ export default function ToolsClient() {
               Missing Your Favorite Tool?
             </span>
             <h3 className="font-exo-medium text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-2">
-              {t('toolsPage.customToolTitle')}
+              {t("toolsPage.customToolTitle")}
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('toolsPage.customToolDesc')}
+              {t("toolsPage.customToolDesc")}
             </p>
           </div>
           <Link
             href="/contact"
             className="shrink-0 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] transition-all"
           >
-            {t('toolsPage.requestToolBtn')}
+            {t("toolsPage.requestToolBtn")}
           </Link>
         </div>
       </div>

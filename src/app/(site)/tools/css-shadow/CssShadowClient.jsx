@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiBox,
   FiCopy,
@@ -15,15 +15,69 @@ import {
   FiCode,
   FiEye,
   FiLayers,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 const PRESETS = [
-  { name: 'Smooth Modern', x: 0, y: 12, blur: 32, spread: -4, color: '#6366f1', opacity: 0.25, inset: false },
-  { name: 'Soft Dark Floating', x: 0, y: 20, blur: 40, spread: -5, color: '#000000', opacity: 0.4, inset: false },
-  { name: 'Neon Glow (Cyan)', x: 0, y: 0, blur: 30, spread: 4, color: '#06b6d4', opacity: 0.6, inset: false },
-  { name: 'Violet Ambience', x: 0, y: 10, blur: 25, spread: 2, color: '#8b5cf6', opacity: 0.35, inset: false },
-  { name: 'Inner Depressed (Inset)', x: 0, y: 6, blur: 16, spread: 0, color: '#000000', opacity: 0.3, inset: true },
-  { name: 'Subtle Card Elevation', x: 0, y: 4, blur: 12, spread: 0, color: '#000000', opacity: 0.08, inset: false },
+  {
+    name: "Smooth Modern",
+    x: 0,
+    y: 12,
+    blur: 32,
+    spread: -4,
+    color: "#6366f1",
+    opacity: 0.25,
+    inset: false,
+  },
+  {
+    name: "Soft Dark Floating",
+    x: 0,
+    y: 20,
+    blur: 40,
+    spread: -5,
+    color: "#000000",
+    opacity: 0.4,
+    inset: false,
+  },
+  {
+    name: "Neon Glow (Cyan)",
+    x: 0,
+    y: 0,
+    blur: 30,
+    spread: 4,
+    color: "#06b6d4",
+    opacity: 0.6,
+    inset: false,
+  },
+  {
+    name: "Violet Ambience",
+    x: 0,
+    y: 10,
+    blur: 25,
+    spread: 2,
+    color: "#8b5cf6",
+    opacity: 0.35,
+    inset: false,
+  },
+  {
+    name: "Inner Depressed (Inset)",
+    x: 0,
+    y: 6,
+    blur: 16,
+    spread: 0,
+    color: "#000000",
+    opacity: 0.3,
+    inset: true,
+  },
+  {
+    name: "Subtle Card Elevation",
+    x: 0,
+    y: 4,
+    blur: 12,
+    spread: 0,
+    color: "#000000",
+    opacity: 0.08,
+    inset: false,
+  },
 ];
 
 export default function CssShadowClient() {
@@ -32,7 +86,7 @@ export default function CssShadowClient() {
   const [y, setY] = useState(14);
   const [blur, setBlur] = useState(30);
   const [spread, setSpread] = useState(-4);
-  const [shadowColor, setShadowColor] = useState('#7c3aed');
+  const [shadowColor, setShadowColor] = useState("#7c3aed");
   const [opacity, setOpacity] = useState(0.3);
   const [inset, setInset] = useState(false);
   const [isGlass, setIsGlass] = useState(false);
@@ -40,8 +94,12 @@ export default function CssShadowClient() {
 
   // Convert hex to rgba
   const hexToRgba = (hex, alpha) => {
-    let c = hex.replace('#', '');
-    if (c.length === 3) c = c.split('').map((x) => x + x).join('');
+    let c = hex.replace("#", "");
+    if (c.length === 3)
+      c = c
+        .split("")
+        .map((x) => x + x)
+        .join("");
     const num = parseInt(c, 16);
     const r = (num >> 16) & 255;
     const g = (num >> 8) & 255;
@@ -51,13 +109,13 @@ export default function CssShadowClient() {
 
   const shadowCss = useMemo(() => {
     const rgba = hexToRgba(shadowColor, opacity);
-    const insetStr = inset ? 'inset ' : '';
+    const insetStr = inset ? "inset " : "";
     return `${insetStr}${x}px ${y}px ${blur}px ${spread}px ${rgba}`;
   }, [x, y, blur, spread, shadowColor, opacity, inset]);
 
   const tailwindSnippet = useMemo(() => {
-    const rgbaClean = hexToRgba(shadowColor, opacity).replace(/\s/g, '');
-    const insetPrefix = inset ? 'inset_' : '';
+    const rgbaClean = hexToRgba(shadowColor, opacity).replace(/\s/g, "");
+    const insetPrefix = inset ? "inset_" : "";
     return `shadow-[${insetPrefix}${x}px_${y}px_${blur}px_${spread}px_${rgbaClean}]`;
   }, [x, y, blur, spread, shadowColor, opacity, inset]);
 
@@ -72,7 +130,7 @@ export default function CssShadowClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(key);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopiedKey(null), 1500);
       });
     }
@@ -95,31 +153,67 @@ export default function CssShadowClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #ec4899, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #ec4899, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #8b5cf6, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
-            {t('devTools.cssShadow.titleStart')} {t('devTools.cssShadow.titleHighlight')}
+            {t("devTools.cssShadow.titleStart")}{" "}
+            {t("devTools.cssShadow.titleHighlight")}
           </span>
         </nav>
 
@@ -129,22 +223,22 @@ export default function CssShadowClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 font-exo-extralight uppercase tracking-widest">
                 <FiBox className="w-3.5 h-3.5" />
-                {t('devTools.common.cssUiTools')}
+                {t("devTools.common.cssUiTools")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiSliders className="w-3 h-3 text-rose-500" />
-                {t('devTools.common.preview')}
+                {t("devTools.common.preview")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.cssShadow.titleStart')}{' '}
+              {t("devTools.cssShadow.titleStart")}{" "}
               <span className="bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
-                {t('devTools.cssShadow.titleHighlight')}
+                {t("devTools.cssShadow.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.cssShadow.subtitle')}
+              {t("devTools.cssShadow.subtitle")}
             </p>
           </div>
 
@@ -153,14 +247,14 @@ export default function CssShadowClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
           <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">
-            {t('devTools.cssShadow.presets')}
+            {t("devTools.cssShadow.presets")}
           </span>
           {PRESETS.map((p) => (
             <button
@@ -178,13 +272,13 @@ export default function CssShadowClient() {
           {/* Controls Form (5 cols) */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-5">
             <h2 className="font-exo-medium text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
-              {t('devTools.cssShadow.controls')}
+              {t("devTools.cssShadow.controls")}
             </h2>
 
             {/* Horizontal (X) */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
-                <span>{t('devTools.cssShadow.xOffset')}</span>
+                <span>{t("devTools.cssShadow.xOffset")}</span>
                 <span className="font-mono text-rose-500">{x}px</span>
               </div>
               <input
@@ -200,7 +294,7 @@ export default function CssShadowClient() {
             {/* Vertical (Y) */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
-                <span>{t('devTools.cssShadow.yOffset')}</span>
+                <span>{t("devTools.cssShadow.yOffset")}</span>
                 <span className="font-mono text-rose-500">{y}px</span>
               </div>
               <input
@@ -216,7 +310,7 @@ export default function CssShadowClient() {
             {/* Blur Radius */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
-                <span>{t('devTools.cssShadow.blurRadius')}</span>
+                <span>{t("devTools.cssShadow.blurRadius")}</span>
                 <span className="font-mono text-rose-500">{blur}px</span>
               </div>
               <input
@@ -232,7 +326,7 @@ export default function CssShadowClient() {
             {/* Spread Radius */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
-                <span>{t('devTools.cssShadow.spreadRadius')}</span>
+                <span>{t("devTools.cssShadow.spreadRadius")}</span>
                 <span className="font-mono text-rose-500">{spread}px</span>
               </div>
               <input
@@ -249,7 +343,7 @@ export default function CssShadowClient() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-exo-extralight font-semibold mb-1.5">
-                  {t('devTools.cssShadow.color')}
+                  {t("devTools.cssShadow.color")}
                 </label>
                 <div className="flex items-center gap-2">
                   <input
@@ -269,8 +363,10 @@ export default function CssShadowClient() {
 
               <div>
                 <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
-                  <span>{t('devTools.cssShadow.opacity')}</span>
-                  <span className="font-mono text-rose-500">{Math.round(opacity * 100)}%</span>
+                  <span>{t("devTools.cssShadow.opacity")}</span>
+                  <span className="font-mono text-rose-500">
+                    {Math.round(opacity * 100)}%
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -293,7 +389,7 @@ export default function CssShadowClient() {
                   onChange={(e) => setInset(e.target.checked)}
                   className="rounded accent-rose-500"
                 />
-                <span>{t('devTools.cssShadow.insetShadow')}</span>
+                <span>{t("devTools.cssShadow.insetShadow")}</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer font-semibold select-none">
@@ -303,7 +399,7 @@ export default function CssShadowClient() {
                   onChange={(e) => setIsGlass(e.target.checked)}
                   className="rounded accent-rose-500"
                 />
-                <span>{t('devTools.cssShadow.glassmorphism')}</span>
+                <span>{t("devTools.cssShadow.glassmorphism")}</span>
               </label>
             </div>
           </div>
@@ -315,17 +411,28 @@ export default function CssShadowClient() {
               <div
                 style={{
                   boxShadow: shadowCss,
-                  backgroundColor: isGlass ? 'rgba(255, 255, 255, 0.15)' : undefined,
-                  backdropFilter: isGlass ? 'blur(14px)' : undefined,
-                  border: isGlass ? '1px solid rgba(255, 255, 255, 0.25)' : undefined,
+                  backgroundColor: isGlass
+                    ? "rgba(255, 255, 255, 0.15)"
+                    : undefined,
+                  backdropFilter: isGlass ? "blur(14px)" : undefined,
+                  border: isGlass
+                    ? "1px solid rgba(255, 255, 255, 0.25)"
+                    : undefined,
                 }}
-                className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${isGlass ? 'text-white' : 'bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100'
-                  }`}
+                className={`w-64 h-48 rounded-2xl flex flex-col items-center justify-center p-6 text-center transition-shadow duration-150 select-none ${
+                  isGlass
+                    ? "text-white"
+                    : "bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100"
+                }`}
               >
                 <FiBox className="w-8 h-8 text-rose-500 mb-2" />
-                <h3 className="font-exo-medium text-lg font-bold">{t('devTools.cssShadow.previewBox')}</h3>
+                <h3 className="font-exo-medium text-lg font-bold">
+                  {t("devTools.cssShadow.previewBox")}
+                </h3>
                 <p className="text-xs opacity-70 font-exo-extralight mt-1">
-                  {inset ? t('devTools.cssShadow.insetShadow') : t('devTools.cssShadow.titleStart')}
+                  {inset
+                    ? t("devTools.cssShadow.insetShadow")
+                    : t("devTools.cssShadow.titleStart")}
                 </p>
               </div>
             </div>
@@ -336,14 +443,20 @@ export default function CssShadowClient() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                    {t('devTools.cssShadow.cssCode')}
+                    {t("devTools.cssShadow.cssCode")}
                   </span>
                   <button
-                    onClick={() => handleCopy(fullCssSnippet, 'CSS Rule')}
+                    onClick={() => handleCopy(fullCssSnippet, "CSS Rule")}
                     className="text-xs font-bold font-exo-extralight text-rose-600 hover:text-rose-700 flex items-center gap-1"
                   >
-                    {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                    {copiedKey === 'CSS Rule' ? t('devTools.common.copied') : t('devTools.common.copy')}
+                    {copiedKey === "CSS Rule" ? (
+                      <FiCheck className="text-emerald-500" />
+                    ) : (
+                      <FiCopy />
+                    )}
+                    {copiedKey === "CSS Rule"
+                      ? t("devTools.common.copied")
+                      : t("devTools.common.copy")}
                   </button>
                 </div>
                 <pre className="p-3 rounded-xl bg-zinc-950 text-rose-300 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
@@ -355,14 +468,22 @@ export default function CssShadowClient() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                    {t('devTools.cssShadow.tailwindClass')}
+                    {t("devTools.cssShadow.tailwindClass")}
                   </span>
                   <button
-                    onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
+                    onClick={() =>
+                      handleCopy(tailwindSnippet, "Tailwind Class")
+                    }
                     className="text-xs font-bold font-exo-extralight text-rose-600 hover:text-rose-700 flex items-center gap-1"
                   >
-                    {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                    {copiedKey === 'Tailwind Class' ? t('devTools.common.copied') : t('devTools.common.copy')}
+                    {copiedKey === "Tailwind Class" ? (
+                      <FiCheck className="text-emerald-500" />
+                    ) : (
+                      <FiCopy />
+                    )}
+                    {copiedKey === "Tailwind Class"
+                      ? t("devTools.common.copied")
+                      : t("devTools.common.copy")}
                   </button>
                 </div>
                 <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto break-all">
@@ -380,10 +501,10 @@ export default function CssShadowClient() {
               <FiEye className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.cssShadow.card1Title')}
+              {t("devTools.cssShadow.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.cssShadow.card1Desc')}
+              {t("devTools.cssShadow.card1Desc")}
             </p>
           </div>
 
@@ -392,10 +513,10 @@ export default function CssShadowClient() {
               <FiLayers className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.cssShadow.card2Title')}
+              {t("devTools.cssShadow.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.cssShadow.card2Desc')}
+              {t("devTools.cssShadow.card2Desc")}
             </p>
           </div>
 
@@ -404,10 +525,10 @@ export default function CssShadowClient() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.cssShadow.card3Title')}
+              {t("devTools.cssShadow.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.cssShadow.card3Desc')}
+              {t("devTools.cssShadow.card3Desc")}
             </p>
           </div>
         </div>
@@ -415,4 +536,3 @@ export default function CssShadowClient() {
     </div>
   );
 }
-

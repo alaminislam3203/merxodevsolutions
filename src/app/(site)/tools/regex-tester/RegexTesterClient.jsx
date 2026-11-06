@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiLayers,
   FiCopy,
@@ -17,22 +17,63 @@ import {
   FiZap,
   FiSliders,
   FiBookOpen,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 const PRESETS = [
-  { name: 'Email Address', pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', flags: 'gm', sample: 'test@example.com\ninvalid-email\nal.amin@merxodevsolutions.pro.bd' },
-  { name: 'URL / Website', pattern: 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)', flags: 'g', sample: 'Visit https://merxodevsolutions.pro.bd or http://localhost:3000' },
-  { name: 'Bangladesh Phone (+880)', pattern: '^(?:\\+?88)?01[3-9]\\d{8}$', flags: 'gm', sample: '+8801712345678\n01812345678\n01200000000\n01987654321' },
-  { name: 'Hex Color Code', pattern: '#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})\\b', flags: 'g', sample: 'Colors: #7c3aed, #fff, #10b981 and invalid #12345' },
-  { name: 'IPv4 Address', pattern: '\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b', flags: 'g', sample: 'Router 192.168.1.1 and Cloudflare DNS 1.1.1.1 or 999.999.999.999' },
-  { name: 'Date (YYYY-MM-DD)', pattern: '\\b\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\b', flags: 'g', sample: 'Created 2026-10-14 and expired 2026-12-31' },
+  {
+    name: "Email Address",
+    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    flags: "gm",
+    sample: "test@example.com\ninvalid-email\nal.amin@merxodevsolutions.pro.bd",
+  },
+  {
+    name: "URL / Website",
+    pattern:
+      "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+    flags: "g",
+    sample: "Visit https://merxodevsolutions.pro.bd or http://localhost:3000",
+  },
+  {
+    name: "Bangladesh Phone (+880)",
+    pattern: "^(?:\\+?88)?01[3-9]\\d{8}$",
+    flags: "gm",
+    sample: "+8801712345678\n01812345678\n01200000000\n01987654321",
+  },
+  {
+    name: "Hex Color Code",
+    pattern: "#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})\\b",
+    flags: "g",
+    sample: "Colors: #7c3aed, #fff, #10b981 and invalid #12345",
+  },
+  {
+    name: "IPv4 Address",
+    pattern: "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b",
+    flags: "g",
+    sample: "Router 192.168.1.1 and Cloudflare DNS 1.1.1.1 or 999.999.999.999",
+  },
+  {
+    name: "Date (YYYY-MM-DD)",
+    pattern: "\\b\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\b",
+    flags: "g",
+    sample: "Created 2026-10-14 and expired 2026-12-31",
+  },
 ];
 
 export default function RegexTesterClient() {
   const { t } = useTranslation();
-  const [pattern, setPattern] = useState('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}');
-  const [flags, setFlags] = useState({ g: true, i: true, m: true, s: false, u: false });
-  const [testText, setTestText] = useState('Contact developer team at hello@merxodevsolutions.pro.bd or support@example.com.\nInvalid email: no-at-symbol.domain.');
+  const [pattern, setPattern] = useState(
+    "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+  );
+  const [flags, setFlags] = useState({
+    g: true,
+    i: true,
+    m: true,
+    s: false,
+    u: false,
+  });
+  const [testText, setTestText] = useState(
+    "Contact developer team at hello@merxodevsolutions.pro.bd or support@example.com.\nInvalid email: no-at-symbol.domain.",
+  );
   const [showCheatsheet, setShowCheatsheet] = useState(false);
 
   // Flags string
@@ -40,7 +81,7 @@ export default function RegexTesterClient() {
     return Object.entries(flags)
       .filter(([, v]) => v)
       .map(([k]) => k)
-      .join('');
+      .join("");
   }, [flags]);
 
   // Execute regex
@@ -89,7 +130,7 @@ export default function RegexTesterClient() {
     setPattern(p.pattern);
     setTestText(p.sample);
     const newFlags = { g: false, i: false, m: false, s: false, u: false };
-    p.flags.split('').forEach((f) => {
+    p.flags.split("").forEach((f) => {
       newFlags[f] = true;
     });
     setFlags(newFlags);
@@ -102,31 +143,67 @@ export default function RegexTesterClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #8b5cf6, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #8b5cf6, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #3b82f6, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
-            {t('devTools.regexTester.titleStart')} {t('devTools.regexTester.titleHighlight')}
+            {t("devTools.regexTester.titleStart")}{" "}
+            {t("devTools.regexTester.titleHighlight")}
           </span>
         </nav>
 
@@ -136,22 +213,22 @@ export default function RegexTesterClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
                 <FiLayers className="w-3.5 h-3.5" />
-                {t('devTools.common.formattersConverters')}
+                {t("devTools.common.formattersConverters")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiCheckCircle className="w-3 h-3 text-emerald-500" />
-                {t('devTools.common.clientSidePrivacy')}
+                {t("devTools.common.clientSidePrivacy")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.regexTester.titleStart')}{' '}
+              {t("devTools.regexTester.titleStart")}{" "}
               <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">
-                {t('devTools.regexTester.titleHighlight')}
+                {t("devTools.regexTester.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.regexTester.subtitle')}
+              {t("devTools.regexTester.subtitle")}
             </p>
           </div>
 
@@ -160,14 +237,14 @@ export default function RegexTesterClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 hover:border-violet-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
         {/* Preset Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
           <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">
-            {t('devTools.regexTester.presets')}
+            {t("devTools.regexTester.presets")}
           </span>
           {PRESETS.map((p) => (
             <button
@@ -183,7 +260,7 @@ export default function RegexTesterClient() {
             className="px-3.5 py-1.5 rounded-xl bg-violet-50 hover:bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 text-xs font-bold whitespace-nowrap transition-all border border-violet-200 dark:border-violet-800 flex items-center gap-1.5"
           >
             <FiHelpCircle className="w-3.5 h-3.5" />
-            {t('devTools.regexTester.toggleCheatsheet')}
+            {t("devTools.regexTester.toggleCheatsheet")}
           </button>
         </div>
 
@@ -191,30 +268,71 @@ export default function RegexTesterClient() {
         {showCheatsheet && (
           <div className="mb-6 p-5 rounded-2xl bg-zinc-950 text-zinc-200 border border-zinc-800 text-xs font-mono grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fadeIn">
             <div>
-              <span className="text-violet-400 font-bold block mb-1">Character Classes</span>
-              <p><code className="text-cyan-400">\d</code> - Any digit [0-9]</p>
-              <p><code className="text-cyan-400">\w</code> - Word char [a-zA-Z0-9_]</p>
-              <p><code className="text-cyan-400">\s</code> - Whitespace [ \t\r\n]</p>
-              <p><code className="text-cyan-400">.</code> - Any character except \n</p>
+              <span className="text-violet-400 font-bold block mb-1">
+                Character Classes
+              </span>
+              <p>
+                <code className="text-cyan-400">\d</code> - Any digit [0-9]
+              </p>
+              <p>
+                <code className="text-cyan-400">\w</code> - Word char
+                [a-zA-Z0-9_]
+              </p>
+              <p>
+                <code className="text-cyan-400">\s</code> - Whitespace [ \t\r\n]
+              </p>
+              <p>
+                <code className="text-cyan-400">.</code> - Any character except
+                \n
+              </p>
             </div>
             <div>
-              <span className="text-violet-400 font-bold block mb-1">Quantifiers</span>
-              <p><code className="text-cyan-400">+</code> - 1 or more</p>
-              <p><code className="text-cyan-400">*</code> - 0 or more</p>
-              <p><code className="text-cyan-400">?</code> - 0 or 1 (optional)</p>
-              <p><code className="text-cyan-400">{'{n,m}'}</code> - Between n and m</p>
+              <span className="text-violet-400 font-bold block mb-1">
+                Quantifiers
+              </span>
+              <p>
+                <code className="text-cyan-400">+</code> - 1 or more
+              </p>
+              <p>
+                <code className="text-cyan-400">*</code> - 0 or more
+              </p>
+              <p>
+                <code className="text-cyan-400">?</code> - 0 or 1 (optional)
+              </p>
+              <p>
+                <code className="text-cyan-400">{"{n,m}"}</code> - Between n and
+                m
+              </p>
             </div>
             <div>
-              <span className="text-violet-400 font-bold block mb-1">Anchors</span>
-              <p><code className="text-cyan-400">^</code> - Start of string/line</p>
-              <p><code className="text-cyan-400">$</code> - End of string/line</p>
-              <p><code className="text-cyan-400">\b</code> - Word boundary</p>
+              <span className="text-violet-400 font-bold block mb-1">
+                Anchors
+              </span>
+              <p>
+                <code className="text-cyan-400">^</code> - Start of string/line
+              </p>
+              <p>
+                <code className="text-cyan-400">$</code> - End of string/line
+              </p>
+              <p>
+                <code className="text-cyan-400">\b</code> - Word boundary
+              </p>
             </div>
             <div>
-              <span className="text-violet-400 font-bold block mb-1">Groups & Lookarounds</span>
-              <p><code className="text-cyan-400">(abc)</code> - Capture group</p>
-              <p><code className="text-cyan-400">(?:abc)</code> - Non-capturing group</p>
-              <p><code className="text-cyan-400">(?=abc)</code> - Positive lookahead</p>
+              <span className="text-violet-400 font-bold block mb-1">
+                Groups & Lookarounds
+              </span>
+              <p>
+                <code className="text-cyan-400">(abc)</code> - Capture group
+              </p>
+              <p>
+                <code className="text-cyan-400">(?:abc)</code> - Non-capturing
+                group
+              </p>
+              <p>
+                <code className="text-cyan-400">(?=abc)</code> - Positive
+                lookahead
+              </p>
             </div>
           </div>
         )}
@@ -223,7 +341,7 @@ export default function RegexTesterClient() {
         <div className="p-5 mb-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-2">
-              {t('devTools.regexTester.regularExpression')}
+              {t("devTools.regexTester.regularExpression")}
             </label>
             <div className="flex items-center gap-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 py-2">
               <span className="text-zinc-400 font-mono text-base">/</span>
@@ -236,22 +354,27 @@ export default function RegexTesterClient() {
               />
               <span className="text-zinc-400 font-mono text-base">/</span>
               <span className="text-violet-600 dark:text-violet-400 font-mono text-sm font-bold">
-                {flagsStr || 'none'}
+                {flagsStr || "none"}
               </span>
             </div>
           </div>
 
           {/* Flag checkboxes */}
           <div className="flex flex-wrap items-center gap-4 text-xs font-exo-extralight pt-2 border-t border-zinc-100 dark:border-zinc-800">
-            <span className="text-zinc-400 font-bold">{t('devTools.regexTester.flags')}</span>
+            <span className="text-zinc-400 font-bold">
+              {t("devTools.regexTester.flags")}
+            </span>
             {[
-              { id: 'g', label: 'g (global match)' },
-              { id: 'i', label: 'i (case-insensitive)' },
-              { id: 'm', label: 'm (multi-line)' },
-              { id: 's', label: 's (dot matches all)' },
-              { id: 'u', label: 'u (unicode)' },
+              { id: "g", label: "g (global match)" },
+              { id: "i", label: "i (case-insensitive)" },
+              { id: "m", label: "m (multi-line)" },
+              { id: "s", label: "s (dot matches all)" },
+              { id: "u", label: "u (unicode)" },
             ].map((f) => (
-              <label key={f.id} className="flex items-center gap-1.5 cursor-pointer font-medium select-none">
+              <label
+                key={f.id}
+                className="flex items-center gap-1.5 cursor-pointer font-medium select-none"
+              >
                 <input
                   type="checkbox"
                   checked={flags[f.id]}
@@ -269,8 +392,12 @@ export default function RegexTesterClient() {
           <div className="flex items-start gap-2.5 px-4 py-3 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 text-rose-800 dark:text-rose-300 text-xs">
             <FiAlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold block mb-0.5">{t('devTools.regexTester.invalidRegex')}</span>
-              <p className="font-mono text-[11px] text-rose-700 dark:text-rose-200">{regexResult.error}</p>
+              <span className="font-bold block mb-0.5">
+                {t("devTools.regexTester.invalidRegex")}
+              </span>
+              <p className="font-mono text-[11px] text-rose-700 dark:text-rose-200">
+                {regexResult.error}
+              </p>
             </div>
           </div>
         )}
@@ -281,11 +408,13 @@ export default function RegexTesterClient() {
             <div className="flex items-center gap-2">
               <FiCheckCircle className="w-4 h-4 text-violet-600 dark:text-violet-400" />
               <span>
-                {t('devTools.regexTester.matchesFound', { count: regexResult.matches.length })}
+                {t("devTools.regexTester.matchesFound", {
+                  count: regexResult.matches.length,
+                })}
               </span>
             </div>
             <span className="text-[11px] font-mono text-zinc-500">
-              {t('devTools.common.clientSidePrivacy')}
+              {t("devTools.common.clientSidePrivacy")}
             </span>
           </div>
         )}
@@ -296,21 +425,21 @@ export default function RegexTesterClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                {t('devTools.regexTester.testString')}
+                {t("devTools.regexTester.testString")}
               </span>
               <button
-                onClick={() => setTestText('')}
+                onClick={() => setTestText("")}
                 className="text-xs text-rose-500 hover:text-rose-600 flex items-center gap-1 font-semibold"
               >
                 <FiTrash2 className="w-3.5 h-3.5" />
-                {t('devTools.common.clear')}
+                {t("devTools.common.clear")}
               </button>
             </div>
             <div className="p-4 flex-1 min-h-[360px]">
               <textarea
                 value={testText}
                 onChange={(e) => setTestText(e.target.value)}
-                placeholder={t('devTools.regexTester.testPlaceholder')}
+                placeholder={t("devTools.regexTester.testPlaceholder")}
                 className="w-full h-full min-h-[340px] font-mono text-xs text-zinc-900 dark:text-zinc-100 bg-transparent resize-y focus:outline-none placeholder-zinc-400 leading-relaxed"
               />
             </div>
@@ -320,10 +449,10 @@ export default function RegexTesterClient() {
           <div className="flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-4 py-3 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-200">
-                {t('devTools.regexTester.matchResults')}
+                {t("devTools.regexTester.matchResults")}
               </span>
               <span className="text-[11px] font-mono text-zinc-400">
-                {regexResult.matches.length} {t('devTools.regexTester.match')}s
+                {regexResult.matches.length} {t("devTools.regexTester.match")}s
               </span>
             </div>
 
@@ -336,9 +465,11 @@ export default function RegexTesterClient() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-bold text-violet-400 uppercase tracking-wider">
-                        {t('devTools.regexTester.match')} #{index + 1}
+                        {t("devTools.regexTester.match")} #{index + 1}
                       </span>
-                      <span className="text-[10px] text-zinc-500">{t('devTools.regexTester.index')} {m.index}</span>
+                      <span className="text-[10px] text-zinc-500">
+                        {t("devTools.regexTester.index")} {m.index}
+                      </span>
                     </div>
 
                     <div className="p-2 rounded bg-zinc-950 text-emerald-300 break-all">
@@ -347,14 +478,17 @@ export default function RegexTesterClient() {
 
                     {m.groups.length > 0 && (
                       <div className="pt-1.5 border-t border-zinc-800/80">
-                        <span className="text-[10px] text-zinc-400 block mb-1">{t('devTools.regexTester.groups')}:</span>
+                        <span className="text-[10px] text-zinc-400 block mb-1">
+                          {t("devTools.regexTester.groups")}:
+                        </span>
                         <div className="flex flex-wrap gap-1.5">
                           {m.groups.map((g, gi) => (
                             <span
                               key={gi}
                               className="text-[11px] px-2 py-0.5 rounded bg-zinc-800 text-cyan-300"
                             >
-                              Group {gi + 1}: {g !== undefined ? `"${g}"` : 'undefined'}
+                              Group {gi + 1}:{" "}
+                              {g !== undefined ? `"${g}"` : "undefined"}
                             </span>
                           ))}
                         </div>
@@ -365,8 +499,8 @@ export default function RegexTesterClient() {
               ) : (
                 <div className="text-center py-12 text-zinc-500 font-sans italic">
                   {regexResult.isValid
-                    ? t('devTools.regexTester.noMatches')
-                    : t('devTools.regexTester.invalidRegex')}
+                    ? t("devTools.regexTester.noMatches")
+                    : t("devTools.regexTester.invalidRegex")}
                 </div>
               )}
             </div>
@@ -380,10 +514,10 @@ export default function RegexTesterClient() {
               <FiZap className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.regexTester.card1Title')}
+              {t("devTools.regexTester.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.regexTester.card1Desc')}
+              {t("devTools.regexTester.card1Desc")}
             </p>
           </div>
 
@@ -392,10 +526,10 @@ export default function RegexTesterClient() {
               <FiSliders className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.regexTester.card2Title')}
+              {t("devTools.regexTester.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.regexTester.card2Desc')}
+              {t("devTools.regexTester.card2Desc")}
             </p>
           </div>
 
@@ -404,10 +538,10 @@ export default function RegexTesterClient() {
               <FiBookOpen className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.regexTester.card3Title')}
+              {t("devTools.regexTester.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.regexTester.card3Desc')}
+              {t("devTools.regexTester.card3Desc")}
             </p>
           </div>
         </div>
@@ -415,4 +549,3 @@ export default function RegexTesterClient() {
     </div>
   );
 }
-

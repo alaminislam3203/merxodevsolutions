@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiGlobe,
   FiCopy,
@@ -14,17 +14,23 @@ import {
   FiShare2,
   FiCode,
   FiRefreshCw,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 export default function MetaPreviewerClient() {
   const { t } = useTranslation();
-  const [title, setTitle] = useState('MerxoDev Solutions — Full Stack Web Engineering & Software');
-  const [description, setDescription] = useState('We build high-performance Next.js websites, SaaS platforms, and enterprise solutions for businesses in Bangladesh and worldwide.');
-  const [url, setUrl] = useState('https://merxodevsolutions.pro.bd');
-  const [image, setImage] = useState('https://merxodevsolutions.pro.bd/logo-light.png');
-  const [siteName, setSiteName] = useState('MerxoDev Solutions');
-  const [twitterUser, setTwitterUser] = useState('@merxodev');
-  const [activePreview, setActivePreview] = useState('google'); // 'google' | 'facebook' | 'twitter'
+  const [title, setTitle] = useState(
+    "MerxoDev Solutions — Full Stack Web Engineering & Software",
+  );
+  const [description, setDescription] = useState(
+    "We build high-performance Next.js websites, SaaS platforms, and enterprise solutions for businesses in Bangladesh and worldwide.",
+  );
+  const [url, setUrl] = useState("https://merxodevsolutions.pro.bd");
+  const [image, setImage] = useState(
+    "https://merxodevsolutions.pro.bd/logo-light.png",
+  );
+  const [siteName, setSiteName] = useState("MerxoDev Solutions");
+  const [twitterUser, setTwitterUser] = useState("@merxodev");
+  const [activePreview, setActivePreview] = useState("google"); // 'google' | 'facebook' | 'twitter'
   const [copied, setCopied] = useState(false);
 
   // Generate HTML tags
@@ -55,7 +61,7 @@ export default function MetaPreviewerClient() {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(generatedHtml).then(() => {
         setCopied(true);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopied(false), 2000);
       });
     }
@@ -65,7 +71,7 @@ export default function MetaPreviewerClient() {
     try {
       return new URL(url).hostname;
     } catch {
-      return 'merxodevsolutions.pro.bd';
+      return "merxodevsolutions.pro.bd";
     }
   }, [url]);
 
@@ -75,31 +81,67 @@ export default function MetaPreviewerClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #06b6d4, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #3b82f6, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
-            {t('devTools.metaPreviewer.titleStart')} {t('devTools.metaPreviewer.titleHighlight')}
+            {t("devTools.metaPreviewer.titleStart")}{" "}
+            {t("devTools.metaPreviewer.titleHighlight")}
           </span>
         </nav>
 
@@ -109,22 +151,22 @@ export default function MetaPreviewerClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-exo-extralight uppercase tracking-widest">
                 <FiGlobe className="w-3.5 h-3.5" />
-                {t('devTools.common.seoMarketing')}
+                {t("devTools.common.seoMarketing")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiShare2 className="w-3 h-3 text-cyan-500" />
-                {t('devTools.metaPreviewer.previews')}
+                {t("devTools.metaPreviewer.previews")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.metaPreviewer.titleStart')}{' '}
+              {t("devTools.metaPreviewer.titleStart")}{" "}
               <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
-                {t('devTools.metaPreviewer.titleHighlight')}
+                {t("devTools.metaPreviewer.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.metaPreviewer.subtitle')}
+              {t("devTools.metaPreviewer.subtitle")}
             </p>
           </div>
 
@@ -133,7 +175,7 @@ export default function MetaPreviewerClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
@@ -142,15 +184,17 @@ export default function MetaPreviewerClient() {
           {/* Inputs Card */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm space-y-4">
             <h2 className="font-exo-medium text-lg font-bold text-zinc-800 dark:text-white uppercase tracking-wider">
-              {t('devTools.metaPreviewer.editMetadata')}
+              {t("devTools.metaPreviewer.editMetadata")}
             </h2>
 
             {/* Title */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
-                <span>{t('devTools.metaPreviewer.pageTitle')}</span>
-                <span className={`text-[11px] font-mono ${title.length > 60 ? 'text-amber-500' : 'text-zinc-400'}`}>
-                  {title.length}/60 {t('devTools.common.chars')}
+                <span>{t("devTools.metaPreviewer.pageTitle")}</span>
+                <span
+                  className={`text-[11px] font-mono ${title.length > 60 ? "text-amber-500" : "text-zinc-400"}`}
+                >
+                  {title.length}/60 {t("devTools.common.chars")}
                 </span>
               </div>
               <input
@@ -164,9 +208,11 @@ export default function MetaPreviewerClient() {
             {/* Description */}
             <div>
               <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1">
-                <span>{t('devTools.metaPreviewer.metaDesc')}</span>
-                <span className={`text-[11px] font-mono ${description.length > 160 ? 'text-amber-500' : 'text-zinc-400'}`}>
-                  {description.length}/160 {t('devTools.common.chars')}
+                <span>{t("devTools.metaPreviewer.metaDesc")}</span>
+                <span
+                  className={`text-[11px] font-mono ${description.length > 160 ? "text-amber-500" : "text-zinc-400"}`}
+                >
+                  {description.length}/160 {t("devTools.common.chars")}
                 </span>
               </div>
               <textarea
@@ -180,7 +226,7 @@ export default function MetaPreviewerClient() {
             {/* Canonical URL */}
             <div>
               <label className="block text-xs font-exo-extralight font-semibold mb-1">
-                {t('devTools.metaPreviewer.canonicalUrl')}
+                {t("devTools.metaPreviewer.canonicalUrl")}
               </label>
               <input
                 type="text"
@@ -193,7 +239,7 @@ export default function MetaPreviewerClient() {
             {/* Image URL */}
             <div>
               <label className="block text-xs font-exo-extralight font-semibold mb-1">
-                {t('devTools.metaPreviewer.ogImage')} (1200x630)
+                {t("devTools.metaPreviewer.ogImage")} (1200x630)
               </label>
               <input
                 type="text"
@@ -206,7 +252,7 @@ export default function MetaPreviewerClient() {
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div>
                 <label className="block text-xs font-exo-extralight font-semibold mb-1">
-                  {t('devTools.metaPreviewer.siteName')}
+                  {t("devTools.metaPreviewer.siteName")}
                 </label>
                 <input
                   type="text"
@@ -217,7 +263,7 @@ export default function MetaPreviewerClient() {
               </div>
               <div>
                 <label className="block text-xs font-exo-extralight font-semibold mb-1">
-                  {t('devTools.metaPreviewer.twitterHandle')}
+                  {t("devTools.metaPreviewer.twitterHandle")}
                 </label>
                 <input
                   type="text"
@@ -234,17 +280,27 @@ export default function MetaPreviewerClient() {
             {/* Preview Selector Tabs */}
             <div className="flex items-center gap-2 p-1 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
               {[
-                { id: 'google', name: t('devTools.metaPreviewer.googlePreview') },
-                { id: 'facebook', name: t('devTools.metaPreviewer.facebookPreview') },
-                { id: 'twitter', name: t('devTools.metaPreviewer.twitterPreview') },
+                {
+                  id: "google",
+                  name: t("devTools.metaPreviewer.googlePreview"),
+                },
+                {
+                  id: "facebook",
+                  name: t("devTools.metaPreviewer.facebookPreview"),
+                },
+                {
+                  id: "twitter",
+                  name: t("devTools.metaPreviewer.twitterPreview"),
+                },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActivePreview(tab.id)}
-                  className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all ${activePreview === tab.id
-                    ? 'bg-cyan-500 text-white shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all ${
+                    activePreview === tab.id
+                      ? "bg-cyan-500 text-white shadow-sm"
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                  }`}
                 >
                   {tab.name}
                 </button>
@@ -252,10 +308,10 @@ export default function MetaPreviewerClient() {
             </div>
 
             {/* Google Search Preview */}
-            {activePreview === 'google' && (
+            {activePreview === "google" && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-4">
-                  {t('devTools.metaPreviewer.googlePreview')}
+                  {t("devTools.metaPreviewer.googlePreview")}
                 </span>
                 <div className="max-w-xl">
                   <div className="flex items-center gap-2 mb-1">
@@ -263,8 +319,12 @@ export default function MetaPreviewerClient() {
                       G
                     </div>
                     <div>
-                      <div className="text-xs text-zinc-800 dark:text-zinc-200 font-medium">{siteName}</div>
-                      <div className="text-[11px] text-zinc-400 font-mono">{url}</div>
+                      <div className="text-xs text-zinc-800 dark:text-zinc-200 font-medium">
+                        {siteName}
+                      </div>
+                      <div className="text-[11px] text-zinc-400 font-mono">
+                        {url}
+                      </div>
                     </div>
                   </div>
                   <h3 className="text-blue-600 dark:text-blue-400 text-lg hover:underline cursor-pointer font-medium line-clamp-1">
@@ -278,10 +338,10 @@ export default function MetaPreviewerClient() {
             )}
 
             {/* Facebook / LinkedIn Open Graph Card */}
-            {activePreview === 'facebook' && (
+            {activePreview === "facebook" && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
-                  {t('devTools.metaPreviewer.facebookPreview')}
+                  {t("devTools.metaPreviewer.facebookPreview")}
                 </span>
                 <div className="relative w-full h-52 bg-zinc-800 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -290,10 +350,12 @@ export default function MetaPreviewerClient() {
                     alt="OG Banner Preview"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.style.display = 'none';
+                      e.target.style.display = "none";
                     }}
                   />
-                  <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">1200 × 630 OG Image</span>
+                  <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">
+                    1200 × 630 OG Image
+                  </span>
                 </div>
                 <div className="p-4 bg-zinc-50 dark:bg-zinc-800/80 border-t border-zinc-200 dark:border-zinc-700">
                   <span className="text-[11px] uppercase font-mono text-zinc-400 tracking-wider block mb-1">
@@ -310,10 +372,10 @@ export default function MetaPreviewerClient() {
             )}
 
             {/* Twitter Card Preview */}
-            {activePreview === 'twitter' && (
+            {activePreview === "twitter" && (
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm max-w-xl">
                 <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block p-4 pb-2">
-                  {t('devTools.metaPreviewer.twitterPreview')}
+                  {t("devTools.metaPreviewer.twitterPreview")}
                 </span>
                 <div className="p-4">
                   <div className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
@@ -324,13 +386,17 @@ export default function MetaPreviewerClient() {
                         alt="Twitter Banner Preview"
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          e.target.style.display = 'none';
+                          e.target.style.display = "none";
                         }}
                       />
-                      <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">Twitter Summary Large Image</span>
+                      <span className="text-zinc-400 text-xs font-mono absolute pointer-events-none">
+                        Twitter Summary Large Image
+                      </span>
                     </div>
                     <div className="p-3 bg-zinc-50 dark:bg-zinc-800/80">
-                      <span className="text-[11px] text-zinc-400 font-mono block mb-0.5">{domain}</span>
+                      <span className="text-[11px] text-zinc-400 font-mono block mb-0.5">
+                        {domain}
+                      </span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-white line-clamp-1 mb-0.5">
                         {title}
                       </h4>
@@ -347,14 +413,20 @@ export default function MetaPreviewerClient() {
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                  {t('devTools.metaPreviewer.generatedHtml')}
+                  {t("devTools.metaPreviewer.generatedHtml")}
                 </span>
                 <button
                   onClick={handleCopy}
                   className="text-xs font-bold font-exo-extralight text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
                 >
-                  {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                  {copied ? t('devTools.common.copied') : t('devTools.metaPreviewer.copyMetaTags')}
+                  {copied ? (
+                    <FiCheck className="text-emerald-500" />
+                  ) : (
+                    <FiCopy />
+                  )}
+                  {copied
+                    ? t("devTools.common.copied")
+                    : t("devTools.metaPreviewer.copyMetaTags")}
                 </button>
               </div>
               <pre className="p-3.5 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto whitespace-pre leading-relaxed">
@@ -371,10 +443,10 @@ export default function MetaPreviewerClient() {
               <FiEye className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.metaPreviewer.card1Title')}
+              {t("devTools.metaPreviewer.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.metaPreviewer.card1Desc')}
+              {t("devTools.metaPreviewer.card1Desc")}
             </p>
           </div>
 
@@ -383,10 +455,10 @@ export default function MetaPreviewerClient() {
               <FiGlobe className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.metaPreviewer.card2Title')}
+              {t("devTools.metaPreviewer.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.metaPreviewer.card2Desc')}
+              {t("devTools.metaPreviewer.card2Desc")}
             </p>
           </div>
 
@@ -395,10 +467,10 @@ export default function MetaPreviewerClient() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.metaPreviewer.card3Title')}
+              {t("devTools.metaPreviewer.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.metaPreviewer.card3Desc')}
+              {t("devTools.metaPreviewer.card3Desc")}
             </p>
           </div>
         </div>
@@ -406,4 +478,3 @@ export default function MetaPreviewerClient() {
     </div>
   );
 }
-

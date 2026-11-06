@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
 import {
   FiSliders,
   FiCopy,
@@ -17,33 +17,83 @@ import {
   FiEye,
   FiLayers,
   FiCode,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
 const PRESET_GRADIENTS = [
-  { name: 'Merxo Violet', type: 'linear', angle: 135, stops: [{ color: '#7c3aed', pos: 0 }, { color: '#d946ef', pos: 50 }, { color: '#06b6d4', pos: 100 }] },
-  { name: 'Sunset Glow', type: 'linear', angle: 90, stops: [{ color: '#f43f5e', pos: 0 }, { color: '#fb923c', pos: 100 }] },
-  { name: 'Neon Cyber', type: 'linear', angle: 120, stops: [{ color: '#06b6d4', pos: 0 }, { color: '#3b82f6', pos: 50 }, { color: '#9333ea', pos: 100 }] },
-  { name: 'Emerald Ocean', type: 'linear', angle: 180, stops: [{ color: '#10b981', pos: 0 }, { color: '#047857', pos: 100 }] },
-  { name: 'Midnight Radiance', type: 'radial', angle: 0, stops: [{ color: '#312e81', pos: 0 }, { color: '#090d16', pos: 100 }] },
-  { name: 'Cosmic Flare', type: 'linear', angle: 45, stops: [{ color: '#ec4899', pos: 0 }, { color: '#8b5cf6', pos: 100 }] },
+  {
+    name: "Merxo Violet",
+    type: "linear",
+    angle: 135,
+    stops: [
+      { color: "#7c3aed", pos: 0 },
+      { color: "#d946ef", pos: 50 },
+      { color: "#06b6d4", pos: 100 },
+    ],
+  },
+  {
+    name: "Sunset Glow",
+    type: "linear",
+    angle: 90,
+    stops: [
+      { color: "#f43f5e", pos: 0 },
+      { color: "#fb923c", pos: 100 },
+    ],
+  },
+  {
+    name: "Neon Cyber",
+    type: "linear",
+    angle: 120,
+    stops: [
+      { color: "#06b6d4", pos: 0 },
+      { color: "#3b82f6", pos: 50 },
+      { color: "#9333ea", pos: 100 },
+    ],
+  },
+  {
+    name: "Emerald Ocean",
+    type: "linear",
+    angle: 180,
+    stops: [
+      { color: "#10b981", pos: 0 },
+      { color: "#047857", pos: 100 },
+    ],
+  },
+  {
+    name: "Midnight Radiance",
+    type: "radial",
+    angle: 0,
+    stops: [
+      { color: "#312e81", pos: 0 },
+      { color: "#090d16", pos: 100 },
+    ],
+  },
+  {
+    name: "Cosmic Flare",
+    type: "linear",
+    angle: 45,
+    stops: [
+      { color: "#ec4899", pos: 0 },
+      { color: "#8b5cf6", pos: 100 },
+    ],
+  },
 ];
 
 export default function GradientGeneratorClient() {
   const { t } = useTranslation();
-  const [type, setType] = useState('linear'); // 'linear' | 'radial'
+  const [type, setType] = useState("linear"); // 'linear' | 'radial'
   const [angle, setAngle] = useState(135);
   const [stops, setStops] = useState([
-    { color: '#7c3aed', pos: 0 },
-    { color: '#d946ef', pos: 50 },
-    { color: '#06b6d4', pos: 100 },
+    { color: "#7c3aed", pos: 0 },
+    { color: "#d946ef", pos: 50 },
+    { color: "#06b6d4", pos: 100 },
   ]);
   const [copiedKey, setCopiedKey] = useState(null);
 
   // Computed gradient string
   const gradientString = useMemo(() => {
     const sorted = [...stops].sort((a, b) => a.pos - b.pos);
-    const stopsStr = sorted.map((s) => `${s.color} ${s.pos}%`).join(', ');
-    if (type === 'linear') {
+    const stopsStr = sorted.map((s) => `${s.color} ${s.pos}%`).join(", ");
+    if (type === "linear") {
       return `linear-gradient(${angle}deg, ${stopsStr})`;
     }
     return `radial-gradient(circle, ${stopsStr})`;
@@ -52,14 +102,14 @@ export default function GradientGeneratorClient() {
   const cssRule = `background: ${gradientString};`;
 
   const tailwindSnippet = useMemo(() => {
-    return `bg-[${gradientString.replace(/\s+/g, '_')}]`;
+    return `bg-[${gradientString.replace(/\s+/g, "_")}]`;
   }, [gradientString]);
 
   const handleCopy = (text, key) => {
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         setCopiedKey(key);
-        toast.success(t('devTools.common.copiedToClipboard'));
+        toast.success(t("devTools.common.copiedToClipboard"));
         setTimeout(() => setCopiedKey(null), 1500);
       });
     }
@@ -75,31 +125,35 @@ export default function GradientGeneratorClient() {
 
   const handleAddStop = () => {
     if (stops.length >= 6) {
-      toast.error('Maximum 6 color stops.');
+      toast.error("Maximum 6 color stops.");
       return;
     }
     const lastPos = stops[stops.length - 1]?.pos || 50;
     const newPos = Math.min(100, lastPos + 15);
-    setStops([...stops, { color: '#ec4899', pos: newPos }]);
+    setStops([...stops, { color: "#ec4899", pos: newPos }]);
   };
 
   const handleRemoveStop = (index) => {
     if (stops.length <= 2) {
-      toast.error('Gradients require at least 2 color stops.');
+      toast.error("Gradients require at least 2 color stops.");
       return;
     }
     setStops(stops.filter((_, i) => i !== index));
   };
 
   const handleRandom = () => {
-    const randomHex = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    const randomHex = () =>
+      "#" +
+      Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, "0");
     setAngle(Math.floor(Math.random() * 360));
     setStops([
       { color: randomHex(), pos: 0 },
       { color: randomHex(), pos: Math.floor(Math.random() * 40) + 30 },
       { color: randomHex(), pos: 100 },
     ]);
-    toast.success('Generated random gradient!');
+    toast.success("Generated random gradient!");
   };
 
   const applyPreset = (p) => {
@@ -115,31 +169,67 @@ export default function GradientGeneratorClient() {
       <div
         aria-hidden
         className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #ec4899, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #ec4899, transparent 70%)",
+        }}
       />
       <div
         aria-hidden
         className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }}
+        style={{
+          background: "radial-gradient(circle, #06b6d4, transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
-          <Link href="/" className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors">
-            {t('devTools.common.home')}
+        <nav
+          aria-label="Breadcrumb"
+          className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600"
+        >
+          <Link
+            href="/"
+            className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            {t("devTools.common.home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/tools" className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors">
-            {t('devTools.common.tools')}
+          <Link
+            href="/tools"
+            className="hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            {t("devTools.common.tools")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <span className="text-zinc-700 dark:text-zinc-300 font-semibold">
-            {t('devTools.gradientGenerator.titleStart')} {t('devTools.gradientGenerator.titleHighlight')}
+            {t("devTools.gradientGenerator.titleStart")}{" "}
+            {t("devTools.gradientGenerator.titleHighlight")}
           </span>
         </nav>
 
@@ -149,22 +239,22 @@ export default function GradientGeneratorClient() {
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-100 dark:bg-fuchsia-950 text-fuchsia-700 dark:text-fuchsia-300 border border-fuchsia-200 dark:border-fuchsia-800 font-exo-extralight uppercase tracking-widest">
                 <FiSliders className="w-3.5 h-3.5" />
-                {t('devTools.common.cssUiTools')}
+                {t("devTools.common.cssUiTools")}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
                 <FiEye className="w-3 h-3 text-cyan-500" />
-                {t('devTools.common.preview')}
+                {t("devTools.common.preview")}
               </span>
             </div>
 
             <h1 className="font-exo-medium text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-tight">
-              {t('devTools.gradientGenerator.titleStart')}{' '}
+              {t("devTools.gradientGenerator.titleStart")}{" "}
               <span className="bg-gradient-to-r from-fuchsia-500 via-rose-500 to-cyan-500 bg-clip-text text-transparent">
-                {t('devTools.gradientGenerator.titleHighlight')}
+                {t("devTools.gradientGenerator.titleHighlight")}
               </span>
             </h1>
             <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mt-1.5 font-exo-extralight">
-              {t('devTools.gradientGenerator.subtitle')}
+              {t("devTools.gradientGenerator.subtitle")}
             </p>
           </div>
 
@@ -173,14 +263,14 @@ export default function GradientGeneratorClient() {
             className="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 hover:border-fuchsia-400 text-xs font-bold uppercase tracking-wider font-exo-extralight transition-all shadow-sm"
           >
             <FiArrowLeft className="w-3.5 h-3.5" />
-            {t('devTools.common.allTools')}
+            {t("devTools.common.allTools")}
           </Link>
         </div>
 
         {/* Presets Gallery */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
           <span className="text-xs font-bold font-exo-extralight text-zinc-400 whitespace-nowrap">
-            {t('devTools.gradientGenerator.presets')}
+            {t("devTools.gradientGenerator.presets")}
           </span>
           {PRESET_GRADIENTS.map((p) => (
             <button
@@ -196,7 +286,7 @@ export default function GradientGeneratorClient() {
             className="px-3.5 py-1.5 rounded-xl bg-fuchsia-50 hover:bg-fuchsia-100 dark:bg-fuchsia-950/60 text-fuchsia-700 dark:text-fuchsia-300 text-xs font-bold whitespace-nowrap transition-all border border-fuchsia-200 dark:border-fuchsia-800 flex items-center gap-1.5"
           >
             <FiRefreshCw className="w-3 h-3" />
-            {t('devTools.gradientGenerator.randomGradient')}
+            {t("devTools.gradientGenerator.randomGradient")}
           </button>
         </div>
 
@@ -207,37 +297,39 @@ export default function GradientGeneratorClient() {
             {/* Type Switcher: Linear vs Radial */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300 mb-2">
-                {t('devTools.gradientGenerator.type')}
+                {t("devTools.gradientGenerator.type")}
               </label>
               <div className="grid grid-cols-2 gap-2 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl border border-zinc-200 dark:border-zinc-700">
                 <button
-                  onClick={() => setType('linear')}
-                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'linear'
-                    ? 'bg-fuchsia-600 text-white shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
+                  onClick={() => setType("linear")}
+                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${
+                    type === "linear"
+                      ? "bg-fuchsia-600 text-white shadow-sm"
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                  }`}
                 >
-                  {t('devTools.gradientGenerator.linear')}
+                  {t("devTools.gradientGenerator.linear")}
                 </button>
                 <button
-                  onClick={() => setType('radial')}
-                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${type === 'radial'
-                    ? 'bg-fuchsia-600 text-white shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
+                  onClick={() => setType("radial")}
+                  className={`py-2 rounded-lg text-xs font-bold font-exo-extralight uppercase transition-all ${
+                    type === "radial"
+                      ? "bg-fuchsia-600 text-white shadow-sm"
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                  }`}
                 >
-                  {t('devTools.gradientGenerator.radial')}
+                  {t("devTools.gradientGenerator.radial")}
                 </button>
               </div>
             </div>
 
             {/* Angle Slider (if linear) */}
-            {type === 'linear' && (
+            {type === "linear" && (
               <div>
                 <div className="flex justify-between text-xs font-exo-extralight font-semibold mb-1.5">
                   <span className="flex items-center gap-1.5">
                     <FiCompass className="w-3.5 h-3.5 text-fuchsia-500" />
-                    {t('devTools.gradientGenerator.angle')}
+                    {t("devTools.gradientGenerator.angle")}
                   </span>
                   <span className="font-mono text-fuchsia-500">{angle}°</span>
                 </div>
@@ -256,14 +348,15 @@ export default function GradientGeneratorClient() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                  {t('devTools.gradientGenerator.colorStops')} ({stops.length}/6)
+                  {t("devTools.gradientGenerator.colorStops")} ({stops.length}
+                  /6)
                 </span>
                 <button
                   onClick={handleAddStop}
                   className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                 >
                   <FiPlus className="w-3.5 h-3.5" />
-                  {t('devTools.gradientGenerator.addColorStop')}
+                  {t("devTools.gradientGenerator.addColorStop")}
                 </button>
               </div>
 
@@ -276,13 +369,17 @@ export default function GradientGeneratorClient() {
                     <input
                       type="color"
                       value={stop.color}
-                      onChange={(e) => handleUpdateStop(index, 'color', e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateStop(index, "color", e.target.value)
+                      }
                       className="w-9 h-9 rounded-lg cursor-pointer border border-zinc-200 dark:border-zinc-600 bg-transparent p-0.5"
                     />
                     <input
                       type="text"
                       value={stop.color}
-                      onChange={(e) => handleUpdateStop(index, 'color', e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateStop(index, "color", e.target.value)
+                      }
                       className="w-20 px-2 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono"
                     />
                     <div className="flex-1 flex items-center gap-2">
@@ -291,10 +388,14 @@ export default function GradientGeneratorClient() {
                         min="0"
                         max="100"
                         value={stop.pos}
-                        onChange={(e) => handleUpdateStop(index, 'pos', Number(e.target.value))}
+                        onChange={(e) =>
+                          handleUpdateStop(index, "pos", Number(e.target.value))
+                        }
                         className="w-full accent-fuchsia-600 cursor-pointer"
                       />
-                      <span className="text-xs font-mono text-zinc-500 w-8 text-right">{stop.pos}%</span>
+                      <span className="text-xs font-mono text-zinc-500 w-8 text-right">
+                        {stop.pos}%
+                      </span>
                     </div>
                     {stops.length > 2 && (
                       <button
@@ -320,9 +421,11 @@ export default function GradientGeneratorClient() {
             >
               <div className="px-6 py-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/20">
                 <h3 className="font-exo-medium text-2xl font-bold uppercase tracking-wider">
-                  {t('devTools.gradientGenerator.preview')}
+                  {t("devTools.gradientGenerator.preview")}
                 </h3>
-                <p className="text-xs font-mono opacity-90 mt-1">{type.toUpperCase()} • {stops.length} STOPS</p>
+                <p className="text-xs font-mono opacity-90 mt-1">
+                  {type.toUpperCase()} • {stops.length} STOPS
+                </p>
               </div>
             </div>
 
@@ -331,14 +434,20 @@ export default function GradientGeneratorClient() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                    {t('devTools.gradientGenerator.cssRule')}
+                    {t("devTools.gradientGenerator.cssRule")}
                   </span>
                   <button
-                    onClick={() => handleCopy(cssRule, 'CSS Rule')}
+                    onClick={() => handleCopy(cssRule, "CSS Rule")}
                     className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                   >
-                    {copiedKey === 'CSS Rule' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                    {copiedKey === 'CSS Rule' ? t('devTools.common.copied') : t('devTools.common.copy')}
+                    {copiedKey === "CSS Rule" ? (
+                      <FiCheck className="text-emerald-500" />
+                    ) : (
+                      <FiCopy />
+                    )}
+                    {copiedKey === "CSS Rule"
+                      ? t("devTools.common.copied")
+                      : t("devTools.common.copy")}
                   </button>
                 </div>
                 <pre className="p-3 rounded-xl bg-zinc-950 text-fuchsia-300 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
@@ -349,14 +458,22 @@ export default function GradientGeneratorClient() {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-bold uppercase tracking-wider font-exo-extralight text-zinc-700 dark:text-zinc-300">
-                    {t('devTools.gradientGenerator.tailwindRule')}
+                    {t("devTools.gradientGenerator.tailwindRule")}
                   </span>
                   <button
-                    onClick={() => handleCopy(tailwindSnippet, 'Tailwind Class')}
+                    onClick={() =>
+                      handleCopy(tailwindSnippet, "Tailwind Class")
+                    }
                     className="text-xs font-bold font-exo-extralight text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-1"
                   >
-                    {copiedKey === 'Tailwind Class' ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
-                    {copiedKey === 'Tailwind Class' ? t('devTools.common.copied') : t('devTools.common.copy')}
+                    {copiedKey === "Tailwind Class" ? (
+                      <FiCheck className="text-emerald-500" />
+                    ) : (
+                      <FiCopy />
+                    )}
+                    {copiedKey === "Tailwind Class"
+                      ? t("devTools.common.copied")
+                      : t("devTools.common.copy")}
                   </button>
                 </div>
                 <pre className="p-3 rounded-xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto break-all">
@@ -374,10 +491,10 @@ export default function GradientGeneratorClient() {
               <FiEye className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.gradientGenerator.card1Title')}
+              {t("devTools.gradientGenerator.card1Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.gradientGenerator.card1Desc')}
+              {t("devTools.gradientGenerator.card1Desc")}
             </p>
           </div>
 
@@ -386,10 +503,10 @@ export default function GradientGeneratorClient() {
               <FiCompass className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.gradientGenerator.card2Title')}
+              {t("devTools.gradientGenerator.card2Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.gradientGenerator.card2Desc')}
+              {t("devTools.gradientGenerator.card2Desc")}
             </p>
           </div>
 
@@ -398,10 +515,10 @@ export default function GradientGeneratorClient() {
               <FiCode className="w-5 h-5" />
             </div>
             <h3 className="font-exo-medium text-lg font-bold text-zinc-900 dark:text-white mb-2">
-              {t('devTools.gradientGenerator.card3Title')}
+              {t("devTools.gradientGenerator.card3Title")}
             </h3>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-exo-extralight leading-relaxed">
-              {t('devTools.gradientGenerator.card3Desc')}
+              {t("devTools.gradientGenerator.card3Desc")}
             </p>
           </div>
         </div>
@@ -409,4 +526,3 @@ export default function GradientGeneratorClient() {
     </div>
   );
 }
-
