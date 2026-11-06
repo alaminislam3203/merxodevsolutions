@@ -510,3 +510,4 @@ export default function CostCalculatorPage() {
     </main>
   );
 }
+

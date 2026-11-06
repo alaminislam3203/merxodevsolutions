@@ -117,3 +117,4 @@ export default function BlogArticlePage({ params }) {
     </main>
   );
 }
+
