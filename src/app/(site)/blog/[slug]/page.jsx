@@ -1,120 +1,175 @@
-"use client";
+'use client';
 
-import { useState, useEffect, use } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
 import {
-  FiArrowLeft,
-  FiClock,
-  FiUser,
-  FiSliders,
-  FiArrowRight,
-} from "react-icons/fi";
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Share2,
+  Check,
+  Sparkles,
+  Calculator,
+  ChevronRight,
+} from 'lucide-react';
 
-export default function BlogArticlePage({ params }) {
-  const resolvedParams = use(params);
-  const slug = resolvedParams?.slug;
+export default function BlogPostDetailPage() {
+  const { slug } = useParams();
+  const { t } = useTranslation();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
     fetch(`/api/blog?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
-      .then((d) => setPost(d.post || null))
-      .catch(() => {})
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data.post || null);
+      })
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-[#060914] text-white pt-32 pb-24 px-4 text-center">
-        <p className="text-slate-400 text-sm">Loading article...</p>
-      </main>
-    );
-  }
-
-  if (!post) {
-    return (
-      <main className="min-h-screen bg-[#060914] text-white pt-32 pb-24 px-4 text-center">
-        <h1 className="text-2xl font-bold mb-4">Article Not Found</h1>
-        <Link href="/blog" className="text-orange-400 font-bold text-sm">
-          ← Back to Blog
-        </Link>
-      </main>
-    );
-  }
-
-  const paragraphs = String(post.content || "").split(/\n\n+/);
+  const handleCopyLink = () => {
+    if (typeof window === 'undefined') return;
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <main className="min-h-screen bg-[#060914] text-white pt-28 pb-24 px-4 sm:px-6 lg:px-8">
-      <article className="max-w-3xl mx-auto">
+    <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
+      {/* Ambient decorative glows matching other pages */}
+      <div
+        className="pointer-events-none fixed top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.07] dark:opacity-[0.12] blur-[130px] z-0"
+        style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }}
+      />
+      <div
+        className="pointer-events-none fixed bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-[0.06] dark:opacity-[0.10] blur-[110px] z-0"
+        style={{ background: 'radial-gradient(circle, #06b6d4, transparent 70%)' }}
+      />
+
+      <div className="relative z-10 max-w-[950px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <div className="pt-12 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 mb-6">
+          <Link href="/" className="hover:text-violet-500 transition-colors">
+            {t('blogPage.breadcrumbHome', { defaultValue: 'Home' })}
+          </Link>
+          <ChevronRight size={12} />
+          <Link href="/blog" className="hover:text-violet-500 transition-colors">
+            {t('blogPage.breadcrumbCurrent', { defaultValue: 'Engineering Blog' })}
+          </Link>
+          <ChevronRight size={12} />
+          <span className="text-zinc-600 dark:text-zinc-400 truncate max-w-[200px]">
+            {post?.title || slug}
+          </span>
+        </div>
+
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white mb-6"
+          className="inline-flex items-center gap-2 text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline mb-6"
         >
-          <FiArrowLeft /> Back to All Articles
+          <ArrowLeft size={14} />
+          {t('blogPage.backToBlog')}
         </Link>
 
-        <div className="mb-8">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="px-3.5 py-1 rounded-full bg-orange-500/15 text-orange-400 text-xs font-bold">
-              {post.category}
-            </span>
-            <span className="text-xs text-slate-400 flex items-center gap-1">
-              <FiClock /> {post.readTime}
-            </span>
-            <span className="text-xs text-slate-400 flex items-center gap-1">
-              <FiUser /> {post.authorName} ({post.authorRole})
-            </span>
+        {loading ? (
+          <div className="h-96 rounded-2xl bg-white/60 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 animate-pulse" />
+        ) : !post ? (
+          <div className="p-12 text-center bg-white/80 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-500">
+            {t('blogPage.noPostsFound')}
           </div>
+        ) : (
+          <article className="bg-white/85 dark:bg-zinc-900/75 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 sm:p-10 shadow-md">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20">
+                <Sparkles size={12} />
+                {post.category}
+              </span>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight mb-4">
-            {post.title}
-          </h1>
-          <p className="text-base text-slate-300 leading-relaxed">
-            {post.excerpt}
-          </p>
-        </div>
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:border-violet-400 transition-all"
+              >
+                {copied ? <Check size={14} className="text-emerald-500" /> : <Share2 size={14} />}
+                {copied ? t('blogPage.copiedLink') : t('blogPage.shareArticle')}
+              </button>
+            </div>
 
-        <div className="rounded-3xl bg-slate-900/75 border border-white/10 p-6 sm:p-10 space-y-5 text-slate-200 leading-relaxed text-sm sm:text-base">
-          {paragraphs.map((para, idx) => {
-            if (para.startsWith("### ")) {
-              return (
-                <h2
-                  key={idx}
-                  className="text-lg sm:text-xl font-extrabold text-orange-400 pt-2"
-                >
-                  {para.replace("### ", "")}
-                </h2>
-              );
-            }
-            return (
-              <p key={idx} className="whitespace-pre-line">
-                {para}
-              </p>
-            );
-          })}
-        </div>
+            <h1 className="font-exo-medium text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#27003B] dark:text-white leading-tight mb-4">
+              {post.title}
+            </h1>
 
-        <div className="mt-10 rounded-3xl bg-gradient-to-r from-orange-500/15 via-purple-600/15 to-cyan-500/15 border border-purple-500/30 p-7 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div>
-            <h3 className="text-lg font-extrabold text-white mb-1">
-              Ready to Build Your Next Digital Product?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Calculate your exact project budget in 30 seconds or schedule a free 15-minute Google Meet discovery call.
-            </p>
-          </div>
-          <Link
-            href="/cost-calculator"
-            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 text-white text-xs font-bold inline-flex items-center gap-2 shrink-0"
-          >
-            <FiSliders /> Calculate Project Cost <FiArrowRight />
-          </Link>
-        </div>
-      </article>
-    </main>
+            <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800 pb-6 mb-8">
+              <span className="font-semibold text-zinc-700 dark:text-zinc-300">
+                By {post.author || 'MerxoDev Engineering Team'}
+              </span>
+              <span className="flex items-center gap-1">
+                <Calendar size={13} />
+                {new Date(post.publishedAt || Date.now()).toLocaleDateString()}
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock size={13} />
+                {post.readTime || '5'} {t('blogPage.readTimeUnit')}
+              </span>
+            </div>
+
+            {/* Content paragraphs */}
+            <div className="space-y-4 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed font-exo-extralight">
+              {(post.content || post.excerpt || '')
+                .split('\n\n')
+                .map((block, idx) => {
+                  const trimmed = block.trim();
+                  if (trimmed.startsWith('## ')) {
+                    return (
+                      <h2
+                        key={idx}
+                        className="font-exo-medium text-lg sm:text-xl font-bold text-[#27003B] dark:text-white pt-4"
+                      >
+                        {trimmed.replace('## ', '')}
+                      </h2>
+                    );
+                  }
+                  if (trimmed.startsWith('### ')) {
+                    return (
+                      <h3
+                        key={idx}
+                        className="font-exo-medium text-base sm:text-lg font-bold text-violet-600 dark:text-violet-400 pt-2"
+                      >
+                        {trimmed.replace('### ', '')}
+                      </h3>
+                    );
+                  }
+                  return <p key={idx}>{trimmed}</p>;
+                })}
+            </div>
+
+            {/* Bottom CTA inside article */}
+            <div className="mt-10 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="font-exo-medium text-base sm:text-lg font-bold text-[#27003B] dark:text-white">
+                  {t('blogPage.ctaBoxTitle')}
+                </h3>
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                  {t('blogPage.ctaBoxDesc')}
+                </p>
+              </div>
+              <Link
+                href="/cost-calculator"
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-md hover:scale-[1.02] transition-all flex items-center gap-2 shrink-0"
+              >
+                <Calculator size={15} />
+                {t('blogPage.ctaCalculatorBtn')}
+              </Link>
+            </div>
+          </article>
+        )}
+      </div>
+    </div>
   );
 }
-
