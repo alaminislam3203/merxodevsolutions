@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -25,7 +26,7 @@ function arr(t, key) {
 }
 
 export default function ServicesAutomationPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const fallbackStats = [
@@ -177,17 +178,21 @@ export default function ServicesAutomationPage() {
     },
   ];
   const translatedPlans = arr(t, 'automationService.pricing.plans');
-  const plans = fallbackPlans.map((plan, i) => ({
-    ...plan,
-    name: translatedPlans?.[i]?.name || plan.name,
-    price: translatedPlans?.[i]?.price || plan.price,
-    desc: translatedPlans?.[i]?.desc || plan.desc,
-    features:
-      Array.isArray(translatedPlans?.[i]?.features) && translatedPlans[i].features.length > 0
-        ? translatedPlans[i].features
-        : plan.features,
-    cta: translatedPlans?.[i]?.cta || plan.cta,
-  }));
+  const plans = getLocalizedServicePlans(
+    'automationService',
+    fallbackPlans.map((plan, i) => ({
+      ...plan,
+      name: translatedPlans?.[i]?.name || plan.name,
+      price: translatedPlans?.[i]?.price || plan.price,
+      desc: translatedPlans?.[i]?.desc || plan.desc,
+      features:
+        Array.isArray(translatedPlans?.[i]?.features) && translatedPlans[i].features.length > 0
+          ? translatedPlans[i].features
+          : plan.features,
+      cta: translatedPlans?.[i]?.cta || plan.cta,
+    })),
+    i18n.language
+  );
 
   const fallbackFaqs = [
     {
