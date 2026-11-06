@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import AdminLoader from "@/components/AdminLoader";
 import {
   FiBriefcase,
   FiCheckSquare,
@@ -323,9 +324,11 @@ export default function AdminWorkspacePage() {
       </div>
 
       {loading ? (
-        <div className="admin-empty" style={{ padding: 60 }}>
-          Loading workspace...
-        </div>
+        <AdminLoader
+          compact
+          title="Loading Agency Workspace"
+          label="Synchronizing CRM leads, tasks & activity logs"
+        />
       ) : activeTab === "leads" ? (
         /* ── TAB 1: CRM LEADS & CLIENT PROJECT TRACKER ── */
         leads.length === 0 ? (
