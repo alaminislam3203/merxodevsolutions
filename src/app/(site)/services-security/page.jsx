@@ -2,6 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -18,6 +21,7 @@ import {
 import { FaUserShield, FaFingerprint } from 'react-icons/fa';
 
 export default function ServicesSecurityPage() {
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const stats = [
@@ -113,10 +117,10 @@ export default function ServicesSecurityPage() {
     { label: 'Redis Rate Limiter', category: 'Brute Force' },
   ];
 
-  const plans = [
+  const rawPlans = [
     {
       name: 'Auth System & RBAC',
-      price: 'BDT 1400',
+      price: 'BDT 10,000',
       desc: 'Complete modern authentication setup with OAuth providers and multi-role user dashboards.',
       features: [
         'NextAuth / JWT Login & Registration',
@@ -131,7 +135,7 @@ export default function ServicesSecurityPage() {
     },
     {
       name: 'Full Security Hardening & 2FA',
-      price: 'BDT 2700',
+      price: 'BDT 22,000',
       desc: 'Our most recommended package for SaaS, e-commerce, and fintech platforms demanding ironclad safety.',
       features: [
         'Two-Factor Authentication (2FA/TOTP)',
@@ -147,7 +151,7 @@ export default function ServicesSecurityPage() {
     },
     {
       name: 'Enterprise Zero-Trust Defense',
-      price: 'BDT 3900',
+      price: 'BDT 42,000',
       desc: 'End-to-end enterprise compliance, penetration testing, and multi-tenant security architecture.',
       features: [
         'Comprehensive Penetration Testing',
@@ -162,6 +166,8 @@ export default function ServicesSecurityPage() {
       cta: 'Request Enterprise Audit',
     },
   ];
+
+  const plans = getLocalizedServicePlans('securityService', rawPlans, i18n.language);
 
   const faqs = [
     {
