@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { showToast, confirmToast } from "@/lib/toast";
+import AdminLoader from "@/components/AdminLoader";
 import {
   FiUsers,
   FiShield,
