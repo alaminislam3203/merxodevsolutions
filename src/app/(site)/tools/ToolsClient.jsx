@@ -29,6 +29,32 @@ import ToolIllustration from '@/components/tools/ToolIllustration';
 
 const TOOLS_DATA = [
   {
+    id: 'website-auditor',
+    title: 'Live Website SEO & Speed Auditor',
+    description:
+      'Analyze any website URL for TTFB response speed, HTTPS SSL, Meta tags, OpenGraph cards, H1 hierarchy, and Schema data.',
+    category: 'SEO & Web',
+    badge: 'New & Free',
+    badgeColor: 'emerald',
+    icon: FiZap,
+    href: '/tools/website-auditor',
+    tags: ['SEO Score', 'TTFB Speed', 'Meta Audit'],
+    clientSide: false,
+  },
+  {
+    id: 'cost-calculator',
+    title: 'Project Cost & Timeline Calculator',
+    description:
+      'Calculate instant BDT & USD pricing for custom websites, e-commerce stores, payment gateways, and SaaS applications.',
+    category: 'BD Devs',
+    badge: 'Popular',
+    badgeColor: 'amber',
+    icon: FiSliders,
+    href: '/cost-calculator',
+    tags: ['Instant Quote', 'BDT/USD', 'Timeline'],
+    clientSide: true,
+  },
+  {
     id: 'bangladesh-geojson',
     title: 'Bangladesh Postcode & Geo Data',
     description:
