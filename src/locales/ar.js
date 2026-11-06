@@ -4139,6 +4139,7 @@ const ar = {
       "daysUnit": "يوم",
       "basePackage": "الباقة الأساسية",
       "extraPages": "صفحات إضافية",
+      "included": "مشمول",
       "selectedAddons": "الميزات المختارة",
       "urgencyMultiplier": "معامل السرعة",
       "yourNamePlaceholder": "الاسم الكامل *",

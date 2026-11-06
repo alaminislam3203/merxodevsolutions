@@ -4139,6 +4139,7 @@ const bn = {
       "daysUnit": "দিন",
       "basePackage": "বেস প্যাকেজ",
       "extraPages": "অতিরিক্ত পেজ",
+      "included": "অন্তর্ভুক্ত",
       "selectedAddons": "নির্বাচিত ফিচারসমূহ",
       "urgencyMultiplier": "দ্রুত ডেলিভারি চার্জ",
       "yourNamePlaceholder": "আপনার পূর্ণ নাম *",

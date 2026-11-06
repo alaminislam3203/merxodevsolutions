@@ -4139,6 +4139,7 @@ const zh = {
       "daysUnit": "天",
       "basePackage": "基础套餐",
       "extraPages": "扩展页面规模",
+      "included": "已包含",
       "selectedAddons": "已选附加功能",
       "urgencyMultiplier": "加急交付系数",
       "yourNamePlaceholder": "您的全名 *",

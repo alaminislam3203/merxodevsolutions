@@ -43,25 +43,34 @@ export function formatMarketPrice(bdtAmount, lang = 'en', options = {}) {
   const rawBdt = Number(bdtAmount) || 0;
   const code = (lang || 'en').toLowerCase().split('-')[0];
 
-  if (code === 'bn') {
-    return `৳${toBanglaNumber(rawBdt)} BDT`;
+  if (rawBdt === 0) {
+    if (code === 'bn') return options.compact ? '৳০' : '৳০ BDT';
+    if (code === 'ar') return '0 ر.س';
+    if (code === 'zh') return '¥0';
+    return options.withCode ? '$0 USD' : '$0';
   }
 
-  if (code === 'ar') {
+  let formatted = '';
+
+  if (code === 'bn') {
+    formatted = options.compact
+      ? `৳${toBanglaNumber(rawBdt)}`
+      : `৳${toBanglaNumber(rawBdt)} BDT`;
+  } else if (code === 'ar') {
     // 1 SAR ≈ 32 BDT, rounded to nearest 5
     const sar = Math.max(5, Math.round(rawBdt / 32 / 5) * 5);
-    return `${sar.toLocaleString('en-US')} ر.س`;
-  }
-
-  if (code === 'zh') {
+    formatted = `${sar.toLocaleString('en-US')} ر.س`;
+  } else if (code === 'zh') {
     // 1 CNY ≈ 16.5 BDT, rounded to nearest 10
     const cny = Math.max(10, Math.round(rawBdt / 16.5 / 10) * 10);
-    return `¥${cny.toLocaleString('en-US')}`;
+    formatted = `¥${cny.toLocaleString('en-US')}`;
+  } else {
+    // Default English ('en'): USD ($), 1 USD ≈ 120 BDT, rounded to nearest 5
+    const usd = Math.max(5, Math.round(rawBdt / 120 / 5) * 5);
+    formatted = options.withCode ? `$${usd.toLocaleString('en-US')} USD` : `$${usd.toLocaleString('en-US')}`;
   }
 
-  // Default English ('en'): USD ($), 1 USD ≈ 120 BDT, rounded to nearest 5
-  const usd = Math.max(5, Math.round(rawBdt / 120 / 5) * 5);
-  return options.withCode ? `$${usd.toLocaleString('en-US')} USD` : `$${usd.toLocaleString('en-US')}`;
+  return options.prefixPlus && rawBdt > 0 ? `+${formatted}` : formatted;
 }
 
 /**

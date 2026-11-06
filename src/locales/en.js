@@ -4138,6 +4138,7 @@ const en = {
       "daysUnit": "Days",
       "basePackage": "Base Package",
       "extraPages": "Extra Pages",
+      "included": "Included",
       "selectedAddons": "Selected Add-ons",
       "urgencyMultiplier": "Urgency Multiplier",
       "yourNamePlaceholder": "Your Full Name *",
