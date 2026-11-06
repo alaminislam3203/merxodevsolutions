@@ -944,7 +944,7 @@ export default function UsersManagementPage() {
                               boxShadow: "0 0 12px rgba(245, 158, 11, 0.25)",
                             }}
                           >
-                            Main Admin
+                            Owner
                           </span>
                         ) : user.role === "TEAM_MEMBER" ? (
                           <span
@@ -962,7 +962,7 @@ export default function UsersManagementPage() {
                             }}
                           >
                             <FiUserCheck size={12} />
-                            team-member
+                            Team
                           </span>
                         ) : (
                           <span
@@ -988,7 +988,7 @@ export default function UsersManagementPage() {
                             ) : (
                               <FiUsers size={12} />
                             )}
-                            {isAdmin ? "admin" : "user"}
+                            {isAdmin ? "Admin" : "User"}
                           </span>
                         )}
                       </td>
@@ -1114,7 +1114,7 @@ export default function UsersManagementPage() {
                               pointerEvents: "none",
                               userSelect: "none",
                             }}
-                            title="Main Admin account is permanently locked and cannot be modified or deleted."
+                            title="Owner account is permanently locked and cannot be modified or deleted."
                           >
                             <FiLock size={13} />
                             <span>Protected Account</span>
@@ -1147,11 +1147,9 @@ export default function UsersManagementPage() {
                                 outline: "none",
                               }}
                             >
-                              <option value="USER">Role: user</option>
-                              <option value="TEAM_MEMBER">
-                                Role: team-member
-                              </option>
-                              <option value="ADMIN">Role: admin</option>
+                              <option value="USER">Role: User</option>
+                              <option value="TEAM_MEMBER">Role: Team</option>
+                              <option value="ADMIN">Role: Admin</option>
                             </select>
 
                             {/* Suspend / Activate */}
