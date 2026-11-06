@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import { showToast, confirmToast } from '@/lib/toast';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { downloadOfficialInvoice } from '@/lib/invoiceGenerator';
 import {
   FiUser,
   FiMail,
@@ -1174,6 +1175,13 @@ function AccountContent() {
                           </div>
 
                           <div className="flex items-center gap-3 self-start sm:self-center">
+                            <button
+                              type="button"
+                              onClick={() => downloadOfficialInvoice(proj)}
+                              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30 hover:bg-orange-500/25 cursor-pointer"
+                            >
+                              <span>Invoice PDF</span>
+                            </button>
                             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/80 font-exo-extralight">
                               <FiCheckCircle size={13} /> {proj.status}
                             </span>
