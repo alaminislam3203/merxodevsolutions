@@ -185,14 +185,18 @@ export default function ServicesSeoPage() {
   ];
 
   const translatedPlans = arr(t, 'seoService.pricing.plans');
-  const plans = fallbackPlans.map((plan, idx) => ({
-    ...plan,
-    name: translatedPlans?.[idx]?.name || plan.name,
-    price: translatedPlans?.[idx]?.price || plan.price,
-    desc: translatedPlans?.[idx]?.desc || plan.desc,
-    features: translatedPlans?.[idx]?.features || plan.features,
-    cta: translatedPlans?.[idx]?.cta || plan.cta,
-  }));
+  const plans = getLocalizedServicePlans(
+    'seoService',
+    fallbackPlans.map((plan, idx) => ({
+      ...plan,
+      name: translatedPlans?.[idx]?.name || plan.name,
+      price: translatedPlans?.[idx]?.price || plan.price,
+      desc: translatedPlans?.[idx]?.desc || plan.desc,
+      features: translatedPlans?.[idx]?.features || plan.features,
+      cta: translatedPlans?.[idx]?.cta || plan.cta,
+    })),
+    i18n.language
+  );
 
   const fallbackFaqs = [
     {
