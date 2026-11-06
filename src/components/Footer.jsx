@@ -187,6 +187,26 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            {[
+              { href: '/cost-calculator', label: 'Project Cost Calculator' },
+              { href: '/track-project', label: 'Track Live Project' },
+              { href: '/blog', label: 'Engineering & SEO Blog' },
+              { href: '/tools/website-auditor', label: 'Free Website SEO Auditor' },
+            ].map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="group inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 transition-all font-exo-extralight"
+                >
+                  <span className="text-violet-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
+                    ›
+                  </span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">
+                    {item.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
             {/* Mobile-only Quick Links for Privacy & Terms */}
             <li className="block md:hidden">
               <Link
