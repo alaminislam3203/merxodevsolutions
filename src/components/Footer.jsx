@@ -188,10 +188,10 @@ export default function Footer() {
               </li>
             ))}
             {[
-              { href: '/cost-calculator', label: 'Project Cost Calculator' },
-              { href: '/track-project', label: 'Track Live Project' },
-              { href: '/blog', label: 'Engineering & SEO Blog' },
-              { href: '/tools/website-auditor', label: 'Free Website SEO Auditor' },
+              { href: '/cost-calculator', label: t('footerLinks.costCalculator', { defaultValue: 'Cost Calculator' }) },
+              { href: '/track-project', label: t('footerLinks.trackProject', { defaultValue: 'Track Project' }) },
+              { href: '/blog', label: t('footerLinks.engineeringBlog', { defaultValue: 'Engineering Blog' }) },
+              { href: '/tools/website-auditor', label: t('footerLinks.websiteAuditor', { defaultValue: 'Website SEO Auditor' }) },
             ].map((item) => (
               <li key={item.href}>
                 <Link
