@@ -37,7 +37,12 @@ export default function UsersManagementPage() {
 
   // Modals state
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [createData, setCreateData] = useState({ name: "", email: "", password: "", role: "USER" });
+  const [createData, setCreateData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "USER",
+  });
   const [createLoading, setCreateLoading] = useState(false);
 
   const [resetModalOpen, setResetModalOpen] = useState(false);
@@ -81,7 +86,10 @@ export default function UsersManagementPage() {
 
   // Change user role between USER, TEAM_MEMBER (team-member), and ADMIN
   const handleChangeRole = async (user, nextRole) => {
-    if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+    if (
+      user.isMainAdmin ||
+      user.email?.toLowerCase() === "merxodevsolutions@gmail.com"
+    ) {
       toast.error("Main Admin role cannot be modified.");
       return;
     }
@@ -124,7 +132,10 @@ export default function UsersManagementPage() {
 
   // Toggle isActive status
   const handleToggleStatus = async (user) => {
-    if (user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+    if (
+      user.isMainAdmin ||
+      user.email?.toLowerCase() === "merxodevsolutions@gmail.com"
+    ) {
       showToast.lock("Main Admin account cannot be suspended.");
       return;
     }
@@ -137,7 +148,7 @@ export default function UsersManagementPage() {
         confirmText: nextStatus ? "Activate Account" : "Suspend Account",
         cancelText: "Cancel",
         danger: !nextStatus,
-      }
+      },
     );
     if (!confirmed) return;
 
@@ -149,7 +160,9 @@ export default function UsersManagementPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success(`User ${nextStatus ? "activated" : "suspended"} successfully`);
+        toast.success(
+          `User ${nextStatus ? "activated" : "suspended"} successfully`,
+        );
         fetchUsers();
       } else {
         toast.error(data.error || "Failed to update status");
@@ -192,7 +205,10 @@ export default function UsersManagementPage() {
   // Reset password
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    if (resetTargetUser?.isMainAdmin || resetTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+    if (
+      resetTargetUser?.isMainAdmin ||
+      resetTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com"
+    ) {
       toast.error("Main Admin password cannot be reset from this panel.");
       return;
     }
@@ -202,11 +218,14 @@ export default function UsersManagementPage() {
     }
     setResetLoading(true);
     try {
-      const res = await fetch(`/api/admin/users/${resetTargetUser.id}/reset-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newPassword }),
-      });
+      const res = await fetch(
+        `/api/admin/users/${resetTargetUser.id}/reset-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ newPassword }),
+        },
+      );
       const data = await res.json();
       if (res.ok) {
         toast.success(data.message || "Password reset successfully!");
@@ -225,7 +244,10 @@ export default function UsersManagementPage() {
   // Delete user
   const handleDeleteUser = async () => {
     if (!deleteTargetUser) return;
-    if (deleteTargetUser?.isMainAdmin || deleteTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com") {
+    if (
+      deleteTargetUser?.isMainAdmin ||
+      deleteTargetUser?.email?.toLowerCase() === "merxodevsolutions@gmail.com"
+    ) {
       toast.error("Main Admin account cannot be deleted.");
       return;
     }
@@ -258,13 +280,26 @@ export default function UsersManagementPage() {
   return (
     <div style={{ paddingBottom: 60 }}>
       {/* Top Header */}
-      <div className="admin-page-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+      <div
+        className="admin-page-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+          gap: 16,
+        }}
+      >
         <div>
-          <h1 className="admin-page-title" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <h1
+            className="admin-page-title"
+            style={{ display: "flex", alignItems: "center", gap: 10 }}
+          >
             <FiUsers style={{ color: "#6366f1" }} /> User Management
           </h1>
           <p className="admin-page-subtitle">
-            Manage client accounts, assign administrator roles, monitor 2FA status, and control site access.
+            Manage client accounts, assign administrator roles, monitor 2FA
+            status, and control site access.
           </p>
         </div>
 
@@ -533,8 +568,23 @@ export default function UsersManagementPage() {
         </div>
 
         {/* Filter buttons */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-          <div style={{ display: "flex", background: "rgba(255,255,255,0.04)", padding: 3, borderRadius: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: 8,
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              background: "rgba(255,255,255,0.04)",
+              padding: 3,
+              borderRadius: 10,
+              border: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
             {[
               { id: "ALL", label: "All Roles" },
               { id: "USER", label: "Users" },
@@ -545,7 +595,8 @@ export default function UsersManagementPage() {
                 key={rItem.id}
                 onClick={() => setRoleFilter(rItem.id)}
                 style={{
-                  background: roleFilter === rItem.id ? "#6366f1" : "transparent",
+                  background:
+                    roleFilter === rItem.id ? "#6366f1" : "transparent",
                   color: roleFilter === rItem.id ? "#fff" : "#94a3b8",
                   border: "none",
                   padding: "6px 14px",
@@ -561,7 +612,15 @@ export default function UsersManagementPage() {
             ))}
           </div>
 
-          <div style={{ display: "flex", background: "rgba(255,255,255,0.04)", padding: 3, borderRadius: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
+          <div
+            style={{
+              display: "flex",
+              background: "rgba(255,255,255,0.04)",
+              padding: 3,
+              borderRadius: 10,
+              border: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
             {[
               { id: "ALL", label: "All Status" },
               { id: "ACTIVE", label: "Active" },
@@ -571,7 +630,8 @@ export default function UsersManagementPage() {
                 key={st.id}
                 onClick={() => setStatusFilter(st.id)}
                 style={{
-                  background: statusFilter === st.id ? "#3b82f6" : "transparent",
+                  background:
+                    statusFilter === st.id ? "#3b82f6" : "transparent",
                   color: statusFilter === st.id ? "#fff" : "#94a3b8",
                   border: "none",
                   padding: "6px 12px",
@@ -599,34 +659,132 @@ export default function UsersManagementPage() {
         }}
       >
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              textAlign: "left",
+            }}
+          >
             <thead>
-              <tr style={{ background: "rgba(255,255,255,0.03)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>User</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>Role</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>Security</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>Status</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>Reviews</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>Joined Date</th>
-                <th style={{ padding: "14px 18px", fontSize: 12, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", textAlign: "right" }}>Actions</th>
+              <tr
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  borderBottom: "1px solid rgba(255,255,255,0.07)",
+                }}
+              >
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  User
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Role
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Security
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Status
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Reviews
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Joined Date
+                </th>
+                <th
+                  style={{
+                    padding: "14px 18px",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                    textAlign: "right",
+                  }}
+                >
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center", padding: "40px 0", color: "#94a3b8" }}>
+                  <td
+                    colSpan={7}
+                    style={{
+                      textAlign: "center",
+                      padding: "40px 0",
+                      color: "#94a3b8",
+                    }}
+                  >
                     Loading user records...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center", padding: "50px 0", color: "#94a3b8" }}>
+                  <td
+                    colSpan={7}
+                    style={{
+                      textAlign: "center",
+                      padding: "50px 0",
+                      color: "#94a3b8",
+                    }}
+                  >
                     No users found matching current criteria.
                   </td>
                 </tr>
               ) : (
                 users.map((user) => {
-                  const isMainAdmin = user.isMainAdmin || user.email?.toLowerCase() === "merxodevsolutions@gmail.com";
+                  const isMainAdmin =
+                    user.isMainAdmin ||
+                    user.email?.toLowerCase() === "merxodevsolutions@gmail.com";
                   const isAdmin = isMainAdmin || user.role === "ADMIN";
                   const isActive = isMainAdmin ? true : user.isActive !== false;
                   const is2FA = Boolean(user.twoFactorEnabled);
@@ -639,7 +797,9 @@ export default function UsersManagementPage() {
                       key={user.id}
                       style={{
                         borderBottom: "1px solid rgba(255,255,255,0.05)",
-                        background: isMainAdmin ? "rgba(245, 158, 11, 0.03)" : "transparent",
+                        background: isMainAdmin
+                          ? "rgba(245, 158, 11, 0.03)"
+                          : "transparent",
                         transition: "background 0.15s",
                       }}
                       onMouseEnter={(e) => {
@@ -655,7 +815,13 @@ export default function UsersManagementPage() {
                     >
                       {/* User Avatar + Name + Email */}
                       <td style={{ padding: "14px 18px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                          }}
+                        >
                           {user.image ? (
                             <img
                               src={user.image}
@@ -665,8 +831,12 @@ export default function UsersManagementPage() {
                                 height: 40,
                                 borderRadius: "50%",
                                 objectFit: "cover",
-                                border: isMainAdmin ? "2px solid #f59e0b" : "none",
-                                boxShadow: isMainAdmin ? "0 0 10px rgba(245, 158, 11, 0.4)" : "none",
+                                border: isMainAdmin
+                                  ? "2px solid #f59e0b"
+                                  : "none",
+                                boxShadow: isMainAdmin
+                                  ? "0 0 10px rgba(245, 158, 11, 0.4)"
+                                  : "none",
                               }}
                             />
                           ) : (
@@ -686,16 +856,32 @@ export default function UsersManagementPage() {
                                 color: "#ffffff",
                                 fontWeight: 800,
                                 fontSize: isMainAdmin ? 16 : 13,
-                                border: isMainAdmin ? "2px solid #fbbf24" : "none",
-                                boxShadow: isMainAdmin ? "0 0 10px rgba(245, 158, 11, 0.4)" : "none",
+                                border: isMainAdmin
+                                  ? "2px solid #fbbf24"
+                                  : "none",
+                                boxShadow: isMainAdmin
+                                  ? "0 0 10px rgba(245, 158, 11, 0.4)"
+                                  : "none",
                               }}
                             >
                               {isMainAdmin ? "👑" : initials}
                             </div>
                           )}
                           <div>
-                            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                              <span style={{ fontWeight: 700, color: isMainAdmin ? "#fbbf24" : "#f8fafc", fontSize: 14 }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 6,
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontWeight: 700,
+                                  color: isMainAdmin ? "#fbbf24" : "#f8fafc",
+                                  fontSize: 14,
+                                }}
+                              >
                                 {user.name}
                               </span>
                               {isMainAdmin && (
@@ -708,7 +894,8 @@ export default function UsersManagementPage() {
                                     fontWeight: 800,
                                     color: "#f59e0b",
                                     background: "rgba(245, 158, 11, 0.15)",
-                                    border: "1px solid rgba(245, 158, 11, 0.35)",
+                                    border:
+                                      "1px solid rgba(245, 158, 11, 0.35)",
                                     padding: "1px 6px",
                                     borderRadius: 4,
                                     letterSpacing: "0.04em",
@@ -750,7 +937,8 @@ export default function UsersManagementPage() {
                               borderRadius: 6,
                               fontSize: 12,
                               fontWeight: 800,
-                              background: "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.2))",
+                              background:
+                                "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.2))",
                               color: "#fbbf24",
                               border: "1px solid rgba(245, 158, 11, 0.5)",
                               boxShadow: "0 0 12px rgba(245, 158, 11, 0.25)",
@@ -786,12 +974,20 @@ export default function UsersManagementPage() {
                               borderRadius: 6,
                               fontSize: 12,
                               fontWeight: 700,
-                              background: isAdmin ? "rgba(245, 158, 11, 0.15)" : "rgba(99, 102, 241, 0.15)",
+                              background: isAdmin
+                                ? "rgba(245, 158, 11, 0.15)"
+                                : "rgba(99, 102, 241, 0.15)",
                               color: isAdmin ? "#fbbf24" : "#818cf8",
-                              border: isAdmin ? "1px solid rgba(245,158,11,0.3)" : "1px solid rgba(99,102,241,0.3)",
+                              border: isAdmin
+                                ? "1px solid rgba(245,158,11,0.3)"
+                                : "1px solid rgba(99,102,241,0.3)",
                             }}
                           >
-                            {isAdmin ? <FiShield size={12} /> : <FiUsers size={12} />}
+                            {isAdmin ? (
+                              <FiShield size={12} />
+                            ) : (
+                              <FiUsers size={12} />
+                            )}
                             {isAdmin ? "admin" : "user"}
                           </span>
                         )}
@@ -808,13 +1004,17 @@ export default function UsersManagementPage() {
                             borderRadius: 6,
                             fontSize: 11,
                             fontWeight: 700,
-                            background: is2FA ? "rgba(16, 185, 129, 0.15)" : "rgba(148, 163, 184, 0.1)",
+                            background: is2FA
+                              ? "rgba(16, 185, 129, 0.15)"
+                              : "rgba(148, 163, 184, 0.1)",
                             color: is2FA ? "#34d399" : "#94a3b8",
-                            border: is2FA ? "1px solid rgba(16,185,129,0.3)" : "1px solid rgba(148,163,184,0.2)",
+                            border: is2FA
+                              ? "1px solid rgba(16,185,129,0.3)"
+                              : "1px solid rgba(148,163,184,0.2)",
                           }}
                         >
                           <FiLock size={11} />
-                          {is2FA ? "2FA Active" : "2FA Off"}
+                          {is2FA ? "2FA On" : "2FA Off"}
                         </span>
                       </td>
 
@@ -834,12 +1034,28 @@ export default function UsersManagementPage() {
                               : isActive
                                 ? "rgba(34, 197, 94, 0.12)"
                                 : "rgba(239, 68, 68, 0.15)",
-                            color: isMainAdmin ? "#34d399" : isActive ? "#4ade80" : "#f87171",
-                            border: isMainAdmin ? "1px solid rgba(16, 185, 129, 0.35)" : "none",
+                            color: isMainAdmin
+                              ? "#34d399"
+                              : isActive
+                                ? "#4ade80"
+                                : "#f87171",
+                            border: isMainAdmin
+                              ? "1px solid rgba(16, 185, 129, 0.35)"
+                              : "none",
                           }}
                         >
-                          {isMainAdmin ? <FiCheckCircle size={12} /> : isActive ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
-                          {isMainAdmin ? "Permanent Active" : isActive ? "Active" : "Suspended"}
+                          {isMainAdmin ? (
+                            <FiCheckCircle size={12} />
+                          ) : isActive ? (
+                            <FiCheckCircle size={12} />
+                          ) : (
+                            <FiXCircle size={12} />
+                          )}
+                          {isMainAdmin
+                            ? "Permanent"
+                            : isActive
+                              ? "Active"
+                              : "Suspended"}
                         </span>
                       </td>
 
@@ -860,8 +1076,23 @@ export default function UsersManagementPage() {
                       </td>
 
                       {/* Joined Date */}
-                      <td style={{ padding: "14px 18px", color: "#94a3b8", fontSize: 13 }}>
-                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "-"}
+                      <td
+                        style={{
+                          padding: "14px 18px",
+                          color: "#94a3b8",
+                          fontSize: 13,
+                        }}
+                      >
+                        {user.createdAt
+                          ? new Date(user.createdAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              },
+                            )
+                          : "-"}
                       </td>
 
                       {/* Action Buttons */}
@@ -889,11 +1120,20 @@ export default function UsersManagementPage() {
                             <span>Protected Account</span>
                           </div>
                         ) : (
-                          <div style={{ display: "flex", gap: 6, justifyContent: "flex-end", alignItems: "center" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 6,
+                              justifyContent: "flex-end",
+                              alignItems: "center",
+                            }}
+                          >
                             {/* Select Role (user / team-member / admin) */}
                             <select
                               value={user.role || "USER"}
-                              onChange={(e) => handleChangeRole(user, e.target.value)}
+                              onChange={(e) =>
+                                handleChangeRole(user, e.target.value)
+                              }
                               title="Change Account Role"
                               style={{
                                 background: "#0f172a",
@@ -908,17 +1148,27 @@ export default function UsersManagementPage() {
                               }}
                             >
                               <option value="USER">Role: user</option>
-                              <option value="TEAM_MEMBER">Role: team-member</option>
+                              <option value="TEAM_MEMBER">
+                                Role: team-member
+                              </option>
                               <option value="ADMIN">Role: admin</option>
                             </select>
 
                             {/* Suspend / Activate */}
                             <button
                               onClick={() => handleToggleStatus(user)}
-                              title={isActive ? "Suspend Account" : "Activate Account"}
+                              title={
+                                isActive
+                                  ? "Suspend Account"
+                                  : "Activate Account"
+                              }
                               style={{
-                                background: isActive ? "rgba(239, 68, 68, 0.1)" : "rgba(34, 197, 94, 0.1)",
-                                border: isActive ? "1px solid rgba(239, 68, 68, 0.25)" : "1px solid rgba(34, 197, 94, 0.25)",
+                                background: isActive
+                                  ? "rgba(239, 68, 68, 0.1)"
+                                  : "rgba(34, 197, 94, 0.1)",
+                                border: isActive
+                                  ? "1px solid rgba(239, 68, 68, 0.25)"
+                                  : "1px solid rgba(34, 197, 94, 0.25)",
                                 color: isActive ? "#f87171" : "#4ade80",
                                 padding: "6px 10px",
                                 borderRadius: 8,
@@ -1007,11 +1257,33 @@ export default function UsersManagementPage() {
               boxShadow: "0 25px 50px rgba(0,0,0,0.6)",
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#ffffff", margin: 0 }}>Add New User</h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 20,
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  margin: 0,
+                }}
+              >
+                Add New User
+              </h2>
               <button
                 onClick={() => setCreateModalOpen(false)}
-                style={{ background: "transparent", border: "none", color: "#94a3b8", fontSize: 20, cursor: "pointer" }}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#94a3b8",
+                  fontSize: 20,
+                  cursor: "pointer",
+                }}
               >
                 ✕
               </button>
@@ -1019,12 +1291,24 @@ export default function UsersManagementPage() {
 
             <form onSubmit={handleCreateUser}>
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 12, color: "#94a3b8", marginBottom: 6, fontWeight: 600 }}>Full Name</label>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 12,
+                    color: "#94a3b8",
+                    marginBottom: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  Full Name
+                </label>
                 <input
                   type="text"
                   required
                   value={createData.name}
-                  onChange={(e) => setCreateData({ ...createData, name: e.target.value })}
+                  onChange={(e) =>
+                    setCreateData({ ...createData, name: e.target.value })
+                  }
                   style={{
                     width: "100%",
                     background: "rgba(255,255,255,0.05)",
@@ -1039,12 +1323,24 @@ export default function UsersManagementPage() {
               </div>
 
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 12, color: "#94a3b8", marginBottom: 6, fontWeight: 600 }}>Email Address</label>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 12,
+                    color: "#94a3b8",
+                    marginBottom: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  Email Address
+                </label>
                 <input
                   type="email"
                   required
                   value={createData.email}
-                  onChange={(e) => setCreateData({ ...createData, email: e.target.value })}
+                  onChange={(e) =>
+                    setCreateData({ ...createData, email: e.target.value })
+                  }
                   style={{
                     width: "100%",
                     background: "rgba(255,255,255,0.05)",
@@ -1059,12 +1355,24 @@ export default function UsersManagementPage() {
               </div>
 
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 12, color: "#94a3b8", marginBottom: 6, fontWeight: 600 }}>Temporary Password</label>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 12,
+                    color: "#94a3b8",
+                    marginBottom: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  Temporary Password
+                </label>
                 <input
                   type="password"
                   required
                   value={createData.password}
-                  onChange={(e) => setCreateData({ ...createData, password: e.target.value })}
+                  onChange={(e) =>
+                    setCreateData({ ...createData, password: e.target.value })
+                  }
                   style={{
                     width: "100%",
                     background: "rgba(255,255,255,0.05)",
@@ -1079,10 +1387,22 @@ export default function UsersManagementPage() {
               </div>
 
               <div style={{ marginBottom: 20 }}>
-                <label style={{ display: "block", fontSize: 12, color: "#94a3b8", marginBottom: 6, fontWeight: 600 }}>Account Role</label>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 12,
+                    color: "#94a3b8",
+                    marginBottom: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  Account Role
+                </label>
                 <select
                   value={createData.role}
-                  onChange={(e) => setCreateData({ ...createData, role: e.target.value })}
+                  onChange={(e) =>
+                    setCreateData({ ...createData, role: e.target.value })
+                  }
                   style={{
                     width: "100%",
                     background: "#0a1024",
@@ -1099,7 +1419,9 @@ export default function UsersManagementPage() {
                 </select>
               </div>
 
-              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <div
+                style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}
+              >
                 <button
                   type="button"
                   onClick={() => setCreateModalOpen(false)}
@@ -1161,25 +1483,59 @@ export default function UsersManagementPage() {
               padding: 24,
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#ffffff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 16,
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  margin: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
                 <FiKey style={{ color: "#fbbf24" }} /> Reset Password
               </h2>
               <button
                 onClick={() => setResetModalOpen(false)}
-                style={{ background: "transparent", border: "none", color: "#94a3b8", fontSize: 20, cursor: "pointer" }}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#94a3b8",
+                  fontSize: 20,
+                  cursor: "pointer",
+                }}
               >
                 ✕
               </button>
             </div>
 
             <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 18 }}>
-              Setting a new password for <strong>{resetTargetUser.email}</strong>.
+              Setting a new password for{" "}
+              <strong>{resetTargetUser.email}</strong>.
             </p>
 
             <form onSubmit={handleResetPassword}>
               <div style={{ marginBottom: 20 }}>
-                <label style={{ display: "block", fontSize: 12, color: "#cbd5e1", marginBottom: 6, fontWeight: 600 }}>New Password</label>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 12,
+                    color: "#cbd5e1",
+                    marginBottom: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  New Password
+                </label>
                 <input
                   type="password"
                   required
@@ -1198,7 +1554,9 @@ export default function UsersManagementPage() {
                 />
               </div>
 
-              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <div
+                style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}
+              >
                 <button
                   type="button"
                   onClick={() => setResetModalOpen(false)}
@@ -1259,7 +1617,14 @@ export default function UsersManagementPage() {
               padding: 24,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                marginBottom: 14,
+              }}
+            >
               <div
                 style={{
                   width: 40,
@@ -1275,14 +1640,34 @@ export default function UsersManagementPage() {
               >
                 <FiAlertTriangle />
               </div>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: "#ffffff", margin: 0 }}>Confirm Delete</h2>
+              <h2
+                style={{
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  margin: 0,
+                }}
+              >
+                Confirm Delete
+              </h2>
             </div>
 
-            <p style={{ fontSize: 14, color: "#cbd5e1", lineHeight: 1.5, marginBottom: 20 }}>
-              Are you sure you want to permanently delete the account for <strong>{deleteTargetUser.email}</strong>? This action cannot be undone.
+            <p
+              style={{
+                fontSize: 14,
+                color: "#cbd5e1",
+                lineHeight: 1.5,
+                marginBottom: 20,
+              }}
+            >
+              Are you sure you want to permanently delete the account for{" "}
+              <strong>{deleteTargetUser.email}</strong>? This action cannot be
+              undone.
             </p>
 
-            <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+            <div
+              style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}
+            >
               <button
                 type="button"
                 onClick={() => setDeleteModalOpen(false)}
