@@ -185,7 +185,7 @@ export function downloadOfficialInvoice(project = {}) {
       <div>
         <div class="brand-row">
           <div class="fav-badge">
-            <img src="${window.location.origin}/favicon.png" width="28" height="28" alt="MerxoDev" />
+            <img src="${window.location.origin}/favicon-with-bg.png" width="28" height="28" alt="MerxoDev" />
           </div>
           <img src="${window.location.origin}/logo.png" height="36" alt="MerxoDev Solutions" />
         </div>
