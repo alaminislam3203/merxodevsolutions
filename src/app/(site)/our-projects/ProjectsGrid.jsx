@@ -1,54 +1,62 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
-import { truncateWords } from '@/lib/utils';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
+import { truncateWords } from "@/lib/utils";
 
 // ─── Accent Map ───────────────────────────────────────────────────────────────
 const accentMap = {
   violet: {
-    tag: 'bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800',
-    dot: 'bg-violet-500',
-    liveBtn: 'bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-violet-500/30',
-    detailBtn: 'border-violet-400 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/60',
-    border: 'hover:border-violet-400/50',
-    glow: 'from-violet-500/10 to-transparent',
+    tag: "bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800",
+    dot: "bg-violet-500",
+    liveBtn:
+      "bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-violet-500/30",
+    detailBtn:
+      "border-violet-400 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/60",
+    border: "hover:border-violet-400/50",
+    glow: "from-violet-500/10 to-transparent",
   },
   cyan: {
-    tag: 'bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800',
-    dot: 'bg-cyan-500',
-    liveBtn: 'bg-gradient-to-r from-cyan-500 to-violet-600 shadow-cyan-500/30',
-    detailBtn: 'border-cyan-400 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-950/60',
-    border: 'hover:border-cyan-400/50',
-    glow: 'from-cyan-500/10 to-transparent',
+    tag: "bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800",
+    dot: "bg-cyan-500",
+    liveBtn: "bg-gradient-to-r from-cyan-500 to-violet-600 shadow-cyan-500/30",
+    detailBtn:
+      "border-cyan-400 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-950/60",
+    border: "hover:border-cyan-400/50",
+    glow: "from-cyan-500/10 to-transparent",
   },
   amber: {
-    tag: 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800',
-    dot: 'bg-amber-400',
-    liveBtn: 'bg-gradient-to-r from-amber-400 to-orange-500 shadow-amber-500/30',
-    detailBtn: 'border-amber-400 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/60',
-    border: 'hover:border-amber-400/50',
-    glow: 'from-amber-500/10 to-transparent',
+    tag: "bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800",
+    dot: "bg-amber-400",
+    liveBtn:
+      "bg-gradient-to-r from-amber-400 to-orange-500 shadow-amber-500/30",
+    detailBtn:
+      "border-amber-400 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/60",
+    border: "hover:border-amber-400/50",
+    glow: "from-amber-500/10 to-transparent",
   },
   emerald: {
-    tag: 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
-    dot: 'bg-emerald-500',
-    liveBtn: 'bg-gradient-to-r from-emerald-500 to-teal-500 shadow-emerald-500/30',
-    detailBtn: 'border-emerald-400 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/60',
-    border: 'hover:border-emerald-400/50',
-    glow: 'from-emerald-500/10 to-transparent',
+    tag: "bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800",
+    dot: "bg-emerald-500",
+    liveBtn:
+      "bg-gradient-to-r from-emerald-500 to-teal-500 shadow-emerald-500/30",
+    detailBtn:
+      "border-emerald-400 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/60",
+    border: "hover:border-emerald-400/50",
+    glow: "from-emerald-500/10 to-transparent",
   },
   rose: {
-    tag: 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800',
-    dot: 'bg-rose-500',
-    liveBtn: 'bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30',
-    detailBtn: 'border-rose-400 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/60',
-    border: 'hover:border-rose-400/50',
-    glow: 'from-rose-500/10 to-transparent',
+    tag: "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800",
+    dot: "bg-rose-500",
+    liveBtn: "bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30",
+    detailBtn:
+      "border-rose-400 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/60",
+    border: "hover:border-rose-400/50",
+    glow: "from-rose-500/10 to-transparent",
   },
 };
 
@@ -62,7 +70,7 @@ function ProjectCard({ project, index, visible, tr }) {
 
   const handleCardClick = (e) => {
     // If clicked on an interactive link/button inside, allow that to handle
-    if (e.target.closest('a') || e.target.closest('button')) {
+    if (e.target.closest("a") || e.target.closest("button")) {
       return;
     }
     router.push(`/our-projects/${project.slug}`);
@@ -71,12 +79,16 @@ function ProjectCard({ project, index, visible, tr }) {
   return (
     <article
       onClick={handleCardClick}
-      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 overflow-hidden transition-all duration-700 cursor-pointer ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
+      className={`group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 overflow-hidden transition-all duration-700 cursor-pointer ${a.border} hover:shadow-2xl hover:-translate-y-1.5 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
       {/* Top glow */}
-      <div className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${a.glow} pointer-events-none z-10`} aria-hidden />
+      <div
+        className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${a.glow} pointer-events-none z-10`}
+        aria-hidden
+      />
 
       {/* Image */}
       <Link
@@ -94,13 +106,28 @@ function ProjectCard({ project, index, visible, tr }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-zinc-400 dark:text-zinc-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
             </svg>
           </div>
         )}
         <div className="absolute top-3 left-3 z-20">
-          <span className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight backdrop-blur-sm ${a.tag}`}>
+          <span
+            className={`text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full font-exo-extralight backdrop-blur-sm ${a.tag}`}
+          >
             {project.tag}
           </span>
         </div>
@@ -122,8 +149,11 @@ function ProjectCard({ project, index, visible, tr }) {
         {/* Tech badges */}
         {tech.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {tech.map(t => (
-              <span key={t} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-exo-extralight">
+            {tech.map((t) => (
+              <span
+                key={t}
+                className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-exo-extralight"
+              >
                 {t}
               </span>
             ))}
@@ -137,10 +167,22 @@ function ProjectCard({ project, index, visible, tr }) {
             aria-label={`View details for ${project.title}`}
             className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border text-xs font-semibold uppercase tracking-widest font-exo-extralight transition-all duration-300 hover:scale-105 active:scale-95 ${a.detailBtn}`}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            {getLabel('projectsPage.detailsBtn', 'Details')}
+            {getLabel("projectsPage.detailsBtn", "Details")}
           </Link>
           {project.liveUrl && (
             <a
@@ -151,10 +193,22 @@ function ProjectCard({ project, index, visible, tr }) {
               aria-label={`View live project: ${project.title}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold uppercase tracking-widest font-exo-extralight shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 ${a.liveBtn}`}
             >
-              {getLabel('projectsPage.viewLiveBtn', 'View Live')}
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              {getLabel("projectsPage.viewLiveBtn", "View Live")}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
             </a>
           )}
@@ -166,43 +220,43 @@ function ProjectCard({ project, index, visible, tr }) {
 
 // ─── Helpers for Category URL Sync ──────────────────────────────────────────
 export function slugifyTag(tag) {
-  if (!tag) return '';
+  if (!tag) return "";
   return tag
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]+/g, '');
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
 }
 
 export function findMatchingTag(param, tags = []) {
-  if (!param) return 'All';
+  if (!param) return "All";
   const clean = param.toString().trim().toLowerCase();
-  if (clean === 'all') return 'All';
+  if (clean === "all") return "All";
 
   // 1. Direct case-insensitive match (e.g. "SaaS" === "saas")
-  const directMatch = tags.find(t => t.toLowerCase() === clean);
+  const directMatch = tags.find((t) => t.toLowerCase() === clean);
   if (directMatch) return directMatch;
 
   // 2. Slug match (e.g. "e-commerce" matching "E-Commerce")
   const slugParam = slugifyTag(clean);
-  const slugMatch = tags.find(t => slugifyTag(t) === slugParam);
+  const slugMatch = tags.find((t) => slugifyTag(t) === slugParam);
   if (slugMatch) return slugMatch;
 
   // 3. Normalized alphanumeric match (e.g. "ecommerce" matching "E-Commerce")
-  const alphaParam = clean.replace(/[^a-z0-9]/g, '');
+  const alphaParam = clean.replace(/[^a-z0-9]/g, "");
   if (alphaParam) {
     const alphaMatch = tags.find(
-      t => t.toLowerCase().replace(/[^a-z0-9]/g, '') === alphaParam
+      (t) => t.toLowerCase().replace(/[^a-z0-9]/g, "") === alphaParam,
     );
     if (alphaMatch) return alphaMatch;
   }
 
-  return 'All';
+  return "All";
 }
 
 // ─── Main Grid (Client Component) ────────────────────────────────────────────
-export default function ProjectsGrid({ projects, initialCategory = '' }) {
+export default function ProjectsGrid({ projects, initialCategory = "" }) {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -218,11 +272,14 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
   const tr = (key, fallback) => (mounted ? t(key, fallback) : fallback);
 
   const tags = useMemo(() => {
-    return ['All', ...Array.from(new Set(projects.map(p => p.tag).filter(Boolean)))];
+    return [
+      "All",
+      ...Array.from(new Set(projects.map((p) => p.tag).filter(Boolean))),
+    ];
   }, [projects]);
 
   // Determine active category from searchParams or fallback to initialCategory
-  const rawCategoryParam = searchParams?.get('category') ?? initialCategory;
+  const rawCategoryParam = searchParams?.get("category") ?? initialCategory;
   const currentCategory = useMemo(() => {
     return findMatchingTag(rawCategoryParam, tags);
   }, [rawCategoryParam, tags]);
@@ -231,7 +288,7 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
 
   // Sync state when URL searchParams change (e.g. browser back/forward buttons)
   useEffect(() => {
-    const matched = findMatchingTag(searchParams?.get('category'), tags);
+    const matched = findMatchingTag(searchParams?.get("category"), tags);
     if (matched !== activeFilter) {
       setVisible(false);
       setActiveFilter(matched);
@@ -239,85 +296,158 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
     }
   }, [searchParams, tags, activeFilter]);
 
-  const allLabel = tr('projectsPage.filterAll', 'All');
-  const filtered = activeFilter === 'All' ? projects : projects.filter(p => p.tag === activeFilter);
+  const allLabel = tr("projectsPage.filterAll", "All");
+  const filtered =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.tag === activeFilter);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.08 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleFilter = tag => {
+  const handleFilter = (tag) => {
     if (tag === activeFilter) return;
 
     setVisible(false);
     setActiveFilter(tag);
     setTimeout(() => setVisible(true), 50);
 
-    const targetUrl = tag === 'All'
-      ? '/our-projects'
-      : `/our-projects?category=${slugifyTag(tag)}`;
+    const targetUrl =
+      tag === "All"
+        ? "/our-projects"
+        : `/our-projects?category=${slugifyTag(tag)}`;
 
     router.push(targetUrl, { scroll: false });
   };
 
   return (
-    <main ref={sectionRef} suppressHydrationWarning className="min-h-screen pb-24 overflow-hidden mt-2">
+    <main
+      ref={sectionRef}
+      suppressHydrationWarning
+      className="min-h-screen pb-24 overflow-hidden mt-2"
+    >
       {/* Background glows */}
-      <div aria-hidden className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
-        style={{}} />
-      <div aria-hidden className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl" style={{}} />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl"
+        style={{}}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-32 -left-32 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl"
+        style={{}}
+      />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" suppressHydrationWarning className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-          <Link href="/" suppressHydrationWarning className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-            {tr('projectsPage.breadcrumbHome', 'Home')}
+        <nav
+          aria-label="Breadcrumb"
+          suppressHydrationWarning
+          className={`pt-8 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600 transition-all duration-500 ${visible ? "opacity-100" : "opacity-0"}`}
+        >
+          <Link
+            href="/"
+            suppressHydrationWarning
+            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+          >
+            {tr("projectsPage.breadcrumbHome", "Home")}
           </Link>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polyline points="9 18 15 12 9 6" /></svg>
-          <span suppressHydrationWarning className="text-zinc-600 dark:text-zinc-400 font-semibold">
-            {tr('projectsPage.breadcrumbCurrent', 'Our Projects')}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span
+            suppressHydrationWarning
+            className="text-zinc-600 dark:text-zinc-400 font-semibold"
+          >
+            {tr("projectsPage.breadcrumbCurrent", "Our Projects")}
           </span>
         </nav>
 
         {/* Hero Header */}
-        <div suppressHydrationWarning className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div
+          suppressHydrationWarning
+          className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
           <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" aria-hidden />
-            {tr('projectsPage.badge', 'Portfolio')}
+            <span
+              className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"
+              aria-hidden
+            />
+            {tr("projectsPage.badge", "Portfolio")}
           </span>
           <h1 className="font-exo-medium text-3xl sm:text-5xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide leading-tight">
-            {tr('projectsPage.titleStart', 'Our')}{' '}
+            {tr("projectsPage.titleStart", "Our")}{" "}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-              {tr('projectsPage.titleHighlight', 'Projects')}
+              {tr("projectsPage.titleHighlight", "Projects")}
             </span>
           </h1>
           <p className="max-w-xl text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed font-exo-extralight">
-            {tr('projectsPage.desc', 'Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.')}
+            {tr(
+              "projectsPage.desc",
+              "Every project here is built with precision — from SaaS platforms to e-commerce storefronts, we craft digital products that perform.",
+            )}
           </p>
           <div className="flex flex-wrap gap-6 mt-2">
             {[
-              { value: `${projects.length}+`, label: tr('projectsPage.statProjects', 'Projects Delivered') },
-              { value: '100%', label: tr('projectsPage.statSatisfaction', 'Client Satisfaction') },
-              { value: '5★', label: tr('projectsPage.statRating', 'Average Rating') },
+              {
+                value: `${projects.length}+`,
+                label: tr("projectsPage.statProjects", "Projects Delivered"),
+              },
+              {
+                value: "100%",
+                label: tr(
+                  "projectsPage.statSatisfaction",
+                  "Client Satisfaction",
+                ),
+              },
+              {
+                value: "5★",
+                label: tr("projectsPage.statRating", "Average Rating"),
+              },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
-                <span className="font-exo-medium text-2xl font-extrabold text-[#27003B] dark:text-white">{value}</span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-exo-extralight uppercase tracking-widest">{label}</span>
+                <span className="font-exo-medium text-2xl font-extrabold text-[#27003B] dark:text-white">
+                  {value}
+                </span>
+                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-exo-extralight uppercase tracking-widest">
+                  {label}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className={`flex flex-wrap gap-2 mb-10 transition-all duration-700 delay-100 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} role="tablist" aria-label="Filter projects by category">
-          {tags.map(tag => {
+        <div
+          className={`flex flex-wrap gap-2 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          role="tablist"
+          aria-label="Filter projects by category"
+        >
+          {tags.map((tag) => {
             const isSelected = activeFilter === tag;
-            const href = tag === 'All' ? '/our-projects' : `/our-projects?category=${slugifyTag(tag)}`;
+            const href =
+              tag === "All"
+                ? "/our-projects"
+                : `/our-projects?category=${slugifyTag(tag)}`;
             return (
               <Link
                 key={tag}
@@ -326,19 +456,28 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
                 role="tab"
                 aria-selected={isSelected}
                 onClick={(e) => {
-                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                  if (
+                    !e.metaKey &&
+                    !e.ctrlKey &&
+                    !e.shiftKey &&
+                    !e.altKey &&
+                    e.button === 0
+                  ) {
                     e.preventDefault();
                     handleFilter(tag);
                   }
                 }}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-exo-extralight transition-all duration-200 border ${isSelected
-                  ? 'bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20'
-                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400'
-                  }`}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest font-exo-extralight transition-all duration-200 border ${
+                  isSelected
+                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white border-transparent shadow-lg shadow-violet-500/20"
+                    : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-violet-400 dark:hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400"
+                }`}
               >
-                {tag === 'All' ? allLabel : tag}
-                {tag !== 'All' && (
-                  <span className="ml-1.5 opacity-60">({projects.filter(p => p.tag === tag).length})</span>
+                {tag === "All" ? allLabel : tag}
+                {tag !== "All" && (
+                  <span className="ml-1.5 opacity-60">
+                    ({projects.filter((p) => p.tag === tag).length})
+                  </span>
                 )}
               </Link>
             );
@@ -349,36 +488,79 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} visible={visible} tr={tr} />
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                index={i}
+                visible={visible}
+                tr={tr}
+              />
             ))}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
             <div className="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400" aria-hidden>
-                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-zinc-400"
+                aria-hidden
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
             <p className="text-zinc-500 dark:text-zinc-400 font-exo-extralight text-sm">
-              {tr('projectsPage.emptyTitle', 'No projects found in this category.')}
+              {tr(
+                "projectsPage.emptyTitle",
+                "No projects found in this category.",
+              )}
             </p>
           </div>
         )}
 
         {/* Bottom CTA */}
-        <div suppressHydrationWarning className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div
+          suppressHydrationWarning
+          className={`mt-20 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-10 flex flex-col sm:flex-row items-center justify-between gap-6 transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
           <div className="flex flex-col gap-2 text-center sm:text-left">
             <h2 className="font-exo-medium text-xl font-extrabold text-[#27003B] dark:text-white uppercase tracking-wide">
-              {tr('projectsPage.ctaTitle', 'Have a Project in Mind?')}
+              {tr("projectsPage.ctaTitle", "Have a Project in Mind?")}
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm">
-              {tr('projectsPage.ctaDesc', "We turn ideas into polished digital products. Let's talk about what we can build together.")}
+              {tr(
+                "projectsPage.ctaDesc",
+                "We turn ideas into polished digital products. Let's talk about what we can build together.",
+              )}
             </p>
           </div>
-          <Link href="/contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0">
-            {tr('projectsPage.ctaBtn', 'Start a Project')}
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold uppercase tracking-widest font-exo-extralight bg-gradient-to-r from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shrink-0"
+          >
+            {tr("projectsPage.ctaBtn", "Start a Project")}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
         </div>
@@ -386,4 +568,3 @@ export default function ProjectsGrid({ projects, initialCategory = '' }) {
     </main>
   );
 }
-
