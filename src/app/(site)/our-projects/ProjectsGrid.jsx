@@ -385,7 +385,7 @@ export default function ProjectsGrid({ projects, initialCategory = "" }) {
         {/* Hero Header */}
         <div
           suppressHydrationWarning
-          className={`flex flex-col gap-4 mt-10 mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`flex flex-col gap-4 mt-16 mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <span className="inline-flex items-center gap-2 self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 font-exo-extralight uppercase tracking-widest">
             <span
