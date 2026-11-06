@@ -124,13 +124,61 @@ function arr(t, key) {
   return Array.isArray(val) && val.length > 0 ? val : null;
 }
 
+const defaultPluginPlans = [
+  {
+    name: 'Single Feature Plugin',
+    price: 'BDT 12,000',
+    desc: 'Custom plugin for a specific requirement (Courier API, SMS alerts, or custom checkout field).',
+    features: [
+      'Dedicated WordPress/WooCommerce Hook',
+      'Admin Settings UI with Sanitization',
+      'Zero Bloat, Under 50ms Overhead',
+      'PHP 8.3 & Future-Update Safe',
+      '15 Days Integration Warranty',
+    ],
+    popular: false,
+    cta: 'Order Feature Plugin',
+  },
+  {
+    name: 'Advanced Business Extension',
+    price: 'BDT 25,000',
+    desc: 'Our most popular extension package for automated inventory, multi-vendor rules, or custom gateways.',
+    features: [
+      'Complex Custom Post Types & Meta Fields',
+      'Automated Cron / Background Jobs',
+      'Third-Party REST/Webhook Synchronization',
+      'Database Caching & Transients Optimization',
+      'Developer OpenAPI Documentation',
+      '45 Days Dedicated Support',
+    ],
+    popular: true,
+    cta: 'Build Custom Extension',
+  },
+  {
+    name: 'Enterprise Shopify App / Suite',
+    price: 'BDT 48,000',
+    desc: 'Bespoke public or private Shopify/Remix app or enterprise multi-site plugin ecosystem.',
+    features: [
+      'Shopify Polaris UI & Webhooks Engine',
+      'Multi-Store Network (WP Multisite / Global)',
+      'High-Concurrency Redis Data Layer',
+      'Automated CI/CD Testing Pipeline',
+      'Full Source Code & Lifetime Rights',
+      '90 Days Priority SLA Warranty',
+    ],
+    popular: false,
+    cta: 'Consult Plugin Architect',
+  },
+];
+
 export default function ServicesPluginDevelopmentPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const stats = arr(t, 'pluginDev.stats') || fallbackStats;
   const points = arr(t, 'pluginDev.capability.points') || fallbackPoints;
   const featureItems = arr(t, 'pluginDev.features.items') || fallbackFeatures;
+  const plans = getLocalizedServicePlans('pluginDev', defaultPluginPlans, i18n.language);
   const faqs = arr(t, 'pluginDev.faq.items') || fallbackFaqs;
 
   return (
@@ -270,6 +318,74 @@ export default function ServicesPluginDevelopmentPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Transparent Pricing Plans ── */}
+      <section className="relative px-6 py-20 border-t border-zinc-200/80 dark:border-zinc-800/80 bg-white/40 dark:bg-zinc-950/40">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2 inline-block">
+              ✦ Transparent Extension Scopes
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase text-[#27003B] dark:text-white">
+              Plugin & Extension Pricing
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {plans.map((plan, idx) => (
+              <div
+                key={idx}
+                className={`rounded-2xl p-7 flex flex-col justify-between relative transition-all duration-300 ${
+                  plan.popular
+                    ? 'bg-white dark:bg-zinc-900 border-2 border-indigo-500 shadow-2xl shadow-indigo-500/10 scale-100 lg:-translate-y-2'
+                    : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'
+                }`}
+              >
+                {plan.popular && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    ★ Most Requested Package
+                  </span>
+                )}
+
+                <div>
+                  <h3 className="text-xl font-bold font-exo-medium text-zinc-900 dark:text-zinc-100 mb-2">
+                    {plan.name}
+                  </h3>
+                  <div className="flex items-baseline gap-1.5 mb-3">
+                    <span className="text-3xl font-black font-exo-medium text-indigo-600 dark:text-indigo-400">
+                      {plan.price}
+                    </span>
+                    <span className="text-xs text-zinc-400">/ one-time</span>
+                  </div>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-6 leading-relaxed">
+                    {plan.desc}
+                  </p>
+
+                  <div className="space-y-2.5 mb-8">
+                    {plan.features?.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5 text-xs text-zinc-700 dark:text-zinc-300 font-sans">
+                        <FiCheckCircle className="text-indigo-500 shrink-0 mt-0.5" size={15} />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href={`/contact?service=Plugin%20Development&package=${encodeURIComponent(plan.name)}`}
+                  className={`w-full py-3 rounded-xl text-center text-sm font-bold font-exo-extralight transition-all cursor-pointer ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-90 shadow-md shadow-indigo-500/20'
+                      : 'border border-zinc-200 dark:border-zinc-700 hover:border-indigo-400 dark:hover:border-indigo-600'
+                  }`}
+                >
+                  {plan.cta}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
