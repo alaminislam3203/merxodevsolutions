@@ -20,27 +20,33 @@ import {
   Zap,
 } from "lucide-react";
 import { downloadOfficialInvoice } from "@/lib/invoiceGenerator";
+import { formatMarketPrice } from "@/lib/currencyPricing";
 
+// Realistic Current Market Base Prices in BDT (Aligned with official service packages):
+// - Landing Page / Portfolio: ৳15,000 (~$125 USD / 470 SAR / ¥900 CNY)
+// - Business / Corporate: ৳28,000 (~$235 USD / 875 SAR / ¥1,700 CNY)
+// - E-Commerce Store: ৳45,000 (~$375 USD / 1,405 SAR / ¥2,725 CNY)
+// - Custom SaaS / Web App: ৳65,000 (~$540 USD / 2,030 SAR / ¥3,940 CNY)
 const PROJECT_TYPES = [
-  { id: "landing", icon: Globe, basePrice: 1200, baseDays: 4 },
-  { id: "business", icon: Layers, basePrice: 2200, baseDays: 7 },
-  { id: "ecommerce", icon: ShoppingCart, basePrice: 3200, baseDays: 12 },
-  { id: "saas", icon: Cpu, basePrice: 4500, baseDays: 18 },
+  { id: "landing", icon: Globe, basePrice: 15000, baseDays: 3 },
+  { id: "business", icon: Layers, basePrice: 28000, baseDays: 7 },
+  { id: "ecommerce", icon: ShoppingCart, basePrice: 45000, baseDays: 14 },
+  { id: "saas", icon: Cpu, basePrice: 65000, baseDays: 21 },
 ];
 
 const PAGE_SCALES = [
   { id: "small", extraPrice: 0, extraDays: 0 },
-  { id: "medium", extraPrice: 800, extraDays: 3 },
-  { id: "large", extraPrice: 1800, extraDays: 7 },
+  { id: "medium", extraPrice: 8000, extraDays: 3 },
+  { id: "large", extraPrice: 18000, extraDays: 7 },
 ];
 
 const ADDON_FEATURES = [
-  { id: "payment", price: 700, days: 2 },
-  { id: "auth", price: 600, days: 2 },
-  { id: "cms", price: 800, days: 3 },
-  { id: "ai", price: 900, days: 2 },
-  { id: "i18n", price: 500, days: 1 },
-  { id: "seo", price: 400, days: 1 },
+  { id: "payment", price: 7000, days: 2 },
+  { id: "auth", price: 8000, days: 3 },
+  { id: "cms", price: 10000, days: 3 },
+  { id: "ai", price: 8000, days: 2 },
+  { id: "i18n", price: 5000, days: 2 },
+  { id: "seo", price: 6000, days: 2 },
 ];
 
 const URGENCY_OPTIONS = [
@@ -50,7 +56,7 @@ const URGENCY_OPTIONS = [
 ];
 
 export default function CostCalculatorPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [selectedType, setSelectedType] = useState("business");
   const [selectedScale, setSelectedScale] = useState("medium");
@@ -66,7 +72,7 @@ export default function CostCalculatorPage() {
 
   const toggleAddon = (id) => {
     setSelectedAddons((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
@@ -94,7 +100,7 @@ export default function CostCalculatorPage() {
     const rawDays = typeObj.baseDays + scaleObj.extraDays + addonsDays;
     const estimatedDays = Math.max(
       2,
-      Math.round(rawDays * urgencyObj.daysMultiplier),
+      Math.round(rawDays * urgencyObj.daysMultiplier)
     );
 
     return {
@@ -119,17 +125,35 @@ export default function CostCalculatorPage() {
       .map((id) => t(`costCalculatorPage.features.${id}`, { defaultValue: id }))
       .join(", ");
 
+    const localizedPrice = formatMarketPrice(
+      calculation.totalBudget,
+      i18n.language,
+      { withCode: true }
+    );
+
     downloadOfficialInvoice({
-      docType: "QUOTATION",
-      invoiceNo: `QUO-${Date.now().toString().slice(-6)}`,
-      title: `${typeLabel} (${scaleLabel})`,
-      client: clientName || "Valued Client",
-      clientEmail: clientEmail || "info@merxodev.com",
+      id: `QUO-${Date.now().toString().slice(-6)}`,
+      clientName: clientName || "Valued Client",
+      clientEmail: clientEmail || "client@company.com",
       clientPhone: clientPhone || "",
-      budget: calculation.totalBudget,
-      paidAmount: 0,
-      stage: `Est. ${calculation.estimatedDays} Days Delivery`,
-      notes: `Add-ons: ${addonLabels || "Standard Core"}. ${notes ? `Client Notes: ${notes}` : ""}`,
+      projectTitle: `${typeLabel} (${scaleLabel})`,
+      serviceType: typeLabel,
+      invoiceAmount: localizedPrice,
+      budget: localizedPrice,
+      invoiceStatus: "ESTIMATE / QUOTATION",
+      progress: 0,
+      milestones: {
+        discovery: { status: "Planned", date: "Kickoff Sprint" },
+        design: { status: "Planned", date: "UI/UX & Wireframing" },
+        dev: { status: "Planned", date: "Core Engineering" },
+        launch: {
+          status: "Estimated",
+          date: `~${calculation.estimatedDays} Days`,
+        },
+      },
+      notes: `Add-ons: ${addonLabels || "Standard Core"}. Delivery: ~${
+        calculation.estimatedDays
+      } business days. ${notes ? `Client Notes: ${notes}` : ""}`,
     });
   };
 
@@ -148,6 +172,12 @@ export default function CostCalculatorPage() {
       .map((id) => t(`costCalculatorPage.features.${id}`, { defaultValue: id }))
       .join(", ");
 
+    const localizedPrice = formatMarketPrice(
+      calculation.totalBudget,
+      i18n.language,
+      { withCode: true }
+    );
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -157,8 +187,12 @@ export default function CostCalculatorPage() {
           email: clientEmail,
           phone: clientPhone,
           service: `Cost Calculator: ${typeLabel}`,
-          budget: `BDT ${calculation.totalBudget.toLocaleString()}`,
-          message: `[Interactive Cost Estimate]\nProject Type: ${typeLabel}\nScale: ${scaleLabel}\nSelected Add-ons: ${addonLabels || "None"}\nEstimated Delivery: ${calculation.estimatedDays} Days\nEstimated Budget: BDT ${calculation.totalBudget.toLocaleString()}\n\nAdditional Notes: ${notes || "N/A"}`,
+          budget: `${localizedPrice} (~৳${calculation.totalBudget.toLocaleString()} BDT)`,
+          message: `[Interactive Cost Estimate]\nProject Type: ${typeLabel}\nScale: ${scaleLabel}\nSelected Add-ons: ${
+            addonLabels || "None"
+          }\nEstimated Delivery: ${calculation.estimatedDays} Days\nEstimated Budget: ${localizedPrice} (~৳${calculation.totalBudget.toLocaleString()} BDT)\n\nAdditional Notes: ${
+            notes || "N/A"
+          }`,
         }),
       });
       if (res.ok) {
@@ -178,9 +212,14 @@ export default function CostCalculatorPage() {
     const scaleLabel = t(`costCalculatorPage.scales.${selectedScale}.label`, {
       defaultValue: selectedScale,
     });
-    const text = `Hello MerxoDev Team! I calculated an estimate on your website:\n- Project: ${typeLabel} (${scaleLabel})\n- Estimated Budget: BDT ${calculation.totalBudget.toLocaleString()}\n- Timeline: ~${calculation.estimatedDays} Days\nI'd love to discuss starting this project!`;
+    const localizedPrice = formatMarketPrice(
+      calculation.totalBudget,
+      i18n.language,
+      { withCode: true }
+    );
+    const text = `Hello MerxoDev Team! I calculated an estimate on your website:\n- Project: ${typeLabel} (${scaleLabel})\n- Estimated Budget: ${localizedPrice} (~৳${calculation.totalBudget.toLocaleString()} BDT)\n- Timeline: ~${calculation.estimatedDays} Days\nI'd love to discuss starting this project!`;
     return `https://wa.me/8801313334279?text=${encodeURIComponent(text)}`;
-  }, [selectedType, selectedScale, calculation, t]);
+  }, [selectedType, selectedScale, calculation, t, i18n.language]);
 
   return (
     <div className="min-h-screen pb-24 overflow-hidden pt-4 sm:pt-6 mt-8">
@@ -198,7 +237,7 @@ export default function CostCalculatorPage() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="pt-16 flex items-center gap-2 text-xs font-exo-extralight text-zinc-400 dark:text-zinc-600">
           <Link href="/" className="hover:text-violet-500 transition-colors">
@@ -256,7 +295,7 @@ export default function CostCalculatorPage() {
                       key={item.id}
                       type="button"
                       onClick={() => setSelectedType(item.id)}
-                      className={`text-left p-4 rounded-xl border transition-all duration-200 ${
+                      className={`text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
                         active
                           ? "border-violet-500 bg-violet-500/10 dark:bg-violet-500/15 shadow-sm"
                           : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-800/40 hover:border-violet-400/50"
@@ -273,7 +312,9 @@ export default function CostCalculatorPage() {
                           <Icon size={18} />
                         </span>
                         <span className="text-xs font-bold text-violet-600 dark:text-violet-400">
-                          ৳{item.basePrice.toLocaleString()}
+                          {formatMarketPrice(item.basePrice, i18n.language, {
+                            compact: true,
+                          })}
                         </span>
                       </div>
                       <div className="font-exo-medium text-sm font-bold text-[#27003B] dark:text-white">
@@ -302,7 +343,7 @@ export default function CostCalculatorPage() {
                       key={scale.id}
                       type="button"
                       onClick={() => setSelectedScale(scale.id)}
-                      className={`text-left p-4 rounded-xl border transition-all duration-200 ${
+                      className={`text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
                         active
                           ? "border-violet-500 bg-violet-500/10 dark:bg-violet-500/15 shadow-sm"
                           : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-800/40 hover:border-violet-400/50"
@@ -316,8 +357,13 @@ export default function CostCalculatorPage() {
                       </p>
                       <div className="mt-2 text-xs font-semibold text-violet-600 dark:text-violet-400">
                         {scale.extraPrice === 0
-                          ? "Included"
-                          : `+৳${scale.extraPrice.toLocaleString()}`}
+                          ? t("costCalculatorPage.included", {
+                              defaultValue: "Included",
+                            })
+                          : formatMarketPrice(scale.extraPrice, i18n.language, {
+                              prefixPlus: true,
+                              compact: true,
+                            })}
                       </div>
                     </button>
                   );
@@ -339,7 +385,7 @@ export default function CostCalculatorPage() {
                       key={feat.id}
                       type="button"
                       onClick={() => toggleAddon(feat.id)}
-                      className={`flex items-center justify-between p-3.5 rounded-xl border text-left transition-all ${
+                      className={`flex items-center justify-between p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                         active
                           ? "border-violet-500 bg-violet-500/10 dark:bg-violet-500/15"
                           : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-800/40 hover:border-violet-400/50"
@@ -360,7 +406,10 @@ export default function CostCalculatorPage() {
                         </span>
                       </div>
                       <span className="text-xs font-bold text-violet-600 dark:text-violet-400 shrink-0">
-                        +৳{feat.price}
+                        {formatMarketPrice(feat.price, i18n.language, {
+                          prefixPlus: true,
+                          compact: true,
+                        })}
                       </span>
                     </button>
                   );
@@ -382,7 +431,7 @@ export default function CostCalculatorPage() {
                       key={urg.id}
                       type="button"
                       onClick={() => setSelectedUrgency(urg.id)}
-                      className={`text-left p-4 rounded-xl border transition-all ${
+                      className={`text-left p-4 rounded-xl border transition-all cursor-pointer ${
                         active
                           ? "border-violet-500 bg-violet-500/10 dark:bg-violet-500/15 shadow-sm"
                           : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-800/40 hover:border-violet-400/50"
@@ -414,7 +463,9 @@ export default function CostCalculatorPage() {
                   {t("costCalculatorPage.estimatedInvestment")}
                 </div>
                 <div className="font-exo-medium text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent mt-1">
-                  ৳{calculation.totalBudget.toLocaleString()} BDT
+                  {formatMarketPrice(calculation.totalBudget, i18n.language, {
+                    withCode: true,
+                  })}
                 </div>
                 <div className="flex items-center gap-2 mt-3 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-medium">
                   <Clock size={15} className="text-cyan-500" />
@@ -433,13 +484,25 @@ export default function CostCalculatorPage() {
                 <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                   <span>{t("costCalculatorPage.basePackage")}</span>
                   <span className="font-semibold text-zinc-900 dark:text-white">
-                    ৳{calculation.typeObj.basePrice.toLocaleString()}
+                    {formatMarketPrice(
+                      calculation.typeObj.basePrice,
+                      i18n.language,
+                      { compact: true }
+                    )}
                   </span>
                 </div>
                 <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                   <span>{t("costCalculatorPage.extraPages")}</span>
                   <span className="font-semibold text-zinc-900 dark:text-white">
-                    +৳{calculation.scaleObj.extraPrice.toLocaleString()}
+                    {calculation.scaleObj.extraPrice === 0
+                      ? t("costCalculatorPage.included", {
+                          defaultValue: "Included",
+                        })
+                      : formatMarketPrice(
+                          calculation.scaleObj.extraPrice,
+                          i18n.language,
+                          { prefixPlus: true, compact: true }
+                        )}
                   </span>
                 </div>
                 <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
@@ -448,7 +511,13 @@ export default function CostCalculatorPage() {
                     {selectedAddons.length})
                   </span>
                   <span className="font-semibold text-zinc-900 dark:text-white">
-                    +৳{calculation.addonsTotal.toLocaleString()}
+                    {calculation.addonsTotal === 0
+                      ? formatMarketPrice(0, i18n.language, { compact: true })
+                      : formatMarketPrice(
+                          calculation.addonsTotal,
+                          i18n.language,
+                          { prefixPlus: true, compact: true }
+                        )}
                   </span>
                 </div>
                 <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
@@ -501,14 +570,14 @@ export default function CostCalculatorPage() {
                 <button
                   type="submit"
                   disabled={submitting || submitted}
-                  className="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-sm shadow-md hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-60"
+                  className="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-sm shadow-md hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
                 >
                   <Send size={16} />
                   {submitting
                     ? t("costCalculatorPage.submittingBtn")
                     : submitted
-                      ? t("costCalculatorPage.submittedBtn")
-                      : t("costCalculatorPage.submitBtn")}
+                    ? t("costCalculatorPage.submittedBtn")
+                    : t("costCalculatorPage.submitBtn")}
                 </button>
               </form>
 
@@ -516,7 +585,7 @@ export default function CostCalculatorPage() {
                 <button
                   type="button"
                   onClick={handleDownloadQuotation}
-                  className="w-full py-2.5 px-4 rounded-xl border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300 hover:bg-violet-500/20 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300 hover:bg-violet-500/20 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Download size={15} />
                   {t("costCalculatorPage.downloadPdfBtn")}
