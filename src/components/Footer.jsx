@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
-import LanguageSwitcher from './LanguageSwitcher';
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const socials = [
   {
-    label: 'GitHub',
-    href: 'https://github.com/MerxoDev-Solutions',
+    label: "GitHub",
+    href: "https://github.com/MerxoDev-Solutions",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +23,8 @@ const socials = [
     ),
   },
   {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/merxodevsolutions',
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/merxodevsolutions",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -38,8 +38,8 @@ const socials = [
     ),
   },
   {
-    label: 'Twitter / X',
-    href: 'https://twitter.com',
+    label: "Twitter / X",
+    href: "https://twitter.com",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -53,8 +53,8 @@ const socials = [
     ),
   },
   {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/merxodevsolutions',
+    label: "Facebook",
+    href: "https://www.facebook.com/merxodevsolutions",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +68,8 @@ const socials = [
     ),
   },
   {
-    label: 'YouTube',
-    href: 'https://www.youtube.com/@merxodevsolutions',
+    label: "YouTube",
+    href: "https://www.youtube.com/@merxodevsolutions",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ function Logo() {
         width={135}
         height={32}
         className="block dark:hidden h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-sm"
-        style={{ width: 'auto', height: 'auto' }}
+        style={{ width: "auto", height: "auto" }}
       />
 
       {/* Dark Mode Logo */}
@@ -107,7 +107,7 @@ function Logo() {
         width={135}
         height={32}
         className="hidden dark:block h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105 duration-300"
-        style={{ width: 'auto', height: 'auto' }}
+        style={{ width: "auto", height: "auto" }}
       />
     </div>
   );
@@ -122,18 +122,18 @@ export default function Footer() {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
-  const navLinks = arr(t, 'footer.navLinks').filter(
+  const navLinks = arr(t, "footer.navLinks").filter(
     (link) =>
       ![
-        '/services',
-        '/our-journey',
-        '/about',
-        '/our-team',
-        '/contact',
-        '/our-projects',
-      ].includes(link.href)
+        "/services",
+        "/our-journey",
+        "/about",
+        "/our-team",
+        "/contact",
+        "/our-projects",
+      ].includes(link.href),
   );
-  const services = arr(t, 'footer.services.items');
+  const services = arr(t, "footer.services.items");
 
   return (
     <footer className="relative border-t border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden">
@@ -144,20 +144,25 @@ export default function Footer() {
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-32 left-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse-glow"
-        style={{
-          // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
-        }}
+        style={
+          {
+            // background: 'radial-gradient(circle, #7c3aed, transparent 70%)',
+          }
+        }
       />
 
       {/* ── Main Body ── */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand Column */}
         <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
-          <Link href="/" className="inline-block transition-transform hover:scale-105 duration-200">
+          <Link
+            href="/"
+            className="inline-block transition-transform hover:scale-105 duration-200"
+          >
             <Logo />
           </Link>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs font-exo-extralight">
-            {t('footer.brand.desc')}
+            {t("footer.brand.desc")}
           </p>
           <div className="flex items-center gap-3 mt-1">
             {socials.map((social) => (
@@ -179,7 +184,7 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            {t('footer.quickLinks.heading')}
+            {t("footer.quickLinks.heading")}
           </h3>
           <ul className="flex flex-col gap-2.5">
             {navLinks.map((link, i) => (
@@ -198,10 +203,30 @@ export default function Footer() {
               </li>
             ))}
             {[
-              { href: '/cost-calculator', label: t('footerLinks.costCalculator', { defaultValue: 'Cost Calculator' }) },
-              { href: '/track-project', label: t('footerLinks.trackProject', { defaultValue: 'Track Project' }) },
-              { href: '/blog', label: t('footerLinks.engineeringBlog', { defaultValue: 'Engineering Blog' }) },
-              { href: '/tools/website-auditor', label: t('footerLinks.websiteAuditor', { defaultValue: 'Website SEO Auditor' }) },
+              {
+                href: "/cost-calculator",
+                label: t("footerLinks.costCalculator", {
+                  defaultValue: "Cost Calculator",
+                }),
+              },
+              {
+                href: "/track-project",
+                label: t("footerLinks.trackProject", {
+                  defaultValue: "Track Project",
+                }),
+              },
+              {
+                href: "/blog",
+                label: t("footerLinks.engineeringBlog", {
+                  defaultValue: "Engineering Blog",
+                }),
+              },
+              {
+                href: "/tools/website-auditor",
+                label: t("footerLinks.websiteAuditor", {
+                  defaultValue: "Website SEO Auditor",
+                }),
+              },
             ].map((item) => (
               <li key={item.href}>
                 <Link
@@ -227,7 +252,7 @@ export default function Footer() {
                   ›
                 </span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">
-                  {t('footer.bottom.privacy')}
+                  {t("footer.bottom.privacy")}
                 </span>
               </Link>
             </li>
@@ -240,7 +265,7 @@ export default function Footer() {
                   ›
                 </span>
                 <span className="group-hover:translate-x-1 transition-transform duration-200">
-                  {t('footer.bottom.terms')}
+                  {t("footer.bottom.terms")}
                 </span>
               </Link>
             </li>
@@ -251,7 +276,7 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            {t('footer.services.heading')}
+            {t("footer.services.heading")}
           </h3>
           <ul className="flex flex-col gap-2.5">
             {services.map((service, i) => (
@@ -276,7 +301,7 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase font-exo-extralight flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            {t('footer.contact.heading')}
+            {t("footer.contact.heading")}
           </h3>
           <ul className="flex flex-col gap-3 text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight">
             {/* Address */}
@@ -297,7 +322,7 @@ export default function Footer() {
                 <circle cx="12" cy="10" r="3" />
               </svg>
               <span className="group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
-                {t('footer.contact.address')}
+                {t("footer.contact.address")}
               </span>
             </li>
             {/* Phone */}
@@ -321,14 +346,14 @@ export default function Footer() {
                   href="tel:+8801313334279"
                   className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors whitespace-nowrap"
                 >
-                  {t('footer.contact.phone1')}
+                  {t("footer.contact.phone1")}
                 </a>
                 <span className="text-zinc-300 dark:text-zinc-600">|</span>
                 <a
                   href="tel:+8809697634279"
                   className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors whitespace-nowrap"
                 >
-                  {t('footer.contact.phone2')}
+                  {t("footer.contact.phone2")}
                 </a>
               </div>
             </li>
@@ -353,10 +378,10 @@ export default function Footer() {
                 href="mailto:merxodevsolutions@gmail.com"
                 className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors break-all"
               >
-                {t('footer.contact.email')}
+                {t("footer.contact.email")}
               </a>
             </li>
-            <li className='hidden'>
+            <li className="hidden">
               <LanguageSwitcher variant="menu" className="w-full" />
             </li>
           </ul>
@@ -366,26 +391,33 @@ export default function Footer() {
       {/* ── Bottom Bar ── */}
       <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-transparent">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-500 font-exo-extralight">
-          <span>{t('footer.bottom.copy', { year: currentYear })}</span>
+          <span>{t("footer.bottom.copy", { year: currentYear })}</span>
           <div className="flex items-center gap-5">
             <Link
               href="/privacy"
               className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
             >
-              {t('footer.bottom.privacy')}
+              {t("footer.bottom.privacy")}
             </Link>
             <Link
               href="/terms"
               className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
             >
-              {t('footer.bottom.terms')}
+              {t("footer.bottom.terms")}
             </Link>
           </div>
         </div>
       </div>
       {/* Semantic SEO indexable brand & contact aliases */}
       <p className="sr-only">
-        MerxoDev Solutions | merxodev | merxodev solution | merxodev solutions | Merxo Dev Solutions | Merxo Dev Solution | MerxoDev Solution | Merxo Dev | মারক্সোডেভ সলিউশনস | মারক্সোডেভ সলিউশন | মারক্সোডেভ | মারক্সো ডেভ | মেরক্সোডেভ সলিউশনস | মেরক্সোডেভ সলিউশন | মেরক্সোডেভ — বাংলাদেশের সেরা কাস্টম ওয়েবসাইট, ই-কমার্স ও সফটওয়্যার ডেভেলপমেন্ট কোম্পানি (Custom Web &amp; App Development Agency in Bangladesh). Email: merxodevsolutions@gmail.com | Phone &amp; WhatsApp: +8801313334279, +880 1313-334279, 01313334279, +8809697634279, +880 9697-634279, 09697634279.
+        MerxoDev Solutions | merxodev | merxodev solution | merxodev solutions |
+        Merxo Dev Solutions | Merxo Dev Solution | MerxoDev Solution | Merxo Dev
+        | মারক্সোডেভ সলিউশনস | মারক্সোডেভ সলিউশন | মারক্সোডেভ | মারক্সো ডেভ |
+        মেরক্সোডেভ সলিউশনস | মেরক্সোডেভ সলিউশন | মেরক্সোডেভ — বাংলাদেশের সেরা
+        কাস্টম ওয়েবসাইট, ই-কমার্স ও সফটওয়্যার ডেভেলপমেন্ট কোম্পানি (Custom Web
+        &amp; App Development Agency in Bangladesh). Email:
+        merxodevsolutions@gmail.com | Phone &amp; WhatsApp: +8801313334279, +880
+        1313-334279, 01313334279, +8809697634279, +880 9697-634279, 09697634279.
       </p>
     </footer>
   );
