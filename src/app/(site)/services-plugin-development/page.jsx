@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,

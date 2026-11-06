@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -138,8 +139,57 @@ function arr(t, key, fallback = []) {
   return Array.isArray(val) ? val : fallback;
 }
 
+const defaultDashboardPlans = [
+  {
+    name: 'Starter Operations Panel',
+    price: 'BDT 25,000',
+    desc: 'Essential admin panel for growing businesses needing central control over content, users, and basic transactions.',
+    features: [
+      'Up to 3 Custom Data Models (CRUD)',
+      'Standard User & Role Management',
+      'Core KPI Cards & Revenue Trends',
+      'CSV & Excel Data Exporting',
+      'Fast Next.js & Tailwind CSS UI',
+      '30 Days Warranty & Technical Support',
+    ],
+    popular: false,
+    cta: 'Choose Starter',
+  },
+  {
+    name: 'Professional BI & Operations Hub',
+    price: 'BDT 45,000',
+    desc: 'Comprehensive command center with real-time updates, advanced analytics, and custom multi-role access control.',
+    features: [
+      'Unlimited Data Tables & Advanced Filters',
+      'Granular Role-Based Access Control (RBAC)',
+      'Real-Time Telemetry & Interactive Visual Charts',
+      'Courier & Payment Gateway API Sync',
+      'Automated Branded PDF Report Generator',
+      'Audit Trail Logs & Activity Tracking',
+      '60 Days Priority Support & Updates',
+    ],
+    popular: true,
+    cta: 'Start Professional',
+  },
+  {
+    name: 'Enterprise SaaS Platform',
+    price: 'BDT 85,000',
+    desc: 'Full multi-tenant architecture with high-frequency telemetry, custom BI widgets, and industrial SLA support.',
+    features: [
+      'Complete Multi-Tenant Architecture',
+      'Unlimited User Roles & Department Sub-Portals',
+      'High-Frequency Redis Cache & WebSocket Feeds',
+      'Custom API Key Management & Webhook Engine',
+      'Database Sharding & Query Optimization',
+      'Dedicated Account Manager & 90 Days SLA',
+    ],
+    popular: false,
+    cta: 'Build Enterprise',
+  },
+];
+
 export default function ServicesDashboardPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('analytics');
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -152,7 +202,11 @@ export default function ServicesDashboardPage() {
 
   const features = arr(t, 'dashboard.features.items', []);
   const processSteps = arr(t, 'dashboard.process.steps', []);
-  const plans = arr(t, 'dashboard.pricing.plans', []);
+  const plans = getLocalizedServicePlans(
+    'dashboard',
+    arr(t, 'dashboard.pricing.plans', defaultDashboardPlans),
+    i18n.language
+  );
   const faqs = arr(t, 'dashboard.faq.items', []);
   const related = arr(t, 'dashboard.related.items', [
     { label: 'E-Commerce Solutions' },

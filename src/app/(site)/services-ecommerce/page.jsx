@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -118,13 +119,63 @@ function arr(t, key) {
   return Array.isArray(val) ? val : [];
 }
 
+const defaultEcommercePlans = [
+  {
+    name: 'Starter Shop',
+    price: 'BDT 25,000',
+    desc: 'Perfect for small retailers and boutique stores launching their online business.',
+    features: [
+      'Up to 100 Products & Categories',
+      'Mobile-First Responsive Layout',
+      'bKash / Nagad / SSLCommerz Gateway',
+      'Order & Inventory Tracking Admin',
+      'Basic SEO & Social Sharing',
+      '30 Days Post-Launch Warranty',
+    ],
+    popular: false,
+    cta: 'Launch Starter Shop',
+  },
+  {
+    name: 'Growth E-Commerce Pro',
+    price: 'BDT 45,000',
+    desc: 'Our most popular store package with multi-courier automation and conversion optimization.',
+    features: [
+      'Unlimited Products & Variations',
+      'Courier API Integration (Steadfast/Pathao)',
+      'bKash + Nagad + Stripe Cards',
+      'SMS Order & Delivery Alerts',
+      'Customer Accounts & Wishlist',
+      'Discount Coupons & Abandoned Cart',
+      '60 Days Dedicated Support',
+    ],
+    popular: true,
+    cta: 'Build Growth Store',
+  },
+  {
+    name: 'Enterprise Multi-Vendor / Custom',
+    price: 'BDT 85,000',
+    desc: 'High-volume e-commerce platform with automated invoicing, multi-warehouse, and microservices.',
+    features: [
+      'Multi-Vendor / B2B Wholesale Portal',
+      'High-Concurrency Redis Caching & Queue',
+      'Automated PDF Invoices & Packing Slips',
+      'Advanced Product Filters & Live Search',
+      'Dedicated ERP / Accounting Sync',
+      '90 Days Priority SLA & Training',
+    ],
+    popular: false,
+    cta: 'Consult E-Commerce Architect',
+  },
+];
+
 export default function EcommerceContent() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const stats = arr(t, 'ecommerce.stats');
   const features = arr(t, 'ecommerce.features.items');
   const included = arr(t, 'ecommerce.included.items');
   const processSteps = arr(t, 'ecommerce.process.steps');
+  const plans = getLocalizedServicePlans('ecommerce', defaultEcommercePlans, i18n.language);
   const faqs = arr(t, 'ecommerce.faq.items');
   const related = arr(t, 'ecommerce.related.items');
 
@@ -340,6 +391,74 @@ export default function EcommerceContent() {
                 </span>
                 {tech.label}
               </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Transparent Pricing Plans ── */}
+      <section className="px-6 py-20" aria-labelledby="pricing-heading">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] text-amber-400 uppercase font-exo-extralight mb-3">
+              ✦ Transparent Store Packages
+            </span>
+            <h2 id="pricing-heading" className="text-3xl md:text-4xl font-black font-exo-medium uppercase">
+              E-Commerce Investment Tiers
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {plans.map((plan, idx) => (
+              <div
+                key={idx}
+                className={`rounded-2xl p-7 flex flex-col justify-between relative transition-all duration-300 ${
+                  plan.popular
+                    ? 'bg-white dark:bg-zinc-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/10 scale-100 lg:-translate-y-2'
+                    : 'bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'
+                }`}
+              >
+                {plan.popular && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    ★ Most Popular Choice
+                  </span>
+                )}
+
+                <div>
+                  <h3 className="text-xl font-bold font-exo-medium text-zinc-900 dark:text-zinc-100 mb-2">
+                    {plan.name}
+                  </h3>
+                  <div className="flex items-baseline gap-1.5 mb-3">
+                    <span className="text-3xl font-black font-exo-medium text-cyan-600 dark:text-cyan-400">
+                      {plan.price}
+                    </span>
+                    <span className="text-xs text-zinc-400">/ one-time</span>
+                  </div>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-6 leading-relaxed">
+                    {plan.desc}
+                  </p>
+
+                  <div className="space-y-2.5 mb-8">
+                    {plan.features?.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5 text-xs text-zinc-700 dark:text-zinc-300 font-sans">
+                        <FiCheckCircle className="text-cyan-500 shrink-0 mt-0.5" size={15} />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href={`/contact?service=E-commerce%20Development&package=${encodeURIComponent(plan.name)}`}
+                  className={`w-full py-3 rounded-xl text-center text-sm font-bold font-exo-extralight transition-all cursor-pointer ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:opacity-90 shadow-md shadow-cyan-500/20'
+                      : 'border border-zinc-200 dark:border-zinc-700 hover:border-cyan-400 dark:hover:border-cyan-600'
+                  }`}
+                >
+                  {plan.cta}
+                </Link>
+              </div>
             ))}
           </div>
         </div>
