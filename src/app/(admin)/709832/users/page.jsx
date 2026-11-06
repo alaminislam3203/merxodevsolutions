@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { showToast, confirmToast } from "@/lib/toast";
 import AdminLoader from "@/components/AdminLoader";
+import { exportRecordsToFile } from "@/lib/invoiceGenerator";
 import {
   FiUsers,
   FiShield,
@@ -647,6 +648,23 @@ export default function UsersManagementPage() {
               </button>
             ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() => exportRecordsToFile(users, "merxodev_users", "csv")}
+            style={{
+              background: "rgba(16, 185, 129, 0.14)",
+              color: "#34d399",
+              border: "1px solid rgba(16, 185, 129, 0.3)",
+              padding: "7px 14px",
+              borderRadius: 10,
+              fontSize: 12.5,
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            ⬇ Export CSV
+          </button>
         </div>
       </div>
 
