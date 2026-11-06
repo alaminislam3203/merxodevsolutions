@@ -112,3 +112,4 @@ export function applyMarketPricesToResources(resources) {
 
   return resources;
 }
+

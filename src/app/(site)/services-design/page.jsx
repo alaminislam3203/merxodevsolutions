@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -211,12 +212,16 @@ function arr(t, key, fallback = []) {
 }
 
 export default function ServicesDesignPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const stats = arr(t, 'design.stats', defaultStats);
   const features = arr(t, 'design.features.items', defaultFeatures);
-  const plans = arr(t, 'design.pricing.plans', defaultPlans);
+  const plans = getLocalizedServicePlans(
+    'design',
+    arr(t, 'design.pricing.plans', defaultPlans),
+    i18n.language
+  );
   const faqs = arr(t, 'design.faq.items', defaultFaqs);
 
   return (

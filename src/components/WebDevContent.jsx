@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -225,7 +226,7 @@ function arr(t, key) {
 }
 
 export default function WebDevContent() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const stats = arr(t, 'webDev.stats') || [
@@ -236,7 +237,11 @@ export default function WebDevContent() {
   ];
 
   const features = arr(t, 'webDev.features.items') || fallbackFeatures;
-  const plans = arr(t, 'webDev.pricing.plans') || defaultPlans;
+  const plans = getLocalizedServicePlans(
+    'webDev',
+    arr(t, 'webDev.pricing.plans') || defaultPlans,
+    i18n.language
+  );
   const faqs = arr(t, 'webDev.faq.items') || defaultFaqs;
 
   return (

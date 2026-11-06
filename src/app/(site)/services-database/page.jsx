@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
+import { getLocalizedServicePlans } from '@/lib/currencyPricing';
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -211,12 +212,16 @@ function arr(t, key, fallback = []) {
 }
 
 export default function ServicesDatabasePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [openFaq, setOpenFaq] = useState(null);
 
   const stats = arr(t, 'databaseService.stats', fallbackStats);
   const featureItems = arr(t, 'databaseService.features.items', fallbackFeatures);
-  const plans = arr(t, 'databaseService.pricing.plans', fallbackPlans);
+  const plans = getLocalizedServicePlans(
+    'databaseService',
+    arr(t, 'databaseService.pricing.plans', fallbackPlans),
+    i18n.language
+  );
   const faqs = arr(t, 'databaseService.faq.items', fallbackFaqs);
 
   return (
