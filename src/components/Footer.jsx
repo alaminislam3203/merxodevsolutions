@@ -122,7 +122,17 @@ export default function Footer() {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
-  const navLinks = arr(t, 'footer.navLinks');
+  const navLinks = arr(t, 'footer.navLinks').filter(
+    (link) =>
+      ![
+        '/services',
+        '/our-journey',
+        '/about',
+        '/our-team',
+        '/contact',
+        '/our-projects',
+      ].includes(link.href)
+  );
   const services = arr(t, 'footer.services.items');
 
   return (
