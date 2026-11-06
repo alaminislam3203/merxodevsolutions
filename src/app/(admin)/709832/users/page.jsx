@@ -760,11 +760,14 @@ export default function UsersManagementPage() {
                     colSpan={7}
                     style={{
                       textAlign: "center",
-                      padding: "40px 0",
-                      color: "#94a3b8",
+                      padding: "20px 0",
                     }}
                   >
-                    Loading user records...
+                    <AdminLoader
+                      compact
+                      title="Loading Users & Roles"
+                      label="Fetching registered accounts & permissions"
+                    />
                   </td>
                 </tr>
               ) : users.length === 0 ? (

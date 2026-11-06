@@ -7,6 +7,7 @@ import { HiUserGroup } from "react-icons/hi";
 import { FiAlertCircle, FiMessageSquare } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
+import AdminLoader from "@/components/AdminLoader";
 import "./admin.css";
 
 function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
@@ -703,29 +704,14 @@ function AdminLayoutShell({ children }) {
     );
   }
 
-  // If loading session on a sub-route, show loading state
+  // If loading session on a sub-route, show professional brand loader
   if (status === "loading" && !isLoginRoot) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#080c18",
-          color: "#fff",
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div
-            className="admin-spinner"
-            style={{ margin: "0 auto 16px" }}
-          ></div>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px" }}>
-            Loading admin panel...
-          </p>
-        </div>
-      </div>
+      <AdminLoader
+        fullScreen
+        title="MerxoDev Admin Console"
+        label="Verifying administrative credentials & loading workspace"
+      />
     );
   }
 

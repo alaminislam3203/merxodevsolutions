@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import LottiePlayer from "@/components/LottiePlayer";
+import AdminLoader from "@/components/AdminLoader";
 import { FaRobot, FaLaptopCode } from "react-icons/fa";
 import {
   FiShield,
@@ -1056,16 +1057,10 @@ export default function AdminPage() {
 
   if (status === "loading") {
     return (
-      <div
-        style={{
-          minHeight: "70vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div className="admin-spinner-btn" style={{ width: 32, height: 32, borderWidth: 3 }}></div>
-      </div>
+      <AdminLoader
+        title="MerxoDev Dashboard"
+        label="Loading real-time agency analytics & metrics"
+      />
     );
   }
 
