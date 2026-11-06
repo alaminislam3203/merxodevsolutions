@@ -3084,7 +3084,7 @@ const en = {
       "items": [
         {
           "q": "How much does it cost to build a website or web app in Bangladesh?",
-          "a": "Pricing depends on project scope and features. Standard responsive business websites start from BDT 1,000 to BDT 3,500, full-featured dynamic E-Commerce platforms range around BDT 1,500 to BDT 4,000+, and custom SaaS web applications are quoted transparently based on architecture. We provide 100% fixed transparent quotes with zero hidden fees."
+          "a": "Pricing depends on project scope and features. Standard responsive business websites start from $125 (BDT 15,000) to $450 (BDT 55,000), full-featured dynamic E-Commerce platforms range around $210 (BDT 25,000) to $700+ (BDT 85,000+), and custom SaaS web applications are quoted transparently based on architecture. We provide 100% fixed transparent quotes with zero hidden fees."
         },
         {
           "q": "How long does it take to deliver a finished project?",
@@ -4071,7 +4071,7 @@ const en = {
       "s12DeskVal": "Available Sunday through Thursday (9:00 AM – 6:00 PM BST)"
     },
     "aiChat": {
-      "welcomeText": "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Team** above to chat directly with our team!",
+      "welcomeText": "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing ($125 – $450 USD / ৳15,000 – ৳55,000 BDT)** — or click **Live Team** above to chat directly with our team!",
       "viewServices": "View Services & Pricing",
       "chatWhatsapp": "Chat on WhatsApp",
       "directWhatsapp": "Direct WhatsApp",

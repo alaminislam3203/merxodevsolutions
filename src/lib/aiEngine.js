@@ -311,12 +311,12 @@ Website: ${WEBSITE_URL}
 12. **Website Maintenance & 24/7 SLA** (/services-maintenance): Bug fixes, speed optimization, backups, 30 days free post-launch warranty.
 13. **Free Developer Tools** (/tools): JSON Formatter, JWT Decoder, Regex Tester, Base64, URL Encoder, UUID Generator, Hash Generator, CSS Shadow & Gradient Generator, Meta Previewer, HTTP Status & Bangladesh GeoJSON API (/bangladesh-geojson).
 
-=== PRICING & PACKAGES ===
-• **Standard Affordable Packages (BDT 1,000 – BDT 4,000):**
-  - **Starter Tier (BDT 1,000 – 1,500):** Landing pages, UI design, bug fixes, basic SEO, speed optimization.
-  - **Professional Tier (BDT 2,000 – 3,000):** Multi-page dynamic responsive websites, API integration, database setup, custom CMS.
-  - **Advanced / E-Commerce / SaaS Tier (BDT 3,500 – 4,000):** Full-stack Custom Web Apps, E-Commerce stores with bKash/Nagad/SSLCommerz/Stripe payment gateways & admin panel.
-• **Custom / International / Enterprise Projects:** Milestone-based custom quotes (30% kickoff, 40% core review, 30% final deployment) with free 15-minute Google Meet Discovery Call.
+=== PRICING & PACKAGES (Realistic Market Pricing) ===
+• **Standard Transparent Packages:**
+  - **Starter Tier (~৳15,000 BDT / $125 USD / ~470 SAR / ~¥900 CNY):** High-converting landing page, responsive modern UI, basic SEO & speed optimization, domain/hosting setup, 15 days warranty.
+  - **Growth / Business Tier (~৳28,000 BDT / $235 USD / ~875 SAR / ~¥1,700 CNY):** Multi-page dynamic corporate website, contact forms, database setup, CMS blog, on-page SEO, social integration, 30 days warranty.
+  - **Enterprise / E-Commerce / Custom SaaS (~৳45,000 – ৳85,000+ BDT / $375 – $700+ USD / ~1,400 – 2,650+ SAR / ~¥2,725 – 5,150+ CNY):** Full-stack custom Web App, online store with bKash/Nagad/SSLCommerz/Stripe payment gateways, admin dashboard, inventory, user roles, real-time analytics.
+• **Custom / International / Enterprise Projects:** Milestone-based transparent quotes based on scope and architecture with 100% full source code ownership. Always adapt currency to the user's active language or requested currency (BDT for Bengali, USD for English, SAR for Arabic, CNY for Chinese).
 
 === DELIVERY TIMELINES ===
 • **Landing Page / Bug Fixes:** 24 to 48 Hours
