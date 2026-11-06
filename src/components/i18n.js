@@ -1,13 +1,14 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { en, bn, ar, zh } from '@/locales';
+import { applyMarketPricesToResources } from '@/lib/currencyPricing';
 
-const resources = {
+const resources = applyMarketPricesToResources({
   en,
   bn,
   ar,
   zh,
-};
+});
 
 i18n.use(initReactI18next).init({
   resources,
