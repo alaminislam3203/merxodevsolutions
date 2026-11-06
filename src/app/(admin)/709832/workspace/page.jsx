@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import AdminLoader from "@/components/AdminLoader";
+import { downloadOfficialInvoice, exportRecordsToFile } from "@/lib/invoiceGenerator";
 import {
   FiBriefcase,
   FiCheckSquare,
@@ -17,6 +18,8 @@ import {
   FiDollarSign,
   FiCheckCircle,
   FiRefreshCw,
+  FiPrinter,
+  FiDownload,
 } from "react-icons/fi";
 
 const EMPTY_LEAD = {
@@ -265,6 +268,42 @@ export default function AdminWorkspacePage() {
             className="admin-btn admin-btn-secondary"
           >
             <FiRefreshCw size={14} /> Refresh
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              exportRecordsToFile(
+                activeTab === "leads"
+                  ? leads
+                  : activeTab === "tasks"
+                  ? tasks
+                  : activities,
+                `merxodev_${activeTab}`,
+                "csv"
+              )
+            }
+            className="admin-btn admin-btn-secondary"
+            title="Export current tab as CSV"
+          >
+            <FiDownload size={14} /> Export CSV
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              exportRecordsToFile(
+                activeTab === "leads"
+                  ? leads
+                  : activeTab === "tasks"
+                  ? tasks
+                  : activities,
+                `merxodev_${activeTab}`,
+                "json"
+              )
+            }
+            className="admin-btn admin-btn-secondary"
+            title="Export current tab as JSON"
+          >
+            <FiDownload size={14} /> JSON
           </button>
           <button
             type="button"
@@ -547,6 +586,15 @@ export default function AdminWorkspacePage() {
                   )}
 
                   <div style={{ display: "flex", gap: 8 }}>
+                    <button
+                      type="button"
+                      onClick={() => downloadOfficialInvoice(lead)}
+                      className="admin-btn admin-btn-secondary"
+                      style={{ padding: "6px 10px", fontSize: 12, color: "#fb923c" }}
+                      title="Download Official PDF Invoice"
+                    >
+                      <FiPrinter size={12} /> Invoice PDF
+                    </button>
                     <button
                       type="button"
                       onClick={() => openEditLead(lead)}
