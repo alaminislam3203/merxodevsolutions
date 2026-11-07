@@ -34,7 +34,7 @@ import { playVisitorMessageSound } from "@/lib/chatSound";
 const INITIAL_WELCOME = {
   id: "welcome",
   sender: "bot",
-  text: "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing (BDT 1,000 – 4,000)** — or click **Live Team** above to chat directly with our team!",
+  text: "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing ($125 – $450 USD / ৳15,000 – ৳55,000 BDT)** — or click **Live Team** above to chat directly with our team!",
   actions: [
     { label: "View Services & Pricing", href: "/services", type: "link" },
     {
