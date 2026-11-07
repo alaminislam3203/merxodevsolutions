@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { logActivity } from "@/lib/workspaceStore";
 import { sendBrandEmail } from "@/lib/templates/brandEmailLayout";
 import { projectApprovedTemplate } from "@/lib/templates/agencyEmailTemplates";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
 

@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
 import { logActivity } from "@/lib/workspaceStore";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +68,7 @@ export async function POST(request) {
           description: description || "",
           image: image || null,
           images: images || { mobile: [], desktop: [] },
-          liveUrl: liveUrl || null,
+          liveUrl: cleanProjectUrl(liveUrl) || null,
           accent,
           details: enrichedDetails,
           order: projectOrder,
@@ -82,7 +83,7 @@ export async function POST(request) {
           description: description || "",
           image: image || null,
           images: images || { mobile: [], desktop: [] },
-          liveUrl: liveUrl || null,
+          liveUrl: cleanProjectUrl(liveUrl) || null,
           accent,
           details: enrichedDetails,
         },
