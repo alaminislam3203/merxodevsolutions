@@ -38,7 +38,7 @@ export default function BlogPostDetailPage() {
 
     Promise.all([
       fetch(`/api/blog?slug=${encodeURIComponent(slug)}`).then((res) =>
-        res.json()
+        res.json(),
       ),
       fetch("/api/blog")
         .then((res) => res.json())
@@ -49,7 +49,7 @@ export default function BlogPostDetailPage() {
         setPost(current);
 
         const others = (allData?.posts || []).filter(
-          (p) => p.slug !== slug && p.id !== current?.id
+          (p) => p.slug !== slug && p.id !== current?.id,
         );
         setRelatedPosts(others.slice(0, 3));
       })
@@ -67,7 +67,9 @@ export default function BlogPostDetailPage() {
   const handleSocialShare = (platform) => {
     if (typeof window === "undefined") return;
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(post?.title || "MerxoDev Engineering Blog");
+    const title = encodeURIComponent(
+      post?.title || "MerxoDev Engineering Blog",
+    );
 
     let shareUrl = "";
     if (platform === "whatsapp") {
@@ -164,14 +166,17 @@ export default function BlogPostDetailPage() {
               })}
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight mb-6">
-              The engineering article you are looking for does not exist or may have been updated.
+              The engineering article you are looking for does not exist or may
+              have been updated.
             </p>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-md hover:scale-105 transition-all"
             >
               <ArrowLeft size={16} />
-              {t("blogPage.backToBlog", { defaultValue: "Browse All Articles" })}
+              {t("blogPage.backToBlog", {
+                defaultValue: "Browse All Articles",
+              })}
             </Link>
           </div>
         ) : (
@@ -231,8 +236,12 @@ export default function BlogPostDetailPage() {
                       <Share2 size={14} />
                     )}
                     {copied
-                      ? t("blogPage.copiedLink", { defaultValue: "Link Copied!" })
-                      : t("blogPage.shareArticle", { defaultValue: "Share Article" })}
+                      ? t("blogPage.copiedLink", {
+                          defaultValue: "Link Copied!",
+                        })
+                      : t("blogPage.shareArticle", {
+                          defaultValue: "Share Article",
+                        })}
                   </button>
                 </div>
 
@@ -249,7 +258,9 @@ export default function BlogPostDetailPage() {
                     </div>
                     <div>
                       <span className="font-semibold text-zinc-800 dark:text-zinc-200 block">
-                        {post.authorName || post.author || "MerxoDev Engineering"}
+                        {post.authorName ||
+                          post.author ||
+                          "MerxoDev Engineering"}
                       </span>
                       <span className="text-[10px] text-zinc-400">
                         {post.authorRole || "Lead Architect & Engineering Team"}
@@ -260,7 +271,7 @@ export default function BlogPostDetailPage() {
                   <span className="flex items-center gap-1.5">
                     <Calendar size={13} className="text-violet-500" />
                     {new Date(
-                      post.publishedAt || post.createdAt || Date.now()
+                      post.publishedAt || post.createdAt || Date.now(),
                     ).toLocaleDateString(undefined, {
                       year: "numeric",
                       month: "short",
@@ -308,7 +319,10 @@ export default function BlogPostDetailPage() {
                           </h3>
                         );
                       }
-                      if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+                      if (
+                        trimmed.startsWith("- ") ||
+                        trimmed.startsWith("* ")
+                      ) {
                         const items = trimmed
                           .split("\n")
                           .map((line) => line.replace(/^[-*]\s*/, "").trim())
@@ -368,7 +382,8 @@ export default function BlogPostDetailPage() {
                   <div>
                     <h3 className="font-exo-medium text-base sm:text-lg font-bold text-[#27003B] dark:text-white">
                       {t("blogPage.ctaBoxTitle", {
-                        defaultValue: "Ready to Build Your Next Digital Product?",
+                        defaultValue:
+                          "Ready to Build Your Next Digital Product?",
                       })}
                     </h3>
                     <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 font-exo-extralight max-w-md">
@@ -410,7 +425,9 @@ export default function BlogPostDetailPage() {
                     </div>
                   </div>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-exo-extralight mb-5">
-                    MerxoDev Solutions delivers high-performance Next.js web applications, custom SaaS platforms, payment gateways, and cloud architectures for ambitious global teams.
+                    MerxoDev Solutions delivers high-performance Next.js web
+                    applications, custom SaaS platforms, payment gateways, and
+                    cloud architectures for ambitious global teams.
                   </p>
                   <div className="flex items-center gap-2 pt-4 border-t border-zinc-100 dark:border-zinc-800 text-xs">
                     <Link
@@ -434,7 +451,9 @@ export default function BlogPostDetailPage() {
                 {/* Social Share Card */}
                 <div className="bg-white/85 dark:bg-zinc-900/75 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 rounded-3xl p-6 shadow-sm">
                   <h4 className="font-exo-medium text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-4">
-                    {t("blogPage.shareArticle", { defaultValue: "Share Article" })}
+                    {t("blogPage.shareArticle", {
+                      defaultValue: "Share Article",
+                    })}
                   </h4>
                   <div className="grid grid-cols-2 gap-2.5 text-xs font-semibold">
                     <button
@@ -486,7 +505,8 @@ export default function BlogPostDetailPage() {
                     How Much Will Your Website or App Cost?
                   </h4>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-exo-extralight mb-5">
-                    Get an instant transparent estimate tailored to your exact tech requirements and features in under 60 seconds.
+                    Get an instant transparent estimate tailored to your exact
+                    tech requirements and features in under 60 seconds.
                   </p>
                   <Link
                     href="/cost-calculator"
@@ -543,7 +563,9 @@ export default function BlogPostDetailPage() {
                             <span className="flex items-center gap-1">
                               <Calendar size={11} />
                               {new Date(
-                                rPost.publishedAt || rPost.createdAt || Date.now()
+                                rPost.publishedAt ||
+                                  rPost.createdAt ||
+                                  Date.now(),
                               ).toLocaleDateString()}
                             </span>
                             <span className="flex items-center gap-1">
@@ -582,7 +604,9 @@ export default function BlogPostDetailPage() {
                   Have a Project in Mind?
                 </h3>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400 font-exo-extralight max-w-xl">
-                  Let’s collaborate to architect, design, and deploy your custom website, web application, or e-commerce platform with zero compromises.
+                  Let’s collaborate to architect, design, and deploy your custom
+                  website, web application, or e-commerce platform with zero
+                  compromises.
                 </p>
               </div>
 
