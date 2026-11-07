@@ -3,11 +3,15 @@ import fs from "fs";
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
 
-const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  process.env.NEXTAUTH_URL ||
-  "https://merxodevsolutions.pro.bd"
-).replace(/\/$/, "");
+const getSiteUrl = () => {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL;
+  if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1")) {
+    return envUrl.replace(/\/$/, "");
+  }
+  return "https://merxodevsolutions.pro.bd";
+};
+
+const SITE_URL = getSiteUrl();
 
 /**
  * Returns Nodemailer CID inline attachments for public/logo.png and public/favicon.png
