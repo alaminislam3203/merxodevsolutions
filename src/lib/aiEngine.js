@@ -719,19 +719,19 @@ export function generateBuiltInIntelligentReply({
     /\b(banglay|bangla te|bangla bhashay|banglate|speak bangla|talk in bangla)\b/i.test(lower) ||
     /(বাংলায় বলো|বাংলায় বলুন|বাংলা ভাষায় বলুন|বাংলাতে বলুন|বাংলায় উত্তর দাও)/.test(userMessage)
   ) {
-    return `হ্যাঁ, অবশ্যই! এখন থেকে আমি আপনার সাথে **বাংলায়** কথা বলব।\n\n**MerxoDev Solutions**-এর ওয়েবসাইট ডেভেলপমেন্ট, ই-কমার্স, কাস্টম সফটওয়্যার, আমাদের করা প্রজেক্ট বা প্রাইসিং (**১,০০০ – ৪,০০০ টাকা**) সম্পর্কে আপনি যা জানতে চান নির্দ্বিধায় জিজ্ঞেস করুন!`;
+    return `হ্যাঁ, অবশ্যই! এখন থেকে আমি আপনার সাথে **বাংলায়** কথা বলব।\n\n**MerxoDev Solutions**-এর ওয়েবসাইট ডেভেলপমেন্ট, ই-কমার্স, কাস্টম সফটওয়্যার, আমাদের করা প্রজেক্ট বা প্রাইসিং প্যাকেজ (**৳১৫,০০০ – ৳৫৫,০০০+ BDT / $১২৫ – $৪৫০+ USD**) সম্পর্কে আপনি যা জানতে চান নির্দ্বিধায় জিজ্ঞেস করুন!`;
   }
   if (/\b(speak in english|talk in english|english please|english e bolo|english a bolo|reply in english)\b/i.test(lower)) {
-    return `Certainly! I will communicate with you in **English** from now on.\n\nHow can I help you with **MerxoDev Solutions**? You can ask about our custom web development, SaaS apps, e-commerce stores, portfolio projects, or pricing packages!`;
+    return `Certainly! I will communicate with you in **English** from now on.\n\nHow can I help you with **MerxoDev Solutions**? You can ask about our custom web development, SaaS apps, e-commerce stores, portfolio projects, or pricing packages (**$125 – $450+ USD / ৳15,000 – ৳55,000+ BDT**)!`;
   }
   if (/\b(in arabic|speak arabic|arabic please)\b/i.test(lower) || /(بالعربية|تكلم عربي)/.test(userMessage)) {
-    return `بالتأكيد! سأتحدث معك باللغة **العربية** من الآن فصاعداً.\n\nكيف يمكنني مساعدتك في **MerxoDev Solutions**؟ يمكنك السؤال عن تطوير المواقع، تطبيقات الويب، المتاجر الإلكترونية، مشاريعنا، أو باقات الأسعار (**1,000 – 4,000 تاكا**)!`;
+    return `بالتأكيد! سأتحدث معك باللغة **العربية** من الآن فصاعداً.\n\nكيف يمكنني مساعدتك في **MerxoDev Solutions**؟ يمكنك السؤال عن تطوير المواقع، تطبيقات الويب، المتاجر الإلكترونية، مشاريعنا، أو باقات الأسعار (**125$ – 450$+ دولار / 15,000 – 55,000+ تاكا**)!`;
   }
   if (/\b(in chinese|speak chinese|chinese please)\b/i.test(lower) || /(用中文|说中文)/.test(userMessage)) {
-    return `没问题！从现在起我将使用**中文**与您交流。\n\n请问有什么可以帮您？您可以咨询 **MerxoDev Solutions** 的定制网站开发、SaaS 应用、电商系统、项目案例或价格套餐（**BDT 1,000 – 4,000**）！`;
+    return `没问题！从现在起我将使用**中文**与您交流。\n\n请问有什么可以帮您？您可以咨询 **MerxoDev Solutions** 的定制网站开发、SaaS 应用、电商系统、项目案例或价格套餐（**$125 – $450+ USD / ৳15,000 – ৳55,000+ BDT**）！`;
   }
   if (/\b(banglish e bolo|banglish a bolo|talk in banglish)\b/i.test(lower)) {
-    return `Obosshoi! Ekhon theke ami apnar sathe **Banglish**-e kotha bolbo.\n\n**MerxoDev Solutions** er website development, ecommerce, pricing package (1,000 - 4,000 Taka) ba project somporke jekono proshno korte paren!`;
+    return `Obosshoi! Ekhon theke ami apnar sathe **Banglish**-e kotha bolbo.\n\n**MerxoDev Solutions** er website development, ecommerce, pricing package (**৳15,000 – ৳55,000+ BDT / $125 – $450+ USD**) ba project somporke jekono proshno korte paren!`;
   }
 
   // 2. Greetings & "How are you"
@@ -851,18 +851,18 @@ export function generateBuiltInIntelligentReply({
   // 5. Pricing / Cost / Package inquiry
   if (/\b(price|pricing|cost|budget|rate|fee|charge|package|how much|koto|taka|dam|khoroch|দাম|খরচ|টাকা|বাজেট|প্যাকেজ|মূল্য|سعر|أسعار|باقات|تكلفة|كم|价格|套餐|多少钱|报价|费用)\b/i.test(lower) || /(দাম|খরচ|টাকা|প্যাকেজ|أسعار|باقات|سعر|تكلفة|价格|套餐|报价|多少钱)/.test(userMessage)) {
     if (lang === 'bn') {
-      return `আমাদের স্ট্যান্ডার্ড ডিজিটাল সার্ভিস প্যাকেজগুলো অত্যন্ত সাশ্রয়ী (**১,০০০ টাকা থেকে ৪,০০০ টাকা**):\n\n• **স্টার্টার প্যাকেজ (১,০০০ – ১,৫০০ টাকা):** ল্যান্ডিং পেজ, পোর্টফোলিও, UI ডিজাইন, বাগ ফিক্স ও বেসিক SEO।\n• **প্রফেশনাল প্যাকেজ (২,০০০ – ৩,০০০ টাকা):** মাল্টি-পেজ রেসপন্সিভ ওয়েবসাইট, ডাইনামিক অ্যাডমিন প্যানেল, ডাটাবেস ও API।\n• **অ্যাডভান্সড / ই-কমার্স / SaaS (৩,৫০০ – ৪,০০০ টাকা):** ফুল-স্ট্যাক ওয়েব অ্যাপ, ই-কমার্স স্টোর এবং বিকাশ/নগদ/স্ট্রাইপ পেমেন্ট গেটওয়ে।\n\nআপনার প্রজেক্টের জন্য কাস্টম কোটেশন পেতে আপনার **WhatsApp নাম্বারটি** এখানে দিতে পারেন!`;
+      return `**MerxoDev Solutions**-এর অফিসিয়াল ও বাজারসম্মত সার্ভিস প্যাকেজসমূহ:\n\n• **স্টার্টার প্যাকেজ (৳১৫,০০০ BDT / ~$১২৫ USD):** ল্যান্ডিং পেজ, পোর্টফোলিও, আল্ট্রাফাস্ট Next.js 16 UI, রেসপন্সিভ ডিজাইন, ডোমেন/হোস্টিং সেটআপ ও ১৫ দিনের ফ্রি সাপোর্ট।\n• **প্রফেশনাল বিজনেস ওয়েবসাইট (৳২৮,০০০ BDT / ~$২৩৫ USD):** মাল্টি-পেজ রেসপন্সিভ ওয়েবসাইট, কাস্টম অ্যাডমিন প্যানেল (CMS), পোস্টগ্রেস ডাটাবেস, কন্টাক্ট ও লিড ফর্ম এবং ৩০ দিনের ফ্রি ওয়ারেন্টি।\n• **ফুল-স্ট্যাক ই-কমার্স স্টোর (৳৪৫,০০০ – ৳৫৫,০০০ BDT / ~$৩৭৫ – $৪৫০ USD):** আনলিমিটেড প্রোডাক্ট, কার্ট, ইনভেন্টরি, বিকাশ/নগদ/SSLCommerz/Stripe অটো পেমেন্ট গেটওয়ে, কাস্টমার অ্যাকাউন্ট ও অটোমেটিক ইনভয়েস।\n• **কাস্টম SaaS ও এন্টারপ্রাইজ ওয়েব অ্যাপ (৳৬৫,০০০ – ৳৮৫,০০০+ BDT / ~$৫৪০ – $৭০০+ USD):** রোল-বেসড এক্সেস কন্ট্রোল (RBAC), রিয়েল-টাইম ড্যাশবোর্ড, API ও ক্লাউড আর্কিটেকচার।\n\nআপনার প্রজেক্টের বাজেট ও স্পেসিফিকেশন নিয়ে আলোচনা করতে চাইলে আপনার **WhatsApp নাম্বারটি** এখানে দিন অথবা সরাসরি **লাইভ টিম**-এ ক্লিক করুন!`;
     }
     if (lang === 'ar') {
-      return `باقاتنا القياسية لتطوير المواقع والبرمجيات ميسورة التكلفة جداً (**من 1,000 إلى 4,000 تاكا بنغلاديشي**، مع عروض مخصصة للمشاريع الكبيرة):\n\n• **باقة البداية (1,000 – 1,500 تاكا):** صفحات الهبوط، تصميم الواجهات، إصلاح الأخطاء وتحسين محركات البحث.\n• **الباقة الاحترافية (2,000 – 3,000 تاكا):** مواقع ديناميكية متعددة الصفحات، لوحة تحكم مخصصة، قواعد بيانات وواجهات API.\n• **الباقة المتقدمة والمتاجر و SaaS (3,500 – 4,000 تاكا):** تطبيقات ويب متكاملة ومتاجر إلكترونية مع ربط بوابات الدفع.\n\nشارك **رقم واتساب أو بريدك الإلكتروني** هنا وسيرسل لك مهندسنا الرئيسي عرضاً مفصلاً!`;
+      return `إليك باقات الأسعار الرسمية والشفافة لتطوير البرمجيات في **MerxoDev Solutions**:\n\n• **باقة البداية وصفحات الهبوط (125$ دولار / حوالي 15,000 تاكا):** صفحات هبوط عالية التحويل، تصميم سريع بـ Next.js 16، توافق تام مع الهواتف وضمان 15 يوماً.\n• **باقة الشركات والمواقع التفاعلية (235$ دولار / حوالي 28,000 تاكا):** موقع مؤسسي متعدد الصفحات مع لوحة تحكم مخصصة CMS، وقواعد بيانات PostgreSQL.\n• **المتاجر الإلكترونية المتكاملة (375$ – 450$ دولار / حوالي 45,000 – 55,000 تاكا):** متجر متكامل مع إدارة المخزون، سلة التسوق، وبوابات الدفع الإلكتروني (Stripe, bKash, SSLCommerz).\n• **تطبيقات الويب السحابية و SaaS (540$ – 700$+ دولار / 65,000 – 85,000+ تاكا):** بنية سحابية متطورة، صلاحيات متعددة للمستخدمين، وتكامل كامل للـ API.\n\nشارك **رقم الواتساب أو البريد الإلكتروني** هنا للحصول على عرض سعر فوري ومخصص لمشروعك!`;
     }
     if (lang === 'zh') {
-      return `我们的标准数字工程套餐性价比极高（**BDT 1,000 至 BDT 4,000**，大型企业项目支持按里程碑定制报价）：\n\n• **入门套餐（BDT 1,000 – 1,500）：** 高转化落地页、UI 设计、Bug 修复与基础 SEO 优化。\n• **专业套餐（BDT 2,000 – 3,000）：** 多页面动态响应式网站、定制后台管理系统、API 与数据库架构。\n• **高级 / 电商 / SaaS 套餐（BDT 3,500 – 4,000）：** 全栈定制 Web 应用、电商商城与在线支付网关集成。\n\n欢迎在此留下您的 **WhatsApp 号码或邮箱**，我们的首席工程师将为您提供专属方案！`;
+      return `以下是 **MerxoDev Solutions** 官方公布的透明软件工程服务价格套餐：\n\n• **初创起步 / 落地页与作品集套餐（$125 USD / 约 ৳15,000 BDT）：** 高转化率单页落地页、Next.js 16 超快响应式 UI、基础 SEO 优化与 15 天免费质保。\n• **专业企业级动态网站套餐（$235 USD / 约 ৳28,000 BDT）：** 多页面企业展示网站、定制后台管理系统（CMS）、PostgreSQL 数据库与全套 SEO 配置。\n• **全栈定制电商系统（$375 – $450 USD / 约 ৳45,000 – ৳55,000 BDT）：** 商品与库存管理、购物车、自动 PDF 发票生成，集成 bKash/Nagad/SSLCommerz/Stripe 支付网关。\n• **定制 SaaS 与企业级 Web 应用程序（$540 – $700+ USD / 约 ৳65,000 – ৳85,000+ BDT）：** 基于角色的访问控制（RBAC）、实时数据大屏与高可用微服务 API。\n\n欢迎在此留下您的 **WhatsApp 号码或电子邮箱**，我们的首席工程师将为您提供定制化实施方案！`;
     }
     if (lang === 'banglish') {
-      return `Amader digital service package gulo khub shashroye (**BDT 1,000 theke BDT 4,000**):\n\n• **Starter Package (1,000 – 1,500 Taka):** Landing page, UI design, bug fix, basic SEO.\n• **Professional Package (2,000 – 3,000 Taka):** Full responsive website, custom admin panel, API & database.\n• **Advanced / Ecommerce / SaaS (3,500 – 4,000 Taka):** Custom Web App, Ecommerce store with bKash/Nagad/Stripe payment gateway.\n\nApni chaile apnar **WhatsApp number** ekhane dite paren, amader developer direct call korbe!`;
+      return `**MerxoDev Solutions** er official ebong transparent pricing package gulo নিচে dewa holo:\n\n• **Starter Landing Page & Portfolio (৳15,000 BDT / ~$125 USD):** High-converting landing page, responsive modern UI, basic SEO & 15-day support.\n• **Professional Dynamic Business Website (৳28,000 BDT / ~$235 USD):** Multi-page corporate site, custom Admin Panel (CMS), PostgreSQL database, lead forms.\n• **Full-Stack E-Commerce Store (৳45,000 – ৳55,000 BDT / ~$375 – $450 USD):** Product catalog, cart, inventory, bKash/Nagad/SSLCommerz/Stripe payment gateway.\n• **Custom SaaS & Enterprise Web App (৳65,000 – ৳85,000+ BDT / ~$540 – $700+ USD):** Role-based dashboard (RBAC), API architecture & scalable cloud setup.\n\nApnar project er jonno exact quotation pete apnar **WhatsApp number** ekhane share korte paren!`;
     }
-    return `Our standard digital engineering packages range between **BDT 1,000 and BDT 4,000** (with custom milestone quotes for large enterprise systems):\n\n• **Starter Tier (BDT 1,000 – 1,500):** High-converting landing pages, UI design, bug fixes & SEO.\n• **Professional Tier (BDT 2,000 – 3,000):** Dynamic multi-page websites, custom CMS, APIs & database.\n• **Advanced & SaaS (BDT 3,500 – 4,000):** Custom Web Apps & E-Commerce stores with payment gateways.\n\nShare your **WhatsApp number or email** here and our lead engineer will send you a tailored roadmap!`;
+    return `Here are the official, transparent service pricing tiers at **MerxoDev Solutions**:\n\n• **Starter Landing Page & Portfolio ($125 USD / ~৳15,000 BDT):** High-converting landing page or personal portfolio, blazing-fast Next.js 16 UI & basic SEO.\n• **Professional Dynamic Business Website ($235 USD / ~৳28,000 BDT):** Multi-page corporate website with custom Admin CMS, PostgreSQL database & lead capture.\n• **Full-Stack E-Commerce Platform ($375 – $450 USD / ~৳45,000 – ৳55,000 BDT):** Complete online shop with cart, inventory, automated invoices, and bKash/Nagad/Stripe payment gateways.\n• **Custom SaaS & Enterprise Web Applications ($540 – $700+ USD / ~৳65,000 – ৳85,000+ BDT):** Role-based access control (RBAC), real-time dashboards & scalable API architectures.\n\nTo get a customized quote for your specific scope, feel free to drop your **WhatsApp number or email** right here!`;
   }
 
   // 6. Services overview
@@ -885,18 +885,18 @@ export function generateBuiltInIntelligentReply({
   // 7. E-Commerce & Payment Gateways
   if (/\b(ecommerce|e-commerce|shop|store|bkash|nagad|rocket|payment|stripe|sslcommerz|ইকমার্স|ই-কমার্স|দোকান|বিকাশ|নগদ|পেমেন্ট|متجر|التجارة|دفع|电商|商城|支付)\b/i.test(lower) || /(ইকমার্স|ই-কমার্স|পেমেন্ট|বিকাশ|متجر|دفع|电商|支付)/.test(userMessage)) {
     if (lang === 'bn') {
-      return `আমরা সম্পূর্ণ কাস্টম **ই-কমার্স ওয়েবসাইট এবং পেমেন্ট গেটওয়ে** তৈরি করি:\n\n• আনলিমিটেড প্রোডাক্ট আপলোড, ক্যাটাগরি ও স্টক ম্যানেজমেন্ট\n• **বিকাশ, নগদ, রকেট, SSLCommerz এবং Stripe** অটো পেমেন্ট গেটওয়ে\n• অটোমেটিক অর্ডার নোটিফিকেশন ও PDF ইনভয়েস\n• সুপার-ফাস্ট মোবাইল ও ডেস্কটপ শপিং এক্সপেরিয়েন্স (**২,৫০০ – ৪,০০০ টাকা**)`;
+      return `আমরা সম্পূর্ণ কাস্টম **ই-কমার্স ওয়েবসাইট এবং পেমেন্ট গেটওয়ে** তৈরি করি:\n\n• আনলিমিটেড প্রোডাক্ট আপলোড, ক্যাটাগরি ও স্টক ম্যানেজমেন্ট\n• **বিকাশ, নগদ, রকেট, SSLCommerz এবং Stripe** অটো পেমেন্ট গেটওয়ে\n• অটোমেটিক অর্ডার নোটিফিকেশন ও PDF ইনভয়েস\n• সুপার-ফাস্ট মোবাইল ও ডেস্কটপ শপিং এক্সপেরিয়েন্স (**৳৪৫,০০০ – ৳৫৫,০০০ BDT / $৩৭৫ – $৪৫০ USD**)`;
     }
     if (lang === 'ar') {
-      return `نقوم ببناء **متاجر إلكترونية متكاملة** مع ربط مباشر **ببوابات الدفع**:\n\n• لوحة تحكم شاملة لإدارة المنتجات والمخزون والطلبات\n• ربط فوري مع **bKash و Nagad و SSLCommerz و Stripe**\n• فواتير PDF تلقائية وإشعارات فورية للطلبات\n• **التكلفة:** من 2,500 إلى 4,000 تاكا حسب الميزات المطلوبة.`;
+      return `نقوم ببناء **متاجر إلكترونية متكاملة** مع ربط مباشر **ببوابات الدفع**:\n\n• لوحة تحكم شاملة لإدارة المنتجات والمخزون والطلبات\n• ربط فوري مع **bKash و Nagad و SSLCommerz و Stripe**\n• فواتير PDF تلقائية وإشعارات فورية للطلبات\n• **التكلفة:** من 375$ إلى 450$ دولار (45,000 – 55,000 تاكا) حسب الميزات المطلوبة.`;
     }
     if (lang === 'zh') {
-      return `我们打造高转化的**定制电商网站**并提供完整的**支付网关集成**：\n\n• 完善的商品目录、购物车、库存与订单管理后台\n• 支持 **bKash、Nagad、Rocket、SSLCommerz 与 Stripe** 自动收款验证\n• 自动生成 PDF 发票与实时订单通知\n• **套餐价格：** BDT 2,500 – BDT 4,000（按功能需求定制）。`;
+      return `我们打造高转化的**定制电商网站**并提供完整的**支付网关集成**：\n\n• 完善的商品目录、购物车、库存与订单管理后台\n• 支持 **bKash、Nagad、Rocket、SSLCommerz 与 Stripe** 自动收款验证\n• 自动生成 PDF 发票与实时订单通知\n• **套餐价格：** $375 – $450 USD / ৳45,000 – ৳55,000 BDT（按功能需求定制）。`;
     }
     if (lang === 'banglish') {
-      return `Amra complete **Ecommerce Website ebong Auto Payment Gateway** integrate kore di:\n\n• Product upload, inventory o order management panel\n• **bKash, Nagad, Rocket, SSLCommerz ebong Stripe** instant payment gateway\n• Automated order invoice & SMS/Email alert\n• Package price: **BDT 2,500 – 4,000 Taka**`;
+      return `Amra complete **Ecommerce Website ebong Auto Payment Gateway** integrate kore di:\n\n• Product upload, inventory o order management panel\n• **bKash, Nagad, Rocket, SSLCommerz ebong Stripe** instant payment gateway\n• Automated order invoice & SMS/Email alert\n• Package price: **৳45,000 – ৳55,000 BDT ($375 – $450 USD)**`;
     }
-    return `We build high-converting **E-Commerce Stores** with direct **Payment Gateway Integrations**:\n\n• Complete product catalog, cart, and order management dashboard\n• **bKash, Nagad, Rocket, SSLCommerz, Shurjopay & Stripe** tokenized checkout\n• Automated PDF invoices and instant webhook verification\n• **Pricing:** BDT 2,500 – BDT 4,000 based on features.`;
+    return `We build high-converting **E-Commerce Stores** with direct **Payment Gateway Integrations**:\n\n• Complete product catalog, cart, and order management dashboard\n• **bKash, Nagad, Rocket, SSLCommerz, Shurjopay & Stripe** tokenized checkout\n• Automated PDF invoices and instant webhook verification\n• **Pricing:** $375 – $450 USD / ৳45,000 – ৳55,000 BDT based on features.`;
   }
 
   // 8. Contact / Phone / Email / Location / Discovery Call
@@ -950,34 +950,34 @@ export function generateBuiltInIntelligentReply({
   // 11. Website / Web App general inquiry
   if (/\b(web|website|app|software|build|make|create|need|want|ওয়েবসাইট|অ্যাপ|সফটওয়্যার|বানাতে|তৈরি|banate|banabo|dorkar|موقع|تطبيق|برمجة|网站|应用|软件|开发)\b/i.test(lower) || /(ওয়েবসাইট|অ্যাপ|موقع|تطبيق|网站|开发)/.test(userMessage)) {
     if (lang === 'bn') {
-      return `আমরা আপনার প্রয়োজন অনুযায়ী **কাস্টম ওয়েবসাইট, ই-কমার্স স্টোর অথবা ওয়েব অ্যাপ্লিকেশন** তৈরি করে দিতে পারি!\n\n• **বাজেট:** সাধারণত ১,০০০ টাকা থেকে ৪,০০০ টাকার মধ্যে (প্রজেক্টের পরিধি অনুযায়ী)।\n• **টেকনোলজি:** Next.js 16, React, Node.js ও PostgreSQL।\n\nআপনি কী ধরনের ওয়েবসাইট বানাতে চাচ্ছেন? চাইলে আপনার **WhatsApp নাম্বারটি** চ্যাটে দিন অথবা উপরে **লাইভ টিম** বাটনে ক্লিক করে সরাসরি টিমের সাথে কথা বলুন!`;
+      return `আমরা আপনার প্রয়োজন অনুযায়ী **কাস্টম ওয়েবসাইট, ই-কমার্স স্টোর অথবা ওয়েব অ্যাপ্লিকেশন** তৈরি করে দিতে পারি!\n\n• **বাজেট:** প্রজেক্টের ধরন অনুযায়ী সাধারণত ৳১৫,০০০ থেকে ৳৫৫,০০০+ BDT ($১২৫ – $৪৫০+ USD, পরিধি অনুযায়ী ফ্লেক্সিবল)।\n• **টেকনোলজি:** Next.js 16, React 19, Tailwind CSS, Node.js ও PostgreSQL।\n\nআপনি কী ধরনের ওয়েবসাইট বানাতে চাচ্ছেন? চাইলে আপনার **WhatsApp নাম্বারটি** চ্যাটে দিন অথবা উপরে **লাইভ টিম** বাটনে ক্লিক করে সরাসরি টিমের সাথে কথা বলুন!`;
     }
     if (lang === 'ar') {
-      return `يسعدنا بناء **موقعك المخصص، متجرك الإلكتروني، أو تطبيق الويب** الخاص بك!\n\n• **الباقات:** من 1,000 إلى 4,000 تاكا (أو مراحل مخصصة للمشاريع الكبيرة)\n• **التقنيات:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nأخبرني بفكرة مشروعك، أو شارك **رقم واتساب** الخاص بك، أو اضغط على **مسؤول مباشر** بالأعلى للتحدث مباشرة مع فريقنا!`;
+      return `يسعدنا بناء **موقعك المخصص، متجرك الإلكتروني، أو تطبيق الويب** الخاص بك!\n\n• **الباقات:** تبدأ من 125$ إلى 450$+ دولار (15,000 – 55,000+ تاكا حسب نطاق المشروع)\n• **التقنيات:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nأخبرني بفكرة مشروعك، أو شارك **رقم واتساب** الخاص بك، أو اضغط على **مسؤول مباشر** بالأعلى للتحدث مباشرة مع فريقنا!`;
     }
     if (lang === 'zh') {
-      return `我们非常乐意为您开发**定制网站、电子商务商城或 Web 应用程序**！\n\n• **套餐价格：** BDT 1,000 – BDT 4,000（大型项目支持定制报价）\n• **技术栈：** Next.js 16、React 19、Tailwind CSS、Node.js 与 PostgreSQL\n\n请告诉我您的项目构想，留下您的 **WhatsApp 号码**，或点击上方的**人工客服**直接与我们的团队沟通！`;
+      return `我们非常乐意为您开发**定制网站、电子商务商城或 Web 应用程序**！\n\n• **套餐价格：** 起价 $125 – $450+ USD（约 ৳15,000 – ৳55,000+ BDT，根据具体功能需求定制）\n• **技术栈：** Next.js 16、React 19、Tailwind CSS、Node.js 与 PostgreSQL\n\n请告诉我您的项目构想，留下您的 **WhatsApp 号码**，或点击上方的**人工客服**直接与我们的团队沟通！`;
     }
     if (lang === 'banglish') {
-      return `Amra apnar requirement onujayi **Custom Website, Ecommerce Store ba Web Application** toiri kore dite parbo!\n\n• **Budget:** 1,000 Taka theke 4,000 Taka (project onujayi).\n• **Tech Stack:** Next.js 16, React, Tailwind CSS, Node.js & PostgreSQL.\n\nApni ki dhoroner site banate chan? Chaile apnar **WhatsApp number** ekhane din ba **Live Team** button e click kore direct kotha bolun!`;
+      return `Amra apnar requirement onujayi **Custom Website, Ecommerce Store ba Web Application** toiri kore dite parbo!\n\n• **Budget:** ৳15,000 theke ৳55,000+ BDT ($125 – $450+ USD, project onujayi).\n• **Tech Stack:** Next.js 16, React, Tailwind CSS, Node.js & PostgreSQL.\n\nApni ki dhoroner site banate chan? Chaile apnar **WhatsApp number** ekhane din ba **Live Team** button e click kore direct kotha bolun!`;
     }
-    return `We would love to build your **custom website, e-commerce store, or web application**!\n\n• **Packages:** BDT 1,000 – BDT 4,000 (or custom enterprise milestones)\n• **Stack:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nTell me a bit about your project idea, share your **WhatsApp number**, or click **Live Team** above to chat directly with our team!`;
+    return `We would love to build your **custom website, e-commerce store, or web application**!\n\n• **Packages:** $125 – $450+ USD / ৳15,000 – ৳55,000+ BDT (or custom enterprise milestones)\n• **Stack:** Next.js 16, React 19, Tailwind CSS, Node.js & PostgreSQL\n\nTell me a bit about your project idea, share your **WhatsApp number**, or click **Live Team** above to chat directly with our team!`;
   }
 
   // 12. Smart Conversational Default (Domain-restricted to MerxoDev Solutions)
   if (lang === 'bn') {
-    return `আমি **MerxoDev AI Assistant** — আমি শুধুমাত্র **MerxoDev Solutions**-এর ওয়েবসাইট ডেভেলপমেন্ট, ই-কমার্স, কাস্টম সফটওয়্যার, আমাদের প্রজেক্টসমূহ এবং প্রাইসিং (**১,০০০ – ৪,০০০ টাকা**) সম্পর্কে সব তথ্য দিতে পারি।\n\nআপনি কি কোনো ওয়েবসাইট বা অ্যাপ তৈরি করতে চাচ্ছেন, নাকি আমাদের লাইভ টিমের সাথে সরাসরি কথা বলতে চান?`;
+    return `আমি **MerxoDev AI Assistant** — আমি শুধুমাত্র **MerxoDev Solutions**-এর ওয়েবসাইট ডেভেলপমেন্ট, ই-কমার্স, কাস্টম সফটওয়্যার, আমাদের প্রজেক্টসমূহ এবং প্রাইসিং প্যাকেজ (**৳১৫,০০০ – ৳৫৫,০০০+ BDT / $১২৫ – $৪৫০+ USD**) সম্পর্কে সব তথ্য দিতে পারি।\n\nআপনি কি কোনো ওয়েবসাইট বা অ্যাপ তৈরি করতে চাচ্ছেন, নাকি আমাদের লাইভ টিমের সাথে সরাসরি কথা বলতে চান?`;
   }
   if (lang === 'ar') {
-    return `أنا **مساعد MerxoDev الذكي**، المخصص لشركة **MerxoDev Solutions**. يمكنني الإجابة عن أي استفسار حول خدمات تطوير المواقع والتطبيقات، المتاجر الإلكترونية، مشاريعنا، والأسعار (**1,000 – 4,000 تاكا**).\n\nكيف يمكننا مساعدتك في بناء مشروعك القادم؟ يمكنك أيضاً الضغط على **مسؤول مباشر** في أي وقت للتحدث مع فريقنا!`;
+    return `أنا **مساعد MerxoDev الذكي**، المخصص لشركة **MerxoDev Solutions**. يمكنني الإجابة عن أي استفسار حول خدمات تطوير المواقع والتطبيقات، المتاجر الإلكترونية، مشاريعنا، وباقات الأسعار (**125$ – 450$+ دولار / 15,000 – 55,000+ تاكا**).\n\nكيف يمكننا مساعدتك في بناء مشروعك القادم؟ يمكنك أيضاً الضغط على **مسؤول مباشر** في أي وقت للتحدث مع فريقنا!`;
   }
   if (lang === 'zh') {
-    return `我是 **MerxoDev AI 智能助手**，专为 **MerxoDev Solutions** 提供服务。我可以为您解答关于定制网站与 Web 应用开发、电商解决方案、项目案例、团队及价格套餐（**BDT 1,000 – 4,000**）的任何问题。\n\n请问我们可以如何帮助您构建下一个网站或软件项目？您也可以随时点击**人工客服**与我们的真人团队交流！`;
+    return `我是 **MerxoDev AI 智能助手**，专为 **MerxoDev Solutions** 提供服务。我可以为您解答关于定制网站与 Web 应用开发、电商解决方案、项目案例、团队及价格套餐（**$125 – $450+ USD / ৳15,000 – ৳55,000+ BDT**）的任何问题。\n\n请问我们可以如何帮助您构建下一个网站或软件项目？您也可以随时点击**人工客服**与我们的真人团队交流！`;
   }
   if (lang === 'banglish') {
-    return `Ami **MerxoDev AI Assistant** — ami **MerxoDev Solutions** er website development, ecommerce, SaaS app, amader portfolio project ebong pricing (**1,000 – 4,000 Taka**) niye apnake shob tottho dite pari.\n\nApni ki kono website ba software banate chaccen, naki amader **Live Team** er sathe direct kotha bolte chan?`;
+    return `Ami **MerxoDev AI Assistant** — ami **MerxoDev Solutions** er website development, ecommerce, SaaS app, amader portfolio project ebong pricing package (**৳15,000 – ৳55,000+ BDT / $125 – $450+ USD**) niye apnake shob tottho dite pari.\n\nApni ki kono website ba software banate chaccen, naki amader **Live Team** er sathe direct kotha bolte chan?`;
   }
-  return `I am **MerxoDev AI**, dedicated to **MerxoDev Solutions**. I can answer anything about our custom web & app development services, e-commerce solutions, portfolio projects, team, and pricing (**BDT 1,000 – BDT 4,000**).\n\nHow can we help build your next website or software project? You can also click **Live Team** anytime to chat with a real person!`;
+  return `I am **MerxoDev AI**, dedicated to **MerxoDev Solutions**. I can answer anything about our custom web & app development services, e-commerce solutions, portfolio projects, team, and pricing packages (**$125 – $450+ USD / ৳15,000 – ৳55,000+ BDT**).\n\nHow can we help build your next website or software project? You can also click **Live Team** anytime to chat with a real person!`;
 }
 
 export async function generateAiResponse({

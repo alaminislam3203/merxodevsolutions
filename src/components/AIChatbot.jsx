@@ -31,28 +31,95 @@ import {
 } from "react-icons/md";
 import { playVisitorMessageSound } from "@/lib/chatSound";
 
-const INITIAL_WELCOME = {
-  id: "welcome",
-  sender: "bot",
-  text: "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing ($125 – $450 USD / ৳15,000 – ৳55,000 BDT)** — or click **Live Team** above to chat directly with our team!",
-  actions: [
-    { label: "View Services & Pricing", href: "/services", type: "link" },
-    {
-      label: "Chat on WhatsApp",
-      href: "https://wa.me/8801313334279",
-      type: "external",
-    },
-  ],
-  createdAt: null,
+const WELCOME_MESSAGES = {
+  en: {
+    id: "welcome",
+    sender: "bot",
+    text: "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing ($125 – $450+ USD / ৳15,000 – ৳55,000+ BDT)** — or click **Live Team** above to chat directly with our team!",
+    actions: [
+      { label: "View Services & Pricing", href: "/services", type: "link" },
+      {
+        label: "Chat on WhatsApp",
+        href: "https://wa.me/8801313334279",
+        type: "external",
+      },
+    ],
+    createdAt: null,
+  },
+  bn: {
+    id: "welcome",
+    sender: "bot",
+    text: "**MerxoDev Solutions-এ আপনাকে স্বাগতম!**\n\nআমি আপনার **MerxoDev AI Assistant**। আমাদের **কাস্টম ওয়েবসাইট, ওয়েব অ্যাপ, ই-কমার্স, পূর্ববর্তী প্রজেক্টসমূহ অথবা প্রাইসিং প্যাকেজ (৳১৫,০০০ – ৳৫৫,০০০+ BDT / $১২৫ – $৪৫০+ USD)** সম্পর্কে যেকোনো প্রশ্ন করতে পারেন—অথবা আমাদের টিমের সাথে সরাসরি কথা বলতে উপরে **Live Team** বাটনে ক্লিক করুন!",
+    actions: [
+      { label: "সার্ভিস ও প্যাকেজ দেখুন", href: "/services", type: "link" },
+      {
+        label: "হোয়াটসঅ্যাপে চ্যাট করুন",
+        href: "https://wa.me/8801313334279",
+        type: "external",
+      },
+    ],
+    createdAt: null,
+  },
+  ar: {
+    id: "welcome",
+    sender: "bot",
+    text: "**مرحباً بك في MerxoDev Solutions!**\n\nأنا **مساعد MerxoDev الذكي**. اسألني أي شيء عن **المواقع المخصصة، تطبيقات الويب، المتاجر الإلكترونية، مشاريعنا أو باقات الأسعار (125$ – 450$+ دولار / 15,000 – 55,000+ تاكا)** — أو اضغط على **مسؤول مباشر** للتحدث مع فريقنا!",
+    actions: [
+      { label: "عرض الخدمات والأسعار", href: "/services", type: "link" },
+      {
+        label: "محادثة عبر واتساب",
+        href: "https://wa.me/8801313334279",
+        type: "external",
+      },
+    ],
+    createdAt: null,
+  },
+  zh: {
+    id: "welcome",
+    sender: "bot",
+    text: "**欢迎来到 MerxoDev Solutions！**\n\n我是您的 **MerxoDev AI 智能助手**。欢迎咨询我们的**定制网站开发、全栈 Web 应用、电商系统、项目案例或价格套餐（$125 – $450+ USD / ৳15,000 – ৳55,000+ BDT）**——或点击上方的 **人工客服** 直接与我们沟通！",
+    actions: [
+      { label: "查看服务与报价", href: "/services", type: "link" },
+      {
+        label: "WhatsApp 沟通",
+        href: "https://wa.me/8801313334279",
+        type: "external",
+      },
+    ],
+    createdAt: null,
+  },
 };
 
-const DEFAULT_SUGGESTIONS_EN = [
-  "Website pricing & packages?",
-  "Show your recent projects",
-  "E-commerce & bKash/Nagad gateway",
-  "How long does delivery take?",
-  "Talk to Live Team",
-];
+const DEFAULT_SUGGESTIONS = {
+  en: [
+    "Website pricing & packages?",
+    "Show your recent projects",
+    "E-commerce & bKash/Nagad gateway",
+    "How long does delivery take?",
+    "Talk to Live Team",
+  ],
+  bn: [
+    "ওয়েবসাইট প্যাকেজ ও দাম কত?",
+    "আপনাদের করা প্রজেক্টগুলো দেখান",
+    "ই-কমার্স ওয়েবসাইট তৈরি করতে চাই",
+    "প্রজেক্ট ডেলিভারি দিতে কতদিন লাগে?",
+    "লাইভ টিমের সাথে কথা বলতে চাই",
+  ],
+  ar: [
+    "ما هي أسعار وباقات المواقع؟",
+    "اعرض أحدث مشاريعكم",
+    "متجر إلكتروني وبوابات الدفع",
+    "كم يستغرق تسليم المشروع؟",
+    "التحدث مع مسؤول مباشر",
+  ],
+  zh: [
+    "网站开发套餐与价格？",
+    "查看你们最近的项目案例",
+    "电商网站与支付网关集成",
+    "项目交付需要多长时间？",
+    "联系人工客服",
+  ],
+};
 
 export default function AIChatbot() {
   const { t, i18n } = useTranslation();
@@ -66,7 +133,17 @@ export default function AIChatbot() {
   const [sessionId, setSessionId] = useState("");
   const [sessionMode, setSessionMode] = useState("ai"); // 'ai' | 'live'
   const [needsHuman, setNeedsHuman] = useState(false);
-  const [messages, setMessages] = useState([INITIAL_WELCOME]);
+  const getActiveLanguage = useCallback(() => {
+    if (typeof window !== "undefined") {
+      return i18n?.language || localStorage.getItem("lang") || "en";
+    }
+    return i18n?.language || "en";
+  }, [i18n?.language]);
+
+  const activeLang = getActiveLanguage();
+  const currentWelcome = WELCOME_MESSAGES[activeLang] || WELCOME_MESSAGES.en;
+
+  const [messages, setMessages] = useState([currentWelcome]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [requestingHuman, setRequestingHuman] = useState(false);
@@ -86,26 +163,32 @@ export default function AIChatbot() {
     [mounted, t],
   );
 
-  const getActiveLanguage = useCallback(() => {
-    if (typeof window !== "undefined") {
-      return i18n?.language || localStorage.getItem("lang") || "en";
-    }
-    return i18n?.language || "en";
-  }, [i18n?.language]);
+  const defaultSuggestionsForLang =
+    DEFAULT_SUGGESTIONS[activeLang] || DEFAULT_SUGGESTIONS.en;
 
   const localizedDefaultSuggestions = mounted
     ? t("aiChat.suggestions", {
         returnObjects: true,
-        defaultValue: DEFAULT_SUGGESTIONS_EN,
+        defaultValue: defaultSuggestionsForLang,
       })
-    : DEFAULT_SUGGESTIONS_EN;
+    : defaultSuggestionsForLang;
 
   const suggestions =
     Array.isArray(customSuggestions) && customSuggestions.length > 0
       ? customSuggestions
       : Array.isArray(localizedDefaultSuggestions)
         ? localizedDefaultSuggestions
-        : DEFAULT_SUGGESTIONS_EN;
+        : defaultSuggestionsForLang;
+
+  // Keep welcome message dynamically synced with current language
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 0 || prev[0]?.id === "welcome") {
+        return [currentWelcome, ...prev.slice(1)];
+      }
+      return prev;
+    });
+  }, [currentWelcome]);
 
   // Reset contextual suggestions when user switches language in LanguageSwitcher so chips match selected language
   useEffect(() => {
@@ -231,7 +314,7 @@ export default function AIChatbot() {
             }
           });
 
-          setMessages([INITIAL_WELCOME, ...data.messages]);
+          setMessages([currentWelcome, ...data.messages]);
 
           if (newIncomingFromAdminOrBot) {
             if (soundEnabled) playVisitorMessageSound();
