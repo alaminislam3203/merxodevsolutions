@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +36,7 @@ export async function POST(request) {
         title: title || null,
         subtitle: subtitle || null,
         buttonText: buttonText || null,
-        buttonLink: buttonLink || null,
+        buttonLink: cleanProjectUrl(buttonLink) || null,
         slot: slot || "left",
         isActive: isActive !== undefined ? Boolean(isActive) : true,
         order: order !== undefined ? Number(order) : 0,
