@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/adminAuth";
 import prisma from "@/lib/prisma";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export async function PUT(request, { params }) {
         ...(title !== undefined && { title: title || null }),
         ...(subtitle !== undefined && { subtitle: subtitle || null }),
         ...(buttonText !== undefined && { buttonText: buttonText || null }),
-        ...(buttonLink !== undefined && { buttonLink: buttonLink || null }),
+        ...(buttonLink !== undefined && { buttonLink: cleanProjectUrl(buttonLink) || null }),
         ...(isActive !== undefined && { isActive: Boolean(isActive) }),
         ...(slot !== undefined && { slot }),
         ...(order !== undefined && { order: Number(order) }),
