@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { ensureWorkspaceTables } from "@/lib/workspaceStore";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,11 @@ export async function GET(request) {
             ? JSON.parse(l.milestones)
             : l.milestones || milestones;
       } catch {}
-      return { ...l, milestones };
+      return {
+        ...l,
+        milestones,
+        liveDemoUrl: cleanProjectUrl(l.liveDemoUrl),
+      };
     });
 
     return NextResponse.json({ projects });
