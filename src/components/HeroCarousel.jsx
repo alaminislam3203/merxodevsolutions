@@ -2,13 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import EmblaCarousel from "./EmblaCarousel";
 import prisma from "@/lib/prisma";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 async function getBanners() {
   try {
-    const banners = await prisma.banner.findMany({
+    const rawBanners = await prisma.banner.findMany({
       where: { isActive: true },
       orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     });
+
+    const banners = (rawBanners || []).map((b) => ({
+      ...b,
+      buttonLink: cleanProjectUrl(b.buttonLink),
+    }));
 
     const left = banners.filter((b) => b.slot === "left" || !b.slot);
     let rightTop = banners.filter((b) => b.slot === "right_top" || b.slot === "top_right");
