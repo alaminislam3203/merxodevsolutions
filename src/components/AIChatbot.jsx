@@ -333,6 +333,7 @@ export default function AIChatbot() {
       loggedInEmail,
       loggedInImage,
       getActiveLanguage,
+      currentWelcome,
     ],
   );
 

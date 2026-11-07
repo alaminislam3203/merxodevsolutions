@@ -4258,6 +4258,16 @@ const en = {
       "ctaBoxDesc": "Use our interactive cost calculator or talk directly with our full-stack engineering team to launch your project.",
       "ctaCalculatorBtn": "Calculate Project Cost",
       "ctaContactBtn": "Book Free Consultation"
+    },
+    "aiChat": {
+      "welcome": "**Welcome to MerxoDev Solutions!**\n\nI am your **MerxoDev AI Assistant**. Ask me anything about our **custom websites, web apps, e-commerce, portfolio projects, or pricing ($125 – $450+ USD / ৳15,000 – ৳55,000+ BDT)** — or click **Live Team** above to chat directly with our team!",
+      "suggestions": [
+        "Website pricing & packages?",
+        "Show your recent projects",
+        "E-commerce & bKash/Nagad gateway",
+        "How long does delivery take?",
+        "Talk to Live Team"
+      ]
     }
   }
 };
