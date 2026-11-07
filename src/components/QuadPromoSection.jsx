@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
+import { cleanProjectUrl } from "@/app/lib/projects";
 
 // High quality fallback visuals matching the theme
 const DEFAULTS = {
@@ -96,16 +97,16 @@ export default async function QuadPromoSection() {
   const { topLeft, bottomLeft1, bottomLeft2, right } = await getQuadBanners();
 
   const imgTL = topLeft?.imageUrl || DEFAULTS.topLeft.imageUrl;
-  const linkTL = topLeft?.buttonLink || DEFAULTS.topLeft.link;
+  const linkTL = cleanProjectUrl(topLeft?.buttonLink || DEFAULTS.topLeft.link);
 
   const imgBL1 = bottomLeft1?.imageUrl || DEFAULTS.bottomLeft1.imageUrl;
-  const linkBL1 = bottomLeft1?.buttonLink || DEFAULTS.bottomLeft1.link;
+  const linkBL1 = cleanProjectUrl(bottomLeft1?.buttonLink || DEFAULTS.bottomLeft1.link);
 
   const imgBL2 = bottomLeft2?.imageUrl || DEFAULTS.bottomLeft2.imageUrl;
-  const linkBL2 = bottomLeft2?.buttonLink || DEFAULTS.bottomLeft2.link;
+  const linkBL2 = cleanProjectUrl(bottomLeft2?.buttonLink || DEFAULTS.bottomLeft2.link);
 
   const imgR = right?.imageUrl || DEFAULTS.right.imageUrl;
-  const linkR = right?.buttonLink || DEFAULTS.right.link;
+  const linkR = cleanProjectUrl(right?.buttonLink || DEFAULTS.right.link);
 
   return (
     <section className="w-full max-w-full relative py-4 sm:py-7 lg:py-10 px-3 sm:px-6 lg:px-8 overflow-hidden bg-transparent" aria-label="Showcase Images">
