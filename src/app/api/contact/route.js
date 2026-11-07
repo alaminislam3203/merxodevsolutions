@@ -171,7 +171,7 @@ Received: ${now.toLocaleString()}`;
     });
 
     // 2. Send Auto-Reply Confirmation email to the Client (White BG + logo.png & favicon.png)
-    const clientAutoReplyText = `Hi ${name},\n\nThank you for reaching out to MerxoDev Solutions! We have received your inquiry regarding "${service || 'Custom Web & Digital Solutions'}" and our engineering team will review your requirements and respond within 2–6 business hours.\n\nWarm regards,\nMerxoDev Solutions Team\nhttps://www.merxodev.com`;
+    const clientAutoReplyText = `Hi ${name},\n\nThank you for reaching out to MerxoDev Solutions! We have received your inquiry regarding "${service || 'Custom Web & Digital Solutions'}" and our engineering team will review your requirements and respond within 2–6 business hours.\n\nWarm regards,\nMerxoDev Solutions Team\nhttps://merxodevsolutions.pro.bd`;
 
     const clientHtmlCid = autoReplyTemplate({
       name,
