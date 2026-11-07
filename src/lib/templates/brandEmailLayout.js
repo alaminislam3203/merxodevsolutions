@@ -370,7 +370,7 @@ export function renderBrandCardEmail({
                 © ${year} MerxoDev Solutions. All rights reserved.
               </p>
               <p style="margin:0;font-size:11.5px;color:#64748b;">
-                Rangpur, Bangladesh • <a href="${siteUrl}" style="color:#7c3aed;text-decoration:none;font-weight:600;">merxodevsolutions.pro.bd</a> • <a href="mailto:info@merxodev.com" style="color:#f97316;text-decoration:none;font-weight:600;">info@merxodev.com</a>
+                Rangpur, Bangladesh • <a href="${siteUrl}" style="color:#7c3aed;text-decoration:none;font-weight:600;">merxodevsolutions.pro.bd</a> • <a href="mailto:merxodevsolutions@gmail.com" style="color:#f97316;text-decoration:none;font-weight:600;">merxodevsolutions@gmail.com</a>
               </p>
             </td>
           </tr>
