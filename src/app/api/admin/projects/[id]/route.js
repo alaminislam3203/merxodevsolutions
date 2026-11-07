@@ -108,7 +108,7 @@ export async function PUT(request, { params }) {
       description: body.description !== undefined ? body.description : existing.description,
       image: body.image !== undefined ? (body.image || null) : existing.image,
       images: body.images !== undefined ? body.images : existing.images,
-      liveUrl: body.liveUrl !== undefined ? (body.liveUrl || null) : existing.liveUrl,
+      liveUrl: body.liveUrl !== undefined ? (cleanProjectUrl(body.liveUrl) || null) : existing.liveUrl,
       details: incomingDetails,
       order: body.order !== undefined && body.order !== null && !isNaN(Number(body.order)) ? Number(body.order) : existing.order,
     };
