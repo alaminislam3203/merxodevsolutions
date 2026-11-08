@@ -90,6 +90,9 @@ const WELCOME_MESSAGES = {
   },
 };
 
+// Safe fallback / backward compatibility alias to prevent runtime ReferenceErrors:
+const INITIAL_WELCOME = WELCOME_MESSAGES.en;
+
 const DEFAULT_SUGGESTIONS = {
   en: [
     "Website pricing & packages?",
