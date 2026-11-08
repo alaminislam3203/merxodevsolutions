@@ -424,7 +424,7 @@ export default function AIChatbot() {
       }
       if (Array.isArray(data?.messages) && data.messages.length > 0) {
         data.messages.forEach((m) => knownMessageIdsRef.current.add(m.id));
-        setMessages([INITIAL_WELCOME, ...data.messages]);
+        setMessages([currentWelcome, ...data.messages]);
         if (soundEnabled) playVisitorMessageSound();
       }
     } catch {
@@ -492,7 +492,7 @@ export default function AIChatbot() {
 
       if (Array.isArray(data?.messages) && data.messages.length > 0) {
         data.messages.forEach((m) => knownMessageIdsRef.current.add(m.id));
-        setMessages([INITIAL_WELCOME, ...data.messages]);
+        setMessages([currentWelcome, ...data.messages]);
 
         const lastMsg = data.messages[data.messages.length - 1];
         if (lastMsg && lastMsg.sender === "bot") {
@@ -556,7 +556,7 @@ export default function AIChatbot() {
     setSessionId(newId);
     setSessionMode("ai");
     setNeedsHuman(false);
-    setMessages([INITIAL_WELCOME]);
+    setMessages([currentWelcome]);
     setCustomSuggestions(null);
   };
 
