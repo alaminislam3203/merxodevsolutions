@@ -1271,7 +1271,7 @@ export default function EnvVaultPage() {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0, 0, 0, 0.8)",
+            background: isDark ? "rgba(0, 0, 0, 0.8)" : "rgba(15, 23, 42, 0.6)",
             backdropFilter: "blur(8px)",
             zIndex: 99999,
             display: "flex",
@@ -1289,11 +1289,13 @@ export default function EnvVaultPage() {
               border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
               borderRadius: 18,
               width: "100%",
-              maxWidth: 820,
+              maxWidth: 860,
               maxHeight: "92vh",
               display: "flex",
               flexDirection: "column",
-              boxShadow: isDark ? "0 25px 60px -15px rgba(0, 0, 0, 0.95)" : "0 25px 60px rgba(0, 0, 0, 0.15)",
+              boxShadow: isDark
+                ? "0 25px 60px -15px rgba(0, 0, 0, 0.95)"
+                : "0 25px 60px -10px rgba(0, 0, 0, 0.18)",
               overflow: "hidden",
             }}
           >
@@ -1315,33 +1317,48 @@ export default function EnvVaultPage() {
                   </h3>
                   <span
                     style={{
-                      background: ENVIRONMENT_CONFIG[previewItem.environment]?.bg || "rgba(99, 102, 241, 0.1)",
-                      color: ENVIRONMENT_CONFIG[previewItem.environment]?.color || "#818cf8",
-                      border: `1px solid ${ENVIRONMENT_CONFIG[previewItem.environment]?.border || "rgba(99, 102, 241, 0.3)"}`,
+                      background: isDark
+                        ? (ENVIRONMENT_CONFIG[previewItem.environment]?.bg || "rgba(99, 102, 241, 0.1)")
+                        : (previewItem.environment === "production" ? "#dcfce7" : previewItem.environment === "development" ? "#e0f2fe" : previewItem.environment === "staging" ? "#fef3c7" : "#f3e8ff"),
+                      color: isDark
+                        ? (ENVIRONMENT_CONFIG[previewItem.environment]?.color || "#818cf8")
+                        : (previewItem.environment === "production" ? "#15803d" : previewItem.environment === "development" ? "#0284c7" : previewItem.environment === "staging" ? "#b45309" : "#7e22ce"),
+                      border: isDark
+                        ? `1px solid ${ENVIRONMENT_CONFIG[previewItem.environment]?.border || "rgba(99, 102, 241, 0.3)"}`
+                        : (previewItem.environment === "production" ? "1px solid #bbf7d0" : previewItem.environment === "development" ? "1px solid #bae6fd" : previewItem.environment === "staging" ? "1px solid #fde68a" : "1px solid #d8b4fe"),
                       borderRadius: 6,
                       padding: "2px 8px",
                       fontSize: 11,
-                      fontWeight: 600,
+                      fontWeight: 700,
                       textTransform: "uppercase",
                     }}
                   >
                     {previewItem.environment}
                   </span>
                 </div>
-                <div style={{ fontSize: 12.5, color: isDark ? "#94a3b8" : "#64748b" }}>
+                <div style={{ fontSize: 12.5, color: isDark ? "#94a3b8" : "#475569" }}>
                   {previewItem.stats?.keyCount || 0} variables • {previewItem.stats?.commentCount || 0} comments
+                  {previewItem.fileName && ` • ${previewItem.fileName}`}
                 </div>
+                {previewItem.description && (
+                  <div style={{ fontSize: 12, color: isDark ? "#cbd5e1" : "#334155", marginTop: 4 }}>
+                    {previewItem.description}
+                  </div>
+                )}
               </div>
 
               <button
                 onClick={() => setPreviewItem(null)}
                 style={{
                   background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
-                  border: "none",
+                  border: isDark ? "none" : "1px solid #cbd5e1",
                   borderRadius: 8,
-                  color: isDark ? "#94a3b8" : "#64748b",
+                  color: isDark ? "#94a3b8" : "#475569",
                   padding: 8,
                   cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <FiX size={18} />
@@ -1410,11 +1427,22 @@ export default function EnvVaultPage() {
                     onClick={() => setIsMasked(!isMasked)}
                     style={{
                       padding: "6px 12px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      background: isDark
+                        ? "rgba(255, 255, 255, 0.05)"
+                        : isMasked
+                        ? "#fffbeb"
+                        : "#ecfdf5",
+                      border: isDark
+                        ? "1px solid rgba(255, 255, 255, 0.1)"
+                        : isMasked
+                        ? "1px solid #fde68a"
+                        : "1px solid #a7f3d0",
                       borderRadius: 8,
-                      color: isMasked ? "#f59e0b" : "#10b981",
+                      color: isDark
+                        ? (isMasked ? "#f59e0b" : "#10b981")
+                        : (isMasked ? "#b45309" : "#047857"),
                       fontSize: 12,
+                      fontWeight: 600,
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
@@ -1486,6 +1514,7 @@ export default function EnvVaultPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
+                  fontWeight: 500,
                 }}
               >
                 <FiFileText size={14} />
@@ -1495,25 +1524,104 @@ export default function EnvVaultPage() {
               </div>
             )}
 
-            {/* Code Content View */}
+            {/* Code Content View with Line Numbers & Syntax Styling */}
             <div
               style={{
                 flex: 1,
                 overflowY: "auto",
-                background: "#080c18",
+                background: isDark ? "#080c18" : "#f8fafc",
+                borderTop: isDark ? "none" : "1px solid #e2e8f0",
                 padding: "18px 24px",
                 fontFamily: 'Consolas, Monaco, "Courier New", monospace',
                 fontSize: 13,
                 lineHeight: 1.7,
-                color: previewTab === "example" ? "#7dd3fc" : "#86efac",
-                whiteSpace: "pre",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-all",
               }}
             >
-              {previewTab === "example"
-                ? previewItem.exampleContent
-                : isMasked
-                ? previewItem.maskedContent
-                : previewItem.content}
+              {(() => {
+                const rawText = previewTab === "example"
+                  ? previewItem.exampleContent
+                  : isMasked
+                  ? previewItem.maskedContent
+                  : previewItem.content;
+                const lines = (rawText || "").split("\n");
+
+                return (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    {lines.map((line, idx) => {
+                      const trimmed = line.trim();
+                      const isComment = trimmed.startsWith("#");
+                      const isBlank = trimmed === "";
+                      const eqIdx = line.indexOf("=");
+                      const isKeyVal = !isComment && eqIdx > -1;
+
+                      if (isBlank) {
+                        return (
+                          <div key={idx} style={{ display: "flex", minHeight: "1.7em" }}>
+                            <span style={{ width: 36, userSelect: "none", color: isDark ? "#475569" : "#94a3b8", textAlign: "right", paddingRight: 14, fontSize: 11.5, opacity: 0.7 }}>
+                              {idx + 1}
+                            </span>
+                            <span style={{ flex: 1 }}>&nbsp;</span>
+                          </div>
+                        );
+                      }
+
+                      if (isComment) {
+                        return (
+                          <div key={idx} style={{ display: "flex", alignItems: "flex-start" }}>
+                            <span style={{ width: 36, userSelect: "none", color: isDark ? "#475569" : "#94a3b8", textAlign: "right", paddingRight: 14, fontSize: 11.5, opacity: 0.7 }}>
+                              {idx + 1}
+                            </span>
+                            <span style={{ flex: 1, color: isDark ? "#64748b" : "#64748b", fontStyle: "italic" }}>
+                              {line}
+                            </span>
+                          </div>
+                        );
+                      }
+
+                      if (isKeyVal) {
+                        const key = line.slice(0, eqIdx);
+                        const val = line.slice(eqIdx + 1);
+                        const isMaskedVal = val.includes("********");
+
+                        return (
+                          <div key={idx} style={{ display: "flex", alignItems: "flex-start" }}>
+                            <span style={{ width: 36, userSelect: "none", color: isDark ? "#475569" : "#94a3b8", textAlign: "right", paddingRight: 14, fontSize: 11.5, opacity: 0.7 }}>
+                              {idx + 1}
+                            </span>
+                            <span style={{ flex: 1 }}>
+                              <span style={{ color: isDark ? "#818cf8" : "#4338ca", fontWeight: 700 }}>{key}</span>
+                              <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>=</span>
+                              <span
+                                style={{
+                                  color: isMaskedVal
+                                    ? (isDark ? "#fbbf24" : "#d97706")
+                                    : previewTab === "example"
+                                    ? (isDark ? "#38bdf8" : "#0284c7")
+                                    : (isDark ? "#86efac" : "#15803d"),
+                                  fontWeight: isMaskedVal ? 700 : 500,
+                                }}
+                              >
+                                {val}
+                              </span>
+                            </span>
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <div key={idx} style={{ display: "flex", alignItems: "flex-start" }}>
+                          <span style={{ width: 36, userSelect: "none", color: isDark ? "#475569" : "#94a3b8", textAlign: "right", paddingRight: 14, fontSize: 11.5, opacity: 0.7 }}>
+                            {idx + 1}
+                          </span>
+                          <span style={{ flex: 1, color: isDark ? "#cbd5e1" : "#1e293b" }}>{line}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>
