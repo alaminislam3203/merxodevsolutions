@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
+import AuthAnimation from '@/components/AuthAnimation';
 import {
   FiShield,
   FiLock,
@@ -110,6 +111,11 @@ function ResetPasswordContent() {
           <p className="text-zinc-600 dark:text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             {t('auth.resetPassword.heroDesc', 'Your verification code was confirmed. Choose a strong, unique password to complete your account recovery.')}
           </p>
+
+          {/* Themed Lottie/Vector Animation */}
+          <div className="mb-8 flex items-center justify-center">
+            <AuthAnimation type="reset-password" size="md" />
+          </div>
 
           {/* Value props list */}
           <div className="space-y-4 mb-10">
@@ -237,6 +243,11 @@ function ResetPasswordContent() {
           ) : (
             /* Set Password Form */
             <>
+              {/* Mobile Animation */}
+              <div className="lg:hidden flex justify-center mb-6">
+                <AuthAnimation type="reset-password" size="sm" />
+              </div>
+
               {/* Header */}
               <div className="mb-6">
                 <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">
