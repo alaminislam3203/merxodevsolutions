@@ -471,7 +471,7 @@ export default function EnvVaultPage() {
             <FiServer size={20} />
           </div>
           <div>
-            <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+            <div style={{ fontSize: 11.5, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Total Projects
             </div>
             <div style={{ fontSize: 22, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{stats.total}</div>
@@ -675,13 +675,13 @@ export default function EnvVaultPage() {
       {loading ? (
         <div style={{ textAlign: "center", padding: "60px 0" }}>
           <div className="admin-spinner-lg" style={{ margin: "0 auto 16px" }}></div>
-          <p style={{ color: "#94a3b8", fontSize: 14 }}>Loading Environment Vault...</p>
+          <p style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 14 }}>Loading Environment Vault...</p>
         </div>
       ) : filteredItems.length === 0 ? (
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px dashed rgba(255, 255, 255, 0.1)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px dashed rgba(255, 255, 255, 0.1)" : "1px dashed #cbd5e1",
             borderRadius: 16,
             padding: "50px 20px",
             textAlign: "center",
@@ -692,8 +692,8 @@ export default function EnvVaultPage() {
               width: 56,
               height: 56,
               borderRadius: 16,
-              background: "rgba(99, 102, 241, 0.1)",
-              color: "#818cf8",
+              background: isDark ? "rgba(99, 102, 241, 0.1)" : "#e0e7ff",
+              color: isDark ? "#818cf8" : "#4338ca",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -702,10 +702,10 @@ export default function EnvVaultPage() {
           >
             <FiShield size={28} />
           </div>
-          <h3 style={{ color: "#f8fafc", fontSize: 17, fontWeight: 600, margin: "0 0 6px" }}>
+          <h3 style={{ color: isDark ? "#f8fafc" : "#0f172a", fontSize: 17, fontWeight: 600, margin: "0 0 6px" }}>
             {searchQuery ? "No matching backups found" : "No environment files backed up yet"}
           </h3>
-          <p style={{ color: "#94a3b8", fontSize: 13.5, maxWidth: 440, margin: "0 auto 20px" }}>
+          <p style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 13.5, maxWidth: 440, margin: "0 auto 20px" }}>
             {searchQuery
               ? "Try searching with a different project keyword or clear the search filter."
               : "Upload your project's .env file to keep it securely archived, ready to restore anytime, and automatically export .env.example for GitHub."}
@@ -818,13 +818,13 @@ export default function EnvVaultPage() {
                     </div>
 
                     {item.description && (
-                      <p style={{ margin: "0 0 6px", fontSize: 13, color: "#94a3b8", lineHeight: 1.4 }}>
+                      <p style={{ margin: "0 0 6px", fontSize: 13, color: isDark ? "#94a3b8" : "#334155", lineHeight: 1.4 }}>
                         {item.description}
                       </p>
                     )}
 
-                    <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 11.5, color: "#64748b" }}>
-                      <span>File: <code style={{ color: "#94a3b8" }}>{item.fileName}</code></span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 11.5, color: isDark ? "#64748b" : "#475569" }}>
+                      <span>File: <code style={{ color: isDark ? "#94a3b8" : "#4338ca", background: isDark ? undefined : "#f1f5f9" }}>{item.fileName}</code></span>
                       <span>•</span>
                       <span>Updated: {updatedDate}</span>
                     </div>
@@ -840,9 +840,9 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 13px",
                       borderRadius: 8,
-                      background: "rgba(16, 185, 129, 0.12)",
-                      border: "1px solid rgba(16, 185, 129, 0.25)",
-                      color: "#34d399",
+                      background: isDark ? "rgba(16, 185, 129, 0.12)" : "#dcfce7",
+                      border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid #86efac",
+                      color: isDark ? "#34d399" : "#15803d",
                       fontSize: 12.5,
                       fontWeight: 600,
                       cursor: "pointer",
@@ -851,8 +851,8 @@ export default function EnvVaultPage() {
                       gap: 6,
                       transition: "all 0.15s",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(16, 185, 129, 0.2)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(16, 185, 129, 0.12)")}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "rgba(16, 185, 129, 0.2)" : "#bbf7d0")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = isDark ? "rgba(16, 185, 129, 0.12)" : "#dcfce7")}
                   >
                     <FiDownload size={14} />
                     .env
@@ -865,9 +865,9 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 13px",
                       borderRadius: 8,
-                      background: "rgba(56, 189, 248, 0.12)",
-                      border: "1px solid rgba(56, 189, 248, 0.25)",
-                      color: "#38bdf8",
+                      background: isDark ? "rgba(56, 189, 248, 0.12)" : "#e0f2fe",
+                      border: isDark ? "1px solid rgba(56, 189, 248, 0.25)" : "1px solid #bae6fd",
+                      color: isDark ? "#38bdf8" : "#0284c7",
                       fontSize: 12.5,
                       fontWeight: 600,
                       cursor: "pointer",
@@ -876,8 +876,8 @@ export default function EnvVaultPage() {
                       gap: 6,
                       transition: "all 0.15s",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(56, 189, 248, 0.2)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(56, 189, 248, 0.12)")}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "rgba(56, 189, 248, 0.2)" : "#bae6fd")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = isDark ? "rgba(56, 189, 248, 0.12)" : "#e0f2fe")}
                   >
                     <FiFileText size={14} />
                     .env.example
@@ -890,14 +890,16 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 11px",
                       borderRadius: 8,
-                      background: "rgba(255, 255, 255, 0.04)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      color: copiedId === `${item.id}-env` ? "#10b981" : "#cbd5e1",
+                      background: isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff",
+                      border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
+                      color: copiedId === `${item.id}-env` ? (isDark ? "#10b981" : "#15803d") : (isDark ? "#cbd5e1" : "#1e293b"),
                       fontSize: 12,
+                      fontWeight: 600,
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
                       gap: 5,
+                      boxShadow: isDark ? "none" : "0 1px 3px rgba(0,0,0,0.04)",
                     }}
                   >
                     {copiedId === `${item.id}-env` ? <FiCheck size={14} /> : <FiCopy size={14} />}
@@ -911,14 +913,16 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 11px",
                       borderRadius: 8,
-                      background: "rgba(255, 255, 255, 0.04)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      color: copiedId === `${item.id}-example` ? "#38bdf8" : "#cbd5e1",
+                      background: isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff",
+                      border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
+                      color: copiedId === `${item.id}-example` ? (isDark ? "#38bdf8" : "#0284c7") : (isDark ? "#cbd5e1" : "#1e293b"),
                       fontSize: 12,
+                      fontWeight: 600,
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
                       gap: 5,
+                      boxShadow: isDark ? "none" : "0 1px 3px rgba(0,0,0,0.04)",
                     }}
                   >
                     {copiedId === `${item.id}-example` ? <FiCheck size={14} /> : <FiCopy size={14} />}
@@ -932,9 +936,9 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 10px",
                       borderRadius: 8,
-                      background: "rgba(99, 102, 241, 0.12)",
-                      border: "1px solid rgba(99, 102, 241, 0.25)",
-                      color: "#818cf8",
+                      background: isDark ? "rgba(99, 102, 241, 0.12)" : "#e0e7ff",
+                      border: isDark ? "1px solid rgba(99, 102, 241, 0.25)" : "1px solid #c7d2fe",
+                      color: isDark ? "#818cf8" : "#4338ca",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
@@ -950,12 +954,13 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 10px",
                       borderRadius: 8,
-                      background: "rgba(255, 255, 255, 0.04)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      color: "#94a3b8",
+                      background: isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff",
+                      border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
+                      color: isDark ? "#94a3b8" : "#1e293b",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
+                      boxShadow: isDark ? "none" : "0 1px 3px rgba(0,0,0,0.04)",
                     }}
                   >
                     <FiEdit2 size={15} />
@@ -968,9 +973,9 @@ export default function EnvVaultPage() {
                     style={{
                       padding: "8px 10px",
                       borderRadius: 8,
-                      background: "rgba(239, 68, 68, 0.1)",
-                      border: "1px solid rgba(239, 68, 68, 0.2)",
-                      color: "#f87171",
+                      background: isDark ? "rgba(239, 68, 68, 0.1)" : "#fee2e2",
+                      border: isDark ? "1px solid rgba(239, 68, 68, 0.2)" : "1px solid #fca5a5",
+                      color: isDark ? "#f87171" : "#dc2626",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
