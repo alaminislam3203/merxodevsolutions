@@ -29,5 +29,19 @@ export function ThemeProvider({ children }) {
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+  if (!context) {
+    return {
+      theme: typeof document !== 'undefined' && document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      toggleTheme: () => {
+        if (typeof window !== 'undefined') {
+          const isDark = document.documentElement.classList.contains('dark');
+          const next = isDark ? 'light' : 'dark';
+          localStorage.setItem('theme', next);
+          document.documentElement.classList.toggle('dark', next === 'dark');
+        }
+      }
+    };
+  }
+  return context;
 }
