@@ -548,7 +548,13 @@ export default function ProjectsPage() {
   const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/admin/projects");
+      const res = await fetch(`/api/admin/projects?_t=${Date.now()}`, {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+        },
+      });
       if (!res.ok) {
         if (res.status === 401) {
           showToast("Session expired. Please log in again.", "lock");
@@ -788,6 +794,16 @@ export default function ProjectsPage() {
               ? "Project submitted! Waiting for Admin approval to go live."
               : "Project added!"
         );
+        // Optimistically update local project list immediately with fresh data from server
+        if (data && (data.id || data.slug)) {
+          setProjects(prev => {
+            const exists = prev.some(p => p.id === data.id || p.slug === (editProject?.slug || data.slug));
+            if (exists) {
+              return prev.map(p => (p.id === data.id || p.slug === (editProject?.slug || data.slug)) ? { ...p, ...data } : p);
+            }
+            return [data, ...prev];
+          });
+        }
         closeModal();
         fetchProjects();
       } else {

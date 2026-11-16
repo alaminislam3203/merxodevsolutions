@@ -173,6 +173,7 @@ export async function PUT(request, { params }) {
 
     // Invalidate site cache so changes immediately show on Vercel
     try {
+      revalidatePath("/709832/projects");
       revalidatePath("/", "layout");
       revalidatePath("/our-projects");
       revalidatePath(`/our-projects/${project.slug}`);
@@ -183,7 +184,13 @@ export async function PUT(request, { params }) {
       console.error("Revalidation error:", revalErr);
     }
 
-    return NextResponse.json(project);
+    return NextResponse.json(project, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
   } catch (error) {
     if (error.code === "P2002") {
       return NextResponse.json({ error: "A project with this slug already exists" }, { status: 409 });

@@ -24,7 +24,13 @@ export async function GET() {
         orderBy: { createdAt: "desc" },
       });
     }
-    return NextResponse.json(projects || []);
+    return NextResponse.json(projects || [], {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
   } catch (error) {
     console.error("GET /api/admin/projects error:", error);
     return NextResponse.json({ error: error.message || "Failed to load projects" }, { status: 500 });
