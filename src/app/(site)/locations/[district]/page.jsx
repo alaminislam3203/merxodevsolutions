@@ -7,14 +7,12 @@ import {
 } from "@/lib/bangladeshLocations";
 import {
   FiPhoneCall,
-  FiMessageCircle,
   FiCheckCircle,
   FiMapPin,
   FiShield,
   FiZap,
   FiLayers,
   FiCpu,
-  FiClock,
   FiArrowRight,
   FiGlobe,
   FiStar,
@@ -265,10 +263,10 @@ export default async function LocationDistrictPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-zinc-50 dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 font-sans">
+      <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-zinc-50 dark:bg-[#060b19] text-zinc-900 dark:text-zinc-100 font-hind-siliguri">
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-8 uppercase tracking-wider">
+          <nav className="flex items-center gap-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-8 uppercase tracking-wider font-exo2">
             <Link
               href="/"
               className="hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
@@ -283,30 +281,30 @@ export default async function LocationDistrictPage({ params }) {
               Locations
             </Link>
             <span>/</span>
-            <span className="text-violet-600 dark:text-cyan-400 font-bold">
-              {district.nameEn} ({district.nameBn})
+            <span className="text-violet-600 dark:text-cyan-400 font-bold font-exo2">
+              {district.nameEn} <span className="font-hind-siliguri font-normal">({district.nameBn})</span>
             </span>
           </nav>
 
           {/* Hero Section */}
-          <div className="relative overflow-hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl p-6 sm:p-12 mb-12 shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/80 backdrop-blur-xl p-6 sm:p-12 mb-12 shadow-xl">
             {/* Ambient Gradient Glows */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-violet-600/15 via-cyan-500/10 to-transparent blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-bold uppercase tracking-wider mb-5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-bold uppercase tracking-wider mb-5 font-exo2">
                 <FiMapPin size={13} className="text-violet-600 dark:text-cyan-400" />
-                <span>
+                <span className="font-hind-siliguri">
                   {district.nameBn} জেলা • {district.divisionBn} বিভাগ
                 </span>
                 {district.isHub && (
-                  <span className="ml-1 px-2 py-0.2 rounded-full bg-emerald-500 text-white text-[9.5px]">
+                  <span className="ml-1 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-semibold uppercase tracking-wider">
                     Regional Hub
                   </span>
                 )}
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.2] mb-4">
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.25] mb-3 font-hind-siliguri">
                 {district.nameBn}-এ শীর্ষমানের{" "}
                 <span className="bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">
                   ওয়েবসাইট ও সফটওয়্যার
@@ -314,7 +312,11 @@ export default async function LocationDistrictPage({ params }) {
                 ডেভেলপমেন্ট এজেন্সি
               </h1>
 
-              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed mb-8">
+              <div className="text-xs sm:text-sm font-exo2 text-zinc-500 dark:text-zinc-400 font-semibold mb-5 tracking-wide">
+                Dedicated Software Engineering & Local Web Services in {district.nameEn} ({district.postalCode})
+              </div>
+
+              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed mb-8 font-hind-siliguri">
                 {district.overviewBn ||
                   `${district.nameBn} জেলার সকল ব্যবসা প্রতিষ্ঠান, ই-কমার্স উদ্যোক্তা ও শিক্ষাপ্রতিষ্ঠানের জন্য আন্তর্জাতিক মানের Next.js, React ও আধুনিক ক্লাউড প্রযুক্তিতে বিশ্বমানের সফটওয়্যার তৈরি করছে মারক্সোডেভ সলিউশনস।`}
               </p>
@@ -323,17 +325,18 @@ export default async function LocationDistrictPage({ params }) {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`tel:${primaryPhone}`}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-bold shadow-lg shadow-violet-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-bold shadow-lg shadow-violet-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all font-hind-siliguri"
                 >
                   <FiPhoneCall size={16} />
-                  <span>সরাসরি কল করুন ({primaryPhoneDisplay})</span>
+                  <span>সরাসরি কল করুন </span>
+                  <span className="font-exo2 font-semibold tracking-wider">({primaryPhoneDisplay})</span>
                 </a>
 
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-lg shadow-emerald-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-lg shadow-emerald-600/25 hover:scale-[1.02] active:scale-[0.98] transition-all font-hind-siliguri"
                 >
                   <FaWhatsapp size={18} />
                   <span>WhatsApp-এ মেসেজ দিন</span>
@@ -341,9 +344,9 @@ export default async function LocationDistrictPage({ params }) {
 
                 <a
                   href={`tel:${secondaryPhone}`}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-zinc-300 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-zinc-300 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-exo2"
                 >
-                  <span>হেল্পলাইন: {secondaryPhoneDisplay}</span>
+                  <span>Helpline: {secondaryPhoneDisplay}</span>
                 </a>
               </div>
             </div>
@@ -351,14 +354,14 @@ export default async function LocationDistrictPage({ params }) {
             {/* Upazila Coverage List */}
             {district.upazilasBn && (
               <div className="mt-8 pt-6 border-t border-zinc-200/80 dark:border-zinc-800/80">
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-2 font-hind-siliguri">
                   {district.nameBn} জেলার আওতাভুক্ত সকল উপজেলা ও এলাকা:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {district.upazilasBn.split(",").map((up) => (
                     <span
                       key={up}
-                      className="px-3 py-1 rounded-xl text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 font-medium"
+                      className="px-3 py-1 rounded-xl text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 font-medium font-hind-siliguri"
                     >
                       {up.trim()}
                     </span>
@@ -371,10 +374,10 @@ export default async function LocationDistrictPage({ params }) {
           {/* Core Services Section */}
           <div className="mb-16">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white mb-2 font-hind-siliguri">
                 {district.nameBn}-এর জন্য আমাদের সেবাসমূহ
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-hind-siliguri">
                 ব্যক্তিগত পোর্টফোলিও থেকে শুরু করে বিশাল কর্পোরেট ইআরপি — প্রতিটি কাজ শতভাগ দায়িত্ব সহকারে সম্পন্ন করি।
               </p>
             </div>
@@ -389,13 +392,13 @@ export default async function LocationDistrictPage({ params }) {
                     <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
                       {s.icon}
                     </div>
-                    <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-1">
+                    <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-1 font-hind-siliguri">
                       {s.titleBn}
                     </h3>
-                    <div className="text-[11px] font-mono text-zinc-400 mb-2">
+                    <div className="text-[11px] font-exo2 text-zinc-400 mb-2 font-medium">
                       {s.titleEn}
                     </div>
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-hind-siliguri">
                       {s.descBn}
                     </p>
                   </div>
@@ -403,14 +406,14 @@ export default async function LocationDistrictPage({ params }) {
                   <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
                     <Link
                       href={s.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-600 dark:text-cyan-400 hover:underline font-hind-siliguri"
                     >
                       <span>বিস্তারিত দেখুন</span>
                       <FiArrowRight size={12} />
                     </Link>
                     <a
                       href={`tel:${primaryPhone}`}
-                      className="text-[11px] font-semibold text-zinc-500 hover:text-emerald-500"
+                      className="text-[11px] font-semibold text-zinc-500 hover:text-emerald-500 font-hind-siliguri"
                     >
                       অর্ডার করুন
                     </a>
@@ -423,23 +426,23 @@ export default async function LocationDistrictPage({ params }) {
           {/* Why Choose MerxoDev in this District */}
           <div className="rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br from-violet-950/20 via-zinc-900/60 to-zinc-900/80 p-8 sm:p-12 mb-16">
             <div className="max-w-3xl">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4 font-hind-siliguri">
                 কেন {district.nameBn}-এর উদ্যোক্তারা মারক্সোডেভ বেছে নেন?
               </h2>
-              <p className="text-zinc-300 text-sm leading-relaxed mb-6">
+              <p className="text-zinc-300 text-sm leading-relaxed mb-6 font-hind-siliguri">
                 আমরা কোনো সাধারণ ওয়ার্ডপ্রেস টেম্পলেট নির্ভর কোম্পানি নই। আমরা Next.js, React ও ক্লাউড ইঞ্জিনিয়ারিং ব্যবহার করে শতভাগ কাস্টম কোডেড ওয়েবসাইট তৈরি করি—যা কখনোই হ্যাং করে না, চোখের পলকে লোড হয় এবং গুগলে দ্রুত র‍্যাংক করে।
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  "২৪/৭ ডেডিকেটেড সরাসরি সাপোর্ট (+8801313334279)",
+                  `২৪/৭ ডেডিকেটেড সরাসরি সাপোর্ট (${primaryPhoneDisplay})`,
                   "বিকাশ, নগদ ও রকেট পেমেন্ট সিস্টেম ইন্টিগ্রেশন",
                   "১০০% মোবাইল ও এসইও ফ্রেন্ডলি আর্কিটেকচার",
                   "বিনামূল্যে SSL সিকিউরিটি সার্টিফিকেট ও ব্যাকআপ",
                   "অফিসিয়াল চুক্তি ও ইনভয়েস প্রদান",
                   "সরাসরি গুগল ম্যাপ ও লোকাল এসইও সেটআপ",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 text-xs text-zinc-200">
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5 text-xs text-zinc-200 font-hind-siliguri">
                     <FiCheckCircle size={15} className="text-emerald-400 shrink-0" />
                     <span>{item}</span>
                   </div>
@@ -451,10 +454,10 @@ export default async function LocationDistrictPage({ params }) {
           {/* Local Frequently Asked Questions (FAQ) */}
           <div className="mb-16">
             <div className="text-center max-w-xl mx-auto mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-2 font-hind-siliguri">
                 সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)
               </h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-hind-siliguri">
                 {district.nameBn}-এর ক্লায়েন্টদের সাধারণ প্রশ্নের পরিষ্কার উত্তর
               </p>
             </div>
@@ -482,11 +485,11 @@ export default async function LocationDistrictPage({ params }) {
                   key={i}
                   className="p-5 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60"
                 >
-                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2 mb-2">
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2 mb-2 font-hind-siliguri">
                     <FiHelpCircle size={15} className="text-violet-500 shrink-0" />
                     <span>{faq.q}</span>
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed pl-6">
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed pl-6 font-hind-siliguri">
                     {faq.a}
                   </p>
                 </div>
@@ -497,7 +500,7 @@ export default async function LocationDistrictPage({ params }) {
           {/* Other Districts in Division Links */}
           {divisionDistricts.length > 0 && (
             <div className="p-8 rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 mb-16">
-              <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-4">
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-4 font-hind-siliguri">
                 {district.divisionBn} বিভাগের অন্যান্য জেলায় আমাদের সার্ভিস:
               </h3>
               <div className="flex flex-wrap gap-2.5">
@@ -505,9 +508,10 @@ export default async function LocationDistrictPage({ params }) {
                   <Link
                     key={d.slug}
                     href={`/locations/${d.slug}`}
-                    className="px-3.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:border-violet-500 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+                    className="px-3.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:border-violet-500 hover:text-violet-600 dark:hover:text-cyan-400 transition-colors font-hind-siliguri"
                   >
-                    {d.nameBn} ({d.nameEn})
+                    <span>{d.nameBn}</span>{" "}
+                    <span className="font-exo2 text-[11px] text-zinc-400 font-medium">({d.nameEn})</span>
                   </Link>
                 ))}
               </div>
