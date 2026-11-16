@@ -1010,14 +1010,14 @@ export default function EnvVaultPage() {
         >
           <div
             style={{
-              background: "#0d1322",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              background: isDark ? "#0d1322" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
               borderRadius: 18,
               width: "100%",
               maxWidth: 720,
               maxHeight: "90vh",
               overflowY: "auto",
-              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.9)",
+              boxShadow: isDark ? "0 25px 60px -15px rgba(0, 0, 0, 0.9)" : "0 25px 60px rgba(0, 0, 0, 0.15)",
               padding: "26px 30px",
             }}
           >
@@ -1027,25 +1027,25 @@ export default function EnvVaultPage() {
                 alignItems: "center",
                 justifyContent: "space-between",
                 marginBottom: 20,
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                 paddingBottom: 14,
               }}
             >
               <div>
-                <h2 style={{ fontSize: 19, fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>
+                <h2 style={{ fontSize: 19, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", margin: "0 0 4px" }}>
                   {editingItem ? `Edit .env for "${editingItem.projectName}"` : "Backup New .env File"}
                 </h2>
-                <p style={{ margin: 0, fontSize: 13, color: "#94a3b8" }}>
+                <p style={{ margin: 0, fontSize: 13, color: isDark ? "#94a3b8" : "#475569" }}>
                   Upload your .env file or paste the contents below.
                 </p>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
                 style={{
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
                   border: "none",
                   borderRadius: 8,
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   padding: 8,
                   cursor: "pointer",
                 }}
@@ -1231,11 +1231,12 @@ export default function EnvVaultPage() {
                   onClick={() => setIsModalOpen(false)}
                   style={{
                     padding: "9px 18px",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
                     borderRadius: 9,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#334155",
                     fontSize: 13,
+                    fontWeight: 600,
                     cursor: "pointer",
                   }}
                 >
@@ -1284,15 +1285,15 @@ export default function EnvVaultPage() {
         >
           <div
             style={{
-              background: "#0d1322",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              background: isDark ? "#0d1322" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
               borderRadius: 18,
               width: "100%",
               maxWidth: 820,
               maxHeight: "92vh",
               display: "flex",
               flexDirection: "column",
-              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.95)",
+              boxShadow: isDark ? "0 25px 60px -15px rgba(0, 0, 0, 0.95)" : "0 25px 60px rgba(0, 0, 0, 0.15)",
               overflow: "hidden",
             }}
           >
@@ -1300,7 +1301,7 @@ export default function EnvVaultPage() {
             <div
               style={{
                 padding: "20px 26px",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -1309,7 +1310,7 @@ export default function EnvVaultPage() {
             >
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f8fafc", margin: 0 }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", margin: 0 }}>
                     {previewItem.projectName}
                   </h3>
                   <span
@@ -1327,7 +1328,7 @@ export default function EnvVaultPage() {
                     {previewItem.environment}
                   </span>
                 </div>
-                <div style={{ fontSize: 12.5, color: "#94a3b8" }}>
+                <div style={{ fontSize: 12.5, color: isDark ? "#94a3b8" : "#64748b" }}>
                   {previewItem.stats?.keyCount || 0} variables • {previewItem.stats?.commentCount || 0} comments
                 </div>
               </div>
@@ -1335,10 +1336,10 @@ export default function EnvVaultPage() {
               <button
                 onClick={() => setPreviewItem(null)}
                 style={{
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
                   border: "none",
                   borderRadius: 8,
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   padding: 8,
                   cursor: "pointer",
                 }}
