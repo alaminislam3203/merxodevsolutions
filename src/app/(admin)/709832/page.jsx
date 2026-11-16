@@ -41,6 +41,8 @@ import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
 function DashboardView({ isTeamMember = false }) {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
   const [stats, setStats] = useState({ projects: 0, images: 0, content: 0, users: 0, reviews: 0 });
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
