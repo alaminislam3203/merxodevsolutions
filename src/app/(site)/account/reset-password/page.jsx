@@ -92,7 +92,7 @@ function ResetPasswordContent() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-indigo-300/15 dark:bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
       {/* ── Left Showcase Panel (Desktop) Matching Login Page ── */}
-      <div className="hidden lg:flex lg:w-1/2 relative z-10 flex-col justify-between p-12 xl:p-16">
+      <div className="hidden lg:flex lg:flex-1 relative z-10 flex-col justify-between p-12 xl:p-16">
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
@@ -111,11 +111,6 @@ function ResetPasswordContent() {
           <p className="text-zinc-600 dark:text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             {t('auth.resetPassword.heroDesc', 'Your verification code was confirmed. Choose a strong, unique password to complete your account recovery.')}
           </p>
-
-          {/* Themed Lottie/Vector Animation */}
-          <div className="mb-8 flex items-center justify-center">
-            <AuthAnimation type="reset-password" size="md" />
-          </div>
 
           {/* Value props list */}
           <div className="space-y-4 mb-10">
@@ -180,8 +175,22 @@ function ResetPasswordContent() {
         </div>
       </div>
 
+      {/* ── Center Divider with Animated Man / Character (Desktop) ── */}
+      <div className="hidden lg:flex flex-col items-center justify-center relative z-20 px-2 xl:px-4 self-stretch my-8 shrink-0">
+        {/* Top subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-indigo-500/60 dark:to-indigo-400/80 opacity-70" />
+
+        {/* Themed Animated Character */}
+        <div className="my-4 transition-transform hover:scale-105 duration-300">
+          <AuthCharacterAnimation type="reset-password" size="md" />
+        </div>
+
+        {/* Bottom subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-indigo-500/60 dark:from-indigo-400/80 via-zinc-300 dark:via-zinc-800 to-transparent opacity-70" />
+      </div>
+
       {/* ── Right Step 3 Panel: Set New Password ── */}
-      <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
+      <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
         <div className="w-full max-w-md">
           {/* Step Indicator */}
           {!isSuccess && (
@@ -245,7 +254,7 @@ function ResetPasswordContent() {
             <>
               {/* Mobile Animation */}
               <div className="lg:hidden flex justify-center mb-6">
-                <AuthAnimation type="reset-password" size="sm" />
+                <AuthCharacterAnimation type="reset-password" size="sm" />
               </div>
 
               {/* Header */}
