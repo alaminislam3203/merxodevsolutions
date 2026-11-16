@@ -547,9 +547,6 @@ export default function AdminVisitorsPage() {
             Blocked IP addresses
           </div>
         </div>
-      </div>
-      </div>
-
       {/* Tabs & Search Bar */}
       <div
         style={{
@@ -559,8 +556,9 @@ export default function AdminVisitorsPage() {
           flexWrap: "wrap",
           gap: 14,
           marginBottom: 20,
-          background: "rgba(255,255,255,0.025)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+          boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
           borderRadius: 14,
           padding: "10px 14px",
         }}
@@ -581,12 +579,12 @@ export default function AdminVisitorsPage() {
                 background:
                   activeTab === tab.id
                     ? "linear-gradient(135deg, #6366f1, #8b5cf6)"
-                    : "rgba(255,255,255,0.04)",
-                color: activeTab === tab.id ? "#fff" : "#94a3b8",
+                    : (isDark ? "rgba(255,255,255,0.04)" : "#f1f5f9"),
+                color: activeTab === tab.id ? "#fff" : (isDark ? "#94a3b8" : "#475569"),
                 border:
                   activeTab === tab.id
                     ? "none"
-                    : "1px solid rgba(255,255,255,0.08)",
+                    : (isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0"),
                 padding: "7px 14px",
                 borderRadius: 9,
                 fontSize: 12.5,
@@ -605,8 +603,8 @@ export default function AdminVisitorsPage() {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(0,0,0,0.3)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: isDark ? "rgba(0,0,0,0.3)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #cbd5e1",
               borderRadius: 10,
               padding: "7px 12px",
               minWidth: 260,
@@ -622,7 +620,7 @@ export default function AdminVisitorsPage() {
                 background: "transparent",
                 border: "none",
                 outline: "none",
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 fontSize: 13,
                 width: "100%",
               }}
@@ -633,7 +631,7 @@ export default function AdminVisitorsPage() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   cursor: "pointer",
                   padding: 0,
                 }}
