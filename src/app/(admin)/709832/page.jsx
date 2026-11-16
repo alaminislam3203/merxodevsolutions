@@ -33,22 +33,6 @@ import {
   FiCheckSquare,
   FiX,
   FiTablet,
-  FiHome,
-  FiGrid,
-  FiBell,
-  FiMessageSquare,
-  FiChevronDown,
-  FiChevronRight,
-  FiChevronLeft,
-  FiSun,
-  FiMoon,
-  FiShoppingCart,
-  FiDollarSign,
-  FiImage,
-  FiMoreHorizontal,
-  FiExternalLink,
-  FiRepeat,
-  FiMenu,
 } from "react-icons/fi";
 import "./login.css";
 
