@@ -1,5 +1,6 @@
 import { getAllProjects } from '@/app/lib/projects';
 import { getAllDistricts } from '@/lib/bangladeshLocations';
+import { getAllSolutions } from '@/lib/solutionsData';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -278,5 +279,13 @@ export default async function sitemap() {
     })),
   ];
 
-  return [...staticRoutes, ...projectRoutes, ...locationRoutes];
+  // Dynamic High-Intent Industry, NRB, Emergency & Tech Solutions Routes
+  const solutionRoutes = getAllSolutions().map((solution) => ({
+    url: `${baseUrl}/solutions/${solution.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...locationRoutes, ...solutionRoutes];
 }
