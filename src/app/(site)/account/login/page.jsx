@@ -22,6 +22,7 @@ import {
   FiRotateCw,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
+import AuthAnimation from '@/components/AuthAnimation';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -268,6 +269,11 @@ function LoginForm() {
           <p className="text-zinc-600 dark:text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             {t('auth.login.heroDesc', 'Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.')}
           </p>
+
+          {/* Themed Lottie Vector Animation */}
+          <div className="mb-8 flex items-center justify-center">
+            <AuthAnimation type="login" />
+          </div>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800/80">
