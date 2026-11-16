@@ -584,15 +584,18 @@ function DashboardView({ isTeamMember = false }) {
           flexWrap: "wrap",
           gap: 16,
           padding: "22px 24px",
-          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.09) 0%, rgba(6, 182, 212, 0.06) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark
+            ? "linear-gradient(135deg, rgba(99, 102, 241, 0.09) 0%, rgba(6, 182, 212, 0.06) 100%)"
+            : "linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(6, 182, 212, 0.04) 100%)",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
           borderRadius: 18,
           marginBottom: 24,
+          boxShadow: isDark ? "none" : "0 4px 16px rgba(0, 0, 0, 0.03)",
         }}
       >
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <h1 className="admin-page-title" style={{ margin: 0, fontSize: 24, fontWeight: 800 }}>
+            <h1 className="admin-page-title" style={{ margin: 0, fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {getGreeting()}, Administrator 👋
             </h1>
             <span
@@ -613,32 +616,64 @@ function DashboardView({ isTeamMember = false }) {
               Live Telemetry Active
             </span>
           </div>
-          <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "#94a3b8" }}>
+          <p style={{ margin: "6px 0 0 0", fontSize: 13, color: isDark ? "#94a3b8" : "#64748b" }}>
             Real-time analytics, client project pipelines, and infrastructure health for merxodevsolutions.pro.bd
           </p>
         </div>
 
         {/* Action Controls */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          {/* Quick Theme Switcher */}
           <button
-            onClick={() => setCommandOpen(true)}
+            onClick={toggleTheme}
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              color: "#cbd5e1",
+              background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #cbd5e1",
+              color: isDark ? "#cbd5e1" : "#0f172a",
               padding: "9px 15px",
               borderRadius: 10,
               fontSize: 12,
               fontWeight: 600,
               cursor: "pointer",
               transition: "all 0.2s",
+              boxShadow: isDark ? "none" : "0 2px 6px rgba(0, 0, 0, 0.04)",
+            }}
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDark ? (
+              <>
+                <FiSun size={15} style={{ color: "#fbbf24" }} /> Light Mode
+              </>
+            ) : (
+              <>
+                <FiMoon size={15} style={{ color: "#6366f1" }} /> Dark Mode
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={() => setCommandOpen(true)}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #cbd5e1",
+              color: isDark ? "#cbd5e1" : "#0f172a",
+              padding: "9px 15px",
+              borderRadius: 10,
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.2s",
+              boxShadow: isDark ? "none" : "0 2px 6px rgba(0, 0, 0, 0.04)",
             }}
           >
             <FiSearch size={14} style={{ color: "#818cf8" }} /> Quick Search
-            <span style={{ background: "rgba(255, 255, 255, 0.1)", padding: "2px 6px", borderRadius: 4, fontSize: 10, fontFamily: "monospace" }}>Ctrl+K</span>
+            <span style={{ background: isDark ? "rgba(255, 255, 255, 0.1)" : "#f1f5f9", padding: "2px 6px", borderRadius: 4, fontSize: 10, fontFamily: "monospace" }}>Ctrl+K</span>
           </button>
 
           <button
@@ -675,13 +710,14 @@ function DashboardView({ isTeamMember = false }) {
       >
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0, 0, 0, 0.03)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -689,24 +725,25 @@ function DashboardView({ isTeamMember = false }) {
               <FiServer size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Vercel Edge Network</div>
+              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Vercel Edge Network</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#10b981", display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981" }}></span> 100% Operational
               </div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: "#94a3b8", fontFamily: "monospace" }}>sin1</span>
+          <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontFamily: "monospace" }}>sin1</span>
         </div>
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0, 0, 0, 0.03)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -714,7 +751,7 @@ function DashboardView({ isTeamMember = false }) {
               <FiDatabase size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Postgres Database</div>
+              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Postgres Database</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#818cf8", display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#818cf8" }}></span> Connected &amp; Pooled
               </div>
@@ -725,13 +762,14 @@ function DashboardView({ isTeamMember = false }) {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0, 0, 0, 0.03)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -739,7 +777,7 @@ function DashboardView({ isTeamMember = false }) {
               <FiZap size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>API Response Time</div>
+              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>API Response Time</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24", marginTop: 2 }}>~85ms Latency</div>
             </div>
           </div>
@@ -748,13 +786,14 @@ function DashboardView({ isTeamMember = false }) {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0, 0, 0, 0.03)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -762,11 +801,11 @@ function DashboardView({ isTeamMember = false }) {
               <FiShield size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>SSL &amp; Security</div>
+              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>SSL &amp; Security</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#38bdf8", marginTop: 2 }}>A+ TLS 1.3</div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: "#94a3b8" }}>Encrypted</span>
+          <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>Encrypted</span>
         </div>
       </div>
 
