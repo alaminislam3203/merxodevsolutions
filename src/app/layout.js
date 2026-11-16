@@ -205,7 +205,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'Organization',
+              '@type': ['Organization', 'ProfessionalService', 'LocalBusiness'],
               name: 'MerxoDev Solutions',
               legalName: 'MerxoDev Solutions',
               alternateName: [

@@ -262,5 +262,21 @@ export default async function sitemap() {
     console.error('Error generating project sitemap entries:', err);
   }
 
-  return [...staticRoutes, ...projectRoutes];
+  // Dynamic 64 Bangladesh Districts and Location Hub Routes for Programmatic SEO
+  const locationRoutes = [
+    {
+      url: `${baseUrl}/locations`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    ...getAllDistricts().map((district) => ({
+      url: `${baseUrl}/locations/${district.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: district.isHub ? 0.85 : 0.8,
+    })),
+  ];
+
+  return [...staticRoutes, ...projectRoutes, ...locationRoutes];
 }
