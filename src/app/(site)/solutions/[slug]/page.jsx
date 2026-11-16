@@ -51,6 +51,10 @@ export async function generateMetadata({ params }) {
       "মারক্সোডেভ সলিউশনস",
       "সফটওয়্যার কোম্পানি বাংলাদেশ",
       "ওয়েবসাইট ডেভেলপমেন্ট এজেন্সি",
+      "sob ceye valo developer agency",
+      "kader service sob ceye valo",
+      "best web development agency in bangladesh",
+      "cheapest software company in bangladesh",
     ],
     alternates: {
       canonical: canonicalUrl,
