@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import AuthLottie from '@/components/AuthLottie';
@@ -25,7 +25,7 @@ function ResetPasswordContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
   const code = searchParams.get('code') || '';
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

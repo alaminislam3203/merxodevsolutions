@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
@@ -26,7 +26,7 @@ function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '';
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
 
   const [formData, setFormData] = useState({
     name: '',

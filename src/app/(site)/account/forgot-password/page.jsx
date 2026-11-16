@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
@@ -21,7 +21,7 @@ function ForgotPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialEmail = searchParams.get('email') || '';
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
 
   const [email, setEmail] = useState(initialEmail);
   const [loading, setLoading] = useState(false);

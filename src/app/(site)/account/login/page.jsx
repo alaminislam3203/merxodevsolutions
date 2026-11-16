@@ -25,7 +25,7 @@ import Logo from '@/components/Logo';
 import AuthLottie from '@/components/AuthLottie';
 
 function LoginForm() {
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/account';
@@ -256,7 +256,7 @@ function LoginForm() {
         <div className="relative z-10 my-auto py-12 max-w-xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100/90 dark:bg-violet-950/80 text-violet-800 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-xs mb-6">
             <FiShield className="text-violet-600 dark:text-violet-400" />
-            <span>{t('auth.login.portalBadge', 'MerxoDev Security & Client Portal')}</span>
+            <span suppressHydrationWarning>{t('auth.login.portalBadge', 'MerxoDev Security & Client Portal')}</span>
           </div>
 
           <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-zinc-900 dark:text-white leading-[1.15] mb-6">

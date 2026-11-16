@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
 import {
@@ -23,7 +23,7 @@ function VerifyCodeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const emailParam = searchParams.get('email') || '';
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
 
   const [email, setEmail] = useState(emailParam);
   const [digits, setDigits] = useState(['', '', '', '', '', '']);
