@@ -2048,9 +2048,6 @@ export default function AdminVisitorsPage() {
           </div>
         </div>
       )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
