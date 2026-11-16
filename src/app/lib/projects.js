@@ -1,36 +1,17 @@
 import prisma from "@/lib/prisma";
 
 /**
- * Sanitizes URLs to remove localhost, merxohub, or legacy domain references
- * and point them to the official production domain https://merxodevsolutions.pro.bd
+ * Sanitizes and formats project URLs:
+ * - Trims whitespace
+ * - Guarantees absolute protocol (https://) if missing so it never behaves as a broken relative link
+ * - Never arbitrarily rewrites the user's custom project domain
  */
 export function cleanProjectUrl(url, slug = "") {
-  if (!url || typeof url !== "string") return url;
+  if (!url || typeof url !== "string") return null;
   let clean = url.trim();
+  if (!clean) return null;
 
-  // 1. Remove localhost references with any port
-  if (/https?:\/\/localhost(:\d+)?/i.test(clean)) {
-    clean = clean.replace(/https?:\/\/localhost(:\d+)?/gi, "https://merxodevsolutions.pro.bd");
-  }
-
-  // 2. Remove merxohub.pro.bd references
-  if (/merxohub\.pro\.bd/i.test(clean)) {
-    clean = clean.replace(/https?:\/\/(www\.)?merxohub\.pro\.bd/gi, "https://merxodevsolutions.pro.bd");
-    clean = clean.replace(/merxohub\.pro\.bd/gi, "merxodevsolutions.pro.bd");
-  }
-
-  // 3. Remove legacy merxodev.com references
-  if (/merxodev\.com/i.test(clean)) {
-    clean = clean.replace(/https?:\/\/(www\.)?merxodev\.com/gi, "https://merxodevsolutions.pro.bd");
-    clean = clean.replace(/merxodev\.com/gi, "merxodevsolutions.pro.bd");
-  }
-
-  // Protocol guarantee if hostname only
-  if (clean.startsWith("merxodevsolutions.pro.bd")) {
-    clean = `https://${clean}`;
-  }
-
-  // Ensure valid absolute protocol for any external website domain (e.g. clientapp.com or shop.vercel.app)
+  // Protocol guarantee if hostname only (e.g. "smartdokan.vercel.app" or "myproject.com")
   if (!/^https?:\/\//i.test(clean) && !clean.startsWith("/") && !clean.startsWith("#") && !clean.startsWith("mailto:") && !clean.startsWith("tel:")) {
     clean = `https://${clean}`;
   }
@@ -49,72 +30,11 @@ export function normalizeProject(p) {
   };
 }
 
-let hasAutoRepairedDb = false;
-
-/**
- * Background auto-repair for existing database records (Projects & Banners)
- */
-async function autoRepairDatabaseUrls() {
-  if (hasAutoRepairedDb) return;
-  hasAutoRepairedDb = true;
-
-  try {
-    const dirtyProjects = await prisma.project.findMany({
-      where: {
-        OR: [
-          { liveUrl: { contains: "localhost" } },
-          { liveUrl: { contains: "merxohub" } },
-          { liveUrl: { contains: "merxodev.com" } },
-        ],
-      },
-    });
-
-    for (const p of dirtyProjects) {
-      const fixedUrl = cleanProjectUrl(p.liveUrl, p.slug);
-      if (fixedUrl && fixedUrl !== p.liveUrl) {
-        await prisma.project
-          .update({
-            where: { id: p.id },
-            data: { liveUrl: fixedUrl },
-          })
-          .catch(() => {});
-      }
-    }
-
-    // Also repair any banners with legacy links
-    const dirtyBanners = await prisma.banner.findMany({
-      where: {
-        OR: [
-          { buttonLink: { contains: "localhost" } },
-          { buttonLink: { contains: "merxohub" } },
-          { buttonLink: { contains: "merxodev.com" } },
-        ],
-      },
-    });
-
-    for (const b of dirtyBanners) {
-      const fixedLink = cleanProjectUrl(b.buttonLink);
-      if (fixedLink && fixedLink !== b.buttonLink) {
-        await prisma.banner
-          .update({
-            where: { id: b.id },
-            data: { buttonLink: fixedLink },
-          })
-          .catch(() => {});
-      }
-    }
-  } catch (err) {
-    console.warn("DB URL auto-repair notice:", err?.message);
-  }
-}
-
 /**
  * Get all projects from DB (server-side helper)
  */
 export async function getAllProjects() {
   try {
-    // Trigger background auto-repair if needed
-    autoRepairDatabaseUrls().catch(() => {});
 
     let rows = [];
     try {

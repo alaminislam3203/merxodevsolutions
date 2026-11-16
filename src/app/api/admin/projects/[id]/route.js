@@ -8,6 +8,7 @@ import { projectApprovedTemplate } from "@/lib/templates/agencyEmailTemplates";
 import { cleanProjectUrl } from "@/app/lib/projects";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // GET /api/admin/projects/[id]
 export async function GET(request, { params }) {
