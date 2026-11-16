@@ -204,6 +204,10 @@ export default function Footer() {
             ))}
             {[
               {
+                href: "/locations",
+                label: "Locations (৬৪ জেলা কভারেজ)",
+              },
+              {
                 href: "/cost-calculator",
                 label: t("footerLinks.costCalculator", {
                   defaultValue: "Cost Calculator",
@@ -385,6 +389,46 @@ export default function Footer() {
               <LanguageSwitcher variant="menu" className="w-full" />
             </li>
           </ul>
+        </div>
+      </div>
+
+      {/* ── 64 Districts Regional Hub Strip ── */}
+      <div className="relative z-10 border-t border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/30">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 font-exo-extralight">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-bold text-zinc-700 dark:text-zinc-300">
+              সার্ভিস হাব ও এরিয়া:
+            </span>
+            {[
+              { slug: "nilphamari", name: "নীলফামারী" },
+              { slug: "rangpur", name: "রংপুর" },
+              { slug: "dhaka", name: "ঢাকা" },
+              { slug: "chattogram", name: "চট্টগ্রাম" },
+              { slug: "rajshahi", name: "রাজশাহী" },
+              { slug: "bogura", name: "বগুড়া" },
+              { slug: "sylhet", name: "সিলেট" },
+              { slug: "khulna", name: "খুলনা" },
+              { slug: "barishal", name: "বরিশাল" },
+              { slug: "mymensingh", name: "ময়মনসিংহ" },
+            ].map((hub) => (
+              <Link
+                key={hub.slug}
+                href={`/locations/${hub.slug}`}
+                className="hover:text-violet-600 dark:hover:text-cyan-400 transition-colors"
+              >
+                {hub.name}
+              </Link>
+            ))}
+            <Link
+              href="/locations"
+              className="text-violet-600 dark:text-cyan-400 font-bold hover:underline"
+            >
+              + সকল ৬৪ জেলা
+            </Link>
+          </div>
+          <span className="text-[11px] text-zinc-400">
+            হটলাইন: +8801313334279
+          </span>
         </div>
       </div>
 
