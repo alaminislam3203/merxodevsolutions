@@ -1405,8 +1405,9 @@ html:not(.dark) code {
 html:not(.dark) .admin-btn-secondary {
     background: #ffffff;
     border: 1px solid #cbd5e1;
-    color: #334155;
+    color: #1e293b;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
 }
 
 html:not(.dark) .admin-btn-secondary:hover {
