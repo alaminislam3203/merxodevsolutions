@@ -1215,26 +1215,48 @@ function AccountContent() {
                           </div>
                         </div>
 
-                        {/* 4-Stage Milestones */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-                          {[
-                            { label: 'UI/UX Design', val: proj.milestones?.uiDesign ?? 0 },
-                            { label: 'Frontend Dev', val: proj.milestones?.frontend ?? 0 },
-                            { label: 'Backend & DB', val: proj.milestones?.backend ?? 0 },
-                            { label: 'Deployment', val: proj.milestones?.deployment ?? 0 },
-                          ].map((m) => (
-                            <div
-                              key={m.label}
-                              className="p-2.5 rounded-xl bg-white dark:bg-zinc-900/70 border border-zinc-200/70 dark:border-zinc-800 flex items-center justify-between text-xs"
-                            >
-                              <span className="text-zinc-500 dark:text-zinc-400 font-exo-extralight">
-                                {m.label}
-                              </span>
-                              <span className="font-bold text-zinc-900 dark:text-white">
-                                {m.val}%
-                              </span>
-                            </div>
-                          ))}
+                        {/* 5-Stage Visual Pipeline Stepper */}
+                        <div className="pt-2">
+                          <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-exo-extralight mb-3">
+                            Production Pipeline & Milestones
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                            {[
+                              { label: '1. Discovery & Scope', val: 100, done: true },
+                              { label: '2. UI/UX Prototype', val: proj.milestones?.uiDesign ?? ((proj.progress ?? 0) > 25 ? 100 : 70), done: (proj.progress ?? 0) >= 30 },
+                              { label: '3. Full-Stack Dev', val: proj.milestones?.frontend ?? ((proj.progress ?? 0) > 50 ? 80 : 40), done: (proj.progress ?? 0) >= 60 },
+                              { label: '4. QA & Security', val: proj.milestones?.backend ?? ((proj.progress ?? 0) > 80 ? 90 : 20), done: (proj.progress ?? 0) >= 85 },
+                              { label: '5. Launch & Deploy', val: proj.milestones?.deployment ?? ((proj.progress ?? 0) === 100 ? 100 : 10), done: (proj.progress ?? 0) === 100 },
+                            ].map((step, idx) => (
+                              <div
+                                key={step.label}
+                                className={`p-3 rounded-2xl border transition-all ${
+                                  step.done
+                                    ? 'bg-emerald-50/60 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
+                                    : (proj.progress ?? 0) >= (idx * 20)
+                                      ? 'bg-violet-50/60 dark:bg-violet-950/30 border-violet-300 dark:border-violet-700 text-violet-900 dark:text-violet-200 shadow-sm'
+                                      : 'bg-white dark:bg-zinc-900/60 border-zinc-200/80 dark:border-zinc-800 text-zinc-400'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between gap-1 mb-1">
+                                  <span className="text-[10px] font-mono font-bold">
+                                    STEP 0{idx + 1}
+                                  </span>
+                                  {step.done ? (
+                                    <FiCheckCircle size={13} className="text-emerald-500" />
+                                  ) : (
+                                    <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+                                  )}
+                                </div>
+                                <div className="text-xs font-bold truncate">
+                                  {step.label.slice(3)}
+                                </div>
+                                <div className="text-[11px] opacity-75 font-mono mt-0.5">
+                                  {step.val}% Complete
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     ))}

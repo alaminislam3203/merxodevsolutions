@@ -791,25 +791,43 @@ function DashboardView({ isTeamMember = false }) {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 6,
+                gap: 7,
                 background: "rgba(16, 185, 129, 0.15)",
                 color: "#10b981",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
-                padding: "3px 10px",
+                border: "1px solid rgba(16, 185, 129, 0.35)",
+                padding: "4px 12px",
+                borderRadius: 20,
+                fontSize: 11.5,
+                fontWeight: 700,
+                letterSpacing: "0.2px",
+              }}
+            >
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#10b981",
+                  boxShadow: "0 0 10px #10b981",
+                  animation: "pulse 2s infinite",
+                }}
+              />
+              {analytics?.activeNow || 1} Active Online Now
+            </span>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                background: isDark ? "rgba(99, 102, 241, 0.15)" : "rgba(99, 102, 241, 0.1)",
+                color: "#818cf8",
+                border: "1px solid rgba(99, 102, 241, 0.3)",
+                padding: "4px 10px",
                 borderRadius: 20,
                 fontSize: 11,
                 fontWeight: 700,
               }}
             >
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "#10b981",
-                  animation: "pulse 2s infinite",
-                }}
-              />
               Live Telemetry Active
             </span>
           </div>
@@ -823,6 +841,34 @@ function DashboardView({ isTeamMember = false }) {
             Real-time analytics, client project pipelines, and infrastructure
             health for merxodevsolutions.pro.bd
           </p>
+
+          {/* Live Visitor Hit Stream Ticker */}
+          {analytics?.recentLogs?.length > 0 && (
+            <div
+              style={{
+                marginTop: 10,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "4px 10px",
+                borderRadius: 8,
+                background: isDark ? "rgba(255, 255, 255, 0.04)" : "rgba(0, 0, 0, 0.03)",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(0, 0, 0, 0.06)",
+                fontSize: 11.5,
+                color: isDark ? "#cbd5e1" : "#475569",
+              }}
+            >
+              <span style={{ color: "#38bdf8", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
+                <FiActivity size={12} /> Recent Hit:
+              </span>
+              <span>
+                Visitor from <b>{analytics.recentLogs[0]?.country || analytics.recentLogs[0]?.city || "Bangladesh"}</b> viewed{" "}
+                <code style={{ background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff", padding: "1px 5px", borderRadius: 4, color: "#6366f1" }}>
+                  {analytics.recentLogs[0]?.path || "/"}
+                </code>
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Action Controls */}
