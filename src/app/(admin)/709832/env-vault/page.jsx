@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 import { showToast, confirmToast } from "@/lib/toast";
 import {
   FiLock,
@@ -31,6 +32,8 @@ const ENVIRONMENT_CONFIG = {
 };
 
 export default function EnvVaultPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -350,13 +353,13 @@ export default function EnvVaultPage() {
             >
               <FiShield size={20} />
             </div>
-            <h1 style={{ fontSize: 24, fontWeight: 700, color: "#f8fafc", margin: 0, letterSpacing: "-0.5px" }}>
+            <h1 style={{ fontSize: 24, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", margin: 0, letterSpacing: "-0.5px" }}>
               Environment Vault
             </h1>
             <span
               style={{
                 background: "rgba(99, 102, 241, 0.15)",
-                color: "#818cf8",
+                color: isDark ? "#818cf8" : "#4338ca",
                 border: "1px solid rgba(99, 102, 241, 0.3)",
                 borderRadius: 20,
                 padding: "2px 10px",
@@ -370,9 +373,9 @@ export default function EnvVaultPage() {
             </span>
           </div>
           <p style={{ margin: 0, fontSize: 13.5, color: "#94a3b8", maxWidth: 620, lineHeight: 1.5 }}>
-            Store and manage production & development <code style={{ color: "#e2e8f0" }}>.env</code> files securely.
+            Store and manage production & development <code style={{ color: isDark ? "#e2e8f0" : "#1e293b" }}>.env</code> files securely.
             Download them anytime during git clones, or instantly generate sanitized{" "}
-            <code style={{ color: "#38bdf8" }}>.env.example</code> files ready to push to GitHub without leaking secrets.
+            <code style={{ color: isDark ? "#38bdf8" : "#0284c7" }}>.env.example</code> files ready to push to GitHub without leaking secrets.
           </p>
         </div>
 
@@ -382,10 +385,10 @@ export default function EnvVaultPage() {
             title="Refresh list"
             style={{
               padding: "10px 14px",
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              background: isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
               borderRadius: 10,
-              color: "#cbd5e1",
+              color: isDark ? "#cbd5e1" : "#334155",
               fontSize: 13,
               cursor: "pointer",
               display: "flex",
@@ -393,8 +396,8 @@ export default function EnvVaultPage() {
               gap: 6,
               transition: "all 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)")}
+            onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "rgba(255, 255, 255, 0.08)" : "#f8fafc")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff")}
           >
             <FiRefreshCw size={14} className={loading ? "admin-spinner-sm" : ""} />
             Refresh
@@ -443,13 +446,14 @@ export default function EnvVaultPage() {
       >
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "16px 20px",
             display: "flex",
             alignItems: "center",
             gap: 14,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -470,19 +474,20 @@ export default function EnvVaultPage() {
             <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Total Projects
             </div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc" }}>{stats.total}</div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{stats.total}</div>
           </div>
         </div>
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "16px 20px",
             display: "flex",
             alignItems: "center",
             gap: 14,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -509,13 +514,14 @@ export default function EnvVaultPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "16px 20px",
             display: "flex",
             alignItems: "center",
             gap: 14,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -542,13 +548,14 @@ export default function EnvVaultPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "16px 20px",
             display: "flex",
             alignItems: "center",
             gap: 14,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -569,7 +576,7 @@ export default function EnvVaultPage() {
             <div style={{ fontSize: 11.5, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Tracked Variables
             </div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc" }}>{stats.totalKeys}</div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{stats.totalKeys}</div>
           </div>
         </div>
       </div>
@@ -582,11 +589,12 @@ export default function EnvVaultPage() {
           alignItems: "center",
           justifyContent: "space-between",
           gap: 12,
-          background: "rgba(255, 255, 255, 0.02)",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
+          background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
           borderRadius: 14,
           padding: "12px 18px",
           marginBottom: 24,
+          boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.03)",
         }}
       >
         {/* Search */}
@@ -595,8 +603,8 @@ export default function EnvVaultPage() {
             display: "flex",
             alignItems: "center",
             gap: 10,
-            background: "rgba(15, 23, 42, 0.6)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(15, 23, 42, 0.6)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
             borderRadius: 10,
             padding: "8px 14px",
             minWidth: 260,
@@ -613,7 +621,7 @@ export default function EnvVaultPage() {
             style={{
               background: "transparent",
               border: "none",
-              color: "#f8fafc",
+              color: isDark ? "#f8fafc" : "#0f172a",
               fontSize: 13.5,
               outline: "none",
               width: "100%",
@@ -648,6 +656,18 @@ export default function EnvVaultPage() {
                   borderRadius: 8,
                   fontSize: 12.5,
                   fontWeight: 500,
+                  cursor: "pointer",
+                  border: isSelected ? "1px solid rgba(99, 102, 241, 0.5)" : (isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #cbd5e1"),
+                  background: isSelected ? (isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff") : (isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff"),
+                  color: isSelected ? (isDark ? "#a5b4fc" : "#4338ca") : (isDark ? "#94a3b8" : "#475569"),
+                  textTransform: "capitalize",
+                  transition: "all 0.15s",
+                }}
+              >
+                {env === "all" ? "All Envs" : env}
+              </button>
+            );
+          })}
                   cursor: "pointer",
                   border: isSelected ? "1px solid rgba(99, 102, 241, 0.5)" : "1px solid rgba(255, 255, 255, 0.06)",
                   background: isSelected ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
@@ -733,8 +753,8 @@ export default function EnvVaultPage() {
               <div
                 key={item.id}
                 style={{
-                  background: "rgba(255, 255, 255, 0.025)",
-                  border: "1px solid rgba(255, 255, 255, 0.07)",
+                  background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
+                  border: isDark ? "1px solid rgba(255, 255, 255, 0.07)" : "1px solid #e2e8f0",
                   borderRadius: 14,
                   padding: "18px 22px",
                   display: "flex",
@@ -743,14 +763,15 @@ export default function EnvVaultPage() {
                   justifyContent: "space-between",
                   gap: 16,
                   transition: "all 0.2s",
+                  boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "rgba(99, 102, 241, 0.3)";
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.035)";
+                  e.currentTarget.style.background = isDark ? "rgba(255, 255, 255, 0.035)" : "#f8fafc";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.07)";
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.025)";
+                  e.currentTarget.style.borderColor = isDark ? "rgba(255, 255, 255, 0.07)" : "#e2e8f0";
+                  e.currentTarget.style.background = isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff";
                 }}
               >
                 {/* Left info */}
@@ -775,7 +796,7 @@ export default function EnvVaultPage() {
 
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
-                      <span style={{ fontSize: 16, fontWeight: 700, color: "#f8fafc" }}>
+                      <span style={{ fontSize: 16, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>
                         {item.projectName}
                       </span>
                       <span
@@ -795,9 +816,9 @@ export default function EnvVaultPage() {
                       </span>
                       <span
                         style={{
-                          background: "rgba(255, 255, 255, 0.05)",
-                          color: "#cbd5e1",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
+                          background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
+                          color: isDark ? "#cbd5e1" : "#475569",
+                          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
                           borderRadius: 6,
                           padding: "2px 8px",
                           fontSize: 11,
