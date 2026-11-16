@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
-import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
+import AuthLottie from '@/components/AuthLottie';
 import {
   FiShield,
   FiLock,
@@ -180,9 +180,9 @@ function ResetPasswordContent() {
         {/* Top subtle vertical divider line */}
         <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-indigo-500/60 dark:to-indigo-400/80 opacity-70" />
 
-        {/* Themed Animated Character */}
+        {/* Themed Lottie Animation */}
         <div className="my-4 transition-transform hover:scale-105 duration-300">
-          <AuthCharacterAnimation type="reset-password" size="md" />
+          <AuthLottie type="reset-password" size="md" />
         </div>
 
         {/* Bottom subtle vertical divider line */}
@@ -254,7 +254,7 @@ function ResetPasswordContent() {
             <>
               {/* Mobile Animation */}
               <div className="lg:hidden flex justify-center mb-6">
-                <AuthCharacterAnimation type="reset-password" size="sm" />
+                <AuthLottie type="reset-password" size="sm" />
               </div>
 
               {/* Header */}
