@@ -2981,12 +2981,6 @@ function LoginView() {
     }
   };
 
-  const [animType, setAnimType] = useState("web-dev");
-  const animPath =
-    animType === "web-dev"
-      ? "/animations/web-dev.json"
-      : "/animations/workspace.json";
-
   return (
     <div className="login-screen">
       <Toaster
