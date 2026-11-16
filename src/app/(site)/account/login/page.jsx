@@ -294,7 +294,7 @@ function LoginForm() {
 
         {/* Footer info */}
         <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-500 font-exo-extralight border-t border-zinc-200 dark:border-zinc-800/60 pt-6">
-          <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
+          <span suppressHydrationWarning>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('privacyPolicy', 'Privacy')}</Link>
             <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('termsOfService', 'Terms')}</Link>
