@@ -17,6 +17,7 @@ import {
   FiRotateCw,
   FiEdit3,
 } from 'react-icons/fi';
+import AuthAnimation from '@/components/AuthAnimation';
 
 function VerifyCodeContent() {
   const router = useRouter();
@@ -246,6 +247,11 @@ function VerifyCodeContent() {
             {t('auth.verifyCode.heroDesc', 'Check your email inbox or spam folder. Enter the 6-digit verification code below to verify your ownership and unlock password reset.')}
           </p>
 
+          {/* Themed Lottie Vector Animation */}
+          <div className="mb-8 flex items-center justify-center">
+            <AuthAnimation type="verify-code" />
+          </div>
+
           {/* Value props list */}
           <div className="space-y-4 mb-10">
             {[
@@ -312,6 +318,11 @@ function VerifyCodeContent() {
       {/* ── Right Step 2 Panel: 6-Box Code Verification ── */}
       <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
         <div className="w-full max-w-md">
+          {/* Mobile Animation */}
+          <div className="lg:hidden flex justify-center mb-6">
+            <AuthAnimation type="verify-code" size="sm" />
+          </div>
+
           {/* Step Indicator */}
           <div className="flex items-center gap-2 mb-6">
             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-violet-600 text-white text-xs font-bold font-mono">
