@@ -1227,7 +1227,7 @@ export default function AdminVisitorsPage() {
                                   alignItems: "center",
                                   gap: 6,
                                   fontWeight: 700,
-                                  color: "#f8fafc",
+                                  color: isDark ? "#f8fafc" : "#0f172a",
                                 }}
                               >
                                 <span>
@@ -1240,8 +1240,8 @@ export default function AdminVisitorsPage() {
                                       fontSize: 10,
                                       padding: "1px 6px",
                                       borderRadius: 4,
-                                      background: "rgba(139,92,246,0.18)",
-                                      color: "#c4b5fd",
+                                      background: isDark ? "rgba(139,92,246,0.18)" : "#ede9fe",
+                                      color: isDark ? "#c4b5fd" : "#6d28d9",
                                       fontWeight: 700,
                                     }}
                                   >
@@ -1253,8 +1253,8 @@ export default function AdminVisitorsPage() {
                                       fontSize: 10,
                                       padding: "1px 6px",
                                       borderRadius: 4,
-                                      background: "rgba(56,189,248,0.14)",
-                                      color: "#38bdf8",
+                                      background: isDark ? "rgba(56,189,248,0.14)" : "#e0f2fe",
+                                      color: isDark ? "#38bdf8" : "#0284c7",
                                       fontWeight: 700,
                                     }}
                                   >
@@ -1264,7 +1264,7 @@ export default function AdminVisitorsPage() {
                               </div>
 
                               {v.userEmail && (
-                                <div style={{ fontSize: 11, color: "#38bdf8" }}>
+                                <div style={{ fontSize: 11, color: isDark ? "#38bdf8" : "#0284c7" }}>
                                   {v.userEmail}
                                 </div>
                               )}
@@ -1275,7 +1275,7 @@ export default function AdminVisitorsPage() {
                                   alignItems: "center",
                                   gap: 5,
                                   fontSize: 11,
-                                  color: v.isOnline ? "#10b981" : "#64748b",
+                                  color: v.isOnline ? "#10b981" : (isDark ? "#64748b" : "#64748b"),
                                   fontWeight: v.isOnline ? 700 : 500,
                                   marginTop: 2,
                                 }}
@@ -1303,7 +1303,7 @@ export default function AdminVisitorsPage() {
                               gap: 6,
                               fontFamily: "monospace",
                               fontWeight: 700,
-                              color: v.isBlocked ? "#f87171" : "#38bdf8",
+                              color: v.isBlocked ? "#f87171" : (isDark ? "#38bdf8" : "#0284c7"),
                             }}
                           >
                             <span>{v.ip || "Unknown IP"}</span>
@@ -1314,7 +1314,7 @@ export default function AdminVisitorsPage() {
                                 style={{
                                   background: "none",
                                   border: "none",
-                                  color: "#64748b",
+                                  color: isDark ? "#64748b" : "#94a3b8",
                                   cursor: "pointer",
                                   padding: 2,
                                 }}
@@ -1340,7 +1340,7 @@ export default function AdminVisitorsPage() {
                           <div
                             style={{
                               fontSize: 11.5,
-                              color: "#94a3b8",
+                              color: isDark ? "#94a3b8" : "#64748b",
                               marginTop: 2,
                               maxWidth: 190,
                               overflow: "hidden",
@@ -1360,7 +1360,7 @@ export default function AdminVisitorsPage() {
                               display: "flex",
                               alignItems: "center",
                               gap: 6,
-                              color: "#f8fafc",
+                              color: isDark ? "#f8fafc" : "#0f172a",
                               fontWeight: 600,
                             }}
                           >
@@ -1370,7 +1370,7 @@ export default function AdminVisitorsPage() {
                               {v.countryName ? `, ${v.countryName}` : ` (${v.country || "BD"})`}
                             </span>
                           </div>
-                          <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>
+                          <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", marginTop: 2 }}>
                             {v.region ? `${v.region} • ` : ""}
                             {v.timezone || "Asia/Dhaka"}
                           </div>
@@ -1378,10 +1378,10 @@ export default function AdminVisitorsPage() {
 
                         {/* Device, OS & Browser */}
                         <td style={{ padding: "14px 16px" }}>
-                          <div style={{ color: "#e2e8f0", fontWeight: 600 }}>
+                          <div style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontWeight: 600 }}>
                             {v.deviceBrand || v.device} • {v.os || "OS"}
                           </div>
-                          <div style={{ fontSize: 11.5, color: "#94a3b8", marginTop: 2 }}>
+                          <div style={{ fontSize: 11.5, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
                             {v.browser || "Browser"}
                             {v.screen ? ` • ${v.screen}` : ""}
                           </div>
@@ -1396,8 +1396,9 @@ export default function AdminVisitorsPage() {
                               borderRadius: 6,
                               fontSize: 11.5,
                               fontWeight: 600,
-                              background: "rgba(255,255,255,0.06)",
-                              color: "#cbd5e1",
+                              background: isDark ? "rgba(255,255,255,0.06)" : "#f1f5f9",
+                              border: isDark ? "none" : "1px solid #e2e8f0",
+                              color: isDark ? "#cbd5e1" : "#334155",
                             }}
                           >
                             {v.trafficSource || "Direct"}
