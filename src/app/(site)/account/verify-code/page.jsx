@@ -221,7 +221,7 @@ function VerifyCodeContent() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) Matching Login Page ── */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-violet-50/90 via-slate-50 to-indigo-50/60 dark:bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-100 dark:border-violet-900/30">
+      <div className="hidden lg:flex lg:w-1/2 bg-slate-50 dark:bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-100 dark:border-violet-900/30">
         {/* Ambient Glows */}
         <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] rounded-full bg-violet-400/15 dark:bg-violet-600/15 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-cyan-400/15 dark:bg-cyan-500/15 blur-[120px] pointer-events-none" />
