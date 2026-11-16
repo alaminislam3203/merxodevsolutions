@@ -839,6 +839,77 @@ export default function AdminShowcasePage() {
         }
         .banner-btn-save:hover { opacity: .9; }
         .banner-btn-save:disabled { opacity: .5; cursor: not-allowed; }
+
+        /* Light Mode Overrides */
+        html:not(.dark) .showcase-preview-card {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+        html:not(.dark) .showcase-preview-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .showcase-card {
+          background: #f8fafc;
+          border-color: #cbd5e1;
+        }
+        html:not(.dark) .showcase-card:hover {
+          border-color: #6366f1;
+        }
+        html:not(.dark) .showcase-list-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .showcase-slot-item {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        html:not(.dark) .showcase-item-name {
+          color: #0f172a;
+        }
+        html:not(.dark) .showcase-item-preview {
+          background: #f1f5f9;
+          border-color: #e2e8f0;
+        }
+        html:not(.dark) .banner-modal {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+        html:not(.dark) .banner-modal-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-modal-close {
+          background: #f1f5f9;
+          border-color: #e2e8f0;
+          color: #64748b;
+        }
+        html:not(.dark) .banner-form-input {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-form-label {
+          color: #334155;
+        }
+        html:not(.dark) .banner-btn-cancel {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #475569;
+        }
+        html:not(.dark) .banner-btn-cancel:hover {
+          background: #f8fafc;
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-toggle {
+          background: #cbd5e1;
+        }
+        html:not(.dark) .banner-toggle-on {
+          background: #6366f1;
+        }
+        html:not(.dark) .banner-toggle-label {
+          color: #475569;
+        }
       `}</style>
     </div>
   );

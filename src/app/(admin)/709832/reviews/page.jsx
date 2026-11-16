@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 import {
   FaStar,
   FaCheck,
@@ -42,6 +43,8 @@ async function uploadToCloudinary(file) {
 }
 
 export default function AdminReviewsPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all"); // 'all' | 'pending' | 'approved'
@@ -291,7 +294,7 @@ export default function AdminReviewsPage() {
             <FaQuoteLeft size={20} />
           </div>
           <div className="dash-stat-info">
-            <span className="dash-stat-value" style={{ color: "#f1f5f9" }}>{stats.total}</span>
+            <span className="dash-stat-value" style={{ color: isDark ? "#f1f5f9" : "#0f172a" }}>{stats.total}</span>
             <span className="dash-stat-label">Total Reviews</span>
           </div>
         </div>
@@ -311,7 +314,7 @@ export default function AdminReviewsPage() {
             <FaUserCheck size={20} />
           </div>
           <div className="dash-stat-info">
-            <span className="dash-stat-value" style={{ color: "#86efac" }}>{stats.approved}</span>
+            <span className="dash-stat-value" style={{ color: isDark ? "#86efac" : "#16a34a" }}>{stats.approved}</span>
             <span className="dash-stat-label">Live on Website</span>
           </div>
         </div>
@@ -377,8 +380,8 @@ export default function AdminReviewsPage() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 gap: 16,
-                borderColor: rev.isApproved ? "rgba(255, 255, 255, 0.06)" : "rgba(245, 158, 11, 0.35)",
-                background: rev.isApproved ? "rgba(255, 255, 255, 0.03)" : "rgba(245, 158, 11, 0.03)",
+                borderColor: rev.isApproved ? (isDark ? "rgba(255, 255, 255, 0.06)" : "#e2e8f0") : "rgba(245, 158, 11, 0.35)",
+                background: rev.isApproved ? (isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff") : (isDark ? "rgba(245, 158, 11, 0.03)" : "#fffbeb"),
                 transition: "all 0.2s ease",
               }}
             >
@@ -395,8 +398,8 @@ export default function AdminReviewsPage() {
                           height: 44,
                           borderRadius: 12,
                           objectFit: "cover",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
-                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                          border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
                           flexShrink: 0,
                         }}
                       />
@@ -422,7 +425,7 @@ export default function AdminReviewsPage() {
                     )}
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-                        <h3 style={{ fontSize: 15, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>{rev.userName}</h3>
+                        <h3 style={{ fontSize: 15, fontWeight: 600, color: isDark ? "#f1f5f9" : "#0f172a", margin: 0 }}>{rev.userName}</h3>
                         {rev.isFeatured && (
                           <span
                             className="admin-badge"
@@ -443,7 +446,7 @@ export default function AdminReviewsPage() {
                         <span>{rev.userRole || "Client"}</span>
                         {rev.company && <span>• {rev.company}</span>}
                         {rev.location && (
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: "#94a3b8" }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: isDark ? "#94a3b8" : "#64748b" }}>
                             <FaMapMarkerAlt size={10} style={{ color: "#06b6d4" }} />
                             {rev.location}
                           </span>
@@ -458,7 +461,7 @@ export default function AdminReviewsPage() {
                       <FaStar
                         key={s}
                         size={13}
-                        style={{ color: s < (rev.rating || 5) ? "#f59e0b" : "#334155" }}
+                        style={{ color: s < (rev.rating || 5) ? "#f59e0b" : (isDark ? "#334155" : "#cbd5e1") }}
                       />
                     ))}
                   </div>
@@ -477,12 +480,12 @@ export default function AdminReviewsPage() {
                 <p
                   style={{
                     fontSize: 13,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#334155",
                     lineHeight: 1.6,
                     margin: 0,
                     padding: "12px 14px",
-                    background: "rgba(255, 255, 255, 0.02)",
-                    border: "1px solid rgba(255, 255, 255, 0.05)",
+                    background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
                     borderRadius: 10,
                     fontStyle: "italic",
                   }}
@@ -498,7 +501,7 @@ export default function AdminReviewsPage() {
                   alignItems: "center",
                   justifyContent: "space-between",
                   paddingTop: 12,
-                  borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+                  borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
                   flexWrap: "wrap",
                   gap: 8,
                 }}

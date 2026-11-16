@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { useTheme } from "@/components/ThemeProvider";
 import {
   FaPlus,
   FaEdit,
@@ -61,6 +62,8 @@ function normalizePersonName(str) {
 }
 
 export default function AdminTeamPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const { data: session } = useSession();
   const isTeamMember = session?.user?.role === "TEAM_MEMBER";
   const isAdmin = !isTeamMember;
@@ -430,7 +433,7 @@ export default function AdminTeamPage() {
             <FaUsers size={22} />
           </div>
           <div className="dash-stat-info">
-            <span className="dash-stat-value" style={{ color: "#f1f5f9" }}>{totalMembers}</span>
+            <span className="dash-stat-value" style={{ color: isDark ? "#f1f5f9" : "#0f172a" }}>{totalMembers}</span>
             <span className="dash-stat-label">Total Members</span>
           </div>
         </div>
@@ -440,7 +443,7 @@ export default function AdminTeamPage() {
             <FaUserCheck size={22} />
           </div>
           <div className="dash-stat-info">
-            <span className="dash-stat-value" style={{ color: "#86efac" }}>{activeMembers}</span>
+            <span className="dash-stat-value" style={{ color: isDark ? "#86efac" : "#16a34a" }}>{activeMembers}</span>
             <span className="dash-stat-label">Active / Live</span>
           </div>
         </div>
@@ -450,7 +453,7 @@ export default function AdminTeamPage() {
             <FaEyeSlash size={22} />
           </div>
           <div className="dash-stat-info">
-            <span className="dash-stat-value" style={{ color: "#fca5a5" }}>{inactiveMembers}</span>
+            <span className="dash-stat-value" style={{ color: isDark ? "#fca5a5" : "#dc2626" }}>{inactiveMembers}</span>
             <span className="dash-stat-label">Hidden / Draft</span>
           </div>
         </div>
@@ -525,7 +528,7 @@ export default function AdminTeamPage() {
       ) : filteredMembers.length === 0 ? (
         <div className="admin-empty" style={{ padding: "80px 20px" }}>
           <FaUsers size={48} style={{ margin: "0 auto 16px", opacity: 0.35, color: "#6366f1" }} />
-          <h3 style={{ color: "#f1f5f9", margin: "0 0 8px", fontSize: 17, fontWeight: 600 }}>
+          <h3 style={{ color: isDark ? "#f1f5f9" : "#0f172a", margin: "0 0 8px", fontSize: 17, fontWeight: 600 }}>
             No team members found
           </h3>
           <p style={{ maxWidth: 420, margin: "0 auto 20px", fontSize: 14, color: "#64748b" }}>
@@ -561,13 +564,13 @@ export default function AdminTeamPage() {
                 borderColor: own && isTeamMember
                   ? "rgba(99, 102, 241, 0.55)"
                   : member.isActive
-                    ? "rgba(255, 255, 255, 0.07)"
+                    ? (isDark ? "rgba(255, 255, 255, 0.07)" : "#e2e8f0")
                     : "rgba(239, 68, 68, 0.25)",
                 background: own && isTeamMember
-                  ? "rgba(99, 102, 241, 0.06)"
+                  ? (isDark ? "rgba(99, 102, 241, 0.06)" : "#eef2ff")
                   : member.isActive
-                    ? "rgba(255, 255, 255, 0.025)"
-                    : "rgba(239, 68, 68, 0.02)",
+                    ? (isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff")
+                    : (isDark ? "rgba(239, 68, 68, 0.02)" : "#fef2f2"),
                 transition: "all 0.2s ease",
                 padding: "20px 22px",
               }}
@@ -583,9 +586,9 @@ export default function AdminTeamPage() {
                       borderRadius: 16,
                       overflow: "hidden",
                       flexShrink: 0,
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1.5px solid rgba(255, 255, 255, 0.12)",
-                      boxShadow: "0 4px 14px rgba(0, 0, 0, 0.35)",
+                      background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
+                      border: isDark ? "1.5px solid rgba(255, 255, 255, 0.12)" : "1.5px solid #cbd5e1",
+                      boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)",
                     }}
                   >
                     {member.image ? (
@@ -618,7 +621,7 @@ export default function AdminTeamPage() {
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                       <h3
                         style={{
-                          color: "#f1f5f9",
+                          color: isDark ? "#f1f5f9" : "#0f172a",
                           fontSize: 16,
                           fontWeight: 700,
                           margin: 0,
@@ -640,7 +643,7 @@ export default function AdminTeamPage() {
                               padding: "2px 8px",
                               borderRadius: 999,
                               background: "rgba(99, 102, 241, 0.2)",
-                              color: "#a5b4fc",
+                              color: isDark ? "#a5b4fc" : "#4338ca",
                               border: "1px solid rgba(99, 102, 241, 0.4)",
                             }}
                           >
@@ -661,7 +664,7 @@ export default function AdminTeamPage() {
 
                     <p
                       style={{
-                        color: "#818cf8",
+                        color: isDark ? "#818cf8" : "#4f46e5",
                         fontSize: 13,
                         fontWeight: 600,
                         margin: "4px 0 0",
@@ -674,7 +677,7 @@ export default function AdminTeamPage() {
                     </p>
 
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6, fontSize: 11, color: "#64748b" }}>
-                      <span style={{ background: "rgba(255, 255, 255, 0.05)", padding: "1px 6px", borderRadius: 4 }}>
+                      <span style={{ background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9", padding: "1px 6px", borderRadius: 4 }}>
                         Order: #{member.order ?? 0}
                       </span>
                       <span>•</span>
@@ -698,7 +701,7 @@ export default function AdminTeamPage() {
                 {member.bio && (
                   <p
                     style={{
-                      color: "#94a3b8",
+                      color: isDark ? "#94a3b8" : "#475569",
                       fontSize: 13,
                       lineHeight: 1.55,
                       margin: "0 0 12px",

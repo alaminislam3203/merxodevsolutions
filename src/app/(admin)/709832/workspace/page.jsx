@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
+import { useTheme } from "@/components/ThemeProvider";
 import toast from "react-hot-toast";
 import AdminLoader from "@/components/AdminLoader";
 import { downloadOfficialInvoice, exportRecordsToFile } from "@/lib/invoiceGenerator";
@@ -55,6 +56,8 @@ const EMPTY_TASK = {
 };
 
 export default function AdminWorkspacePage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const { data: session } = useSession();
   const isTeamMember = session?.user?.role === "TEAM_MEMBER";
   const isAdmin = !isTeamMember;
@@ -477,11 +480,11 @@ export default function AdminWorkspacePage() {
                     </div>
                   </div>
 
-                  <h3 style={{ color: "#f8fafc", fontSize: 16, fontWeight: 700, margin: "0 0 4px" }}>
+                  <h3 style={{ color: isDark ? "#f8fafc" : "#0f172a", fontSize: 16, fontWeight: 700, margin: "0 0 4px" }}>
                     {lead.projectTitle}
                   </h3>
                   <p style={{ color: "#94a3b8", fontSize: 12.5, margin: "0 0 10px" }}>
-                    Client: <strong style={{ color: "#e2e8f0" }}>{lead.clientName}</strong> ({lead.clientEmail})
+                    Client: <strong style={{ color: isDark ? "#e2e8f0" : "#1e293b" }}>{lead.clientName}</strong> ({lead.clientEmail})
                     {lead.clientPhone ? ` • ${lead.clientPhone}` : ""}
                   </p>
 
@@ -493,7 +496,7 @@ export default function AdminWorkspacePage() {
                         justifyContent: "space-between",
                         fontSize: 11.5,
                         fontWeight: 700,
-                        color: "#cbd5e1",
+                        color: isDark ? "#cbd5e1" : "#475569",
                         marginBottom: 4,
                       }}
                     >
@@ -504,7 +507,7 @@ export default function AdminWorkspacePage() {
                       style={{
                         height: 7,
                         borderRadius: 999,
-                        background: "rgba(255,255,255,0.08)",
+                        background: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0",
                         overflow: "hidden",
                       }}
                     >
@@ -527,27 +530,28 @@ export default function AdminWorkspacePage() {
                       gap: 6,
                       fontSize: 10.5,
                       color: "#94a3b8",
-                      background: "rgba(255,255,255,0.03)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                       padding: "8px 10px",
                       borderRadius: 10,
+                      border: isDark ? "none" : "1px solid #e2e8f0",
                     }}
                   >
                     <div>
-                      UI: <strong style={{ color: "#f8fafc" }}>{lead.milestones?.uiDesign ?? 0}%</strong>
+                      UI: <strong style={{ color: isDark ? "#f8fafc" : "#0f172a" }}>{lead.milestones?.uiDesign ?? 0}%</strong>
                     </div>
                     <div>
-                      Front: <strong style={{ color: "#f8fafc" }}>{lead.milestones?.frontend ?? 0}%</strong>
+                      Front: <strong style={{ color: isDark ? "#f8fafc" : "#0f172a" }}>{lead.milestones?.frontend ?? 0}%</strong>
                     </div>
                     <div>
-                      Back: <strong style={{ color: "#f8fafc" }}>{lead.milestones?.backend ?? 0}%</strong>
+                      Back: <strong style={{ color: isDark ? "#f8fafc" : "#0f172a" }}>{lead.milestones?.backend ?? 0}%</strong>
                     </div>
                     <div>
-                      Live: <strong style={{ color: "#f8fafc" }}>{lead.milestones?.deployment ?? 0}%</strong>
+                      Live: <strong style={{ color: isDark ? "#f8fafc" : "#0f172a" }}>{lead.milestones?.deployment ?? 0}%</strong>
                     </div>
                   </div>
 
                   {lead.assignedTo && (
-                    <div style={{ fontSize: 11.5, color: "#a5b4fc", marginTop: 8 }}>
+                    <div style={{ fontSize: 11.5, color: isDark ? "#a5b4fc" : "#4338ca", marginTop: 8 }}>
                       Assigned Team Member: <strong>{lead.assignedTo}</strong>
                     </div>
                   )}
@@ -558,7 +562,7 @@ export default function AdminWorkspacePage() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    borderTop: "1px solid rgba(255,255,255,0.07)",
+                    borderTop: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid #e2e8f0",
                     paddingTop: 12,
                   }}
                 >
@@ -624,7 +628,7 @@ export default function AdminWorkspacePage() {
         tasks.length === 0 ? (
           <div className="admin-empty" style={{ padding: 60 }}>
             <FiCheckSquare size={42} style={{ margin: "0 auto 12px", opacity: 0.4 }} />
-            <h3 style={{ color: "#f8fafc", margin: "0 0 6px" }}>
+            <h3 style={{ color: isDark ? "#f8fafc" : "#0f172a", margin: "0 0 6px" }}>
               No Team Tasks Assigned Yet
             </h3>
             <p style={{ color: "#94a3b8", fontSize: 13 }}>
@@ -651,7 +655,7 @@ export default function AdminWorkspacePage() {
                       ? "rgba(16, 185, 129, 0.3)"
                       : t.status === "IN_PROGRESS"
                         ? "rgba(56, 189, 248, 0.35)"
-                        : "rgba(255, 255, 255, 0.08)",
+                        : isDark ? "rgba(255, 255, 255, 0.08)" : "#e2e8f0",
                 }}
               >
                 <div style={{ flex: 1, minWidth: 240 }}>
@@ -678,7 +682,7 @@ export default function AdminWorkspacePage() {
                     >
                       {t.priority} PRIORITY
                     </span>
-                    <span style={{ fontSize: 12, color: "#a5b4fc", fontWeight: 600 }}>
+                    <span style={{ fontSize: 12, color: isDark ? "#a5b4fc" : "#4338ca", fontWeight: 600 }}>
                       Assigned to: {t.assignedToName}
                     </span>
                     {t.dueDate && (
@@ -689,7 +693,7 @@ export default function AdminWorkspacePage() {
                   </div>
                   <h4
                     style={{
-                      color: "#f8fafc",
+                      color: isDark ? "#f8fafc" : "#0f172a",
                       fontSize: 15,
                       fontWeight: 700,
                       margin: "2px 0",
@@ -699,7 +703,7 @@ export default function AdminWorkspacePage() {
                     {t.title}
                   </h4>
                   {t.description && (
-                    <p style={{ color: "#94a3b8", fontSize: 12.5, margin: "4px 0 0" }}>
+                    <p style={{ color: isDark ? "#94a3b8" : "#64748b", fontSize: 12.5, margin: "4px 0 0" }}>
                       {t.description}
                     </p>
                   )}
@@ -720,14 +724,14 @@ export default function AdminWorkspacePage() {
                         border:
                           t.status === st
                             ? "1px solid rgba(16, 185, 129, 0.5)"
-                            : "1px solid rgba(255,255,255,0.1)",
+                            : isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #cbd5e1",
                         background:
                           t.status === st
                             ? st === "DONE"
                               ? "rgba(16, 185, 129, 0.25)"
                               : "rgba(99, 102, 241, 0.25)"
-                            : "rgba(255,255,255,0.04)",
-                        color: t.status === st ? "#fff" : "#94a3b8",
+                            : isDark ? "rgba(255,255,255,0.04)" : "#ffffff",
+                        color: t.status === st ? (isDark ? "#fff" : "#059669") : isDark ? "#94a3b8" : "#475569",
                       }}
                     >
                       {st === "TODO"
@@ -755,7 +759,7 @@ export default function AdminWorkspacePage() {
       ) : (
         /* ── TAB 3: TEAM & ADMIN ACTIVITY LOG ── */
         <div className="admin-card" style={{ padding: 20 }}>
-          <h3 style={{ color: "#f8fafc", fontSize: 16, fontWeight: 700, margin: "0 0 16px" }}>
+          <h3 style={{ color: isDark ? "#f8fafc" : "#0f172a", fontSize: 16, fontWeight: 700, margin: "0 0 16px" }}>
             Recent Staff &amp; Team Member Actions
           </h3>
           {activities.length === 0 ? (
@@ -774,8 +778,8 @@ export default function AdminWorkspacePage() {
                     gap: 12,
                     padding: "11px 14px",
                     borderRadius: 12,
-                    background: "rgba(255,255,255,0.025)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -790,12 +794,12 @@ export default function AdminWorkspacePage() {
                             ? "rgba(245, 158, 11, 0.16)"
                             : "rgba(99, 102, 241, 0.18)",
                         color:
-                          act.actorRole === "TEAM_MEMBER" ? "#fbbf24" : "#a5b4fc",
+                          act.actorRole === "TEAM_MEMBER" ? "#fbbf24" : (isDark ? "#a5b4fc" : "#4338ca"),
                       }}
                     >
                       {act.actorName} ({act.actorRole === "TEAM_MEMBER" ? "team-member" : "admin"})
                     </span>
-                    <span style={{ color: "#e2e8f0", fontSize: 13 }}>
+                    <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontSize: 13 }}>
                       {act.details || `${act.action} — ${act.target}`}
                     </span>
                   </div>
