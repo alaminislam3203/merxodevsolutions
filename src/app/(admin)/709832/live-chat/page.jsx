@@ -1108,9 +1108,9 @@ export default function AdminLiveChatPage() {
                         fontSize: 12,
                         fontWeight: 700,
                         cursor: "pointer",
-                        background: "rgba(99, 102, 241, 0.2)",
-                        color: "#a5b4fc",
-                        border: "1px solid rgba(99, 102, 241, 0.4)",
+                        background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
+                        color: isDark ? "#a5b4fc" : "#4338ca",
+                        border: isDark ? "1px solid rgba(99, 102, 241, 0.4)" : "1px solid #c7d2fe",
                       }}
                     >
                       <FiCpu size={14} />
@@ -1148,9 +1148,9 @@ export default function AdminLiveChatPage() {
                       style={{
                         padding: "8px 10px",
                         borderRadius: 10,
-                        background: "rgba(239, 68, 68, 0.12)",
-                        color: "#f87171",
-                        border: "1px solid rgba(239, 68, 68, 0.25)",
+                        background: isDark ? "rgba(239, 68, 68, 0.12)" : "#fee2e2",
+                        color: isDark ? "#f87171" : "#dc2626",
+                        border: isDark ? "1px solid rgba(239, 68, 68, 0.25)" : "1px solid #fecaca",
                         cursor: "pointer",
                       }}
                     >
@@ -1169,6 +1169,7 @@ export default function AdminLiveChatPage() {
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
+                  background: isDark ? "transparent" : "#fafafa",
                 }}
               >
                 {messages.map((m) => {
@@ -1192,9 +1193,9 @@ export default function AdminLiveChatPage() {
                             display: "inline-flex",
                             alignItems: "center",
                             gap: 6,
-                            background: "rgba(16, 185, 129, 0.12)",
-                            color: "#34d399",
-                            border: "1px solid rgba(16, 185, 129, 0.25)",
+                            background: isDark ? "rgba(16, 185, 129, 0.12)" : "#ecfdf5",
+                            color: isDark ? "#34d399" : "#047857",
+                            border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid #a7f3d0",
                           }}
                         >
                           <FiCheckCircle size={12} />
@@ -1225,10 +1226,10 @@ export default function AdminLiveChatPage() {
                           alignItems: "center",
                           gap: 6,
                           color: isVisitor
-                            ? "#fbbf24"
+                            ? (isDark ? "#fbbf24" : "#b45309")
                             : isAdmin
-                              ? "#34d399"
-                              : "#818cf8",
+                              ? (isDark ? "#34d399" : "#047857")
+                              : (isDark ? "#818cf8" : "#4338ca"),
                         }}
                       >
                         {isVisitor && activeSession.visitorImage && (
@@ -1278,23 +1279,30 @@ export default function AdminLiveChatPage() {
                           lineHeight: 1.55,
                           whiteSpace: "pre-wrap",
                           background: isVisitor
-                            ? "rgba(255, 255, 255, 0.07)"
+                            ? (isDark ? "rgba(255, 255, 255, 0.07)" : "#ffffff")
                             : isAdmin
-                              ? "linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))"
-                              : "rgba(99, 102, 241, 0.16)",
-                          color: "#f8fafc",
+                              ? (isDark
+                                  ? "linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))"
+                                  : "linear-gradient(135deg, #10b981, #059669)")
+                              : (isDark ? "rgba(99, 102, 241, 0.16)" : "#eef2ff"),
+                          color: isVisitor
+                            ? (isDark ? "#f8fafc" : "#0f172a")
+                            : isAdmin
+                              ? "#ffffff"
+                              : (isDark ? "#f8fafc" : "#1e1b4b"),
                           border: isVisitor
-                            ? "1px solid rgba(255, 255, 255, 0.12)"
+                            ? (isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0")
                             : isAdmin
-                              ? "1px solid rgba(16, 185, 129, 0.45)"
-                              : "1px solid rgba(99, 102, 241, 0.35)",
+                              ? (isDark ? "1px solid rgba(16, 185, 129, 0.45)" : "none")
+                              : (isDark ? "1px solid rgba(99, 102, 241, 0.35)" : "1px solid #c7d2fe"),
+                          boxShadow: isDark ? "none" : "0 2px 6px rgba(0,0,0,0.04)",
                         }}
                       >
                         {m.text}
                       </div>
 
                       <span
-                        style={{ fontSize: 10, color: "#64748b", marginTop: 3 }}
+                        style={{ fontSize: 10, color: isDark ? "#64748b" : "#94a3b8", marginTop: 3 }}
                       >
                         {formatTime(m.createdAt)}
                       </span>
@@ -1308,11 +1316,11 @@ export default function AdminLiveChatPage() {
               <div
                 style={{
                   padding: "8px 14px",
-                  borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                  borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
                   display: "flex",
                   gap: 6,
                   overflowX: "auto",
-                  background: "rgba(0, 0, 0, 0.2)",
+                  background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
                 }}
               >
                 {QUICK_ADMIN_REPLIES.map((qr, i) => (
@@ -1325,9 +1333,10 @@ export default function AdminLiveChatPage() {
                       fontSize: 11,
                       padding: "5px 10px",
                       borderRadius: 999,
-                      background: "rgba(255, 255, 255, 0.05)",
-                      color: "#cbd5e1",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
+                      color: isDark ? "#cbd5e1" : "#334155",
+                      border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
+                      boxShadow: isDark ? "none" : "0 1px 2px rgba(0,0,0,0.04)",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
@@ -1336,7 +1345,7 @@ export default function AdminLiveChatPage() {
                   >
                     <FiZap
                       size={11}
-                      style={{ color: "#fbbf24", flexShrink: 0 }}
+                      style={{ color: isDark ? "#fbbf24" : "#d97706", flexShrink: 0 }}
                     />
                     <span>{qr.slice(0, 42)}...</span>
                   </button>
@@ -1351,10 +1360,10 @@ export default function AdminLiveChatPage() {
                 }}
                 style={{
                   padding: 14,
-                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                  borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                   display: "flex",
                   gap: 10,
-                  background: "rgba(15, 23, 42, 0.95)",
+                  background: isDark ? "rgba(15, 23, 42, 0.95)" : "#ffffff",
                 }}
               >
                 <input
@@ -1364,11 +1373,11 @@ export default function AdminLiveChatPage() {
                   placeholder="Type a live reply to this visitor (automatically switches to Live Team mode)..."
                   style={{
                     flex: 1,
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(255, 255, 255, 0.14)",
+                    background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.14)" : "1px solid #cbd5e1",
                     borderRadius: 12,
                     padding: "11px 15px",
-                    color: "#fff",
+                    color: isDark ? "#ffffff" : "#0f172a",
                     fontSize: 13,
                     outline: "none",
                   }}
