@@ -1585,4 +1585,40 @@ html:not(.dark) .admin-label {
     font-weight: 600 !important;
 }
 
+html:not(.dark) .content-skeleton,
+html:not(.dark) .project-skeleton,
+html:not(.dark) .dash-stat-skeleton {
+    background: #e2e8f0 !important;
+    border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .project-row-img-placeholder {
+    background: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+    color: #64748b !important;
+}
+
+html:not(.dark) .upload-dropzone {
+    border-color: #cbd5e1 !important;
+    background: #f8fafc !important;
+}
+
+html:not(.dark) .upload-dropzone:hover,
+html:not(.dark) .upload-dropzone-active {
+    border-color: #6366f1 !important;
+    background: #eef2ff !important;
+}
+
+html:not(.dark) .dash-section-title {
+    color: #1e293b !important;
+}
+
+html:not(.dark) .dash-action-title {
+    color: #0f172a !important;
+}
+
+html:not(.dark) .dash-stat-value {
+    color: #0f172a !important;
+}
+
 

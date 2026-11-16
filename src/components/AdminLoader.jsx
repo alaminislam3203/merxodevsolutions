@@ -176,7 +176,7 @@ export default function AdminLoader({
           style={{
             fontSize: compact ? 14 : 16,
             fontWeight: 700,
-            color: "#f8fafc",
+            color: isDark ? "#f8fafc" : "#0f172a",
             letterSpacing: "-0.2px",
             marginBottom: 6,
           }}
@@ -191,7 +191,7 @@ export default function AdminLoader({
             alignItems: "center",
             gap: 4,
             fontSize: 12.5,
-            color: "#94a3b8",
+            color: isDark ? "#94a3b8" : "#475569",
             fontWeight: 500,
             marginBottom: 20,
           }}
@@ -240,7 +240,7 @@ export default function AdminLoader({
             width: "100%",
             height: 5,
             borderRadius: 999,
-            background: "rgba(255, 255, 255, 0.06)",
+            background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e2e8f0",
             overflow: "hidden",
             position: "relative",
           }}
