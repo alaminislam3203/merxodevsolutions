@@ -818,26 +818,10 @@ function AdminLayoutShell({ children }) {
                 ? "Press Esc or click to exit Full Screen"
                 : "Enter Full Screen Mode"
             }
+            className="admin-top-pill-btn"
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              padding: "7px 13px",
-              borderRadius: 999,
-              fontSize: 12,
-              fontWeight: 600,
-              cursor: "pointer",
-              color: isFullscreen ? "#38bdf8" : "#cbd5e1",
-              background: isFullscreen
-                ? "rgba(15, 23, 42, 0.92)"
-                : "rgba(15, 23, 42, 0.78)",
-              border: isFullscreen
-                ? "1px solid rgba(56, 189, 248, 0.4)"
-                : "1px solid rgba(255, 255, 255, 0.12)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              boxShadow: "0 8px 20px rgba(0, 0, 0, 0.35)",
-              transition: "all 0.2s ease",
+              color: isFullscreen ? "#38bdf8" : undefined,
+              borderColor: isFullscreen ? "rgba(56, 189, 248, 0.4)" : undefined,
             }}
           >
             {isFullscreen ? (

@@ -678,3 +678,8 @@ html:not(.dark) .login-back-link {
 html:not(.dark) .login-back-link:hover {
   color: #0f172a;
 }
+
+.admin-login-theme-toggle:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
