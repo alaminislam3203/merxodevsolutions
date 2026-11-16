@@ -1108,8 +1108,9 @@ export default function AdminVisitorsPage() {
       {activeTab !== "insights" && activeTab !== "blocked" && (
         <div
           style={{
-            background: "rgba(255,255,255,0.025)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.04)",
             borderRadius: 18,
             overflow: "hidden",
           }}
@@ -1119,7 +1120,7 @@ export default function AdminVisitorsPage() {
               style={{
                 padding: 48,
                 textAlign: "center",
-                color: "#94a3b8",
+                color: isDark ? "#94a3b8" : "#64748b",
                 fontSize: 14,
               }}
             >
@@ -1130,7 +1131,7 @@ export default function AdminVisitorsPage() {
               style={{
                 padding: 48,
                 textAlign: "center",
-                color: "#64748b",
+                color: isDark ? "#64748b" : "#64748b",
                 fontSize: 14,
               }}
             >
@@ -1149,9 +1150,9 @@ export default function AdminVisitorsPage() {
                 <thead>
                   <tr
                     style={{
-                      background: "rgba(0,0,0,0.35)",
-                      borderBottom: "1px solid rgba(255,255,255,0.08)",
-                      color: "#94a3b8",
+                      background: isDark ? "rgba(0,0,0,0.35)" : "#f8fafc",
+                      borderBottom: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+                      color: isDark ? "#94a3b8" : "#475569",
                       fontSize: 11.5,
                       textTransform: "uppercase",
                       letterSpacing: "0.04em",
@@ -1176,9 +1177,9 @@ export default function AdminVisitorsPage() {
                       <tr
                         key={v.id}
                         style={{
-                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                          borderBottom: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #f1f5f9",
                           background: v.isOnline
-                            ? "rgba(16, 185, 129, 0.03)"
+                            ? (isDark ? "rgba(16, 185, 129, 0.03)" : "rgba(16, 185, 129, 0.06)")
                             : "transparent",
                         }}
                       >
