@@ -265,7 +265,7 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
   };
 
   return (
-    <div className="admin-field-group" style={{ background: "rgba(255,255,255,0.02)", padding: 14, borderRadius: 12, border: "1px solid rgba(255,255,255,0.06)" }}>
+    <div className="admin-field-group" style={{ background: isDark ? "rgba(255,255,255,0.02)" : "#f8fafc", padding: 14, borderRadius: 12, border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 10 }}>
         <div>
           <label className="admin-label" style={{ margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
@@ -281,7 +281,7 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
       {/* Feature list */}
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         {items.length === 0 && (
-          <div style={{ textAlign: "center", padding: "16px 12px", background: "rgba(255,255,255,0.015)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 10 }}>
+          <div style={{ textAlign: "center", padding: "16px 12px", background: isDark ? "rgba(255,255,255,0.015)" : "#ffffff", border: isDark ? "1px dashed rgba(255,255,255,0.1)" : "1px dashed #cbd5e1", borderRadius: 10 }}>
             <p style={{ margin: 0, fontSize: 12.5, color: "#64748b" }}>
               No key features added yet. Click <strong>Add Feature</strong> below to create one.
             </p>
@@ -303,10 +303,11 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
                 display: "flex",
                 flexDirection: "column",
                 gap: 10,
-                background: "rgba(15, 23, 42, 0.7)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
+                background: isDark ? "rgba(15, 23, 42, 0.7)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #cbd5e1",
                 padding: "12px 14px",
                 borderRadius: 12,
+                boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.03)",
               }}
             >
               {/* Feature Title Row */}
@@ -342,7 +343,7 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
                 />
 
                 {/* Title style toggle */}
-                <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 6, padding: 2, border: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 }}>
+                <div style={{ display: "inline-flex", background: isDark ? "rgba(0,0,0,0.3)" : "#f1f5f9", borderRadius: 6, padding: 2, border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #cbd5e1", flexShrink: 0 }}>
                   <button
                     type="button"
                     onClick={() => updateFeature(fIdx, "style", "dot")}
@@ -434,7 +435,7 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
                   return (
                     <div key={sIdx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       {/* Subtitle style toggle */}
-                      <div style={{ display: "inline-flex", background: "rgba(0,0,0,0.3)", borderRadius: 5, padding: 1, border: "1px solid rgba(255,255,255,0.06)", flexShrink: 0 }}>
+                      <div style={{ display: "inline-flex", background: isDark ? "rgba(0,0,0,0.3)" : "#f1f5f9", borderRadius: 5, padding: 1, border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #cbd5e1", flexShrink: 0 }}>
                         <button
                           type="button"
                           onClick={() => updateSubtitle(fIdx, sIdx, "style", "dot")}
