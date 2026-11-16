@@ -2989,50 +2989,6 @@ function LoginView() {
 
   return (
     <div className="login-screen">
-      {/* Floating Theme Toggle on Login Screen */}
-      <button
-        type="button"
-        onClick={toggleTheme}
-        className="admin-login-theme-toggle"
-        title={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
-        aria-label="Toggle Theme"
-        style={{
-          position: "fixed",
-          top: 20,
-          right: 20,
-          zIndex: 100,
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 7,
-          background: isDark ? "rgba(15, 23, 42, 0.85)" : "#ffffff",
-          border: isDark
-            ? "1px solid rgba(255, 255, 255, 0.15)"
-            : "1px solid #cbd5e1",
-          boxShadow: isDark
-            ? "0 8px 24px rgba(0,0,0,0.5)"
-            : "0 8px 24px rgba(0,0,0,0.08)",
-          color: isDark ? "#f8fafc" : "#0f172a",
-          padding: "7px 14px",
-          borderRadius: "9999px",
-          cursor: "pointer",
-          backdropFilter: "blur(12px)",
-          fontSize: 12.5,
-          fontWeight: 600,
-          transition: "all 0.2s ease",
-        }}
-      >
-        {isDark ? (
-          <>
-            <FiSun size={15} style={{ color: "#fbbf24" }} />
-            <span>Light</span>
-          </>
-        ) : (
-          <>
-            <FiMoon size={15} style={{ color: "#6366f1" }} />
-            <span>Dark</span>
-          </>
-        )}
-      </button>
       <Toaster
         position="top-right"
         reverseOrder={false}
