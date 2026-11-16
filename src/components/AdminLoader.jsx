@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function AdminLoader({
   fullScreen = false,
@@ -6,6 +7,9 @@ export default function AdminLoader({
   label = "Synchronizing real-time agency data...",
   compact = false,
 }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <div
       style={{
@@ -15,8 +19,8 @@ export default function AdminLoader({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: fullScreen ? "#080c18" : "transparent",
-        color: "#f8fafc",
+        background: fullScreen ? (isDark ? "#080c18" : "#f8fafc") : "transparent",
+        color: isDark ? "#f8fafc" : "#0f172a",
         padding: compact ? "32px 16px" : "48px 20px",
         position: "relative",
         overflow: "hidden",
@@ -77,12 +81,13 @@ export default function AdminLoader({
           alignItems: "center",
           padding: compact ? "26px 32px" : "38px 46px",
           borderRadius: 24,
-          background: "rgba(15, 23, 42, 0.68)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark ? "rgba(15, 23, 42, 0.68)" : "rgba(255, 255, 255, 0.95)",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
-          boxShadow:
-            "0 24px 60px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+          boxShadow: isDark
+            ? "0 24px 60px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
+            : "0 20px 50px -12px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.08)",
           maxWidth: 400,
           width: "100%",
           textAlign: "center",
