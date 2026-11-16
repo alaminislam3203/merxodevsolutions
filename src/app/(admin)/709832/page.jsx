@@ -37,7 +37,6 @@ import {
   FiMoon,
 } from "react-icons/fi";
 import { useTheme } from "@/components/ThemeProvider";
-import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────
 function DashboardView({ isTeamMember = false }) {

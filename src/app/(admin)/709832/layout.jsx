@@ -620,8 +620,11 @@ function AdminLayoutShell({ children }) {
   };
 
   useEffect(() => {
-    if (status === "unauthenticated" && !isLoginRoot) {
-      router.replace("/709832");
+    if (status === "unauthenticated") {
+      const redirectTarget = pathname || "/709832";
+      router.replace(
+        `/account/login?redirect=${encodeURIComponent(redirectTarget)}`,
+      );
       return;
     }
 
@@ -644,37 +647,8 @@ function AdminLayoutShell({ children }) {
     }
   }, [status, isLoginRoot, isTeamMember, pathname, router]);
 
-  // If on the /709832 login page and not logged in, show full-screen login without sidebar
-  if (status !== "authenticated" && isLoginRoot) {
-    return (
-      <>
-        <Toaster
-          position="top-right"
-          reverseOrder={false}
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: "rgba(15, 23, 42, 0.95)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              color: "#f8fafc",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              borderRadius: "14px",
-              fontSize: "13.5px",
-              fontWeight: "500",
-              padding: "12px 18px",
-              boxShadow:
-                "0 20px 35px -8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(99, 102, 241, 0.15)",
-            },
-          }}
-        />
-        {children}
-      </>
-    );
-  }
-
-  // If loading session on a sub-route, show professional brand loader
-  if (status === "loading" && !isLoginRoot) {
+  // If loading session or unauthenticated, show professional brand loader while redirecting
+  if (status === "loading" || status === "unauthenticated") {
     return (
       <AdminLoader
         fullScreen
@@ -682,11 +656,6 @@ function AdminLayoutShell({ children }) {
         label="Verifying administrative credentials & loading workspace"
       />
     );
-  }
-
-  // If unauthenticated on a subpage, don't render content while redirecting
-  if (status === "unauthenticated" && !isLoginRoot) {
-    return null;
   }
 
   return (

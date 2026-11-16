@@ -3,8 +3,8 @@
 
 const authConfig = {
   pages: {
-    signIn: "/709832",
-    error: "/709832",
+    signIn: "/account/login",
+    error: "/account/login",
   },
   session: {
     strategy: "jwt",
@@ -16,10 +16,9 @@ const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isSecretAdminArea = nextUrl.pathname.startsWith("/709832");
-      const isLoginRoot = nextUrl.pathname === "/709832";
 
-      // If accessing secret admin subpaths without being logged in, deny access
-      if (isSecretAdminArea && !isLoginRoot) {
+      // If accessing admin area without being logged in, redirect to /account/login
+      if (isSecretAdminArea) {
         return isLoggedIn;
       }
       return true;
