@@ -902,14 +902,14 @@ export default function ProjectsPage() {
                         gap: 3,
                         padding: "2px 6px",
                         borderRadius: 6,
-                        background: "rgba(99, 102, 241, 0.12)",
-                        border: "1px solid rgba(99, 102, 241, 0.25)",
+                        background: isDark ? "rgba(99, 102, 241, 0.12)" : "#e0e7ff",
+                        border: isDark ? "1px solid rgba(99, 102, 241, 0.25)" : "1px solid #c7d2fe",
                       }}
                       title="Display Order (1 = first). Change and press Enter or click away to save."
                     >
-                      <span style={{ fontSize: 11, color: "#a5b4fc", fontWeight: 700, fontFamily: "monospace" }}>#</span>
+                      <span style={{ fontSize: 11, color: isDark ? "#a5b4fc" : "#4338ca", fontWeight: 700, fontFamily: "monospace" }}>#</span>
                       {isTeamMember ? (
-                        <span style={{ fontSize: 11, color: "#fff", fontWeight: 700, padding: "1px 4px" }}>
+                        <span style={{ fontSize: 11, color: isDark ? "#fff" : "#0f172a", fontWeight: 700, padding: "1px 4px" }}>
                           {p.order ?? 0}
                         </span>
                       ) : (
@@ -930,10 +930,10 @@ export default function ProjectsPage() {
                           }}
                           style={{
                             width: 44,
-                            background: "rgba(0, 0, 0, 0.35)",
-                            border: "1px solid rgba(255, 255, 255, 0.15)",
+                            background: isDark ? "rgba(0, 0, 0, 0.35)" : "#ffffff",
+                            border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid #cbd5e1",
                             borderRadius: 4,
-                            color: "#fff",
+                            color: isDark ? "#fff" : "#0f172a",
                             fontSize: 11,
                             fontWeight: 700,
                             textAlign: "center",
@@ -951,9 +951,9 @@ export default function ProjectsPage() {
                           fontWeight: 700,
                           padding: "2px 8px",
                           borderRadius: 999,
-                          background: "rgba(245, 158, 11, 0.16)",
-                          color: "#fbbf24",
-                          border: "1px solid rgba(245, 158, 11, 0.35)",
+                          background: isDark ? "rgba(245, 158, 11, 0.16)" : "#fef3c7",
+                          color: isDark ? "#fbbf24" : "#b45309",
+                          border: isDark ? "1px solid rgba(245, 158, 11, 0.35)" : "1px solid #fde68a",
                         }}
                       >
                         Pending Approval{det.submittedBy ? ` • by ${det.submittedBy}` : ""}
@@ -965,9 +965,9 @@ export default function ProjectsPage() {
                           fontWeight: 700,
                           padding: "2px 8px",
                           borderRadius: 999,
-                          background: "rgba(16, 185, 129, 0.14)",
-                          color: "#34d399",
-                          border: "1px solid rgba(16, 185, 129, 0.3)",
+                          background: isDark ? "rgba(16, 185, 129, 0.14)" : "#dcfce7",
+                          color: isDark ? "#34d399" : "#15803d",
+                          border: isDark ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid #86efac",
                         }}
                       >
                         Approved / Live
@@ -1003,14 +1003,35 @@ export default function ProjectsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="admin-btn admin-btn-secondary"
-                    style={{ padding: "8px 12px", textDecoration: "none", color: "#a5b4fc", borderColor: "rgba(99, 102, 241, 0.25)" }}
+                    style={{
+                      padding: "8px 12px",
+                      textDecoration: "none",
+                      color: isDark ? "#a5b4fc" : "#4338ca",
+                      background: isDark ? "rgba(255, 255, 255, 0.06)" : "#eef2ff",
+                      borderColor: isDark ? "rgba(99, 102, 241, 0.25)" : "#c7d2fe",
+                      fontWeight: 600,
+                    }}
                     title="View project details page & auto-scroll mockup"
                   >
                     <FiEye size={14} />
                     Preview
                   </a>
                   {p.liveUrl && (
-                    <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="admin-btn admin-btn-secondary" style={{ padding: "8px 12px", textDecoration: "none" }} title={`Live Link: ${p.liveUrl}`}>
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="admin-btn admin-btn-secondary"
+                      style={{
+                        padding: "8px 12px",
+                        textDecoration: "none",
+                        color: isDark ? "#94a3b8" : "#1e293b",
+                        background: isDark ? "rgba(255, 255, 255, 0.06)" : "#ffffff",
+                        borderColor: isDark ? "rgba(255, 255, 255, 0.08)" : "#cbd5e1",
+                        fontWeight: 600,
+                      }}
+                      title={`Live Link: ${p.liveUrl}`}
+                    >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
                       </svg>
@@ -1019,14 +1040,35 @@ export default function ProjectsPage() {
                   )}
                   {!isTeamMember && (
                     <>
-                      <button className="admin-btn admin-btn-secondary" style={{ padding: "8px 12px" }} onClick={() => openEdit(p)}>
+                      <button
+                        className="admin-btn admin-btn-secondary"
+                        style={{
+                          padding: "8px 12px",
+                          color: isDark ? "#94a3b8" : "#1e293b",
+                          background: isDark ? "rgba(255, 255, 255, 0.06)" : "#ffffff",
+                          borderColor: isDark ? "rgba(255, 255, 255, 0.08)" : "#cbd5e1",
+                          fontWeight: 600,
+                        }}
+                        onClick={() => openEdit(p)}
+                      >
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                         Edit
                       </button>
-                      <button className="admin-btn admin-btn-danger" style={{ padding: "8px 12px" }} onClick={() => handleDelete(p)} disabled={deleting === p.id || deleting === p.slug}>
+                      <button
+                        className="admin-btn admin-btn-danger"
+                        style={{
+                          padding: "8px 12px",
+                          color: isDark ? "#fca5a5" : "#dc2626",
+                          background: isDark ? "rgba(239, 68, 68, 0.1)" : "#fee2e2",
+                          borderColor: isDark ? "rgba(239, 68, 68, 0.2)" : "#fca5a5",
+                          fontWeight: 600,
+                        }}
+                        onClick={() => handleDelete(p)}
+                        disabled={deleting === p.id || deleting === p.slug}
+                      >
                         {(deleting === p.id || deleting === p.slug) ? <div className="admin-spinner-btn"></div> : (
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />

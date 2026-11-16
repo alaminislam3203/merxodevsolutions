@@ -664,7 +664,7 @@ export default function AdminTeamPage() {
 
                     <p
                       style={{
-                        color: isDark ? "#818cf8" : "#4f46e5",
+                        color: isDark ? "#818cf8" : "#4338ca",
                         fontSize: 13,
                         fontWeight: 600,
                         margin: "4px 0 0",
@@ -676,8 +676,8 @@ export default function AdminTeamPage() {
                       {member.role}
                     </p>
 
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6, fontSize: 11, color: "#64748b" }}>
-                      <span style={{ background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9", padding: "1px 6px", borderRadius: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6, fontSize: 11, color: isDark ? "#64748b" : "#475569" }}>
+                      <span style={{ background: isDark ? "rgba(255, 255, 255, 0.05)" : "#e2e8f0", color: isDark ? "#94a3b8" : "#334155", fontWeight: 600, padding: "1px 6px", borderRadius: 4 }}>
                         Order: #{member.order ?? 0}
                       </span>
                       <span>•</span>
@@ -701,7 +701,7 @@ export default function AdminTeamPage() {
                 {member.bio && (
                   <p
                     style={{
-                      color: isDark ? "#94a3b8" : "#475569",
+                      color: isDark ? "#94a3b8" : "#334155",
                       fontSize: 13,
                       lineHeight: 1.55,
                       margin: "0 0 12px",
@@ -729,10 +729,11 @@ export default function AdminTeamPage() {
                           gap: 5,
                           padding: "3px 8px",
                           borderRadius: 6,
-                          background: "rgba(0, 119, 181, 0.12)",
-                          border: "1px solid rgba(0, 119, 181, 0.25)",
-                          color: "#38bdf8",
+                          background: isDark ? "rgba(0, 119, 181, 0.12)" : "#e0f2fe",
+                          border: isDark ? "1px solid rgba(0, 119, 181, 0.25)" : "1px solid #bae6fd",
+                          color: isDark ? "#38bdf8" : "#0369a1",
                           fontSize: 11,
+                          fontWeight: 600,
                           textDecoration: "none",
                         }}
                       >
@@ -750,10 +751,11 @@ export default function AdminTeamPage() {
                           gap: 5,
                           padding: "3px 8px",
                           borderRadius: 6,
-                          background: "rgba(255, 255, 255, 0.05)",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
-                          color: "#e2e8f0",
+                          background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
+                          border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
+                          color: isDark ? "#e2e8f0" : "#1e293b",
                           fontSize: 11,
+                          fontWeight: 600,
                           textDecoration: "none",
                         }}
                       >
@@ -771,10 +773,11 @@ export default function AdminTeamPage() {
                           gap: 5,
                           padding: "3px 8px",
                           borderRadius: 6,
-                          background: "rgba(56, 189, 248, 0.12)",
-                          border: "1px solid rgba(56, 189, 248, 0.25)",
-                          color: "#38bdf8",
+                          background: isDark ? "rgba(56, 189, 248, 0.12)" : "#e0f2fe",
+                          border: isDark ? "1px solid rgba(56, 189, 248, 0.25)" : "1px solid #bae6fd",
+                          color: isDark ? "#38bdf8" : "#0284c7",
                           fontSize: 11,
+                          fontWeight: 600,
                           textDecoration: "none",
                         }}
                       >
@@ -792,10 +795,11 @@ export default function AdminTeamPage() {
                           gap: 5,
                           padding: "3px 8px",
                           borderRadius: 6,
-                          background: "rgba(34, 197, 94, 0.12)",
-                          border: "1px solid rgba(34, 197, 94, 0.25)",
-                          color: "#86efac",
+                          background: isDark ? "rgba(34, 197, 94, 0.12)" : "#dcfce7",
+                          border: isDark ? "1px solid rgba(34, 197, 94, 0.25)" : "1px solid #bbf7d0",
+                          color: isDark ? "#86efac" : "#15803d",
                           fontSize: 11,
+                          fontWeight: 600,
                           textDecoration: "none",
                         }}
                       >
@@ -813,7 +817,7 @@ export default function AdminTeamPage() {
                   alignItems: "center",
                   justifyContent: "space-between",
                   paddingTop: 12,
-                  borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                  borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
                   marginTop: 10,
                 }}
               >
@@ -827,9 +831,16 @@ export default function AdminTeamPage() {
                       style={{
                         fontSize: 12,
                         padding: "6px 12px",
-                        background: member.isActive ? "rgba(255, 255, 255, 0.05)" : "rgba(34, 197, 94, 0.15)",
-                        color: member.isActive ? "#94a3b8" : "#86efac",
-                        borderColor: member.isActive ? "rgba(255, 255, 255, 0.08)" : "rgba(34, 197, 94, 0.3)",
+                        fontWeight: 600,
+                        background: member.isActive
+                          ? (isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9")
+                          : (isDark ? "rgba(34, 197, 94, 0.15)" : "#dcfce7"),
+                        color: member.isActive
+                          ? (isDark ? "#94a3b8" : "#334155")
+                          : (isDark ? "#86efac" : "#15803d"),
+                        borderColor: member.isActive
+                          ? (isDark ? "rgba(255, 255, 255, 0.08)" : "#cbd5e1")
+                          : (isDark ? "rgba(34, 197, 94, 0.3)" : "#86efac"),
                       }}
                       title={member.isActive ? "Hide from public website" : "Show on public website"}
                     >
@@ -849,7 +860,13 @@ export default function AdminTeamPage() {
                         type="button"
                         onClick={() => handleOpenEdit(member)}
                         className="admin-btn admin-btn-secondary"
-                        style={{ fontSize: 12, padding: "6px 10px" }}
+                        style={{
+                          fontSize: 12,
+                          padding: "6px 10px",
+                          color: isDark ? "#94a3b8" : "#4338ca",
+                          background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e0e7ff",
+                          borderColor: isDark ? "rgba(255, 255, 255, 0.08)" : "#c7d2fe",
+                        }}
                         title="Edit Member"
                       >
                         <FaEdit size={12} />
@@ -859,7 +876,13 @@ export default function AdminTeamPage() {
                         onClick={() => handleDelete(member)}
                         disabled={actionLoading === member.id}
                         className="admin-btn admin-btn-danger"
-                        style={{ fontSize: 12, padding: "6px 10px" }}
+                        style={{
+                          fontSize: 12,
+                          padding: "6px 10px",
+                          color: isDark ? "#fca5a5" : "#dc2626",
+                          background: isDark ? "rgba(239, 68, 68, 0.1)" : "#fee2e2",
+                          borderColor: isDark ? "rgba(239, 68, 68, 0.2)" : "#fca5a5",
+                        }}
                         title="Delete Member"
                       >
                         <FaTrash size={12} />
@@ -868,7 +891,7 @@ export default function AdminTeamPage() {
                   </>
                 ) : own ? (
                   <>
-                    <span style={{ fontSize: 11.5, color: "#a5b4fc", fontWeight: 600 }}>
+                    <span style={{ fontSize: 11.5, color: isDark ? "#a5b4fc" : "#4338ca", fontWeight: 600 }}>
                       Your Team Profile
                     </span>
                     <button
@@ -881,7 +904,7 @@ export default function AdminTeamPage() {
                     </button>
                   </>
                 ) : (
-                  <span style={{ fontSize: 11.5, color: "#64748b", fontWeight: 500 }}>
+                  <span style={{ fontSize: 11.5, color: isDark ? "#64748b" : "#475569", fontWeight: 500 }}>
                     Team Member Profile (View Only)
                   </span>
                 )}
