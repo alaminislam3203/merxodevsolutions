@@ -15,7 +15,7 @@ import {
   FiLock,
   FiZap,
 } from 'react-icons/fi';
-import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
+import AuthLottie from '@/components/AuthLottie';
 
 function ForgotPasswordContent() {
   const router = useRouter();
@@ -163,9 +163,9 @@ function ForgotPasswordContent() {
         {/* Top subtle vertical divider line */}
         <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-amber-500/60 dark:to-amber-400/80 opacity-70" />
 
-        {/* Themed Animated Character */}
+        {/* Themed Lottie Animation */}
         <div className="my-4 transition-transform hover:scale-105 duration-300">
-          <AuthCharacterAnimation type="forgot-password" size="md" />
+          <AuthLottie type="forgot-password" size="md" />
         </div>
 
         {/* Bottom subtle vertical divider line */}
@@ -177,7 +177,7 @@ function ForgotPasswordContent() {
         <div className="w-full max-w-md">
           {/* Mobile Animation */}
           <div className="lg:hidden flex justify-center mb-6">
-            <AuthCharacterAnimation type="forgot-password" size="sm" />
+            <AuthLottie type="forgot-password" size="sm" />
           </div>
 
           {/* Step Indicator */}
