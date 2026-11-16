@@ -1350,13 +1350,13 @@ function DashboardView({ isTeamMember = false }) {
           {/* Top Visited Pages */}
           <div
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 16,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
               <FiGlobe style={{ color: "#38bdf8" }} /> Top Visited Pages
             </div>
 
@@ -1373,10 +1373,10 @@ function DashboardView({ isTeamMember = false }) {
                   return (
                     <div key={p.path || idx}>
                       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
-                        <span style={{ color: "#e2e8f0", fontFamily: "monospace" }}>{p.path}</span>
+                        <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontFamily: "monospace" }}>{p.path}</span>
                         <span style={{ color: "#38bdf8", fontWeight: 700 }}>{p.views} views</span>
                       </div>
-                      <div style={{ height: 5, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                      <div style={{ height: 5, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                         <div
                           style={{
                             height: "100%",
@@ -1396,13 +1396,13 @@ function DashboardView({ isTeamMember = false }) {
           {/* Live Recent Visitor Feed */}
           <div
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 16,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
               <FiClock style={{ color: "#10b981" }} /> Recent Activity Log
             </div>
 
@@ -1424,7 +1424,8 @@ function DashboardView({ isTeamMember = false }) {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "6px 10px",
-                        background: "rgba(255,255,255,0.02)",
+                        background: isDark ? "rgba(255,255,255,0.02)" : "#ffffff",
+                        border: isDark ? "none" : "1px solid #e2e8f0",
                         borderRadius: 8,
                         fontSize: 12,
                       }}
@@ -1435,7 +1436,7 @@ function DashboardView({ isTeamMember = false }) {
                         ) : (
                           <FiMonitor size={14} style={{ color: "#38bdf8", flexShrink: 0 }} />
                         )}
-                        <span style={{ color: "#cbd5e1", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                        <span style={{ color: isDark ? "#cbd5e1" : "#1e293b", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
                           {log.path}
                         </span>
                         {log.ip && (
@@ -1446,8 +1447,8 @@ function DashboardView({ isTeamMember = false }) {
                       </div>
 
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-                        <span style={{ fontSize: 11, color: "#64748b" }}>{log.browser}</span>
-                        <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>{timeAgo}</span>
+                        <span style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{log.browser}</span>
+                        <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600 }}>{timeAgo}</span>
                       </div>
                     </div>
                   );
@@ -1469,49 +1470,49 @@ function DashboardView({ isTeamMember = false }) {
           {/* Device Distribution */}
           <div
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
               <FiPieChart style={{ color: "#38bdf8" }} /> Device &amp; Platform Distribution
             </div>
             
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#cbd5e1" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
                     <FiSmartphone size={14} style={{ color: "#38bdf8" }} /> Mobile Phones
                   </span>
                   <span style={{ fontWeight: 700, color: "#38bdf8" }}>{mobileShare}%</span>
                 </div>
-                <div style={{ height: 6, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${mobileShare}%`, background: "linear-gradient(90deg, #0284c7, #38bdf8)", borderRadius: 3 }} />
                 </div>
               </div>
 
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#cbd5e1" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
                     <FiMonitor size={14} style={{ color: "#818cf8" }} /> Desktop / Laptop
                   </span>
                   <span style={{ fontWeight: 700, color: "#818cf8" }}>{desktopShare}%</span>
                 </div>
-                <div style={{ height: 6, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${desktopShare}%`, background: "linear-gradient(90deg, #4f46e5, #818cf8)", borderRadius: 3 }} />
                 </div>
               </div>
 
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#cbd5e1" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
                     <FiTablet size={14} style={{ color: "#a78bfa" }} /> Tablets &amp; Others
                   </span>
                   <span style={{ fontWeight: 700, color: "#a78bfa" }}>{tabletShare}%</span>
                 </div>
-                <div style={{ height: 6, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${tabletShare}%`, background: "linear-gradient(90deg, #7c3aed, #a78bfa)", borderRadius: 3 }} />
                 </div>
               </div>
@@ -1521,13 +1522,13 @@ function DashboardView({ isTeamMember = false }) {
           {/* Top Locations / Regions */}
           <div
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
               <FiMapPin style={{ color: "#10b981" }} /> Top Visitor Locations
             </div>
 
@@ -1541,13 +1542,13 @@ function DashboardView({ isTeamMember = false }) {
               ].map((loc) => (
                 <div key={loc.city}>
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 5 }}>
-                    <span style={{ color: "#cbd5e1", display: "flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ color: isDark ? "#cbd5e1" : "#334155", display: "flex", alignItems: "center", gap: 6 }}>
                       <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981" }} />
                       {loc.city}
                     </span>
                     <span style={{ color: "#10b981", fontWeight: 700 }}>{loc.pct}%</span>
                   </div>
-                  <div style={{ height: 5, background: "rgba(255,255,255,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                  <div style={{ height: 5, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: `${loc.pct}%`, background: "linear-gradient(90deg, #059669, #10b981)", borderRadius: 3 }} />
                   </div>
                 </div>
@@ -1558,13 +1559,13 @@ function DashboardView({ isTeamMember = false }) {
           {/* Peak Traffic Timeframes */}
           <div
             style={{
-              background: "rgba(0, 0, 0, 0.2)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
               <FiClock style={{ color: "#fbbf24" }} /> Peak Traffic Timeframes
             </div>
 
@@ -1578,13 +1579,13 @@ function DashboardView({ isTeamMember = false }) {
                 <div
                   key={slot.time}
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: isDark ? "rgba(255,255,255,0.03)" : "#ffffff",
+                    border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                     borderRadius: 10,
                     padding: "10px 12px",
                   }}
                 >
-                  <div style={{ fontSize: 10.5, color: "#94a3b8", marginBottom: 4 }}>{slot.time}</div>
+                  <div style={{ fontSize: 10.5, color: isDark ? "#94a3b8" : "#64748b", marginBottom: 4 }}>{slot.time}</div>
                   <div style={{ fontSize: 13, fontWeight: 800, color: slot.color, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>{slot.traffic}</span>
                     <span style={{ fontSize: 11, opacity: 0.8 }}>{slot.score}</span>
@@ -1599,8 +1600,9 @@ function DashboardView({ isTeamMember = false }) {
       {/* Project Pipeline & Delivery Milestones */}
       <div
         style={{
-          background: "rgba(255, 255, 255, 0.025)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
           borderRadius: 18,
           padding: 24,
           marginBottom: 32,
@@ -1608,10 +1610,10 @@ function DashboardView({ isTeamMember = false }) {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, flexWrap: "wrap", gap: 10 }}>
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: "#f8fafc", margin: 0, display: "flex", alignItems: "center", gap: 10 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: 10 }}>
               <FiLayers style={{ color: "#818cf8" }} /> Client Project Delivery Pipeline
             </h2>
-            <p style={{ margin: "4px 0 0 0", fontSize: 12, color: "#94a3b8" }}>
+            <p style={{ margin: "4px 0 0 0", fontSize: 12, color: isDark ? "#94a3b8" : "#64748b" }}>
               Live progress and development phase tracking across active client projects
             </p>
           </div>
@@ -1641,24 +1643,24 @@ function DashboardView({ isTeamMember = false }) {
             <div
               key={pipe.stage}
               style={{
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
                 borderRadius: 12,
                 padding: 16,
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px" }}>
                   {pipe.stage}
                 </span>
                 <span style={{ fontSize: 10, color: pipe.color, background: `${pipe.color}15`, padding: "2px 6px", borderRadius: 4, fontWeight: 700 }}>
                   {pipe.status}
                 </span>
               </div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: "#f8fafc", marginBottom: 10 }}>
-                {pipe.count} <span style={{ fontSize: 12, fontWeight: 500, color: "#64748b" }}>projects</span>
+              <div style={{ fontSize: 22, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 10 }}>
+                {pipe.count} <span style={{ fontSize: 12, fontWeight: 500, color: isDark ? "#64748b" : "#64748b" }}>projects</span>
               </div>
-              <div style={{ height: 4, background: "rgba(255, 255, 255, 0.06)", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: 4, background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e2e8f0", borderRadius: 2, overflow: "hidden" }}>
                 <div style={{ height: "100%", width: pipe.pct, background: pipe.color, borderRadius: 2 }}></div>
               </div>
             </div>
@@ -1689,6 +1691,8 @@ function DashboardView({ isTeamMember = false }) {
 
 // ─── Login Component (Shown when Unauthenticated) ────────────────
 function LoginView() {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1759,6 +1763,46 @@ function LoginView() {
 
   return (
     <div className="login-screen">
+      {/* Floating Theme Toggle on Login Screen */}
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className="admin-login-theme-toggle"
+        title={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
+        aria-label="Toggle Theme"
+        style={{
+          position: "fixed",
+          top: 20,
+          right: 20,
+          zIndex: 100,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 7,
+          background: isDark ? "rgba(15, 23, 42, 0.85)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid #cbd5e1",
+          boxShadow: isDark ? "0 8px 24px rgba(0,0,0,0.5)" : "0 8px 24px rgba(0,0,0,0.08)",
+          color: isDark ? "#f8fafc" : "#0f172a",
+          padding: "7px 14px",
+          borderRadius: "9999px",
+          cursor: "pointer",
+          backdropFilter: "blur(12px)",
+          fontSize: 12.5,
+          fontWeight: 600,
+          transition: "all 0.2s ease",
+        }}
+      >
+        {isDark ? (
+          <>
+            <FiSun size={15} style={{ color: "#fbbf24" }} />
+            <span>Light</span>
+          </>
+        ) : (
+          <>
+            <FiMoon size={15} style={{ color: "#6366f1" }} />
+            <span>Dark</span>
+          </>
+        )}
+      </button>
       <Toaster
         position="top-right"
         reverseOrder={false}
