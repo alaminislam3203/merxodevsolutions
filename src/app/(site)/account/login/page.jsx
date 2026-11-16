@@ -22,7 +22,7 @@ import {
   FiRotateCw,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
-import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
+import AuthLottie from '@/components/AuthLottie';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -307,9 +307,9 @@ function LoginForm() {
         {/* Top subtle vertical divider line */}
         <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-violet-400 dark:to-violet-600 opacity-70" />
 
-        {/* Themed Animated Character */}
+        {/* Themed Lottie Animation */}
         <div className="my-4 transition-transform hover:scale-105 duration-300">
-          <AuthCharacterAnimation type="login" size="md" />
+          <AuthLottie type="login" size="md" />
         </div>
 
         {/* Bottom subtle vertical divider line */}
@@ -321,7 +321,7 @@ function LoginForm() {
         <div className="w-full max-w-md">
           {/* Mobile Animation */}
           <div className="lg:hidden flex justify-center mb-6">
-            <AuthCharacterAnimation type="login" size="sm" />
+            <AuthLottie type="login" size="sm" />
           </div>
 
           {/* Header */}
