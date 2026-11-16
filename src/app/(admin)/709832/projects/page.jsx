@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { useTheme } from "@/components/ThemeProvider";
 import { FiImage, FiMonitor, FiSmartphone, FiCrop, FiInfo, FiLayers, FiPlus, FiTrash2, FiList, FiCheck, FiEye, FiExternalLink } from "react-icons/fi";
 import { showToast } from "@/lib/toast";
 
@@ -212,6 +213,8 @@ function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeho
 
 // ─── Key Features Builder Component (Multi-Subtitle & Individual Dot/Number Style) ───
 function KeyFeaturesBuilder({ items = [], onChangeItems }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const addFeature = () => {
     onChangeItems([
       ...items,
