@@ -668,18 +668,6 @@ export default function EnvVaultPage() {
               </button>
             );
           })}
-                  cursor: "pointer",
-                  border: isSelected ? "1px solid rgba(99, 102, 241, 0.5)" : "1px solid rgba(255, 255, 255, 0.06)",
-                  background: isSelected ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
-                  color: isSelected ? "#a5b4fc" : "#94a3b8",
-                  textTransform: "capitalize",
-                  transition: "all 0.15s",
-                }}
-              >
-                {env === "all" ? "All Envs" : env}
-              </button>
-            );
-          })}
         </div>
       </div>
 
