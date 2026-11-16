@@ -314,9 +314,11 @@ function attachFallbacks(client) {
 
 function createPrismaClient() {
   const rawUrl = process.env.DATABASE_URL || "";
-  // Strip channel_binding which causes node-postgres SCRAM SASL auth failures
+  // Strip channel_binding and sslmode to avoid pg v8/v9 deprecation warning
+  // (SSL is already explicitly controlled by ssl: { rejectUnauthorized: false })
   const connectionString = rawUrl
     .replace(/[?&]channel_binding=[^&]+/, "")
+    .replace(/[?&]sslmode=[^&]+/, "")
     .replace(/\?$/, "");
 
   const pool = new Pool({
