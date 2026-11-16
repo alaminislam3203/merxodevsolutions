@@ -33,7 +33,10 @@ import {
   FiCheckSquare,
   FiX,
   FiTablet,
+  FiSun,
+  FiMoon,
 } from "react-icons/fi";
+import { useTheme } from "@/components/ThemeProvider";
 import "./login.css";
 
 // ─── Dashboard Component (Shown when Authenticated) ──────────────

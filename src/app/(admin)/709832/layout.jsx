@@ -455,6 +455,28 @@ function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
       </nav>
 
       <div className="admin-sidebar-bottom" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {/* Theme Toggle Button */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="admin-sidebar-theme-toggle"
+          title={collapsed ? (theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode") : ""}
+        >
+          {theme === "dark" ? (
+            <FiSun size={18} style={{ color: "#fbbf24", flexShrink: 0 }} />
+          ) : (
+            <FiMoon size={18} style={{ color: "#6366f1", flexShrink: 0 }} />
+          )}
+          {!collapsed && (
+            <span style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+              <span className="admin-theme-badge">
+                {theme === "dark" ? "Dark" : "Light"}
+              </span>
+            </span>
+          )}
+        </button>
+
         <button
           type="button"
           onClick={onToggleFullscreen}
@@ -541,6 +563,7 @@ function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
 
 function AdminLayoutShell({ children }) {
   const { data: session, status } = useSession();
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -749,7 +772,7 @@ function AdminLayoutShell({ children }) {
         onToggleFullscreen={toggleFullscreen}
       />
       <main ref={mainRef} className="admin-main" style={{ position: "relative" }}>
-        {/* Top-Right Quick Fullscreen Toggle Pill (Auto-hides on scroll down, shows at top) */}
+        {/* Top-Right Quick Theme & Fullscreen Toggle Pills (Auto-hides on scroll down, shows at top) */}
         <div
           style={{
             position: "fixed",
@@ -767,6 +790,26 @@ function AdminLayoutShell({ children }) {
             transition: "opacity 0.25s ease, transform 0.25s ease",
           }}
         >
+          {/* Quick Theme Toggle Pill */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            className="admin-top-pill-btn"
+          >
+            {theme === "dark" ? (
+              <>
+                <FiSun size={14} style={{ color: "#fbbf24" }} />
+                <span>Light</span>
+              </>
+            ) : (
+              <>
+                <FiMoon size={14} style={{ color: "#6366f1" }} />
+                <span>Dark</span>
+              </>
+            )}
+          </button>
+
           <button
             type="button"
             onClick={toggleFullscreen}
