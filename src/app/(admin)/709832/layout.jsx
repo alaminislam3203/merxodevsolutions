@@ -4,13 +4,15 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
 import { HiUserGroup } from "react-icons/hi";
-import { FiAlertCircle, FiMessageSquare } from "react-icons/fi";
+import { FiAlertCircle, FiMessageSquare, FiSun, FiMoon } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import AdminLoader from "@/components/AdminLoader";
+import { useTheme } from "@/components/ThemeProvider";
 import "./admin.css";
 
 function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const { data: session } = useSession();
   const [signingOut, setSigningOut] = useState(false);
