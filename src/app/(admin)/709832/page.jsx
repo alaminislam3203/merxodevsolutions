@@ -3217,12 +3217,19 @@ function LoginView() {
 // ─── Main Controller Page ─────────────────────────────────────────
 export default function AdminPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
-  if (status === "loading") {
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/account/login?redirect=/709832");
+    }
+  }, [status, router]);
+
+  if (status === "loading" || status === "unauthenticated") {
     return (
       <AdminLoader
         title="MerxoDev Dashboard"
-        label="Loading real-time agency analytics & metrics"
+        label="Verifying administrative access & loading metrics"
       />
     );
   }
@@ -3274,5 +3281,5 @@ export default function AdminPage() {
     return <DashboardView isTeamMember={isTeamMember} />;
   }
 
-  return <LoginView />;
+  return null;
 }
