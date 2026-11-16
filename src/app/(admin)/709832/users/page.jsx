@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 import toast from "react-hot-toast";
 import { showToast, confirmToast } from "@/lib/toast";
 import AdminLoader from "@/components/AdminLoader";
@@ -24,6 +25,8 @@ import {
 } from "react-icons/fi";
 
 export default function UsersManagementPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -313,9 +316,9 @@ export default function UsersManagementPage() {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(255,255,255,0.06)",
-              color: "#e2e8f0",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: isDark ? "rgba(255,255,255,0.06)" : "#ffffff",
+              color: isDark ? "#e2e8f0" : "#334155",
+              border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #cbd5e1",
               padding: "10px 16px",
               borderRadius: 10,
               cursor: "pointer",
@@ -356,13 +359,14 @@ export default function UsersManagementPage() {
       >
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "18px 20px",
             display: "flex",
             alignItems: "center",
             gap: 16,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -381,7 +385,7 @@ export default function UsersManagementPage() {
             <FiUsers />
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {stats.total || 0}
             </div>
             <div style={{ fontSize: 13, color: "#94a3b8" }}>Total Accounts</div>
@@ -390,13 +394,14 @@ export default function UsersManagementPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "18px 20px",
             display: "flex",
             alignItems: "center",
             gap: 16,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -415,7 +420,7 @@ export default function UsersManagementPage() {
             <FiShield />
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {stats.admins || 0}
             </div>
             <div style={{ fontSize: 13, color: "#94a3b8" }}>Administrators</div>
@@ -424,13 +429,14 @@ export default function UsersManagementPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "18px 20px",
             display: "flex",
             alignItems: "center",
             gap: 16,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -449,7 +455,7 @@ export default function UsersManagementPage() {
             <FiUserCheck />
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {stats.teamMembers || 0}
             </div>
             <div style={{ fontSize: 13, color: "#94a3b8" }}>Team Members</div>
@@ -458,13 +464,14 @@ export default function UsersManagementPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "18px 20px",
             display: "flex",
             alignItems: "center",
             gap: 16,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -483,7 +490,7 @@ export default function UsersManagementPage() {
             <FiLock />
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {stats.twoFactorCount || 0}
             </div>
             <div style={{ fontSize: 13, color: "#94a3b8" }}>2FA Protected</div>
@@ -492,13 +499,14 @@ export default function UsersManagementPage() {
 
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "18px 20px",
             display: "flex",
             alignItems: "center",
             gap: 16,
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
           }}
         >
           <div
@@ -517,7 +525,7 @@ export default function UsersManagementPage() {
             <FiUserX />
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#f8fafc" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
               {stats.suspendedCount || 0}
             </div>
             <div style={{ fontSize: 13, color: "#94a3b8" }}>Suspended</div>
@@ -528,8 +536,8 @@ export default function UsersManagementPage() {
       {/* Filter and Search Bar */}
       <div
         style={{
-          background: "rgba(255, 255, 255, 0.03)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark ? "rgba(255, 255, 255, 0.03)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
           borderRadius: 14,
           padding: 16,
           marginBottom: 20,
@@ -538,6 +546,7 @@ export default function UsersManagementPage() {
           gap: 14,
           alignItems: "center",
           justifyContent: "space-between",
+          boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.03)",
         }}
       >
         {/* Search input */}
@@ -558,11 +567,11 @@ export default function UsersManagementPage() {
             onChange={(e) => setSearch(e.target.value)}
             style={{
               width: "100%",
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              background: isDark ? "rgba(255, 255, 255, 0.04)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
               borderRadius: 10,
               padding: "10px 14px 10px 38px",
-              color: "#ffffff",
+              color: isDark ? "#ffffff" : "#0f172a",
               fontSize: 14,
               outline: "none",
             }}
@@ -581,10 +590,10 @@ export default function UsersManagementPage() {
           <div
             style={{
               display: "flex",
-              background: "rgba(255,255,255,0.04)",
+              background: isDark ? "rgba(255,255,255,0.04)" : "#f1f5f9",
               padding: 3,
               borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
             }}
           >
             {[
@@ -671,10 +680,11 @@ export default function UsersManagementPage() {
       {/* Users Table */}
       <div
         style={{
-          background: "rgba(255, 255, 255, 0.025)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
           borderRadius: 16,
           overflow: "hidden",
+          boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.04)",
         }}
       >
         <div style={{ overflowX: "auto" }}>
@@ -688,8 +698,8 @@ export default function UsersManagementPage() {
             <thead>
               <tr
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
+                  borderBottom: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid #e2e8f0",
                 }}
               >
                 <th
@@ -818,20 +828,20 @@ export default function UsersManagementPage() {
                     <tr
                       key={user.id}
                       style={{
-                        borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        borderBottom: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #f1f5f9",
                         background: isMainAdmin
-                          ? "rgba(245, 158, 11, 0.03)"
+                          ? (isDark ? "rgba(245, 158, 11, 0.03)" : "#fffbeb")
                           : "transparent",
                         transition: "background 0.15s",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = isMainAdmin
-                          ? "rgba(245, 158, 11, 0.06)"
-                          : "rgba(255,255,255,0.02)";
+                          ? (isDark ? "rgba(245, 158, 11, 0.06)" : "#fef3c7")
+                          : (isDark ? "rgba(255,255,255,0.02)" : "#f8fafc");
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = isMainAdmin
-                          ? "rgba(245, 158, 11, 0.03)"
+                          ? (isDark ? "rgba(245, 158, 11, 0.03)" : "#fffbeb")
                           : "transparent";
                       }}
                     >
@@ -900,7 +910,7 @@ export default function UsersManagementPage() {
                               <span
                                 style={{
                                   fontWeight: 700,
-                                  color: isMainAdmin ? "#fbbf24" : "#f8fafc",
+                                  color: isMainAdmin ? "#d97706" : (isDark ? "#f8fafc" : "#0f172a"),
                                   fontSize: 14,
                                 }}
                               >
