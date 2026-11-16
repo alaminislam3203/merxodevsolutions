@@ -24,9 +24,14 @@ function AdminSidebar({
   const [signingOut, setSigningOut] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
-  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
-  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
-  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const emailLower = String(session?.user?.email || "")
+    .toLowerCase()
+    .trim();
+  const rawRole = String(session?.user?.role || "USER")
+    .toUpperCase()
+    .replace(/-/g, "_");
+  const isAdmin =
+    emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
   const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
   const allNavItems = [
@@ -332,9 +337,16 @@ function AdminSidebar({
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              background: theme === "dark" ? "rgba(255, 255, 255, 0.06)" : "#ffffff",
-              border: theme === "dark" ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
-              boxShadow: theme === "dark" ? "0 2px 8px rgba(0, 0, 0, 0.4)" : "0 2px 6px rgba(0, 0, 0, 0.06)",
+              background:
+                theme === "dark" ? "rgba(243, 124, 13, 0.06)" : "#FF3D00",
+              border:
+                theme === "dark"
+                  ? "1px solid rgba(246, 147, 8, 0.12)"
+                  : "1px solid #e2e8f0",
+              boxShadow:
+                theme === "dark"
+                  ? "0 2px 8px rgba(0, 0, 0, 0.4)"
+                  : "0 2px 6px rgba(0, 0, 0, 0.06)",
               overflow: "hidden",
             }}
           >
@@ -474,9 +486,14 @@ function AdminLayoutShell({ children }) {
   const mainRef = useRef(null);
 
   const isLoginRoot = pathname === "/709832";
-  const emailLower = String(session?.user?.email || "").toLowerCase().trim();
-  const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
-  const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+  const emailLower = String(session?.user?.email || "")
+    .toLowerCase()
+    .trim();
+  const rawRole = String(session?.user?.role || "USER")
+    .toUpperCase()
+    .replace(/-/g, "_");
+  const isAdmin =
+    emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
   const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
   // Global background poller for Live Chat & AI instant notifications across all admin pages
@@ -562,7 +579,10 @@ function AdminLayoutShell({ children }) {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange,
+      );
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
@@ -616,7 +636,7 @@ function AdminLayoutShell({ children }) {
         "/709832/team",
       ];
       const isAllowed = allowedTeamPrefixes.some((prefix) =>
-        pathname.startsWith(prefix)
+        pathname.startsWith(prefix),
       );
       if (!isAllowed) {
         toast.error("Only Administrators can access that section.");
@@ -671,7 +691,10 @@ function AdminLayoutShell({ children }) {
   }
 
   return (
-    <div className="admin-layout" style={{ height: "100vh", overflow: "hidden" }}>
+    <div
+      className="admin-layout"
+      style={{ height: "100vh", overflow: "hidden" }}
+    >
       <Toaster
         position="top-right"
         reverseOrder={false}

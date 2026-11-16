@@ -107,26 +107,91 @@ export default function AdminTopNav({
 
   // Search Navigation Options
   const searchItems = [
-    { label: "Dashboard", href: "/709832", category: "Core", icon: <FiActivity /> },
-    { label: "Live Chat & AI Center", href: "/709832/live-chat", category: "Real-time", icon: <FiMessageSquare /> },
-    { label: "Projects & Portfolio", href: "/709832/projects", category: "Content", icon: <FiLayers /> },
-    { label: "Image & Media Library", href: "/709832/images", category: "Assets", icon: <FiImage /> },
-    { label: "User Management", href: "/709832/users", category: "Security", icon: <FiUsers /> },
-    { label: "Client Reviews", href: "/709832/reviews", category: "Social", icon: <FiStar /> },
-    { label: "Team Members", href: "/709832/team", category: "Staff", icon: <FiUsers /> },
-    { label: "CRM & Workspace", href: "/709832/workspace", category: "Business", icon: <FiBriefcase /> },
-    { label: "Visitors & IP Track", href: "/709832/visitors", category: "Analytics", icon: <FiActivity /> },
-    { label: "Environment Vault (.env)", href: "/709832/env-vault", category: "Security", icon: <FiShield /> },
-    { label: "Content & CMS Blocks", href: "/709832/content", category: "Content", icon: <FiLayers /> },
-    { label: "Promo Grid (Showcase)", href: "/709832/showcase", category: "Marketing", icon: <FiGrid /> },
-    { label: "Banners Management", href: "/709832/banners", category: "Marketing", icon: <FiLayers /> },
+    {
+      label: "Dashboard",
+      href: "/709832",
+      category: "Core",
+      icon: <FiActivity />,
+    },
+    {
+      label: "Live Chat & AI Center",
+      href: "/709832/live-chat",
+      category: "Real-time",
+      icon: <FiMessageSquare />,
+    },
+    {
+      label: "Projects & Portfolio",
+      href: "/709832/projects",
+      category: "Content",
+      icon: <FiLayers />,
+    },
+    {
+      label: "Image & Media Library",
+      href: "/709832/images",
+      category: "Assets",
+      icon: <FiImage />,
+    },
+    {
+      label: "User Management",
+      href: "/709832/users",
+      category: "Security",
+      icon: <FiUsers />,
+    },
+    {
+      label: "Client Reviews",
+      href: "/709832/reviews",
+      category: "Social",
+      icon: <FiStar />,
+    },
+    {
+      label: "Team Members",
+      href: "/709832/team",
+      category: "Staff",
+      icon: <FiUsers />,
+    },
+    {
+      label: "CRM & Workspace",
+      href: "/709832/workspace",
+      category: "Business",
+      icon: <FiBriefcase />,
+    },
+    {
+      label: "Visitors & IP Track",
+      href: "/709832/visitors",
+      category: "Analytics",
+      icon: <FiActivity />,
+    },
+    {
+      label: "Environment Vault (.env)",
+      href: "/709832/env-vault",
+      category: "Security",
+      icon: <FiShield />,
+    },
+    {
+      label: "Content & CMS Blocks",
+      href: "/709832/content",
+      category: "Content",
+      icon: <FiLayers />,
+    },
+    {
+      label: "Promo Grid (Showcase)",
+      href: "/709832/showcase",
+      category: "Marketing",
+      icon: <FiGrid />,
+    },
+    {
+      label: "Banners Management",
+      href: "/709832/banners",
+      category: "Marketing",
+      icon: <FiLayers />,
+    },
   ];
 
   const filteredSearchItems = searchQuery.trim()
     ? searchItems.filter(
         (item) =>
           item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.category.toLowerCase().includes(searchQuery.toLowerCase())
+          item.category.toLowerCase().includes(searchQuery.toLowerCase()),
       )
     : searchItems;
 
@@ -145,10 +210,14 @@ export default function AdminTopNav({
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 20px",
-          background: isDark ? "rgba(10, 15, 29, 0.88)" : "rgba(255, 255, 255, 0.92)",
+          background: isDark
+            ? "rgba(10, 15, 29, 0.88)"
+            : "rgba(255, 255, 255, 0.92)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
-          borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          borderBottom: isDark
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid #e2e8f0",
           boxShadow: isDark
             ? "0 4px 20px -2px rgba(0, 0, 0, 0.4)"
             : "0 2px 10px -2px rgba(0, 0, 0, 0.03)",
@@ -168,7 +237,9 @@ export default function AdminTopNav({
               padding: "0 14px",
               borderRadius: 8,
               background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.08)"
+                : "1px solid #e2e8f0",
               color: isDark ? "#94a3b8" : "#64748b",
               fontSize: 13,
               cursor: "pointer",
@@ -181,11 +252,16 @@ export default function AdminTopNav({
               e.currentTarget.style.color = isDark ? "#f8fafc" : "#0f172a";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = isDark ? "rgba(255, 255, 255, 0.08)" : "#e2e8f0";
+              e.currentTarget.style.borderColor = isDark
+                ? "rgba(255, 255, 255, 0.08)"
+                : "#e2e8f0";
               e.currentTarget.style.color = isDark ? "#94a3b8" : "#64748b";
             }}
           >
-            <FiSearch size={15} style={{ color: isDark ? "#94a3b8" : "#64748b" }} />
+            <FiSearch
+              size={15}
+              style={{ color: isDark ? "#94a3b8" : "#64748b" }}
+            />
             <span style={{ flex: 1, fontWeight: 400 }}>Search</span>
             <kbd
               style={{
@@ -195,7 +271,9 @@ export default function AdminTopNav({
                 borderRadius: 4,
                 background: isDark ? "rgba(255, 255, 255, 0.08)" : "#e2e8f0",
                 color: isDark ? "#cbd5e1" : "#475569",
-                border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
+                border: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.1)"
+                  : "1px solid #cbd5e1",
               }}
             >
               ⌘K
@@ -263,7 +341,8 @@ export default function AdminTopNav({
                   background: "#ffffff",
                   boxShadow: "0 1px 3px rgba(0,0,0,0.25)",
                   transform: isDark ? "translateX(16px)" : "translateX(0)",
-                  transition: "transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  transition:
+                    "transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -296,9 +375,21 @@ export default function AdminTopNav({
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: activeDropdown === "grid" ? (isDark ? "rgba(255,255,255,0.1)" : "#e2e8f0") : "transparent",
+                background:
+                  activeDropdown === "grid"
+                    ? isDark
+                      ? "rgba(255,255,255,0.1)"
+                      : "#e2e8f0"
+                    : "transparent",
                 border: "none",
-                color: activeDropdown === "grid" ? (isDark ? "#fff" : "#0f172a") : (isDark ? "#94a3b8" : "#64748b"),
+                color:
+                  activeDropdown === "grid"
+                    ? isDark
+                      ? "#fff"
+                      : "#0f172a"
+                    : isDark
+                      ? "#94a3b8"
+                      : "#64748b",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
@@ -317,9 +408,13 @@ export default function AdminTopNav({
                   right: 0,
                   width: 240,
                   background: isDark ? "#0d1322" : "#ffffff",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 12,
-                  boxShadow: isDark ? "0 20px 40px -10px rgba(0,0,0,0.8)" : "0 15px 35px -5px rgba(0,0,0,0.12)",
+                  boxShadow: isDark
+                    ? "0 20px 40px -10px rgba(0,0,0,0.8)"
+                    : "0 15px 35px -5px rgba(0,0,0,0.12)",
                   padding: 10,
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -430,9 +525,21 @@ export default function AdminTopNav({
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: activeDropdown === "help" ? (isDark ? "rgba(255,255,255,0.1)" : "#e2e8f0") : "transparent",
+                background:
+                  activeDropdown === "help"
+                    ? isDark
+                      ? "rgba(255,255,255,0.1)"
+                      : "#e2e8f0"
+                    : "transparent",
                 border: "none",
-                color: activeDropdown === "help" ? (isDark ? "#fff" : "#0f172a") : (isDark ? "#94a3b8" : "#64748b"),
+                color:
+                  activeDropdown === "help"
+                    ? isDark
+                      ? "#fff"
+                      : "#0f172a"
+                    : isDark
+                      ? "#94a3b8"
+                      : "#64748b",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
@@ -451,28 +558,77 @@ export default function AdminTopNav({
                   right: 0,
                   width: 260,
                   background: isDark ? "#0d1322" : "#ffffff",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 12,
-                  boxShadow: isDark ? "0 20px 40px -10px rgba(0,0,0,0.8)" : "0 15px 35px -5px rgba(0,0,0,0.12)",
+                  boxShadow: isDark
+                    ? "0 20px 40px -10px rgba(0,0,0,0.8)"
+                    : "0 15px 35px -5px rgba(0,0,0,0.12)",
                   padding: "14px 16px",
                   zIndex: 99,
                 }}
               >
-                <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 8 }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: isDark ? "#f8fafc" : "#0f172a",
+                    marginBottom: 8,
+                  }}
+                >
                   Keyboard Shortcuts
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12, color: isDark ? "#94a3b8" : "#475569" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 6,
+                    fontSize: 12,
+                    color: isDark ? "#94a3b8" : "#475569",
+                  }}
+                >
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <span>Quick Search</span>
-                    <kbd style={{ background: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0", padding: "1px 5px", borderRadius: 4, fontSize: 11 }}>Ctrl+K</kbd>
+                    <kbd
+                      style={{
+                        background: isDark
+                          ? "rgba(255,255,255,0.08)"
+                          : "#e2e8f0",
+                        padding: "1px 5px",
+                        borderRadius: 4,
+                        fontSize: 11,
+                      }}
+                    >
+                      Ctrl+K
+                    </kbd>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <span>Toggle Fullscreen</span>
-                    <kbd style={{ background: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0", padding: "1px 5px", borderRadius: 4, fontSize: 11 }}>Esc</kbd>
+                    <kbd
+                      style={{
+                        background: isDark
+                          ? "rgba(255,255,255,0.08)"
+                          : "#e2e8f0",
+                        padding: "1px 5px",
+                        borderRadius: 4,
+                        fontSize: 11,
+                      }}
+                    >
+                      Esc
+                    </kbd>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <span>Admin Route</span>
-                    <span style={{ fontFamily: "monospace", fontSize: 11 }}>/709832</span>
+                    <span style={{ fontFamily: "monospace", fontSize: 11 }}>
+                      /709832
+                    </span>
                   </div>
                 </div>
               </div>
@@ -489,9 +645,21 @@ export default function AdminTopNav({
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: activeDropdown === "notifications" ? (isDark ? "rgba(255,255,255,0.1)" : "#e2e8f0") : "transparent",
+                background:
+                  activeDropdown === "notifications"
+                    ? isDark
+                      ? "rgba(255,255,255,0.1)"
+                      : "#e2e8f0"
+                    : "transparent",
                 border: "none",
-                color: activeDropdown === "notifications" ? (isDark ? "#fff" : "#0f172a") : (isDark ? "#94a3b8" : "#64748b"),
+                color:
+                  activeDropdown === "notifications"
+                    ? isDark
+                      ? "#fff"
+                      : "#0f172a"
+                    : isDark
+                      ? "#94a3b8"
+                      : "#64748b",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
@@ -511,7 +679,9 @@ export default function AdminTopNav({
                   height: 7,
                   borderRadius: "50%",
                   background: totalAlerts > 0 ? "#ef4444" : "#3b82f6",
-                  border: isDark ? "1.5px solid #0a0f1d" : "1.5px solid #ffffff",
+                  border: isDark
+                    ? "1.5px solid #0a0f1d"
+                    : "1.5px solid #ffffff",
                 }}
               />
             </button>
@@ -524,25 +694,53 @@ export default function AdminTopNav({
                   right: 0,
                   width: 290,
                   background: isDark ? "#0d1322" : "#ffffff",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 12,
-                  boxShadow: isDark ? "0 20px 40px -10px rgba(0,0,0,0.8)" : "0 15px 35px -5px rgba(0,0,0,0.12)",
+                  boxShadow: isDark
+                    ? "0 20px 40px -10px rgba(0,0,0,0.8)"
+                    : "0 15px 35px -5px rgba(0,0,0,0.12)",
                   padding: "12px 14px",
                   zIndex: 99,
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 10,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: isDark ? "#f8fafc" : "#0f172a",
+                    }}
+                  >
                     Notifications
                   </span>
                   {totalAlerts > 0 && (
-                    <span style={{ fontSize: 10, fontWeight: 700, padding: "1px 6px", borderRadius: 999, background: "#ef4444", color: "#fff" }}>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: "1px 6px",
+                        borderRadius: 999,
+                        background: "#ef4444",
+                        color: "#fff",
+                      }}
+                    >
                       {totalAlerts} new
                     </span>
                   )}
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
                   <Link
                     href="/709832/live-chat"
                     onClick={() => setActiveDropdown(null)}
@@ -558,13 +756,31 @@ export default function AdminTopNav({
                       fontSize: 12,
                     }}
                   >
-                    <div style={{ width: 28, height: 28, borderRadius: 6, background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 6,
+                        background: "rgba(59, 130, 246, 0.15)",
+                        color: "#3b82f6",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
                       <FiMessageSquare size={14} />
                     </div>
                     <div>
                       <div style={{ fontWeight: 600 }}>Visitor Live Chat</div>
-                      <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>
-                        {chatNeedsHuman > 0 ? `${chatNeedsHuman} waiting for Live Team` : "Real-time AI active"}
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: isDark ? "#94a3b8" : "#64748b",
+                        }}
+                      >
+                        {chatNeedsHuman > 0
+                          ? `${chatNeedsHuman} waiting for Live Team`
+                          : "Real-time AI active"}
                       </div>
                     </div>
                   </Link>
@@ -584,12 +800,30 @@ export default function AdminTopNav({
                       fontSize: 12,
                     }}
                   >
-                    <div style={{ width: 28, height: 28, borderRadius: 6, background: "rgba(16, 185, 129, 0.15)", color: "#10b981", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 6,
+                        background: "rgba(16, 185, 129, 0.15)",
+                        color: "#10b981",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
                       <FiActivity size={14} />
                     </div>
                     <div>
                       <div style={{ fontWeight: 600 }}>Agency Logs</div>
-                      <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>Check client CRM & task updates</div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: isDark ? "#94a3b8" : "#64748b",
+                        }}
+                      >
+                        Check client CRM & task updates
+                      </div>
                     </div>
                   </Link>
                 </div>
@@ -607,9 +841,21 @@ export default function AdminTopNav({
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: activeDropdown === "settings" ? (isDark ? "rgba(255,255,255,0.1)" : "#e2e8f0") : "transparent",
+                background:
+                  activeDropdown === "settings"
+                    ? isDark
+                      ? "rgba(255,255,255,0.1)"
+                      : "#e2e8f0"
+                    : "transparent",
                 border: "none",
-                color: activeDropdown === "settings" ? (isDark ? "#fff" : "#0f172a") : (isDark ? "#94a3b8" : "#64748b"),
+                color:
+                  activeDropdown === "settings"
+                    ? isDark
+                      ? "#fff"
+                      : "#0f172a"
+                    : isDark
+                      ? "#94a3b8"
+                      : "#64748b",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
@@ -628,9 +874,13 @@ export default function AdminTopNav({
                   right: 0,
                   width: 220,
                   background: isDark ? "#0d1322" : "#ffffff",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 12,
-                  boxShadow: isDark ? "0 20px 40px -10px rgba(0,0,0,0.8)" : "0 15px 35px -5px rgba(0,0,0,0.12)",
+                  boxShadow: isDark
+                    ? "0 20px 40px -10px rgba(0,0,0,0.8)"
+                    : "0 15px 35px -5px rgba(0,0,0,0.12)",
                   padding: 8,
                   zIndex: 99,
                 }}
@@ -670,17 +920,38 @@ export default function AdminTopNav({
                       transition: "background 0.15s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                      e.currentTarget.style.background = isDark
+                        ? "rgba(255,255,255,0.05)"
+                        : "#f1f5f9";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "none";
                     }}
                   >
-                    <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      {isFullscreen ? <FiMinimize size={15} style={{ color: "#38bdf8" }} /> : <FiMaximize size={15} />}
-                      <span>{isFullscreen ? "Exit Fullscreen" : "Full Screen"}</span>
+                    <span
+                      style={{ display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                      {isFullscreen ? (
+                        <FiMinimize size={15} style={{ color: "#38bdf8" }} />
+                      ) : (
+                        <FiMaximize size={15} />
+                      )}
+                      <span>
+                        {isFullscreen ? "Exit Fullscreen" : "Full Screen"}
+                      </span>
                     </span>
-                    <kbd style={{ fontSize: 10, background: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0", padding: "1px 5px", borderRadius: 4 }}>Esc</kbd>
+                    <kbd
+                      style={{
+                        fontSize: 10,
+                        background: isDark
+                          ? "rgba(255,255,255,0.08)"
+                          : "#e2e8f0",
+                        padding: "1px 5px",
+                        borderRadius: 4,
+                      }}
+                    >
+                      Esc
+                    </kbd>
                   </button>
                 )}
 
@@ -702,21 +973,32 @@ export default function AdminTopNav({
                     transition: "background 0.15s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                    e.currentTarget.style.background = isDark
+                      ? "rgba(255,255,255,0.05)"
+                      : "#f1f5f9";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "none";
                   }}
                 >
-                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <FiBell size={15} style={{ color: soundEnabled ? "#10b981" : "#94a3b8" }} />
+                  <span
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    <FiBell
+                      size={15}
+                      style={{ color: soundEnabled ? "#10b981" : "#94a3b8" }}
+                    />
                     <span>Sound Alerts</span>
                   </span>
                   <span
                     style={{
                       fontSize: 11,
                       fontWeight: 600,
-                      color: soundEnabled ? "#10b981" : (isDark ? "#94a3b8" : "#64748b"),
+                      color: soundEnabled
+                        ? "#10b981"
+                        : isDark
+                          ? "#94a3b8"
+                          : "#64748b",
                     }}
                   >
                     {soundEnabled ? "On" : "Muted"}
@@ -738,15 +1020,19 @@ export default function AdminTopNav({
                     transition: "background 0.15s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                    e.currentTarget.style.background = isDark
+                      ? "rgba(255,255,255,0.05)"
+                      : "#f1f5f9";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "none";
                   }}
                 >
-                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
                     <FiUsers size={15} style={{ color: "#8b5cf6" }} />
-                    <span>Admin Accounts</span>
+                    <span>Accounts</span>
                   </span>
                 </Link>
               </div>
@@ -773,8 +1059,12 @@ export default function AdminTopNav({
                 boxShadow: "0 2px 10px rgba(99, 102, 241, 0.45)",
                 transition: "transform 0.15s ease, box-shadow 0.15s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.08)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
             >
               <FiPlus size={16} strokeWidth={2.6} />
             </button>
@@ -787,9 +1077,13 @@ export default function AdminTopNav({
                   right: 0,
                   width: 200,
                   background: isDark ? "#0d1322" : "#ffffff",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 12,
-                  boxShadow: isDark ? "0 20px 40px -10px rgba(0,0,0,0.8)" : "0 15px 35px -5px rgba(0,0,0,0.12)",
+                  boxShadow: isDark
+                    ? "0 20px 40px -10px rgba(0,0,0,0.8)"
+                    : "0 15px 35px -5px rgba(0,0,0,0.12)",
                   padding: 8,
                   zIndex: 99,
                   display: "flex",
@@ -797,7 +1091,15 @@ export default function AdminTopNav({
                   gap: 3,
                 }}
               >
-                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", padding: "4px 8px", textTransform: "uppercase" }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: isDark ? "#94a3b8" : "#64748b",
+                    padding: "4px 8px",
+                    textTransform: "uppercase",
+                  }}
+                >
                   Quick Action
                 </div>
                 <Link
@@ -920,7 +1222,9 @@ export default function AdminTopNav({
               width: "100%",
               maxWidth: 560,
               background: isDark ? "#0d1322" : "#ffffff",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.12)"
+                : "1px solid #e2e8f0",
               borderRadius: 16,
               boxShadow: isDark
                 ? "0 25px 60px -15px rgba(0, 0, 0, 0.9)"
@@ -934,7 +1238,9 @@ export default function AdminTopNav({
                 display: "flex",
                 alignItems: "center",
                 padding: "14px 18px",
-                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                borderBottom: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.08)"
+                  : "1px solid #e2e8f0",
                 gap: 12,
               }}
             >
@@ -974,7 +1280,14 @@ export default function AdminTopNav({
             {/* Results list */}
             <div style={{ maxHeight: 340, overflowY: "auto", padding: 8 }}>
               {filteredSearchItems.length === 0 ? (
-                <div style={{ padding: "28px 16px", textAlign: "center", color: isDark ? "#64748b" : "#94a3b8", fontSize: 13 }}>
+                <div
+                  style={{
+                    padding: "28px 16px",
+                    textAlign: "center",
+                    color: isDark ? "#64748b" : "#94a3b8",
+                    fontSize: 13,
+                  }}
+                >
                   No matching admin sections found
                 </div>
               ) : (
@@ -993,7 +1306,12 @@ export default function AdminTopNav({
                       justifyContent: "space-between",
                       padding: "10px 12px",
                       borderRadius: 8,
-                      background: pathname === item.href ? (isDark ? "rgba(99, 102, 241, 0.15)" : "#e0e7ff") : "transparent",
+                      background:
+                        pathname === item.href
+                          ? isDark
+                            ? "rgba(99, 102, 241, 0.15)"
+                            : "#e0e7ff"
+                          : "transparent",
                       border: "none",
                       cursor: "pointer",
                       textAlign: "left",
@@ -1001,7 +1319,9 @@ export default function AdminTopNav({
                     }}
                     onMouseEnter={(e) => {
                       if (pathname !== item.href) {
-                        e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.04)" : "#f8fafc";
+                        e.currentTarget.style.background = isDark
+                          ? "rgba(255,255,255,0.04)"
+                          : "#f8fafc";
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -1010,9 +1330,17 @@ export default function AdminTopNav({
                       }
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 10 }}
+                    >
                       <span style={{ color: "#6366f1" }}>{item.icon}</span>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: isDark ? "#f8fafc" : "#0f172a" }}>
+                      <span
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: isDark ? "#f8fafc" : "#0f172a",
+                        }}
+                      >
                         {item.label}
                       </span>
                     </div>
@@ -1020,7 +1348,9 @@ export default function AdminTopNav({
                       style={{
                         fontSize: 11,
                         color: isDark ? "#94a3b8" : "#64748b",
-                        background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
+                        background: isDark
+                          ? "rgba(255, 255, 255, 0.05)"
+                          : "#f1f5f9",
                         padding: "2px 7px",
                         borderRadius: 4,
                       }}
