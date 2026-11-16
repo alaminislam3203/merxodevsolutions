@@ -56,6 +56,8 @@ async function uploadToCloudinary(file) {
 
 // ─── Single image field (URL + upload) ───────────────────────────────────────
 function ImageUploadField({ label, sizeNote, hint, value, onChange, placeholder = "https://..." }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(value || "");
@@ -84,7 +86,7 @@ function ImageUploadField({ label, sizeNote, hint, value, onChange, placeholder 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap", gap: 6 }}>
         <label className="admin-label" style={{ margin: 0 }}>{label}</label>
         {sizeNote && (
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, padding: "2px 8px", borderRadius: 6, background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", border: "1px solid rgba(99, 102, 241, 0.25)", fontFamily: "monospace" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, padding: "2px 8px", borderRadius: 6, background: isDark ? "rgba(99, 102, 241, 0.15)" : "#e0e7ff", color: isDark ? "#a5b4fc" : "#4338ca", border: isDark ? "1px solid rgba(99, 102, 241, 0.25)" : "1px solid #c7d2fe", fontFamily: "monospace", fontWeight: 600 }}>
             <FiCrop size={12} /> {sizeNote}
           </span>
         )}

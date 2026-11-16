@@ -1062,18 +1062,20 @@ export default function UsersManagementPage() {
                             fontSize: 11,
                             fontWeight: 700,
                             background: isMainAdmin
-                              ? "rgba(16, 185, 129, 0.2)"
+                              ? (isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5")
                               : isActive
-                                ? "rgba(34, 197, 94, 0.12)"
-                                : "rgba(239, 68, 68, 0.15)",
+                                ? (isDark ? "rgba(34, 197, 94, 0.12)" : "#dcfce7")
+                                : (isDark ? "rgba(239, 68, 68, 0.15)" : "#fee2e2"),
                             color: isMainAdmin
-                              ? "#34d399"
+                              ? (isDark ? "#34d399" : "#047857")
                               : isActive
-                                ? "#4ade80"
-                                : "#f87171",
+                                ? (isDark ? "#4ade80" : "#15803d")
+                                : (isDark ? "#f87171" : "#dc2626"),
                             border: isMainAdmin
-                              ? "1px solid rgba(16, 185, 129, 0.35)"
-                              : "none",
+                              ? (isDark ? "1px solid rgba(16, 185, 129, 0.35)" : "1px solid #a7f3d0")
+                              : isActive
+                                ? (isDark ? "1px solid rgba(34, 197, 94, 0.25)" : "1px solid #bbf7d0")
+                                : (isDark ? "1px solid rgba(239, 68, 68, 0.25)" : "1px solid #fecaca"),
                           }}
                         >
                           {isMainAdmin ? (
@@ -1099,10 +1101,11 @@ export default function UsersManagementPage() {
                             alignItems: "center",
                             gap: 5,
                             fontSize: 13,
-                            color: "#cbd5e1",
+                            color: isDark ? "#cbd5e1" : "#1e293b",
+                            fontWeight: isDark ? 400 : 600,
                           }}
                         >
-                          <FiStar size={13} style={{ color: "#fbbf24" }} />
+                          <FiStar size={13} style={{ color: "#f59e0b" }} />
                           {user._count?.reviews || 0} reviews
                         </span>
                       </td>
@@ -1111,7 +1114,7 @@ export default function UsersManagementPage() {
                       <td
                         style={{
                           padding: "14px 18px",
-                          color: "#94a3b8",
+                          color: isDark ? "#94a3b8" : "#475569",
                           fontSize: 13,
                         }}
                       >

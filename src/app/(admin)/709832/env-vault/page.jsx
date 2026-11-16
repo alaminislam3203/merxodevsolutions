@@ -1352,8 +1352,8 @@ export default function EnvVaultPage() {
             <div
               style={{
                 padding: "12px 26px",
-                background: "rgba(255, 255, 255, 0.02)",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+                background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -1362,7 +1362,7 @@ export default function EnvVaultPage() {
               }}
             >
               {/* Tab Selector */}
-              <div style={{ display: "flex", gap: 4, background: "rgba(0, 0, 0, 0.4)", padding: 3, borderRadius: 8 }}>
+              <div style={{ display: "flex", gap: 4, background: isDark ? "rgba(0, 0, 0, 0.4)" : "#e2e8f0", padding: 3, borderRadius: 8 }}>
                 <button
                   onClick={() => setPreviewTab("env")}
                   style={{
@@ -1373,7 +1373,7 @@ export default function EnvVaultPage() {
                     border: "none",
                     cursor: "pointer",
                     background: previewTab === "env" ? "#6366f1" : "transparent",
-                    color: previewTab === "env" ? "#fff" : "#94a3b8",
+                    color: previewTab === "env" ? "#fff" : (isDark ? "#94a3b8" : "#475569"),
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
@@ -1392,7 +1392,7 @@ export default function EnvVaultPage() {
                     border: "none",
                     cursor: "pointer",
                     background: previewTab === "example" ? "#0284c7" : "transparent",
-                    color: previewTab === "example" ? "#fff" : "#94a3b8",
+                    color: previewTab === "example" ? "#fff" : (isDark ? "#94a3b8" : "#475569"),
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
@@ -1478,11 +1478,11 @@ export default function EnvVaultPage() {
             {previewTab === "example" && (
               <div
                 style={{
-                  background: "rgba(2, 132, 199, 0.1)",
-                  borderBottom: "1px solid rgba(2, 132, 199, 0.2)",
+                  background: isDark ? "rgba(2, 132, 199, 0.1)" : "#f0f9ff",
+                  borderBottom: isDark ? "1px solid rgba(2, 132, 199, 0.2)" : "1px solid #bae6fd",
                   padding: "8px 26px",
                   fontSize: 12,
-                  color: "#38bdf8",
+                  color: isDark ? "#38bdf8" : "#0369a1",
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
