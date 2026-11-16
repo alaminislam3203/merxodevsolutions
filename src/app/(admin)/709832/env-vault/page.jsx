@@ -324,7 +324,7 @@ export default function EnvVaultPage() {
   };
 
   return (
-    <div style={{ maxWidth: 1300, margin: "0 auto", padding: "28px 24px 80px" }}>
+    <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto", padding: "16px 20px 60px" }}>
       {/* Top Header */}
       <div
         style={{
