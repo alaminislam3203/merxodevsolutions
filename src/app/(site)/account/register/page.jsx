@@ -20,6 +20,7 @@ import {
   FiCheck,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
+import AuthAnimation from '@/components/AuthAnimation';
 
 function RegisterForm() {
   const router = useRouter();
@@ -139,6 +140,11 @@ function RegisterForm() {
             {t('auth.register.heroDesc', 'Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.')}
           </p>
 
+          {/* Themed Lottie Vector Animation */}
+          <div className="mb-8 flex items-center justify-center">
+            <AuthAnimation type="register" />
+          </div>
+
           {/* Benefits List */}
           <div className="space-y-3.5 mb-10">
             {benefits.map((benefit, i) => (
@@ -181,6 +187,11 @@ function RegisterForm() {
       {/* ── Right Registration Panel ── */}
       <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
+          {/* Mobile Animation */}
+          <div className="lg:hidden flex justify-center mb-6">
+            <AuthAnimation type="register" size="sm" />
+          </div>
+
           <div className="mb-8">
             <h2
               suppressHydrationWarning
