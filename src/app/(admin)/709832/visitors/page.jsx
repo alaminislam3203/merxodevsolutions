@@ -33,6 +33,7 @@ import {
   FiLock,
   FiUnlock,
 } from "react-icons/fi";
+import { useTheme } from "@/components/ThemeProvider";
 
 function formatDuration(seconds = 0) {
   const s = Math.max(0, Number(seconds) || 0);
@@ -60,6 +61,8 @@ const PROACTIVE_TEMPLATES = [
 ];
 
 export default function AdminVisitorsPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const router = useRouter();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
