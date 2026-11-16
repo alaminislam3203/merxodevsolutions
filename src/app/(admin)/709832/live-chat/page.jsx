@@ -470,7 +470,7 @@ export default function AdminLiveChatPage() {
             padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 700 }}>
+          <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 700 }}>
             TOTAL CONVERSATIONS
           </div>
           <div
@@ -839,7 +839,7 @@ export default function AdminLiveChatPage() {
                     <p
                       style={{
                         fontSize: 11.5,
-                        color: isDark ? "#94a3b8" : "#64748b",
+                        color: isDark ? "#94a3b8" : "#334155",
                         marginTop: 6,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -856,7 +856,7 @@ export default function AdminLiveChatPage() {
                         justifyContent: "space-between",
                         marginTop: 6,
                         fontSize: 10,
-                        color: isDark ? "#64748b" : "#94a3b8",
+                        color: isDark ? "#64748b" : "#475569",
                       }}
                     >
                       <span>Lang: {(s.language || "en").toUpperCase()}</span>

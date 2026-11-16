@@ -1489,3 +1489,74 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
 html:not(.dark) ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
+
+/* ─── HIGH-CONTRAST LIGHT MODE ENHANCEMENTS ─── */
+html:not(.dark) .admin-badge-purple {
+    background: #e0e7ff !important;
+    color: #4338ca !important;
+    border: 1px solid #c7d2fe !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .admin-badge-green {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .admin-badge-gray {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .project-tech-tag {
+    background: #e0e7ff !important;
+    color: #4338ca !important;
+    border: 1px solid #c7d2fe !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .project-row-slug {
+    color: #475569 !important;
+    font-weight: 600 !important;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+html:not(.dark) .project-row-desc {
+    color: #334155 !important;
+}
+
+html:not(.dark) .project-row-title {
+    color: #0f172a !important;
+}
+
+html:not(.dark) .admin-btn-danger {
+    background: #fee2e2 !important;
+    border: 1px solid #fca5a5 !important;
+    color: #dc2626 !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .admin-btn-danger:hover {
+    background: #fecaca !important;
+    border-color: #f87171 !important;
+    color: #b91c1c !important;
+}
+
+html:not(.dark) .dash-stat-label {
+    color: #475569 !important;
+    font-weight: 600 !important;
+}
+
+html:not(.dark) .dash-action-desc {
+    color: #475569 !important;
+}
+
+html:not(.dark) .admin-page-subtitle {
+    color: #475569 !important;
+}
+
