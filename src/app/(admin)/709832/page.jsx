@@ -420,7 +420,7 @@ function DashboardView({ isTeamMember = false }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(5, 8, 17, 0.78)",
+            background: isDark ? "rgba(5, 8, 17, 0.78)" : "rgba(15, 23, 42, 0.45)",
             backdropFilter: "blur(10px)",
             zIndex: 9999,
             display: "flex",
@@ -436,10 +436,12 @@ function DashboardView({ isTeamMember = false }) {
             style={{
               width: "100%",
               maxWidth: 580,
-              background: "#0c1328",
-              border: "1px solid rgba(99, 102, 241, 0.35)",
+              background: isDark ? "#0c1328" : "#ffffff",
+              border: isDark ? "1px solid rgba(99, 102, 241, 0.35)" : "1px solid rgba(99, 102, 241, 0.25)",
               borderRadius: 16,
-              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(99, 102, 241, 0.2)",
+              boxShadow: isDark
+                ? "0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(99, 102, 241, 0.2)"
+                : "0 25px 60px -15px rgba(0, 0, 0, 0.18), 0 0 35px rgba(99, 102, 241, 0.12)",
               overflow: "hidden",
             }}
           >
@@ -449,7 +451,7 @@ function DashboardView({ isTeamMember = false }) {
                 display: "flex",
                 alignItems: "center",
                 padding: "16px 20px",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(0, 0, 0, 0.08)",
                 gap: 12,
               }}
             >
@@ -465,7 +467,7 @@ function DashboardView({ isTeamMember = false }) {
                   background: "transparent",
                   border: "none",
                   outline: "none",
-                  color: "#f8fafc",
+                  color: isDark ? "#f8fafc" : "#0f172a",
                   fontSize: 15,
                   fontWeight: 500,
                 }}
@@ -473,9 +475,9 @@ function DashboardView({ isTeamMember = false }) {
               <button
                 onClick={() => setCommandOpen(false)}
                 style={{
-                  background: "rgba(255, 255, 255, 0.06)",
+                  background: isDark ? "rgba(255, 255, 255, 0.06)" : "#f1f5f9",
                   border: "none",
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#475569",
                   padding: "4px 8px",
                   borderRadius: 6,
                   cursor: "pointer",
@@ -492,7 +494,7 @@ function DashboardView({ isTeamMember = false }) {
             {/* Filtered Action List */}
             <div style={{ maxHeight: 360, overflowY: "auto", padding: "10px" }}>
               {filteredCommands.length === 0 ? (
-                <div style={{ padding: "30px 20px", textAlign: "center", color: "#64748b", fontSize: 13 }}>
+                <div style={{ padding: "30px 20px", textAlign: "center", color: isDark ? "#64748b" : "#94a3b8", fontSize: 13 }}>
                   No commands matching &quot;{commandSearch}&quot;
                 </div>
               ) : (
@@ -512,7 +514,7 @@ function DashboardView({ isTeamMember = false }) {
                       background: "transparent",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(99, 102, 241, 0.15)";
+                      e.currentTarget.style.background = isDark ? "rgba(99, 102, 241, 0.15)" : "#f1f5f9";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
@@ -524,8 +526,8 @@ function DashboardView({ isTeamMember = false }) {
                           width: 36,
                           height: 36,
                           borderRadius: 10,
-                          background: "rgba(255, 255, 255, 0.04)",
-                          color: "#818cf8",
+                          background: isDark ? "rgba(255, 255, 255, 0.04)" : "#f1f5f9",
+                          color: "#6366f1",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -534,15 +536,15 @@ function DashboardView({ isTeamMember = false }) {
                         {cmd.icon}
                       </div>
                       <div>
-                        <div style={{ color: "#f8fafc", fontSize: 14, fontWeight: 600 }}>{cmd.label}</div>
-                        <div style={{ color: "#94a3b8", fontSize: 12 }}>{cmd.desc}</div>
+                        <div style={{ color: isDark ? "#f8fafc" : "#0f172a", fontSize: 14, fontWeight: 600 }}>{cmd.label}</div>
+                        <div style={{ color: isDark ? "#94a3b8" : "#64748b", fontSize: 12 }}>{cmd.desc}</div>
                       </div>
                     </div>
                     <span
                       style={{
                         fontSize: 11,
-                        background: "rgba(255, 255, 255, 0.06)",
-                        color: "#94a3b8",
+                        background: isDark ? "rgba(255, 255, 255, 0.06)" : "#f1f5f9",
+                        color: isDark ? "#94a3b8" : "#475569",
                         padding: "3px 8px",
                         borderRadius: 6,
                         fontWeight: 600,
@@ -558,15 +560,15 @@ function DashboardView({ isTeamMember = false }) {
             <div
               style={{
                 padding: "10px 18px",
-                borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-                background: "rgba(0, 0, 0, 0.3)",
+                borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(0, 0, 0, 0.06)",
+                background: isDark ? "rgba(0, 0, 0, 0.3)" : "#f8fafc",
                 display: "flex",
                 justifyContent: "space-between",
                 fontSize: 11,
-                color: "#64748b",
+                color: isDark ? "#64748b" : "#94a3b8",
               }}
             >
-              <span>Navigation shortcut: <b style={{ color: "#94a3b8" }}>Ctrl + K</b> anywhere</span>
+              <span>Navigation shortcut: <b style={{ color: isDark ? "#94a3b8" : "#475569" }}>Ctrl + K</b> anywhere</span>
               <span>Merxo Command Center</span>
             </div>
           </div>
