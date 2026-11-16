@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
@@ -26,6 +27,16 @@ function ResetPasswordContent() {
   const email = searchParams.get('email') || '';
   const code = searchParams.get('code') || '';
   const { t } = useSafeTranslation();
+
+  const { data: session, status } = useSession();
+
+  // If already logged in, redirect away
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const dest = session?.user?.role === 'ADMIN' ? '/709832' : '/';
+      router.replace(dest);
+    }
+  }, [status, session, router]);
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -83,6 +94,14 @@ function ResetPasswordContent() {
       setLoading(false);
     }
   };
+
+  if (status === 'loading' || status === 'authenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#060b19]">
+        <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row relative overflow-hidden bg-slate-50 dark:bg-[#060b19] mt-12 sm:mt-6">
