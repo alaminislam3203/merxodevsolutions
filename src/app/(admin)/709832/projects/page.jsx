@@ -530,6 +530,8 @@ function KeyFeaturesBuilder({ items = [], onChangeItems }) {
 
 
 export default function ProjectsPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);

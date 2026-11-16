@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { useTheme } from "@/components/ThemeProvider";
 import { showToast, confirmToast } from "@/lib/toast";
 
 export default function ImagesPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const { data: session } = useSession();
   const emailLower = String(session?.user?.email || "").toLowerCase().trim();
   const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
@@ -83,7 +86,7 @@ export default function ImagesPage() {
       </div>
 
       <div className="admin-card" style={{ marginBottom: 28 }}>
-        <h3 style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: 15, fontWeight: 600 }}>Upload New Image</h3>
+        <h3 style={{ color: isDark ? "#94a3b8" : "#0f172a", margin: "0 0 16px", fontSize: 15, fontWeight: 600 }}>Upload New Image</h3>
         {!preview ? (
           <div
             className={"upload-dropzone" + (dragOver ? " upload-dropzone-active" : "")}
@@ -125,8 +128,8 @@ export default function ImagesPage() {
         )}
       </div>
 
-      <h3 style={{ color: "#64748b", margin: "0 0 16px", fontSize: 15, fontWeight: 600 }}>
-        Media Library {!loading && <span style={{ color: "#334155" }}>({images.length} files)</span>}
+      <h3 style={{ color: isDark ? "#64748b" : "#334155", margin: "0 0 16px", fontSize: 15, fontWeight: 600 }}>
+        Media Library {!loading && <span style={{ color: isDark ? "#334155" : "#64748b" }}>({images.length} files)</span>}
       </h3>
 
       {loading ? (
