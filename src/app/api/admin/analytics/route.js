@@ -77,13 +77,24 @@ export async function GET(request) {
       });
     } catch (_) {}
 
-    // 5. Recent Visitor Logs (last 15 visits)
+    // 5. Recent Visitor Logs & Active Visitors
     let recentLogs = [];
+    let activeNow = 1;
     try {
-      recentLogs = await prisma.visitorLog.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 15,
-      });
+      const fifteenMinsAgo = new Date(Date.now() - 15 * 60 * 1000);
+      const [logs, activeCount] = await Promise.all([
+        prisma.visitorLog.findMany({
+          orderBy: { createdAt: "desc" },
+          take: 15,
+        }),
+        prisma.visitorLog.count({
+          where: {
+            createdAt: { gte: fifteenMinsAgo },
+          },
+        }),
+      ]);
+      recentLogs = logs;
+      activeNow = Math.max(1, activeCount);
     } catch (_) {}
 
     // 6. Top Visited Pages & Device Stats
@@ -129,6 +140,7 @@ export async function GET(request) {
         totalUniqueVisits: totalUnique,
         totalPageViews: totalViews,
       },
+      activeNow,
       chartData,
       topPages,
       deviceBreakdown,
