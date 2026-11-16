@@ -175,15 +175,15 @@ export default function ImagesPage() {
       {selectedImage && (
         <div className="admin-modal-overlay" onClick={() => setSelectedImage(null)}>
           <div className="admin-modal" style={{ maxWidth: 680 }} onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage.url} alt={selectedImage.altText} style={{ width: "100%", borderRadius: 12, marginBottom: 16, maxHeight: 320, objectFit: "contain", background: "rgba(0,0,0,0.3)" }} />
+            <img src={selectedImage.url} alt={selectedImage.altText} style={{ width: "100%", borderRadius: 12, marginBottom: 16, maxHeight: 320, objectFit: "contain", background: isDark ? "rgba(0,0,0,0.3)" : "#f1f5f9" }} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div><span className="admin-label">Alt Text</span><p style={{margin:0,color:"#94a3b8",fontSize:14}}>{selectedImage.altText || "-"}</p></div>
-              <div><span className="admin-label">Caption</span><p style={{margin:0,color:"#94a3b8",fontSize:14}}>{selectedImage.caption || "-"}</p></div>
-              {selectedImage.width && <div><span className="admin-label">Dimensions</span><p style={{margin:0,color:"#94a3b8",fontSize:14}}>{selectedImage.width} x {selectedImage.height}px</p></div>}
-              {selectedImage.fileSize && <div><span className="admin-label">File Size</span><p style={{margin:0,color:"#94a3b8",fontSize:14}}>{(selectedImage.fileSize / 1024).toFixed(1)} KB</p></div>}
+              <div><span className="admin-label">Alt Text</span><p style={{margin:0,color:isDark ? "#94a3b8" : "#475569",fontSize:14}}>{selectedImage.altText || "-"}</p></div>
+              <div><span className="admin-label">Caption</span><p style={{margin:0,color:isDark ? "#94a3b8" : "#475569",fontSize:14}}>{selectedImage.caption || "-"}</p></div>
+              {selectedImage.width && <div><span className="admin-label">Dimensions</span><p style={{margin:0,color:isDark ? "#94a3b8" : "#475569",fontSize:14}}>{selectedImage.width} x {selectedImage.height}px</p></div>}
+              {selectedImage.fileSize && <div><span className="admin-label">File Size</span><p style={{margin:0,color:isDark ? "#94a3b8" : "#475569",fontSize:14}}>{(selectedImage.fileSize / 1024).toFixed(1)} KB</p></div>}
             </div>
-            <div style={{ marginTop: 16, padding: "10px 14px", background:"rgba(255,255,255,.03)", borderRadius: 8, border:"1px solid rgba(255,255,255,.06)" }}>
-              <code style={{ fontSize: 12, color: "#64748b", wordBreak: "break-all" }}>{selectedImage.url}</code>
+            <div style={{ marginTop: 16, padding: "10px 14px", background: isDark ? "rgba(255,255,255,.03)" : "#f8fafc", borderRadius: 8, border: isDark ? "1px solid rgba(255,255,255,.06)" : "1px solid #e2e8f0" }}>
+              <code style={{ fontSize: 12, color: isDark ? "#64748b" : "#4338ca", wordBreak: "break-all" }}>{selectedImage.url}</code>
             </div>
             <div className="admin-modal-actions">
               <button className="admin-btn admin-btn-secondary" onClick={() => setSelectedImage(null)}>Close</button>
