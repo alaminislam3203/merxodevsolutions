@@ -608,7 +608,7 @@ export default function UsersManagementPage() {
                 style={{
                   background:
                     roleFilter === rItem.id ? "#6366f1" : "transparent",
-                  color: roleFilter === rItem.id ? "#fff" : "#94a3b8",
+                  color: roleFilter === rItem.id ? "#fff" : (isDark ? "#94a3b8" : "#475569"),
                   border: "none",
                   padding: "6px 14px",
                   borderRadius: 8,
@@ -626,10 +626,10 @@ export default function UsersManagementPage() {
           <div
             style={{
               display: "flex",
-              background: "rgba(255,255,255,0.04)",
+              background: isDark ? "rgba(255,255,255,0.04)" : "#f1f5f9",
               padding: 3,
               borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
             }}
           >
             {[
@@ -643,7 +643,7 @@ export default function UsersManagementPage() {
                 style={{
                   background:
                     statusFilter === st.id ? "#3b82f6" : "transparent",
-                  color: statusFilter === st.id ? "#fff" : "#94a3b8",
+                  color: statusFilter === st.id ? "#fff" : (isDark ? "#94a3b8" : "#475569"),
                   border: "none",
                   padding: "6px 12px",
                   borderRadius: 8,
@@ -662,9 +662,9 @@ export default function UsersManagementPage() {
             type="button"
             onClick={() => exportRecordsToFile(users, "merxodev_users", "csv")}
             style={{
-              background: "rgba(16, 185, 129, 0.14)",
-              color: "#34d399",
-              border: "1px solid rgba(16, 185, 129, 0.3)",
+              background: isDark ? "rgba(16, 185, 129, 0.14)" : "#dcfce7",
+              color: isDark ? "#34d399" : "#15803d",
+              border: isDark ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid #86efac",
               padding: "7px 14px",
               borderRadius: 10,
               fontSize: 12.5,
@@ -988,9 +988,9 @@ export default function UsersManagementPage() {
                               borderRadius: 6,
                               fontSize: 12,
                               fontWeight: 700,
-                              background: "rgba(6, 182, 212, 0.15)",
-                              color: "#22d3ee",
-                              border: "1px solid rgba(6, 182, 212, 0.35)",
+                              background: isDark ? "rgba(6, 182, 212, 0.15)" : "#e0f2fe",
+                              color: isDark ? "#22d3ee" : "#0284c7",
+                              border: isDark ? "1px solid rgba(6, 182, 212, 0.35)" : "1px solid #bae6fd",
                             }}
                           >
                             <FiUserCheck size={12} />
@@ -1007,12 +1007,12 @@ export default function UsersManagementPage() {
                               fontSize: 12,
                               fontWeight: 700,
                               background: isAdmin
-                                ? "rgba(245, 158, 11, 0.15)"
-                                : "rgba(99, 102, 241, 0.15)",
-                              color: isAdmin ? "#fbbf24" : "#818cf8",
+                                ? (isDark ? "rgba(245, 158, 11, 0.15)" : "#fef3c7")
+                                : (isDark ? "rgba(99, 102, 241, 0.15)" : "#e0e7ff"),
+                              color: isAdmin ? (isDark ? "#fbbf24" : "#b45309") : (isDark ? "#818cf8" : "#4338ca"),
                               border: isAdmin
-                                ? "1px solid rgba(245,158,11,0.3)"
-                                : "1px solid rgba(99,102,241,0.3)",
+                                ? (isDark ? "1px solid rgba(245,158,11,0.3)" : "1px solid #fde68a")
+                                : (isDark ? "1px solid rgba(99,102,241,0.3)" : "1px solid #c7d2fe"),
                             }}
                           >
                             {isAdmin ? (
@@ -1037,12 +1037,12 @@ export default function UsersManagementPage() {
                             fontSize: 11,
                             fontWeight: 700,
                             background: is2FA
-                              ? "rgba(16, 185, 129, 0.15)"
-                              : "rgba(148, 163, 184, 0.1)",
-                            color: is2FA ? "#34d399" : "#94a3b8",
+                              ? (isDark ? "rgba(16, 185, 129, 0.15)" : "#dcfce7")
+                              : (isDark ? "rgba(148, 163, 184, 0.1)" : "#f1f5f9"),
+                            color: is2FA ? (isDark ? "#34d399" : "#15803d") : (isDark ? "#94a3b8" : "#475569"),
                             border: is2FA
-                              ? "1px solid rgba(16,185,129,0.3)"
-                              : "1px solid rgba(148,163,184,0.2)",
+                              ? (isDark ? "1px solid rgba(16,185,129,0.3)" : "1px solid #86efac")
+                              : (isDark ? "1px solid rgba(148,163,184,0.2)" : "1px solid #cbd5e1"),
                           }}
                         >
                           <FiLock size={11} />

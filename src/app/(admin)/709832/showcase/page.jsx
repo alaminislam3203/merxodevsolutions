@@ -910,6 +910,32 @@ export default function AdminShowcasePage() {
         html:not(.dark) .banner-toggle-label {
           color: #475569;
         }
+        html:not(.dark) .showcase-btn-edit {
+          background: #e0e7ff;
+          border-color: #c7d2fe;
+          color: #4338ca;
+          font-weight: 600;
+        }
+        html:not(.dark) .showcase-btn-edit:hover {
+          background: #c7d2fe;
+          color: #312e81;
+        }
+        html:not(.dark) .showcase-btn-delete {
+          background: #fee2e2;
+          border-color: #fca5a5;
+          color: #dc2626;
+          font-weight: 600;
+        }
+        html:not(.dark) .showcase-btn-delete:hover {
+          background: #fecaca;
+          color: #b91c1c;
+        }
+        html:not(.dark) .showcase-item-ratio {
+          color: #475569;
+        }
+        html:not(.dark) .showcase-item-desc {
+          color: #334155;
+        }
       `}</style>
     </div>
   );

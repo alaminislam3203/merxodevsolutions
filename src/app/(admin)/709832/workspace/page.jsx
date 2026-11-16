@@ -529,7 +529,8 @@ export default function AdminWorkspacePage() {
                       gridTemplateColumns: "repeat(4, 1fr)",
                       gap: 6,
                       fontSize: 10.5,
-                      color: "#94a3b8",
+                      color: isDark ? "#94a3b8" : "#475569",
+                      fontWeight: 600,
                       background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                       padding: "8px 10px",
                       borderRadius: 10,
@@ -584,7 +585,7 @@ export default function AdminWorkspacePage() {
                       <FiExternalLink size={13} /> Demo Link
                     </a>
                   ) : (
-                    <span style={{ fontSize: 11.5, color: "#64748b" }}>
+                    <span style={{ fontSize: 11.5, color: isDark ? "#64748b" : "#475569" }}>
                       {lead.serviceType}
                     </span>
                   )}
@@ -631,7 +632,7 @@ export default function AdminWorkspacePage() {
             <h3 style={{ color: isDark ? "#f8fafc" : "#0f172a", margin: "0 0 6px" }}>
               No Team Tasks Assigned Yet
             </h3>
-            <p style={{ color: "#94a3b8", fontSize: 13 }}>
+            <p style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 13 }}>
               {isAdmin
                 ? "Assign tasks to any team-member using the button above."
                 : "You have no pending tasks assigned by Admin right now."}

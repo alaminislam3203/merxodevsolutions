@@ -1452,10 +1452,11 @@ html:not(.dark) .admin-modal-overlay {
 }
 
 html:not(.dark) .admin-top-pill-btn {
-    color: #334155;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    color: #1e293b;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 html:not(.dark) .admin-top-pill-btn:hover {
@@ -1559,4 +1560,28 @@ html:not(.dark) .dash-action-desc {
 html:not(.dark) .admin-page-subtitle {
     color: #475569 !important;
 }
+
+html:not(.dark) table th,
+html:not(.dark) th {
+    color: #475569 !important;
+    font-weight: 700 !important;
+}
+
+html:not(.dark) table td {
+    color: #1e293b;
+}
+
+html:not(.dark) .admin-empty p {
+    color: #475569 !important;
+}
+
+html:not(.dark) .admin-empty h3 {
+    color: #0f172a !important;
+}
+
+html:not(.dark) .admin-label {
+    color: #334155 !important;
+    font-weight: 600 !important;
+}
+
 
