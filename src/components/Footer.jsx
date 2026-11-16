@@ -204,10 +204,6 @@ export default function Footer() {
             ))}
             {[
               {
-                href: "/locations",
-                label: "Locations (৬৪ জেলা কভারেজ)",
-              },
-              {
                 href: "/cost-calculator",
                 label: t("footerLinks.costCalculator", {
                   defaultValue: "Cost Calculator",
