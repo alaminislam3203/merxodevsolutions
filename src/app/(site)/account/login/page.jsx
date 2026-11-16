@@ -22,7 +22,7 @@ import {
   FiRotateCw,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
-import AuthAnimation from '@/components/AuthAnimation';
+import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -250,7 +250,7 @@ function LoginForm() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-indigo-300/15 dark:bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
       {/* ── Left Showcase Panel (Desktop) ── */}
-      <div className="hidden lg:flex lg:w-1/2 relative z-10 flex-col justify-between p-12 xl:p-16">
+      <div className="hidden lg:flex lg:flex-1 relative z-10 flex-col justify-between p-12 xl:p-16">
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
@@ -269,11 +269,6 @@ function LoginForm() {
           <p className="text-zinc-600 dark:text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             {t('auth.login.heroDesc', 'Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.')}
           </p>
-
-          {/* Themed Lottie Vector Animation */}
-          <div className="mb-8 flex items-center justify-center">
-            <AuthAnimation type="login" />
-          </div>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800/80">
