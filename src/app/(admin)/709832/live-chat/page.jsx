@@ -581,8 +581,9 @@ export default function AdminLiveChatPage() {
         {/* Left Column: Visitor Sessions List */}
         <div
           style={{
-            background: "rgba(15, 23, 42, 0.7)",
-            border: "1px solid rgba(255, 255, 255, 0.09)",
+            background: isDark ? "rgba(15, 23, 42, 0.7)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.09)" : "1px solid #e2e8f0",
+            boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
             borderRadius: 18,
             display: "flex",
             flexDirection: "column",
@@ -592,13 +593,13 @@ export default function AdminLiveChatPage() {
           <div
             style={{
               padding: "14px 16px",
-              borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+              borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc" }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>
               Visitor Inbox ({sessions.length})
             </span>
             <button
@@ -608,7 +609,7 @@ export default function AdminLiveChatPage() {
               style={{
                 background: "transparent",
                 border: "none",
-                color: "#94a3b8",
+                color: isDark ? "#94a3b8" : "#64748b",
                 cursor: "pointer",
               }}
             >
@@ -622,7 +623,7 @@ export default function AdminLiveChatPage() {
                 style={{
                   padding: 24,
                   textAlign: "center",
-                  color: "#64748b",
+                  color: isDark ? "#64748b" : "#64748b",
                   fontSize: 13,
                 }}
               >
@@ -633,7 +634,7 @@ export default function AdminLiveChatPage() {
                 style={{
                   padding: 32,
                   textAlign: "center",
-                  color: "#64748b",
+                  color: isDark ? "#64748b" : "#64748b",
                   fontSize: 13,
                 }}
               >
@@ -659,15 +660,15 @@ export default function AdminLiveChatPage() {
                       cursor: "pointer",
                       transition: "all 0.15s ease",
                       background: isSelected
-                        ? "rgba(99, 102, 241, 0.18)"
+                        ? (isDark ? "rgba(99, 102, 241, 0.18)" : "#e0e7ff")
                         : s.needsHuman
-                          ? "rgba(245, 158, 11, 0.1)"
-                          : "rgba(255, 255, 255, 0.025)",
+                          ? (isDark ? "rgba(245, 158, 11, 0.1)" : "#fffbeb")
+                          : (isDark ? "rgba(255, 255, 255, 0.025)" : "#f8fafc"),
                       border: isSelected
-                        ? "1px solid rgba(99, 102, 241, 0.5)"
+                        ? (isDark ? "1px solid rgba(99, 102, 241, 0.5)" : "1px solid #818cf8")
                         : s.needsHuman
-                          ? "1px solid rgba(245, 158, 11, 0.4)"
-                          : "1px solid rgba(255, 255, 255, 0.06)",
+                          ? (isDark ? "1px solid rgba(245, 158, 11, 0.4)" : "1px solid #fde68a")
+                          : (isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0"),
                     }}
                   >
                     <div
@@ -705,8 +706,8 @@ export default function AdminLiveChatPage() {
                               width: 28,
                               height: 28,
                               borderRadius: 9,
-                              background: "rgba(99, 102, 241, 0.2)",
-                              color: "#a5b4fc",
+                              background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
+                              color: isDark ? "#a5b4fc" : "#4338ca",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -722,7 +723,7 @@ export default function AdminLiveChatPage() {
                           style={{
                             fontSize: 13,
                             fontWeight: 700,
-                            color: "#f8fafc",
+                            color: isDark ? "#f8fafc" : "#0f172a",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
@@ -759,9 +760,9 @@ export default function AdminLiveChatPage() {
                             padding: "2px 6px",
                             borderRadius: 6,
                             background: isLive
-                              ? "rgba(16, 185, 129, 0.2)"
-                              : "rgba(99, 102, 241, 0.2)",
-                            color: isLive ? "#34d399" : "#a5b4fc",
+                              ? (isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5")
+                              : (isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff"),
+                            color: isLive ? (isDark ? "#34d399" : "#047857") : (isDark ? "#a5b4fc" : "#4338ca"),
                           }}
                         >
                           {isLive ? "Live Team" : "AI MODE"}
@@ -802,8 +803,8 @@ export default function AdminLiveChatPage() {
                           <span
                             style={{
                               fontSize: 10.5,
-                              color: "#34d399",
-                              background: "rgba(16, 185, 129, 0.12)",
+                              color: isDark ? "#34d399" : "#047857",
+                              background: isDark ? "rgba(16, 185, 129, 0.12)" : "#d1fae5",
                               padding: "1px 7px",
                               borderRadius: 6,
                               display: "inline-flex",
@@ -819,8 +820,8 @@ export default function AdminLiveChatPage() {
                           <span
                             style={{
                               fontSize: 10.5,
-                              color: "#38bdf8",
-                              background: "rgba(56, 189, 248, 0.12)",
+                              color: isDark ? "#38bdf8" : "#0284c7",
+                              background: isDark ? "rgba(56, 189, 248, 0.12)" : "#e0f2fe",
                               padding: "1px 7px",
                               borderRadius: 6,
                               display: "inline-flex",
@@ -838,7 +839,7 @@ export default function AdminLiveChatPage() {
                     <p
                       style={{
                         fontSize: 11.5,
-                        color: "#94a3b8",
+                        color: isDark ? "#94a3b8" : "#64748b",
                         marginTop: 6,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -855,7 +856,7 @@ export default function AdminLiveChatPage() {
                         justifyContent: "space-between",
                         marginTop: 6,
                         fontSize: 10,
-                        color: "#64748b",
+                        color: isDark ? "#64748b" : "#94a3b8",
                       }}
                     >
                       <span>Lang: {(s.language || "en").toUpperCase()}</span>
@@ -871,8 +872,9 @@ export default function AdminLiveChatPage() {
         {/* Right Column: Active Conversation & Live Team Controls */}
         <div
           style={{
-            background: "rgba(15, 23, 42, 0.7)",
-            border: "1px solid rgba(255, 255, 255, 0.09)",
+            background: isDark ? "rgba(15, 23, 42, 0.7)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255, 255, 255, 0.09)" : "1px solid #e2e8f0",
+            boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
             borderRadius: 18,
             display: "flex",
             flexDirection: "column",
@@ -887,16 +889,16 @@ export default function AdminLiveChatPage() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#64748b",
+                color: isDark ? "#64748b" : "#64748b",
                 padding: 32,
                 textAlign: "center",
               }}
             >
-              <FaRobot size={40} style={{ marginBottom: 12, opacity: 0.35 }} />
-              <div style={{ fontSize: 15, fontWeight: 700, color: "#cbd5e1" }}>
+              <FaRobot size={40} style={{ marginBottom: 12, opacity: 0.35, color: isDark ? undefined : "#6366f1" }} />
+              <div style={{ fontSize: 15, fontWeight: 700, color: isDark ? "#cbd5e1" : "#0f172a" }}>
                 Select a Visitor Conversation
               </div>
-              <p style={{ fontSize: 12.5, maxWidth: 380, marginTop: 6 }}>
+              <p style={{ fontSize: 12.5, maxWidth: 380, marginTop: 6, color: isDark ? "#94a3b8" : "#64748b" }}>
                 Click any visitor on the left to view what they are asking
                 MerxoDev AI, or click &ldquo;Take Over&rdquo; to reply live as
                 Admin.
@@ -908,13 +910,13 @@ export default function AdminLiveChatPage() {
               <div
                 style={{
                   padding: "14px 18px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: 12,
-                  background: "rgba(255, 255, 255, 0.02)",
+                  background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
                 }}
               >
                 <div>
@@ -939,8 +941,8 @@ export default function AdminLiveChatPage() {
                           width: 34,
                           height: 34,
                           borderRadius: 10,
-                          background: "rgba(99, 102, 241, 0.2)",
-                          color: "#a5b4fc",
+                          background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
+                          color: isDark ? "#a5b4fc" : "#4338ca",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -957,7 +959,7 @@ export default function AdminLiveChatPage() {
                       style={{
                         fontSize: 15,
                         fontWeight: 800,
-                        color: "#f8fafc",
+                        color: isDark ? "#f8fafc" : "#0f172a",
                       }}
                     >
                       {activeSession.visitorName}
@@ -973,10 +975,10 @@ export default function AdminLiveChatPage() {
                         gap: 5,
                         background:
                           activeSession.mode === "live"
-                            ? "rgba(16, 185, 129, 0.2)"
-                            : "rgba(99, 102, 241, 0.2)",
+                            ? (isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5")
+                            : (isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff"),
                         color:
-                          activeSession.mode === "live" ? "#34d399" : "#a5b4fc",
+                          activeSession.mode === "live" ? (isDark ? "#34d399" : "#047857") : (isDark ? "#a5b4fc" : "#4338ca"),
                       }}
                     >
                       {activeSession.mode === "live" ? (
@@ -1000,7 +1002,7 @@ export default function AdminLiveChatPage() {
                       gap: 12,
                       marginTop: 4,
                       fontSize: 11.5,
-                      color: "#94a3b8",
+                      color: isDark ? "#94a3b8" : "#64748b",
                     }}
                   >
                     {activeSession.visitorPhone && (
@@ -1009,7 +1011,7 @@ export default function AdminLiveChatPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                          color: "#34d399",
+                          color: isDark ? "#34d399" : "#047857",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 4,
@@ -1025,7 +1027,7 @@ export default function AdminLiveChatPage() {
                       <a
                         href={`mailto:${activeSession.visitorEmail}`}
                         style={{
-                          color: "#38bdf8",
+                          color: isDark ? "#38bdf8" : "#0284c7",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 4,
@@ -1040,7 +1042,7 @@ export default function AdminLiveChatPage() {
                     {(visitorIntel?.ip || activeSession?.visitorIp) && (
                       <span
                         style={{
-                          color: "#38bdf8",
+                          color: isDark ? "#38bdf8" : "#0284c7",
                           fontFamily: "monospace",
                           fontWeight: 600,
                         }}
@@ -1051,7 +1053,7 @@ export default function AdminLiveChatPage() {
                     {visitorIntel?.city && (
                       <span
                         style={{
-                          color: "#fbbf24",
+                          color: isDark ? "#fbbf24" : "#b45309",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 3,
@@ -1064,7 +1066,7 @@ export default function AdminLiveChatPage() {
                     {visitorIntel?.os && (
                       <span
                         style={{
-                          color: "#cbd5e1",
+                          color: isDark ? "#cbd5e1" : "#475569",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 3,
@@ -1077,7 +1079,7 @@ export default function AdminLiveChatPage() {
                     {visitorIntel?.currentPage && (
                       <span
                         style={{
-                          color: "#10b981",
+                          color: isDark ? "#10b981" : "#059669",
                           fontFamily: "monospace",
                           display: "inline-flex",
                           alignItems: "center",
