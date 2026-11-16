@@ -310,39 +310,61 @@ function AdminSidebar({
       }
     >
       <div className="admin-sidebar-brand">
-        <div
-          className="admin-sidebar-logo"
+        <Link
+          href="/709832"
           style={{
-            overflow: "hidden",
-            background: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            textDecoration: "none",
+            minWidth: 0,
+            flex: collapsed ? "none" : 1,
           }}
+          title="MerxoDev Admin Dashboard"
         >
-          <img
-            src="/favicon.png"
-            alt="MerxoDev Favicon"
-            style={{ width: 26, height: 26, objectFit: "contain" }}
-          />
-        </div>
-        {!collapsed && (
           <div
-            className="admin-sidebar-brand-text"
-            style={{ display: "flex", alignItems: "center" }}
+            className="admin-sidebar-logo"
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 8,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              background: theme === "dark" ? "rgba(255, 255, 255, 0.06)" : "#ffffff",
+              border: theme === "dark" ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
+              boxShadow: theme === "dark" ? "0 2px 8px rgba(0, 0, 0, 0.4)" : "0 2px 6px rgba(0, 0, 0, 0.06)",
+              overflow: "hidden",
+            }}
           >
             <img
-              src="/logo.png"
-              alt="MerxoDev Solutions"
-              style={{ height: 26, maxWidth: 130, objectFit: "contain" }}
+              src="/favicon.png"
+              alt="MerxoDev Favicon"
+              style={{ width: 20, height: 20, objectFit: "contain" }}
             />
           </div>
-        )}
+          {!collapsed && (
+            <div
+              className="admin-sidebar-brand-text"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <img
+                src="/logo.png"
+                alt="MerxoDev Solutions"
+                style={{ height: 20, maxWidth: 120, objectFit: "contain" }}
+              />
+            </div>
+          )}
+        </Link>
         <button
           className="admin-sidebar-collapse-btn"
           onClick={() => setCollapsed(!collapsed)}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           <svg
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
