@@ -28,6 +28,7 @@ import {
 import { MdSupportAgent } from "react-icons/md";
 import { FaWhatsapp, FaRobot } from "react-icons/fa";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
+import { useTheme } from "@/components/ThemeProvider";
 
 const QUICK_ADMIN_REPLIES = [
   "আসসালামু আলাইকুম! আমি লাইভে আছি, আপনার প্রজেক্ট সম্পর্কে কীভাবে সাহায্য করতে পারি?",
@@ -37,6 +38,8 @@ const QUICK_ADMIN_REPLIES = [
 ];
 
 export default function AdminLiveChatPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const { data: session } = useSession();
   const isTeamMember = session?.user?.role === "TEAM_MEMBER";
   const [sessions, setSessions] = useState([]);
@@ -385,12 +388,12 @@ export default function AdminLiveChatPage() {
               fontWeight: 600,
               cursor: "pointer",
               background: soundEnabled
-                ? "rgba(16, 185, 129, 0.14)"
-                : "rgba(255, 255, 255, 0.05)",
-              color: soundEnabled ? "#34d399" : "#94a3b8",
+                ? (isDark ? "rgba(16, 185, 129, 0.14)" : "#ecfdf5")
+                : (isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9"),
+              color: soundEnabled ? (isDark ? "#34d399" : "#059669") : (isDark ? "#94a3b8" : "#64748b"),
               border: soundEnabled
-                ? "1px solid rgba(16, 185, 129, 0.35)"
-                : "1px solid rgba(255, 255, 255, 0.1)",
+                ? (isDark ? "1px solid rgba(16, 185, 129, 0.35)" : "1px solid #a7f3d0")
+                : (isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1"),
             }}
           >
             {soundEnabled ? <FiVolume2 size={16} /> : <FiVolumeX size={16} />}
@@ -414,9 +417,9 @@ export default function AdminLiveChatPage() {
               fontSize: 12.5,
               fontWeight: 600,
               cursor: "pointer",
-              background: "rgba(245, 158, 11, 0.14)",
-              color: "#fbbf24",
-              border: "1px solid rgba(245, 158, 11, 0.3)",
+              background: isDark ? "rgba(245, 158, 11, 0.14)" : "#fffbeb",
+              color: isDark ? "#fbbf24" : "#b45309",
+              border: isDark ? "1px solid rgba(245, 158, 11, 0.3)" : "1px solid #fde68a",
             }}
           >
             <FiBell size={15} />
@@ -460,20 +463,21 @@ export default function AdminLiveChatPage() {
       >
         <div
           style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: isDark ? "rgba(255,255,255,0.03)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+            boxShadow: isDark ? "none" : "0 2px 10px rgba(0,0,0,0.04)",
             borderRadius: 14,
             padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>
+          <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 700 }}>
             TOTAL CONVERSATIONS
           </div>
           <div
             style={{
               fontSize: 24,
               fontWeight: 800,
-              color: "#f8fafc",
+              color: isDark ? "#f8fafc" : "#0f172a",
               marginTop: 4,
             }}
           >
@@ -483,20 +487,21 @@ export default function AdminLiveChatPage() {
 
         <div
           style={{
-            background: "rgba(245, 158, 11, 0.08)",
-            border: "1px solid rgba(245, 158, 11, 0.25)",
+            background: isDark ? "rgba(245, 158, 11, 0.08)" : "#fffbeb",
+            border: isDark ? "1px solid rgba(245, 158, 11, 0.25)" : "1px solid #fde68a",
+            boxShadow: isDark ? "none" : "0 2px 10px rgba(0,0,0,0.04)",
             borderRadius: 14,
             padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: "#fbbf24", fontWeight: 700 }}>
+          <div style={{ fontSize: 11, color: isDark ? "#fbbf24" : "#b45309", fontWeight: 700 }}>
             WAITING FOR Live Team
           </div>
           <div
             style={{
               fontSize: 24,
               fontWeight: 800,
-              color: "#fbbf24",
+              color: isDark ? "#fbbf24" : "#d97706",
               marginTop: 4,
             }}
           >
@@ -506,20 +511,21 @@ export default function AdminLiveChatPage() {
 
         <div
           style={{
-            background: "rgba(16, 185, 129, 0.08)",
-            border: "1px solid rgba(16, 185, 129, 0.25)",
+            background: isDark ? "rgba(16, 185, 129, 0.08)" : "#ecfdf5",
+            border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid #a7f3d0",
+            boxShadow: isDark ? "none" : "0 2px 10px rgba(0,0,0,0.04)",
             borderRadius: 14,
             padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: "#34d399", fontWeight: 700 }}>
+          <div style={{ fontSize: 11, color: isDark ? "#34d399" : "#047857", fontWeight: 700 }}>
             ACTIVE Live Team CHATS
           </div>
           <div
             style={{
               fontSize: 24,
               fontWeight: 800,
-              color: "#34d399",
+              color: isDark ? "#34d399" : "#059669",
               marginTop: 4,
             }}
           >
@@ -529,27 +535,28 @@ export default function AdminLiveChatPage() {
 
         <div
           style={{
-            background: "rgba(99, 102, 241, 0.08)",
-            border: "1px solid rgba(99, 102, 241, 0.25)",
+            background: isDark ? "rgba(99, 102, 241, 0.08)" : "#eef2ff",
+            border: isDark ? "1px solid rgba(99, 102, 241, 0.25)" : "1px solid #c7d2fe",
+            boxShadow: isDark ? "none" : "0 2px 10px rgba(0,0,0,0.04)",
             borderRadius: 14,
             padding: "14px 18px",
           }}
         >
-          <div style={{ fontSize: 11, color: "#818cf8", fontWeight: 700 }}>
+          <div style={{ fontSize: 11, color: isDark ? "#818cf8" : "#4338ca", fontWeight: 700 }}>
             AI ENGINE STATUS
           </div>
           <div
             style={{
               fontSize: 14,
               fontWeight: 700,
-              color: "#e2e8f0",
+              color: isDark ? "#e2e8f0" : "#1e1b4b",
               marginTop: 8,
               display: "flex",
               alignItems: "center",
               gap: 6,
             }}
           >
-            <FiCheckCircle color="#10b981" />
+            <FiCheckCircle color={isDark ? "#10b981" : "#059669"} />
             <span>
               {aiConfigStatus?.hasGemini
                 ? "Gemini LLM + Website DB"
