@@ -770,6 +770,119 @@ export default function AdminBannersPage() {
         }
         .banner-btn-save:hover { opacity: .9; }
         .banner-btn-save:disabled { opacity: .5; cursor: not-allowed; }
+
+        /* Light Mode Overrides */
+        html:not(.dark) .banner-filter-tab {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #475569;
+        }
+        html:not(.dark) .banner-filter-tab:hover {
+          background: #f1f5f9;
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-filter-tab-active {
+          background: #e0e7ff;
+          border-color: #6366f1;
+          color: #4338ca;
+        }
+        html:not(.dark) .banner-slot-btn {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #475569;
+        }
+        html:not(.dark) .banner-slot-btn:hover {
+          border-color: #6366f1;
+          color: #4338ca;
+        }
+        html:not(.dark) .banner-slot-btn-active {
+          background: #e0e7ff;
+          border-color: #6366f1;
+          color: #4338ca;
+        }
+        html:not(.dark) .banner-table-wrap {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        html:not(.dark) .banner-table th {
+          background: #f8fafc;
+          color: #475569;
+          border-bottom-color: #e2e8f0;
+        }
+        html:not(.dark) .banner-table td {
+          color: #1e293b;
+          border-bottom-color: #f1f5f9;
+        }
+        html:not(.dark) .banner-table tr:hover td {
+          background: #f8fafc;
+        }
+        html:not(.dark) .banner-table-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-table-sub {
+          color: #64748b;
+        }
+        html:not(.dark) .banner-order-badge {
+          background: #f1f5f9;
+          color: #334155;
+        }
+        html:not(.dark) .banner-thumb-wrap {
+          border-color: #e2e8f0;
+        }
+        html:not(.dark) .banner-modal {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+        html:not(.dark) .banner-modal-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-modal-close {
+          background: #f1f5f9;
+          border-color: #e2e8f0;
+          color: #64748b;
+        }
+        html:not(.dark) .banner-form-input {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-form-label {
+          color: #334155;
+        }
+        html:not(.dark) .banner-upload-tabs {
+          background: #f1f5f9;
+        }
+        html:not(.dark) .banner-tab {
+          color: #64748b;
+        }
+        html:not(.dark) .banner-tab-active {
+          background: #6366f1;
+          color: #ffffff;
+        }
+        html:not(.dark) .banner-file-drop {
+          border-color: #cbd5e1;
+          color: #64748b;
+        }
+        html:not(.dark) .banner-btn-cancel {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #475569;
+        }
+        html:not(.dark) .banner-btn-cancel:hover {
+          background: #f8fafc;
+          color: #0f172a;
+        }
+        html:not(.dark) .banner-toggle {
+          background: #cbd5e1;
+        }
+        html:not(.dark) .banner-toggle-on {
+          background: #6366f1;
+        }
+        html:not(.dark) .banner-empty {
+          color: #64748b;
+        }
       `}</style>
     </div>
   );

@@ -393,6 +393,32 @@ export default function ContentPage() {
           animation: pulse 1.5s ease-in-out infinite;
         }
         @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+
+        html:not(.dark) .content-filter-tab {
+          background: #ffffff;
+          border-color: #cbd5e1;
+          color: #475569;
+        }
+        html:not(.dark) .content-filter-tab:hover {
+          background: #f1f5f9;
+          color: #0f172a;
+        }
+        html:not(.dark) .content-filter-tab-active {
+          background: #e0e7ff;
+          border-color: #6366f1;
+          color: #4338ca;
+        }
+        html:not(.dark) .content-block-card {
+          background: #ffffff;
+          border-color: #e2e8f0;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        html:not(.dark) .content-block-title {
+          color: #0f172a;
+        }
+        html:not(.dark) .content-block-key {
+          color: #64748b;
+        }
       `}</style>
     </div>
   );
