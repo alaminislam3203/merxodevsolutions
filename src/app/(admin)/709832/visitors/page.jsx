@@ -808,19 +808,20 @@ export default function AdminVisitorsPage() {
                       justifyContent: "space-between",
                       alignItems: "center",
                       padding: "8px 12px",
-                      background: "rgba(0,0,0,0.25)",
+                      background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                      border: isDark ? "none" : "1px solid #e2e8f0",
                       borderRadius: 10,
                       fontSize: 13,
                     }}
                   >
-                    <span style={{ color: "#e2e8f0", fontWeight: 500 }}>
+                    <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontWeight: 500 }}>
                       {item.isp}
                     </span>
                     <span
                       style={{
-                        color: "#a78bfa",
+                        color: isDark ? "#a78bfa" : "#6d28d9",
                         fontWeight: 700,
-                        background: "rgba(167,139,250,0.12)",
+                        background: isDark ? "rgba(167,139,250,0.12)" : "#ede9fe",
                         padding: "2px 8px",
                         borderRadius: 6,
                         fontSize: 12,
@@ -837,8 +838,9 @@ export default function AdminVisitorsPage() {
           {/* Devices & Browsers */}
           <div
             style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
               borderRadius: 16,
               padding: 20,
             }}
@@ -847,7 +849,7 @@ export default function AdminVisitorsPage() {
               style={{
                 fontSize: 15,
                 fontWeight: 700,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: "0 0 16px",
                 display: "flex",
                 alignItems: "center",
@@ -866,39 +868,42 @@ export default function AdminVisitorsPage() {
             >
               <div
                 style={{
-                  background: "rgba(0,0,0,0.25)",
+                  background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                  border: isDark ? "none" : "1px solid #e2e8f0",
                   padding: 12,
                   borderRadius: 10,
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#94a3b8" }}>Desktop</div>
+                <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600 }}>Desktop</div>
                 <div style={{ fontSize: 20, fontWeight: 800, color: "#38bdf8" }}>
                   {breakdowns.devices?.Desktop || 0}
                 </div>
               </div>
               <div
                 style={{
-                  background: "rgba(0,0,0,0.25)",
+                  background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                  border: isDark ? "none" : "1px solid #e2e8f0",
                   padding: 12,
                   borderRadius: 10,
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#94a3b8" }}>Mobile</div>
+                <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600 }}>Mobile</div>
                 <div style={{ fontSize: 20, fontWeight: 800, color: "#f59e0b" }}>
                   {breakdowns.devices?.Mobile || 0}
                 </div>
               </div>
               <div
                 style={{
-                  background: "rgba(0,0,0,0.25)",
+                  background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                  border: isDark ? "none" : "1px solid #e2e8f0",
                   padding: 12,
                   borderRadius: 10,
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#94a3b8" }}>Tablet</div>
+                <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600 }}>Tablet</div>
                 <div style={{ fontSize: 20, fontWeight: 800, color: "#a855f7" }}>
                   {breakdowns.devices?.Tablet || 0}
                 </div>
@@ -913,9 +918,10 @@ export default function AdminVisitorsPage() {
                     display: "flex",
                     justifyContent: "space-between",
                     fontSize: 12.5,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#1e293b",
                     padding: "6px 10px",
-                    background: "rgba(255,255,255,0.02)",
+                    background: isDark ? "rgba(255,255,255,0.02)" : "#f8fafc",
+                    border: isDark ? "none" : "1px solid #e2e8f0",
                     borderRadius: 8,
                   }}
                 >
@@ -1443,9 +1449,9 @@ export default function AdminVisitorsPage() {
                               onClick={() => setSelectedVisitor(v)}
                               title="View Full Page Journey & Details"
                               style={{
-                                background: "rgba(56,189,248,0.12)",
-                                border: "1px solid rgba(56,189,248,0.28)",
-                                color: "#38bdf8",
+                                background: isDark ? "rgba(56,189,248,0.12)" : "#e0f2fe",
+                                border: isDark ? "1px solid rgba(56,189,248,0.28)" : "1px solid #bae6fd",
+                                color: isDark ? "#38bdf8" : "#0284c7",
                                 padding: "6px 10px",
                                 borderRadius: 8,
                                 fontSize: 12,
@@ -1466,9 +1472,9 @@ export default function AdminVisitorsPage() {
                               }}
                               title="Send Live Proactive Chat Message to Visitor"
                               style={{
-                                background: "rgba(99,102,241,0.15)",
-                                border: "1px solid rgba(99,102,241,0.32)",
-                                color: "#a5b4fc",
+                                background: isDark ? "rgba(99,102,241,0.15)" : "#e0e7ff",
+                                border: isDark ? "1px solid rgba(99,102,241,0.32)" : "1px solid #c7d2fe",
+                                color: isDark ? "#a5b4fc" : "#4338ca",
                                 padding: "6px 10px",
                                 borderRadius: 8,
                                 fontSize: 12,

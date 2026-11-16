@@ -1433,11 +1433,12 @@ export default function EnvVaultPage() {
                   }}
                   style={{
                     padding: "6px 12px",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
+                    border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #cbd5e1",
                     borderRadius: 8,
-                    color: copiedId === "modal-copy" ? "#10b981" : "#cbd5e1",
+                    color: copiedId === "modal-copy" ? (isDark ? "#10b981" : "#15803d") : (isDark ? "#cbd5e1" : "#1e293b"),
                     fontSize: 12,
+                    fontWeight: 600,
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
