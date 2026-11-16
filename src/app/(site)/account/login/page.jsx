@@ -242,47 +242,47 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row mt-12 sm:mt-6">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) ── */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-violet-50/90 via-slate-50 to-indigo-50/60 dark:bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-100 dark:border-violet-900/30">
         {/* Ambient Glows */}
-        <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] rounded-full bg-violet-600/15 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-cyan-500/15 blur-[120px] pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-900/10 blur-[150px] pointer-events-none" />
+        <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] rounded-full bg-violet-400/15 dark:bg-violet-600/15 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-cyan-400/15 dark:bg-cyan-500/15 blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-300/15 dark:bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
         {/* Hero Narrative */}
         <div className="relative z-10 my-auto py-12 max-w-xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-950/80 text-violet-300 border border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
-            <FiShield className="text-violet-400" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-violet-100/90 dark:bg-violet-950/80 text-violet-800 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80 font-exo-extralight uppercase tracking-widest shadow-xs mb-6">
+            <FiShield className="text-violet-600 dark:text-violet-400" />
             <span>{t('auth.login.portalBadge', 'MerxoDev Security & Client Portal')}</span>
           </div>
 
-          <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-white leading-[1.15] mb-6">
+          <h1 className="text-4xl xl:text-5xl font-extrabold font-exo-medium uppercase tracking-tight text-zinc-900 dark:text-white leading-[1.15] mb-6">
             {t('auth.login.heroTitleStart', 'Your Dedicated')}{' '}
-            <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-600 dark:from-violet-400 dark:via-indigo-300 dark:to-cyan-400 bg-clip-text text-transparent">
               {t('auth.login.heroTitleGradient', 'Client Portal')}
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
+          <p className="text-zinc-600 dark:text-zinc-400 text-base font-exo-extralight leading-relaxed mb-8">
             {t('auth.login.heroDesc', 'Access your active software blueprints, milestone updates, live staging links, and enterprise development deliverables in one unified dashboard.')}
           </p>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-800/80">
+          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800/80">
             {[
-              { value: t('auth.login.metric1Value', '2FA'), label: t('auth.login.metric1Label', 'Security OTP'), color: 'from-violet-400 to-indigo-400' },
-              { value: t('auth.login.metric2Value', '100%'), label: t('auth.login.metric2Label', 'Cloud Access'), color: 'from-cyan-400 to-teal-400' },
-              { value: t('auth.login.metric3Value', '24/7'), label: t('auth.login.metric3Label', 'Live Monitoring'), color: 'from-amber-400 to-orange-500' },
+              { value: t('auth.login.metric1Value', '2FA'), label: t('auth.login.metric1Label', 'Security OTP'), color: 'from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400' },
+              { value: t('auth.login.metric2Value', '100%'), label: t('auth.login.metric2Label', 'Cloud Access'), color: 'from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400' },
+              { value: t('auth.login.metric3Value', '24/7'), label: t('auth.login.metric3Label', 'Live Monitoring'), color: 'from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-500' },
             ].map((s) => (
               <div
                 key={s.label}
-                className="p-4 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-md text-center group hover:border-violet-500/50 transition-colors"
+                className="p-4 rounded-2xl border border-zinc-200/90 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/40 backdrop-blur-md text-center shadow-xs dark:shadow-none group hover:border-violet-400 dark:hover:border-violet-500/50 transition-colors"
               >
                 <p className={`text-2xl font-extrabold font-exo-medium bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>
                   {s.value}
                 </p>
-                <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider font-exo-extralight mt-1">
+                <p className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider font-exo-extralight mt-1">
                   {s.label}
                 </p>
               </div>
@@ -291,17 +291,17 @@ function LoginForm() {
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
+        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-500 font-exo-extralight border-t border-zinc-200 dark:border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('privacyPolicy', 'Privacy')}</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('termsOfService', 'Terms')}</Link>
+            <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('privacyPolicy', 'Privacy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('termsOfService', 'Terms')}</Link>
           </div>
         </div>
       </div>
 
       {/* ── Right Form Panel ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-white dark:bg-[#060b19]">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="mb-8">
