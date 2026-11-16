@@ -1010,12 +1010,12 @@ function DashboardView({ isTeamMember = false }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 10 }}>
             {/* Chart Type Toggle */}
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "#cbd5e1" }}>Daily Trend Visualizer:</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: isDark ? "#cbd5e1" : "#1e293b" }}>Daily Trend Visualizer:</span>
               <div
                 style={{
                   display: "flex",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
+                  border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                   borderRadius: 8,
                   padding: 2,
                 }}
@@ -1026,8 +1026,8 @@ function DashboardView({ isTeamMember = false }) {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    background: chartType === "area" ? "rgba(99, 102, 241, 0.35)" : "transparent",
-                    color: chartType === "area" ? "#ffffff" : "#94a3b8",
+                    background: chartType === "area" ? (isDark ? "rgba(99, 102, 241, 0.35)" : "#6366f1") : "transparent",
+                    color: chartType === "area" ? "#ffffff" : (isDark ? "#94a3b8" : "#64748b"),
                     border: "none",
                     padding: "4px 10px",
                     borderRadius: 6,
@@ -1044,8 +1044,8 @@ function DashboardView({ isTeamMember = false }) {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    background: chartType === "bar" ? "rgba(99, 102, 241, 0.35)" : "transparent",
-                    color: chartType === "bar" ? "#ffffff" : "#94a3b8",
+                    background: chartType === "bar" ? (isDark ? "rgba(99, 102, 241, 0.35)" : "#6366f1") : "transparent",
+                    color: chartType === "bar" ? "#ffffff" : (isDark ? "#94a3b8" : "#64748b"),
                     border: "none",
                     padding: "4px 10px",
                     borderRadius: 6,
@@ -1077,8 +1077,8 @@ function DashboardView({ isTeamMember = false }) {
             style={{
               position: "relative",
               height: 240,
-              background: "rgba(0, 0, 0, 0.28)",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              background: isDark ? "rgba(0, 0, 0, 0.28)" : "#f8fafc",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: "16px 12px 28px 12px",
               display: "flex",
@@ -1104,21 +1104,21 @@ function DashboardView({ isTeamMember = false }) {
                       top: 10,
                       right: 14,
                       zIndex: 20,
-                      background: "rgba(12, 19, 40, 0.95)",
-                      border: "1px solid rgba(99, 102, 241, 0.4)",
+                      background: isDark ? "rgba(12, 19, 40, 0.95)" : "#ffffff",
+                      border: isDark ? "1px solid rgba(99, 102, 241, 0.4)" : "1px solid #cbd5e1",
                       borderRadius: 10,
                       padding: "8px 14px",
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.6)",
+                      boxShadow: isDark ? "0 10px 25px rgba(0,0,0,0.6)" : "0 10px 25px rgba(0,0,0,0.12)",
                       display: "flex",
                       gap: 14,
                       alignItems: "center",
                     }}
                   >
                     <div>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "#f8fafc" }}>{hoveredDay.label}</div>
-                      <div style={{ fontSize: 10, color: "#64748b" }}>{hoveredDay.date}</div>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{hoveredDay.label}</div>
+                      <div style={{ fontSize: 10, color: isDark ? "#64748b" : "#64748b" }}>{hoveredDay.date}</div>
                     </div>
-                    <div style={{ borderLeft: "1px solid rgba(255,255,255,0.1)", paddingLeft: 12 }}>
+                    <div style={{ borderLeft: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #e2e8f0", paddingLeft: 12 }}>
                       <div style={{ fontSize: 12, color: "#38bdf8", fontWeight: 800 }}>
                         {hoveredDay.uniqueVisits} unique
                       </div>
@@ -1157,7 +1157,7 @@ function DashboardView({ isTeamMember = false }) {
                       y1={padY + (1 - pct) * availH}
                       x2={chartWidth}
                       y2={padY + (1 - pct) * availH}
-                      stroke="rgba(255, 255, 255, 0.05)"
+                      stroke={isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.06)"}
                       strokeDasharray="4 4"
                       strokeWidth="1"
                     />
@@ -1210,7 +1210,7 @@ function DashboardView({ isTeamMember = false }) {
                           cy={pt[1]}
                           r={isHovered ? 6 : 3.5}
                           fill={isHovered ? "#ffffff" : "#38bdf8"}
-                          stroke="#0c1328"
+                          stroke={isDark ? "#0c1328" : "#ffffff"}
                           strokeWidth="2"
                           style={{ transition: "all 0.15s ease", pointerEvents: "none" }}
                         />
@@ -1227,13 +1227,13 @@ function DashboardView({ isTeamMember = false }) {
                     padding: "0 10px",
                     marginTop: 6,
                     fontSize: chartData.length > 15 ? 9 : 11,
-                    color: "#64748b",
+                    color: isDark ? "#64748b" : "#64748b",
                   }}
                 >
                   {chartData.map((d, index) => {
                     const show = chartData.length <= 14 || index % Math.ceil(chartData.length / 7) === 0 || index === chartData.length - 1;
                     return (
-                      <span key={d.date} style={{ opacity: show ? 1 : 0, fontWeight: hoveredDay?.date === d.date ? 700 : 500, color: hoveredDay?.date === d.date ? "#38bdf8" : "#64748b" }}>
+                      <span key={d.date} style={{ opacity: show ? 1 : 0, fontWeight: hoveredDay?.date === d.date ? 700 : 500, color: hoveredDay?.date === d.date ? "#38bdf8" : (isDark ? "#64748b" : "#475569") }}>
                         {d.label.split(" ")[1] || d.label}
                       </span>
                     );
@@ -1271,21 +1271,21 @@ function DashboardView({ isTeamMember = false }) {
                             bottom: "100%",
                             marginBottom: 8,
                             zIndex: 20,
-                            background: "#0c1328",
-                            border: "1px solid rgba(99,102,241,0.4)",
+                            background: isDark ? "#0c1328" : "#ffffff",
+                            border: isDark ? "1px solid rgba(99,102,241,0.4)" : "1px solid #cbd5e1",
                             borderRadius: 8,
                             padding: "6px 10px",
-                            boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+                            boxShadow: isDark ? "0 10px 25px rgba(0,0,0,0.5)" : "0 10px 25px rgba(0,0,0,0.12)",
                             whiteSpace: "nowrap",
                             pointerEvents: "none",
                             textAlign: "center",
                           }}
                         >
-                          <div style={{ fontSize: 11, fontWeight: 700, color: "#f8fafc" }}>{d.label}</div>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{d.label}</div>
                           <div style={{ fontSize: 12, color: "#38bdf8", fontWeight: 800 }}>
                             {d.uniqueVisits} unique visitors
                           </div>
-                          <div style={{ fontSize: 11, color: "#94a3b8" }}>
+                          <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>
                             {d.pageViews} pageviews
                           </div>
                         </div>
@@ -1324,7 +1324,7 @@ function DashboardView({ isTeamMember = false }) {
                           position: "absolute",
                           bottom: -22,
                           fontSize: chartData.length > 15 ? 9 : 11,
-                          color: isHovered ? "#38bdf8" : "#64748b",
+                          color: isHovered ? "#38bdf8" : (isDark ? "#64748b" : "#64748b"),
                           fontWeight: isHovered ? 700 : 500,
                           whiteSpace: "nowrap",
                         }}
