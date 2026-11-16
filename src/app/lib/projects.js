@@ -30,6 +30,11 @@ export function cleanProjectUrl(url, slug = "") {
     clean = `https://${clean}`;
   }
 
+  // Ensure valid absolute protocol for any external website domain (e.g. clientapp.com or shop.vercel.app)
+  if (!/^https?:\/\//i.test(clean) && !clean.startsWith("/") && !clean.startsWith("#") && !clean.startsWith("mailto:") && !clean.startsWith("tel:")) {
+    clean = `https://${clean}`;
+  }
+
   return clean;
 }
 
