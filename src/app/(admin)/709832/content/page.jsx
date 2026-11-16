@@ -1,11 +1,15 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 import { showToast, confirmToast } from "@/lib/toast";
 
 const SECTIONS = ["all", "hero", "about", "services", "footer", "general"];
 const SECTION_COLORS = { hero: "#6366f1", about: "#8b5cf6", services: "#06b6d4", footer: "#f59e0b", general: "#64748b" };
 
 export default function ContentPage() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(null);
@@ -119,12 +123,14 @@ export default function ContentPage() {
           marginBottom: 26,
           padding: "20px 24px",
           borderRadius: 18,
-          background: "linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)",
-          border: "1px solid rgba(16, 185, 129, 0.25)",
+          background: isDark
+            ? "linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)"
+            : "linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%)",
+          border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid rgba(16, 185, 129, 0.35)",
           display: "flex",
           flexDirection: "column",
           gap: 14,
-          boxShadow: "0 4px 20px -2px rgba(0,0,0,0.15)",
+          boxShadow: isDark ? "0 4px 20px -2px rgba(0,0,0,0.15)" : "0 4px 20px -2px rgba(16, 185, 129, 0.08)",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
@@ -153,7 +159,7 @@ export default function ContentPage() {
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <h2 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: "#fff" }}>
+                <h2 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: isDark ? "#ffffff" : "#0f172a" }}>
                   Google Meet Link (Discovery Call)
                 </h2>
                 <span
@@ -170,7 +176,7 @@ export default function ContentPage() {
                   Live on Website
                 </span>
               </div>
-              <p style={{ margin: "4px 0 0", fontSize: 13, color: "#94a3b8" }}>
+              <p style={{ margin: "4px 0 0", fontSize: 13, color: isDark ? "#94a3b8" : "#475569" }}>
                 This link opens when visitors click &quot;Book 15-Min Google Meet&quot; on the website.
               </p>
             </div>
