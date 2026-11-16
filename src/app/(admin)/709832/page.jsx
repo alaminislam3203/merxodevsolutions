@@ -858,8 +858,9 @@ function DashboardView({ isTeamMember = false }) {
       <div
         id="analytics-section"
         style={{
-          background: "rgba(255, 255, 255, 0.025)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
+          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
           borderRadius: 18,
           padding: 24,
           marginBottom: 32,
@@ -881,7 +882,7 @@ function DashboardView({ isTeamMember = false }) {
               style={{
                 fontSize: 18,
                 fontWeight: 800,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: 0,
                 display: "flex",
                 alignItems: "center",
@@ -890,7 +891,7 @@ function DashboardView({ isTeamMember = false }) {
             >
               <FiTrendingUp style={{ color: "#10b981" }} /> Daily Website Visitors &amp; Traffic Telemetry
             </h2>
-            <p style={{ margin: "4px 0 0 0", fontSize: 13, color: "#94a3b8" }}>
+            <p style={{ margin: "4px 0 0 0", fontSize: 13, color: isDark ? "#94a3b8" : "#64748b" }}>
               Track daily unique visitors and total page impressions visiting merxodevsolutions.pro.bd
             </p>
           </div>
@@ -904,9 +905,9 @@ function DashboardView({ isTeamMember = false }) {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 6,
-                  background: "rgba(56, 189, 248, 0.12)",
-                  border: "1px solid rgba(56, 189, 248, 0.3)",
-                  color: "#38bdf8",
+                  background: isDark ? "rgba(56, 189, 248, 0.12)" : "rgba(14, 165, 233, 0.1)",
+                  border: isDark ? "1px solid rgba(56, 189, 248, 0.3)" : "1px solid rgba(14, 165, 233, 0.25)",
+                  color: isDark ? "#38bdf8" : "#0284c7",
                   padding: "7px 14px",
                   borderRadius: 10,
                   fontSize: 12,
@@ -921,8 +922,8 @@ function DashboardView({ isTeamMember = false }) {
             <div
               style={{
                 display: "flex",
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
+                background: isDark ? "rgba(255, 255, 255, 0.04)" : "#f1f5f9",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
                 borderRadius: 10,
                 padding: 3,
               }}
@@ -937,7 +938,7 @@ function DashboardView({ isTeamMember = false }) {
                   onClick={() => setAnalyticsDays(tab.days)}
                   style={{
                     background: analyticsDays === tab.days ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "transparent",
-                    color: analyticsDays === tab.days ? "#ffffff" : "#94a3b8",
+                    color: analyticsDays === tab.days ? "#ffffff" : (isDark ? "#94a3b8" : "#475569"),
                     border: "none",
                     padding: "6px 14px",
                     borderRadius: 8,
@@ -963,44 +964,44 @@ function DashboardView({ isTeamMember = false }) {
             marginBottom: 24,
           }}
         >
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
               <FiEye style={{ color: "#38bdf8" }} /> Today&apos;s Visitors
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#38bdf8", marginTop: 4 }}>
               {analytics?.today?.uniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: "#64748b" }}>Unique people today</div>
+            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>Unique people today</div>
           </div>
 
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
               <FiActivity style={{ color: "#818cf8" }} /> Today&apos;s Pageviews
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#818cf8", marginTop: 4 }}>
               {analytics?.today?.pageViews || 0}
             </div>
-            <div style={{ fontSize: 11, color: "#64748b" }}>Total hits today</div>
+            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>Total hits today</div>
           </div>
 
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
               <FiClock style={{ color: "#f59e0b" }} /> Yesterday
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#fbbf24", marginTop: 4 }}>
               {analytics?.yesterday?.uniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: "#64748b" }}>{analytics?.yesterday?.pageViews || 0} page views</div>
+            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{analytics?.yesterday?.pageViews || 0} page views</div>
           </div>
 
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
               <FiGlobe style={{ color: "#34d399" }} /> All-Time Visitors
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#34d399", marginTop: 4 }}>
               {analytics?.allTime?.totalUniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: "#64748b" }}>{analytics?.allTime?.totalPageViews || 0} total views</div>
+            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{analytics?.allTime?.totalPageViews || 0} total views</div>
           </div>
         </div>
 
