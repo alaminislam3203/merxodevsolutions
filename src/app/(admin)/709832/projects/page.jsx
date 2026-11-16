@@ -135,6 +135,8 @@ function ImageUploadField({ label, sizeNote, hint, value, onChange, placeholder 
 
 // ─── Multi image field (one URL per line + batch upload) ─────────────────────
 function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeholder }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState({ done: 0, total: 0 });
@@ -169,7 +171,7 @@ function MultiImageUploadField({ label, sizeNote, hint, value, onChange, placeho
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
           <label className="admin-label" style={{ margin: 0 }}>{label}</label>
           {sizeNote && (
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10.5, padding: "1px 6px", borderRadius: 6, background: "rgba(255,255,255,0.06)", color: "#cbd5e1", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "monospace" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10.5, padding: "1px 6px", borderRadius: 6, background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e0e7ff", color: isDark ? "#cbd5e1" : "#4338ca", border: isDark ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid #c7d2fe", fontFamily: "monospace", fontWeight: 600 }}>
               <FiCrop size={11} /> {sizeNote}
             </span>
           )}
@@ -1206,7 +1208,7 @@ export default function ProjectsPage() {
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                   <FiLayers size={14} /> Images & Showcase Mockup
                 </span>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: "#818cf8" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, fontWeight: 600, color: isDark ? "#818cf8" : "#4f46e5" }}>
                   <FiInfo size={13} /> Recommended Size Guide
                 </span>
               </div>
@@ -1217,8 +1219,10 @@ export default function ProjectsPage() {
                   marginBottom: 16,
                   padding: "12px 16px",
                   borderRadius: 12,
-                  background: "linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)",
-                  border: "1px solid rgba(99, 102, 241, 0.22)",
+                  background: isDark
+                    ? "linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)"
+                    : "linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%)",
+                  border: isDark ? "1px solid rgba(99, 102, 241, 0.22)" : "1px solid #cbd5e1",
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
                   gap: 12,
@@ -1227,35 +1231,35 @@ export default function ProjectsPage() {
               >
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(99, 102, 241, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#818cf8" }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff", display: "flex", alignItems: "center", justifyContent: "center", color: isDark ? "#818cf8" : "#4338ca" }}>
                       <FiImage size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#818cf8" }}>Cover Image</span>
+                    <span style={{ fontWeight: 700, color: isDark ? "#818cf8" : "#3730a3" }}>Cover Image</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1200 × 675 px (16:9)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>কার্ড ও পোর্টফোলিও থাম্বনেইলের কভার ইমেজ</span>
+                  <span style={{ color: isDark ? "#e2e8f0" : "#0f172a", fontFamily: "monospace", fontSize: 12, fontWeight: 700 }}>1200 × 675 px (16:9)</span>
+                  <span style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 11 }}>কার্ড ও পোর্টফোলিও থাম্বনেইলের কভার ইমেজ</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(6, 182, 212, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#38bdf8" }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: isDark ? "rgba(6, 182, 212, 0.2)" : "#e0f2fe", display: "flex", alignItems: "center", justifyContent: "center", color: isDark ? "#38bdf8" : "#0284c7" }}>
                       <FiMonitor size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#38bdf8" }}>Desktop Shots</span>
+                    <span style={{ fontWeight: 700, color: isDark ? "#38bdf8" : "#0369a1" }}>Desktop Shots</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>1440px wide (Full Page)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>ডিটেইলস পেজে হোভার করলে স্মুথলি অটো-স্ক্রল হবে</span>
+                  <span style={{ color: isDark ? "#e2e8f0" : "#0f172a", fontFamily: "monospace", fontSize: 12, fontWeight: 700 }}>1440px wide (Full Page)</span>
+                  <span style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 11 }}>ডিটেইলস পেজে হোভার করলে স্মুথলি অটো-স্ক্রল হবে</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                    <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(16, 185, 129, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#34d399" }}>
+                    <div style={{ width: 22, height: 22, borderRadius: 6, background: isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5", display: "flex", alignItems: "center", justifyContent: "center", color: isDark ? "#34d399" : "#047857" }}>
                       <FiSmartphone size={13} />
                     </div>
-                    <span style={{ fontWeight: 700, color: "#34d399" }}>Mobile Shots</span>
+                    <span style={{ fontWeight: 700, color: isDark ? "#34d399" : "#065f46" }}>Mobile Shots</span>
                   </div>
-                  <span style={{ color: "#e2e8f0", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>390 × 844 px (Portrait)</span>
-                  <span style={{ color: "#94a3b8", fontSize: 11 }}>অতিরিক্ত মোবাইল স্ক্রিনশট (ঐচ্ছিক)</span>
+                  <span style={{ color: isDark ? "#e2e8f0" : "#0f172a", fontFamily: "monospace", fontSize: 12, fontWeight: 700 }}>390 × 844 px (Portrait)</span>
+                  <span style={{ color: isDark ? "#94a3b8" : "#475569", fontSize: 11 }}>অতিরিক্ত মোবাইল স্ক্রিনশট (ঐচ্ছিক)</span>
                 </div>
               </div>
 
