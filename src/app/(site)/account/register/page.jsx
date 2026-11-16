@@ -20,7 +20,7 @@ import {
   FiCheck,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
-import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
+import AuthLottie from '@/components/AuthLottie';
 
 function RegisterForm() {
   const router = useRouter();
@@ -184,9 +184,9 @@ function RegisterForm() {
         {/* Top subtle vertical divider line */}
         <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-cyan-500/60 dark:to-cyan-400/80 opacity-70" />
 
-        {/* Themed Animated Character */}
+        {/* Themed Lottie Animation */}
         <div className="my-4 transition-transform hover:scale-105 duration-300">
-          <AuthCharacterAnimation type="register" size="md" />
+          <AuthLottie type="register" size="md" />
         </div>
 
         {/* Bottom subtle vertical divider line */}
@@ -198,7 +198,7 @@ function RegisterForm() {
         <div className="w-full max-w-md">
           {/* Mobile Animation */}
           <div className="lg:hidden flex justify-center mb-6">
-            <AuthCharacterAnimation type="register" size="sm" />
+            <AuthLottie type="register" size="sm" />
           </div>
 
           <div className="mb-8">
