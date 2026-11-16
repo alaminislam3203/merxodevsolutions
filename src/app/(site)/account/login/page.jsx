@@ -319,11 +319,6 @@ function LoginForm() {
       {/* ── Right Form Panel ── */}
       <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
-          {/* Mobile Animation */}
-          <div className="lg:hidden flex justify-center mb-6">
-            <AuthLottie type="login" size="sm" />
-          </div>
-
           {/* Header */}
           <div className="mb-8">
             <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">

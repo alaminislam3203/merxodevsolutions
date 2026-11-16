@@ -252,11 +252,6 @@ function ResetPasswordContent() {
           ) : (
             /* Set Password Form */
             <>
-              {/* Mobile Animation */}
-              <div className="lg:hidden flex justify-center mb-6">
-                <AuthLottie type="reset-password" size="sm" />
-              </div>
-
               {/* Header */}
               <div className="mb-6">
                 <h2 className="font-exo-medium text-3xl sm:text-4xl uppercase tracking-wide text-[#27003B] dark:text-white mb-2">

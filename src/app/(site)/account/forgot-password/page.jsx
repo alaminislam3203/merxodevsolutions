@@ -175,11 +175,6 @@ function ForgotPasswordContent() {
       {/* ── Right Step 1 Panel: Request Code ── */}
       <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
         <div className="w-full max-w-md">
-          {/* Mobile Animation */}
-          <div className="lg:hidden flex justify-center mb-6">
-            <AuthLottie type="forgot-password" size="sm" />
-          </div>
-
           {/* Step Indicator */}
           <div className="flex items-center gap-2 mb-6">
             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-violet-600 text-white text-xs font-bold font-mono">

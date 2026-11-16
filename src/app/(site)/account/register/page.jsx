@@ -196,11 +196,6 @@ function RegisterForm() {
       {/* ── Right Registration Panel ── */}
       <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
-          {/* Mobile Animation */}
-          <div className="lg:hidden flex justify-center mb-6">
-            <AuthLottie type="register" size="sm" />
-          </div>
-
           <div className="mb-8">
             <h2
               suppressHydrationWarning
