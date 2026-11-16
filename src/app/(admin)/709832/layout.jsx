@@ -722,7 +722,7 @@ function AdminLayoutShell({ children }) {
   }
 
   return (
-    <div className="admin-layout">
+    <div className="admin-layout" style={{ height: "100vh", overflow: "hidden" }}>
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -746,116 +746,38 @@ function AdminLayoutShell({ children }) {
       <AdminSidebar
         isFullscreen={isFullscreen}
         onToggleFullscreen={toggleFullscreen}
+        chatUnread={chatUnread}
+        chatNeedsHuman={chatNeedsHuman}
       />
-      <main ref={mainRef} className="admin-main" style={{ position: "relative" }}>
-        {/* Top-Right Quick Theme & Fullscreen Toggle Pills (Auto-hides on scroll down, shows at top) */}
-        <div
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          minWidth: 0,
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <AdminTopNav
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={toggleFullscreen}
+          chatUnread={chatUnread}
+          chatNeedsHuman={chatNeedsHuman}
+        />
+        <main
+          ref={mainRef}
+          className="admin-main"
           style={{
-            position: "fixed",
-            top: 16,
-            right: 22,
-            zIndex: 90,
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            opacity: hideTopPill ? 0 : 1,
-            transform: hideTopPill
-              ? "translateY(-16px) scale(0.95)"
-              : "translateY(0) scale(1)",
-            pointerEvents: hideTopPill ? "none" : "auto",
-            transition: "opacity 0.25s ease, transform 0.25s ease",
+            flex: 1,
+            overflowY: "auto",
+            minHeight: 0,
+            position: "relative",
           }}
         >
-          {/* Quick Theme Toggle Pill */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            className="admin-top-pill-btn"
-          >
-            {theme === "dark" ? (
-              <>
-                <FiSun size={14} style={{ color: "#fbbf24" }} />
-                <span>Light</span>
-              </>
-            ) : (
-              <>
-                <FiMoon size={14} style={{ color: "#6366f1" }} />
-                <span>Dark</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            title={
-              isFullscreen
-                ? "Press Esc or click to exit Full Screen"
-                : "Enter Full Screen Mode"
-            }
-            className="admin-top-pill-btn"
-            style={{
-              color: isFullscreen ? "#38bdf8" : undefined,
-              borderColor: isFullscreen ? "rgba(56, 189, 248, 0.4)" : undefined,
-            }}
-          >
-            {isFullscreen ? (
-              <>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M8 3v3a2 2 0 0 1-2 2H3" />
-                  <path d="M21 8h-3a2 2 0 0 1-2-2V3" />
-                  <path d="M3 16h3a2 2 0 0 1 2 2v3" />
-                  <path d="M16 21v-3a2 2 0 0 1 2-2h3" />
-                </svg>
-                <span>Exit Full Screen</span>
-                <kbd
-                  style={{
-                    fontSize: 10,
-                    padding: "1px 5px",
-                    borderRadius: 4,
-                    background: "rgba(56, 189, 248, 0.15)",
-                    color: "#7dd3fc",
-                    border: "1px solid rgba(56, 189, 248, 0.3)",
-                  }}
-                >
-                  Esc
-                </kbd>
-              </>
-            ) : (
-              <>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M8 3H5a2 2 0 0 0-2 2v3" />
-                  <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
-                  <path d="M3 16v3a2 2 0 0 0 2 2h3" />
-                  <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
-                </svg>
-                <span>Full Screen</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        {children}
-      </main>
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

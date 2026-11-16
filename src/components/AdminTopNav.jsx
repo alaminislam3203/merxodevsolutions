@@ -155,7 +155,7 @@ export default function AdminTopNav({
           transition: "all 0.2s ease",
         }}
       >
-        {/* Left Side: Search Bar */}
+        {/* Left Side: Search Bar matching user screenshot */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
             type="button"
@@ -163,16 +163,16 @@ export default function AdminTopNav({
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 8,
-              height: 34,
-              padding: "0 12px",
+              gap: 10,
+              height: 36,
+              padding: "0 14px",
               borderRadius: 8,
               background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
               border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
               color: isDark ? "#94a3b8" : "#64748b",
-              fontSize: 12.5,
+              fontSize: 13,
               cursor: "pointer",
-              width: 240,
+              width: "clamp(260px, 32vw, 440px)",
               transition: "all 0.15s ease",
               textAlign: "left",
             }}
@@ -185,13 +185,13 @@ export default function AdminTopNav({
               e.currentTarget.style.color = isDark ? "#94a3b8" : "#64748b";
             }}
           >
-            <FiSearch size={14} style={{ color: "#6366f1" }} />
-            <span style={{ flex: 1 }}>Search...</span>
+            <FiSearch size={15} style={{ color: isDark ? "#94a3b8" : "#64748b" }} />
+            <span style={{ flex: 1, fontWeight: 400 }}>Search</span>
             <kbd
               style={{
-                fontSize: 10,
+                fontSize: 10.5,
                 fontWeight: 600,
-                padding: "2px 5px",
+                padding: "2px 6px",
                 borderRadius: 4,
                 background: isDark ? "rgba(255, 255, 255, 0.08)" : "#e2e8f0",
                 color: isDark ? "#cbd5e1" : "#475569",
