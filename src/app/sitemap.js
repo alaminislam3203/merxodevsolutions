@@ -1,4 +1,5 @@
 import { getAllProjects } from '@/app/lib/projects';
+import { getAllDistricts } from '@/lib/bangladeshLocations';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
