@@ -8,76 +8,26 @@ import { FiAlertCircle, FiMessageSquare, FiSun, FiMoon } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import AdminLoader from "@/components/AdminLoader";
+import AdminTopNav from "@/components/AdminTopNav";
 import { useTheme } from "@/components/ThemeProvider";
 import "./admin.css";
 
-function AdminSidebar({ isFullscreen, onToggleFullscreen }) {
+function AdminSidebar({
+  isFullscreen,
+  onToggleFullscreen,
+  chatUnread = 0,
+  chatNeedsHuman = 0,
+}) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const { data: session } = useSession();
   const [signingOut, setSigningOut] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-  const [chatUnread, setChatUnread] = useState(0);
-  const [chatNeedsHuman, setChatNeedsHuman] = useState(0);
-  const prevUnreadRef = useRef(0);
-  const prevHumanRef = useRef(0);
-  const initializedRef = useRef(false);
 
   const emailLower = String(session?.user?.email || "").toLowerCase().trim();
   const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
   const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
   const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
-
-  // Global background poller for Live Chat & AI instant notifications across all admin pages
-  useEffect(() => {
-    let active = true;
-    const pollChatAlerts = async () => {
-      try {
-        const res = await fetch("/api/admin/chat", { cache: "no-store" });
-        if (!res.ok || !active) return;
-        const data = await res.json();
-        const unread = Number(data?.stats?.totalUnread || 0);
-        const human = Number(data?.stats?.needsHumanCount || 0);
-
-        // Only play sound from layout if not already on /709832/live-chat (which handles its own sound)
-        const onLiveChatPage = pathname.startsWith("/709832/live-chat");
-        const soundPref =
-          typeof window !== "undefined"
-            ? localStorage.getItem("merxodev_admin_sound")
-            : "on";
-        const soundOn = soundPref !== "off";
-
-        if (initializedRef.current && !onLiveChatPage) {
-          if (human > prevHumanRef.current) {
-            if (soundOn) playUrgentAdminRing();
-            toast("Visitor requested a Live Team in Chat!", {
-              icon: <FiAlertCircle color="#f59e0b" size={18} />,
-              duration: 5000,
-            });
-          } else if (unread > prevUnreadRef.current) {
-            if (soundOn) playAdminAlertSound();
-            toast("New visitor message in MerxoDev AI Chat", {
-              icon: <FiMessageSquare color="#38bdf8" size={18} />,
-              duration: 4000,
-            });
-          }
-        }
-
-        prevUnreadRef.current = unread;
-        prevHumanRef.current = human;
-        initializedRef.current = true;
-        setChatUnread(unread);
-        setChatNeedsHuman(human);
-      } catch {}
-    };
-
-    pollChatAlerts();
-    const timer = setInterval(pollChatAlerts, 4000);
-    return () => {
-      active = false;
-      clearInterval(timer);
-    };
-  }, [pathname]);
 
   const allNavItems = [
     {
