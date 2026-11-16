@@ -331,9 +331,10 @@ export default function AdminVisitorsPage() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: "#f8fafc",
+              background: isDark ? "rgba(255,255,255,0.05)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
+              color: isDark ? "#f8fafc" : "#334155",
+              boxShadow: isDark ? "none" : "0 1px 3px rgba(0,0,0,0.05)",
               padding: "9px 16px",
               borderRadius: 10,
               fontSize: 13,
@@ -382,8 +383,9 @@ export default function AdminVisitorsPage() {
         <div
           onClick={() => setActiveTab("online")}
           style={{
-            background: "rgba(16, 185, 129, 0.08)",
-            border: "1px solid rgba(16, 185, 129, 0.25)",
+            background: isDark ? "rgba(16, 185, 129, 0.08)" : "#ecfdf5",
+            border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid #a7f3d0",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
             borderRadius: 16,
             padding: "18px 20px",
             cursor: "pointer",
@@ -397,7 +399,7 @@ export default function AdminVisitorsPage() {
               marginBottom: 6,
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#10b981" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: isDark ? "#10b981" : "#047857" }}>
               ONLINE RIGHT NOW
             </span>
             <span
@@ -410,10 +412,10 @@ export default function AdminVisitorsPage() {
               }}
             />
           </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc" }}>
+          <div style={{ fontSize: 28, fontWeight: 800, color: isDark ? "#f8fafc" : "#065f46" }}>
             {stats.onlineNow}
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
             Active in last 60 seconds
           </div>
         </div>
@@ -421,8 +423,9 @@ export default function AdminVisitorsPage() {
         <div
           onClick={() => setActiveTab("all")}
           style={{
-            background: "rgba(56, 189, 248, 0.07)",
-            border: "1px solid rgba(56, 189, 248, 0.2)",
+            background: isDark ? "rgba(56, 189, 248, 0.07)" : "#f0f9ff",
+            border: isDark ? "1px solid rgba(56, 189, 248, 0.2)" : "1px solid #bae6fd",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
             borderRadius: 16,
             padding: "18px 20px",
             cursor: "pointer",
@@ -436,15 +439,15 @@ export default function AdminVisitorsPage() {
               marginBottom: 6,
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#38bdf8" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: isDark ? "#38bdf8" : "#0284c7" }}>
               TODAY&apos;S TRAFFIC
             </span>
-            <FiEye size={16} style={{ color: "#38bdf8" }} />
+            <FiEye size={16} style={{ color: isDark ? "#38bdf8" : "#0284c7" }} />
           </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc" }}>
+          <div style={{ fontSize: 28, fontWeight: 800, color: isDark ? "#f8fafc" : "#0c4a6e" }}>
             {stats.todayUnique}
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
             {stats.todayPageViews} pageviews today
           </div>
         </div>
@@ -452,8 +455,9 @@ export default function AdminVisitorsPage() {
         <div
           onClick={() => setActiveTab("returning")}
           style={{
-            background: "rgba(139, 92, 246, 0.08)",
-            border: "1px solid rgba(139, 92, 246, 0.22)",
+            background: isDark ? "rgba(139, 92, 246, 0.08)" : "#f5f3ff",
+            border: isDark ? "1px solid rgba(139, 92, 246, 0.22)" : "1px solid #ddd6fe",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
             borderRadius: 16,
             padding: "18px 20px",
             cursor: "pointer",
@@ -467,15 +471,15 @@ export default function AdminVisitorsPage() {
               marginBottom: 6,
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: isDark ? "#a78bfa" : "#6d28d9" }}>
               RETURNING VISITORS
             </span>
-            <FiRepeat size={16} style={{ color: "#a78bfa" }} />
+            <FiRepeat size={16} style={{ color: isDark ? "#a78bfa" : "#6d28d9" }} />
           </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc" }}>
+          <div style={{ fontSize: 28, fontWeight: 800, color: isDark ? "#f8fafc" : "#4c1d95" }}>
             {stats.returningCount}
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
             {stats.newCount} new visitors
           </div>
         </div>
@@ -483,8 +487,9 @@ export default function AdminVisitorsPage() {
         <div
           onClick={() => setActiveTab("identified")}
           style={{
-            background: "rgba(245, 158, 11, 0.07)",
-            border: "1px solid rgba(245, 158, 11, 0.2)",
+            background: isDark ? "rgba(245, 158, 11, 0.07)" : "#fffbeb",
+            border: isDark ? "1px solid rgba(245, 158, 11, 0.2)" : "1px solid #fde68a",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
             borderRadius: 16,
             padding: "18px 20px",
             cursor: "pointer",
@@ -498,15 +503,15 @@ export default function AdminVisitorsPage() {
               marginBottom: 6,
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#fbbf24" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: isDark ? "#fbbf24" : "#b45309" }}>
               AVG. TIME ON SITE
             </span>
-            <FiClock size={16} style={{ color: "#fbbf24" }} />
+            <FiClock size={16} style={{ color: isDark ? "#fbbf24" : "#b45309" }} />
           </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc" }}>
+          <div style={{ fontSize: 28, fontWeight: 800, color: isDark ? "#f8fafc" : "#78350f" }}>
             {formatDuration(stats.avgDurationSec)}
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
             {stats.identifiedCount} logged-in / known users
           </div>
         </div>
@@ -514,8 +519,9 @@ export default function AdminVisitorsPage() {
         <div
           onClick={() => setActiveTab("blocked")}
           style={{
-            background: "rgba(239, 68, 68, 0.07)",
-            border: "1px solid rgba(239, 68, 68, 0.22)",
+            background: isDark ? "rgba(239, 68, 68, 0.07)" : "#fef2f2",
+            border: isDark ? "1px solid rgba(239, 68, 68, 0.22)" : "1px solid #fecaca",
+            boxShadow: isDark ? "none" : "0 2px 8px rgba(0,0,0,0.04)",
             borderRadius: 16,
             padding: "18px 20px",
             cursor: "pointer",
@@ -529,18 +535,19 @@ export default function AdminVisitorsPage() {
               marginBottom: 6,
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#f87171" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: isDark ? "#f87171" : "#dc2626" }}>
               IP FIREWALL
             </span>
-            <FiShield size={16} style={{ color: "#f87171" }} />
+            <FiShield size={16} style={{ color: isDark ? "#f87171" : "#dc2626" }} />
           </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc" }}>
+          <div style={{ fontSize: 28, fontWeight: 800, color: isDark ? "#f8fafc" : "#991b1b" }}>
             {stats.blockedCount}
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
             Blocked IP addresses
           </div>
         </div>
+      </div>
       </div>
 
       {/* Tabs & Search Bar */}
