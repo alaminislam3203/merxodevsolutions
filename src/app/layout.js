@@ -271,10 +271,19 @@ export default function RootLayout({ children }) {
                 'https://github.com/MerxoDev-Solutions',
                 'https://www.youtube.com/@merxodevsolutions',
               ],
-              serviceArea: {
-                '@type': 'Place',
-                name: 'Worldwide',
-              },
+              areaServed: [
+                { '@type': 'Country', name: 'Bangladesh' },
+                { '@type': 'AdministrativeArea', name: 'Nilphamari' },
+                { '@type': 'AdministrativeArea', name: 'Rangpur' },
+                { '@type': 'AdministrativeArea', name: 'Dhaka' },
+                { '@type': 'AdministrativeArea', name: 'Chattogram' },
+                { '@type': 'AdministrativeArea', name: 'Rajshahi' },
+                { '@type': 'AdministrativeArea', name: 'Sylhet' },
+                { '@type': 'AdministrativeArea', name: 'Khulna' },
+                { '@type': 'AdministrativeArea', name: 'Barishal' },
+                { '@type': 'AdministrativeArea', name: 'Mymensingh' },
+                { '@type': 'Place', name: 'Worldwide' },
+              ],
               hasOfferCatalog: {
                 '@type': 'OfferCatalog',
                 name: 'Web Development Services',
