@@ -111,51 +111,37 @@ function RegisterForm() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#060b19] no-gsap mt-12 sm:mt-6">
       {/* ── Left Showcase Panel (Desktop) ── */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-900/30">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-cyan-50/70 via-slate-50 to-violet-50/80 dark:bg-[#060b19] relative overflow-hidden flex-col justify-between p-12 xl:p-16 border-r border-violet-100 dark:border-violet-900/30">
         {/* Ambient Glows */}
-        <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] rounded-full bg-cyan-500/15 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-violet-600/15 blur-[120px] pointer-events-none" />
-
-        {/* Top Branding */}
-        {/* <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="inline-block transition-transform hover:scale-105">
-            <Logo />
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-exo-extralight text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 backdrop-blur-md transition-colors"
-          >
-            <FiHome size={14} />
-            <span>Back to Home</span>
-          </Link>
-        </div> */}
+        <div className="absolute top-[-100px] left-[-100px] w-[500px] h-[500px] rounded-full bg-cyan-400/15 dark:bg-cyan-500/15 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-80px] right-[-80px] w-[450px] h-[450px] rounded-full bg-violet-400/15 dark:bg-violet-600/15 blur-[120px] pointer-events-none" />
 
         {/* Narrative & Benefits */}
         <div className="relative z-10 my-auto py-10 max-w-xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/80 font-exo-extralight uppercase tracking-widest shadow-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-bold bg-cyan-100/90 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/80 font-exo-extralight uppercase tracking-widest shadow-xs mb-6">
+            <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
             <span>{t('auth.register.badge', 'MerxoDev Client Network')}</span>
           </div>
 
           <h1
             suppressHydrationWarning
-            className="font-exo-medium text-4xl xl:text-5xl uppercase tracking-wide text-white leading-tight mb-5"
+            className="font-exo-medium text-4xl xl:text-5xl uppercase tracking-wide text-zinc-900 dark:text-white leading-tight mb-5"
           >
             {t('auth.register.heroTitleStart', 'Start Your')}{' '}
-            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 dark:from-violet-400 dark:via-fuchsia-400 dark:to-cyan-400 bg-clip-text text-transparent">
               {t('auth.register.heroTitleGradient', 'Digital Journey')}
             </span>
           </h1>
 
-          <p className="text-zinc-400 text-base leading-relaxed font-exo-extralight mb-8">
+          <p className="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight mb-8">
             {t('auth.register.heroDesc', 'Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.')}
           </p>
 
           {/* Benefits List */}
           <div className="space-y-3.5 mb-10">
             {benefits.map((benefit, i) => (
-              <div key={i} className="flex items-center gap-3 text-sm text-zinc-300 font-exo-extralight">
-                <div className="w-5 h-5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 flex items-center justify-center text-white shrink-0 text-xs">
+              <div key={i} className="flex items-center gap-3 text-sm text-zinc-700 dark:text-zinc-300 font-exo-extralight">
+                <div className="w-5 h-5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 flex items-center justify-center text-white shrink-0 text-xs shadow-xs">
                   <FiCheck size={12} strokeWidth={3} />
                 </div>
                 <span>{benefit}</span>
@@ -164,34 +150,34 @@ function RegisterForm() {
           </div>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-4 border-t border-zinc-800/80 pt-6">
+          <div className="grid grid-cols-3 gap-4 border-t border-zinc-200 dark:border-zinc-800/80 pt-6">
             <div>
-              <p className="font-exo-medium text-xl text-white font-extrabold">{t('auth.register.metric1Value', '100%')}</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric1Label', 'Code Ownership')}</p>
+              <p className="font-exo-medium text-xl text-zinc-900 dark:text-white font-extrabold">{t('auth.register.metric1Value', '100%')}</p>
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric1Label', 'Code Ownership')}</p>
             </div>
             <div>
-              <p className="font-exo-medium text-xl text-cyan-400 font-extrabold">{t('auth.register.metric2Value', '2–12h')}</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric2Label', 'Response SLA')}</p>
+              <p className="font-exo-medium text-xl text-cyan-600 dark:text-cyan-400 font-extrabold">{t('auth.register.metric2Value', '2–12h')}</p>
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric2Label', 'Response SLA')}</p>
             </div>
             <div>
-              <p className="font-exo-medium text-xl text-amber-400 font-extrabold">{t('auth.register.metric3Value', 'Verified')}</p>
-              <p className="text-[11px] text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric3Label', 'Client Reviews')}</p>
+              <p className="font-exo-medium text-xl text-amber-500 dark:text-amber-400 font-extrabold">{t('auth.register.metric3Value', 'Verified')}</p>
+              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-exo-extralight">{t('auth.register.metric3Label', 'Client Reviews')}</p>
             </div>
           </div>
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 font-exo-extralight border-t border-zinc-800/60 pt-6">
+        <div className="relative z-10 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-500 font-exo-extralight border-t border-zinc-200 dark:border-zinc-800/60 pt-6">
           <span>© {new Date().getFullYear()} MerxoDev Solutions. All rights reserved.</span>
           <div className="flex gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t('auth.register.privacy', 'Privacy Policy')}</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">{t('auth.register.terms', 'Terms of Service')}</Link>
+            <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('auth.register.privacy', 'Privacy Policy')}</Link>
+            <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">{t('auth.register.terms', 'Terms of Service')}</Link>
           </div>
         </div>
       </div>
 
       {/* ── Right Registration Panel ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-zinc-50 dark:bg-[#060b19]">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 bg-white dark:bg-[#060b19]">
         <div className="w-full max-w-md">
           <div className="mb-8">
             <h2
