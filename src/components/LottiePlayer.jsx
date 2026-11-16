@@ -37,6 +37,13 @@ export default function LottiePlayer({
         anim.addEventListener("DOMLoaded", () => {
           if (isMounted) setIsLoaded(true);
         });
+        anim.addEventListener("data_ready", () => {
+          if (isMounted) setIsLoaded(true);
+        });
+        // Quick fallback so animation is instantly visible
+        setTimeout(() => {
+          if (isMounted) setIsLoaded(true);
+        }, 150);
       })
       .catch((err) => {
         console.error("Lottie load error:", err);
