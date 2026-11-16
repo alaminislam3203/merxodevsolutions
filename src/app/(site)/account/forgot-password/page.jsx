@@ -158,7 +158,7 @@ function ForgotPasswordContent() {
       </div>
 
       {/* ── Right Step 1 Panel: Request Code ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6 bg-white dark:bg-[#060b19]">
+      <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16 mt-10 sm:mt-6">
         <div className="w-full max-w-md">
           {/* Step Indicator */}
           <div className="flex items-center gap-2 mb-6">
