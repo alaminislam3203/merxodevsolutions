@@ -1428,11 +1428,12 @@ export default function AdminLiveChatPage() {
             style={{
               width: "100%",
               maxWidth: 540,
-              background: "#0f172a",
-              border: "1px solid rgba(255, 255, 255, 0.14)",
+              background: isDark ? "#0f172a" : "#ffffff",
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.14)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "0 25px 60px rgba(0,0,0,0.7)" : "0 20px 50px rgba(0,0,0,0.15)",
               borderRadius: 20,
               padding: 24,
-              color: "#f8fafc",
+              color: isDark ? "#f8fafc" : "#0f172a",
             }}
           >
             <div
@@ -1450,9 +1451,10 @@ export default function AdminLiveChatPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
+                  color: isDark ? "#f8fafc" : "#0f172a",
                 }}
               >
-                <FiCpu color="#818cf8" />
+                <FiCpu color={isDark ? "#818cf8" : "#6366f1"} />
                 <span>MerxoDev AI Brain Settings</span>
               </h3>
               <button
@@ -1461,7 +1463,7 @@ export default function AdminLiveChatPage() {
                 style={{
                   background: "transparent",
                   border: "none",
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   cursor: "pointer",
                 }}
               >
@@ -1472,7 +1474,7 @@ export default function AdminLiveChatPage() {
             <p
               style={{
                 fontSize: 12.5,
-                color: "#94a3b8",
+                color: isDark ? "#94a3b8" : "#64748b",
                 lineHeight: 1.5,
                 marginBottom: 16,
               }}
@@ -1493,7 +1495,7 @@ export default function AdminLiveChatPage() {
                   style={{
                     fontSize: 12,
                     fontWeight: 700,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#334155",
                     display: "block",
                     marginBottom: 6,
                   }}
@@ -1515,9 +1517,9 @@ export default function AdminLiveChatPage() {
                     width: "100%",
                     padding: "10px 13px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    color: "#fff",
+                    background: isDark ? "rgba(255,255,255,0.05)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.14)" : "1px solid #cbd5e1",
+                    color: isDark ? "#fff" : "#0f172a",
                     fontSize: 13,
                   }}
                 />
@@ -1528,7 +1530,7 @@ export default function AdminLiveChatPage() {
                   style={{
                     fontSize: 12,
                     fontWeight: 700,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#334155",
                     display: "block",
                     marginBottom: 6,
                   }}
@@ -1550,9 +1552,9 @@ export default function AdminLiveChatPage() {
                     width: "100%",
                     padding: "10px 13px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    color: "#fff",
+                    background: isDark ? "rgba(255,255,255,0.05)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.14)" : "1px solid #cbd5e1",
+                    color: isDark ? "#fff" : "#0f172a",
                     fontSize: 13,
                   }}
                 />
@@ -1563,7 +1565,7 @@ export default function AdminLiveChatPage() {
                   style={{
                     fontSize: 12,
                     fontWeight: 700,
-                    color: "#cbd5e1",
+                    color: isDark ? "#cbd5e1" : "#334155",
                     display: "block",
                     marginBottom: 6,
                   }}
@@ -1579,9 +1581,9 @@ export default function AdminLiveChatPage() {
                     width: "100%",
                     padding: "10px 13px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    color: "#fff",
+                    background: isDark ? "rgba(255,255,255,0.05)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.14)" : "1px solid #cbd5e1",
+                    color: isDark ? "#fff" : "#0f172a",
                     fontSize: 13,
                   }}
                 />
@@ -1601,9 +1603,9 @@ export default function AdminLiveChatPage() {
                   style={{
                     padding: "9px 16px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.08)",
-                    color: "#cbd5e1",
-                    border: "none",
+                    background: isDark ? "rgba(255,255,255,0.08)" : "#f1f5f9",
+                    color: isDark ? "#cbd5e1" : "#475569",
+                    border: isDark ? "none" : "1px solid #cbd5e1",
                     cursor: "pointer",
                     fontSize: 13,
                   }}
