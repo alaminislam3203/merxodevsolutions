@@ -302,12 +302,26 @@ function LoginForm() {
         </div>
       </div>
 
+      {/* ── Center Divider with Animated Man / Character (Desktop) ── */}
+      <div className="hidden lg:flex flex-col items-center justify-center relative z-20 px-2 xl:px-4 self-stretch my-8 shrink-0">
+        {/* Top subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-violet-400 dark:to-violet-600 opacity-70" />
+
+        {/* Themed Animated Character */}
+        <div className="my-4 transition-transform hover:scale-105 duration-300">
+          <AuthCharacterAnimation type="login" size="md" />
+        </div>
+
+        {/* Bottom subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-violet-400 dark:from-violet-600 via-zinc-300 dark:via-zinc-800 to-transparent opacity-70" />
+      </div>
+
       {/* ── Right Form Panel ── */}
-      <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
+      <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
           {/* Mobile Animation */}
           <div className="lg:hidden flex justify-center mb-6">
-            <AuthAnimation type="login" size="sm" />
+            <AuthCharacterAnimation type="login" size="sm" />
           </div>
 
           {/* Header */}

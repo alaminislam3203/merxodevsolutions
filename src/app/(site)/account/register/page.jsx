@@ -20,7 +20,7 @@ import {
   FiCheck,
 } from 'react-icons/fi';
 import Logo from '@/components/Logo';
-import AuthAnimation from '@/components/AuthAnimation';
+import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
 
 function RegisterForm() {
   const router = useRouter();
@@ -117,7 +117,7 @@ function RegisterForm() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-indigo-300/15 dark:bg-indigo-900/10 blur-[150px] pointer-events-none" />
 
       {/* ── Left Showcase Panel (Desktop) ── */}
-      <div className="hidden lg:flex lg:w-1/2 relative z-10 flex-col justify-between p-12 xl:p-16">
+      <div className="hidden lg:flex lg:flex-1 relative z-10 flex-col justify-between p-12 xl:p-16">
 
         {/* Narrative & Benefits */}
         <div className="relative z-10 my-auto py-10 max-w-xl">
@@ -139,11 +139,6 @@ function RegisterForm() {
           <p className="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed font-exo-extralight mb-8">
             {t('auth.register.heroDesc', 'Create an account to submit project scopes, review proposals, coordinate with engineering leads, and leave verified reviews.')}
           </p>
-
-          {/* Themed Lottie Vector Animation */}
-          <div className="mb-8 flex items-center justify-center">
-            <AuthAnimation type="register" />
-          </div>
 
           {/* Benefits List */}
           <div className="space-y-3.5 mb-10">
@@ -184,12 +179,26 @@ function RegisterForm() {
         </div>
       </div>
 
+      {/* ── Center Divider with Animated Man / Character (Desktop) ── */}
+      <div className="hidden lg:flex flex-col items-center justify-center relative z-20 px-2 xl:px-4 self-stretch my-8 shrink-0">
+        {/* Top subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-transparent via-zinc-300 dark:via-zinc-800 to-cyan-500/60 dark:to-cyan-400/80 opacity-70" />
+
+        {/* Themed Animated Character */}
+        <div className="my-4 transition-transform hover:scale-105 duration-300">
+          <AuthCharacterAnimation type="register" size="md" />
+        </div>
+
+        {/* Bottom subtle vertical divider line */}
+        <div className="w-[1.5px] flex-1 min-h-[50px] bg-gradient-to-b from-cyan-500/60 dark:from-cyan-400/80 via-zinc-300 dark:via-zinc-800 to-transparent opacity-70" />
+      </div>
+
       {/* ── Right Registration Panel ── */}
-      <div className="w-full lg:w-1/2 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
+      <div className="w-full lg:flex-1 relative z-10 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="w-full max-w-md">
           {/* Mobile Animation */}
           <div className="lg:hidden flex justify-center mb-6">
-            <AuthAnimation type="register" size="sm" />
+            <AuthCharacterAnimation type="register" size="sm" />
           </div>
 
           <div className="mb-8">

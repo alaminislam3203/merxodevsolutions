@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
-import AuthAnimation from '@/components/AuthAnimation';
+import AuthCharacterAnimation from '@/components/AuthCharacterAnimation';
 import {
   FiShield,
   FiLock,
