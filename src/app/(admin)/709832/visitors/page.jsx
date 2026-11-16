@@ -547,6 +547,8 @@ export default function AdminVisitorsPage() {
             Blocked IP addresses
           </div>
         </div>
+      </div>
+
       {/* Tabs & Search Bar */}
       <div
         style={{
