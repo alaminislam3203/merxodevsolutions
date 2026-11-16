@@ -1525,7 +1525,7 @@ export default function AdminVisitorsPage() {
             position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: "rgba(3, 7, 18, 0.8)",
+            background: "rgba(3, 7, 18, 0.7)",
             backdropFilter: "blur(8px)",
             display: "flex",
             alignItems: "center",
@@ -1540,11 +1540,12 @@ export default function AdminVisitorsPage() {
               maxWidth: 680,
               maxHeight: "88vh",
               overflowY: "auto",
-              background: "#0d1425",
-              border: "1px solid rgba(255,255,255,0.14)",
+              background: isDark ? "#0d1425" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.14)" : "1px solid #e2e8f0",
               borderRadius: 20,
               padding: 24,
-              boxShadow: "0 25px 60px rgba(0,0,0,0.75)",
+              boxShadow: isDark ? "0 25px 60px rgba(0,0,0,0.75)" : "0 20px 50px rgba(0,0,0,0.15)",
+              color: isDark ? "#f8fafc" : "#0f172a",
             }}
           >
             <div
@@ -1554,7 +1555,7 @@ export default function AdminVisitorsPage() {
                 alignItems: "center",
                 marginBottom: 18,
                 paddingBottom: 14,
-                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                borderBottom: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
               }}
             >
               <div>
@@ -1563,7 +1564,7 @@ export default function AdminVisitorsPage() {
                     margin: 0,
                     fontSize: 18,
                     fontWeight: 800,
-                    color: "#f8fafc",
+                    color: isDark ? "#f8fafc" : "#0f172a",
                     display: "flex",
                     alignItems: "center",
                     gap: 10,
@@ -1577,8 +1578,9 @@ export default function AdminVisitorsPage() {
                     <span
                       style={{
                         fontSize: 11,
-                        background: "rgba(16,185,129,0.18)",
-                        color: "#10b981",
+                        background: isDark ? "rgba(16,185,129,0.18)" : "#ecfdf5",
+                        color: isDark ? "#10b981" : "#047857",
+                        border: isDark ? "none" : "1px solid #a7f3d0",
                         padding: "2px 8px",
                         borderRadius: 6,
                       }}
@@ -1587,7 +1589,7 @@ export default function AdminVisitorsPage() {
                     </span>
                   )}
                 </h3>
-                <p style={{ margin: "4px 0 0", fontSize: 12.5, color: "#94a3b8" }}>
+                <p style={{ margin: "4px 0 0", fontSize: 12.5, color: isDark ? "#94a3b8" : "#64748b" }}>
                   First seen:{" "}
                   {selectedVisitor.firstSeenAt
                     ? new Date(selectedVisitor.firstSeenAt).toLocaleString()
@@ -1602,9 +1604,9 @@ export default function AdminVisitorsPage() {
               <button
                 onClick={() => setSelectedVisitor(null)}
                 style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "none",
-                  color: "#94a3b8",
+                  background: isDark ? "rgba(255,255,255,0.06)" : "#f1f5f9",
+                  border: isDark ? "none" : "1px solid #cbd5e1",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   width: 34,
                   height: 34,
                   borderRadius: 10,
@@ -1629,43 +1631,43 @@ export default function AdminVisitorsPage() {
             >
               <div
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                   padding: 12,
                   borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#64748b" }}>IP ADDRESS & ISP</div>
+                <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>IP ADDRESS & ISP</div>
                 <div
                   style={{
                     fontSize: 14,
                     fontWeight: 700,
-                    color: "#38bdf8",
+                    color: isDark ? "#38bdf8" : "#0284c7",
                     fontFamily: "monospace",
                     marginTop: 3,
                   }}
                 >
                   {selectedVisitor.ip || "N/A"}
                 </div>
-                <div style={{ fontSize: 12, color: "#cbd5e1", marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: isDark ? "#cbd5e1" : "#334155", marginTop: 2 }}>
                   {selectedVisitor.isp || "Unknown ISP"}
                 </div>
               </div>
 
               <div
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                   padding: 12,
                   borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#64748b" }}>LOCATION & COORDINATES</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#f8fafc", marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>LOCATION & COORDINATES</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginTop: 3 }}>
                   {selectedVisitor.city || "Unknown"},{" "}
                   {selectedVisitor.countryName || selectedVisitor.country}
                 </div>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
                   {selectedVisitor.region || selectedVisitor.timezone || "Asia/Dhaka"}
                   {selectedVisitor.latitude && selectedVisitor.longitude && (
                     <a
@@ -1674,7 +1676,7 @@ export default function AdminVisitorsPage() {
                       rel="noreferrer"
                       style={{
                         marginLeft: 8,
-                        color: "#38bdf8",
+                        color: isDark ? "#38bdf8" : "#0284c7",
                         textDecoration: "none",
                         display: "inline-flex",
                         alignItems: "center",
@@ -1689,17 +1691,17 @@ export default function AdminVisitorsPage() {
 
               <div
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                   padding: 12,
                   borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#64748b" }}>DEVICE & SYSTEM</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#f8fafc", marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>DEVICE & SYSTEM</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginTop: 3 }}>
                   {selectedVisitor.deviceBrand || selectedVisitor.device} ({selectedVisitor.os})
                 </div>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
                   {selectedVisitor.browser} • Screen: {selectedVisitor.screen || "N/A"} • Lang:{" "}
                   {selectedVisitor.language || "en"}
                 </div>
@@ -1707,18 +1709,18 @@ export default function AdminVisitorsPage() {
 
               <div
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
                   padding: 12,
                   borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                 }}
               >
-                <div style={{ fontSize: 11, color: "#64748b" }}>ENGAGEMENT & SOURCE</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#10b981", marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>ENGAGEMENT & SOURCE</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: isDark ? "#10b981" : "#059669", marginTop: 3 }}>
                   {selectedVisitor.pageViews || 1} Pages •{" "}
                   {formatDuration(selectedVisitor.totalDurationSec)}
                 </div>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
+                <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", marginTop: 2 }}>
                   Source: {selectedVisitor.trafficSource || "Direct"} (Visits:{" "}
                   {selectedVisitor.visitCount || 1})
                 </div>
@@ -1730,14 +1732,14 @@ export default function AdminVisitorsPage() {
               style={{
                 fontSize: 14,
                 fontWeight: 700,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: "0 0 12px",
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
               }}
             >
-              <FiActivity style={{ color: "#38bdf8" }} /> Step-by-Step Visited Pages
+              <FiActivity style={{ color: isDark ? "#38bdf8" : "#0284c7" }} /> Step-by-Step Visited Pages
               Journey ({selectedVisitor.pagesVisited?.length || 0})
             </h4>
 
@@ -1760,8 +1762,8 @@ export default function AdminVisitorsPage() {
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: "9px 14px",
-                    background: "rgba(0,0,0,0.3)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: isDark ? "rgba(0,0,0,0.3)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
                     borderRadius: 10,
                     fontSize: 12.5,
                   }}
@@ -1772,8 +1774,8 @@ export default function AdminVisitorsPage() {
                         width: 22,
                         height: 22,
                         borderRadius: "50%",
-                        background: "rgba(99,102,241,0.2)",
-                        color: "#a5b4fc",
+                        background: isDark ? "rgba(99,102,241,0.2)" : "#e0e7ff",
+                        color: isDark ? "#a5b4fc" : "#4338ca",
                         fontSize: 11,
                         fontWeight: 700,
                         display: "inline-flex",
@@ -1785,7 +1787,7 @@ export default function AdminVisitorsPage() {
                     </span>
                     <span
                       style={{
-                        color: "#38bdf8",
+                        color: isDark ? "#38bdf8" : "#0284c7",
                         fontFamily: "monospace",
                         fontWeight: 600,
                       }}
@@ -1793,7 +1795,7 @@ export default function AdminVisitorsPage() {
                       {step.path}
                     </span>
                   </div>
-                  <span style={{ fontSize: 11.5, color: "#64748b" }}>
+                  <span style={{ fontSize: 11.5, color: isDark ? "#64748b" : "#64748b" }}>
                     {step.time
                       ? new Date(step.time).toLocaleTimeString([], {
                           hour: "2-digit",
@@ -1815,15 +1817,15 @@ export default function AdminVisitorsPage() {
                 flexWrap: "wrap",
                 gap: 10,
                 paddingTop: 14,
-                borderTop: "1px solid rgba(255,255,255,0.08)",
+                borderTop: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
               }}
             >
               <button
                 onClick={() => handleDeleteVisitor(selectedVisitor.id)}
                 style={{
-                  background: "rgba(239,68,68,0.12)",
-                  color: "#f87171",
-                  border: "1px solid rgba(239,68,68,0.25)",
+                  background: isDark ? "rgba(239,68,68,0.12)" : "#fee2e2",
+                  color: isDark ? "#f87171" : "#dc2626",
+                  border: isDark ? "1px solid rgba(239,68,68,0.25)" : "1px solid #fecaca",
                   padding: "8px 14px",
                   borderRadius: 9,
                   fontSize: 12.5,
@@ -1874,7 +1876,7 @@ export default function AdminVisitorsPage() {
             position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: "rgba(3, 7, 18, 0.8)",
+            background: "rgba(3, 7, 18, 0.7)",
             backdropFilter: "blur(8px)",
             display: "flex",
             alignItems: "center",
@@ -1887,11 +1889,12 @@ export default function AdminVisitorsPage() {
             style={{
               width: "100%",
               maxWidth: 520,
-              background: "#0d1425",
-              border: "1px solid rgba(99,102,241,0.35)",
+              background: isDark ? "#0d1425" : "#ffffff",
+              border: isDark ? "1px solid rgba(99,102,241,0.35)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "0 25px 60px rgba(0,0,0,0.75)" : "0 20px 50px rgba(0,0,0,0.15)",
               borderRadius: 20,
               padding: 24,
-              boxShadow: "0 25px 60px rgba(0,0,0,0.75)",
+              color: isDark ? "#f8fafc" : "#0f172a",
             }}
           >
             <div
@@ -1907,32 +1910,34 @@ export default function AdminVisitorsPage() {
                   margin: 0,
                   fontSize: 17,
                   fontWeight: 800,
-                  color: "#f8fafc",
+                  color: isDark ? "#f8fafc" : "#0f172a",
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
                 }}
               >
-                <FiMessageSquare style={{ color: "#818cf8" }} /> Message Visitor
+                <FiMessageSquare style={{ color: isDark ? "#818cf8" : "#6366f1" }} /> Message Visitor
                 Live
               </h3>
               <button
                 onClick={() => setProactiveVisitor(null)}
                 style={{
-                  background: "none",
+                  background: isDark ? "none" : "#f1f5f9",
                   border: "none",
-                  color: "#94a3b8",
+                  color: isDark ? "#94a3b8" : "#64748b",
                   cursor: "pointer",
+                  borderRadius: 8,
+                  padding: 4,
                 }}
               >
                 <FiX size={18} />
               </button>
             </div>
 
-            <p style={{ fontSize: 13, color: "#94a3b8", margin: "0 0 14px" }}>
+            <p style={{ fontSize: 13, color: isDark ? "#94a3b8" : "#64748b", margin: "0 0 14px" }}>
               Sending a message here will automatically pop open the{" "}
               <strong>MerxoDev Live Chat</strong> box on{" "}
-              <strong style={{ color: "#38bdf8" }}>
+              <strong style={{ color: isDark ? "#38bdf8" : "#0284c7" }}>
                 {proactiveVisitor.userName ||
                   `${proactiveVisitor.city || "Visitor"} (${proactiveVisitor.ip})`}
               </strong>
@@ -1943,7 +1948,7 @@ export default function AdminVisitorsPage() {
               <div
                 style={{
                   fontSize: 11.5,
-                  color: "#64748b",
+                  color: isDark ? "#64748b" : "#64748b",
                   marginBottom: 6,
                   fontWeight: 600,
                 }}
@@ -1958,9 +1963,9 @@ export default function AdminVisitorsPage() {
                     onClick={() => setProactiveText(tpl)}
                     style={{
                       textAlign: "left",
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      color: "#cbd5e1",
+                      background: isDark ? "rgba(255,255,255,0.04)" : "#f8fafc",
+                      border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+                      color: isDark ? "#cbd5e1" : "#334155",
                       padding: "8px 12px",
                       borderRadius: 9,
                       fontSize: 12,
@@ -1981,11 +1986,11 @@ export default function AdminVisitorsPage() {
                 onChange={(e) => setProactiveText(e.target.value)}
                 style={{
                   width: "100%",
-                  background: "rgba(0,0,0,0.35)",
-                  border: "1px solid rgba(255,255,255,0.14)",
+                  background: isDark ? "rgba(0,0,0,0.35)" : "#f8fafc",
+                  border: isDark ? "1px solid rgba(255,255,255,0.14)" : "1px solid #cbd5e1",
                   borderRadius: 12,
                   padding: 12,
-                  color: "#f8fafc",
+                  color: isDark ? "#f8fafc" : "#0f172a",
                   fontSize: 13.5,
                   outline: "none",
                   resize: "vertical",
@@ -2005,9 +2010,9 @@ export default function AdminVisitorsPage() {
                     type="button"
                     onClick={() => router.push("/709832/live-chat")}
                     style={{
-                      background: "rgba(255,255,255,0.06)",
-                      color: "#cbd5e1",
-                      border: "1px solid rgba(255,255,255,0.12)",
+                      background: isDark ? "rgba(255,255,255,0.06)" : "#f1f5f9",
+                      color: isDark ? "#cbd5e1" : "#334155",
+                      border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
                       padding: "9px 14px",
                       borderRadius: 10,
                       fontSize: 12.5,
@@ -2040,6 +2045,9 @@ export default function AdminVisitorsPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
           </div>
         </div>
       )}
