@@ -43,7 +43,13 @@ import "./login.css";
 function DashboardView({ isTeamMember = false }) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
-  const [stats, setStats] = useState({ projects: 0, images: 0, content: 0, users: 0, reviews: 0 });
+  const [stats, setStats] = useState({
+    projects: 0,
+    images: 0,
+    content: 0,
+    users: 0,
+    reviews: 0,
+  });
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
   const [analyticsDays, setAnalyticsDays] = useState(14);
@@ -79,11 +85,16 @@ function DashboardView({ isTeamMember = false }) {
       d.uniqueVisits,
       d.pageViews,
     ]);
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `merxodev_traffic_report_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute(
+      "download",
+      `merxodev_traffic_report_${new Date().toISOString().slice(0, 10)}.csv`,
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -116,7 +127,11 @@ function DashboardView({ isTeamMember = false }) {
             images: Array.isArray(images) ? images.length : 0,
             content: 0,
             users: 0,
-            reviews: reviewsData?.stats?.total || (Array.isArray(reviewsData?.reviews) ? reviewsData.reviews.length : 0),
+            reviews:
+              reviewsData?.stats?.total ||
+              (Array.isArray(reviewsData?.reviews)
+                ? reviewsData.reviews.length
+                : 0),
           });
         } else {
           const [pr, im, co, us] = await Promise.all([
@@ -135,7 +150,9 @@ function DashboardView({ isTeamMember = false }) {
             projects: Array.isArray(projects) ? projects.length : 0,
             images: Array.isArray(images) ? images.length : 0,
             content: Array.isArray(content) ? content.length : 0,
-            users: usersData?.stats?.total || (Array.isArray(usersData?.users) ? usersData.users.length : 0),
+            users:
+              usersData?.stats?.total ||
+              (Array.isArray(usersData?.users) ? usersData.users.length : 0),
             reviews: 0,
           });
         }
@@ -198,7 +215,16 @@ function DashboardView({ isTeamMember = false }) {
       bg: "rgba(99,102,241,0.12)",
       href: "/709832/projects",
       icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polygon points="12 2 2 7 12 12 22 7 12 2" />
           <polyline points="2 17 12 22 22 17" />
           <polyline points="2 12 12 17 22 12" />
@@ -213,7 +239,16 @@ function DashboardView({ isTeamMember = false }) {
       bg: "rgba(6,182,212,0.12)",
       href: "/709832/images",
       icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
           <circle cx="8.5" cy="8.5" r="1.5" />
           <polyline points="21 15 16 10 5 21" />
@@ -283,7 +318,16 @@ function DashboardView({ isTeamMember = false }) {
       color: "#818cf8",
       bg: "rgba(99,102,241,0.12)",
       icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <line x1="12" y1="5" x2="12" y2="19" />
           <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
@@ -296,7 +340,16 @@ function DashboardView({ isTeamMember = false }) {
       color: "#a78bfa",
       bg: "rgba(139,92,246,0.12)",
       icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="17 8 12 3 7 8" />
           <line x1="12" y1="3" x2="12" y2="15" />
@@ -312,7 +365,16 @@ function DashboardView({ isTeamMember = false }) {
             color: "#22d3ee",
             bg: "rgba(6,182,212,0.12)",
             icon: (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
               </svg>
@@ -324,7 +386,10 @@ function DashboardView({ isTeamMember = false }) {
 
   // Calculate highest count for proportional chart bars & curves
   const chartData = analytics?.chartData || [];
-  const maxVisits = Math.max(...chartData.map((d) => Math.max(d.uniqueVisits, d.pageViews)), 6);
+  const maxVisits = Math.max(
+    ...chartData.map((d) => Math.max(d.uniqueVisits, d.pageViews)),
+    6,
+  );
 
   // SVG Smooth Area Curve calculations
   const chartWidth = 800;
@@ -335,13 +400,21 @@ function DashboardView({ isTeamMember = false }) {
   const availH = chartHeight - padY * 2;
 
   const pointsUnique = chartData.map((d, i) => {
-    const x = padX + (chartData.length > 1 ? (i / (chartData.length - 1)) * availW : availW / 2);
+    const x =
+      padX +
+      (chartData.length > 1
+        ? (i / (chartData.length - 1)) * availW
+        : availW / 2);
     const y = chartHeight - padY - (d.uniqueVisits / maxVisits) * availH;
     return [x, y, d];
   });
 
   const pointsViews = chartData.map((d, i) => {
-    const x = padX + (chartData.length > 1 ? (i / (chartData.length - 1)) * availW : availW / 2);
+    const x =
+      padX +
+      (chartData.length > 1
+        ? (i / (chartData.length - 1)) * availW
+        : availW / 2);
     const y = chartHeight - padY - (d.pageViews / maxVisits) * availH;
     return [x, y, d];
   });
@@ -365,14 +438,16 @@ function DashboardView({ isTeamMember = false }) {
   };
 
   const uniqueLinePath = getCurvePath(pointsUnique);
-  const uniqueAreaPath = pointsUnique.length > 0
-    ? `${uniqueLinePath} L ${pointsUnique[pointsUnique.length - 1][0]} ${chartHeight - padY} L ${pointsUnique[0][0]} ${chartHeight - padY} Z`
-    : "";
+  const uniqueAreaPath =
+    pointsUnique.length > 0
+      ? `${uniqueLinePath} L ${pointsUnique[pointsUnique.length - 1][0]} ${chartHeight - padY} L ${pointsUnique[0][0]} ${chartHeight - padY} Z`
+      : "";
 
   const viewsLinePath = getCurvePath(pointsViews);
-  const viewsAreaPath = pointsViews.length > 0
-    ? `${viewsLinePath} L ${pointsViews[pointsViews.length - 1][0]} ${chartHeight - padY} L ${pointsViews[0][0]} ${chartHeight - padY} Z`
-    : "";
+  const viewsAreaPath =
+    pointsViews.length > 0
+      ? `${viewsLinePath} L ${pointsViews[pointsViews.length - 1][0]} ${chartHeight - padY} L ${pointsViews[0][0]} ${chartHeight - padY} Z`
+      : "";
 
   // Device & Traffic Distribution derived from recent visitor logs
   const logs = analytics?.recentLogs || [];
@@ -388,27 +463,81 @@ function DashboardView({ isTeamMember = false }) {
   });
 
   const totalLogs = mobCount + deskCount + tabCount;
-  const mobileShare = totalLogs > 0 ? Math.round((mobCount / totalLogs) * 100) : 62;
-  const desktopShare = totalLogs > 0 ? Math.round((deskCount / totalLogs) * 100) : 34;
-  const tabletShare = totalLogs > 0 ? Math.max(0, 100 - mobileShare - desktopShare) : 4;
+  const mobileShare =
+    totalLogs > 0 ? Math.round((mobCount / totalLogs) * 100) : 62;
+  const desktopShare =
+    totalLogs > 0 ? Math.round((deskCount / totalLogs) * 100) : 34;
+  const tabletShare =
+    totalLogs > 0 ? Math.max(0, 100 - mobileShare - desktopShare) : 4;
 
   const commandItems = [
-    { label: "Add Project to Portfolio", desc: "Publish showcase project", icon: <FiLayers size={18} />, href: "/709832/projects", tag: "Projects" },
-    { label: "Upload Images & Assets", desc: "Media library & Cloudinary", icon: <FiGlobe size={18} />, href: "/709832/images", tag: "Media" },
-    { label: "Live Visitors & IP Tracker", desc: "Real-time traffic audit & telemetry", icon: <FiActivity size={18} />, href: "/709832/visitors", tag: "Analytics" },
-    { label: "CRM, Tasks & Audits", desc: "Team workspace & project milestones", icon: <FiCheckSquare size={18} />, href: "/709832/workspace", tag: "Workspace" },
-    { label: "Live Chat & AI Inquiries", desc: "Real-time client conversations", icon: <FiUsers size={18} />, href: "/709832/live-chat", tag: "Support" },
-    { label: "Client Reviews & Testimonials", desc: "Manage & approve reviews", icon: <FiCheckCircle size={18} />, href: "/709832/reviews", tag: "Reviews" },
-    ...(!isTeamMember ? [
-      { label: "User Accounts & Security", desc: "Permissions, client logins & roles", icon: <FiShield size={18} />, href: "/709832/users", tag: "Admin" },
-      { label: "Website Content Editor", desc: "Modify hero, about, services texts", icon: <FiMonitor size={18} />, href: "/709832/content", tag: "CMS" },
-    ] : []),
+    {
+      label: "Add Project to Portfolio",
+      desc: "Publish showcase project",
+      icon: <FiLayers size={18} />,
+      href: "/709832/projects",
+      tag: "Projects",
+    },
+    {
+      label: "Upload Images & Assets",
+      desc: "Media library & Cloudinary",
+      icon: <FiGlobe size={18} />,
+      href: "/709832/images",
+      tag: "Media",
+    },
+    {
+      label: "Live Visitors & IP Tracker",
+      desc: "Real-time traffic audit & telemetry",
+      icon: <FiActivity size={18} />,
+      href: "/709832/visitors",
+      tag: "Analytics",
+    },
+    {
+      label: "CRM, Tasks & Audits",
+      desc: "Team workspace & project milestones",
+      icon: <FiCheckSquare size={18} />,
+      href: "/709832/workspace",
+      tag: "Workspace",
+    },
+    {
+      label: "Live Chat & AI Inquiries",
+      desc: "Real-time client conversations",
+      icon: <FiUsers size={18} />,
+      href: "/709832/live-chat",
+      tag: "Support",
+    },
+    {
+      label: "Client Reviews & Testimonials",
+      desc: "Manage & approve reviews",
+      icon: <FiCheckCircle size={18} />,
+      href: "/709832/reviews",
+      tag: "Reviews",
+    },
+    ...(!isTeamMember
+      ? [
+          {
+            label: "User Accounts & Security",
+            desc: "Permissions, client logins & roles",
+            icon: <FiShield size={18} />,
+            href: "/709832/users",
+            tag: "Admin",
+          },
+          {
+            label: "Website Content Editor",
+            desc: "Modify hero, about, services texts",
+            icon: <FiMonitor size={18} />,
+            href: "/709832/content",
+            tag: "CMS",
+          },
+        ]
+      : []),
   ];
 
-  const filteredCommands = commandItems.filter((item) =>
-    item.label.toLowerCase().includes(commandSearch.toLowerCase()) ||
-    item.desc.toLowerCase().includes(commandSearch.toLowerCase()) ||
-    item.tag.toLowerCase().includes(commandSearch.toLowerCase())
+  const filteredCommands = commandItems.filter(
+    (item) =>
+      item.label.toLowerCase().includes(commandSearch.toLowerCase()) ||
+      item.desc.toLowerCase().includes(commandSearch.toLowerCase()) ||
+      item.tag.toLowerCase().includes(commandSearch.toLowerCase()),
   );
 
   return (
@@ -420,7 +549,9 @@ function DashboardView({ isTeamMember = false }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: isDark ? "rgba(5, 8, 17, 0.78)" : "rgba(15, 23, 42, 0.45)",
+            background: isDark
+              ? "rgba(5, 8, 17, 0.78)"
+              : "rgba(15, 23, 42, 0.45)",
             backdropFilter: "blur(10px)",
             zIndex: 9999,
             display: "flex",
@@ -437,7 +568,9 @@ function DashboardView({ isTeamMember = false }) {
               width: "100%",
               maxWidth: 580,
               background: isDark ? "#0c1328" : "#ffffff",
-              border: isDark ? "1px solid rgba(99, 102, 241, 0.35)" : "1px solid rgba(99, 102, 241, 0.25)",
+              border: isDark
+                ? "1px solid rgba(99, 102, 241, 0.35)"
+                : "1px solid rgba(99, 102, 241, 0.25)",
               borderRadius: 16,
               boxShadow: isDark
                 ? "0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(99, 102, 241, 0.2)"
@@ -451,7 +584,9 @@ function DashboardView({ isTeamMember = false }) {
                 display: "flex",
                 alignItems: "center",
                 padding: "16px 20px",
-                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(0, 0, 0, 0.08)",
+                borderBottom: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.08)"
+                  : "1px solid rgba(0, 0, 0, 0.08)",
                 gap: 12,
               }}
             >
@@ -494,7 +629,14 @@ function DashboardView({ isTeamMember = false }) {
             {/* Filtered Action List */}
             <div style={{ maxHeight: 360, overflowY: "auto", padding: "10px" }}>
               {filteredCommands.length === 0 ? (
-                <div style={{ padding: "30px 20px", textAlign: "center", color: isDark ? "#64748b" : "#94a3b8", fontSize: 13 }}>
+                <div
+                  style={{
+                    padding: "30px 20px",
+                    textAlign: "center",
+                    color: isDark ? "#64748b" : "#94a3b8",
+                    fontSize: 13,
+                  }}
+                >
                   No commands matching &quot;{commandSearch}&quot;
                 </div>
               ) : (
@@ -514,19 +656,25 @@ function DashboardView({ isTeamMember = false }) {
                       background: "transparent",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = isDark ? "rgba(99, 102, 241, 0.15)" : "#f1f5f9";
+                      e.currentTarget.style.background = isDark
+                        ? "rgba(99, 102, 241, 0.15)"
+                        : "#f1f5f9";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 14 }}
+                    >
                       <div
                         style={{
                           width: 36,
                           height: 36,
                           borderRadius: 10,
-                          background: isDark ? "rgba(255, 255, 255, 0.04)" : "#f1f5f9",
+                          background: isDark
+                            ? "rgba(255, 255, 255, 0.04)"
+                            : "#f1f5f9",
                           color: "#6366f1",
                           display: "flex",
                           alignItems: "center",
@@ -536,14 +684,31 @@ function DashboardView({ isTeamMember = false }) {
                         {cmd.icon}
                       </div>
                       <div>
-                        <div style={{ color: isDark ? "#f8fafc" : "#0f172a", fontSize: 14, fontWeight: 600 }}>{cmd.label}</div>
-                        <div style={{ color: isDark ? "#94a3b8" : "#64748b", fontSize: 12 }}>{cmd.desc}</div>
+                        <div
+                          style={{
+                            color: isDark ? "#f8fafc" : "#0f172a",
+                            fontSize: 14,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {cmd.label}
+                        </div>
+                        <div
+                          style={{
+                            color: isDark ? "#94a3b8" : "#64748b",
+                            fontSize: 12,
+                          }}
+                        >
+                          {cmd.desc}
+                        </div>
                       </div>
                     </div>
                     <span
                       style={{
                         fontSize: 11,
-                        background: isDark ? "rgba(255, 255, 255, 0.06)" : "#f1f5f9",
+                        background: isDark
+                          ? "rgba(255, 255, 255, 0.06)"
+                          : "#f1f5f9",
                         color: isDark ? "#94a3b8" : "#475569",
                         padding: "3px 8px",
                         borderRadius: 6,
@@ -560,7 +725,9 @@ function DashboardView({ isTeamMember = false }) {
             <div
               style={{
                 padding: "10px 18px",
-                borderTop: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid rgba(0, 0, 0, 0.06)",
+                borderTop: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.06)"
+                  : "1px solid rgba(0, 0, 0, 0.06)",
                 background: isDark ? "rgba(0, 0, 0, 0.3)" : "#f8fafc",
                 display: "flex",
                 justifyContent: "space-between",
@@ -568,7 +735,13 @@ function DashboardView({ isTeamMember = false }) {
                 color: isDark ? "#64748b" : "#94a3b8",
               }}
             >
-              <span>Navigation shortcut: <b style={{ color: isDark ? "#94a3b8" : "#475569" }}>Ctrl + K</b> anywhere</span>
+              <span>
+                Navigation shortcut:{" "}
+                <b style={{ color: isDark ? "#94a3b8" : "#475569" }}>
+                  Ctrl + K
+                </b>{" "}
+                anywhere
+              </span>
               <span>Merxo Command Center</span>
             </div>
           </div>
@@ -587,15 +760,32 @@ function DashboardView({ isTeamMember = false }) {
           background: isDark
             ? "linear-gradient(135deg, rgba(99, 102, 241, 0.09) 0%, rgba(6, 182, 212, 0.06) 100%)"
             : "linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(6, 182, 212, 0.04) 100%)",
-          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          border: isDark
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid #e2e8f0",
           borderRadius: 18,
           marginBottom: 24,
           boxShadow: isDark ? "none" : "0 4px 16px rgba(0, 0, 0, 0.03)",
         }}
       >
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <h1 className="admin-page-title" style={{ margin: 0, fontSize: 24, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              flexWrap: "wrap",
+            }}
+          >
+            <h1
+              className="admin-page-title"
+              style={{
+                margin: 0,
+                fontSize: 24,
+                fontWeight: 800,
+                color: isDark ? "#f8fafc" : "#0f172a",
+              }}
+            >
               {getGreeting()}, Administrator 👋
             </h1>
             <span
@@ -612,17 +802,39 @@ function DashboardView({ isTeamMember = false }) {
                 fontWeight: 700,
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", animation: "pulse 2s infinite" }} />
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "#10b981",
+                  animation: "pulse 2s infinite",
+                }}
+              />
               Live Telemetry Active
             </span>
           </div>
-          <p style={{ margin: "6px 0 0 0", fontSize: 13, color: isDark ? "#94a3b8" : "#64748b" }}>
-            Real-time analytics, client project pipelines, and infrastructure health for merxodevsolutions.pro.bd
+          <p
+            style={{
+              margin: "6px 0 0 0",
+              fontSize: 13,
+              color: isDark ? "#94a3b8" : "#64748b",
+            }}
+          >
+            Real-time analytics, client project pipelines, and infrastructure
+            health for merxodevsolutions.pro.bd
           </p>
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexWrap: "wrap",
+          }}
+        >
           {/* Quick Theme Switcher */}
           <button
             onClick={toggleTheme}
@@ -631,7 +843,9 @@ function DashboardView({ isTeamMember = false }) {
               alignItems: "center",
               gap: 8,
               background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #cbd5e1",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.12)"
+                : "1px solid #cbd5e1",
               color: isDark ? "#cbd5e1" : "#0f172a",
               padding: "9px 15px",
               borderRadius: 10,
@@ -661,7 +875,9 @@ function DashboardView({ isTeamMember = false }) {
               alignItems: "center",
               gap: 8,
               background: isDark ? "rgba(255, 255, 255, 0.05)" : "#ffffff",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #cbd5e1",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.12)"
+                : "1px solid #cbd5e1",
               color: isDark ? "#cbd5e1" : "#0f172a",
               padding: "9px 15px",
               borderRadius: 10,
@@ -673,7 +889,17 @@ function DashboardView({ isTeamMember = false }) {
             }}
           >
             <FiSearch size={14} style={{ color: "#818cf8" }} /> Quick Search
-            <span style={{ background: isDark ? "rgba(255, 255, 255, 0.1)" : "#f1f5f9", padding: "2px 6px", borderRadius: 4, fontSize: 10, fontFamily: "monospace" }}>Ctrl+K</span>
+            <span
+              style={{
+                background: isDark ? "rgba(255, 255, 255, 0.1)" : "#f1f5f9",
+                padding: "2px 6px",
+                borderRadius: 4,
+                fontSize: 10,
+                fontFamily: "monospace",
+              }}
+            >
+              Ctrl+K
+            </span>
           </button>
 
           <button
@@ -711,7 +937,9 @@ function DashboardView({ isTeamMember = false }) {
         <div
           style={{
             background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
-            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+            border: isDark
+              ? "1px solid rgba(255, 255, 255, 0.06)"
+              : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
@@ -721,23 +949,72 @@ function DashboardView({ isTeamMember = false }) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(16, 185, 129, 0.12)", color: "#10b981", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "rgba(16, 185, 129, 0.12)",
+                color: "#10b981",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <FiServer size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Vercel Edge Network</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#10b981", display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981" }}></span> 100% Operational
+              <div
+                style={{
+                  fontSize: 11,
+                  color: isDark ? "#64748b" : "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  fontWeight: 700,
+                }}
+              >
+                Vercel Edge Network
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#10b981",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  marginTop: 2,
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#10b981",
+                  }}
+                ></span>{" "}
+                100% Operational
               </div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontFamily: "monospace" }}>sin1</span>
+          <span
+            style={{
+              fontSize: 11,
+              color: isDark ? "#94a3b8" : "#64748b",
+              fontFamily: "monospace",
+            }}
+          >
+            sin1
+          </span>
         </div>
 
         <div
           style={{
             background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
-            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+            border: isDark
+              ? "1px solid rgba(255, 255, 255, 0.06)"
+              : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
@@ -747,23 +1024,66 @@ function DashboardView({ isTeamMember = false }) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(99, 102, 241, 0.12)", color: "#818cf8", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "rgba(99, 102, 241, 0.12)",
+                color: "#818cf8",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <FiDatabase size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>Postgres Database</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#818cf8", display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#818cf8" }}></span> Connected &amp; Pooled
+              <div
+                style={{
+                  fontSize: 11,
+                  color: isDark ? "#64748b" : "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  fontWeight: 700,
+                }}
+              >
+                Postgres Database
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#818cf8",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  marginTop: 2,
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#818cf8",
+                  }}
+                ></span>{" "}
+                Connected &amp; Pooled
               </div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>Healthy</span>
+          <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>
+            Healthy
+          </span>
         </div>
 
         <div
           style={{
             background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
-            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+            border: isDark
+              ? "1px solid rgba(255, 255, 255, 0.06)"
+              : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
@@ -773,21 +1093,55 @@ function DashboardView({ isTeamMember = false }) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(245, 158, 11, 0.12)", color: "#f59e0b", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "rgba(245, 158, 11, 0.12)",
+                color: "#f59e0b",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <FiZap size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>API Response Time</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24", marginTop: 2 }}>~85ms Latency</div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: isDark ? "#64748b" : "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  fontWeight: 700,
+                }}
+              >
+                API Response Time
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#fbbf24",
+                  marginTop: 2,
+                }}
+              >
+                ~85ms Latency
+              </div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>Fast</span>
+          <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>
+            Fast
+          </span>
         </div>
 
         <div
           style={{
             background: isDark ? "rgba(255, 255, 255, 0.02)" : "#ffffff",
-            border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+            border: isDark
+              ? "1px solid rgba(255, 255, 255, 0.06)"
+              : "1px solid #e2e8f0",
             borderRadius: 14,
             padding: "14px 16px",
             display: "flex",
@@ -797,31 +1151,83 @@ function DashboardView({ isTeamMember = false }) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(6, 182, 212, 0.12)", color: "#06b6d4", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "rgba(6, 182, 212, 0.12)",
+                color: "#06b6d4",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <FiShield size={18} />
             </div>
             <div>
-              <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>SSL &amp; Security</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#38bdf8", marginTop: 2 }}>A+ TLS 1.3</div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: isDark ? "#64748b" : "#64748b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  fontWeight: 700,
+                }}
+              >
+                SSL &amp; Security
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#38bdf8",
+                  marginTop: 2,
+                }}
+              >
+                A+ TLS 1.3
+              </div>
             </div>
           </div>
-          <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>Encrypted</span>
+          <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>
+            Encrypted
+          </span>
         </div>
       </div>
 
       {/* Top Stat Cards */}
-      <div className="dash-stats-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, marginBottom: 28 }}>
+      <div
+        className="dash-stats-grid"
+        style={{
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 16,
+          marginBottom: 28,
+        }}
+      >
         {statCards.map((card) => (
-          <Link key={card.label} href={card.href} className="dash-stat-card" style={{ padding: "20px 22px" }}>
-            <div className="dash-stat-icon" style={{ background: card.bg, color: card.color }}>
+          <Link
+            key={card.label}
+            href={card.href}
+            className="dash-stat-card"
+            style={{ padding: "20px 22px" }}
+          >
+            <div
+              className="dash-stat-icon"
+              style={{ background: card.bg, color: card.color }}
+            >
               {card.icon}
             </div>
             <div className="dash-stat-info">
               {loading ? (
                 <div className="dash-stat-skeleton"></div>
               ) : (
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span className="dash-stat-value" style={{ color: card.color }}>
+                <div
+                  style={{ display: "flex", alignItems: "baseline", gap: 8 }}
+                >
+                  <span
+                    className="dash-stat-value"
+                    style={{ color: card.color }}
+                  >
                     {card.value}
                   </span>
                   {card.isLive && (
@@ -838,14 +1244,24 @@ function DashboardView({ isTeamMember = false }) {
                         borderRadius: 4,
                       }}
                     >
-                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", animation: "pulse 2s infinite" }}></span>
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "#10b981",
+                          animation: "pulse 2s infinite",
+                        }}
+                      ></span>
                       LIVE
                     </span>
                   )}
                 </div>
               )}
               <span className="dash-stat-label">{card.label}</span>
-              <span style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{card.subValue}</span>
+              <span style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>
+                {card.subValue}
+              </span>
             </div>
             <div className="dash-stat-arrow" style={{ color: card.color }}>
               <FiArrowUpRight size={20} />
@@ -859,7 +1275,9 @@ function DashboardView({ isTeamMember = false }) {
         id="analytics-section"
         style={{
           background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
-          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          border: isDark
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid #e2e8f0",
           boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
           borderRadius: 18,
           padding: 24,
@@ -889,15 +1307,30 @@ function DashboardView({ isTeamMember = false }) {
                 gap: 10,
               }}
             >
-              <FiTrendingUp style={{ color: "#10b981" }} /> Daily Website Visitors &amp; Traffic Telemetry
+              <FiTrendingUp style={{ color: "#10b981" }} /> Daily Website
+              Visitors &amp; Traffic Telemetry
             </h2>
-            <p style={{ margin: "4px 0 0 0", fontSize: 13, color: isDark ? "#94a3b8" : "#64748b" }}>
-              Track daily unique visitors and total page impressions visiting merxodevsolutions.pro.bd
+            <p
+              style={{
+                margin: "4px 0 0 0",
+                fontSize: 13,
+                color: isDark ? "#94a3b8" : "#64748b",
+              }}
+            >
+              Track daily unique visitors and total page impressions visiting
+              merxodevsolutions.pro.bd
             </p>
           </div>
 
           {/* Days Switcher & Full IP Tracker Link */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              flexWrap: "wrap",
+            }}
+          >
             {!isTeamMember && (
               <Link
                 href="/709832/visitors"
@@ -905,8 +1338,12 @@ function DashboardView({ isTeamMember = false }) {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 6,
-                  background: isDark ? "rgba(56, 189, 248, 0.12)" : "rgba(14, 165, 233, 0.1)",
-                  border: isDark ? "1px solid rgba(56, 189, 248, 0.3)" : "1px solid rgba(14, 165, 233, 0.25)",
+                  background: isDark
+                    ? "rgba(56, 189, 248, 0.12)"
+                    : "rgba(14, 165, 233, 0.1)",
+                  border: isDark
+                    ? "1px solid rgba(56, 189, 248, 0.3)"
+                    : "1px solid rgba(14, 165, 233, 0.25)",
                   color: isDark ? "#38bdf8" : "#0284c7",
                   padding: "7px 14px",
                   borderRadius: 10,
@@ -923,7 +1360,9 @@ function DashboardView({ isTeamMember = false }) {
               style={{
                 display: "flex",
                 background: isDark ? "rgba(255, 255, 255, 0.04)" : "#f1f5f9",
-                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                border: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.08)"
+                  : "1px solid #e2e8f0",
                 borderRadius: 10,
                 padding: 3,
               }}
@@ -937,8 +1376,16 @@ function DashboardView({ isTeamMember = false }) {
                   key={tab.days}
                   onClick={() => setAnalyticsDays(tab.days)}
                   style={{
-                    background: analyticsDays === tab.days ? "linear-gradient(135deg, #6366f1, #8b5cf6)" : "transparent",
-                    color: analyticsDays === tab.days ? "#ffffff" : (isDark ? "#94a3b8" : "#475569"),
+                    background:
+                      analyticsDays === tab.days
+                        ? "linear-gradient(135deg, #6366f1, #8b5cf6)"
+                        : "transparent",
+                    color:
+                      analyticsDays === tab.days
+                        ? "#ffffff"
+                        : isDark
+                          ? "#94a3b8"
+                          : "#475569",
                     border: "none",
                     padding: "6px 14px",
                     borderRadius: 8,
@@ -964,58 +1411,189 @@ function DashboardView({ isTeamMember = false }) {
             marginBottom: 24,
           }}
         >
-          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "1px solid #e2e8f0",
+              borderRadius: 12,
+              padding: "14px 16px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 12,
+                color: isDark ? "#94a3b8" : "#64748b",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
               <FiEye style={{ color: "#38bdf8" }} /> Today&apos;s Visitors
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#38bdf8", marginTop: 4 }}>
+            <div
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "#38bdf8",
+                marginTop: 4,
+              }}
+            >
               {analytics?.today?.uniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>Unique people today</div>
+            <div
+              style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}
+            >
+              Unique people today
+            </div>
           </div>
 
-          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "1px solid #e2e8f0",
+              borderRadius: 12,
+              padding: "14px 16px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 12,
+                color: isDark ? "#94a3b8" : "#64748b",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
               <FiActivity style={{ color: "#818cf8" }} /> Today&apos;s Pageviews
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#818cf8", marginTop: 4 }}>
+            <div
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "#818cf8",
+                marginTop: 4,
+              }}
+            >
               {analytics?.today?.pageViews || 0}
             </div>
-            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>Total hits today</div>
+            <div
+              style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}
+            >
+              Total hits today
+            </div>
           </div>
 
-          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "1px solid #e2e8f0",
+              borderRadius: 12,
+              padding: "14px 16px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 12,
+                color: isDark ? "#94a3b8" : "#64748b",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
               <FiClock style={{ color: "#f59e0b" }} /> Yesterday
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#fbbf24", marginTop: 4 }}>
+            <div
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "#fbbf24",
+                marginTop: 4,
+              }}
+            >
               {analytics?.yesterday?.uniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{analytics?.yesterday?.pageViews || 0} page views</div>
+            <div
+              style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}
+            >
+              {analytics?.yesterday?.pageViews || 0} page views
+            </div>
           </div>
 
-          <div style={{ background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc", border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0", borderRadius: 12, padding: "14px 16px" }}>
-            <div style={{ fontSize: 12, color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "1px solid #e2e8f0",
+              borderRadius: 12,
+              padding: "14px 16px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 12,
+                color: isDark ? "#94a3b8" : "#64748b",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
               <FiGlobe style={{ color: "#34d399" }} /> All-Time Visitors
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#34d399", marginTop: 4 }}>
+            <div
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "#34d399",
+                marginTop: 4,
+              }}
+            >
               {analytics?.allTime?.totalUniqueVisits || 0}
             </div>
-            <div style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{analytics?.allTime?.totalPageViews || 0} total views</div>
+            <div
+              style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}
+            >
+              {analytics?.allTime?.totalPageViews || 0} total views
+            </div>
           </div>
         </div>
 
         {/* Visual Daily Trend Chart with Interactive Area/Bar Switch */}
         <div style={{ marginBottom: 26 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 10 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 12,
+              flexWrap: "wrap",
+              gap: 10,
+            }}
+          >
             {/* Chart Type Toggle */}
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: isDark ? "#cbd5e1" : "#1e293b" }}>Daily Trend Visualizer:</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: isDark ? "#cbd5e1" : "#1e293b",
+                }}
+              >
+                Daily Trend Visualizer:
+              </span>
               <div
                 style={{
                   display: "flex",
                   background: isDark ? "rgba(255, 255, 255, 0.05)" : "#f1f5f9",
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                  border: isDark
+                    ? "1px solid rgba(255, 255, 255, 0.08)"
+                    : "1px solid #e2e8f0",
                   borderRadius: 8,
                   padding: 2,
                 }}
@@ -1026,8 +1604,18 @@ function DashboardView({ isTeamMember = false }) {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    background: chartType === "area" ? (isDark ? "rgba(99, 102, 241, 0.35)" : "#6366f1") : "transparent",
-                    color: chartType === "area" ? "#ffffff" : (isDark ? "#94a3b8" : "#64748b"),
+                    background:
+                      chartType === "area"
+                        ? isDark
+                          ? "rgba(99, 102, 241, 0.35)"
+                          : "#6366f1"
+                        : "transparent",
+                    color:
+                      chartType === "area"
+                        ? "#ffffff"
+                        : isDark
+                          ? "#94a3b8"
+                          : "#64748b",
                     border: "none",
                     padding: "4px 10px",
                     borderRadius: 6,
@@ -1044,8 +1632,18 @@ function DashboardView({ isTeamMember = false }) {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 6,
-                    background: chartType === "bar" ? (isDark ? "rgba(99, 102, 241, 0.35)" : "#6366f1") : "transparent",
-                    color: chartType === "bar" ? "#ffffff" : (isDark ? "#94a3b8" : "#64748b"),
+                    background:
+                      chartType === "bar"
+                        ? isDark
+                          ? "rgba(99, 102, 241, 0.35)"
+                          : "#6366f1"
+                        : "transparent",
+                    color:
+                      chartType === "bar"
+                        ? "#ffffff"
+                        : isDark
+                          ? "#94a3b8"
+                          : "#64748b",
                     border: "none",
                     padding: "4px 10px",
                     borderRadius: 6,
@@ -1061,12 +1659,40 @@ function DashboardView({ isTeamMember = false }) {
 
             {/* Legend */}
             <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#38bdf8" }}>
-                <span style={{ width: 10, height: 10, borderRadius: 2, background: "linear-gradient(135deg, #06b6d4, #3b82f6)" }}></span>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: "#38bdf8",
+                }}
+              >
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 2,
+                    background: "linear-gradient(135deg, #06b6d4, #3b82f6)",
+                  }}
+                ></span>
                 Unique Visitors
               </span>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#818cf8" }}>
-                <span style={{ width: 10, height: 10, borderRadius: 2, background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}></span>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: "#818cf8",
+                }}
+              >
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 2,
+                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                  }}
+                ></span>
                 Pageviews
               </span>
             </div>
@@ -1078,7 +1704,9 @@ function DashboardView({ isTeamMember = false }) {
               position: "relative",
               height: 240,
               background: isDark ? "rgba(0, 0, 0, 0.28)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: "16px 12px 28px 12px",
               display: "flex",
@@ -1087,16 +1715,38 @@ function DashboardView({ isTeamMember = false }) {
             }}
           >
             {loadingAnalytics ? (
-              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b", fontSize: 13 }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#64748b",
+                  fontSize: 13,
+                }}
+              >
                 Loading visitor history...
               </div>
             ) : chartData.length === 0 ? (
-              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#64748b", fontSize: 13 }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#64748b",
+                  fontSize: 13,
+                }}
+              >
                 No visitor data recorded yet for this period.
               </div>
             ) : chartType === "area" ? (
               /* SVG Smooth Area Curve Mode */
-              <div style={{ width: "100%", height: "100%", position: "relative" }}>
+              <div
+                style={{ width: "100%", height: "100%", position: "relative" }}
+              >
                 {hoveredDay && (
                   <div
                     style={{
@@ -1105,24 +1755,62 @@ function DashboardView({ isTeamMember = false }) {
                       right: 14,
                       zIndex: 20,
                       background: isDark ? "rgba(12, 19, 40, 0.95)" : "#ffffff",
-                      border: isDark ? "1px solid rgba(99, 102, 241, 0.4)" : "1px solid #cbd5e1",
+                      border: isDark
+                        ? "1px solid rgba(99, 102, 241, 0.4)"
+                        : "1px solid #cbd5e1",
                       borderRadius: 10,
                       padding: "8px 14px",
-                      boxShadow: isDark ? "0 10px 25px rgba(0,0,0,0.6)" : "0 10px 25px rgba(0,0,0,0.12)",
+                      boxShadow: isDark
+                        ? "0 10px 25px rgba(0,0,0,0.6)"
+                        : "0 10px 25px rgba(0,0,0,0.12)",
                       display: "flex",
                       gap: 14,
                       alignItems: "center",
                     }}
                   >
                     <div>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{hoveredDay.label}</div>
-                      <div style={{ fontSize: 10, color: isDark ? "#64748b" : "#64748b" }}>{hoveredDay.date}</div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: isDark ? "#f8fafc" : "#0f172a",
+                        }}
+                      >
+                        {hoveredDay.label}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 10,
+                          color: isDark ? "#64748b" : "#64748b",
+                        }}
+                      >
+                        {hoveredDay.date}
+                      </div>
                     </div>
-                    <div style={{ borderLeft: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #e2e8f0", paddingLeft: 12 }}>
-                      <div style={{ fontSize: 12, color: "#38bdf8", fontWeight: 800 }}>
+                    <div
+                      style={{
+                        borderLeft: isDark
+                          ? "1px solid rgba(255,255,255,0.1)"
+                          : "1px solid #e2e8f0",
+                        paddingLeft: 12,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 12,
+                          color: "#38bdf8",
+                          fontWeight: 800,
+                        }}
+                      >
                         {hoveredDay.uniqueVisits} unique
                       </div>
-                      <div style={{ fontSize: 11, color: "#818cf8", fontWeight: 700 }}>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "#818cf8",
+                          fontWeight: 700,
+                        }}
+                      >
                         {hoveredDay.pageViews} pageviews
                       </div>
                     </div>
@@ -1135,17 +1823,51 @@ function DashboardView({ isTeamMember = false }) {
                   style={{ width: "100%", height: "100%", overflow: "visible" }}
                 >
                   <defs>
-                    <linearGradient id="areaGradUnique" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.45" />
-                      <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.0" />
+                    <linearGradient
+                      id="areaGradUnique"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="0%"
+                        stopColor="#38bdf8"
+                        stopOpacity="0.45"
+                      />
+                      <stop
+                        offset="100%"
+                        stopColor="#38bdf8"
+                        stopOpacity="0.0"
+                      />
                     </linearGradient>
-                    <linearGradient id="areaGradViews" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient
+                      id="areaGradViews"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
                       <stop offset="0%" stopColor="#818cf8" stopOpacity="0.3" />
-                      <stop offset="100%" stopColor="#818cf8" stopOpacity="0.0" />
+                      <stop
+                        offset="100%"
+                        stopColor="#818cf8"
+                        stopOpacity="0.0"
+                      />
                     </linearGradient>
-                    <filter id="glowUnique" x="-20%" y="-20%" width="140%" height="140%">
+                    <filter
+                      id="glowUnique"
+                      x="-20%"
+                      y="-20%"
+                      width="140%"
+                      height="140%"
+                    >
                       <feGaussianBlur stdDeviation="3" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                      <feComposite
+                        in="SourceGraphic"
+                        in2="blur"
+                        operator="over"
+                      />
                     </filter>
                   </defs>
 
@@ -1157,14 +1879,20 @@ function DashboardView({ isTeamMember = false }) {
                       y1={padY + (1 - pct) * availH}
                       x2={chartWidth}
                       y2={padY + (1 - pct) * availH}
-                      stroke={isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.06)"}
+                      stroke={
+                        isDark
+                          ? "rgba(255, 255, 255, 0.05)"
+                          : "rgba(0, 0, 0, 0.06)"
+                      }
                       strokeDasharray="4 4"
                       strokeWidth="1"
                     />
                   ))}
 
                   {/* Pageviews Area & Stroke */}
-                  {viewsAreaPath && <path d={viewsAreaPath} fill="url(#areaGradViews)" />}
+                  {viewsAreaPath && (
+                    <path d={viewsAreaPath} fill="url(#areaGradViews)" />
+                  )}
                   {viewsLinePath && (
                     <path
                       d={viewsLinePath}
@@ -1178,7 +1906,9 @@ function DashboardView({ isTeamMember = false }) {
                   )}
 
                   {/* Unique Visitors Area & Stroke */}
-                  {uniqueAreaPath && <path d={uniqueAreaPath} fill="url(#areaGradUnique)" />}
+                  {uniqueAreaPath && (
+                    <path d={uniqueAreaPath} fill="url(#areaGradUnique)" />
+                  )}
                   {uniqueLinePath && (
                     <path
                       d={uniqueLinePath}
@@ -1212,7 +1942,10 @@ function DashboardView({ isTeamMember = false }) {
                           fill={isHovered ? "#ffffff" : "#38bdf8"}
                           stroke={isDark ? "#0c1328" : "#ffffff"}
                           strokeWidth="2"
-                          style={{ transition: "all 0.15s ease", pointerEvents: "none" }}
+                          style={{
+                            transition: "all 0.15s ease",
+                            pointerEvents: "none",
+                          }}
                         />
                       </g>
                     );
@@ -1231,9 +1964,24 @@ function DashboardView({ isTeamMember = false }) {
                   }}
                 >
                   {chartData.map((d, index) => {
-                    const show = chartData.length <= 14 || index % Math.ceil(chartData.length / 7) === 0 || index === chartData.length - 1;
+                    const show =
+                      chartData.length <= 14 ||
+                      index % Math.ceil(chartData.length / 7) === 0 ||
+                      index === chartData.length - 1;
                     return (
-                      <span key={d.date} style={{ opacity: show ? 1 : 0, fontWeight: hoveredDay?.date === d.date ? 700 : 500, color: hoveredDay?.date === d.date ? "#38bdf8" : (isDark ? "#64748b" : "#475569") }}>
+                      <span
+                        key={d.date}
+                        style={{
+                          opacity: show ? 1 : 0,
+                          fontWeight: hoveredDay?.date === d.date ? 700 : 500,
+                          color:
+                            hoveredDay?.date === d.date
+                              ? "#38bdf8"
+                              : isDark
+                                ? "#64748b"
+                                : "#475569",
+                        }}
+                      >
                         {d.label.split(" ")[1] || d.label}
                       </span>
                     );
@@ -1242,10 +1990,24 @@ function DashboardView({ isTeamMember = false }) {
               </div>
             ) : (
               /* Bar Chart Mode */
-              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "flex-end", gap: chartData.length > 20 ? 4 : 8 }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  gap: chartData.length > 20 ? 4 : 8,
+                }}
+              >
                 {chartData.map((d, index) => {
-                  const heightPercent = Math.max(Math.round((d.uniqueVisits / maxVisits) * 160), d.uniqueVisits > 0 ? 12 : 3);
-                  const pageViewHeight = Math.max(Math.round((d.pageViews / maxVisits) * 160), d.pageViews > 0 ? 14 : 4);
+                  const heightPercent = Math.max(
+                    Math.round((d.uniqueVisits / maxVisits) * 160),
+                    d.uniqueVisits > 0 ? 12 : 3,
+                  );
+                  const pageViewHeight = Math.max(
+                    Math.round((d.pageViews / maxVisits) * 160),
+                    d.pageViews > 0 ? 14 : 4,
+                  );
                   const isHovered = hoveredDay?.date === d.date;
 
                   return (
@@ -1272,26 +2034,57 @@ function DashboardView({ isTeamMember = false }) {
                             marginBottom: 8,
                             zIndex: 20,
                             background: isDark ? "#0c1328" : "#ffffff",
-                            border: isDark ? "1px solid rgba(99,102,241,0.4)" : "1px solid #cbd5e1",
+                            border: isDark
+                              ? "1px solid rgba(99,102,241,0.4)"
+                              : "1px solid #cbd5e1",
                             borderRadius: 8,
                             padding: "6px 10px",
-                            boxShadow: isDark ? "0 10px 25px rgba(0,0,0,0.5)" : "0 10px 25px rgba(0,0,0,0.12)",
+                            boxShadow: isDark
+                              ? "0 10px 25px rgba(0,0,0,0.5)"
+                              : "0 10px 25px rgba(0,0,0,0.12)",
                             whiteSpace: "nowrap",
                             pointerEvents: "none",
                             textAlign: "center",
                           }}
                         >
-                          <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a" }}>{d.label}</div>
-                          <div style={{ fontSize: 12, color: "#38bdf8", fontWeight: 800 }}>
+                          <div
+                            style={{
+                              fontSize: 11,
+                              fontWeight: 700,
+                              color: isDark ? "#f8fafc" : "#0f172a",
+                            }}
+                          >
+                            {d.label}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: 12,
+                              color: "#38bdf8",
+                              fontWeight: 800,
+                            }}
+                          >
                             {d.uniqueVisits} unique visitors
                           </div>
-                          <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>
+                          <div
+                            style={{
+                              fontSize: 11,
+                              color: isDark ? "#94a3b8" : "#64748b",
+                            }}
+                          >
                             {d.pageViews} pageviews
                           </div>
                         </div>
                       )}
 
-                      <div style={{ display: "flex", gap: 2, alignItems: "flex-end", width: "100%", justifyContent: "center" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 2,
+                          alignItems: "flex-end",
+                          width: "100%",
+                          justifyContent: "center",
+                        }}
+                      >
                         <div
                           style={{
                             width: chartData.length > 20 ? "45%" : 12,
@@ -1301,7 +2094,9 @@ function DashboardView({ isTeamMember = false }) {
                               : "linear-gradient(180deg, #06b6d4, #2563eb)",
                             borderRadius: "4px 4px 0 0",
                             transition: "height 0.3s ease, background 0.2s",
-                            boxShadow: isHovered ? "0 0 10px rgba(56, 189, 248, 0.5)" : "none",
+                            boxShadow: isHovered
+                              ? "0 0 10px rgba(56, 189, 248, 0.5)"
+                              : "none",
                           }}
                         ></div>
 
@@ -1324,12 +2119,18 @@ function DashboardView({ isTeamMember = false }) {
                           position: "absolute",
                           bottom: -22,
                           fontSize: chartData.length > 15 ? 9 : 11,
-                          color: isHovered ? "#38bdf8" : (isDark ? "#64748b" : "#64748b"),
+                          color: isHovered
+                            ? "#38bdf8"
+                            : isDark
+                              ? "#64748b"
+                              : "#64748b",
                           fontWeight: isHovered ? 700 : 500,
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {chartData.length > 20 && index % 2 !== 0 ? "" : d.label.split(" ")[1] || d.label}
+                        {chartData.length > 20 && index % 2 !== 0
+                          ? ""
+                          : d.label.split(" ")[1] || d.label}
                       </span>
                     </div>
                   );
@@ -1351,37 +2152,84 @@ function DashboardView({ isTeamMember = false }) {
           <div
             style={{
               background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.05)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 16,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                marginBottom: 14,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
               <FiGlobe style={{ color: "#38bdf8" }} /> Top Visited Pages
             </div>
 
-            {(!analytics?.topPages || analytics.topPages.length === 0) ? (
-              <div style={{ color: "#64748b", fontSize: 12, padding: "16px 0", textAlign: "center" }}>
+            {!analytics?.topPages || analytics.topPages.length === 0 ? (
+              <div
+                style={{
+                  color: "#64748b",
+                  fontSize: 12,
+                  padding: "16px 0",
+                  textAlign: "center",
+                }}
+              >
                 Traffic will appear here as users browse the site.
               </div>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: 10 }}
+              >
                 {analytics.topPages.map((p, idx) => {
                   const maxPageViews = analytics.topPages[0]?.views || 1;
                   const percent = Math.round((p.views / maxPageViews) * 100);
 
                   return (
                     <div key={p.path || idx}>
-                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
-                        <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontFamily: "monospace" }}>{p.path}</span>
-                        <span style={{ color: "#38bdf8", fontWeight: 700 }}>{p.views} views</span>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: 12,
+                          marginBottom: 4,
+                        }}
+                      >
+                        <span
+                          style={{
+                            color: isDark ? "#e2e8f0" : "#1e293b",
+                            fontFamily: "monospace",
+                          }}
+                        >
+                          {p.path}
+                        </span>
+                        <span style={{ color: "#38bdf8", fontWeight: 700 }}>
+                          {p.views} views
+                        </span>
                       </div>
-                      <div style={{ height: 5, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
+                      <div
+                        style={{
+                          height: 5,
+                          background: isDark
+                            ? "rgba(255,255,255,0.06)"
+                            : "#e2e8f0",
+                          borderRadius: 3,
+                          overflow: "hidden",
+                        }}
+                      >
                         <div
                           style={{
                             height: "100%",
                             width: `${percent}%`,
-                            background: "linear-gradient(90deg, #6366f1, #38bdf8)",
+                            background:
+                              "linear-gradient(90deg, #6366f1, #38bdf8)",
                             borderRadius: 3,
                           }}
                         ></div>
@@ -1397,24 +2245,56 @@ function DashboardView({ isTeamMember = false }) {
           <div
             style={{
               background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.05)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 16,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                marginBottom: 14,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
               <FiClock style={{ color: "#10b981" }} /> Recent Activity Log
             </div>
 
-            {(!analytics?.recentLogs || analytics.recentLogs.length === 0) ? (
-              <div style={{ color: "#64748b", fontSize: 12, padding: "16px 0", textAlign: "center" }}>
+            {!analytics?.recentLogs || analytics.recentLogs.length === 0 ? (
+              <div
+                style={{
+                  color: "#64748b",
+                  fontSize: 12,
+                  padding: "16px 0",
+                  textAlign: "center",
+                }}
+              >
                 Live visitor events will display here in real-time.
               </div>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 200, overflowY: "auto" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  maxHeight: 200,
+                  overflowY: "auto",
+                }}
+              >
                 {analytics.recentLogs.slice(0, 8).map((log, idx) => {
                   const isMobile = log.device === "Mobile";
-                  const timeAgo = log.createdAt ? new Date(log.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+                  const timeAgo = log.createdAt
+                    ? new Date(log.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : "";
 
                   return (
                     <div
@@ -1424,31 +2304,83 @@ function DashboardView({ isTeamMember = false }) {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "6px 10px",
-                        background: isDark ? "rgba(255,255,255,0.02)" : "#ffffff",
+                        background: isDark
+                          ? "rgba(255,255,255,0.02)"
+                          : "#ffffff",
                         border: isDark ? "none" : "1px solid #e2e8f0",
                         borderRadius: 8,
                         fontSize: 12,
                       }}
                     >
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, overflow: "hidden" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          overflow: "hidden",
+                        }}
+                      >
                         {isMobile ? (
-                          <FiSmartphone size={14} style={{ color: "#f59e0b", flexShrink: 0 }} />
+                          <FiSmartphone
+                            size={14}
+                            style={{ color: "#f59e0b", flexShrink: 0 }}
+                          />
                         ) : (
-                          <FiMonitor size={14} style={{ color: "#38bdf8", flexShrink: 0 }} />
+                          <FiMonitor
+                            size={14}
+                            style={{ color: "#38bdf8", flexShrink: 0 }}
+                          />
                         )}
-                        <span style={{ color: isDark ? "#cbd5e1" : "#1e293b", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                        <span
+                          style={{
+                            color: isDark ? "#cbd5e1" : "#1e293b",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
                           {log.path}
                         </span>
                         {log.ip && (
-                          <span style={{ fontSize: 10.5, color: "#38bdf8", fontFamily: "monospace", flexShrink: 0 }}>
-                            ({log.ip}{log.city ? ` • ${log.city}` : ""})
+                          <span
+                            style={{
+                              fontSize: 10.5,
+                              color: "#38bdf8",
+                              fontFamily: "monospace",
+                              flexShrink: 0,
+                            }}
+                          >
+                            ({log.ip}
+                            {log.city ? ` • ${log.city}` : ""})
                           </span>
                         )}
                       </div>
 
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-                        <span style={{ fontSize: 11, color: isDark ? "#64748b" : "#64748b" }}>{log.browser}</span>
-                        <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#475569", fontWeight: 600 }}>{timeAgo}</span>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: isDark ? "#64748b" : "#64748b",
+                          }}
+                        >
+                          {log.browser}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: isDark ? "#94a3b8" : "#475569",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {timeAgo}
+                        </span>
                       </div>
                     </div>
                   );
@@ -1471,49 +2403,155 @@ function DashboardView({ isTeamMember = false }) {
           <div
             style={{
               background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.05)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-              <FiPieChart style={{ color: "#38bdf8" }} /> Device &amp; Platform Distribution
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                marginBottom: 16,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <FiPieChart style={{ color: "#38bdf8" }} /> Device &amp; Platform
+              Distribution
             </div>
-            
+
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
-                    <FiSmartphone size={14} style={{ color: "#38bdf8" }} /> Mobile Phones
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 12,
+                    marginBottom: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      color: isDark ? "#cbd5e1" : "#334155",
+                    }}
+                  >
+                    <FiSmartphone size={14} style={{ color: "#38bdf8" }} />{" "}
+                    Mobile Phones
                   </span>
-                  <span style={{ fontWeight: 700, color: "#38bdf8" }}>{mobileShare}%</span>
+                  <span style={{ fontWeight: 700, color: "#38bdf8" }}>
+                    {mobileShare}%
+                  </span>
                 </div>
-                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${mobileShare}%`, background: "linear-gradient(90deg, #0284c7, #38bdf8)", borderRadius: 3 }} />
+                <div
+                  style={{
+                    height: 6,
+                    background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0",
+                    borderRadius: 3,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "100%",
+                      width: `${mobileShare}%`,
+                      background: "linear-gradient(90deg, #0284c7, #38bdf8)",
+                      borderRadius: 3,
+                    }}
+                  />
                 </div>
               </div>
 
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
-                    <FiMonitor size={14} style={{ color: "#818cf8" }} /> Desktop / Laptop
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 12,
+                    marginBottom: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      color: isDark ? "#cbd5e1" : "#334155",
+                    }}
+                  >
+                    <FiMonitor size={14} style={{ color: "#818cf8" }} /> Desktop
+                    / Laptop
                   </span>
-                  <span style={{ fontWeight: 700, color: "#818cf8" }}>{desktopShare}%</span>
+                  <span style={{ fontWeight: 700, color: "#818cf8" }}>
+                    {desktopShare}%
+                  </span>
                 </div>
-                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${desktopShare}%`, background: "linear-gradient(90deg, #4f46e5, #818cf8)", borderRadius: 3 }} />
+                <div
+                  style={{
+                    height: 6,
+                    background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0",
+                    borderRadius: 3,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "100%",
+                      width: `${desktopShare}%`,
+                      background: "linear-gradient(90deg, #4f46e5, #818cf8)",
+                      borderRadius: 3,
+                    }}
+                  />
                 </div>
               </div>
 
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 6, color: isDark ? "#cbd5e1" : "#334155" }}>
-                    <FiTablet size={14} style={{ color: "#a78bfa" }} /> Tablets &amp; Others
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 12,
+                    marginBottom: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      color: isDark ? "#cbd5e1" : "#334155",
+                    }}
+                  >
+                    <FiTablet size={14} style={{ color: "#a78bfa" }} /> Tablets
+                    &amp; Others
                   </span>
-                  <span style={{ fontWeight: 700, color: "#a78bfa" }}>{tabletShare}%</span>
+                  <span style={{ fontWeight: 700, color: "#a78bfa" }}>
+                    {tabletShare}%
+                  </span>
                 </div>
-                <div style={{ height: 6, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${tabletShare}%`, background: "linear-gradient(90deg, #7c3aed, #a78bfa)", borderRadius: 3 }} />
+                <div
+                  style={{
+                    height: 6,
+                    background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0",
+                    borderRadius: 3,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "100%",
+                      width: `${tabletShare}%`,
+                      background: "linear-gradient(90deg, #7c3aed, #a78bfa)",
+                      borderRadius: 3,
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -1523,12 +2561,24 @@ function DashboardView({ isTeamMember = false }) {
           <div
             style={{
               background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.05)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                marginBottom: 16,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
               <FiMapPin style={{ color: "#10b981" }} /> Top Visitor Locations
             </div>
 
@@ -1541,15 +2591,52 @@ function DashboardView({ isTeamMember = false }) {
                 { city: "Other Regions", pct: 3 },
               ].map((loc) => (
                 <div key={loc.city}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 5 }}>
-                    <span style={{ color: isDark ? "#cbd5e1" : "#334155", display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontSize: 12,
+                      marginBottom: 5,
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: isDark ? "#cbd5e1" : "#334155",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "#10b981",
+                        }}
+                      />
                       {loc.city}
                     </span>
-                    <span style={{ color: "#10b981", fontWeight: 700 }}>{loc.pct}%</span>
+                    <span style={{ color: "#10b981", fontWeight: 700 }}>
+                      {loc.pct}%
+                    </span>
                   </div>
-                  <div style={{ height: 5, background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                    <div style={{ height: "100%", width: `${loc.pct}%`, background: "linear-gradient(90deg, #059669, #10b981)", borderRadius: 3 }} />
+                  <div
+                    style={{
+                      height: 5,
+                      background: isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0",
+                      borderRadius: 3,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: "100%",
+                        width: `${loc.pct}%`,
+                        background: "linear-gradient(90deg, #059669, #10b981)",
+                        borderRadius: 3,
+                      }}
+                    />
                   </div>
                 </div>
               ))}
@@ -1560,35 +2647,94 @@ function DashboardView({ isTeamMember = false }) {
           <div
             style={{
               background: isDark ? "rgba(0, 0, 0, 0.2)" : "#f8fafc",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid #e2e8f0",
+              border: isDark
+                ? "1px solid rgba(255, 255, 255, 0.05)"
+                : "1px solid #e2e8f0",
               borderRadius: 14,
               padding: 18,
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                marginBottom: 16,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
               <FiClock style={{ color: "#fbbf24" }} /> Peak Traffic Timeframes
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 10,
+              }}
+            >
               {[
-                { time: "Morning (06:00 - 12:00)", traffic: "Moderate", score: "62%", color: "#38bdf8" },
-                { time: "Afternoon (12:00 - 17:00)", traffic: "High", score: "88%", color: "#f59e0b" },
-                { time: "Evening (17:00 - 22:00)", traffic: "Peak Surge", score: "96%", color: "#10b981" },
-                { time: "Night (22:00 - 06:00)", traffic: "Low", score: "34%", color: "#818cf8" },
+                {
+                  time: "Morning (06:00 - 12:00)",
+                  traffic: "Moderate",
+                  score: "62%",
+                  color: "#38bdf8",
+                },
+                {
+                  time: "Afternoon (12:00 - 17:00)",
+                  traffic: "High",
+                  score: "88%",
+                  color: "#f59e0b",
+                },
+                {
+                  time: "Evening (17:00 - 22:00)",
+                  traffic: "Peak Surge",
+                  score: "96%",
+                  color: "#10b981",
+                },
+                {
+                  time: "Night (22:00 - 06:00)",
+                  traffic: "Low",
+                  score: "34%",
+                  color: "#818cf8",
+                },
               ].map((slot) => (
                 <div
                   key={slot.time}
                   style={{
                     background: isDark ? "rgba(255,255,255,0.03)" : "#ffffff",
-                    border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
+                    border: isDark
+                      ? "1px solid rgba(255,255,255,0.06)"
+                      : "1px solid #e2e8f0",
                     borderRadius: 10,
                     padding: "10px 12px",
                   }}
                 >
-                  <div style={{ fontSize: 10.5, color: isDark ? "#94a3b8" : "#64748b", marginBottom: 4 }}>{slot.time}</div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: slot.color, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div
+                    style={{
+                      fontSize: 10.5,
+                      color: isDark ? "#94a3b8" : "#64748b",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {slot.time}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 800,
+                      color: slot.color,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <span>{slot.traffic}</span>
-                    <span style={{ fontSize: 11, opacity: 0.8 }}>{slot.score}</span>
+                    <span style={{ fontSize: 11, opacity: 0.8 }}>
+                      {slot.score}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -1601,20 +2747,49 @@ function DashboardView({ isTeamMember = false }) {
       <div
         style={{
           background: isDark ? "rgba(255, 255, 255, 0.025)" : "#ffffff",
-          border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+          border: isDark
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid #e2e8f0",
           boxShadow: isDark ? "none" : "0 4px 20px rgba(0, 0, 0, 0.05)",
           borderRadius: 18,
           padding: 24,
           marginBottom: 32,
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, flexWrap: "wrap", gap: 10 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 18,
+            flexWrap: "wrap",
+            gap: 10,
+          }}
+        >
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a", margin: 0, display: "flex", alignItems: "center", gap: 10 }}>
-              <FiLayers style={{ color: "#818cf8" }} /> Client Project Delivery Pipeline
+            <h2
+              style={{
+                fontSize: 16,
+                fontWeight: 800,
+                color: isDark ? "#f8fafc" : "#0f172a",
+                margin: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+              }}
+            >
+              <FiLayers style={{ color: "#818cf8" }} /> Client Project Delivery
+              Pipeline
             </h2>
-            <p style={{ margin: "4px 0 0 0", fontSize: 12, color: isDark ? "#94a3b8" : "#64748b" }}>
-              Live progress and development phase tracking across active client projects
+            <p
+              style={{
+                margin: "4px 0 0 0",
+                fontSize: 12,
+                color: isDark ? "#94a3b8" : "#64748b",
+              }}
+            >
+              Live progress and development phase tracking across active client
+              projects
             </p>
           </div>
           <Link
@@ -1633,35 +2808,121 @@ function DashboardView({ isTeamMember = false }) {
           </Link>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 14 }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+            gap: 14,
+          }}
+        >
           {[
-            { stage: "Discovery & Planning", count: 2, color: "#38bdf8", pct: "100%", status: "On Track" },
-            { stage: "Active Development", count: 4, color: "#818cf8", pct: "75%", status: "In Progress" },
-            { stage: "QA & Client Review", count: 1, color: "#f59e0b", pct: "40%", status: "Pending Review" },
-            { stage: "Delivered & Live", count: stats.projects || 12, color: "#10b981", pct: "100%", status: "Deployed" },
+            {
+              stage: "Discovery & Planning",
+              count: 2,
+              color: "#38bdf8",
+              pct: "100%",
+              status: "On Track",
+            },
+            {
+              stage: "Active Development",
+              count: 4,
+              color: "#818cf8",
+              pct: "75%",
+              status: "In Progress",
+            },
+            {
+              stage: "QA & Client Review",
+              count: 1,
+              color: "#f59e0b",
+              pct: "40%",
+              status: "Pending Review",
+            },
+            {
+              stage: "Delivered & Live",
+              count: stats.projects || 12,
+              color: "#10b981",
+              pct: "100%",
+              status: "Deployed",
+            },
           ].map((pipe) => (
             <div
               key={pipe.stage}
               style={{
                 background: isDark ? "rgba(255, 255, 255, 0.02)" : "#f8fafc",
-                border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+                border: isDark
+                  ? "1px solid rgba(255, 255, 255, 0.06)"
+                  : "1px solid #e2e8f0",
                 borderRadius: 12,
                 padding: 16,
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 8,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: isDark ? "#94a3b8" : "#64748b",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
+                  }}
+                >
                   {pipe.stage}
                 </span>
-                <span style={{ fontSize: 10, color: pipe.color, background: `${pipe.color}15`, padding: "2px 6px", borderRadius: 4, fontWeight: 700 }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: pipe.color,
+                    background: `${pipe.color}15`,
+                    padding: "2px 6px",
+                    borderRadius: 4,
+                    fontWeight: 700,
+                  }}
+                >
                   {pipe.status}
                 </span>
               </div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: isDark ? "#f8fafc" : "#0f172a", marginBottom: 10 }}>
-                {pipe.count} <span style={{ fontSize: 12, fontWeight: 500, color: isDark ? "#64748b" : "#64748b" }}>projects</span>
+              <div
+                style={{
+                  fontSize: 22,
+                  fontWeight: 800,
+                  color: isDark ? "#f8fafc" : "#0f172a",
+                  marginBottom: 10,
+                }}
+              >
+                {pipe.count}{" "}
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: isDark ? "#64748b" : "#64748b",
+                  }}
+                >
+                  projects
+                </span>
               </div>
-              <div style={{ height: 4, background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e2e8f0", borderRadius: 2, overflow: "hidden" }}>
-                <div style={{ height: "100%", width: pipe.pct, background: pipe.color, borderRadius: 2 }}></div>
+              <div
+                style={{
+                  height: 4,
+                  background: isDark ? "rgba(255, 255, 255, 0.06)" : "#e2e8f0",
+                  borderRadius: 2,
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    height: "100%",
+                    width: pipe.pct,
+                    background: pipe.color,
+                    borderRadius: 2,
+                  }}
+                ></div>
               </div>
             </div>
           ))}
@@ -1673,8 +2934,15 @@ function DashboardView({ isTeamMember = false }) {
         <h2 className="dash-section-title">Quick Actions</h2>
         <div className="dash-actions-grid">
           {quickActions.map((action) => (
-            <Link key={action.title} href={action.href} className="dash-action-card">
-              <div className="dash-action-icon" style={{ background: action.bg, color: action.color }}>
+            <Link
+              key={action.title}
+              href={action.href}
+              className="dash-action-card"
+            >
+              <div
+                className="dash-action-icon"
+                style={{ background: action.bg, color: action.color }}
+              >
                 {action.icon}
               </div>
               <div>
@@ -1707,7 +2975,12 @@ function LoginView() {
     if (!email.trim()) {
       toast.error("Please enter your email address.", {
         id: "login-val-email",
-        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+        icon: (
+          <FiAlertCircle
+            size={18}
+            style={{ color: "#f87171", flexShrink: 0 }}
+          />
+        ),
       });
       setError("Email address is required.");
       return;
@@ -1716,7 +2989,12 @@ function LoginView() {
     if (!password) {
       toast.error("Please enter your password.", {
         id: "login-val-pass",
-        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+        icon: (
+          <FiAlertCircle
+            size={18}
+            style={{ color: "#f87171", flexShrink: 0 }}
+          />
+        ),
       });
       setError("Password is required.");
       return;
@@ -1734,14 +3012,21 @@ function LoginView() {
       if (result?.error) {
         toast.error("Invalid email or password. Access denied.", {
           id: "login-auth-error",
-          icon: <FiLock size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+          icon: (
+            <FiLock size={18} style={{ color: "#f87171", flexShrink: 0 }} />
+          ),
         });
         setError("Invalid email or password. Please verify credentials.");
         setLoading(false);
       } else {
         toast.success("Authentication verified! Redirecting...", {
           id: "login-auth-success",
-          icon: <FiCheckCircle size={18} style={{ color: "#34d399", flexShrink: 0 }} />,
+          icon: (
+            <FiCheckCircle
+              size={18}
+              style={{ color: "#34d399", flexShrink: 0 }}
+            />
+          ),
         });
         // Auto hard reload so session, cookies, and server state fresh-load cleanly
         setTimeout(() => {
@@ -1751,7 +3036,12 @@ function LoginView() {
     } catch (err) {
       toast.error("A network or server error occurred. Please try again.", {
         id: "login-catch-error",
-        icon: <FiAlertCircle size={18} style={{ color: "#f87171", flexShrink: 0 }} />,
+        icon: (
+          <FiAlertCircle
+            size={18}
+            style={{ color: "#f87171", flexShrink: 0 }}
+          />
+        ),
       });
       setError("Failed to connect to authentication server.");
       setLoading(false);
@@ -1759,7 +3049,10 @@ function LoginView() {
   };
 
   const [animType, setAnimType] = useState("web-dev");
-  const animPath = animType === "web-dev" ? "/animations/web-dev.json" : "/animations/workspace.json";
+  const animPath =
+    animType === "web-dev"
+      ? "/animations/web-dev.json"
+      : "/animations/workspace.json";
 
   return (
     <div className="login-screen">
@@ -1779,8 +3072,12 @@ function LoginView() {
           alignItems: "center",
           gap: 7,
           background: isDark ? "rgba(15, 23, 42, 0.85)" : "#ffffff",
-          border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid #cbd5e1",
-          boxShadow: isDark ? "0 8px 24px rgba(0,0,0,0.5)" : "0 8px 24px rgba(0,0,0,0.08)",
+          border: isDark
+            ? "1px solid rgba(255, 255, 255, 0.15)"
+            : "1px solid #cbd5e1",
+          boxShadow: isDark
+            ? "0 8px 24px rgba(0,0,0,0.5)"
+            : "0 8px 24px rgba(0,0,0,0.08)",
           color: isDark ? "#f8fafc" : "#0f172a",
           padding: "7px 14px",
           borderRadius: "9999px",
@@ -1816,7 +3113,8 @@ function LoginView() {
             fontSize: "13px",
             fontWeight: "500",
             padding: "12px 18px",
-            boxShadow: "0 20px 30px -10px rgba(0,0,0,0.6), 0 0 15px rgba(99, 102, 241, 0.2)",
+            boxShadow:
+              "0 20px 30px -10px rgba(0,0,0,0.6), 0 0 15px rgba(99, 102, 241, 0.2)",
           },
           error: {
             style: {
@@ -1861,7 +3159,8 @@ function LoginView() {
           </h2>
 
           <p className="showcase-subtitle">
-            Centralized control over projects, media gallery, dynamic website content blocks, and verified reviews.
+            Centralized control over projects, media gallery, dynamic website
+            content blocks, and verified reviews.
           </p>
 
           <div className="lottie-card">
@@ -1904,25 +3203,61 @@ function LoginView() {
 
           <div className="showcase-features">
             <div className="feature-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
               <span>Next.js 16 Turbo</span>
             </div>
             <div className="feature-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               <span>Edge Security</span>
             </div>
             <div className="feature-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
               </svg>
               <span>Cloud Storage</span>
             </div>
             <div className="feature-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
               </svg>
               <span>Live Sync</span>
@@ -1941,15 +3276,28 @@ function LoginView() {
                 border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
             >
-              <img src="/favicon.png" alt="MerxoDev Favicon" style={{ width: 28, height: 28, objectFit: "contain" }} />
+              <img
+                src="/favicon.png"
+                alt="MerxoDev Favicon"
+                style={{ width: 28, height: 28, objectFit: "contain" }}
+              />
             </div>
-            <div className="logo-text" style={{ display: "flex", alignItems: "center" }}>
-              <img src="/logo.png" alt="MerxoDev Solutions" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
+            <div
+              className="logo-text"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <img
+                src="/logo.png"
+                alt="MerxoDev Solutions"
+                style={{ height: 28, maxWidth: 140, objectFit: "contain" }}
+              />
             </div>
           </div>
 
           <h1 className="login-title">Admin Portal</h1>
-          <p className="login-subtitle">Sign in to manage your workspace and content</p>
+          <p className="login-subtitle">
+            Sign in to manage your workspace and content
+          </p>
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="field-group">
@@ -1957,7 +3305,17 @@ function LoginView() {
                 Email address
               </label>
               <div className="input-wrap">
-                <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="input-icon"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
@@ -1979,7 +3337,17 @@ function LoginView() {
                 Password
               </label>
               <div className="input-wrap">
-                <svg className="input-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="input-icon"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
@@ -1993,14 +3361,36 @@ function LoginView() {
                   required
                   autoComplete="current-password"
                 />
-                <button type="button" className="toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                <button
+                  type="button"
+                  className="toggle-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
                   {showPassword ? (
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                       <line x1="1" y1="1" x2="23" y2="23" />
                     </svg>
                   ) : (
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                       <circle cx="12" cy="12" r="3" />
                     </svg>
@@ -2011,7 +3401,17 @@ function LoginView() {
 
             {error && (
               <div className="error-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ flexShrink: 0 }}
+                >
                   <circle cx="12" cy="12" r="10" />
                   <line x1="12" y1="8" x2="12" y2="12" />
                   <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -2021,12 +3421,25 @@ function LoginView() {
             )}
 
             <button type="submit" className="login-btn" disabled={loading}>
-              {loading ? <div className="spinner-sm"></div> : "Sign In to Admin"}
+              {loading ? (
+                <div className="spinner-sm"></div>
+              ) : (
+                "Sign In to Admin"
+              )}
             </button>
           </form>
 
           <Link href="/" className="login-back-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
@@ -2052,17 +3465,46 @@ export default function AdminPage() {
   }
 
   if (status === "authenticated") {
-    const emailLower = String(session?.user?.email || "").toLowerCase().trim();
-    const rawRole = String(session?.user?.role || "USER").toUpperCase().replace(/-/g, "_");
-    const isAdmin = emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
+    const emailLower = String(session?.user?.email || "")
+      .toLowerCase()
+      .trim();
+    const rawRole = String(session?.user?.role || "USER")
+      .toUpperCase()
+      .replace(/-/g, "_");
+    const isAdmin =
+      emailLower === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
     const isTeamMember = !isAdmin && rawRole === "TEAM_MEMBER";
 
     if (!isAdmin && !isTeamMember) {
       return (
         <div style={{ textAlign: "center", padding: "80px 20px" }}>
-          <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "12px", color: "#ef4444" }}>Access Denied</h2>
-          <p style={{ color: "#9ca3af", marginBottom: "20px" }}>You do not have administrative privileges to access this area.</p>
-          <a href="/" style={{ padding: "10px 20px", background: "#6366f1", color: "#fff", borderRadius: "8px", textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>Return to Home</a>
+          <h2
+            style={{
+              fontSize: "24px",
+              fontWeight: "bold",
+              marginBottom: "12px",
+              color: "#ef4444",
+            }}
+          >
+            Access Denied
+          </h2>
+          <p style={{ color: "#9ca3af", marginBottom: "20px" }}>
+            You do not have administrative privileges to access this area.
+          </p>
+          <a
+            href="/"
+            style={{
+              padding: "10px 20px",
+              background: "#6366f1",
+              color: "#fff",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontSize: "14px",
+              fontWeight: 600,
+            }}
+          >
+            Return to Home
+          </a>
         </div>
       );
     }
