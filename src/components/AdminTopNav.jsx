@@ -42,7 +42,7 @@ export default function AdminTopNav({
   const { data: session } = useSession();
 
   // States
-  const [testMode, setTestMode] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeDropdown, setActiveDropdown] = useState(null); // 'grid' | 'help' | 'notifications' | 'settings' | 'plus'
@@ -50,19 +50,19 @@ export default function AdminTopNav({
   const navRef = useRef(null);
   const searchInputRef = useRef(null);
 
-  // Load test mode preference from storage
+  // Load sound alert preference from storage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("merxodev_admin_test_mode");
-      if (saved !== null) setTestMode(saved === "true");
+      const saved = localStorage.getItem("merxodev_admin_sound");
+      if (saved !== null) setSoundEnabled(saved !== "off");
     } catch {}
   }, []);
 
-  const handleToggleTestMode = () => {
-    const next = !testMode;
-    setTestMode(next);
+  const handleToggleSound = () => {
+    const next = !soundEnabled;
+    setSoundEnabled(next);
     try {
-      localStorage.setItem("merxodev_admin_test_mode", String(next));
+      localStorage.setItem("merxodev_admin_sound", next ? "on" : "off");
     } catch {}
   };
 
@@ -205,7 +205,7 @@ export default function AdminTopNav({
 
         {/* Right Side: Controls matching user reference image */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          {/* Test mode switch */}
+          {/* Direct Theme Toggle Switch in TopNav (Replaced Test Mode) */}
           <div
             style={{
               display: "flex",
@@ -217,21 +217,35 @@ export default function AdminTopNav({
             <span
               style={{
                 fontSize: 12,
-                fontWeight: 500,
+                fontWeight: 600,
                 color: isDark ? "#cbd5e1" : "#475569",
+                display: "flex",
+                alignItems: "center",
+                gap: 5,
               }}
             >
-              Test mode
+              {isDark ? (
+                <>
+                  <FiMoon size={13} style={{ color: "#a5b4fc" }} />
+                  <span>Dark</span>
+                </>
+              ) : (
+                <>
+                  <FiSun size={13} style={{ color: "#f59e0b" }} />
+                  <span>Light</span>
+                </>
+              )}
             </span>
             <button
               type="button"
-              onClick={handleToggleTestMode}
-              title={testMode ? "Test mode is ON" : "Test mode is OFF"}
+              onClick={toggleTheme}
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle Theme"
               style={{
-                width: 36,
-                height: 20,
+                width: 38,
+                height: 22,
                 borderRadius: 999,
-                background: testMode ? "#6366f1" : (isDark ? "#334155" : "#cbd5e1"),
+                background: isDark ? "#6366f1" : "#cbd5e1",
                 border: "none",
                 cursor: "pointer",
                 position: "relative",
@@ -243,15 +257,24 @@ export default function AdminTopNav({
             >
               <div
                 style={{
-                  width: 16,
-                  height: 16,
+                  width: 18,
+                  height: 18,
                   borderRadius: "50%",
                   background: "#ffffff",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.3)",
-                  transform: testMode ? "translateX(16px)" : "translateX(0)",
-                  transition: "transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.25)",
+                  transform: isDark ? "translateX(16px)" : "translateX(0)",
+                  transition: "transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
+              >
+                {isDark ? (
+                  <FiMoon size={10} style={{ color: "#6366f1" }} />
+                ) : (
+                  <FiSun size={10} style={{ color: "#f59e0b" }} />
+                )}
+              </div>
             </button>
           </div>
 
@@ -612,32 +635,18 @@ export default function AdminTopNav({
                   zIndex: 99,
                 }}
               >
-                <button
-                  type="button"
-                  onClick={() => {
-                    toggleTheme();
-                    setActiveDropdown(null);
-                  }}
+                <div
                   style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "8px 10px",
-                    borderRadius: 6,
-                    background: "none",
-                    border: "none",
-                    color: isDark ? "#cbd5e1" : "#334155",
-                    fontSize: 12.5,
-                    cursor: "pointer",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: isDark ? "#94a3b8" : "#64748b",
+                    padding: "4px 8px 6px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
                   }}
                 >
-                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    {isDark ? <FiSun size={15} style={{ color: "#fbbf24" }} /> : <FiMoon size={15} style={{ color: "#6366f1" }} />}
-                    <span>Theme: {isDark ? "Dark" : "Light"}</span>
-                  </span>
-                  <span style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>Toggle</span>
-                </button>
+                  Preferences
+                </div>
 
                 {onToggleFullscreen && (
                   <button
@@ -658,15 +667,88 @@ export default function AdminTopNav({
                       color: isDark ? "#cbd5e1" : "#334155",
                       fontSize: 12.5,
                       cursor: "pointer",
+                      transition: "background 0.15s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "none";
                     }}
                   >
                     <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      {isFullscreen ? <FiMinimize size={15} /> : <FiMaximize size={15} />}
+                      {isFullscreen ? <FiMinimize size={15} style={{ color: "#38bdf8" }} /> : <FiMaximize size={15} />}
                       <span>{isFullscreen ? "Exit Fullscreen" : "Full Screen"}</span>
                     </span>
                     <kbd style={{ fontSize: 10, background: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0", padding: "1px 5px", borderRadius: 4 }}>Esc</kbd>
                   </button>
                 )}
+
+                <button
+                  type="button"
+                  onClick={handleToggleSound}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "8px 10px",
+                    borderRadius: 6,
+                    background: "none",
+                    border: "none",
+                    color: isDark ? "#cbd5e1" : "#334155",
+                    fontSize: 12.5,
+                    cursor: "pointer",
+                    transition: "background 0.15s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "none";
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <FiBell size={15} style={{ color: soundEnabled ? "#10b981" : "#94a3b8" }} />
+                    <span>Sound Alerts</span>
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: soundEnabled ? "#10b981" : (isDark ? "#94a3b8" : "#64748b"),
+                    }}
+                  >
+                    {soundEnabled ? "On" : "Muted"}
+                  </span>
+                </button>
+
+                <Link
+                  href="/709832/users"
+                  onClick={() => setActiveDropdown(null)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "8px 10px",
+                    borderRadius: 6,
+                    color: isDark ? "#cbd5e1" : "#334155",
+                    textDecoration: "none",
+                    fontSize: 12.5,
+                    transition: "background 0.15s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "none";
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <FiUsers size={15} style={{ color: "#8b5cf6" }} />
+                    <span>Admin Accounts</span>
+                  </span>
+                </Link>
               </div>
             )}
           </div>
