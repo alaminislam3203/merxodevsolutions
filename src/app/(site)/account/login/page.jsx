@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
@@ -30,6 +30,16 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/account';
   const isRegistered = searchParams.get('registered') === 'true';
+
+  const { data: session, status } = useSession();
+
+  // If already logged in, redirect away
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const dest = session?.user?.role === 'ADMIN' ? '/709832' : redirectUrl || '/';
+      router.replace(dest);
+    }
+  }, [status, session, router, redirectUrl]);
 
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -241,6 +251,14 @@ function LoginForm() {
       setResending(false);
     }
   };
+
+  if (status === 'loading' || status === 'authenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#060b19]">
+        <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row relative overflow-hidden bg-slate-50 dark:bg-[#060b19] mt-12 sm:mt-6">

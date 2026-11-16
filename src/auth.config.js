@@ -16,6 +16,22 @@ const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isSecretAdminArea = nextUrl.pathname.startsWith("/709832");
+      const isAuthRoute = [
+        "/account/login",
+        "/account/register",
+        "/account/forgot-password",
+        "/account/verify-code",
+        "/account/reset-password",
+      ].some(
+        (route) =>
+          nextUrl.pathname === route || nextUrl.pathname.startsWith(route + "/")
+      );
+
+      // If already logged in and accessing auth routes, redirect away
+      if (isLoggedIn && isAuthRoute) {
+        const dest = auth?.user?.role === "ADMIN" ? "/709832" : "/";
+        return Response.redirect(new URL(dest, nextUrl));
+      }
 
       // If accessing admin area without being logged in, redirect to /account/login
       if (isSecretAdminArea) {

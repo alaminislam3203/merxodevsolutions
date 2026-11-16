@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { useSafeTranslation } from '@/hooks/useSafeTranslation';
 import '@/components/i18n';
 import { showToast } from '@/lib/toast';
@@ -27,6 +28,16 @@ function RegisterForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '';
   const { t } = useSafeTranslation();
+
+  const { data: session, status } = useSession();
+
+  // If already logged in, redirect away
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const dest = session?.user?.role === 'ADMIN' ? '/709832' : redirectUrl || '/';
+      router.replace(dest);
+    }
+  }, [status, session, router, redirectUrl]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -108,6 +119,14 @@ function RegisterForm() {
     t('auth.register.benefit3', 'Publish verified client reviews and testimonials'),
     t('auth.register.benefit4', 'Priority engineering response & SLA support'),
   ];
+
+  if (status === 'loading' || status === 'authenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#060b19]">
+        <div className="w-8 h-8 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row relative overflow-hidden bg-slate-50 dark:bg-[#060b19] no-gsap mt-12 sm:mt-6">
