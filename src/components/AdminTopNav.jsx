@@ -85,6 +85,11 @@ export default function AdminTopNav({
   const rawRole = String(session?.user?.role || "ADMIN").toUpperCase().replace(/-/g, "_");
   const isSuperAdmin = userEmail.toLowerCase() === "merxodevsolutions@gmail.com" || rawRole === "ADMIN";
   const userInitial = (userName.charAt(0) || userEmail.charAt(0) || "A").toUpperCase();
+  const userPhoto =
+    session?.user?.image ||
+    (isSuperAdmin || userEmail.includes("merxodev") || userName.toLowerCase().includes("al-amin")
+      ? "/alamin-profile.jpeg"
+      : "/alamin-profile.jpeg");
 
   // Current page for breadcrumbs
   const currentRouteInfo = routeMap[pathname] || {
@@ -1108,9 +1113,9 @@ export default function AdminTopNav({
                 boxShadow: "0 2px 8px rgba(99, 102, 241, 0.25)",
               }}
             >
-              {session?.user?.image ? (
+              {userPhoto ? (
                 <img
-                  src={session.user.image}
+                  src={userPhoto}
                   alt={userName}
                   style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
                 />
@@ -1151,9 +1156,11 @@ export default function AdminTopNav({
                 <div style={{ display: "flex", alignItems: "center", gap: 10, paddingBottom: 10, borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0" }}>
                   <div
                     style={{
-                      width: 36,
-                      height: 36,
+                      width: 38,
+                      height: 38,
                       borderRadius: "50%",
+                      overflow: "hidden",
+                      border: isDark ? "2px solid rgba(99, 102, 241, 0.4)" : "2px solid #e0e7ff",
                       background: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
                       color: "#fff",
                       display: "flex",
@@ -1164,7 +1171,15 @@ export default function AdminTopNav({
                       flexShrink: 0,
                     }}
                   >
-                    {userInitial}
+                    {userPhoto ? (
+                      <img
+                        src={userPhoto}
+                        alt={userName}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      userInitial
+                    )}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 13, fontWeight: 700, color: isDark ? "#f8fafc" : "#0f172a", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
