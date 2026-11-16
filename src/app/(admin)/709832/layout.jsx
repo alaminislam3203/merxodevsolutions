@@ -315,48 +315,47 @@ function AdminSidebar({
       }
     >
       <div className="admin-sidebar-brand">
-        <Link
-          href="/709832"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            textDecoration: "none",
-            minWidth: 0,
-            flex: collapsed ? "none" : 1,
-          }}
-          title="MerxoDev Admin Dashboard"
-        >
-          <div
-            className="admin-sidebar-logo"
+        {!collapsed && (
+          <Link
+            href="/709832"
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              background:
-                theme === "dark" ? "rgba(243, 124, 13, 0.06)" : "#FF3D00",
-              border:
-                theme === "dark"
-                  ? "1px solid rgba(246, 147, 8, 0.12)"
-                  : "1px solid #e2e8f0",
-              boxShadow:
-                theme === "dark"
-                  ? "0 2px 8px rgba(0, 0, 0, 0.4)"
-                  : "0 2px 6px rgba(0, 0, 0, 0.06)",
-              overflow: "hidden",
+              gap: 10,
+              textDecoration: "none",
+              minWidth: 0,
+              flex: 1,
             }}
+            title="MerxoDev Admin Dashboard"
           >
-            <img
-              src="/favicon.png"
-              alt="MerxoDev Favicon"
-              style={{ width: 20, height: 20, objectFit: "contain" }}
-            />
-          </div>
-          {!collapsed && (
+            <div
+              className="admin-sidebar-logo"
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                background: theme === "dark" ? "#ff3d00" : "#FF3D00",
+                border:
+                  theme === "dark"
+                    ? "1px solid rgba(246, 147, 8, 0.12)"
+                    : "1px solid #e2e8f0",
+                boxShadow:
+                  theme === "dark"
+                    ? "0 2px 8px rgba(0, 0, 0, 0.4)"
+                    : "0 2px 6px rgba(0, 0, 0, 0.06)",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src="/favicon.png"
+                alt="MerxoDev Favicon"
+                style={{ width: 20, height: 20, objectFit: "contain" }}
+              />
+            </div>
             <div
               className="admin-sidebar-brand-text"
               style={{ display: "flex", alignItems: "center" }}
@@ -367,8 +366,8 @@ function AdminSidebar({
                 style={{ height: 20, maxWidth: 120, objectFit: "contain" }}
               />
             </div>
-          )}
-        </Link>
+          </Link>
+        )}
         <button
           className="admin-sidebar-collapse-btn"
           onClick={() => setCollapsed(!collapsed)}
