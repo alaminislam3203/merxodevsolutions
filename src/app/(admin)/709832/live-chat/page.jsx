@@ -58,6 +58,21 @@ export default function AdminLiveChatPage() {
   const [activeSession, setActiveSession] = useState(null);
   const [visitorIntel, setVisitorIntel] = useState(null);
   const [showVisitorInfoModal, setShowVisitorInfoModal] = useState(false);
+  const [infoModalClosing, setInfoModalClosing] = useState(false);
+
+  const handleOpenInfoModal = () => {
+    setInfoModalClosing(false);
+    setShowVisitorInfoModal(true);
+  };
+
+  const handleCloseInfoModal = () => {
+    if (infoModalClosing) return;
+    setInfoModalClosing(true);
+    setTimeout(() => {
+      setShowVisitorInfoModal(false);
+      setInfoModalClosing(false);
+    }, 240);
+  };
   const [messages, setMessages] = useState([]);
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
@@ -955,7 +970,7 @@ export default function AdminLiveChatPage() {
 
                   {/* Profile photo: Clicking opens details modal */}
                   <div
-                    onClick={() => setShowVisitorInfoModal(true)}
+                    onClick={handleOpenInfoModal}
                     style={{ position: "relative", cursor: "pointer", flexShrink: 0 }}
                     title="Click to view visitor email, session & details"
                   >
@@ -1001,7 +1016,7 @@ export default function AdminLiveChatPage() {
 
                   {/* Name and click-for-info trigger */}
                   <div
-                    onClick={() => setShowVisitorInfoModal(true)}
+                    onClick={handleOpenInfoModal}
                     style={{ minWidth: 0, cursor: "pointer" }}
                     title="Click to view visitor details"
                   >
@@ -1623,7 +1638,7 @@ export default function AdminLiveChatPage() {
       {/* VISITOR & SESSION INTEL FULL SCREEN VIEW (Opened by tapping profile photo or name) */}
       {showVisitorInfoModal && activeSession && (
         <div
-          className="admin-visitor-fullscreen-profile"
+          className={`admin-visitor-fullscreen-profile ${infoModalClosing ? "is-closing" : ""}`}
           style={{
             position: "fixed",
             inset: 0,
@@ -1654,7 +1669,7 @@ export default function AdminLiveChatPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
               <button
                 type="button"
-                onClick={() => setShowVisitorInfoModal(false)}
+                onClick={handleCloseInfoModal}
                 style={{
                   width: 36,
                   height: 36,

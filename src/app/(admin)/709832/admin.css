@@ -2532,19 +2532,35 @@ html.dark .admin-bottom-nav-item.active {
     }
 }
 
-/* Visitor Fullscreen Profile View */
+/* Visitor Fullscreen Profile View - Smooth Native Slide-in from Side */
 .admin-visitor-fullscreen-profile {
-    animation: visitorProfileFadeIn 0.18s ease-out;
+    animation: visitorSlideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: transform, opacity;
 }
 
-@keyframes visitorProfileFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
+.admin-visitor-fullscreen-profile.is-closing {
+    animation: visitorSlideOutRight 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes visitorSlideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0.5;
     }
-    to {
+    100% {
+        transform: translateX(0);
         opacity: 1;
-        transform: translateY(0);
+    }
+}
+
+@keyframes visitorSlideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0.4;
     }
 }
 
