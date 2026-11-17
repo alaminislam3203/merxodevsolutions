@@ -348,10 +348,22 @@ export default function AdminTopNav({
           transition: "all 0.2s ease",
         }}
       >
-        {/* Left Side: Breadcrumb & Search Bar */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        {/* Left Side: Mobile Hamburger, Breadcrumb & Search Bar */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {/* Mobile Drawer Hamburger Button */}
+          <button
+            type="button"
+            onClick={onOpenMobileMenu}
+            className="admin-mobile-menu-btn"
+            aria-label="Open mobile navigation drawer"
+            title="Open Menu"
+          >
+            <FiMenu size={18} />
+          </button>
+
           {/* Breadcrumb Navigation Indicator */}
           <div
+            className="admin-topnav-breadcrumb"
             style={{
               display: "flex",
               alignItems: "center",
@@ -396,6 +408,7 @@ export default function AdminTopNav({
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
+            className="admin-topnav-search-btn"
             style={{
               display: "flex",
               alignItems: "center",
@@ -427,10 +440,11 @@ export default function AdminTopNav({
           >
             <FiSearch
               size={15}
-              style={{ color: isDark ? "#94a3b8" : "#64748b" }}
+              style={{ color: isDark ? "#94a3b8" : "#64748b", flexShrink: 0 }}
             />
-            <span style={{ flex: 1, fontWeight: 400 }}>Search</span>
+            <span className="admin-topnav-search-label" style={{ flex: 1, fontWeight: 400 }}>Search</span>
             <kbd
+              className="admin-topnav-search-kbd"
               style={{
                 fontSize: 10.5,
                 fontWeight: 600,
@@ -446,6 +460,7 @@ export default function AdminTopNav({
               ctrl + K
             </kbd>
           </button>
+        </div>
         </div>
 
         {/* Right Side: Theme Toggle, Apps Grid, Shortcuts, Notifications, Settings, Plus & Admin Profile */}
