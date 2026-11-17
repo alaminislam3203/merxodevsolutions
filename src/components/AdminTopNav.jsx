@@ -587,6 +587,7 @@ export default function AdminTopNav({
 
             {activeDropdown === "grid" && (
               <div
+                className="admin-topnav-dropdown-menu"
                 style={{
                   position: "absolute",
                   top: 38,
@@ -789,6 +790,7 @@ export default function AdminTopNav({
 
             {activeDropdown === "notifications" && (
               <div
+                className="admin-topnav-dropdown-menu"
                 style={{
                   position: "absolute",
                   top: 38,
@@ -1156,6 +1158,7 @@ export default function AdminTopNav({
 
             {activeDropdown === "settings" && (
               <div
+                className="admin-topnav-dropdown-menu"
                 style={{
                   position: "absolute",
                   top: 38,
@@ -1455,6 +1458,7 @@ export default function AdminTopNav({
 
             {activeDropdown === "plus" && (
               <div
+                className="admin-topnav-dropdown-menu"
                 style={{
                   position: "absolute",
                   top: 38,
@@ -1647,6 +1651,7 @@ export default function AdminTopNav({
 
             {activeDropdown === "profile" && (
               <div
+                className="admin-topnav-dropdown-menu"
                 style={{
                   position: "absolute",
                   top: 38,
