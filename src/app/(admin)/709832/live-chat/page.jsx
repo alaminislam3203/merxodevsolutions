@@ -2330,7 +2330,7 @@ export default function AdminLiveChatPage() {
             <div style={{ marginTop: 8 }}>
               <button
                 type="button"
-                onClick={() => setShowVisitorInfoModal(false)}
+                onClick={handleCloseInfoModal}
                 style={{
                   width: "100%",
                   padding: "13px 20px",
