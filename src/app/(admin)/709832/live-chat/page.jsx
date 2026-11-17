@@ -24,6 +24,7 @@ import {
   FiMapPin,
   FiGlobe,
   FiMonitor,
+  FiArrowLeft,
 } from "react-icons/fi";
 import { MdSupportAgent } from "react-icons/md";
 import { FaWhatsapp, FaRobot } from "react-icons/fa";
@@ -50,6 +51,7 @@ export default function AdminLiveChatPage() {
     liveCount: 0,
   });
   const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const [activeSession, setActiveSession] = useState(null);
   const [visitorIntel, setVisitorIntel] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -275,6 +277,7 @@ export default function AdminLiveChatPage() {
           setSelectedSessionId(remaining[0]?.id || null);
           setActiveSession(null);
           setMessages([]);
+          setMobileChatOpen(false);
         }
       }
     } catch {
@@ -570,6 +573,7 @@ export default function AdminLiveChatPage() {
 
       {/* Main Split Inbox Container */}
       <div
+        className={`admin-chat-layout ${mobileChatOpen ? "mobile-chat-open" : "mobile-list-open"}`}
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(270px, 340px) 1fr",
@@ -580,6 +584,7 @@ export default function AdminLiveChatPage() {
       >
         {/* Left Column: Visitor Sessions List */}
         <div
+          className="admin-chat-inbox-col"
           style={{
             background: isDark ? "rgba(15, 23, 42, 0.7)" : "#ffffff",
             border: isDark ? "1px solid rgba(255, 255, 255, 0.09)" : "1px solid #e2e8f0",
@@ -652,7 +657,10 @@ export default function AdminLiveChatPage() {
                 return (
                   <div
                     key={s.id}
-                    onClick={() => setSelectedSessionId(s.id)}
+                    onClick={() => {
+                      setSelectedSessionId(s.id);
+                      setMobileChatOpen(true);
+                    }}
                     style={{
                       padding: "12px 14px",
                       borderRadius: 14,
@@ -871,6 +879,7 @@ export default function AdminLiveChatPage() {
 
         {/* Right Column: Active Conversation & Live Team Controls */}
         <div
+          className="admin-chat-thread-col"
           style={{
             background: isDark ? "rgba(15, 23, 42, 0.7)" : "#ffffff",
             border: isDark ? "1px solid rgba(255, 255, 255, 0.09)" : "1px solid #e2e8f0",
@@ -923,6 +932,18 @@ export default function AdminLiveChatPage() {
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 10 }}
                   >
+                    {/* Mobile Back Button to return to inbox list */}
+                    <button
+                      type="button"
+                      onClick={() => setMobileChatOpen(false)}
+                      className="admin-chat-mobile-back-btn"
+                      title="Back to conversation list"
+                      aria-label="Back to chat list"
+                    >
+                      <FiArrowLeft size={16} />
+                      <span>Chats</span>
+                    </button>
+
                     {activeSession.visitorImage ? (
                       <img
                         src={activeSession.visitorImage}
