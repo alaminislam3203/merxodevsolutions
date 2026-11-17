@@ -657,8 +657,9 @@ export default function AdminVisitorsPage() {
           {/* Top Locations */}
           <div
             style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
               borderRadius: 16,
               padding: 20,
             }}
@@ -667,7 +668,7 @@ export default function AdminVisitorsPage() {
               style={{
                 fontSize: 15,
                 fontWeight: 700,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: "0 0 16px",
                 display: "flex",
                 alignItems: "center",
@@ -677,7 +678,7 @@ export default function AdminVisitorsPage() {
               <FiMapPin style={{ color: "#38bdf8" }} /> Top Cities & Countries
             </h3>
             {breakdowns.locations.length === 0 ? (
-              <p style={{ color: "#64748b", fontSize: 13 }}>No location data yet.</p>
+              <p style={{ color: isDark ? "#64748b" : "#64748b", fontSize: 13 }}>No location data yet.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {breakdowns.locations.map((loc, idx) => (
@@ -688,19 +689,20 @@ export default function AdminVisitorsPage() {
                       justifyContent: "space-between",
                       alignItems: "center",
                       padding: "8px 12px",
-                      background: "rgba(0,0,0,0.25)",
+                      background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                      border: isDark ? "none" : "1px solid #e2e8f0",
                       borderRadius: 10,
                       fontSize: 13,
                     }}
                   >
-                    <span style={{ color: "#e2e8f0", fontWeight: 500 }}>
+                    <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontWeight: 500 }}>
                       {loc.label}
                     </span>
                     <span
                       style={{
-                        color: "#38bdf8",
+                        color: isDark ? "#38bdf8" : "#0284c7",
                         fontWeight: 700,
-                        background: "rgba(56,189,248,0.12)",
+                        background: isDark ? "rgba(56,189,248,0.12)" : "#e0f2fe",
                         padding: "2px 8px",
                         borderRadius: 6,
                         fontSize: 12,
@@ -717,8 +719,9 @@ export default function AdminVisitorsPage() {
           {/* Traffic Sources */}
           <div
             style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
               borderRadius: 16,
               padding: 20,
             }}
@@ -727,7 +730,7 @@ export default function AdminVisitorsPage() {
               style={{
                 fontSize: 15,
                 fontWeight: 700,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: "0 0 16px",
                 display: "flex",
                 alignItems: "center",
@@ -737,7 +740,7 @@ export default function AdminVisitorsPage() {
               <FiNavigation style={{ color: "#10b981" }} /> Traffic Sources (Where Visitors Come From)
             </h3>
             {breakdowns.sources.length === 0 ? (
-              <p style={{ color: "#64748b", fontSize: 13 }}>No source data yet.</p>
+              <p style={{ color: isDark ? "#64748b" : "#64748b", fontSize: 13 }}>No source data yet.</p>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {breakdowns.sources.map((src, idx) => (
@@ -748,19 +751,20 @@ export default function AdminVisitorsPage() {
                       justifyContent: "space-between",
                       alignItems: "center",
                       padding: "8px 12px",
-                      background: "rgba(0,0,0,0.25)",
+                      background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
+                      border: isDark ? "none" : "1px solid #e2e8f0",
                       borderRadius: 10,
                       fontSize: 13,
                     }}
                   >
-                    <span style={{ color: "#e2e8f0", fontWeight: 500 }}>
+                    <span style={{ color: isDark ? "#e2e8f0" : "#1e293b", fontWeight: 500 }}>
                       {src.source}
                     </span>
                     <span
                       style={{
-                        color: "#10b981",
+                        color: isDark ? "#10b981" : "#047857",
                         fontWeight: 700,
-                        background: "rgba(16,185,129,0.12)",
+                        background: isDark ? "rgba(16,185,129,0.12)" : "#d1fae5",
                         padding: "2px 8px",
                         borderRadius: 6,
                         fontSize: 12,
@@ -777,8 +781,9 @@ export default function AdminVisitorsPage() {
           {/* Top ISPs / Networks */}
           <div
             style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+              boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
               borderRadius: 16,
               padding: 20,
             }}
@@ -787,7 +792,7 @@ export default function AdminVisitorsPage() {
               style={{
                 fontSize: 15,
                 fontWeight: 700,
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 margin: "0 0 16px",
                 display: "flex",
                 alignItems: "center",
@@ -940,8 +945,9 @@ export default function AdminVisitorsPage() {
       {activeTab === "blocked" && (
         <div
           style={{
-            background: "rgba(255,255,255,0.025)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: isDark ? "rgba(255,255,255,0.025)" : "#ffffff",
+            border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+            boxShadow: isDark ? "none" : "0 4px 16px rgba(0,0,0,0.03)",
             borderRadius: 18,
             padding: 24,
           }}
@@ -950,16 +956,16 @@ export default function AdminVisitorsPage() {
             style={{
               fontSize: 16,
               fontWeight: 800,
-              color: "#f8fafc",
+              color: isDark ? "#f8fafc" : "#0f172a",
               margin: "0 0 6px",
               display: "flex",
               alignItems: "center",
               gap: 8,
             }}
           >
-            <FiShield style={{ color: "#f87171" }} /> IP Security Firewall
+            <FiShield style={{ color: "#ef4444" }} /> IP Security Firewall
           </h3>
-          <p style={{ fontSize: 13, color: "#94a3b8", margin: "0 0 20px" }}>
+          <p style={{ fontSize: 13, color: isDark ? "#94a3b8" : "#64748b", margin: "0 0 20px" }}>
             Block suspicious or spammer IP addresses from accessing your website.
           </p>
 
@@ -970,10 +976,10 @@ export default function AdminVisitorsPage() {
               flexWrap: "wrap",
               gap: 10,
               marginBottom: 24,
-              background: "rgba(0,0,0,0.25)",
+              background: isDark ? "rgba(0,0,0,0.25)" : "#f8fafc",
               padding: 14,
               borderRadius: 12,
-              border: "1px solid rgba(255,255,255,0.06)",
+              border: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #e2e8f0",
             }}
           >
             <input
@@ -983,12 +989,13 @@ export default function AdminVisitorsPage() {
               onChange={(e) => setManualIp(e.target.value)}
               style={{
                 flex: "1 1 200px",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: isDark ? "rgba(255,255,255,0.04)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
                 borderRadius: 9,
                 padding: "9px 12px",
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 fontSize: 13,
+                outline: "none",
               }}
             />
             <input
@@ -998,19 +1005,20 @@ export default function AdminVisitorsPage() {
               onChange={(e) => setManualReason(e.target.value)}
               style={{
                 flex: "2 1 260px",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: isDark ? "rgba(255,255,255,0.04)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
                 borderRadius: 9,
                 padding: "9px 12px",
-                color: "#f8fafc",
+                color: isDark ? "#f8fafc" : "#0f172a",
                 fontSize: 13,
+                outline: "none",
               }}
             />
             <button
               type="submit"
               disabled={blockingIp}
               style={{
-                background: "#ef4444",
+                background: "linear-gradient(135deg, #ef4444, #dc2626)",
                 color: "#fff",
                 border: "none",
                 borderRadius: 9,
@@ -1021,6 +1029,7 @@ export default function AdminVisitorsPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 6,
+                boxShadow: "0 4px 12px rgba(239, 68, 68, 0.3)",
               }}
             >
               <FiLock size={14} />
@@ -1033,7 +1042,7 @@ export default function AdminVisitorsPage() {
               style={{
                 textAlign: "center",
                 padding: "36px 20px",
-                color: "#64748b",
+                color: isDark ? "#64748b" : "#64748b",
                 fontSize: 13.5,
               }}
             >
@@ -1051,8 +1060,8 @@ export default function AdminVisitorsPage() {
                     flexWrap: "wrap",
                     gap: 12,
                     padding: "12px 16px",
-                    background: "rgba(239,68,68,0.06)",
-                    border: "1px solid rgba(239,68,68,0.2)",
+                    background: isDark ? "rgba(239,68,68,0.06)" : "#fef2f2",
+                    border: isDark ? "1px solid rgba(239,68,68,0.2)" : "1px solid #fecaca",
                     borderRadius: 12,
                   }}
                 >
@@ -1063,7 +1072,7 @@ export default function AdminVisitorsPage() {
                         alignItems: "center",
                         gap: 10,
                         fontWeight: 700,
-                        color: "#f8fafc",
+                        color: isDark ? "#f8fafc" : "#991b1b",
                         fontFamily: "monospace",
                         fontSize: 14,
                       }}
@@ -1073,7 +1082,7 @@ export default function AdminVisitorsPage() {
                         <span
                           style={{
                             fontSize: 11.5,
-                            color: "#94a3b8",
+                            color: isDark ? "#94a3b8" : "#64748b",
                             fontFamily: "sans-serif",
                             fontWeight: 500,
                           }}
@@ -1082,7 +1091,7 @@ export default function AdminVisitorsPage() {
                         </span>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, color: "#fca5a5", marginTop: 2 }}>
+                    <div style={{ fontSize: 12, color: isDark ? "#fca5a5" : "#dc2626", marginTop: 2 }}>
                       {item.reason || "Blocked by Administrator"}
                     </div>
                   </div>
@@ -1090,9 +1099,9 @@ export default function AdminVisitorsPage() {
                   <button
                     onClick={() => handleToggleBlockIp(item.ip, true)}
                     style={{
-                      background: "rgba(16,185,129,0.15)",
-                      color: "#34d399",
-                      border: "1px solid rgba(16,185,129,0.3)",
+                      background: isDark ? "rgba(16,185,129,0.15)" : "#ecfdf5",
+                      color: isDark ? "#34d399" : "#059669",
+                      border: isDark ? "1px solid rgba(16,185,129,0.3)" : "1px solid #a7f3d0",
                       borderRadius: 8,
                       padding: "6px 14px",
                       fontSize: 12,
