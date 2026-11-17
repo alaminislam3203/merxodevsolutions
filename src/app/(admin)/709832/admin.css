@@ -2409,6 +2409,10 @@ html.dark .admin-bottom-nav-item.active {
     display: none;
 }
 
+.admin-chat-header-details {
+    display: flex;
+}
+
 @media (max-width: 1023px) {
     .admin-chat-layout {
         display: block !important;
@@ -2485,14 +2489,21 @@ html.dark .admin-bottom-nav-item.active {
     }
 
     /* Mobile full screen chat thread header */
+    .admin-chat-layout.mobile-chat-open .admin-chat-thread-col > .admin-chat-top-bar,
     .admin-chat-layout.mobile-chat-open .admin-chat-thread-col > div:first-child {
         padding: 8px 10px !important;
         border-radius: 0 !important;
         gap: 6px !important;
+        flex-wrap: nowrap !important;
     }
 
-    .admin-chat-layout.mobile-chat-open .admin-chat-thread-col > div:first-child span {
-        font-size: 11px !important;
+    /* Hide the cluttered header details line on mobile so tapping profile photo gives full info */
+    .admin-chat-header-details {
+        display: none !important;
+    }
+
+    .admin-chat-layout.mobile-chat-open .admin-chat-mode-label {
+        font-size: 10px !important;
     }
 
     /* Mobile chat message bubbles */
