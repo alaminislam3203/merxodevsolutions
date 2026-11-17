@@ -2532,6 +2532,22 @@ html.dark .admin-bottom-nav-item.active {
     }
 }
 
+/* Visitor Fullscreen Profile View */
+.admin-visitor-fullscreen-profile {
+    animation: visitorProfileFadeIn 0.18s ease-out;
+}
+
+@keyframes visitorProfileFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 
 

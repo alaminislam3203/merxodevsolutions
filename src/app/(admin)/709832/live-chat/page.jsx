@@ -1620,364 +1620,720 @@ export default function AdminLiveChatPage() {
           </div>
         </div>
       )}
-      {/* VISITOR & SESSION INTEL MODAL (Opened by tapping profile photo or name) */}
+      {/* VISITOR & SESSION INTEL FULL SCREEN VIEW (Opened by tapping profile photo or name) */}
       {showVisitorInfoModal && activeSession && (
         <div
-          onClick={() => setShowVisitorInfoModal(false)}
+          className="admin-visitor-fullscreen-profile"
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 99999,
-            background: "rgba(3, 7, 18, 0.75)",
-            backdropFilter: "blur(6px)",
+            zIndex: 100000,
+            background: isDark ? "#090e1c" : "#f1f5f9",
+            color: isDark ? "#f8fafc" : "#0f172a",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 16,
+            flexDirection: "column",
+            overflow: "hidden",
           }}
         >
+          {/* Top Sticky Header with Back Button */}
           <div
-            onClick={(e) => e.stopPropagation()}
             style={{
-              width: "100%",
-              maxWidth: 480,
-              maxHeight: "90vh",
-              overflowY: "auto",
-              background: isDark ? "#0f172a" : "#ffffff",
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #e2e8f0",
-              boxShadow: isDark ? "0 25px 60px rgba(0,0,0,0.8)" : "0 20px 50px rgba(0,0,0,0.15)",
-              borderRadius: 20,
-              padding: 22,
-              color: isDark ? "#f8fafc" : "#0f172a",
+              padding: "14px 18px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              background: isDark ? "rgba(15, 23, 42, 0.95)" : "#ffffff",
+              borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+              backdropFilter: "blur(12px)",
+              position: "sticky",
+              top: 0,
+              zIndex: 20,
+              gap: 12,
             }}
           >
-            {/* Modal Header */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingBottom: 16,
-                borderBottom: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #f1f5f9",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                {activeSession.visitorImage ? (
-                  <img
-                    src={activeSession.visitorImage}
-                    alt={activeSession.visitorName || "User"}
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      border: "2px solid #818cf8",
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: "50%",
-                      background: isDark ? "rgba(99, 102, 241, 0.25)" : "#e0e7ff",
-                      color: isDark ? "#a5b4fc" : "#4338ca",
-                      border: "2px solid #818cf8",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <FiUser size={24} />
-                  </div>
-                )}
-                <div>
-                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800 }}>
-                    {activeSession.visitorName || "Visitor"}
-                  </h3>
-                  <div
-                    style={{
-                      marginTop: 3,
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 4,
-                      fontSize: 10.5,
-                      fontWeight: 700,
-                      padding: "2px 8px",
-                      borderRadius: 999,
-                      background: activeSession.mode === "live"
-                        ? (isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5")
-                        : (isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff"),
-                      color: activeSession.mode === "live"
-                        ? (isDark ? "#34d399" : "#047857")
-                        : (isDark ? "#a5b4fc" : "#4338ca"),
-                    }}
-                  >
-                    {activeSession.mode === "live" ? (
-                      <>
-                        <FiUserCheck size={11} />
-                        <span>Live Team Active</span>
-                      </>
-                    ) : (
-                      <>
-                        <FaRobot size={11} />
-                        <span>AI Auto-Replying</span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
+            <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
               <button
                 type="button"
                 onClick={() => setShowVisitorInfoModal(false)}
                 style={{
-                  background: isDark ? "rgba(255, 255, 255, 0.06)" : "#f1f5f9",
-                  border: "none",
-                  color: isDark ? "#94a3b8" : "#64748b",
-                  width: 32,
-                  height: 32,
+                  width: 36,
+                  height: 36,
                   borderRadius: "50%",
+                  background: isDark ? "rgba(255, 255, 255, 0.08)" : "#f1f5f9",
+                  border: isDark ? "1px solid rgba(255, 255, 255, 0.12)" : "1px solid #cbd5e1",
+                  color: isDark ? "#f8fafc" : "#0f172a",
                   cursor: "pointer",
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  flexShrink: 0,
                 }}
+                title="Back to chat"
+                aria-label="Back to chat"
               >
-                <FiX size={17} />
+                <FiArrowLeft size={18} />
               </button>
+              <div style={{ minWidth: 0 }}>
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: 16,
+                    fontWeight: 800,
+                    color: isDark ? "#f8fafc" : "#0f172a",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Visitor & Session Details
+                </h2>
+                <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b" }}>
+                  {activeSession.visitorName || "Visitor"}
+                </div>
+              </div>
             </div>
 
-            {/* Info Items List */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 16 }}>
-              {/* Contact Information */}
-              <div
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+              <span
                 style={{
-                  background: isDark ? "rgba(255, 255, 255, 0.03)" : "#f8fafc",
-                  borderRadius: 12,
-                  padding: 12,
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: "4px 10px",
+                  borderRadius: 999,
+                  background:
+                    activeSession.mode === "live"
+                      ? (isDark ? "rgba(16, 185, 129, 0.2)" : "#d1fae5")
+                      : (isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff"),
+                  color:
+                    activeSession.mode === "live"
+                      ? (isDark ? "#34d399" : "#047857")
+                      : (isDark ? "#a5b4fc" : "#4338ca"),
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 5,
                 }}
               >
-                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", marginBottom: 8, textTransform: "uppercase" }}>
-                  Contact Information
+                {activeSession.mode === "live" ? (
+                  <>
+                    <FiUserCheck size={12} />
+                    <span>Live Team Active</span>
+                  </>
+                ) : (
+                  <>
+                    <FaRobot size={12} />
+                    <span>AI Mode</span>
+                  </>
+                )}
+              </span>
+            </div>
+          </div>
+
+          {/* Full Screen Scrollable Content Body */}
+          <div
+            style={{
+              flex: 1,
+              overflowY: "auto",
+              padding: "20px 16px 36px",
+              width: "100%",
+              maxWidth: 680,
+              margin: "0 auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+            }}
+          >
+            {/* Hero Profile Avatar Card */}
+            <div
+              style={{
+                background: isDark ? "rgba(15, 23, 42, 0.6)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                boxShadow: isDark ? "none" : "0 4px 20px rgba(0,0,0,0.04)",
+                borderRadius: 18,
+                padding: "24px 20px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              {activeSession.visitorImage ? (
+                <img
+                  src={activeSession.visitorImage}
+                  alt={activeSession.visitorName || "User"}
+                  style={{
+                    width: 76,
+                    height: 76,
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "3px solid #818cf8",
+                    boxShadow: "0 8px 24px rgba(99, 102, 241, 0.25)",
+                    marginBottom: 12,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 76,
+                    height: 76,
+                    borderRadius: "50%",
+                    background: isDark ? "rgba(99, 102, 241, 0.25)" : "#e0e7ff",
+                    color: isDark ? "#a5b4fc" : "#4338ca",
+                    border: "3px solid #818cf8",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 12,
+                    boxShadow: "0 8px 24px rgba(99, 102, 241, 0.25)",
+                  }}
+                >
+                  <FiUser size={38} />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                      <FiMail size={13} /> Email
-                    </span>
-                    {activeSession.visitorEmail ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              )}
+
+              <h2
+                style={{
+                  margin: "0 0 4px",
+                  fontSize: 20,
+                  fontWeight: 800,
+                  color: isDark ? "#f8fafc" : "#0f172a",
+                }}
+              >
+                {activeSession.visitorName || "Visitor"}
+              </h2>
+
+              <p style={{ margin: 0, fontSize: 13, color: isDark ? "#94a3b8" : "#64748b" }}>
+                Session: <span style={{ fontFamily: "monospace" }}>{activeSession.id.slice(0, 16)}</span>
+              </p>
+            </div>
+
+            {/* Section 1: Contact Information */}
+            <div
+              style={{
+                background: isDark ? "rgba(15, 23, 42, 0.6)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                boxShadow: isDark ? "none" : "0 4px 20px rgba(0,0,0,0.04)",
+                borderRadius: 18,
+                padding: "18px 20px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: isDark ? "#a5b4fc" : "#6366f1",
+                  marginBottom: 14,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <FiMail size={14} /> Contact Details
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {/* Email row */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                    flexWrap: "wrap",
+                    gap: 8,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Email Address
+                    </div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, marginTop: 2 }}>
+                      {activeSession.visitorEmail ? (
                         <a
                           href={`mailto:${activeSession.visitorEmail}`}
-                          style={{ color: isDark ? "#38bdf8" : "#0284c7", fontWeight: 600, textDecoration: "none" }}
+                          style={{
+                            color: isDark ? "#38bdf8" : "#0284c7",
+                            textDecoration: "none",
+                          }}
                         >
                           {activeSession.visitorEmail}
                         </a>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard?.writeText(activeSession.visitorEmail);
-                            toast.success("Email copied!", { duration: 1500 });
-                          }}
-                          style={{ background: "none", border: "none", color: "#818cf8", cursor: "pointer", padding: 2 }}
-                          title="Copy Email"
-                        >
-                          <FiCopy size={13} />
-                        </button>
-                      </div>
-                    ) : (
-                      <span style={{ color: isDark ? "#64748b" : "#94a3b8" }}>Not provided</span>
-                    )}
+                      ) : (
+                        <span style={{ color: isDark ? "#64748b" : "#94a3b8", fontWeight: 500 }}>
+                          Not provided yet
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                      <FiPhone size={13} /> Phone
-                    </span>
-                    {activeSession.visitorPhone ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  {activeSession.visitorEmail && (
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <a
+                        href={`mailto:${activeSession.visitorEmail}`}
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: 8,
+                          background: isDark ? "rgba(56, 189, 248, 0.15)" : "#e0f2fe",
+                          color: isDark ? "#38bdf8" : "#0284c7",
+                          border: isDark ? "1px solid rgba(56, 189, 248, 0.3)" : "1px solid #bae6fd",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          textDecoration: "none",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
+                        <FiMail size={13} /> Send Email
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard?.writeText(activeSession.visitorEmail);
+                          toast.success("Email copied!", { duration: 1500 });
+                        }}
+                        style={{
+                          padding: "6px 10px",
+                          borderRadius: 8,
+                          background: isDark ? "rgba(255,255,255,0.08)" : "#f1f5f9",
+                          color: isDark ? "#cbd5e1" : "#475569",
+                          border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 4,
+                          fontSize: 12,
+                        }}
+                        title="Copy Email"
+                      >
+                        <FiCopy size={13} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Phone / WhatsApp row */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                    flexWrap: "wrap",
+                    gap: 8,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Phone & WhatsApp
+                    </div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, marginTop: 2 }}>
+                      {activeSession.visitorPhone ? (
                         <a
                           href={`https://wa.me/${activeSession.visitorPhone.replace(/[^0-9]/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
                             color: isDark ? "#34d399" : "#047857",
-                            fontWeight: 600,
                             textDecoration: "none",
                             display: "inline-flex",
                             alignItems: "center",
-                            gap: 4,
+                            gap: 5,
                           }}
                         >
-                          <FaWhatsapp size={13} /> {activeSession.visitorPhone}
+                          <FaWhatsapp size={14} /> {activeSession.visitorPhone}
                         </a>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard?.writeText(activeSession.visitorPhone);
-                            toast.success("Phone copied!", { duration: 1500 });
-                          }}
-                          style={{ background: "none", border: "none", color: "#34d399", cursor: "pointer", padding: 2 }}
-                          title="Copy Phone"
-                        >
-                          <FiCopy size={13} />
-                        </button>
-                      </div>
-                    ) : (
-                      <span style={{ color: isDark ? "#64748b" : "#94a3b8" }}>Not provided</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Session Details */}
-              <div
-                style={{
-                  background: isDark ? "rgba(255, 255, 255, 0.03)" : "#f8fafc",
-                  borderRadius: 12,
-                  padding: 12,
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
-                }}
-              >
-                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", marginBottom: 8, textTransform: "uppercase" }}>
-                  Chat Session Details
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 12.5 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>Session ID</span>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ fontFamily: "monospace", fontSize: 11.5, color: isDark ? "#e2e8f0" : "#1e293b", fontWeight: 600 }}>
-                        {activeSession.id}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          navigator.clipboard?.writeText(activeSession.id);
-                          toast.success("Session ID copied!", { duration: 1500 });
-                        }}
-                        style={{ background: "none", border: "none", color: "#818cf8", cursor: "pointer", padding: 2 }}
-                        title="Copy Session ID"
-                      >
-                        <FiCopy size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>Language</span>
-                    <span style={{ fontWeight: 600 }}>{(activeSession.language || "en").toUpperCase()}</span>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>Created At</span>
-                    <span style={{ fontSize: 11.5, color: isDark ? "#cbd5e1" : "#475569" }}>
-                      {activeSession.createdAt ? new Date(activeSession.createdAt).toLocaleString() : "N/A"}
-                    </span>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>Last Activity</span>
-                    <span style={{ fontSize: 11.5, color: isDark ? "#cbd5e1" : "#475569" }}>
-                      {activeSession.updatedAt ? new Date(activeSession.updatedAt).toLocaleString() : "N/A"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Visitor Telemetry / Intelligence */}
-              <div
-                style={{
-                  background: isDark ? "rgba(255, 255, 255, 0.03)" : "#f8fafc",
-                  borderRadius: 12,
-                  padding: 12,
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.06)" : "1px solid #e2e8f0",
-                }}
-              >
-                <div style={{ fontSize: 11, fontWeight: 700, color: isDark ? "#94a3b8" : "#64748b", marginBottom: 8, textTransform: "uppercase" }}>
-                  Visitor Intelligence
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 12.5 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                      <FiGlobe size={13} /> IP Address
-                    </span>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ fontFamily: "monospace", color: isDark ? "#38bdf8" : "#0284c7", fontWeight: 700 }}>
-                        {visitorIntel?.ip || activeSession?.visitorIp || "N/A"}
-                      </span>
-                      {(visitorIntel?.ip || activeSession?.visitorIp) && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard?.writeText(visitorIntel?.ip || activeSession?.visitorIp);
-                            toast.success("IP copied!", { duration: 1500 });
-                          }}
-                          style={{ background: "none", border: "none", color: "#38bdf8", cursor: "pointer", padding: 2 }}
-                          title="Copy IP"
-                        >
-                          <FiCopy size={13} />
-                        </button>
+                      ) : (
+                        <span style={{ color: isDark ? "#64748b" : "#94a3b8", fontWeight: 500 }}>
+                          Not provided yet
+                        </span>
                       )}
                     </div>
                   </div>
 
-                  {visitorIntel?.isp && (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>ISP Network</span>
-                      <span style={{ fontWeight: 600, fontSize: 12 }}>{visitorIntel.isp}</span>
-                    </div>
-                  )}
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                      <FiMapPin size={13} /> Location
-                    </span>
-                    <span style={{ fontWeight: 600, color: isDark ? "#fbbf24" : "#b45309" }}>
-                      {visitorIntel?.city ? `${visitorIntel.city}, ${visitorIntel.countryName || visitorIntel.country}` : "Unknown"}
-                    </span>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ color: isDark ? "#94a3b8" : "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                      <FiMonitor size={13} /> Device & OS
-                    </span>
-                    <span style={{ fontWeight: 500, fontSize: 12 }}>
-                      {visitorIntel?.deviceBrand || visitorIntel?.device || "Device"} • {visitorIntel?.os || "OS"} ({visitorIntel?.browser || "Browser"})
-                    </span>
-                  </div>
-
-                  {visitorIntel?.currentPage && (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span style={{ color: isDark ? "#94a3b8" : "#64748b" }}>Current Page</span>
-                      <span style={{ fontFamily: "monospace", fontSize: 11.5, color: isDark ? "#10b981" : "#059669", fontWeight: 600 }}>
-                        {visitorIntel.currentPage} ({visitorIntel.pageViews || 1} views)
-                      </span>
+                  {activeSession.visitorPhone && (
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <a
+                        href={`https://wa.me/${activeSession.visitorPhone.replace(/[^0-9]/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          padding: "6px 12px",
+                          borderRadius: 8,
+                          background: isDark ? "rgba(16, 185, 129, 0.15)" : "#d1fae5",
+                          color: isDark ? "#34d399" : "#047857",
+                          border: isDark ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid #a7f3d0",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          textDecoration: "none",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
+                        <FaWhatsapp size={13} /> Chat on WhatsApp
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard?.writeText(activeSession.visitorPhone);
+                          toast.success("Phone copied!", { duration: 1500 });
+                        }}
+                        style={{
+                          padding: "6px 10px",
+                          borderRadius: 8,
+                          background: isDark ? "rgba(255,255,255,0.08)" : "#f1f5f9",
+                          color: isDark ? "#cbd5e1" : "#475569",
+                          border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 4,
+                          fontSize: 12,
+                        }}
+                        title="Copy Phone"
+                      >
+                        <FiCopy size={13} />
+                      </button>
                     </div>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Modal Bottom Close */}
-            <div style={{ marginTop: 18, display: "flex", justifyContent: "flex-end" }}>
+            {/* Section 2: Session Details */}
+            <div
+              style={{
+                background: isDark ? "rgba(15, 23, 42, 0.6)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                boxShadow: isDark ? "none" : "0 4px 20px rgba(0,0,0,0.04)",
+                borderRadius: 18,
+                padding: "18px 20px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: isDark ? "#fbbf24" : "#d97706",
+                  marginBottom: 14,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <FiMessageSquare size={14} /> Session Details
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {/* Full Session ID */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                    flexWrap: "wrap",
+                    gap: 8,
+                  }}
+                >
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Session ID
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "monospace",
+                        fontSize: 12.5,
+                        fontWeight: 700,
+                        color: isDark ? "#e2e8f0" : "#1e293b",
+                        wordBreak: "break-all",
+                        marginTop: 2,
+                      }}
+                    >
+                      {activeSession.id}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard?.writeText(activeSession.id);
+                      toast.success("Session ID copied!", { duration: 1500 });
+                    }}
+                    style={{
+                      padding: "6px 12px",
+                      borderRadius: 8,
+                      background: isDark ? "rgba(99, 102, 241, 0.15)" : "#e0e7ff",
+                      color: isDark ? "#a5b4fc" : "#4338ca",
+                      border: isDark ? "1px solid rgba(99, 102, 241, 0.3)" : "1px solid #c7d2fe",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 5,
+                      fontSize: 12,
+                      fontWeight: 700,
+                    }}
+                  >
+                    <FiCopy size={13} /> Copy ID
+                  </button>
+                </div>
+
+                {/* Session Timestamps & Language */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                    gap: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: "10px 14px",
+                      background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                      border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                      borderRadius: 12,
+                    }}
+                  >
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Language
+                    </div>
+                    <div style={{ fontSize: 13, fontWeight: 700, marginTop: 2 }}>
+                      {(activeSession.language || "en").toUpperCase()}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      padding: "10px 14px",
+                      background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                      border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                      borderRadius: 12,
+                    }}
+                  >
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Session Started
+                    </div>
+                    <div style={{ fontSize: 12.5, fontWeight: 700, marginTop: 2 }}>
+                      {activeSession.createdAt ? new Date(activeSession.createdAt).toLocaleString() : "N/A"}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      padding: "10px 14px",
+                      background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                      border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                      borderRadius: 12,
+                    }}
+                  >
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      Last Active Time
+                    </div>
+                    <div style={{ fontSize: 12.5, fontWeight: 700, marginTop: 2 }}>
+                      {activeSession.updatedAt ? new Date(activeSession.updatedAt).toLocaleString() : "N/A"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: Visitor Intelligence & Telemetry */}
+            <div
+              style={{
+                background: isDark ? "rgba(15, 23, 42, 0.6)" : "#ffffff",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid #e2e8f0",
+                boxShadow: isDark ? "none" : "0 4px 20px rgba(0,0,0,0.04)",
+                borderRadius: 18,
+                padding: "18px 20px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: isDark ? "#38bdf8" : "#0284c7",
+                  marginBottom: 14,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <FiGlobe size={14} /> Visitor Intelligence & Telemetry
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {/* IP Address & ISP */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                    flexWrap: "wrap",
+                    gap: 8,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                      IP Address & ISP Network
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "monospace",
+                        fontSize: 14,
+                        fontWeight: 800,
+                        color: isDark ? "#38bdf8" : "#0284c7",
+                        marginTop: 2,
+                      }}
+                    >
+                      {visitorIntel?.ip || activeSession?.visitorIp || "N/A"}
+                    </div>
+                    {visitorIntel?.isp && (
+                      <div style={{ fontSize: 12, color: isDark ? "#cbd5e1" : "#334155", marginTop: 2 }}>
+                        {visitorIntel.isp}
+                      </div>
+                    )}
+                  </div>
+
+                  {(visitorIntel?.ip || activeSession?.visitorIp) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard?.writeText(visitorIntel?.ip || activeSession?.visitorIp);
+                        toast.success("IP copied!", { duration: 1500 });
+                      }}
+                      style={{
+                        padding: "6px 12px",
+                        borderRadius: 8,
+                        background: isDark ? "rgba(56, 189, 248, 0.15)" : "#e0f2fe",
+                        color: isDark ? "#38bdf8" : "#0284c7",
+                        border: isDark ? "1px solid rgba(56, 189, 248, 0.3)" : "1px solid #bae6fd",
+                        cursor: "pointer",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 5,
+                        fontSize: 12,
+                        fontWeight: 700,
+                      }}
+                    >
+                      <FiCopy size={13} /> Copy IP
+                    </button>
+                  )}
+                </div>
+
+                {/* Location */}
+                <div
+                  style={{
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                  }}
+                >
+                  <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                    Location (City & Country)
+                  </div>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, color: isDark ? "#fbbf24" : "#b45309", marginTop: 2, display: "flex", alignItems: "center", gap: 6 }}>
+                    <FiMapPin size={14} />
+                    <span>
+                      {visitorIntel?.city ? `${visitorIntel.city}, ${visitorIntel.countryName || visitorIntel.country}` : "Unknown Location"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Device, OS & Browser */}
+                <div
+                  style={{
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                  }}
+                >
+                  <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                    Device, OS & Browser
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, display: "flex", alignItems: "center", gap: 6 }}>
+                    <FiMonitor size={14} style={{ color: "#818cf8" }} />
+                    <span>
+                      {visitorIntel?.deviceBrand || visitorIntel?.device || "Device"} • {visitorIntel?.os || "OS"} ({visitorIntel?.browser || "Browser"})
+                    </span>
+                  </div>
+                </div>
+
+                {/* Current Page & Pageviews */}
+                <div
+                  style={{
+                    padding: "10px 14px",
+                    background: isDark ? "rgba(255,255,255,0.025)" : "#f8fafc",
+                    border: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #e2e8f0",
+                    borderRadius: 12,
+                  }}
+                >
+                  <div style={{ fontSize: 11, color: isDark ? "#94a3b8" : "#64748b", fontWeight: 600 }}>
+                    Current Page & Total Pageviews
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "monospace",
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: isDark ? "#10b981" : "#059669",
+                      marginTop: 2,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <FiGlobe size={14} />
+                    <span>
+                      {visitorIntel?.currentPage || "/"} • <strong>{visitorIntel?.pageViews || 1}</strong> views
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Big Button: Return Back to Chat */}
+            <div style={{ marginTop: 8 }}>
               <button
                 type="button"
                 onClick={() => setShowVisitorInfoModal(false)}
                 style={{
                   width: "100%",
-                  padding: "10px 16px",
-                  borderRadius: 12,
-                  background: isDark ? "rgba(255,255,255,0.08)" : "#f1f5f9",
-                  color: isDark ? "#f8fafc" : "#0f172a",
-                  border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid #cbd5e1",
-                  fontWeight: 700,
-                  fontSize: 13,
+                  padding: "13px 20px",
+                  borderRadius: 14,
+                  background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                  color: "#ffffff",
+                  border: "none",
+                  fontWeight: 800,
+                  fontSize: 14,
                   cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  boxShadow: "0 6px 20px rgba(99, 102, 241, 0.35)",
                 }}
               >
-                Close Details
+                <FiArrowLeft size={16} /> Back to Live Chat
               </button>
             </div>
           </div>
