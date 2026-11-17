@@ -2460,17 +2460,22 @@ html.dark .admin-bottom-nav-item.active {
     .admin-chat-mobile-back-btn {
         display: inline-flex !important;
         align-items: center !important;
-        gap: 5px !important;
-        padding: 6px 10px !important;
-        border-radius: 8px !important;
+        justify-content: center !important;
+        width: 34px !important;
+        height: 34px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
         border: 1px solid var(--admin-border) !important;
         background: var(--admin-surface-2) !important;
         color: var(--admin-text-primary) !important;
-        font-size: 11.5px !important;
-        font-weight: 700 !important;
+        font-size: 14px !important;
         cursor: pointer !important;
         flex-shrink: 0 !important;
         transition: all 0.15s ease !important;
+    }
+
+    .admin-chat-mobile-back-btn span {
+        display: none !important;
     }
 
     .admin-chat-mobile-back-btn:hover,

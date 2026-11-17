@@ -699,34 +699,41 @@ export default function AdminLiveChatPage() {
                           <img
                             src={s.visitorImage}
                             alt={s.visitorName || "User"}
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                              const fallback = e.currentTarget.nextElementSibling;
+                              if (fallback) fallback.style.display = "flex";
+                            }}
                             style={{
-                              width: 28,
-                              height: 28,
-                              borderRadius: 9,
+                              width: 30,
+                              height: 30,
+                              borderRadius: "50%",
                               objectFit: "cover",
-                              border: "1px solid rgba(139, 92, 246, 0.5)",
+                              border: isDark
+                                ? "1px solid rgba(139, 92, 246, 0.5)"
+                                : "1px solid #c7d2fe",
                               flexShrink: 0,
                             }}
                           />
-                        ) : (
-                          <div
-                            style={{
-                              width: 28,
-                              height: 28,
-                              borderRadius: 9,
-                              background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
-                              color: isDark ? "#a5b4fc" : "#4338ca",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: 12,
-                              fontWeight: 800,
-                              flexShrink: 0,
-                            }}
-                          >
-                            {(s.visitorName || "V").charAt(0).toUpperCase()}
-                          </div>
-                        )}
+                        ) : null}
+                        <div
+                          style={{
+                            display: s.visitorImage ? "none" : "flex",
+                            width: 30,
+                            height: 30,
+                            borderRadius: "50%",
+                            background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
+                            color: isDark ? "#a5b4fc" : "#4338ca",
+                            border: isDark
+                              ? "1px solid rgba(99, 102, 241, 0.3)"
+                              : "1px solid #c7d2fe",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                          }}
+                        >
+                          <FiUser size={15} />
+                        </div>
                         <span
                           style={{
                             fontSize: 13,
@@ -940,42 +947,49 @@ export default function AdminLiveChatPage() {
                       title="Back to conversation list"
                       aria-label="Back to chat list"
                     >
-                      <FiArrowLeft size={16} />
-                      <span>Chats</span>
+                      <FiArrowLeft size={18} />
                     </button>
 
                     {activeSession.visitorImage ? (
                       <img
                         src={activeSession.visitorImage}
-                        alt={activeSession.visitorName}
+                        alt={activeSession.visitorName || "Visitor"}
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          const fallback = e.currentTarget.nextElementSibling;
+                          if (fallback) fallback.style.display = "flex";
+                        }}
                         style={{
-                          width: 34,
-                          height: 34,
-                          borderRadius: 10,
+                          width: 36,
+                          height: 36,
+                          borderRadius: "50%",
                           objectFit: "cover",
-                          border: "1px solid rgba(139, 92, 246, 0.5)",
+                          border: isDark
+                            ? "1.5px solid rgba(139, 92, 246, 0.6)"
+                            : "1.5px solid #c7d2fe",
+                          flexShrink: 0,
                         }}
                       />
-                    ) : (
-                      <div
-                        style={{
-                          width: 34,
-                          height: 34,
-                          borderRadius: 10,
-                          background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
-                          color: isDark ? "#a5b4fc" : "#4338ca",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 14,
-                          fontWeight: 800,
-                        }}
-                      >
-                        {(activeSession.visitorName || "V")
-                          .charAt(0)
-                          .toUpperCase()}
-                      </div>
-                    )}
+                    ) : null}
+                    <div
+                      style={{
+                        display: activeSession.visitorImage ? "none" : "flex",
+                        width: 36,
+                        height: 36,
+                        borderRadius: "50%",
+                        background: isDark ? "rgba(99, 102, 241, 0.2)" : "#e0e7ff",
+                        color: isDark ? "#a5b4fc" : "#4338ca",
+                        border: isDark
+                          ? "1.5px solid rgba(99, 102, 241, 0.35)"
+                          : "1.5px solid #c7d2fe",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                      title={activeSession.visitorName || "Visitor"}
+                    >
+                      <FiUser size={18} />
+                    </div>
                     <span
                       style={{
                         fontSize: 15,
@@ -983,7 +997,7 @@ export default function AdminLiveChatPage() {
                         color: isDark ? "#f8fafc" : "#0f172a",
                       }}
                     >
-                      {activeSession.visitorName}
+                      {activeSession.visitorName || "Visitor"}
                     </span>
                     <span
                       style={{
