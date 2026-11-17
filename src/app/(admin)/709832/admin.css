@@ -5,6 +5,7 @@
 }
 
 :root {
+    color-scheme: light;
     --admin-bg: #f8fafc;
     --admin-main-bg: #f8fafc;
     --admin-surface: #ffffff;
@@ -40,6 +41,7 @@
 }
 
 html.dark {
+    color-scheme: dark;
     --admin-bg: #080c18;
     --admin-main-bg: #080c18;
     --admin-surface: rgba(255, 255, 255, 0.025);
