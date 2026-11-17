@@ -1898,10 +1898,10 @@ html.dark .admin-bottom-nav-item.active {
         display: flex !important;
     }
 
-    /* Keep items full width in mobile drawer */
+    /* Keep items full width in mobile drawer with compact font */
     .admin-sidebar-item {
-        padding: 12px 14px !important;
-        font-size: 13.5px !important;
+        padding: 8px 10px !important;
+        font-size: 11.5px !important;
     }
 
     .admin-sidebar-item-label {
@@ -1956,30 +1956,37 @@ html.dark .admin-bottom-nav-item.active {
 
     /* Bottom Nav Compact Mode */
     .admin-mobile-bottom-nav {
-        height: 52px !important;
+        height: 48px !important;
     }
 
     .admin-bottom-nav-item {
-        font-size: 9.5px !important;
-        gap: 2px !important;
+        font-size: 8.5px !important;
+        gap: 1.5px !important;
     }
 
     .admin-bottom-nav-item svg {
-        width: 17px !important;
-        height: 17px !important;
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .admin-bottom-nav-badge {
+        font-size: 7.5px !important;
+        min-width: 13px !important;
+        height: 13px !important;
+        padding: 0 3px !important;
     }
 
     /* Main Page Container: Compact High-Density Padding & Text Scale */
     .admin-main,
     .admin-main-responsive {
-        padding: 10px 8px 68px 8px !important;
-        font-size: 11.5px !important;
+        padding: 8px 6px 62px 6px !important;
+        font-size: 10.5px !important;
     }
 
     /* Headings & Page Titles Scaled Down */
     .admin-main h1,
     .admin-main .admin-page-title {
-        font-size: 16px !important;
+        font-size: 14.5px !important;
         line-height: 1.25 !important;
         letter-spacing: -0.3px !important;
         margin: 0 0 2px 0 !important;
@@ -1987,9 +1994,9 @@ html.dark .admin-bottom-nav-item.active {
 
     .admin-main h2,
     .admin-main .dash-section-title {
-        font-size: 13px !important;
+        font-size: 12px !important;
         line-height: 1.25 !important;
-        margin: 0 0 8px 0 !important;
+        margin: 0 0 6px 0 !important;
         letter-spacing: -0.2px !important;
     }
 
@@ -1997,7 +2004,7 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main .dash-action-title,
     .admin-main .content-block-title,
     .admin-main .project-row-title {
-        font-size: 11.5px !important;
+        font-size: 10.5px !important;
         line-height: 1.25 !important;
         margin: 0 0 2px 0 !important;
     }
@@ -2005,7 +2012,7 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main h4,
     .admin-main h5,
     .admin-main h6 {
-        font-size: 11px !important;
+        font-size: 9.5px !important;
         margin: 0 0 2px 0 !important;
     }
 
@@ -2013,8 +2020,8 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main .admin-page-subtitle,
     .admin-main .dash-action-desc,
     .admin-main .project-row-desc {
-        font-size: 10.5px !important;
-        line-height: 1.35 !important;
+        font-size: 9.5px !important;
+        line-height: 1.3 !important;
     }
 
     /* Inline Font Size Scale-Down Overrides */
@@ -2022,27 +2029,33 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main [style*="font-size: 26px" i],
     .admin-main [style*="font-size: 24px" i],
     .admin-main [style*="font-size: 22px" i] {
-        font-size: 16px !important;
+        font-size: 13.5px !important;
         line-height: 1.2 !important;
     }
 
     .admin-main [style*="font-size: 20px" i],
     .admin-main [style*="font-size: 18px" i] {
-        font-size: 13px !important;
+        font-size: 11.5px !important;
     }
 
     .admin-main [style*="font-size: 16px" i],
     .admin-main [style*="font-size: 15px" i] {
-        font-size: 12px !important;
+        font-size: 10.5px !important;
     }
 
     .admin-main [style*="font-size: 14px" i] {
-        font-size: 11.5px !important;
+        font-size: 10px !important;
     }
 
     .admin-main [style*="font-size: 13px" i],
-    .admin-main [style*="font-size: 12.5px" i] {
-        font-size: 10.5px !important;
+    .admin-main [style*="font-size: 12.5px" i],
+    .admin-main [style*="font-size: 12px" i] {
+        font-size: 9.5px !important;
+    }
+
+    .admin-main [style*="font-size: 11px" i],
+    .admin-main [style*="font-size: 10.5px" i] {
+        font-size: 8.5px !important;
     }
 
     /* Greeting Header / Top Banner */
@@ -2050,86 +2063,86 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main div[style*="padding: 22px"],
     .admin-main div[style*="padding: 20px 24px"],
     .admin-main .admin-page-header {
-        padding: 10px 12px !important;
-        border-radius: 12px !important;
-        margin-bottom: 10px !important;
-        gap: 8px !important;
+        padding: 8px 10px !important;
+        border-radius: 10px !important;
+        margin-bottom: 8px !important;
+        gap: 6px !important;
     }
 
     .admin-main div[style*="padding: 22px 24px"] h1 {
-        font-size: 15px !important;
+        font-size: 13.5px !important;
     }
 
     .admin-main div[style*="padding: 22px 24px"] span {
-        font-size: 10px !important;
-        padding: 2px 8px !important;
+        font-size: 8.5px !important;
+        padding: 1.5px 6px !important;
     }
 
     /* Stats Grid & Metric Cards */
     .dash-stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-        margin-bottom: 12px !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
     }
 
     .dash-stat-card {
-        padding: 8px 10px !important;
-        gap: 8px !important;
-        border-radius: 10px !important;
-    }
-
-    .dash-stat-icon {
-        width: 32px !important;
-        height: 32px !important;
+        padding: 6px 8px !important;
+        gap: 6px !important;
         border-radius: 8px !important;
     }
 
+    .dash-stat-icon {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 7px !important;
+    }
+
     .dash-stat-icon svg {
-        width: 16px !important;
-        height: 16px !important;
+        width: 14px !important;
+        height: 14px !important;
     }
 
     .dash-stat-value {
-        font-size: 16px !important;
+        font-size: 14px !important;
         line-height: 1.1 !important;
         margin-bottom: 1px !important;
     }
 
     .dash-stat-label {
-        font-size: 10px !important;
+        font-size: 9px !important;
         line-height: 1.2 !important;
     }
 
     /* Quick Actions Grid */
     .dash-actions-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
+        gap: 6px !important;
     }
 
     .dash-action-card {
-        padding: 8px 10px !important;
-        gap: 8px !important;
-        border-radius: 10px !important;
+        padding: 6px 8px !important;
+        gap: 6px !important;
+        border-radius: 8px !important;
     }
 
     .dash-action-icon {
-        width: 28px !important;
-        height: 28px !important;
-        border-radius: 7px !important;
+        width: 24px !important;
+        height: 24px !important;
+        border-radius: 6px !important;
     }
 
     .dash-action-icon svg {
-        width: 14px !important;
-        height: 14px !important;
+        width: 13px !important;
+        height: 13px !important;
     }
 
     .dash-action-title {
-        font-size: 11px !important;
+        font-size: 10px !important;
         margin-bottom: 1px !important;
     }
 
     .dash-action-desc {
-        font-size: 9.5px !important;
+        font-size: 8.5px !important;
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -2137,24 +2150,24 @@ html.dark .admin-bottom-nav-item.active {
     }
 
     .dash-quick-actions {
-        margin-bottom: 12px !important;
+        margin-bottom: 10px !important;
     }
 
     /* System / Infrastructure Health Grid */
     .admin-main div[style*="minmax(210px, 1fr)"] {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-        margin-bottom: 12px !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
     }
 
     .admin-main div[style*="minmax(210px, 1fr)"] > div {
-        padding: 8px 10px !important;
-        border-radius: 10px !important;
+        padding: 6px 8px !important;
+        border-radius: 8px !important;
     }
 
     .admin-main div[style*="minmax(210px, 1fr)"] svg {
-        width: 15px !important;
-        height: 15px !important;
+        width: 14px !important;
+        height: 14px !important;
     }
 
     /* All Cards & Panels */
@@ -2165,109 +2178,109 @@ html.dark .admin-bottom-nav-item.active {
     .admin-main div[style*="padding: 18px 20px"],
     .admin-main div[style*="padding: 16px 18px"],
     .admin-main div[style*="padding: 14px 16px"] {
-        padding: 10px 12px !important;
-        border-radius: 10px !important;
-        margin-bottom: 10px !important;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        margin-bottom: 8px !important;
     }
 
     /* Buttons & Interactive Elements */
     .admin-btn {
-        padding: 5px 9px !important;
-        font-size: 11px !important;
+        padding: 4px 8px !important;
+        font-size: 9.5px !important;
         border-radius: 6px !important;
-        gap: 4px !important;
+        gap: 3px !important;
         height: auto !important;
     }
 
     .admin-btn svg {
-        width: 12px !important;
-        height: 12px !important;
+        width: 11px !important;
+        height: 11px !important;
     }
 
     /* Form Inputs & Selects */
     .admin-input,
     select.admin-input,
     .admin-textarea {
-        padding: 5px 8px !important;
-        font-size: 11.5px !important;
+        padding: 4px 7px !important;
+        font-size: 10.5px !important;
         border-radius: 6px !important;
     }
 
     .admin-label {
-        font-size: 10.5px !important;
+        font-size: 9px !important;
         margin-bottom: 2px !important;
     }
 
     .admin-field-group {
-        margin-bottom: 8px !important;
+        margin-bottom: 6px !important;
         gap: 2px !important;
     }
 
     .admin-badge {
-        padding: 2px 6px !important;
-        font-size: 9.5px !important;
+        padding: 1.5px 5px !important;
+        font-size: 8.5px !important;
         border-radius: 999px !important;
     }
 
     /* Project Rows & Media Items */
     .project-row {
-        padding: 8px 10px !important;
-        gap: 8px !important;
+        padding: 6px 8px !important;
+        gap: 6px !important;
         border-radius: 8px !important;
     }
 
     .project-row-img,
     .project-row-img-placeholder {
-        width: 44px !important;
-        height: 32px !important;
-        border-radius: 5px !important;
+        width: 38px !important;
+        height: 28px !important;
+        border-radius: 4px !important;
     }
 
     .project-tech-tag {
-        font-size: 9px !important;
-        padding: 1px 5px !important;
+        font-size: 8px !important;
+        padding: 1px 4px !important;
     }
 
     .project-row-actions button,
     .project-row-actions a {
-        padding: 4px 6px !important;
-        font-size: 10px !important;
+        padding: 3px 5px !important;
+        font-size: 8.5px !important;
     }
 
     /* Media Grid */
     .images-grid {
-        grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)) !important;
-        gap: 8px !important;
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)) !important;
+        gap: 6px !important;
     }
 
     .image-card-img {
-        height: 85px !important;
+        height: 75px !important;
     }
 
     .upload-dropzone {
-        padding: 18px 12px !important;
-        border-radius: 10px !important;
+        padding: 14px 10px !important;
+        border-radius: 8px !important;
     }
 
     .upload-dropzone-text {
-        font-size: 12px !important;
+        font-size: 10.5px !important;
     }
 
     .upload-dropzone-hint {
-        font-size: 10px !important;
+        font-size: 9px !important;
     }
 
     /* Compact Table Styles */
     table th, th {
-        padding: 5px 7px !important;
-        font-size: 10px !important;
+        padding: 4px 6px !important;
+        font-size: 8.5px !important;
         font-weight: 600 !important;
         white-space: nowrap !important;
     }
 
     table td, td {
-        padding: 5px 7px !important;
-        font-size: 10.5px !important;
+        padding: 4px 6px !important;
+        font-size: 9px !important;
         white-space: nowrap !important;
     }
 
@@ -2280,40 +2293,40 @@ html.dark .admin-bottom-nav-item.active {
 
     /* Filter Tabs & Pills */
     .content-filter-tabs {
-        gap: 4px !important;
-        margin-bottom: 10px !important;
+        gap: 3px !important;
+        margin-bottom: 8px !important;
     }
 
     .content-filter-tab {
-        padding: 4px 9px !important;
-        font-size: 11px !important;
-        border-radius: 6px !important;
+        padding: 3px 7px !important;
+        font-size: 9.5px !important;
+        border-radius: 5px !important;
     }
 
     /* Live Chat & Workspace */
     .live-chat-panel,
     .workspace-task-card,
     .workspace-lead-card {
-        padding: 8px 10px !important;
-        border-radius: 8px !important;
-        font-size: 11px !important;
+        padding: 6px 8px !important;
+        border-radius: 7px !important;
+        font-size: 9.5px !important;
     }
 
     /* Modals */
     .admin-modal {
-        padding: 16px 14px !important;
-        border-radius: 14px !important;
+        padding: 14px 12px !important;
+        border-radius: 12px !important;
         max-width: 95vw !important;
     }
 
     .admin-modal-title {
-        font-size: 15px !important;
-        margin: 0 0 14px !important;
+        font-size: 13.5px !important;
+        margin: 0 0 10px !important;
     }
 
     /* Chart SVG Responsive Scaling */
     .admin-main svg[viewBox="0 0 800 220"] {
-        max-height: 150px !important;
+        max-height: 140px !important;
     }
 }
 
@@ -2329,43 +2342,43 @@ html.dark .admin-bottom-nav-item.active {
 
     .dash-stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 6px !important;
+        gap: 5px !important;
     }
 
     .dash-stat-card {
-        padding: 6px 8px !important;
-        gap: 6px !important;
+        padding: 5px 6px !important;
+        gap: 5px !important;
     }
 
     .dash-stat-value {
-        font-size: 14.5px !important;
+        font-size: 13px !important;
     }
 
     .dash-stat-label {
-        font-size: 9px !important;
+        font-size: 8px !important;
     }
 
     .dash-actions-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 6px !important;
+        gap: 5px !important;
     }
 
     .dash-action-card {
-        padding: 6px 8px !important;
-        gap: 6px !important;
+        padding: 5px 6px !important;
+        gap: 5px !important;
     }
 
     .dash-action-title {
-        font-size: 10.5px !important;
+        font-size: 9.5px !important;
     }
 
     .admin-main div[style*="minmax(210px, 1fr)"] {
         grid-template-columns: 1fr 1fr !important;
-        gap: 6px !important;
+        gap: 5px !important;
     }
 
     .admin-main div[style*="minmax(210px, 1fr)"] > div {
-        padding: 6px 8px !important;
+        padding: 5px 6px !important;
     }
 }
 
@@ -2468,9 +2481,21 @@ html.dark .admin-bottom-nav-item.active {
 
     /* Mobile full screen chat thread header */
     .admin-chat-layout.mobile-chat-open .admin-chat-thread-col > div:first-child {
-        padding: 10px 12px !important;
+        padding: 8px 10px !important;
         border-radius: 0 !important;
-        gap: 8px !important;
+        gap: 6px !important;
+    }
+
+    .admin-chat-layout.mobile-chat-open .admin-chat-thread-col > div:first-child span {
+        font-size: 11px !important;
+    }
+
+    /* Mobile chat message bubbles */
+    .admin-chat-layout.mobile-chat-open .admin-chat-thread-col div[style*="border-radius: 16px"],
+    .admin-chat-layout.mobile-chat-open .admin-chat-thread-col div[style*="border-radius: 14px"] {
+        padding: 7px 10px !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
     }
 
     /* Mobile full screen reply input bar */
