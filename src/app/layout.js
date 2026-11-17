@@ -205,6 +205,13 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#060b19' },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -213,6 +220,34 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
+        {/* Instant Theme Color Initializer for Mobile Omnibox / Address Bar */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var isDark = saved ? (saved === 'dark') : prefersDark;
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                  var isAdmin = window.location.pathname.indexOf('/709832') === 0;
+                  var color = isDark ? (isAdmin ? '#080c18' : '#060b19') : (isAdmin ? '#f8fafc' : '#ffffff');
+                  var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+                  if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.setAttribute('name', 'theme-color');
+                    document.head.appendChild(meta);
+                  }
+                  meta.setAttribute('content', color);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <link
           rel="alternate"
           type="text/plain"
