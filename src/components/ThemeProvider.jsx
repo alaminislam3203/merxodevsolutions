@@ -11,8 +11,11 @@ export function syncThemeColor(currentTheme) {
     : document.documentElement.classList.contains('dark');
   const isAdmin =
     typeof window !== 'undefined' && window.location.pathname.startsWith('/709832');
+
+  // On client side: Light mode matches navbar (violet-700: #6d28d9), dark mode matches #060b19
+  // On admin panel: Light mode is clean #ffffff, dark mode is #080c18
   const darkColor = isAdmin ? '#080c18' : '#060b19';
-  const lightColor = isAdmin ? '#f8fafc' : '#ffffff';
+  const lightColor = isAdmin ? '#ffffff' : '#6d28d9';
   const color = isDark ? darkColor : lightColor;
 
   // 1. Standard meta name="theme-color" (Android Chrome, Edge, etc.)

@@ -207,7 +207,7 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: light)', color: '#6d28d9' },
     { media: '(prefers-color-scheme: dark)', color: '#060b19' },
   ],
 };
@@ -235,7 +235,7 @@ export default function RootLayout({ children }) {
                     document.documentElement.classList.remove('dark');
                   }
                   var isAdmin = window.location.pathname.indexOf('/709832') === 0;
-                  var color = isDark ? (isAdmin ? '#080c18' : '#060b19') : (isAdmin ? '#f8fafc' : '#ffffff');
+                  var color = isDark ? (isAdmin ? '#080c18' : '#060b19') : (isAdmin ? '#ffffff' : '#6d28d9');
                   var meta = document.querySelector('meta[name="theme-color"]:not([media])');
                   if (!meta) {
                     meta = document.createElement('meta');
