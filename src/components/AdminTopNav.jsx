@@ -33,6 +33,7 @@ import {
   FiCpu,
   FiChevronRight,
   FiAlertCircle,
+  FiMenu,
 } from "react-icons/fi";
 
 // Route title mapping for dynamic breadcrumbs
@@ -57,6 +58,7 @@ export default function AdminTopNav({
   onToggleFullscreen,
   chatUnread = 0,
   chatNeedsHuman = 0,
+  onOpenMobileMenu,
 }) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";

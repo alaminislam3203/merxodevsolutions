@@ -311,165 +311,338 @@ function AdminSidebar({
   };
 
   return (
-    <aside
-      className={
-        "admin-sidebar" + (collapsed ? " admin-sidebar-collapsed" : "")
-      }
-    >
-      <div className="admin-sidebar-brand">
-        {!collapsed && (
-          <Link
-            href="/709832"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              textDecoration: "none",
-              minWidth: 0,
-              flex: 1,
-            }}
-            title="MerxoDev Admin Dashboard"
-          >
-            <div
-              className="admin-sidebar-logo"
+    <>
+      {mobileOpen && (
+        <div
+          className="admin-sidebar-mobile-backdrop"
+          onClick={onCloseMobile}
+          aria-hidden="true"
+        />
+      )}
+      <aside
+        className={
+          "admin-sidebar" +
+          (collapsed ? " admin-sidebar-collapsed" : "") +
+          (mobileOpen ? " admin-sidebar-mobile-open" : "")
+        }
+      >
+        <div className="admin-sidebar-brand">
+          {!collapsed && (
+            <Link
+              href="/709832"
+              onClick={onCloseMobile}
               style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                background: theme === "dark" ? "#ff3d00" : "#FF3D00",
-                border:
-                  theme === "dark"
-                    ? "1px solid rgba(246, 147, 8, 0.12)"
-                    : "1px solid #e2e8f0",
-                boxShadow:
-                  theme === "dark"
-                    ? "0 2px 8px rgba(0, 0, 0, 0.4)"
-                    : "0 2px 6px rgba(0, 0, 0, 0.06)",
-                overflow: "hidden",
+                gap: 10,
+                textDecoration: "none",
+                minWidth: 0,
+                flex: 1,
               }}
+              title="MerxoDev Admin Dashboard"
             >
-              <img
-                src="/favicon.png"
-                alt="MerxoDev Favicon"
-                style={{ width: 20, height: 20, objectFit: "contain" }}
-              />
-            </div>
-            <div
-              className="admin-sidebar-brand-text"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <img
-                src="/logo.png"
-                alt="MerxoDev Solutions"
-                style={{ height: 20, maxWidth: 120, objectFit: "contain" }}
-              />
-            </div>
-          </Link>
-        )}
-        <button
-          className="admin-sidebar-collapse-btn"
-          onClick={() => setCollapsed(!collapsed)}
-          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {collapsed ? (
-              <polyline points="9 18 15 12 9 6" />
-            ) : (
-              <polyline points="15 18 9 12 15 6" />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      <nav className="admin-sidebar-nav">
-        {!collapsed && <p className="admin-sidebar-section-label">MENU</p>}
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            title={collapsed ? item.label : ""}
-            className={
-              "admin-sidebar-item" +
-              (isActive(item) ? " admin-sidebar-item-active" : "")
-            }
-            style={{ position: "relative" }}
-          >
-            <span className="admin-sidebar-item-icon">{item.icon}</span>
-            {!collapsed && (
-              <span className="admin-sidebar-item-label">{item.label}</span>
-            )}
-            {item.badge > 0 && (
-              <span
+              <div
+                className="admin-sidebar-logo"
                 style={{
-                  marginLeft: "auto",
-                  minWidth: 18,
-                  height: 18,
-                  padding: "0 6px",
-                  borderRadius: 999,
-                  fontSize: 10,
-                  fontWeight: 800,
-                  display: "inline-flex",
+                  width: 32,
+                  height: 32,
+                  borderRadius: 8,
+                  display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: item.urgent ? "#f59e0b" : "#ef4444",
-                  color: item.urgent ? "#090d16" : "#fff",
-                  boxShadow: "0 0 10px rgba(239, 68, 68, 0.5)",
+                  flexShrink: 0,
+                  background: theme === "dark" ? "#ff3d00" : "#FF3D00",
+                  border:
+                    theme === "dark"
+                      ? "1px solid rgba(246, 147, 8, 0.12)"
+                      : "1px solid #e2e8f0",
+                  boxShadow:
+                    theme === "dark"
+                      ? "0 2px 8px rgba(0, 0, 0, 0.4)"
+                      : "0 2px 6px rgba(0, 0, 0, 0.06)",
+                  overflow: "hidden",
                 }}
               >
-                {item.badge}
-              </span>
-            )}
-            {!collapsed && isActive(item) && !item.badge && (
-              <span className="admin-sidebar-active-dot"></span>
-            )}
-          </Link>
-        ))}
-      </nav>
+                <img
+                  src="/favicon.png"
+                  alt="MerxoDev Favicon"
+                  style={{ width: 20, height: 20, objectFit: "contain" }}
+                />
+              </div>
+              <div
+                className="admin-sidebar-brand-text"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <img
+                  src="/logo.png"
+                  alt="MerxoDev Solutions"
+                  style={{ height: 20, maxWidth: 120, objectFit: "contain" }}
+                />
+              </div>
+            </Link>
+          )}
 
-      <div className="admin-sidebar-bottom">
-        <button
-          onClick={handleSignOut}
-          disabled={signingOut}
-          className="admin-sidebar-signout"
-          title={collapsed ? "Sign out" : ""}
-        >
-          {signingOut ? (
-            <div className="admin-spinner-sm"></div>
-          ) : (
+          {/* Close button for mobile drawer */}
+          <button
+            type="button"
+            className="admin-sidebar-mobile-close-btn"
+            onClick={onCloseMobile}
+            aria-label="Close navigation menu"
+            title="Close menu"
+          >
+            <FiX size={18} />
+          </button>
+
+          {/* Desktop collapse button */}
+          <button
+            className="admin-sidebar-collapse-btn"
+            onClick={() => setCollapsed(!collapsed)}
+            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
             <svg
-              width="18"
-              height="18"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
+              {collapsed ? (
+                <polyline points="9 18 15 12 9 6" />
+              ) : (
+                <polyline points="15 18 9 12 15 6" />
+              )}
             </svg>
-          )}
-          {!collapsed && (
-            <span>{signingOut ? "Signing out..." : "Sign Out"}</span>
-          )}
-        </button>
-      </div>
-    </aside>
+          </button>
+        </div>
+
+        <nav className="admin-sidebar-nav">
+          {!collapsed && <p className="admin-sidebar-section-label">MENU</p>}
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onCloseMobile}
+              title={collapsed ? item.label : ""}
+              className={
+                "admin-sidebar-item" +
+                (isActive(item) ? " admin-sidebar-item-active" : "")
+              }
+              style={{ position: "relative" }}
+            >
+              <span className="admin-sidebar-item-icon">{item.icon}</span>
+              {!collapsed && (
+                <span className="admin-sidebar-item-label">{item.label}</span>
+              )}
+              {item.badge > 0 && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    minWidth: 18,
+                    height: 18,
+                    padding: "0 6px",
+                    borderRadius: 999,
+                    fontSize: 10,
+                    fontWeight: 800,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: item.urgent ? "#f59e0b" : "#ef4444",
+                    color: item.urgent ? "#090d16" : "#fff",
+                    boxShadow: "0 0 10px rgba(239, 68, 68, 0.5)",
+                  }}
+                >
+                  {item.badge}
+                </span>
+              )}
+              {!collapsed && isActive(item) && !item.badge && (
+                <span className="admin-sidebar-active-dot"></span>
+              )}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="admin-sidebar-bottom">
+          <button
+            onClick={handleSignOut}
+            disabled={signingOut}
+            className="admin-sidebar-signout"
+            title={collapsed ? "Sign out" : ""}
+          >
+            {signingOut ? (
+              <div className="admin-spinner-sm"></div>
+            ) : (
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+            )}
+            {!collapsed && (
+              <span>{signingOut ? "Signing out..." : "Sign Out"}</span>
+            )}
+          </button>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+function AdminBottomNav({
+  onOpenMenu,
+  chatUnread = 0,
+  chatNeedsHuman = 0,
+}) {
+  const pathname = usePathname();
+  const totalChatBadge = chatUnread + chatNeedsHuman;
+
+  const quickNav = [
+    {
+      href: "/709832",
+      label: "Dashboard",
+      exact: true,
+      icon: (
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+      ),
+    },
+    {
+      href: "/709832/live-chat",
+      label: "Chat & AI",
+      badge: totalChatBadge,
+      urgent: chatNeedsHuman > 0,
+      icon: (
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+      ),
+    },
+    {
+      href: "/709832/projects",
+      label: "Projects",
+      icon: (
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+      ),
+    },
+    {
+      href: "/709832/workspace",
+      label: "Workspace",
+      icon: (
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        </svg>
+      ),
+    },
+  ];
+
+  const isActive = (item) =>
+    item.exact ? pathname === item.href : pathname.startsWith(item.href);
+
+  return (
+    <nav className="admin-mobile-bottom-nav">
+      {quickNav.map((item) => {
+        const active = isActive(item);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`admin-bottom-nav-item ${active ? "active" : ""}`}
+          >
+            <div className="admin-bottom-nav-icon-wrap">
+              {item.icon}
+              {item.badge > 0 && (
+                <span
+                  className={`admin-bottom-nav-badge ${item.urgent ? "urgent" : ""}`}
+                >
+                  {item.badge > 9 ? "9+" : item.badge}
+                </span>
+              )}
+            </div>
+            <span className="admin-bottom-nav-label">{item.label}</span>
+          </Link>
+        );
+      })}
+      <button
+        type="button"
+        onClick={onOpenMenu}
+        className="admin-bottom-nav-item admin-bottom-nav-btn"
+        aria-label="Open Full Admin Navigation Menu"
+      >
+        <div className="admin-bottom-nav-icon-wrap">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </div>
+        <span className="admin-bottom-nav-label">Menu</span>
+      </button>
+    </nav>
   );
 }
 
@@ -481,10 +654,16 @@ function AdminLayoutShell({ children }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [chatUnread, setChatUnread] = useState(0);
   const [chatNeedsHuman, setChatNeedsHuman] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const prevUnreadRef = useRef(0);
   const prevHumanRef = useRef(0);
   const initializedRef = useRef(false);
   const mainRef = useRef(null);
+
+  // Automatically close mobile drawer when navigating to a new route
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   const isLoginRoot = pathname === "/709832";
   const emailLower = String(session?.user?.email || "")
@@ -690,6 +869,8 @@ function AdminLayoutShell({ children }) {
         onToggleFullscreen={toggleFullscreen}
         chatUnread={chatUnread}
         chatNeedsHuman={chatNeedsHuman}
+        mobileOpen={mobileOpen}
+        onCloseMobile={() => setMobileOpen(false)}
       />
       <div
         style={{
@@ -706,10 +887,11 @@ function AdminLayoutShell({ children }) {
           onToggleFullscreen={toggleFullscreen}
           chatUnread={chatUnread}
           chatNeedsHuman={chatNeedsHuman}
+          onOpenMobileMenu={() => setMobileOpen(true)}
         />
         <main
           ref={mainRef}
-          className="admin-main"
+          className="admin-main admin-main-responsive"
           style={{
             flex: 1,
             overflowY: "auto",
@@ -719,6 +901,11 @@ function AdminLayoutShell({ children }) {
         >
           {children}
         </main>
+        <AdminBottomNav
+          onOpenMenu={() => setMobileOpen(true)}
+          chatUnread={chatUnread}
+          chatNeedsHuman={chatNeedsHuman}
+        />
       </div>
     </div>
   );
