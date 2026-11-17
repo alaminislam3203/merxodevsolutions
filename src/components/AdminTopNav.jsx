@@ -461,12 +461,12 @@ export default function AdminTopNav({
             </kbd>
           </button>
         </div>
-        </div>
 
         {/* Right Side: Theme Toggle, Apps Grid, Shortcuts, Notifications, Settings, Plus & Admin Profile */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {/* Direct Theme Toggle Switch in TopNav */}
           <div
+            className="admin-topnav-theme-toggle"
             style={{
               display: "flex",
               alignItems: "center",
@@ -475,6 +475,7 @@ export default function AdminTopNav({
             }}
           >
             <span
+              className="admin-topnav-theme-label"
               style={{
                 fontSize: 12,
                 fontWeight: 600,
@@ -703,6 +704,7 @@ export default function AdminTopNav({
           <button
             type="button"
             onClick={() => setShortcutsModalOpen(true)}
+            className="admin-hide-mobile"
             title="Keyboard Shortcuts (?)"
             style={{
               width: 32,
