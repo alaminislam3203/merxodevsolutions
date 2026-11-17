@@ -36,8 +36,16 @@ function LoginForm() {
   // If already logged in, redirect away
   useEffect(() => {
     if (status === 'authenticated') {
-      const dest = session?.user?.role === 'ADMIN' ? '/709832' : redirectUrl || '/';
-      router.replace(dest);
+      const emailLower = String(session?.user?.email || '').toLowerCase().trim();
+      const isAdmin = session?.user?.role === 'ADMIN' || emailLower === 'merxodevsolutions@gmail.com';
+
+      let destination = '/';
+      if (isAdmin) {
+        destination = redirectUrl && redirectUrl.startsWith('/709832') ? redirectUrl : '/709832';
+      } else {
+        destination = redirectUrl && !redirectUrl.startsWith('/709832') && !redirectUrl.startsWith('/account') ? redirectUrl : '/';
+      }
+      router.replace(destination);
     }
   }, [status, session, router, redirectUrl]);
 
@@ -93,9 +101,9 @@ function LoginForm() {
         const data = await profileRes.json();
         if (
           (data?.isAdmin || data?.isTeamMember || data?.canAccessAdminPanel) &&
-          (redirectUrl === '/account' || redirectUrl === '/admin')
+          (redirectUrl === '/account' || redirectUrl === '/admin' || redirectUrl.startsWith('/709832'))
         ) {
-          window.location.href = '/709832';
+          window.location.href = redirectUrl.startsWith('/709832') ? redirectUrl : '/709832';
           return;
         }
       }
