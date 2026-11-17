@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
 import { HiUserGroup } from "react-icons/hi";
-import { FiAlertCircle, FiMessageSquare, FiSun, FiMoon } from "react-icons/fi";
+import { FiAlertCircle, FiMessageSquare, FiSun, FiMoon, FiX } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
 import { playAdminAlertSound, playUrgentAdminRing } from "@/lib/chatSound";
 import AdminLoader from "@/components/AdminLoader";
@@ -17,6 +17,8 @@ function AdminSidebar({
   onToggleFullscreen,
   chatUnread = 0,
   chatNeedsHuman = 0,
+  mobileOpen = false,
+  onCloseMobile = () => {},
 }) {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
