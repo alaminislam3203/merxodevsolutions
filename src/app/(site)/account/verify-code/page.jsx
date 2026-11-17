@@ -31,8 +31,9 @@ function VerifyCodeContent() {
   // If already logged in, redirect away
   useEffect(() => {
     if (status === 'authenticated') {
-      const dest = session?.user?.role === 'ADMIN' ? '/709832' : '/';
-      router.replace(dest);
+      const emailLower = String(session?.user?.email || '').toLowerCase().trim();
+      const isAdmin = session?.user?.role === 'ADMIN' || emailLower === 'merxodevsolutions@gmail.com';
+      router.replace(isAdmin ? '/709832' : '/');
     }
   }, [status, session, router]);
 
