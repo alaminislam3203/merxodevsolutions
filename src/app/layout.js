@@ -206,10 +206,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#6d28d9' },
-    { media: '(prefers-color-scheme: dark)', color: '#060b19' },
-  ],
+  themeColor: '#6d28d9',
 };
 
 export default function RootLayout({ children }) {
@@ -227,8 +224,7 @@ export default function RootLayout({ children }) {
               (function() {
                 try {
                   var saved = localStorage.getItem('theme');
-                  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var isDark = saved ? (saved === 'dark') : prefersDark;
+                  var isDark = saved === 'dark';
                   if (isDark) {
                     document.documentElement.classList.add('dark');
                   } else {

@@ -57,11 +57,8 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
-    const prefersDark =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = saved ? (saved === 'dark' ? 'dark' : 'light') : (prefersDark ? 'dark' : 'light');
+    // Default to 'light' for any new visitor; only use 'dark' if explicitly chosen and saved in localStorage
+    const initial = saved === 'dark' ? 'dark' : 'light';
     setTheme(initial);
     document.documentElement.classList.toggle('dark', initial === 'dark');
     syncThemeColor(initial);
@@ -76,21 +73,8 @@ export function ThemeProvider({ children }) {
       attributeFilter: ['class'],
     });
 
-    // Listen to device system theme changes if user hasn't explicitly set localStorage
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleMediaChange = (e) => {
-      if (!localStorage.getItem('theme')) {
-        const sysTheme = e.matches ? 'dark' : 'light';
-        setTheme(sysTheme);
-        document.documentElement.classList.toggle('dark', e.matches);
-        syncThemeColor(sysTheme);
-      }
-    };
-    mql.addEventListener('change', handleMediaChange);
-
     return () => {
       observer.disconnect();
-      mql.removeEventListener('change', handleMediaChange);
     };
   }, []);
 
