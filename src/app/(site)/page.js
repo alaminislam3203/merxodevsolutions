@@ -250,9 +250,9 @@ export default async function Home() {
           Official Phone & WhatsApp Numbers: +8801313334279, +880 1313-334279, +880 1313 334279, 01313334279, 01313-334279, +8809697634279, +880 9697-634279, 09697634279.
         </p>
       </div>
+         <Hero />
       <HeroCarousel />
       <ServicesPreview />
-      <Hero />
       <Stats />
       <WhyUs />
       <Process />
