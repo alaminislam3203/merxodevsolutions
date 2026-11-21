@@ -551,27 +551,64 @@ export default function Navbar() {
             );
           })}
 
-          {/* Menu button */}
+          {/* Menu button with User Avatar & Overlay Hamburger Badge */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium text-zinc-400 dark:text-zinc-400 hover:text-violet-500 transition-colors font-exo-extralight"
+            className={`flex flex-col items-center gap-0.5 pt-2 pb-1 px-3 text-[10px] font-medium transition-colors font-exo-extralight ${sidebarOpen
+              ? 'text-violet-600 dark:text-cyan-400'
+              : 'text-zinc-400 dark:text-zinc-400 hover:text-violet-500'
+              }`}
             aria-label={t('openMenu', 'Open menu')}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
+            <div className="relative flex items-center justify-center">
+              {session?.user ? (
+                <>
+                  {session.user.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || 'Menu'}
+                      className="w-6 h-6 rounded-full object-cover border border-violet-400/60 dark:border-cyan-400/60 shadow-xs"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.nextElementSibling;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    style={{ display: session.user.image ? 'none' : 'flex' }}
+                    className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 items-center justify-center text-white text-[10px] font-bold border border-violet-400/60 dark:border-cyan-400/60 shadow-xs"
+                  >
+                    {session.user.name ? (
+                      session.user.name.charAt(0).toUpperCase()
+                    ) : (
+                      <FiUser size={12} />
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="w-6 h-6 rounded-full bg-zinc-100 dark:bg-white/10 border border-zinc-300 dark:border-white/20 flex items-center justify-center text-zinc-600 dark:text-zinc-300 shadow-xs">
+                  <FiUser size={13} />
+                </div>
+              )}
+
+              {/* Overlapping circular hamburger menu badge (matching user reference design) */}
+              <span className="absolute -bottom-1 -right-1.5 w-3.5 h-3.5 rounded-full bg-zinc-700 dark:bg-zinc-800 text-white flex items-center justify-center border border-white dark:border-[#060b19] shadow-xs">
+                <svg
+                  width="7"
+                  height="7"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                >
+                  <line x1="2" y1="3" x2="10" y2="3" />
+                  <line x1="2" y1="6" x2="10" y2="6" />
+                  <line x1="2" y1="9" x2="10" y2="9" />
+                </svg>
+              </span>
+            </div>
             <span>{t('menu')}</span>
           </button>
         </div>
