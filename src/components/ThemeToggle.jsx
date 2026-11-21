@@ -25,6 +25,7 @@ export default function ThemeToggle({ iconOnly = false }) {
       </div>
       <button
         onClick={() => theme !== 'light' && toggleTheme()}
+        aria-label="Switch to Light Theme"
         className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
           theme === 'light'
             ? 'bg-white text-violet-600 shadow-sm ring-1 ring-zinc-100'
@@ -35,6 +36,7 @@ export default function ThemeToggle({ iconOnly = false }) {
       </button>
       <button
         onClick={() => theme !== 'dark' && toggleTheme()}
+        aria-label="Switch to Dark Theme"
         className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
           theme === 'dark'
             ? 'bg-zinc-900 text-amber-400 shadow-sm ring-1 ring-zinc-700'

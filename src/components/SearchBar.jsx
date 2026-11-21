@@ -143,6 +143,11 @@ export default function SearchBar({ mobile = false }) {
               setIsOpen(true);
             }
           }}
+          aria-label={
+            mobile
+              ? t('search.placeholderMobile', 'Search anything...')
+              : t('search.placeholder', 'Search projects, services, technologies, solutions...')
+          }
           placeholder={
             mobile
               ? t('search.placeholderMobile', 'Search anything...')

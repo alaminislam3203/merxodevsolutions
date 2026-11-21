@@ -104,6 +104,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
                   changeLanguage(code);
                 }}
                 title={full}
+                aria-label={`Switch language to ${full}`}
                 suppressHydrationWarning
                 className={`py-1 rounded-lg text-[10px] font-black uppercase tracking-wider text-center transition-all cursor-pointer ${
                   isActive
