@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import Hero from '@/components/Hero';
 import HeroCarousel from '@/components/HeroCarousel';
@@ -6,15 +7,16 @@ import QuadPromoSection from '@/components/QuadPromoSection';
 import Process from '@/components/Process';
 import Stats from '@/components/Stats';
 import TechStack from '@/components/TechStack';
-import YouTubeShowcase from '@/components/YouTubeShowcase';
-import Testimonials from '@/components/Testimonials';
 import WhyUs from '@/components/WhyUs';
-import TechCaseStudies from '@/components/TechCaseStudies';
-import CompanyDeck from '@/components/CompanyDeck';
+import Testimonials from '@/components/Testimonials';
 import HomepageFAQ from '@/components/HomepageFAQ';
-import DiscoveryCall from '@/components/DiscoveryCall';
 import { getAllProjects } from '@/app/lib/projects';
 import { getLatestYouTubeVideos } from '@/app/lib/youtube';
+
+const TechCaseStudies = dynamic(() => import('@/components/TechCaseStudies'));
+const YouTubeShowcase = dynamic(() => import('@/components/YouTubeShowcase'));
+const CompanyDeck = dynamic(() => import('@/components/CompanyDeck'));
+const DiscoveryCall = dynamic(() => import('@/components/DiscoveryCall'));
 
 export const metadata = {
   title: 'MerxoDev Solutions (merxodev / মারক্সোডেভ সলিউশনস) – Web & App Development Bangladesh',

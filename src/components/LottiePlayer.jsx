@@ -16,41 +16,45 @@ export default function LottiePlayer({
     let isMounted = true;
     setIsLoaded(false);
 
-    import("lottie-web")
-      .then((lottieModule) => {
-        if (!isMounted || !containerRef.current) return;
-        const lottie = lottieModule.default || lottieModule;
+    // Defer lottie loading until initial hydration & paint completes to avoid TBT (Total Blocking Time)
+    const timer = setTimeout(() => {
+      import("lottie-web/build/player/lottie_light")
+        .catch(() => import("lottie-web"))
+        .then((lottieModule) => {
+          if (!isMounted || !containerRef.current) return;
+          const lottie = lottieModule.default || lottieModule;
 
-        // Clear previous children in container
-        if (containerRef.current) {
-          containerRef.current.innerHTML = "";
-        }
+          // Clear previous children in container
+          if (containerRef.current) {
+            containerRef.current.innerHTML = "";
+          }
 
-        anim = lottie.loadAnimation({
-          container: containerRef.current,
-          renderer: "svg",
-          loop,
-          autoplay,
-          path: animationPath,
-        });
+          anim = lottie.loadAnimation({
+            container: containerRef.current,
+            renderer: "svg",
+            loop,
+            autoplay,
+            path: animationPath,
+          });
 
-        anim.addEventListener("DOMLoaded", () => {
-          if (isMounted) setIsLoaded(true);
+          anim.addEventListener("DOMLoaded", () => {
+            if (isMounted) setIsLoaded(true);
+          });
+          anim.addEventListener("data_ready", () => {
+            if (isMounted) setIsLoaded(true);
+          });
+          setTimeout(() => {
+            if (isMounted) setIsLoaded(true);
+          }, 100);
+        })
+        .catch((err) => {
+          console.error("Lottie load error:", err);
         });
-        anim.addEventListener("data_ready", () => {
-          if (isMounted) setIsLoaded(true);
-        });
-        // Quick fallback so animation is instantly visible
-        setTimeout(() => {
-          if (isMounted) setIsLoaded(true);
-        }, 150);
-      })
-      .catch((err) => {
-        console.error("Lottie load error:", err);
-      });
+    }, 120);
 
     return () => {
       isMounted = false;
+      clearTimeout(timer);
       if (anim) {
         try {
           anim.destroy();

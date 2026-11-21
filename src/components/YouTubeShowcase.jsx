@@ -55,6 +55,7 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
   const [isHovered, setIsHovered] = useState(true);
   const [mobilePlaylistOpen, setMobilePlaylistOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [userActivated, setUserActivated] = useState(false);
 
   const playerRef = useRef(null);
   const activeIndexRef = useRef(0);
@@ -77,7 +78,7 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
     }
   }, [initialVideos]);
 
-  // Client-side live polling: checks YouTube feed every 2 minutes for new video uploads
+  // Client-side live polling: checks YouTube feed periodically (3 mins) without blocking initial load
   useEffect(() => {
     let isMounted = true;
     async function fetchLiveChannelVideos() {
@@ -93,12 +94,11 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
           setVideos(data.videos);
         }
       } catch (err) {
-        console.warn('[YouTubeShowcase] Live feed check error:', err?.message);
+        // silent
       }
     }
 
-    fetchLiveChannelVideos();
-    const pollInterval = setInterval(fetchLiveChannelVideos, 120000); // 2 minutes
+    const pollInterval = setInterval(fetchLiveChannelVideos, 180000); // 3 minutes
 
     return () => {
       isMounted = false;
@@ -143,24 +143,29 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
   }, []);
 
   const handleSelectVideo = (index) => {
-    if (index === activeIndex) return;
+    if (index === activeIndex && isPlaying) return;
     setActiveIndex(index);
-    if (playerRef.current && typeof playerRef.current.loadVideoById === 'function') {
+    if (!userActivated) {
+      setUserActivated(true);
+      setIsPlaying(true);
+    } else if (playerRef.current && typeof playerRef.current.loadVideoById === 'function') {
       playerRef.current.loadVideoById(videos[index].id);
       setIsPlaying(true);
     }
   };
 
   useEffect(() => {
-    // Initialize YouTube IFrame API
+    if (!userActivated) return;
+
+    // Initialize YouTube IFrame API on demand (Facade Pattern for 100% Lighthouse Performance)
     const initPlayer = () => {
       if (window.YT && window.YT.Player) {
         if (!playerRef.current) {
-          const initialId = videosRef.current[0]?.id || DEFAULT_VIDEOS[0].id;
+          const currentId = videosRef.current[activeIndexRef.current]?.id || DEFAULT_VIDEOS[0].id;
           playerRef.current = new window.YT.Player('youtube-player-iframe', {
-            videoId: initialId,
+            videoId: currentId,
             playerVars: {
-              autoplay: 0,
+              autoplay: 1,
               rel: 0,
               modestbranding: 1,
               playsinline: 1,
@@ -173,6 +178,11 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
               showinfo: 0,
             },
             events: {
+              onReady: (event) => {
+                try {
+                  event.target.playVideo();
+                } catch (e) {}
+              },
               onStateChange: (event) => {
                 // event.data === 0 represents YT.PlayerState.ENDED
                 if (event.data === 0) {
@@ -205,7 +215,7 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
         playerRef.current = null;
       }
     };
-  }, [loadNextVideo]);
+  }, [userActivated, loadNextVideo]);
 
   const currentVideo = videos[activeIndex] || DEFAULT_VIDEOS[0];
   const displayedVideos = showAll ? videos : videos.slice(0, FEATURED_LIMIT);
@@ -270,9 +280,40 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
               onTouchStart={handleUserActivity}
               className="relative rounded-sm overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-black shadow-2xl shadow-zinc-900/30 group"
             >
-              {/* Responsive 16:9 Video Aspect Ratio */}
-              <div className="relative w-full aspect-video">
-                <div id="youtube-player-iframe" className="w-full h-full" />
+              {/* Responsive 16:9 Video Aspect Ratio — Facade with instant click-to-play */}
+              <div className="relative w-full aspect-video bg-zinc-950 overflow-hidden">
+                {userActivated ? (
+                  <div id="youtube-player-iframe" className="w-full h-full" />
+                ) : (
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <img
+                      src={`https://img.youtube.com/vi/${currentVideo.id}/hqdefault.jpg`}
+                      alt={currentVideo.title}
+                      width={640}
+                      height={360}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUserActivated(true);
+                        setIsPlaying(true);
+                      }}
+                      aria-label={`Play ${currentVideo.title}`}
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-3.5 transition-all cursor-pointer group/btn"
+                    >
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-red-600 hover:bg-red-500 text-white flex items-center justify-center shadow-2xl shadow-red-600/60 group-hover/btn:scale-110 group-hover/btn:shadow-red-600/80 transition-all duration-300">
+                        <FaPlay size={22} className="ml-1 text-white" />
+                      </div>
+                      <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-lg group-hover/btn:bg-black/90 transition-all">
+                        <FaYoutube className="text-red-500 text-base" />
+                        <span>Click to Play Video</span>
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Status Bar Below Video Frame */}
@@ -368,6 +409,8 @@ export default function YouTubeShowcase({ initialVideos = DEFAULT_VIDEOS }) {
                         <img
                           src={thumbnailUrl}
                           alt={video.title}
+                          width={120}
+                          height={80}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
