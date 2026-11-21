@@ -803,23 +803,26 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setSidebarOpen(false)}
-            className="flex items-center justify-center gap-2 w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-exo-extralight uppercase shadow-lg shadow-amber-500/25"
+            className="group flex items-center justify-center w-full text-center px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 text-sm font-bold tracking-wider hover:opacity-95 transition-all font-exo-extralight uppercase shadow-lg shadow-amber-500/25 active:scale-[0.98]"
           >
-            <span className="inline-block animate-phone-ring">{t('getInTouch')}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            <span className="inline-flex items-center justify-center gap-2 animate-phone-ring">
+              <span>{t('getInTouch')}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="group-hover:translate-x-1 transition-transform"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
           </Link>
 
           {/* Mobile Legal Quick Links */}
