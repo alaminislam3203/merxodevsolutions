@@ -190,15 +190,9 @@ export default function Navbar() {
     //   ),
     // },
     {
-      label: t('navProfile.account', 'Account'),
-      href: '/account',
-      icon: session?.user?.image ? (
-        <img
-          src={session.user.image}
-          alt={session.user.name || 'Account'}
-          className="w-5 h-5 rounded-full object-cover border border-violet-400/50 shadow-xs"
-        />
-      ) : (
+      label: t('services'),
+      href: '/services',
+      icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -210,8 +204,9 @@ export default function Navbar() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
+          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+          <path d="M2 17l10 5 10-5" />
+          <path d="M2 12l10 5 10-5" />
         </svg>
       ),
     },
@@ -633,7 +628,7 @@ export default function Navbar() {
                     onClick={() => setSidebarOpen(false)}
                     className="block group"
                   >
-                    <h4 className="text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-violet-600 dark:group-hover:text-cyan-400 transition-colors">
+                    <h4 className="text-sm font-bold text-white tracking-wide truncate group-hover:text-amber-300 dark:group-hover:text-cyan-300 transition-colors">
                       {session.user.name || t('navProfile.valuedClient', 'Valued Client')}
                     </h4>
                   </Link>
@@ -642,21 +637,21 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={handleCopyEmail}
-                      className="mt-0.5 inline-flex items-center gap-1.5 max-w-full text-[11px] text-zinc-500 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-cyan-300 transition-colors group cursor-pointer text-left"
+                      className="mt-1 inline-flex items-center gap-1.5 max-w-full px-2 py-0.5 rounded-md bg-white/15 dark:bg-white/10 border border-white/20 text-[11px] font-medium text-white/95 dark:text-cyan-200 hover:bg-white/25 transition-colors group cursor-pointer text-left shadow-xs backdrop-blur-xs"
                       title={t('navProfile.copyEmail', 'Click to copy email')}
                     >
-                      <span className="truncate max-w-[130px] font-mono select-all">
+                      <span className="truncate max-w-[130px] font-mono select-all text-white dark:text-cyan-100">
                         {session.user.email}
                       </span>
                       {emailCopied ? (
-                        <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-500 font-bold shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[10px] text-emerald-300 font-bold shrink-0">
                           <FiCheck size={11} />
                           <span>{t('navProfile.copied', 'Copied')}</span>
                         </span>
                       ) : (
                         <FiCopy
                           size={11}
-                          className="shrink-0 text-zinc-400 group-hover:text-violet-500 dark:group-hover:text-cyan-400 transition-colors"
+                          className="shrink-0 text-white/80 group-hover:text-amber-300 dark:group-hover:text-cyan-300 transition-colors"
                         />
                       )}
                     </button>
@@ -670,7 +665,7 @@ export default function Navbar() {
             )}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-xl bg-violet-200/70 dark:bg-white/10 text-zinc-700 dark:text-white/80 hover:text-zinc-950 dark:hover:text-white hover:bg-violet-300/70 dark:hover:bg-white/20 transition-all border border-violet-300/60 dark:border-white/10 shrink-0"
+              className="p-2 rounded-xl bg-white/15 dark:bg-white/10 text-white hover:text-amber-300 dark:hover:text-cyan-300 hover:bg-white/25 transition-all border border-white/20 shrink-0"
               aria-label={t('closeMenu', 'Close menu')}
             >
               <svg
