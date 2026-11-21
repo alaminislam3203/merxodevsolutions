@@ -2597,6 +2597,56 @@ const en = {
         "messageMax": "Message must be under 2000 characters"
       }
     },
+    "stats": {
+      "badge": "Proven Track Record",
+      "headingStart": "Numbers That",
+      "headingEnd": "Speak For Themselves",
+      "subtext": "Proven engineering excellence and delivered digital solutions across Bangladesh and international markets.",
+      "items": [
+        {
+          "value": 65,
+          "suffix": "+",
+          "label": "Projects Completed",
+          "microProof": "E-Commerce, SaaS & Custom Portals",
+          "actionLabel": "Explore Portfolio",
+          "href": "/our-projects"
+        },
+        {
+          "value": 46,
+          "suffix": "+",
+          "label": "Happy Clients",
+          "microProof": "Startups & Growing Businesses",
+          "badge": "100% Retention"
+        },
+        {
+          "value": 4,
+          "suffix": "+",
+          "label": "Years Experience",
+          "microProof": "Full-Stack & Cloud Architecture",
+          "badge": "Since 2021"
+        },
+        {
+          "value": 99,
+          "suffix": "%",
+          "label": "Client Satisfaction",
+          "microProof": "4.9/5 Average Client Rating",
+          "actionLabel": "Read Verified Reviews",
+          "href": "#testimonials"
+        }
+      ],
+      "guarantees": {
+        "badge": "MerxoDev Client Guarantee",
+        "title": "Why Global & Local Businesses Trust Us",
+        "ipTitle": "100% Code & IP Ownership",
+        "ipDesc": "Full GitHub repo, custom code, & database schemas transferred to you upon completion.",
+        "deliveryTitle": "On-Time Sprint Delivery",
+        "deliveryDesc": "Milestone-driven agile execution with regular staging demos and zero project delays.",
+        "supportTitle": "24/7 Dedicated Support",
+        "supportDesc": "Direct communication with senior engineers and 30-day post-launch warranty.",
+        "securityTitle": "Enterprise-Grade Security",
+        "securityDesc": "OWASP security standards, bcrypt salted hashing, and resilient cloud architecture."
+      }
+    },
     "hero": {
       "badge": "Available For New Projects",
       "headingStart": "We",
