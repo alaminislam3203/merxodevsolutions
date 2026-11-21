@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import Hero from '@/components/Hero';
 import HeroCarousel from '@/components/HeroCarousel';
@@ -11,12 +11,12 @@ import WhyUs from '@/components/WhyUs';
 import { getAllProjects } from '@/app/lib/projects';
 import { getLatestYouTubeVideos } from '@/app/lib/youtube';
 
-const TechCaseStudies = dynamic(() => import('@/components/TechCaseStudies'));
-const YouTubeShowcase = dynamic(() => import('@/components/YouTubeShowcase'));
-const CompanyDeck = dynamic(() => import('@/components/CompanyDeck'));
-const DiscoveryCall = dynamic(() => import('@/components/DiscoveryCall'));
-const Testimonials = dynamic(() => import('@/components/Testimonials'));
-const HomepageFAQ = dynamic(() => import('@/components/HomepageFAQ'));
+const TechCaseStudies = nextDynamic(() => import('@/components/TechCaseStudies'));
+const YouTubeShowcase = nextDynamic(() => import('@/components/YouTubeShowcase'));
+const CompanyDeck = nextDynamic(() => import('@/components/CompanyDeck'));
+const DiscoveryCall = nextDynamic(() => import('@/components/DiscoveryCall'));
+const Testimonials = nextDynamic(() => import('@/components/Testimonials'));
+const HomepageFAQ = nextDynamic(() => import('@/components/HomepageFAQ'));
 
 export const metadata = {
   title: 'MerxoDev Solutions (merxodev / মারক্সোডেভ সলিউশনস) – Web & App Development Bangladesh',
