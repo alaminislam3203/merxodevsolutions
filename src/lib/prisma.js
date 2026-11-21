@@ -314,19 +314,29 @@ function attachFallbacks(client) {
 
 function createPrismaClient() {
   const rawUrl = process.env.DATABASE_URL || "";
-  // Strip channel_binding and sslmode to avoid pg v8/v9 deprecation warning
-  // (SSL is already explicitly controlled by ssl: { rejectUnauthorized: false })
-  const connectionString = rawUrl
-    .replace(/[?&]channel_binding=[^&]+/, "")
-    .replace(/[?&]sslmode=[^&]+/, "")
-    .replace(/\?$/, "");
+  let connectionString = rawUrl;
+  try {
+    if (rawUrl) {
+      const parsed = new URL(rawUrl);
+      parsed.searchParams.delete("sslmode");
+      parsed.searchParams.delete("channel_binding");
+      connectionString = parsed.toString();
+    }
+  } catch (e) {
+    connectionString = rawUrl;
+  }
 
   const pool = new Pool({
     connectionString,
     ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 15000,
-    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 30000, // 30s gives cold-started Neon compute ample time to wake up
+    idleTimeoutMillis: 10000,       // close idle sockets before Neon silently suspends them
     max: 10,
+  });
+
+  pool.on("error", (err) => {
+    // Gracefully handle severed idle sockets when Neon serverless database suspends
+    console.warn("Neon pool idle socket notice (serverless sleep/wake):", err?.message || err);
   });
 
   const adapter = new PrismaPg(pool);
@@ -335,7 +345,7 @@ function createPrismaClient() {
 }
 
 // Force recreation of PrismaClient if cached instance in dev server is stale
-const SCHEMA_VERSION = "2026-10-12-v9-project-order";
+const SCHEMA_VERSION = "2026-11-21-v10-neon-timeout-fix";
 
 let prismaInstance = globalForPrisma.prisma;
 if (!prismaInstance || prismaInstance._schemaVersion !== SCHEMA_VERSION) {

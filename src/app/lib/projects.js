@@ -31,22 +31,45 @@ export function normalizeProject(p) {
 }
 
 /**
+ * Executes a database operation with automatic retry on serverless cold-start timeouts
+ */
+async function executeWithRetry(fn, retries = 1, delayMs = 1500) {
+  try {
+    return await fn();
+  } catch (err) {
+    const isConnErr =
+      err?.message?.includes("Connection terminated") ||
+      err?.message?.includes("connection timeout") ||
+      err?.message?.includes("Can't reach database server") ||
+      err?.code === "P1001";
+
+    if (retries > 0 && isConnErr) {
+      console.warn(`[Neon DB] Connection timed out or server sleeping. Retrying in ${delayMs}ms...`);
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      return await fn();
+    }
+    throw err;
+  }
+}
+
+/**
  * Get all projects from DB (server-side helper)
  */
 export async function getAllProjects() {
   try {
+    const rows = await executeWithRetry(async () => {
+      try {
+        return await prisma.project.findMany({
+          orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+        });
+      } catch (orderErr) {
+        console.warn("Fallback query without order sort:", orderErr?.message);
+        return await prisma.project.findMany({
+          orderBy: { createdAt: "desc" },
+        });
+      }
+    });
 
-    let rows = [];
-    try {
-      rows = await prisma.project.findMany({
-        orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-      });
-    } catch (orderErr) {
-      console.warn("Fallback query without order sort:", orderErr?.message);
-      rows = await prisma.project.findMany({
-        orderBy: { createdAt: "desc" },
-      });
-    }
     // Filter out projects pending admin approval and normalize URLs
     return (rows || [])
       .filter((p) => {
@@ -66,7 +89,9 @@ export async function getAllProjects() {
 export async function getProjectBySlug(slug) {
   try {
     if (!slug) return null;
-    const project = await prisma.project.findUnique({ where: { slug } });
+    const project = await executeWithRetry(() =>
+      prisma.project.findUnique({ where: { slug } })
+    );
     return normalizeProject(project);
   } catch (err) {
     console.error(`Error fetching project by slug "${slug}":`, err.message);
