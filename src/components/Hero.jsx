@@ -96,7 +96,7 @@ export default function Hero() {
               <span>{t("hero.badge") || "Web & App Innovation Lab"}</span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline  */}
             {(() => {
               const headingEnd = t("hero.headingEnd") || "DREAM Project";
               const parts = headingEnd.split(/(dream)/i);
