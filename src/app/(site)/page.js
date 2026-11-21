@@ -8,8 +8,6 @@ import Process from '@/components/Process';
 import Stats from '@/components/Stats';
 import TechStack from '@/components/TechStack';
 import WhyUs from '@/components/WhyUs';
-import Testimonials from '@/components/Testimonials';
-import HomepageFAQ from '@/components/HomepageFAQ';
 import { getAllProjects } from '@/app/lib/projects';
 import { getLatestYouTubeVideos } from '@/app/lib/youtube';
 
@@ -17,6 +15,8 @@ const TechCaseStudies = dynamic(() => import('@/components/TechCaseStudies'));
 const YouTubeShowcase = dynamic(() => import('@/components/YouTubeShowcase'));
 const CompanyDeck = dynamic(() => import('@/components/CompanyDeck'));
 const DiscoveryCall = dynamic(() => import('@/components/DiscoveryCall'));
+const Testimonials = dynamic(() => import('@/components/Testimonials'));
+const HomepageFAQ = dynamic(() => import('@/components/HomepageFAQ'));
 
 export const metadata = {
   title: 'MerxoDev Solutions (merxodev / মারক্সোডেভ সলিউশনস) – Web & App Development Bangladesh',

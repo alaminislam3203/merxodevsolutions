@@ -117,7 +117,14 @@ export default function VisitorTracker() {
       } catch {}
     };
 
-    sendPageview();
+    let timer;
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      const idleHandle = window.requestIdleCallback(sendPageview, { timeout: 3000 });
+      return () => window.cancelIdleCallback(idleHandle);
+    } else {
+      timer = setTimeout(sendPageview, 1500);
+      return () => clearTimeout(timer);
+    }
   }, [pathname, userName, userEmail, userImage]);
 
   // Live Heartbeat every 20 seconds while tab is visible (tracks duration & online presence)

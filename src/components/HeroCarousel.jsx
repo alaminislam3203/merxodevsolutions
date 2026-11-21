@@ -50,7 +50,7 @@ function BannerSlide({ banner }) {
         alt={banner.title || "Banner"}
         fill
         unoptimized
-        priority
+        loading="lazy"
         className="dual-slide-img rounded-xl"
       />
       {hasContent && (

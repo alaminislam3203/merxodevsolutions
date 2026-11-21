@@ -30,27 +30,31 @@ const anton = Anton({
   subsets: ['latin'],
   variable: '--font-anton',
   display: 'swap',
+  preload: false,
 });
 
 const dmSans = DM_Sans({
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '600'],
   subsets: ['latin'],
   variable: '--font-dm',
   display: 'swap',
+  preload: false,
 });
 
 const hindSiliguri = Hind_Siliguri({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   subsets: ['bengali'],
   variable: '--font-hind-siliguri',
   display: 'swap',
+  preload: false,
 });
 
 const raleway = Raleway({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600'],
   subsets: ['latin'],
   variable: '--font-raleway',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata = {
