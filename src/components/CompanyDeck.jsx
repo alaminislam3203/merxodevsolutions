@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FiDownload,
   FiFileText,
@@ -12,8 +12,8 @@ import {
   FiUsers,
   FiPrinter,
   FiX,
-} from 'react-icons/fi';
-import '@/components/i18n';
+} from "react-icons/fi";
+import "@/components/i18n";
 
 export default function CompanyDeck() {
   const { t } = useTranslation();
@@ -39,33 +39,33 @@ export default function CompanyDeck() {
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 text-xs font-bold tracking-wide">
                 <FiFileText className="text-cyan-600 dark:text-cyan-400" />
-                <span>{t('companyDeck.badge')}</span>
+                <span>{t("companyDeck.badge")}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                {t('companyDeck.titleStart')}
+                {t("companyDeck.titleStart")}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-rose-500 to-cyan-500">
-                  {t('companyDeck.titleHighlight')}
+                  {t("companyDeck.titleHighlight")}
                 </span>
               </h2>
 
               <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed max-w-2xl">
-                {t('companyDeck.subtitle')}
+                {t("companyDeck.subtitle")}
               </p>
 
               {/* Quick Specs Badges */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiAward className="text-violet-500" />
-                  <span>{t('companyDeck.deliveredProjects')}</span>
+                  <span>{t("companyDeck.deliveredProjects")}</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiUsers className="text-cyan-500" />
-                  <span>{t('companyDeck.globalClients')}</span>
+                  <span>{t("companyDeck.globalClients")}</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm">
                   <FiCode className="text-emerald-500" />
-                  <span>{t('companyDeck.techStack')}</span>
+                  <span>{t("companyDeck.techStack")}</span>
                 </div>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function CompanyDeck() {
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-500/25 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer w-full"
               >
                 <FiFileText size={16} />
-                <span>{t('companyDeck.previewBtn')}</span>
+                <span>{t("companyDeck.previewBtn")}</span>
               </button>
 
               <button
@@ -86,8 +86,11 @@ export default function CompanyDeck() {
                 onClick={() => setPreviewOpen(true)}
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm shadow-sm transition-all duration-300 cursor-pointer w-full"
               >
-                <FiDownload size={16} className="text-violet-600 dark:text-cyan-400" />
-                <span>{t('companyDeck.savePdfBtn')}</span>
+                <FiDownload
+                  size={16}
+                  className="text-violet-600 dark:text-cyan-400"
+                />
+                <span>{t("companyDeck.savePdfBtn")}</span>
               </button>
             </div>
           </div>
@@ -101,9 +104,12 @@ export default function CompanyDeck() {
             {/* Modal Controls Bar */}
             <div className="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900">
               <div className="flex items-center gap-2">
-                <FiFileText className="text-violet-600 dark:text-cyan-400" size={18} />
+                <FiFileText
+                  className="text-violet-600 dark:text-cyan-400"
+                  size={18}
+                />
                 <span className="font-bold text-sm sm:text-base text-zinc-900 dark:text-white">
-                  {t('companyDeck.modalTitle')}
+                  {t("companyDeck.modalTitle")}
                 </span>
               </div>
 
@@ -114,7 +120,7 @@ export default function CompanyDeck() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold shadow transition-all cursor-pointer"
                 >
                   <FiPrinter size={14} />
-                  <span>{t('companyDeck.printSaveBtn')}</span>
+                  <span>{t("companyDeck.printSaveBtn")}</span>
                 </button>
 
                 <button
@@ -137,7 +143,7 @@ export default function CompanyDeck() {
                     MerxoDev Solutions
                   </h1>
                   <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                    {t('companyDeck.agencySubtitle')}
+                    {t("companyDeck.agencySubtitle")}
                   </p>
                 </div>
                 <div className="text-xs sm:text-right text-zinc-600 dark:text-zinc-400 space-y-0.5">
@@ -153,34 +159,34 @@ export default function CompanyDeck() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-center">
                   <span className="text-2xl sm:text-3xl font-black text-violet-600 dark:text-violet-400">
-                    56+
+                    65+
                   </span>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-medium">
-                    Projects Delivered
+                    {t("companyDeck.metricProjects", "Projects Delivered")}
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-center">
                   <span className="text-2xl sm:text-3xl font-black text-amber-500">
-                    47+
+                    46+
                   </span>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-medium">
-                    Happy Clients
+                    {t("companyDeck.metricClients", "Happy Clients")}
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-center">
                   <span className="text-2xl sm:text-3xl font-black text-cyan-500">
-                    3+
+                    4+
                   </span>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-medium">
-                    Years Active
+                    {t("companyDeck.metricYears", "Years Active")}
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-center">
                   <span className="text-2xl sm:text-3xl font-black text-emerald-500">
-                    100%
+                    99%
                   </span>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 font-medium">
-                    Client Satisfaction
+                    {t("companyDeck.metricSatisfaction", "Client Satisfaction")}
                   </p>
                 </div>
               </div>
@@ -194,25 +200,31 @@ export default function CompanyDeck() {
                   <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
                     <h4 className="font-bold">Next.js & Full-Stack Web Apps</h4>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      Scalable SaaS platforms, custom dashboards, authentication, database design.
+                      Scalable SaaS platforms, custom dashboards,
+                      authentication, database design.
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
                     <h4 className="font-bold">High-Converting E-Commerce</h4>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      Online stores, bKash/Nagad/SSLCommerz/Stripe payment gateways, inventory sync.
+                      Online stores, bKash/Nagad/SSLCommerz/Stripe payment
+                      gateways, inventory sync.
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
-                    <h4 className="font-bold">Modern UI/UX & Responsive Design</h4>
+                    <h4 className="font-bold">
+                      Modern UI/UX & Responsive Design
+                    </h4>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      Tailored Figma designs, pixel-perfect Tailwind CSS, 60fps micro-animations.
+                      Tailored Figma designs, pixel-perfect Tailwind CSS, 60fps
+                      micro-animations.
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
                     <h4 className="font-bold">API Integration & Automation</h4>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      Custom REST/GraphQL APIs, CRM & WhatsApp integrations, automated workflows.
+                      Custom REST/GraphQL APIs, CRM & WhatsApp integrations,
+                      automated workflows.
                     </p>
                   </div>
                 </div>
@@ -225,16 +237,20 @@ export default function CompanyDeck() {
                 </h4>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-700 dark:text-zinc-300">
                   <li className="flex items-center gap-2">
-                    <FiCheckCircle className="text-emerald-500" /> 100% Full Source Code Ownership
+                    <FiCheckCircle className="text-emerald-500" /> 100% Full
+                    Source Code Ownership
                   </li>
                   <li className="flex items-center gap-2">
-                    <FiCheckCircle className="text-emerald-500" /> Sub-1s Page Load Speed Guarantee
+                    <FiCheckCircle className="text-emerald-500" /> Sub-1s Page
+                    Load Speed Guarantee
                   </li>
                   <li className="flex items-center gap-2">
-                    <FiCheckCircle className="text-emerald-500" /> 1–6 Months Free Post-Launch Support
+                    <FiCheckCircle className="text-emerald-500" /> 1–6 Months
+                    Free Post-Launch Support
                   </li>
                   <li className="flex items-center gap-2">
-                    <FiCheckCircle className="text-emerald-500" /> Transparent Fixed Pricing, Zero Surprises
+                    <FiCheckCircle className="text-emerald-500" /> Transparent
+                    Fixed Pricing, Zero Surprises
                   </li>
                 </ul>
               </div>

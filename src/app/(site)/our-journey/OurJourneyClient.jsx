@@ -81,9 +81,9 @@ export default function OurJourneyClient() {
   const numbers = Array.isArray(rawNumbers) && rawNumbers.length === 4
     ? rawNumbers
     : [
-        { value: '3+', label: 'Years Active' },
-        { value: '56+', label: 'Projects Done' },
-        { value: '47+', label: 'Happy Clients' },
+        { value: '4+', label: 'Years Active' },
+        { value: '65+', label: 'Projects Done' },
+        { value: '46+', label: 'Happy Clients' },
         { value: '3', label: 'Countries Served' },
       ];
 

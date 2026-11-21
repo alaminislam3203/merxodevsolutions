@@ -2637,6 +2637,7 @@ const en = {
       "guarantees": {
         "badge": "MerxoDev Client Guarantee",
         "title": "Why Global & Local Businesses Trust Us",
+        "pillText": "Zero vendor lock-in • 100% production transparency • Dedicated SLA",
         "ipTitle": "100% Code & IP Ownership",
         "ipDesc": "Full GitHub repo, custom code, & database schemas transferred to you upon completion.",
         "deliveryTitle": "On-Time Sprint Delivery",
@@ -2649,6 +2650,11 @@ const en = {
     },
     "hero": {
       "badge": "Available For New Projects",
+      "stats": {
+        "reliability": "Reliability",
+        "clientRating": "Client Rating",
+        "projectsShipped": "Projects Shipped"
+      },
       "headingStart": "We",
       "headingHighlight": "Build Your",
       "headingEnd": "DREAM Project",
@@ -2799,15 +2805,15 @@ const en = {
       "heroDesc": "MerxoDev Solutions is a Rangpur-based software team building modern web apps, mobile products, and cloud systems for clients who care about quality.",
       "stats": [
         {
-          "value": "56+",
+          "value": "65+",
           "label": "Projects Delivered"
         },
         {
-          "value": "47+",
+          "value": "46+",
           "label": "Happy Clients"
         },
         {
-          "value": "3+",
+          "value": "4+",
           "label": "Years Experience"
         },
         {
@@ -2918,19 +2924,19 @@ const en = {
     "ourJourney": {
       "heroBadge": "Our Story",
       "heroTitleStart": "From one laptop",
-      "heroTitleHighlight": "to 56+ projects.",
+      "heroTitleHighlight": "to 65+ projects.",
       "heroDesc": "This is the honest story of how MerxoDev Solutions went from a side project in Rangpur to a team delivering real digital products for real businesses.",
       "numbers": [
         {
-          "value": "3+",
+          "value": "4+",
           "label": "Years Active"
         },
         {
-          "value": "56+",
+          "value": "65+",
           "label": "Projects Done"
         },
         {
-          "value": "47+",
+          "value": "46+",
           "label": "Happy Clients"
         },
         {
@@ -3004,10 +3010,10 @@ const en = {
         {
           "year": "2024",
           "quarter": "Q2",
-          "title": "56+ Projects, Zero Regrets",
-          "desc": "Delivered over 56 projects — websites, web apps, mobile apps, dashboards, and automation systems. Our team grew, our stack sharpened, and our process matured.",
+          "title": "65+ Projects, Zero Regrets",
+          "desc": "Delivered over 65 projects — websites, web apps, mobile apps, dashboards, and automation systems. Our team grew, our stack sharpened, and our process matured.",
           "tags": [
-            "56+ Projects",
+            "65+ Projects",
             "Full Service"
           ]
         },
@@ -3193,15 +3199,19 @@ const en = {
       "badge": "OFFICIAL COMPANY DECK",
       "titleStart": "Download MerxoDev Solutions ",
       "titleHighlight": "Company Profile & Deck",
-      "subtitle": "Get a clean, comprehensive PDF overview of our full-stack engineering capabilities, 56+ delivered projects, client case studies, security standards, and workflow.",
+      "subtitle": "Get a clean, comprehensive PDF overview of our full-stack engineering capabilities, 65+ delivered projects, client case studies, security standards, and workflow.",
       "previewBtn": "Preview Company Profile",
       "savePdfBtn": "Print / Save Deck (PDF)",
-      "deliveredProjects": "56+ Delivered Projects",
-      "globalClients": "47+ Global & Local Clients",
+      "deliveredProjects": "65+ Delivered Projects",
+      "globalClients": "46+ Global & Local Clients",
       "techStack": "Next.js • Node • Cloud",
       "printSaveBtn": "Print / Save PDF",
       "modalTitle": "MerxoDev Solutions — Company Deck",
-      "agencySubtitle": "Modern Web & Software Engineering Agency • Rangpur, Bangladesh & Global"
+      "agencySubtitle": "Modern Web & Software Engineering Agency • Rangpur, Bangladesh & Global",
+      "metricProjects": "Projects Delivered",
+      "metricClients": "Happy Clients",
+      "metricYears": "Years Active",
+      "metricSatisfaction": "Client Satisfaction"
     },
     "techCaseStudies": {
       "badge": "CASE STUDIES & TECH INSIGHTS",

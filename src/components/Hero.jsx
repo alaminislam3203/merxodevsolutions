@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
-import '@/components/i18n';
-import LottiePlayer from '@/components/LottiePlayer';
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import "@/components/i18n";
+import LottiePlayer from "@/components/LottiePlayer";
 import {
   ArrowRight,
   Play,
@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   Activity,
   Layers,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   SiNextdotjs,
   SiReact,
@@ -24,8 +24,8 @@ import {
   SiPostgresql,
   SiTailwindcss,
   SiDocker,
-} from 'react-icons/si';
-import { FaAws } from 'react-icons/fa';
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -41,27 +41,27 @@ export default function Hero() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'ProfessionalService',
-            name: 'MerxoDev Solutions',
-            url: 'https://merxodevsolutions.pro.bd',
-            logo: 'https://merxodevsolutions.pro.bd/logo.png',
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "MerxoDev Solutions",
+            url: "https://merxodevsolutions.pro.bd",
+            logo: "https://merxodevsolutions.pro.bd/logo.png",
             description:
-              'Custom websites, web apps & digital solutions crafted for startups and growing businesses in Bangladesh and worldwide.',
+              "Custom websites, web apps & digital solutions crafted for startups and growing businesses in Bangladesh and worldwide.",
             address: {
-              '@type': 'PostalAddress',
-              addressLocality: 'Rangpur',
-              addressCountry: 'BD',
+              "@type": "PostalAddress",
+              addressLocality: "Rangpur",
+              addressCountry: "BD",
             },
             contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: '+8801313334279',
-              contactType: 'customer service',
+              "@type": "ContactPoint",
+              telephone: "+8801313334279",
+              contactType: "customer service",
             },
             sameAs: [
-              'https://www.facebook.com/merxodevsolutions',
-              'https://twitter.com/merxodevsolutions',
-              'https://linkedin.com/company/merxodevsolutions',
+              "https://www.facebook.com/merxodevsolutions",
+              "https://twitter.com/merxodevsolutions",
+              "https://linkedin.com/company/merxodevsolutions",
             ],
           }),
         }}
@@ -83,7 +83,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.12)_0%,transparent_75%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14)_0%,transparent_75%)] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_80%)] -z-10"
       />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-10 sm:pt-14 lg:pt-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── Left Content Column ── */}
           <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
@@ -93,24 +93,24 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500" />
               </span>
-              <span>{t('hero.badge') || 'Web & App Innovation Lab'}</span>
+              <span>{t("hero.badge") || "Web & App Innovation Lab"}</span>
             </div>
 
             {/* Main Headline */}
             {(() => {
-              const headingEnd = t('hero.headingEnd') || 'DREAM Project';
+              const headingEnd = t("hero.headingEnd") || "DREAM Project";
               const parts = headingEnd.split(/(dream)/i);
 
               return (
                 <h1 className="text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5rem] font-black text-[#27003B] dark:text-white leading-[1.08] md:leading-[0.98] tracking-tighter mb-6 md:mb-8 font-exo-extralight">
-                  {t('hero.headingStart') || 'We'}{' '}
+                  {t("hero.headingStart") || "We"}{" "}
                   <span className="text-[#84cc16] dark:text-[#CCFF00] drop-shadow-[0_0_20px_rgba(132,204,22,0.4)]">
-                    {t('hero.headingHighlight') || 'Build Your'}
+                    {t("hero.headingHighlight") || "Build Your"}
                   </span>
                   <br />
                   {parts.length > 1 ? (
                     parts.map((part, idx) => {
-                      if (part.toLowerCase() === 'dream') {
+                      if (part.toLowerCase() === "dream") {
                         return (
                           <span
                             key={idx}
@@ -140,8 +140,8 @@ export default function Hero() {
 
             {/* Subtitle Description */}
             <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal font-exo-extralight">
-              {t('hero.subtext') ||
-                'We craft high-performance web apps and software ecosystems that do not just look good — they dominate competition and scale infinitely.'}
+              {t("hero.subtext") ||
+                "We craft high-performance web apps and software ecosystems that do not just look good — they dominate competition and scale infinitely."}
             </p>
 
             {/* Dual CTA Buttons */}
@@ -152,7 +152,9 @@ export default function Hero() {
                 className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold shadow-2xl shadow-violet-500/30 hover:shadow-violet-500/50 hover:scale-[1.03] active:scale-95 transition-all group overflow-hidden relative text-sm sm:text-base font-exo-extralight"
               >
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-                <span className="relative z-10">{t('hero.ctaPrimary') || 'Start Your Project'}</span>
+                <span className="relative z-10">
+                  {t("hero.ctaPrimary") || "Start Your Project"}
+                </span>
                 <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform relative z-10" />
               </Link>
 
@@ -162,10 +164,14 @@ export default function Hero() {
                 className="inline-flex items-center space-x-3 text-zinc-800 dark:text-white font-semibold hover:text-violet-600 dark:hover:text-cyan-400 transition-colors group px-5 py-2 font-exo-extralight"
               >
                 <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-zinc-300 dark:border-white/20 bg-white/50 dark:bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-violet-500 dark:group-hover:border-cyan-400 group-hover:scale-105 transition-all shadow-sm">
-                  <Play size={14} className="ml-0.5 text-violet-600 dark:text-cyan-400" fill="currentColor" />
+                  <Play
+                    size={14}
+                    className="ml-0.5 text-violet-600 dark:text-cyan-400"
+                    fill="currentColor"
+                  />
                 </span>
                 <span className="text-xs md:text-sm font-bold uppercase tracking-wider">
-                  {t('hero.ctaSecondary') || 'View Projects'}
+                  {t("hero.ctaSecondary") || "View Projects"}
                 </span>
               </Link>
             </div>
@@ -177,7 +183,7 @@ export default function Hero() {
                   99.9%
                 </p>
                 <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
-                  Reliability
+                  {t("hero.stats.reliability", "Reliability")}
                 </p>
               </div>
               <div>
@@ -185,15 +191,15 @@ export default function Hero() {
                   5.0 <span className="text-amber-400 text-sm">★</span>
                 </p>
                 <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
-                  Client Rating
+                  {t("hero.stats.clientRating", "Client Rating")}
                 </p>
               </div>
               <div>
                 <p className="text-xl md:text-2xl font-black bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent tracking-tighter">
-                  56+
+                  65+
                 </p>
                 <p className="text-[9px] md:text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-0.5">
-                  Projects Shipped
+                  {t("hero.stats.projectsShipped", "Projects Shipped")}
                 </p>
               </div>
             </div>
@@ -237,22 +243,31 @@ export default function Hero() {
                     <div className="p-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
                       <div className="text-left">
-                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Performance</p>
-                        <p className="text-xs font-black text-emerald-600 dark:text-emerald-400">99+ Core Vitals</p>
+                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">
+                          Performance
+                        </p>
+                        <p className="text-xs font-black text-emerald-600 dark:text-emerald-400">
+                          99+ Core Vitals
+                        </p>
                       </div>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-zinc-200/80 dark:border-white/10 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-cyan-500" />
                       <div className="text-left">
-                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Scalability</p>
-                        <p className="text-xs font-black text-cyan-600 dark:text-cyan-400">Next.js 15 Edge</p>
+                        <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">
+                          Scalability
+                        </p>
+                        <p className="text-xs font-black text-cyan-600 dark:text-cyan-400">
+                          Next.js 15 Edge
+                        </p>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-exo-extralight">
                     <span className="flex items-center gap-1.5 font-semibold">
-                      <Sparkles size={13} className="text-amber-500" /> Web & Digital Engineering
+                      <Sparkles size={13} className="text-amber-500" /> Web &
+                      Digital Engineering
                     </span>
                     <span className="flex items-center gap-1 text-emerald-500 font-bold">
                       <CheckCircle size={13} /> Production Ready

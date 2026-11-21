@@ -328,7 +328,10 @@ export default function Stats() {
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-exo-extralight max-w-sm text-center sm:text-right">
-              Zero vendor lock-in • 100% production transparency • Dedicated SLA
+              {t(
+                'stats.guarantees.pillText',
+                'Zero vendor lock-in • 100% production transparency • Dedicated SLA',
+              )}
             </p>
           </div>
 

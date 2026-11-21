@@ -2728,15 +2728,15 @@ const zh = {
       "heroDesc": "MerxoDev Solutions 是一家位于朗布尔的软件开发工程团队，为注重质量的客户构建现代 Web 应用程序、移动端产品和云端系统。",
       "stats": [
         {
-          "value": "56+",
+          "value": "65+",
           "label": "已交付项目"
         },
         {
-          "value": "47+",
+          "value": "46+",
           "label": "满意客户"
         },
         {
-          "value": "3+",
+          "value": "4+",
           "label": "年行业经验"
         },
         {

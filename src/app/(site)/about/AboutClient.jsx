@@ -52,9 +52,9 @@ export default function AboutClient({ team = [] }) {
   const stats = Array.isArray(rawStats) && rawStats.length === 4
     ? rawStats.map((s, idx) => ({ ...s, icon: statIcons[idx] }))
     : [
-        { value: '56+', label: 'Projects Delivered', icon: statIcons[0] },
-        { value: '47+', label: 'Happy Clients', icon: statIcons[1] },
-        { value: '3+', label: 'Years Experience', icon: statIcons[2] },
+        { value: '65+', label: 'Projects Delivered', icon: statIcons[0] },
+        { value: '46+', label: 'Happy Clients', icon: statIcons[1] },
+        { value: '4+', label: 'Years Experience', icon: statIcons[2] },
         { value: '99%', label: 'Satisfaction Rate', icon: statIcons[3] },
       ];
 
